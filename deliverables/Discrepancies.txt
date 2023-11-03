@@ -1,0 +1,2 @@
+Activity Diagram Oberi:
+-After radius selection the application doesn't show groups in the radius
