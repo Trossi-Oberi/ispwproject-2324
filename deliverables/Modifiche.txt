@@ -1,4 +1,4 @@
 Nicolas Oberi: 
 07/11: 
-Select radius diventa un'extend di "plan event participation" perchè se è già stato impostato non viene chiesto di nuovo. Al suo posto dopo aver confermato la prenotazione si vede se l'event organizer è online e si apre la chat o si manda il messaggio offline. Cambiati: use case diagram, use case steps, activity diagram.
+Select radius diventa un'extend di "plan event participation" perché se è già stato impostato non viene chiesto di nuovo. Al suo posto dopo aver confermato la prenotazione si vede se l'event organizer è online e si apre la chat o si manda il messaggio offline. Cambiati: use case diagram, use case steps, activity diagram.
 Rimosso instagram login dall'use case diagram.
