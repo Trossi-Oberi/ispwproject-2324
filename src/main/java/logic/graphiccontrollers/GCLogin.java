@@ -1,6 +1,6 @@
 package logic.graphiccontrollers;
 
-public class LoginGraphicController {
+public class GCLogin {
 
 
 }
