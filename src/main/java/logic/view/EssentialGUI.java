@@ -14,7 +14,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
-
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 //import logic.LoggerUser;
@@ -28,6 +30,8 @@ public class EssentialGUI extends Application {
     private static Scene scene;
     private static Logger logger = Logger.getLogger(APP_NAME);
 
+    private Image logo;
+
 
 
     public EssentialGUI(){
@@ -38,6 +42,9 @@ public class EssentialGUI extends Application {
     public void start(Stage stage){
         try{
             stage.setTitle(APP_NAME);
+//            ADD LOGO TO APP
+//            logo = new Image("/icons/cuore.svg");
+//            stage.getIcons().add(logo);
             stage.setScene(scene);
             stage.show();
 
