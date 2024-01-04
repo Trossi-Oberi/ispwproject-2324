@@ -22,10 +22,12 @@ import javafx.stage.Stage;
 
 public class EssentialGUI extends Application {
 
+    private static final String APP_NAME = "NightPlan";
     private static FXMLLoader loader = new FXMLLoader();
     private static String sample;
     private static Scene scene;
-    private static Logger logger = Logger.getLogger("NightPlan");
+    private static Logger logger = Logger.getLogger(APP_NAME);
+
 
 
     public EssentialGUI(){
@@ -35,8 +37,7 @@ public class EssentialGUI extends Application {
     @Override
     public void start(Stage stage){
         try{
-            //Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
-            stage.setTitle("NightPlan");
+            stage.setTitle(APP_NAME);
             stage.setScene(scene);
             stage.show();
 
@@ -55,7 +56,7 @@ public class EssentialGUI extends Application {
             URL loc = EssentialGUI.class.getResource(sample);
             Parent root = loader.load(loc);
             scene = new Scene(root);
-            //scene.getStylesheets().add(EssentialGUI.class.getResource("application.css").toExternalForm());
+            scene.getStylesheets().add(EssentialGUI.class.getResource("application.css").toExternalForm());
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Cannot load scene\n", e);
         }
