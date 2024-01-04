@@ -1,33 +1,71 @@
 package logic.view;
 
+import java.io.IOException;
+
+import java.net.URL;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+//import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+//import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+
+
 import javafx.stage.Stage;
+
+//import logic.LoggerUser;
 
 
 public class EssentialGUI extends Application {
 
-    public static void main(String[] args) {
-        launch(args);
+    private static FXMLLoader loader = new FXMLLoader();
+    private static String sample;
+    private static Scene scene;
+    private static Logger logger = Logger.getLogger("NightPlan");
+
+
+    public EssentialGUI(){
+        //da inserire cose...
     }
 
     @Override
     public void start(Stage stage){
         try{
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
-            Scene scene = new Scene(root);
+            //Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
             stage.setTitle("NightPlan");
             stage.setScene(scene);
             stage.show();
 
         } catch(Exception e){
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Cannot load GUI\n", e);
         }
     }
+
+    public static void setScene(String newScene){
+        sample = newScene;
+    }
+
+    public static void loadApp(){
+        try {
+            loader = new FXMLLoader();
+            URL loc = EssentialGUI.class.getResource(sample);
+            Parent root = loader.load(loc);
+            scene = new Scene(root);
+            //scene.getStylesheets().add(EssentialGUI.class.getResource("application.css").toExternalForm());
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Cannot load scene\n", e);
+        }
+    }
+
+    public static void main(String[] args) {
+        setScene("Login.fxml");
+        loadApp();
+        launch(args);
+    }
+
+
 }

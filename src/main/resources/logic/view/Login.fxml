@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="182.0" fitWidth="243.0" layoutX="193.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/home/Logo_NightPlan.png" />
+            <Image url="@../../images/home/Logo_NightPlan.png" />
          </image>
       </ImageView>
       <Text layoutX="289.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign in">
