@@ -1,5 +1,6 @@
 package logic.view;
 
+import java.awt.*;
 import java.io.IOException;
 
 import java.net.URL;
@@ -31,7 +32,6 @@ public class EssentialGUI extends Application {
     private static Logger logger = Logger.getLogger(APP_NAME);
 
     private Image logo;
-
 
 
     public EssentialGUI(){
@@ -70,10 +70,9 @@ public class EssentialGUI extends Application {
     }
 
     public static void main(String[] args) {
-        setScene("Login.fxml");
+        setScene("Registration.fxml");
         loadApp();
         launch(args);
     }
-
 
 }
