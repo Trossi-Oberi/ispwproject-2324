@@ -29,7 +29,7 @@ public class GCLogin {
 
     public void loginControl(MouseEvent event){
         if(true){
-            gui.changeGUI(event, "Home.fxml");
+            gui.changeGUI(event, "HomeUser.fxml"); //da implementare se user HomeUser fxml altrimenti HomeOrg per l'organizer
         } else{
             //display error
 
