@@ -1,6 +1,5 @@
 package logic.view;
 
-import java.awt.*;
 import java.io.IOException;
 
 import java.net.URL;
@@ -9,9 +8,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
-//import javafx.fxml.FXML;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-//import javafx.scene.Node;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
@@ -25,13 +24,13 @@ import javafx.stage.Stage;
 
 public class EssentialGUI extends Application {
 
-    private static final String APP_NAME = "NightPlan";
-    private static FXMLLoader loader = new FXMLLoader();
-    private static String sample;
-    private static Scene scene;
-    private static Logger logger = Logger.getLogger(APP_NAME);
+    protected static final String APP_NAME = "NightPlan";
+    protected static FXMLLoader loader = new FXMLLoader();
+    protected static String sample;
+    protected static Scene scene;
+    protected static Logger logger = Logger.getLogger(APP_NAME);
 
-    private Image logo;
+    protected Image logo;
 
 
     public EssentialGUI(){
@@ -57,6 +56,11 @@ public class EssentialGUI extends Application {
         sample = newScene;
     }
 
+    public void nextGuiOnClick(MouseEvent event){
+        Stage regStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        start(regStage);
+    }
+
     public static void loadApp(){
         try {
             loader = new FXMLLoader();
@@ -69,8 +73,15 @@ public class EssentialGUI extends Application {
         }
     }
 
+
+    public void changeGUI(MouseEvent event, String newScene){
+        setScene(newScene);
+        loadApp();
+        nextGuiOnClick(event);
+    }
+
     public static void main(String[] args) {
-        setScene("Registration.fxml");
+        setScene("Login.fxml");
         loadApp();
         launch(args);
     }

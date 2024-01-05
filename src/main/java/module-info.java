@@ -1,9 +1,9 @@
 module trossi.oberi {
-    //exports logic.beans;
+//    exports logic.beans;
     exports logic.graphiccontrollers;
-    /*exports logic.controllers;
-    exports logic.model;
-    exports logic;*/
+//    exports logic.controllers;
+//    exports logic.model;
+//    exports logic;
     exports logic.view;
 
     requires java.logging;
