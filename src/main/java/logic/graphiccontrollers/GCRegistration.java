@@ -49,5 +49,4 @@ public class GCRegistration {
         gui.changeGUI(event, "Login.fxml");
     }
 
-
 }
