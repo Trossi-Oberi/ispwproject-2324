@@ -1,12 +1,11 @@
 package logic.graphiccontrollers;
 
 import javafx.fxml.FXML;
-
-import javafx.event.ActionEvent;
-import javafx.scene.input.MouseEvent;
 import logic.view.EssentialGUI;
 
-public class GCHomeUser {
+import javafx.scene.input.MouseEvent;
+
+public class GCHomeOrg {
     private EssentialGUI gui;
 
     @FXML
@@ -14,21 +13,19 @@ public class GCHomeUser {
         this.gui = new EssentialGUI();
     }
 
+
     @FXML
     void goToNotifications(MouseEvent event) {
         gui.changeGUI(event, "Notifications.fxml");
-
     }
 
     @FXML
-    void goToSettingsUser(MouseEvent event) {
-        gui.changeGUI(event, "SettingsUser.fxml");
+    void goToSettingsOrg(MouseEvent event) {
+        gui.changeGUI(event, "SettingsOrg.fxml");
     }
 
     @FXML
-    void goToYourEventsUser(MouseEvent event) {
-        gui.changeGUI(event, "YourEventsUser.fxml");
+    void goToYourEventsOrg(MouseEvent event) {
+        gui.changeGUI(event, "YourEventsOrg.fxml");
     }
-
 }
-
