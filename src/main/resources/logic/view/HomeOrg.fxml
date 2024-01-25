@@ -40,7 +40,7 @@
             <Rectangle2D />
          </viewport>
       </ImageView>
-      <Button layoutX="254.0" layoutY="222.0" mnemonicParsing="false" prefHeight="155.0" prefWidth="292.0" text="Add event">
+      <Button layoutX="254.0" layoutY="222.0" mnemonicParsing="false" onMouseClicked="#goToAddEvent" prefHeight="155.0" prefWidth="292.0" text="Add event">
          <font>
             <Font size="24.0" />
          </font>

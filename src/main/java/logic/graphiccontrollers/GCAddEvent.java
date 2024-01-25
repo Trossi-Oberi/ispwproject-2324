@@ -1,17 +1,21 @@
 package logic.graphiccontrollers;
 
+import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 import logic.view.EssentialGUI;
-import javafx.event.ActionEvent;
 
-import javafx.scene.input.MouseEvent;
+public class GCAddEvent {
 
-public class GCHomeOrg {
     private EssentialGUI gui;
 
     @FXML
     public void initialize() {
         this.gui = new EssentialGUI();
+    }
+
+    @FXML
+    void goToHomeOrg(MouseEvent event) {
+        gui.changeGUI(event, "HomeOrg.fxml");
     }
 
     @FXML
@@ -30,7 +34,8 @@ public class GCHomeOrg {
     }
 
     @FXML
-    void goToAddEvent(MouseEvent event) {
-        gui.changeGUI(event, "AddEvent.fxml");
+    void pickImage(MouseEvent event) {
+
     }
+
 }
