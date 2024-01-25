@@ -11,8 +11,8 @@ import javafx.stage.Stage;
 public class ErrorPopup {
     public void displayErrorPopup(String text) {
         Stage window = new Stage();
-        window.setWidth(500);
-        window.setHeight(300);
+        window.setWidth(400);
+        window.setHeight(150);
         window.initModality(Modality.APPLICATION_MODAL);
         Text label = new Text();
         label.setText(text);
@@ -23,6 +23,9 @@ public class ErrorPopup {
         layout.setAlignment(Pos.CENTER);
         Scene scene = new Scene(layout);
         window.setScene(scene);
+        window.setTitle("NightPlan");
+        window.setResizable(false);
         window.showAndWait();
+
     }
 }

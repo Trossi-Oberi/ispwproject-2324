@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.graphiccontrollers.GCLogin">
    <children>
-      <ImageView fitHeight="163.0" fitWidth="346.0" layoutX="227.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="163.0" fitWidth="346.0" layoutX="227.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/home/Logo_NightPlan.png" />
          </image>
@@ -21,17 +21,17 @@
             <Font name="Baloo 2 Regular" size="26.0" />
          </font>
       </Text>
-      <TextField layoutX="294.0" layoutY="206.0" prefHeight="44.0" prefWidth="214.0" promptText="your@email.com">
+      <TextField fx:id="usrname" layoutX="294.0" layoutY="206.0" prefHeight="44.0" prefWidth="214.0" promptText="your@email.com">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font></TextField>
-      <PasswordField layoutX="294.0" layoutY="266.0" prefHeight="44.0" prefWidth="214.0" promptText="Password">
+      <PasswordField fx:id="passwd" layoutX="294.0" layoutY="266.0" prefHeight="44.0" prefWidth="214.0" promptText="Password">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font></PasswordField>
-      <Text layoutX="388.0" layoutY="408.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" wrappingWidth="23.335938453674316">
+      <Text layoutX="388.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" wrappingWidth="23.335938453674316">
          <font>
-            <Font name="Baloo 2 Regular" size="18.0" />
+            <Font size="17.0" />
          </font>
       </Text>
       <Text layoutX="279.0" layoutY="523.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account?">
@@ -39,17 +39,17 @@
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>
       </Text>
-      <Text id="signUpText" fx:id="signUpText" fill="#2c38e4" layoutX="464.0" layoutY="522.0" onMouseClicked="#registerControl" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign up">
+      <Text id="signUpText" fx:id="signUpText" fill="#2c38e4" layoutX="471.0" layoutY="523.0" onMouseClicked="#registerControl" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign up">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>
       </Text>
-      <Button alignment="CENTER" layoutX="294.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#loginControl" prefHeight="44.0" prefWidth="214.0" text="Login">
+      <Button fx:id="loginButton" alignment="CENTER" layoutX="294.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#loginControl" prefHeight="44.0" prefWidth="214.0" text="Login">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" layoutX="294.0" layoutY="424.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="214.0" text="Google Login">
+      <Button fx:id="GoogleLoginButton" alignment="CENTER" layoutX="294.0" layoutY="424.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="214.0" text="Google Login">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>

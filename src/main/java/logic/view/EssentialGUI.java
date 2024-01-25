@@ -44,6 +44,7 @@ public class EssentialGUI extends Application {
 //            ADD LOGO TO APP
 //            logo = new Image("/icons/cuore.svg");
 //            stage.getIcons().add(logo);
+            stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
 
