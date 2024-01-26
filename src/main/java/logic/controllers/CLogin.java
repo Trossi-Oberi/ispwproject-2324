@@ -24,7 +24,7 @@ public class CLogin {
         ret = this.userDao.checkLogInInfo(this.userModel);
         if(ret == 1) {
             LoggedUser.setUserName(logBean.getUsername());
-            //LoggedUser.setType(this.userModel.getUserType());
+            LoggedUser.setType(this.userModel.getUserType());
         }
         return ret;
     }

@@ -25,7 +25,7 @@ public class LoggedUser {
         return username;
     }
 
-    public static UserTypes getUserType() {
+    public static UserTypes getType() {
         return typeOfUser;
     }
 }

@@ -65,7 +65,7 @@
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Button>
-      <Button layoutX="432.0" layoutY="436.0" mnemonicParsing="false" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;" text="Sign out">
+      <Button fx:id="signOutButton" layoutX="432.0" layoutY="436.0" mnemonicParsing="false" onMouseClicked="#leaveApp" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;" text="Sign out">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>

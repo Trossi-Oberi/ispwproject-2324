@@ -8,7 +8,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 import logic.controllers.CLogin;
-import logic.view.ErrorPopup;
+import logic.utils.Alerts;
+import logic.utils.LoggedUser;
+import logic.utils.UserTypes;
+import logic.view.AlertPopup;
 import logic.view.EssentialGUI;
 
 import logic.beans.BUserData;
@@ -17,7 +20,7 @@ import java.io.IOException;
 
 public class GCLogin {
     private EssentialGUI gui;
-    private ErrorPopup errorLogin;
+    private AlertPopup errorLogin;
 
     private CLogin loginController;
 
@@ -41,23 +44,33 @@ public class GCLogin {
 
     @FXML
     public void initialize() {
-        this.errorLogin = new ErrorPopup();
+        this.errorLogin = new AlertPopup();
         this.gui = new EssentialGUI();
         this.loginController = new CLogin();
     }
 
-    public void registerControl(MouseEvent event) throws IOException {
+    public void registerControl(MouseEvent event){
         gui.changeGUI(event, "Registration.fxml");
+        this.errorLogin.displayAlertPopup(Alerts.ERROR,"Test");
 
     }
 
     public void loginControl(MouseEvent event){
         BUserData userBean = new BUserData(this.usrname.getText(), this.passwd.getText());
         if(this.loginController.checkLogInControl(userBean) == 1){
-            gui.changeGUI(event, "HomeUser.fxml"); //da implementare se user HomeUser fxml altrimenti HomeOrg per organizer
+            switch(LoggedUser.getType()){
+                case USER:
+                    gui.changeGUI(event, "HomeUser.fxml");
+                    break;
+                case ORGANIZER:
+                    gui.changeGUI(event, "HomeOrg.fxml");
+                    break;
+                default:
+                    this.errorLogin.displayAlertPopup(Alerts.ERROR,"Fatal error!");
+            }
         } else{
             //display error
-            this.errorLogin.displayErrorPopup("User not registered or wrong credentials. Please retry...");
+            this.errorLogin.displayAlertPopup(Alerts.WARNING,"User not registered or wrong credentials. Please retry...");
         }
 
     }

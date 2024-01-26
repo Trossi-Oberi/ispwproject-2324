@@ -9,12 +9,11 @@ import java.util.logging.Logger;
 public class SingletonDBSession {
     private static SingletonDBSession istance = null;
     private Logger logger;
-    protected Connection connection = null;
-
-    //jdbc:mysql://localhost/whereigo?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private String url = "jdbc:mysql://localhost/nightplan";
     private String username = "root";
     private String password = "Trossioberi2024!";
+
+    protected Connection connection = null;
 
 
     protected SingletonDBSession() {
@@ -26,7 +25,7 @@ public class SingletonDBSession {
             this.connection = DriverManager.getConnection(url, username, password);
             return this.connection;
         } catch(SQLException e) {
-            logger.log(Level.SEVERE, "Connection to DB failed !", e);
+            logger.log(Level.SEVERE, "Connection to DB failed!", e);
             return null;
         }
     }

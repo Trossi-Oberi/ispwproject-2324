@@ -17,8 +17,7 @@ public class UserDAO {
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT typeOfUser FROM users WHERE (username=? and password=?)")){
             statement.setString(1, usrMod.getUserName());
             statement.setString(2, usrMod.getPassword());
-            //ret = getLoggedUser(statement, usrMod);
-            ret = 1;
+            ret = getLoggedUser(statement, usrMod);
         }
         catch (SQLException e) {
             Logger.getLogger("NightPlan").log(Level.SEVERE, "SQLException occurred during the fetch of credentials");
@@ -50,9 +49,11 @@ public class UserDAO {
 */
 
     public int getLoggedUser(PreparedStatement statement, MUser usrMod) {
+        //verifica il tipo di utente che siamo
+
         try(ResultSet rs = statement.executeQuery()){
             while(rs.next()) {
-                usrMod.setLogUsrCred(rs.getString(8));
+                usrMod.setLogUsrCred(rs.getString(1));
                 return 1;
             }
         }
