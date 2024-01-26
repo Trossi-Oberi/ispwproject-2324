@@ -16,14 +16,13 @@ public class BUserData {
     public BUserData() {
 
     }
+    public BUserData(String username) {
+        this.userName = username;
+    }
 
     public BUserData(String username, String password) {
         this.userName = username;
         this.psw = password;
-    }
-
-    public BUserData(String username) {
-        this.userName = username;
     }
 
     public void setName(String name){ //throws LengthFieldException, NullValueException {

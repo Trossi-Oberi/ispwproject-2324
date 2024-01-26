@@ -38,16 +38,8 @@ public class MUser {
         this.username = dataBean.getUsername();
     }
 
-    public void setUsrByBean(BUserData dataBean) {
-        this.username = dataBean.getUsername();
-    }
-
     public void setLogUsrCred(String typeOfUsr) {
         this.userType = typeOfUsr;
-    }
-
-    public void setUsrName(String usrName) {
-        this.username = usrName;
     }
 
     public String getName() {
@@ -70,11 +62,11 @@ public class MUser {
         return this.username;
     }
 
-    public String getUserType() {
-        return this.userType;
-    }
-
     public String getPassword() {
         return this.password;
+    }
+
+    public String getUserType() {
+        return this.userType;
     }
 }

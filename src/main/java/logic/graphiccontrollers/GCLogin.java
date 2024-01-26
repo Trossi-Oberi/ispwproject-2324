@@ -51,8 +51,6 @@ public class GCLogin {
 
     public void registerControl(MouseEvent event){
         gui.changeGUI(event, "Registration.fxml");
-        this.errorLogin.displayAlertPopup(Alerts.ERROR,"Test");
-
     }
 
     public void loginControl(MouseEvent event){

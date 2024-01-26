@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UserDAO {
-    public int checkLogInInfo(MUser usrMod) {
+    public int checkLoginInfo(MUser usrMod) {
         int ret = 0;
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT typeOfUser FROM users WHERE (username=? and password=?)")){
             statement.setString(1, usrMod.getUserName());
@@ -28,25 +28,23 @@ public class UserDAO {
         return ret;
     }
 
-    /*
-    public void insertNewUser(MUser usrModel) {
-        PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO usr(username, passw, nome, surname, dateOfBirth, gender, tipeOfUser, profilePicture, userStatus) VALUES(?,?,?,?,?,?,?,?,?)"))
+    public void registerUser(MUser usrModel) {
+        try(PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Users (id, username, password, name, surname, dateOfBirth, gender, typeOfUser,  userStatus) VALUES(NULL,?,?,?,?,?,?,?,?)")){
             statement.setString(1, usrModel.getUserName());
-            statement.setString(2, usrModel.getPaswd());
+            statement.setString(2, usrModel.getPassword());
             statement.setString(3, usrModel.getName());
             statement.setString(4, usrModel.getSurname());
             statement.setDate(5, Date.valueOf(usrModel.getDateOfBirth()));
             statement.setString(6, usrModel.getGender());
             statement.setString(7, usrModel.getUserType());
-            statement.setBinaryStream(8, usrModel.getInputFile(), usrModel.getFileLength());
-            statement.setString(9, "offline");
+            statement.setString(8, "Offline");
             statement.execute();
-        }
-        finally {
-            SingletonDbConnection.getInstance().closeConn();
+        } catch (SQLException e) {
+            Logger.getLogger("NightPlan").log(Level.SEVERE, "Cannot add a new user");
+        } finally {
+            SingletonDBSession.getInstance().closeConn();
         }
     }
-*/
 
     public int getLoggedUser(PreparedStatement statement, MUser usrMod) {
         //verifica il tipo di utente che siamo
