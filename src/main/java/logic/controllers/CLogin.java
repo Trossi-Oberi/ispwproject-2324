@@ -20,8 +20,8 @@ public class CLogin {
 
     public int checkLogInControl(BUserData logBean) {
         int ret;
-        this.userModel.setUsrAndPswByBean(logBean);
-        ret = this.userDao.checkLogInInfo(this.userModel);
+        this.userModel.setUsrAndPswByBean(logBean); //qui ancora non avviene il controllo della correttezza dei dati,
+        ret = this.userDao.checkLogInInfo(this.userModel); //qui effettivamente e' il DAO che va a controllare la correttezza delle credenziali
         if(ret == 1) {
             LoggedUser.setUserName(logBean.getUsername());
             LoggedUser.setType(this.userModel.getUserType());

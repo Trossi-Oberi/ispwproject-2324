@@ -50,17 +50,17 @@
             <Font name="Baloo 2 Regular" size="32.0" />
          </font>
       </Text>
-      <TextField layoutX="217.5999999999999" layoutY="181.0" prefHeight="35.0" prefWidth="515.0" AnchorPane.rightAnchor="67.20000000000005">
+      <TextField fx:id="eventNameTF" layoutX="217.5999999999999" layoutY="181.0" prefHeight="35.0" prefWidth="515.0" AnchorPane.rightAnchor="68.0">
          <font>
             <Font name="Baloo 2 Regular" size="14.0" />
          </font>
       </TextField>
-      <TextField layoutX="217.0" layoutY="236.0" prefHeight="26.0" prefWidth="515.0">
+      <TextField fx:id="eventLocTF" layoutX="216.0" layoutY="236.0" prefHeight="26.0" prefWidth="515.0" AnchorPane.rightAnchor="68.0">
          <font>
             <Font name="Baloo 2 Regular" size="14.0" />
          </font>
       </TextField>
-      <ChoiceBox layoutX="217.0" layoutY="295.0" prefHeight="26.0" prefWidth="196.0" />
+      <ChoiceBox fx:id="musicGenreBox" layoutX="217.0" layoutY="295.0" prefHeight="26.0" prefWidth="196.0" />
       <Label layoutX="68.0" layoutY="181.0" text="Event name" AnchorPane.leftAnchor="68.0">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
@@ -81,13 +81,13 @@
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Label>
-      <DatePicker layoutX="217.0" layoutY="350.0" prefHeight="26.0" prefWidth="196.0" />
+      <DatePicker fx:id="datePicker" layoutX="217.0" layoutY="350.0" onAction="#getDate" prefHeight="26.0" prefWidth="196.0" />
       <Label layoutX="68.0" layoutY="401.0" text="Event image" AnchorPane.leftAnchor="68.0">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Label>
-      <Button layoutX="217.0" layoutY="403.0" mnemonicParsing="false" onMouseClicked="#pickImage" prefHeight="26.0" prefWidth="196.0" text="Select image ">
+      <Button fx:id="fileChooserBtn" layoutX="217.0" layoutY="403.0" mnemonicParsing="false" onMouseClicked="#pickImage" prefHeight="26.0" prefWidth="196.0" text="Select image ">
          <font>
             <Font name="Baloo 2 Regular" size="12.0" />
          </font>
