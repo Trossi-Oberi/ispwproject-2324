@@ -50,23 +50,23 @@
             <Font name="Baloo 2 Regular" size="32.0" />
          </font>
       </Text>
-      <TextField fx:id="eventNameTF" layoutX="217.5999999999999" layoutY="181.0" prefHeight="35.0" prefWidth="515.0" AnchorPane.rightAnchor="68.0">
+      <TextField fx:id="eventNameTF" layoutX="188.0" layoutY="181.0" prefHeight="35.0" prefWidth="260.0" AnchorPane.rightAnchor="351.0">
          <font>
             <Font name="Baloo 2 Regular" size="14.0" />
          </font>
       </TextField>
-      <TextField fx:id="eventLocTF" layoutX="216.0" layoutY="236.0" prefHeight="26.0" prefWidth="515.0" AnchorPane.rightAnchor="68.0">
+      <TextField fx:id="eventLocTF" layoutX="516.0" layoutY="181.0" prefHeight="35.0" prefWidth="200.0" AnchorPane.rightAnchor="67.0">
          <font>
             <Font name="Baloo 2 Regular" size="14.0" />
          </font>
       </TextField>
-      <ChoiceBox fx:id="musicGenreBox" layoutX="217.0" layoutY="295.0" prefHeight="26.0" prefWidth="196.0" />
+      <ChoiceBox fx:id="musicGenreBox" layoutX="217.0" layoutY="295.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="180.0" />
       <Label layoutX="68.0" layoutY="181.0" text="Event name" AnchorPane.leftAnchor="68.0">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="68.0" layoutY="236.0" text="Event location" AnchorPane.leftAnchor="68.0">
+      <Label layoutX="487.8" layoutY="181.0" text="City" AnchorPane.leftAnchor="487.8">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
@@ -81,27 +81,67 @@
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Label>
-      <DatePicker fx:id="datePicker" layoutX="217.0" layoutY="350.0" onAction="#getDate" prefHeight="26.0" prefWidth="196.0" />
+      <DatePicker fx:id="datePicker" editable="false" layoutX="217.0" layoutY="350.0" onAction="#getDate" prefHeight="26.0" prefWidth="180.0" />
       <Label layoutX="68.0" layoutY="401.0" text="Event image" AnchorPane.leftAnchor="68.0">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="fileChooserBtn" layoutX="217.0" layoutY="403.0" mnemonicParsing="false" onMouseClicked="#pickImage" prefHeight="26.0" prefWidth="196.0" text="Select image ">
+      <Button fx:id="fileChooserBtn" layoutX="217.0" layoutY="403.0" mnemonicParsing="false" onMouseClicked="#pickImage" prefHeight="30.0" prefWidth="180.0" text="Select image ">
          <font>
             <Font name="Baloo 2 Regular" size="12.0" />
          </font>
       </Button>
-      <Button layoutX="432.0" layoutY="468.0" mnemonicParsing="false" prefHeight="88.0" prefWidth="168.0" text="Confirm">
+      <Button layoutX="415.0" layoutY="468.0" mnemonicParsing="false" prefHeight="88.0" prefWidth="168.0" text="Confirm">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Button>
-      <Button layoutX="200.0" layoutY="468.0" mnemonicParsing="false" onMouseClicked="#goToHomeOrg" prefHeight="88.0" prefWidth="168.0" text="Cancel">
+      <Button layoutX="217.0" layoutY="468.0" mnemonicParsing="false" onMouseClicked="#goToHomeOrg" prefHeight="88.0" prefWidth="168.0" text="Cancel" AnchorPane.leftAnchor="217.0">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Button>
+      <Label fx:id="pickedFileLabel" layoutX="423.0" layoutY="404.0">
+         <font>
+            <Font name="Baloo 2 Regular" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="415.0" layoutY="346.0" text="Time:">
+         <font>
+            <Font name="Baloo 2 Regular" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="470.0" layoutY="346.0" text="h">
+         <font>
+            <Font name="Baloo 2 Regular" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="eventTimeHour" layoutX="486.0" layoutY="345.0" prefHeight="35.0" prefWidth="42.0">
+         <font>
+            <Font name="Baloo 2 Regular" size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="eventTimeMinutes" layoutX="540.0" layoutY="346.0" prefHeight="35.0" prefWidth="42.0">
+         <font>
+            <Font name="Baloo 2 Regular" size="14.0" />
+         </font>
+      </TextField>
+      <Label layoutX="532.0" layoutY="346.0" text=":">
+         <font>
+            <Font name="Baloo 2 Regular" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="72.0" layoutY="236.0" text="Address">
+         <font>
+            <Font name="Baloo 2 Regular" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="eventLocTF1" layoutX="188.0" layoutY="236.0" prefHeight="35.0" prefWidth="545.0" AnchorPane.rightAnchor="67.0">
+         <font>
+            <Font name="Baloo 2 Regular" size="14.0" />
+         </font>
+      </TextField>
    </children>
    <rotationAxis>
       <Point3D />
