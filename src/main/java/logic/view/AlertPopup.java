@@ -94,14 +94,14 @@ public class AlertPopup {
                     headerText = "Alert";
                     break;
             }
-            absolutePath = getClass().getResource(imagePath).toExternalForm();
-            image = new Image(absolutePath);
+            //absolutePath = getClass().getResource(imagePath).toExternalForm();
+            //image = new Image(absolutePath);
         } catch (IllegalArgumentException e){
             logger.log(Level.SEVERE, "Image path not found!", e);
             return;
         }
         Alert alert = new Alert(type);
-        alert.setGraphic(new ImageView(image));
+        //alert.setGraphic(new ImageView(image));
         alert.setTitle("NightPlan");
         alert.setContentText(text);
         alert.setHeaderText(headerText);
