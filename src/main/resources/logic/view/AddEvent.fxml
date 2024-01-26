@@ -50,12 +50,12 @@
             <Font name="Baloo 2 Regular" size="32.0" />
          </font>
       </Text>
-      <TextField fx:id="eventNameTF" layoutX="188.0" layoutY="181.0" prefHeight="35.0" prefWidth="260.0" AnchorPane.rightAnchor="351.0">
+      <TextField fx:id="eventNameTF" layoutX="188.0" layoutY="181.0" prefHeight="35.0" prefWidth="232.0" AnchorPane.rightAnchor="351.0">
          <font>
             <Font name="Baloo 2 Regular" size="14.0" />
          </font>
       </TextField>
-      <TextField fx:id="eventLocTF" layoutX="516.0" layoutY="181.0" prefHeight="35.0" prefWidth="200.0" AnchorPane.rightAnchor="67.0">
+      <TextField fx:id="eventLocTF" layoutX="516.0" layoutY="181.0" prefHeight="35.0" prefWidth="200.0" AnchorPane.rightAnchor="68.0">
          <font>
             <Font name="Baloo 2 Regular" size="14.0" />
          </font>
@@ -66,7 +66,7 @@
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="487.8" layoutY="181.0" text="City" AnchorPane.leftAnchor="487.8">
+      <Label layoutX="481.8" layoutY="181.0" text="City" AnchorPane.leftAnchor="481.8">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
@@ -132,12 +132,12 @@
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="72.0" layoutY="236.0" text="Address">
+      <Label layoutX="68.0" layoutY="236.0" text="Address">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="eventLocTF1" layoutX="188.0" layoutY="236.0" prefHeight="35.0" prefWidth="545.0" AnchorPane.rightAnchor="67.0">
+      <TextField fx:id="eventLocTF1" layoutX="188.0" layoutY="236.0" prefHeight="35.0" prefWidth="516.0" AnchorPane.rightAnchor="67.0">
          <font>
             <Font name="Baloo 2 Regular" size="14.0" />
          </font>
