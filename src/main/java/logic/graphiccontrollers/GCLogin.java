@@ -10,6 +10,7 @@ import javafx.scene.text.Text;
 import logic.controllers.CLogin;
 import logic.utils.Alerts;
 import logic.utils.LoggedUser;
+import logic.utils.UserTypes;
 import logic.view.AlertPopup;
 import logic.view.EssentialGUI;
 
@@ -46,16 +47,15 @@ public class GCLogin {
 
     public void loginControl(MouseEvent event){
         BUserData userBean = new BUserData(this.usrname.getText(), this.passwd.getText());
-        String userType = String.valueOf(LoggedUser.getType());
 
         if(this.loginController.checkLogInControl(userBean) == 1){
             switch(LoggedUser.getType()){
                 case USER:
-                    this.alert.displayAlertPopup(Alerts.INFORMATION,"Logged in successfully as a " + userType);
+                    this.alert.displayAlertPopup(Alerts.INFORMATION,"Logged in successfully as a user");
                     gui.changeGUI(event, "HomeUser.fxml");
                     break;
                 case ORGANIZER:
-                    this.alert.displayAlertPopup(Alerts.INFORMATION,"Logged in successfully as a " + userType);
+                    this.alert.displayAlertPopup(Alerts.INFORMATION,"Logged in successfully as an organizer");
                     gui.changeGUI(event, "HomeOrg.fxml");
                     break;
                 default:
