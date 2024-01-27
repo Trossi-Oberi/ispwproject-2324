@@ -32,9 +32,9 @@ public class UserDAO {
         try(PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Users (id, username, password, name, surname, dateOfBirth, gender, typeOfUser,  userStatus) VALUES(NULL,?,?,?,?,?,?,?,?)")){
             statement.setString(1, usrModel.getUserName());
             statement.setString(2, usrModel.getPassword());
-            statement.setString(3, usrModel.getName());
-            statement.setString(4, usrModel.getSurname());
-            statement.setDate(5, Date.valueOf(usrModel.getDateOfBirth()));
+            statement.setString(3, usrModel.getFirstName());
+            statement.setString(4, usrModel.getLastName());
+            statement.setDate(5, Date.valueOf(usrModel.getBirthDate()));
             statement.setString(6, usrModel.getGender());
             statement.setString(7, usrModel.getUserType());
             statement.setString(8, "Offline");
@@ -51,7 +51,7 @@ public class UserDAO {
 
         try(ResultSet rs = statement.executeQuery()){
             while(rs.next()) {
-                usrMod.setLogUsrCred(rs.getString(1));
+                usrMod.setUserType(rs.getString(1));
                 return 1;
             }
         }

@@ -1,28 +1,22 @@
 package logic.model;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import logic.beans.BUserData;
 
 public class MUser {
-    private String name;
-    private String surname;
-    private LocalDate dateOfBirth;
+    private String firstName;
+    private String lastName;
+    private LocalDate birthDate;
     private String gender;
     private String username;
     private String password;
     private String userType;
 
     public void setCredentialsByBean(BUserData dataBean) {
-        this.name = dataBean.getName();
-        this.surname = dataBean.getSurname();
-        this.dateOfBirth = dataBean.getLocDateOfBirth();
+        this.firstName = dataBean.getName();
+        this.lastName = dataBean.getSurname();
+        this.birthDate = dataBean.getLocDateOfBirth();
         this.gender = dataBean.getGender();
         this.username = dataBean.getUsername();
         this.password = dataBean.getPassword();
@@ -33,25 +27,20 @@ public class MUser {
         this.username = dataBean.getUsername();
         this.password = dataBean.getPassword();
     }
-
-    public void setUsrNameByBean(BUserData dataBean) {
-        this.username = dataBean.getUsername();
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
-    public void setLogUsrCred(String typeOfUsr) {
-        this.userType = typeOfUsr;
+    public String getFirstName() {
+        return this.firstName;
     }
 
-    public String getName() {
-        return this.name;
+    public String getLastName() {
+        return this.lastName;
     }
 
-    public String getSurname() {
-        return this.surname;
-    }
-
-    public LocalDate getDateOfBirth() {
-        return this.dateOfBirth;
+    public LocalDate getBirthDate() {
+        return this.birthDate;
     }
 
     public String getGender() {
