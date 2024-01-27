@@ -18,9 +18,17 @@ public class CLogin {
         this.userModel.setUsrAndPswByBean(logBean); //qui ancora non avviene il controllo della correttezza dei dati,
         ret = this.userDao.checkLoginInfo(this.userModel); //qui effettivamente e' il DAO che va a controllare la correttezza delle credenziali
         if(ret == 1) {
-            LoggedUser.setUserName(logBean.getUsername());
-            LoggedUser.setUserType(this.userModel.getUserType());
+            createLoggedSession();
         }
         return ret;
+    }
+
+    private void createLoggedSession(){
+        LoggedUser.setUserName(this.userModel.getUserName());
+        LoggedUser.setUserType(this.userModel.getUserType());
+        LoggedUser.setFirstName(this.userModel.getFirstName());
+        LoggedUser.setLastName(this.userModel.getLastName());
+        LoggedUser.setGender(this.userModel.getGender());
+        LoggedUser.setBirthDate(this.userModel.getBirthDate());
     }
 }

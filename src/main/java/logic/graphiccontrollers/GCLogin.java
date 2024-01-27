@@ -10,7 +10,6 @@ import javafx.scene.text.Text;
 import logic.controllers.CLogin;
 import logic.utils.Alerts;
 import logic.utils.LoggedUser;
-import logic.utils.UserTypes;
 import logic.view.AlertPopup;
 import logic.view.EssentialGUI;
 
@@ -49,7 +48,7 @@ public class GCLogin {
         BUserData userBean = new BUserData(this.usrname.getText(), this.passwd.getText());
 
         if(this.loginController.checkLogInControl(userBean) == 1){
-            switch(LoggedUser.getType()){
+            switch(LoggedUser.getUserType()){
                 case USER:
                     this.alert.displayAlertPopup(Alerts.INFORMATION,"Logged in successfully as a user");
                     gui.changeGUI(event, "HomeUser.fxml");

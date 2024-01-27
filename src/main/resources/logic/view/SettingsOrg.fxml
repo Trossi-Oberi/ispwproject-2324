@@ -40,7 +40,7 @@
             <Rectangle2D />
          </viewport>
       </ImageView>
-      <Button layoutX="34.0" layoutY="188.0" mnemonicParsing="false" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;" text="Your profile">
+      <Button fx:id="yourProfileBtn" layoutX="34.0" layoutY="188.0" mnemonicParsing="false" onMouseClicked="#goToProfile" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;" text="Your profile">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
@@ -55,7 +55,7 @@
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Button>
-      <Button layoutX="433.0" layoutY="369.0" mnemonicParsing="false" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;" text="Sign out">
+      <Button layoutX="433.0" layoutY="369.0" mnemonicParsing="false" onMouseClicked="#leaveApp" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;" text="Sign out">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>

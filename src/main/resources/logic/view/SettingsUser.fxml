@@ -40,7 +40,7 @@
             <Rectangle2D />
          </viewport>
       </ImageView>
-      <Button layoutX="35.0" layoutY="122.0" mnemonicParsing="false" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;" text="Your profile">
+      <Button fx:id="yourProfileBtn" layoutX="35.0" layoutY="122.0" mnemonicParsing="false" onMouseClicked="#goToProfile" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;" text="Your profile">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>

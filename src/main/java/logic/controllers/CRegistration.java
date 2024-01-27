@@ -18,13 +18,11 @@ public class CRegistration {
     }
 
     public boolean registerUserControl(BUserData usrBean) {
-        if(checkBirthDate(usrBean.getLocDateOfBirth()) == -1) {
+        if(checkBirthDate(usrBean.getBirthDate()) == -1) {
             return false;
         }
         else {
             this.userModel.setCredentialsByBean(usrBean);
-            LoggedUser.setUserName(usrBean.getUsername());
-            LoggedUser.setUserType(usrBean.getType());
             this.userDao.registerUser(this.userModel);
         }
         return true;

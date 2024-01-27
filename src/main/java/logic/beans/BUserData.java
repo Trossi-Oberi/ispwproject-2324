@@ -4,59 +4,52 @@ import java.time.LocalDate;
 import java.util.logging.Logger;
 
 public class BUserData {
-    private String name;
-    private String surname;
-    private String dateOfBirth;
+    private String firstName;
+    private String lastName;
+    private LocalDate birthDate;
     private String gender;
-    private String typeOfUser;
-    private String userName;
-    private String psw;
+    private String userType;
+    private String username;
+    private String password;
     private Logger logger = Logger.getLogger("NightPlan");
 
     public BUserData() {
 
     }
     public BUserData(String username) {
-        this.userName = username;
+        this.username = username;
     }
 
     public BUserData(String username, String password) {
-        this.userName = username;
-        this.psw = password;
+        this.username = username;
+        this.password = password;
     }
 
-    public void setName(String name){ //throws LengthFieldException, NullValueException {
+    public void setFirstName(String firstName){ //throws LengthFieldException, NullValueException {
 //        if(name == null || name.equalsIgnoreCase("")) {
 //            throw new NullValueException("Please insert a valid name");
 //        }
 //        else if(name.length() > 20) {
 //            throw new LengthFieldException("Too many character for name field");
 //        }
-        this.name = name;
+        this.firstName = firstName;
     }
 
-    public void setSurname(String surname){ //throws LengthFieldException, NullValueException{
+    public void setLastName(String lastName){ //throws LengthFieldException, NullValueException{
 //        if((surname == null || surname.equalsIgnoreCase(""))){
 //            throw new NullValueException("Please insert a valid surname");
 //        }
 //        else if(surname.length() > 20) {
 //            throw new LengthFieldException("Too many character for surname field");
 //        }
-        this.surname = surname;
+        this.lastName = lastName;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth){ //throws NullValueException {
+    public void setBirthDate(LocalDate birthDate){ //throws NullValueException {
 //        if(dateOfBirth == null){
 //            throw new NullValueException("Please insert a valid date of birth");
 //        }
-        this.dateOfBirth = dateOfBirth.toString();
-    }
-
-    public void setDateOfBirth(String dateOfBirth){// throws NullValueException {
-//        if(dateOfBirth == null || dateOfBirth.equalsIgnoreCase("")){
-//            throw new NullValueException("Please insert a valid date of birth");
-//        }
-        this.dateOfBirth = dateOfBirth;
+        this.birthDate = LocalDate.parse(birthDate.toString());
     }
 
     public void setGender(String gender) {
@@ -64,58 +57,54 @@ public class BUserData {
     }
 
     public void setType(String typeOfUsr) {
-        this.typeOfUser = typeOfUsr;
+        this.userType = typeOfUsr;
     }
 
-    public void setUserName(String usrName) {//throws LengthFieldException, NullValueException {
+    public void setUsername(String usrName) {//throws LengthFieldException, NullValueException {
 //        if(usrName == null || usrName.equalsIgnoreCase("")) {
 //            throw new NullValueException("Please insert a valid username");
 //        }
 //        else if(usrName.length() > 20) {
 //            throw new LengthFieldException("Too many character for username field");
 //        }
-        this.userName = usrName;
+        this.username = usrName;
     }
 
-    public void setPsw(String passwd) {//throws LengthFieldException, NullValueException {
+    public void setPassword(String passwd) {//throws LengthFieldException, NullValueException {
 //        if(passwd == null || passwd.equalsIgnoreCase("")) {
 //            throw new NullValueException("Please insert a valid password");
 //        }
 //        else if(passwd.length() > 20) {
 //            throw new LengthFieldException("Too many character for password field");
 //        }
-        this.psw = passwd;
+        this.password = passwd;
     }
 
-    public String getName() {
-        return this.name;
+    public String getFirstName() {
+        return this.firstName;
     }
 
-    public String getSurname() {
-        return this.surname;
+    public String getLastName() {
+        return this.lastName;
     }
 
-    public String getDateOfBirth() {
-        return this.dateOfBirth;
-    }
-
-    public LocalDate getLocDateOfBirth() {
-        return LocalDate.parse(this.dateOfBirth);
+    public LocalDate getBirthDate() {
+        return this.birthDate;
     }
 
     public String getGender() {
         return this.gender;
     }
 
-    public String getType() {
-        return this.typeOfUser;
+    public String getUserType() {
+        return this.userType;
     }
 
     public String getUsername() {
-        return this.userName;
+        return this.username;
     }
 
     public String getPassword() {
-        return this.psw;
+        return this.password;
     }
 }

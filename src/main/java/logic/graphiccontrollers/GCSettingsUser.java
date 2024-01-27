@@ -37,6 +37,10 @@ public class GCSettingsUser {
     }
 
     @FXML
+    void goToProfile(MouseEvent event) {
+        gui.changeGUI(event, "Profile.fxml");
+    }
+    @FXML
     void leaveApp(MouseEvent event) {
         //LoggedUser.setStatus("Offline");
         gui.changeGUI(event,"Login.fxml");

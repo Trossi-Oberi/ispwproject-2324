@@ -67,12 +67,12 @@ public class GCRegistration {
     @FXML
     public void registerControl(MouseEvent event) {
         try{
-            this.dataBean.setUserName(this.emailField.getText());
-            this.dataBean.setPsw(this.passwordField.getText());
-            this.dataBean.setName(this.firstNameField.getText());
-            this.dataBean.setSurname(this.lastNameField.getText());
+            this.dataBean.setUsername(this.emailField.getText());
+            this.dataBean.setPassword(this.passwordField.getText());
+            this.dataBean.setFirstName(this.firstNameField.getText());
+            this.dataBean.setLastName(this.lastNameField.getText());
             this.dataBean.setGender(this.gender.getValue());
-            this.dataBean.setDateOfBirth(this.birthDate.getValue());
+            this.dataBean.setBirthDate(this.birthDate.getValue());
             register(event);
         } catch (Exception e){
             this.alert.displayAlertPopup(Alerts.ERROR, e.getMessage());
