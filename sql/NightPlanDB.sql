@@ -3,18 +3,22 @@ use nightplan;
 create table Events
 (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(25) NOT NULL,
-    music_type VARCHAR(25) NOT NULL,
-    location VARCHAR(50) NOT NULL,
-    logo LONGBLOB
+    organizer VARCHAR(50) NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    address VARCHAR(50) NOT NULL,
+    music_genre VARCHAR(25) NOT NULL,
+    date VARCHAR(15) NOT NULL,
+    time VARCHAR(15) NOT NULL,
+    image LONGBLOB
 );
 
-create table EventImages
+/*create table EventImages
 (
     id INT AUTO_INCREMENT PRIMARY KEY,
     image_data LONGBLOB
 );
-
+*/
 create table Users
 (
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,

@@ -11,6 +11,7 @@ import javafx.scene.control.DateCell;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.fxml.FXML;
+import logic.utils.LoggedUser;
 import logic.view.EssentialGUI;
 import logic.utils.MusicGenres;
 
@@ -21,39 +22,39 @@ import java.time.format.DateTimeFormatter;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
-
+import logic.beans.BEvent;
 
 
 public class GCAddEvent {
 
     ObservableList<String> musicGenresList = FXCollections.observableArrayList(MusicGenres.musicgenresarr);
-
     private EssentialGUI gui;
-
     @FXML
     private DatePicker datePicker;
-
     @FXML
-    private TextField eventLocTF;
-
+    private TextField eventAddressTF;
+    @FXML
+    private TextField eventCityTF;
     @FXML
     private TextField eventNameTF;
+    @FXML
+    private TextField eventHourTF;
 
     @FXML
-    private TextField eventTimeHour;
-
-    @FXML
-    private TextField eventTimeMinutes;
-
+    private TextField eventMinutesTF;
     @FXML
     private Button fileChooserBtn;
-
     @FXML
     private Label pickedFileLabel;
-
     @FXML
     private ChoiceBox<String> musicGenreBox;
 
+    private BEvent eventBean;
+    private File eventPicFile;
+
+    public GCAddEvent(){
+        eventBean = new BEvent();
+    }
     @FXML
     public void initialize() {
         this.gui = new EssentialGUI();
@@ -92,24 +93,43 @@ public class GCAddEvent {
     }
 
     @FXML
-    void pickImage(MouseEvent event) {
-        FileChooser fc = new FileChooser();
-        ExtensionFilter imageFilter = new ExtensionFilter("Immagini (*.png, *.jpg)", "*.png", "*jpg");
-        fc.getExtensionFilters().addAll(imageFilter);
-        File selectedFile = fc.showOpenDialog(null);
-
-        //Controllare se il file e' diverso da null
-        //if (selectedFile!=null){
-        pickedFileLabel.setText(selectedFile.getName());
-        //}*/
-
-    }
-
-    @FXML
     void getDate(ActionEvent event) {
 
         LocalDate myDate = datePicker.getValue();
         String myFormattedDate = myDate.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy"));
+    }
+
+    @FXML
+    void pickImage(MouseEvent event) {
+        FileChooser fc = new FileChooser();
+        ExtensionFilter imageFilter = new ExtensionFilter("Immagini (*.png, *.jpg)", "*.png", "*jpg");
+        fc.getExtensionFilters().addAll(imageFilter);
+        eventPicFile = fc.showOpenDialog(null);
+
+        if (eventPicFile!=null){
+            pickedFileLabel.setText(eventPicFile.getName());
+        }
+
+    }
+
+    @FXML //azioni da eseguire quando clicko pulsante "CONFIRM"
+    void addEventControl(MouseEvent event) {
+        //try{
+        eventBean.setEventName(eventNameTF.getText());
+        eventBean.setEventCity(eventCityTF.getText());
+        eventBean.setEventAddress(eventAddressTF.getText());
+        /*}catch (LengthFieldException e) {
+            this.popErr.displayErrorPopup(e.getMsg());
+        }*/
+        eventBean.setEventMusicGenre(musicGenreBox.getValue());
+        eventBean.setEventDate(datePicker.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+        eventBean.setEventTime(eventHourTF.getText(),eventMinutesTF.getText());
+        eventBean.setEventPicData(eventPicFile);
+        eventBean.setEventOrganizer(LoggedUser.getUserName());
+
+
+
+
     }
 
 }
