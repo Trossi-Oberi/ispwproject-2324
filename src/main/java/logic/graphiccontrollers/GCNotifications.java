@@ -1,6 +1,7 @@
 package logic.graphiccontrollers;
 
 import javafx.fxml.FXML;
+import logic.utils.LoggedUser;
 import logic.view.EssentialGUI;
 import javafx.scene.input.MouseEvent;
 
@@ -14,22 +15,37 @@ public class GCNotifications {
 
     @FXML
     void goToEvents(MouseEvent event) {
-        //adottare soluzione polimorfica, se utente loggato = user vado sulle grafiche user
-        //altrimenti se organizer vado sulle grafiche organizer
-        gui.changeGUI(event, "YourEventsOrg.fxml"); //giusto per provare
+        switch (LoggedUser.getUserType()){
+            case USER:
+                gui.changeGUI(event, "YourEventsUser.fxml");
+                break;
+            case ORGANIZER:
+                gui.changeGUI(event, "YourEventsOrg.fxml");
+                break;
+        }
     }
 
     @FXML
     void goToHome(MouseEvent event) {
-        //adottare soluzione polimorfica, se utente loggato = user vado sulle grafiche user
-        //altrimenti se organizer vado sulle grafiche organizer
-        gui.changeGUI(event, "HomeOrg.fxml"); //giusto per provare
+        switch (LoggedUser.getUserType()){
+            case USER:
+                gui.changeGUI(event, "HomeUser.fxml");
+                break;
+            case ORGANIZER:
+                gui.changeGUI(event, "HomeOrg.fxml");
+                break;
+        }
     }
 
     @FXML
     void goToSettings(MouseEvent event) {
-        //adottare soluzione polimorfica, se utente loggato = user vado sulle grafiche user
-        //altrimenti se organizer vado sulle grafiche organizer
-        gui.changeGUI(event, "SettingsOrg.fxml"); //giusto per provare
+        switch (LoggedUser.getUserType()){
+            case USER:
+                gui.changeGUI(event, "SettingsUser.fxml");
+                break;
+            case ORGANIZER:
+                gui.changeGUI(event, "SettingsOrg.fxml");
+                break;
+        }
     }
 }

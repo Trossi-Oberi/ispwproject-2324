@@ -51,27 +51,27 @@
             <Font name="Baloo 2 Regular" size="30.0" />
          </font>
       </Text>
-      <Text layoutX="52.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" wrappingWidth="164.13671875">
+      <Text layoutX="52.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" wrappingWidth="164.13671875">
          <font>
             <Font name="Baloo 2 Regular" size="30.0" />
          </font>
       </Text>
-      <Text layoutX="52.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" wrappingWidth="164.13671875">
+      <Text layoutX="52.0" layoutY="232.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" wrappingWidth="164.13671875">
          <font>
             <Font name="Baloo 2 Regular" size="30.0" />
          </font>
       </Text>
-      <Text layoutX="52.0" layoutY="318.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gender" wrappingWidth="164.13671875">
+      <Text layoutX="52.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gender" wrappingWidth="164.13671875">
          <font>
             <Font name="Baloo 2 Regular" size="30.0" />
          </font>
       </Text>
-      <Text layoutX="52.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Birth date" wrappingWidth="164.13671875">
+      <Text layoutX="52.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Birth date" wrappingWidth="164.13671875">
          <font>
             <Font name="Baloo 2 Regular" size="30.0" />
          </font>
       </Text>
-      <Text layoutX="52.0" layoutY="417.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type of user" wrappingWidth="164.13671875">
+      <Text layoutX="52.0" layoutY="432.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type of user" wrappingWidth="164.13671875">
          <font>
             <Font name="Baloo 2 Regular" size="30.0" />
          </font>
@@ -81,27 +81,27 @@
             <Font name="Baloo 2 Regular" size="30.0" />
          </font>
       </Text>
-      <Text fx:id="firstName" layoutX="265.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="218.13671875">
+      <Text fx:id="firstName" layoutX="265.0" layoutY="232.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="218.13671875">
          <font>
             <Font name="Baloo 2 Regular" size="30.0" />
          </font>
       </Text>
-      <Text fx:id="lastName" layoutX="265.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="218.13671875">
+      <Text fx:id="lastName" layoutX="265.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="218.13671875">
          <font>
             <Font name="Baloo 2 Regular" size="30.0" />
          </font>
       </Text>
-      <Text fx:id="gender" layoutX="265.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="218.13671875">
+      <Text fx:id="gender" layoutX="265.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="218.13671875">
          <font>
             <Font name="Baloo 2 Regular" size="30.0" />
          </font>
       </Text>
-      <Text fx:id="birthDate" layoutX="265.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="218.13671875">
+      <Text fx:id="birthDate" layoutX="265.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="218.13671875">
          <font>
             <Font name="Baloo 2 Regular" size="30.0" />
          </font>
       </Text>
-      <Text fx:id="userType" layoutX="265.0" layoutY="415.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="218.13671875">
+      <Text fx:id="userType" layoutX="265.0" layoutY="432.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="218.13671875">
          <font>
             <Font name="Baloo 2 Regular" size="30.0" />
          </font>
