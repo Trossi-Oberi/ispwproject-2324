@@ -18,10 +18,10 @@ create table EventImages
 create table Users
 (
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    username VARCHAR(20) NOT NULL unique,
-    password VARCHAR(20) NOT NULL,
-    firstName VARCHAR(20) NOT NULL,
-    lastName VARCHAR(20) NOT NULL,
+    username VARCHAR(50) NOT NULL unique,
+    password VARCHAR(50) NOT NULL,
+    firstName VARCHAR(50) NOT NULL,
+    lastName VARCHAR(50) NOT NULL,
     dateOfBirth VARCHAR(20) NOT NULL,
     gender VARCHAR(10),
     userType VARCHAR(20),
