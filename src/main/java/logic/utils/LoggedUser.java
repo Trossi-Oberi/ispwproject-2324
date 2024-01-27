@@ -2,7 +2,7 @@ package logic.utils;
 
 public class LoggedUser {
     private static String username;
-    private static UserTypes typeOfUser;
+    private static UserTypes userType;
 
     private LoggedUser() {
 
@@ -12,12 +12,12 @@ public class LoggedUser {
         username = usrName;
     }
 
-    public static void setType(String type) {
+    public static void setUserType(String type) {
         if (type.equals("User")) {
-            typeOfUser = UserTypes.USER;
+            userType = UserTypes.USER;
         }
         else if (type.equals("Organizer")) {
-            typeOfUser = UserTypes.ORGANIZER;
+            userType = UserTypes.ORGANIZER;
         }
     }
 
@@ -26,6 +26,6 @@ public class LoggedUser {
     }
 
     public static UserTypes getType() {
-        return typeOfUser;
+        return userType;
     }
 }

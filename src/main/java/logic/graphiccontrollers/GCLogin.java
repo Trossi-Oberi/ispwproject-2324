@@ -10,32 +10,23 @@ import javafx.scene.text.Text;
 import logic.controllers.CLogin;
 import logic.utils.Alerts;
 import logic.utils.LoggedUser;
-import logic.utils.UserTypes;
 import logic.view.AlertPopup;
 import logic.view.EssentialGUI;
 
 import logic.beans.BUserData;
 
-import java.io.IOException;
-
 public class GCLogin {
     private EssentialGUI gui;
-    private AlertPopup errorLogin;
-
+    private AlertPopup alert;
     private CLogin loginController;
-
     @FXML
     private Button GoogleLoginButton;
-
     @FXML
     private Button loginButton;
-
     @FXML
     private PasswordField passwd;
-
     @FXML
     private Text signUpText;
-
     @FXML
     private TextField usrname;
 
@@ -44,7 +35,7 @@ public class GCLogin {
 
     @FXML
     public void initialize() {
-        this.errorLogin = new AlertPopup();
+        this.alert = new AlertPopup();
         this.gui = new EssentialGUI();
         this.loginController = new CLogin();
     }
@@ -55,20 +46,23 @@ public class GCLogin {
 
     public void loginControl(MouseEvent event){
         BUserData userBean = new BUserData(this.usrname.getText(), this.passwd.getText());
+        String userType = String.valueOf(LoggedUser.getType());
+
         if(this.loginController.checkLogInControl(userBean) == 1){
             switch(LoggedUser.getType()){
                 case USER:
+                    this.alert.displayAlertPopup(Alerts.INFORMATION,"Logged in successfully as a " + userType);
                     gui.changeGUI(event, "HomeUser.fxml");
                     break;
                 case ORGANIZER:
+                    this.alert.displayAlertPopup(Alerts.INFORMATION,"Logged in successfully as a " + userType);
                     gui.changeGUI(event, "HomeOrg.fxml");
                     break;
                 default:
-                    this.errorLogin.displayAlertPopup(Alerts.ERROR,"Fatal error!");
+                    this.alert.displayAlertPopup(Alerts.ERROR,"FATAL: Cannot load HomePage from Login");
             }
         } else{
-            //display error
-            this.errorLogin.displayAlertPopup(Alerts.WARNING,"User not registered or wrong credentials. Please retry...");
+            this.alert.displayAlertPopup(Alerts.WARNING,"User not registered or wrong credentials. Please retry...");
         }
 
     }

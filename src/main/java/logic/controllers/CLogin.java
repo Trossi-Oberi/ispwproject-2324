@@ -19,7 +19,7 @@ public class CLogin {
         ret = this.userDao.checkLoginInfo(this.userModel); //qui effettivamente e' il DAO che va a controllare la correttezza delle credenziali
         if(ret == 1) {
             LoggedUser.setUserName(logBean.getUsername());
-            LoggedUser.setType(this.userModel.getUserType());
+            LoggedUser.setUserType(this.userModel.getUserType());
         }
         return ret;
     }

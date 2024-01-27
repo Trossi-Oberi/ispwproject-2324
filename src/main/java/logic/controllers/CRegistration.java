@@ -24,7 +24,7 @@ public class CRegistration {
         else {
             this.userModel.setCredentialsByBean(usrBean);
             LoggedUser.setUserName(usrBean.getUsername());
-            LoggedUser.setType(usrBean.getType());
+            LoggedUser.setUserType(usrBean.getType());
             this.userDao.registerUser(this.userModel);
         }
         return true;
