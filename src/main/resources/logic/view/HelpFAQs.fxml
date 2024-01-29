@@ -3,13 +3,15 @@
 <?import javafx.geometry.Point3D?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.graphiccontrollers.GCSettingsUser">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.graphiccontrollers.GCHelpFAQs">
    <children>
       <Rectangle fill="#6c89c4a1" height="88.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" />
       <Button alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" mnemonicParsing="false" onMouseClicked="#goToHome" prefHeight="88.0" prefWidth="130.0" style="-fx-border-width: 0; -fx-background-color: transparent;" text="Home" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="0.0">
@@ -40,34 +42,24 @@
             <Rectangle2D />
          </viewport>
       </ImageView>
-      <Button fx:id="yourProfileBtn" layoutX="35.0" layoutY="122.0" mnemonicParsing="false" onMouseClicked="#goToProfile" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;" text="Your profile">
+      <Text layoutX="321.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Help &amp; FAQs" AnchorPane.leftAnchor="321.0" AnchorPane.rightAnchor="321.5599822998047">
          <font>
-            <Font name="Baloo 2 Regular" size="20.0" />
+            <Font name="Baloo 2 Regular" size="30.0" />
          </font>
-      </Button>
-      <Button layoutX="35.0" layoutY="278.0" mnemonicParsing="false" prefHeight="126.0" prefWidth="334.0" style="-fx-background-radius: 0;" text="Select radius">
+      </Text>
+      <Text layoutX="297.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GitHub repository:" AnchorPane.leftAnchor="297.0">
          <font>
-            <Font name="Baloo 2 Regular" size="20.0" />
+            <Font name="Baloo 2 Regular" size="26.0" />
          </font>
-      </Button>
-      <Button layoutX="35.0" layoutY="436.0" mnemonicParsing="false" onMouseClicked="#goToHelpFaqs" prefHeight="126.0" prefWidth="334.0" style="-fx-background-radius: 0;" text="Help &amp; FAQs">
+      </Text>
+      <Hyperlink fx:id="projectHyperlink" layoutX="202.0" layoutY="233.0" onAction="#openLink" text="https://github.com/Trossi-Oberi/ispwproject-2324">
          <font>
-            <Font name="Baloo 2 Regular" size="20.0" />
+            <Font name="Baloo 2 Regular" size="18.0" />
          </font>
-      </Button>
-      <Button layoutX="432.0" layoutY="122.0" mnemonicParsing="false" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;" text="Your groups">
+      </Hyperlink>
+      <Button layoutX="288.0" layoutY="431.0" mnemonicParsing="false" onMouseClicked="#goToSettings" prefHeight="102.0" prefWidth="223.0" text="Go back">
          <font>
-            <Font name="Baloo 2 Regular" size="20.0" />
-         </font>
-      </Button>
-      <Button layoutX="432.0" layoutY="278.0" mnemonicParsing="false" onMouseClicked="#goToContactUs" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;" text="Contact us">
-         <font>
-            <Font name="Baloo 2 Regular" size="20.0" />
-         </font>
-      </Button>
-      <Button fx:id="signOutButton" layoutX="432.0" layoutY="436.0" mnemonicParsing="false" onMouseClicked="#leaveApp" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;" text="Sign out">
-         <font>
-            <Font name="Baloo 2 Regular" size="20.0" />
+            <Font name="Baloo 2 Regular" size="18.0" />
          </font>
       </Button>
    </children>

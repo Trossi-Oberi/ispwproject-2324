@@ -6,7 +6,7 @@ import javafx.event.ActionEvent;
 
 import javafx.scene.input.MouseEvent;
 
-public class GCHomeOrg extends EssentialGUI {
+public class GCHomeOrg extends GCHomeGeneral {
     @FXML
     void goToAddEvent(MouseEvent event) {
         changeGUI(event, "AddEvent.fxml");

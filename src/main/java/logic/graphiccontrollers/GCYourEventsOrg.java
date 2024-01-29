@@ -5,7 +5,7 @@ import logic.view.EssentialGUI;
 import javafx.scene.input.MouseEvent;
 
 
-public class GCYourEventsOrg extends EssentialGUI{
+public class GCYourEventsOrg extends GCYourEventsGeneral{
 
     @FXML
     public void initialize() {
