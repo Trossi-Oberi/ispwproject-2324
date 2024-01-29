@@ -17,6 +17,6 @@ public class CFacade {
         if (addEventController == null) {
             addEventController = new CManageEvent();
         }
-        addEventController.addEvent(bean);
+        addEventController.addEvent(bean); //chiamata al controller effettivo
     }
 }

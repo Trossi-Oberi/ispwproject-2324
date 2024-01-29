@@ -23,12 +23,14 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 import logic.beans.BEvent;
+import logic.controllers.CFacade;
 
 
-public class GCAddEvent {
+public class GCAddEvent{
 
     ObservableList<String> musicGenresList = FXCollections.observableArrayList(MusicGenres.musicgenresarr);
     private EssentialGUI gui;
+    private CFacade facade = new CFacade();
     @FXML
     private DatePicker datePicker;
     @FXML
@@ -126,6 +128,9 @@ public class GCAddEvent {
         eventBean.setEventTime(eventHourTF.getText(),eventMinutesTF.getText());
         eventBean.setEventPicData(eventPicFile);
         eventBean.setEventOrganizer(LoggedUser.getUserName());
+        facade.addEvent(eventBean);
+        System.out.println("evento aggiunto correttamente");
+        gui.changeGUI(event, "HomeOrg.fxml");
 
 
 

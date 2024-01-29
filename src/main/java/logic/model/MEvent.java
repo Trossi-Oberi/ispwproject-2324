@@ -45,7 +45,7 @@ public class MEvent {
         eventInfo.setEventMusicGenre(eventMusicGenre);
         eventInfo.setEventDate(eventDate);
         eventInfo.setEventTime(eventTime);
-        eventInfo.setEventPicData(eventPicFile);
+        eventInfo.setEventPicData(eventPicFile); //data = array di bytes
         return eventInfo;
     }
 
