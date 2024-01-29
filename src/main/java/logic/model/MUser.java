@@ -9,6 +9,7 @@ public class MUser {
     private String lastName;
     private String birthDate;
     private String gender;
+    private String city;
     private String username;
     private String password;
     private String userType;
@@ -18,6 +19,7 @@ public class MUser {
         this.lastName = dataBean.getLastName();
         this.birthDate = dataBean.getBirthDate().toString();
         this.gender = dataBean.getGender();
+        this.city = dataBean.getCity();
         this.username = dataBean.getUsername();
         this.password = dataBean.getPassword();
         this.userType = dataBean.getUserType();
@@ -43,6 +45,9 @@ public class MUser {
     public void setGender(String gen) {
         this.gender = gen;
     }
+    public void setCity(String city){
+        this.city = city;
+    }
 
     public String getFirstName() {
         return this.firstName;
@@ -58,6 +63,10 @@ public class MUser {
 
     public String getGender() {
         return this.gender;
+    }
+
+    public String getCity(){
+        return this.city;
     }
 
     public String getUserName() {

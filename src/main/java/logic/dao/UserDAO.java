@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class UserDAO {
     public int checkLoginInfo(MUser usrMod) {
         int ret = 0;
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT firstName, lastName, dateOfBirth, gender, userType FROM users WHERE (username=? and password=?)")){
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT firstName, lastName, dateOfBirth, gender, city, userType FROM users WHERE (username=? and password=?)")){
             statement.setString(1, usrMod.getUserName());
             statement.setString(2, usrMod.getPassword());
             ret = getLoggedUser(statement, usrMod);
@@ -38,7 +38,8 @@ public class UserDAO {
                 usrMod.setLastName(rs.getString(2));
                 usrMod.setBirthDate(rs.getString(3));
                 usrMod.setGender(rs.getString(4));
-                usrMod.setUserType(rs.getString(5));
+                usrMod.setCity(rs.getString(5));
+                usrMod.setUserType(rs.getString(6));
                 return 1;
             }
         }
@@ -49,15 +50,16 @@ public class UserDAO {
     }
 
     public void registerUser(MUser usrModel) {
-        try(PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Users (id, username, password, firstName, lastName, dateOfBirth, gender, userType,  userStatus) VALUES(NULL,?,?,?,?,?,?,?,?)")){
+        try(PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Users (id, username, password, firstName, lastName, dateOfBirth, gender, city, userType,  userStatus) VALUES(NULL,?,?,?,?,?,?,?,?,?)")){
             statement.setString(1, usrModel.getUserName());
             statement.setString(2, usrModel.getPassword());
             statement.setString(3, usrModel.getFirstName());
             statement.setString(4, usrModel.getLastName());
             statement.setString(5, usrModel.getBirthDate());
             statement.setString(6, usrModel.getGender());
-            statement.setString(7, usrModel.getUserType());
-            statement.setString(8, "Offline");
+            statement.setString(7, usrModel.getCity());
+            statement.setString(8, usrModel.getUserType());
+            statement.setString(9, "Offline");
             statement.execute();
         } catch (SQLException e) {
             Logger.getLogger("NightPlan").log(Level.SEVERE, "Cannot add a new user");

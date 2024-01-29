@@ -19,53 +19,63 @@
             <Image url="@../../images/home/Logo_NightPlan.png" />
          </image>
       </ImageView>
-      <Text layoutX="279.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register new account">
+      <Text layoutX="279.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register new account">
          <font>
             <Font name="Baloo 2 Regular" size="26.0" />
          </font>
       </Text>
-      <RadioButton fx:id="userRadio" layoutX="257.0" layoutY="198.0" mnemonicParsing="false" text="User" />
-      <RadioButton fx:id="organizerRadio" layoutX="486.0" layoutY="198.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="77.0" text="Organizer" />
-      <TextField fx:id="firstNameField" layoutX="172.0" layoutY="228.0" maxWidth="214.0" minWidth="182.0" prefHeight="44.0" prefWidth="214.0" promptText="First name">
+      <RadioButton fx:id="userRadio" layoutX="260.0" layoutY="183.0" mnemonicParsing="false" text="User" />
+      <RadioButton fx:id="organizerRadio" layoutX="489.0" layoutY="183.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="77.0" text="Organizer" />
+      <TextField fx:id="firstNameField" layoutX="172.0" layoutY="214.0" maxWidth="214.0" minWidth="182.0" prefHeight="44.0" prefWidth="214.0" promptText="First name">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>
       </TextField>
-      <TextField fx:id="lastNameField" layoutX="413.0" layoutY="228.0" prefHeight="44.0" prefWidth="214.0" promptText="Last name">
+      <TextField fx:id="lastNameField" layoutX="413.0" layoutY="214.0" prefHeight="44.0" prefWidth="214.0" promptText="Last name">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>
       </TextField>
-      <TextField fx:id="emailField" layoutX="172.0" layoutY="297.0" maxWidth="214.0" minWidth="182.0" prefHeight="44.0" prefWidth="214.0" promptText="E-mail">
+      <TextField fx:id="emailField" layoutX="173.0" layoutY="272.0" maxWidth="214.0" minWidth="182.0" prefHeight="44.0" prefWidth="214.0" promptText="E-mail">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>
       </TextField>
-      <PasswordField fx:id="passwordField" layoutX="413.0" layoutY="297.0" maxWidth="214.0" prefHeight="44.0" prefWidth="214.0" promptText="Password">
+      <PasswordField fx:id="passwordField" layoutX="413.0" layoutY="272.0" maxWidth="214.0" prefHeight="44.0" prefWidth="214.0" promptText="Password">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>
       </PasswordField>
-      <ChoiceBox fx:id="gender" layoutX="413.0" layoutY="361.0" prefHeight="44.0" prefWidth="214.0" />
-      <DatePicker fx:id="birthDate" layoutX="413.0" layoutY="423.0" prefHeight="44.0" prefWidth="214.0" />
-      <Button fx:id="returnLogin" layoutX="172.0" layoutY="485.0" mnemonicParsing="false" onMouseClicked="#returnBack" prefHeight="44.0" prefWidth="214.0" text="Return to login">
+      <ChoiceBox fx:id="gender" layoutX="413.0" layoutY="331.0" prefHeight="44.0" prefWidth="214.0" />
+      <DatePicker fx:id="birthDate" layoutX="413.0" layoutY="391.0" prefHeight="44.0" prefWidth="214.0" promptText="dd/mm/yy" />
+      <TextField fx:id="cityField" layoutX="413.0" layoutY="450.0" prefHeight="44.0" prefWidth="214.0" promptText="City">
+         <font>
+            <Font name="Baloo 2 Regular" size="18.0" />
+         </font>
+      </TextField>
+      <Button fx:id="registerButton" layoutX="413.0" layoutY="510.0" mnemonicParsing="false" onMouseClicked="#registerControl" prefHeight="44.0" prefWidth="214.0" text="Register">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="registerButton" layoutX="413.0" layoutY="485.0" mnemonicParsing="false" onMouseClicked="#registerControl" prefHeight="44.0" prefWidth="214.0" text="Register">
+      <Button fx:id="returnLogin" layoutX="172.0" layoutY="512.0" mnemonicParsing="false" onMouseClicked="#returnBack" prefHeight="44.0" prefWidth="214.0" text="Return to login">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>
       </Button>
-      <Text layoutX="181.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gender">
+      <Text layoutX="181.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gender">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Text>
-      <Text layoutX="181.0" layoutY="450.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of birth">
+      <Text layoutX="181.0" layoutY="418.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of birth">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font></Text>
+      <Text layoutX="181.0" layoutY="478.0" strokeType="OUTSIDE" strokeWidth="0.0" text="City">
+         <font>
+            <Font name="Baloo 2 Regular" size="20.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

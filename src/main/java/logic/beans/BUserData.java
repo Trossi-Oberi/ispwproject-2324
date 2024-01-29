@@ -8,9 +8,11 @@ public class BUserData {
     private String lastName;
     private LocalDate birthDate;
     private String gender;
+    private String city;
     private String userType;
     private String username;
     private String password;
+
     private Logger logger = Logger.getLogger("NightPlan");
 
     public BUserData() {
@@ -51,6 +53,11 @@ public class BUserData {
 //        }
         this.birthDate = LocalDate.parse(birthDate.toString());
     }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
 
     public void setGender(String gender) {
         this.gender = gender;
@@ -106,5 +113,9 @@ public class BUserData {
 
     public String getPassword() {
         return this.password;
+    }
+
+    public String getCity() {
+        return this.city;
     }
 }

@@ -25,6 +25,9 @@ public class GCRegistration {
     private ChoiceBox<String> gender;
 
     @FXML
+    private TextField cityField;
+
+    @FXML
     private TextField lastNameField;
 
     @FXML
@@ -73,6 +76,7 @@ public class GCRegistration {
             this.dataBean.setLastName(this.lastNameField.getText());
             this.dataBean.setGender(this.gender.getValue());
             this.dataBean.setBirthDate(this.birthDate.getValue());
+            this.dataBean.setCity(this.cityField.getText());
             register(event);
         } catch (Exception e){
             this.alert.displayAlertPopup(Alerts.ERROR, e.getMessage());

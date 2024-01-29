@@ -71,7 +71,7 @@
             <Font name="Baloo 2 Regular" size="30.0" />
          </font>
       </Text>
-      <Text layoutX="52.0" layoutY="432.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type of user" wrappingWidth="164.13671875">
+      <Text layoutX="52.0" layoutY="480.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type of user" wrappingWidth="164.13671875">
          <font>
             <Font name="Baloo 2 Regular" size="30.0" />
          </font>
@@ -101,7 +101,17 @@
             <Font name="Baloo 2 Regular" size="30.0" />
          </font>
       </Text>
-      <Text fx:id="userType" layoutX="265.0" layoutY="432.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="218.13671875">
+      <Text fx:id="userType" layoutX="265.0" layoutY="480.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="218.13671875">
+         <font>
+            <Font name="Baloo 2 Regular" size="30.0" />
+         </font>
+      </Text>
+      <Text layoutX="52.0" layoutY="432.0" strokeType="OUTSIDE" strokeWidth="0.0" text="City" wrappingWidth="164.13671875">
+         <font>
+            <Font name="Baloo 2 Regular" size="30.0" />
+         </font>
+      </Text>
+      <Text fx:id="city" layoutX="265.0" layoutY="430.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="218.13671875">
          <font>
             <Font name="Baloo 2 Regular" size="30.0" />
          </font>

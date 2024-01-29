@@ -29,6 +29,7 @@ public class CLogin {
         LoggedUser.setFirstName(this.userModel.getFirstName());
         LoggedUser.setLastName(this.userModel.getLastName());
         LoggedUser.setGender(this.userModel.getGender());
+        LoggedUser.setCity(this.userModel.getCity());
         LoggedUser.setBirthDate(this.userModel.getBirthDate());
     }
 }

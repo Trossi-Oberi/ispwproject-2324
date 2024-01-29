@@ -10,6 +10,8 @@ public class LoggedUser {
     private static String birthDate;
     private static String gender;
 
+    private static String city;
+
     private LoggedUser() {
 
     }
@@ -43,6 +45,10 @@ public class LoggedUser {
         gender = gen;
     }
 
+    public static void setCity(String cit){
+        city = cit;
+    }
+
     public static String getUserName() {
         return username;
     }
@@ -65,5 +71,9 @@ public class LoggedUser {
 
     public static String getGender(){
         return gender;
+    }
+
+    public static String getCity(){
+        return city;
     }
 }

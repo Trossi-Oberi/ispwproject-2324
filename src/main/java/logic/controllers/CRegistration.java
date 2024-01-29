@@ -3,7 +3,6 @@ package logic.controllers;
 import logic.beans.BUserData;
 import logic.dao.UserDAO;
 import logic.model.MUser;
-import logic.utils.LoggedUser;
 
 import java.time.LocalDate;
 

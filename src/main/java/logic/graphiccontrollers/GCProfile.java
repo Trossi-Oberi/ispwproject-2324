@@ -24,6 +24,8 @@ public class GCProfile {
 
     @FXML
     private Text gender;
+    @FXML
+    private Text city;
 
     @FXML
     private Text birthDate;
@@ -55,6 +57,7 @@ public class GCProfile {
         this.lastName.setText(LoggedUser.getLastName());
         this.birthDate.setText(LoggedUser.getBirthDate());
         this.gender.setText(LoggedUser.getGender());
+        this.city.setText(LoggedUser.getCity());
         this.userType.setText(type.toString());
     }
 
