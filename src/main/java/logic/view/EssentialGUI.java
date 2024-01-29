@@ -19,14 +19,12 @@ import javafx.stage.Stage;
 
 public class EssentialGUI extends Application {
 
-    protected static final String APP_NAME = "NightPlan";
-    protected static FXMLLoader loader = new FXMLLoader();
-    protected static String sample;
+    private static final String APP_NAME = "NightPlan";
+//    private static FXMLLoader loader = new FXMLLoader();
+    private static String sceneName;
 
-    protected static Scene scene;
-    protected static Logger logger = Logger.getLogger(APP_NAME);
-    protected Image logoImage;
-    protected String logoPath = "/icons/cuore.png";
+    private static Scene scene;
+    private static final Logger logger = Logger.getLogger(APP_NAME);
 
     public EssentialGUI(){
         //da inserire cose...
@@ -36,8 +34,10 @@ public class EssentialGUI extends Application {
     public void start(Stage stage){
         try{
             stage.setTitle(APP_NAME);
+            String logoPath = "/icons/cuore.png";
             String absolutePath = getClass().getResource(logoPath).toExternalForm();
-            logoImage = new Image(absolutePath);
+            //gestire NullPointerException
+            Image logoImage = new Image(absolutePath);
             stage.getIcons().add(logoImage);
             stage.setResizable(false);
             stage.setScene(scene);
@@ -48,7 +48,7 @@ public class EssentialGUI extends Application {
     }
 
     public static void setScene(String newScene){
-        sample = newScene;
+        sceneName = newScene;
     }
 
     public void nextGuiOnClick(MouseEvent event){
@@ -58,11 +58,12 @@ public class EssentialGUI extends Application {
 
     public static void loadApp(){
         try {
-            loader = new FXMLLoader();
-            URL loc = EssentialGUI.class.getResource(sample);
-            Parent root = loader.load(loc);
+//            loader = new FXMLLoader();
+            URL loc = EssentialGUI.class.getResource(sceneName);
+            Parent root = FXMLLoader.load(loc); //checkare se loc!=null
             scene = new Scene(root);
             scene.getStylesheets().add(EssentialGUI.class.getResource("application.css").toExternalForm());
+            //gestire NullPointerException
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Cannot load scene\n", e);
         }
