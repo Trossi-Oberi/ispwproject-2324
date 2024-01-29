@@ -26,10 +26,9 @@ import logic.beans.BEvent;
 import logic.controllers.CFacade;
 
 
-public class GCAddEvent{
+public class GCAddEvent extends EssentialGUI{
 
     ObservableList<String> musicGenresList = FXCollections.observableArrayList(MusicGenres.musicgenresarr);
-    private EssentialGUI gui;
     private CFacade facade = new CFacade();
     @FXML
     private DatePicker datePicker;
@@ -59,8 +58,6 @@ public class GCAddEvent{
     }
     @FXML
     public void initialize() {
-        this.gui = new EssentialGUI();
-
         //Disabilita le date precedenti a quella odierna per il datePicker
         datePicker.setDayCellFactory(picker -> new DateCell() {
             @Override
@@ -72,33 +69,6 @@ public class GCAddEvent{
         
         musicGenreBox.setValue(MusicGenres.musicgenresarr[0]);
         musicGenreBox.setItems(musicGenresList);
-    }
-
-    @FXML
-    void goToHomeOrg(MouseEvent event) {
-        gui.changeGUI(event, "HomeOrg.fxml");
-    }
-
-    @FXML
-    void goToNotifications(MouseEvent event) {
-        gui.changeGUI(event, "Notifications.fxml");
-    }
-
-    @FXML
-    void goToSettingsOrg(MouseEvent event) {
-        gui.changeGUI(event, "SettingsOrg.fxml");
-    }
-
-    @FXML
-    void goToYourEventsOrg(MouseEvent event) {
-        gui.changeGUI(event, "YourEventsOrg.fxml");
-    }
-
-    @FXML
-    void getDate(ActionEvent event) {
-
-        LocalDate myDate = datePicker.getValue();
-        String myFormattedDate = myDate.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy"));
     }
 
     @FXML
@@ -130,7 +100,7 @@ public class GCAddEvent{
         eventBean.setEventOrganizer(LoggedUser.getUserName());
         facade.addEvent(eventBean);
         System.out.println("evento aggiunto correttamente");
-        gui.changeGUI(event, "HomeOrg.fxml");
+        changeGUI(event, "HomeOrg.fxml");
 
 
 

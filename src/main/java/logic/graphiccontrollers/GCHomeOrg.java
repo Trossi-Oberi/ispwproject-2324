@@ -6,31 +6,9 @@ import javafx.event.ActionEvent;
 
 import javafx.scene.input.MouseEvent;
 
-public class GCHomeOrg {
-    private EssentialGUI gui;
-
-    @FXML
-    public void initialize() {
-        this.gui = new EssentialGUI();
-    }
-
-    @FXML
-    void goToNotifications(MouseEvent event) {
-        gui.changeGUI(event, "Notifications.fxml");
-    }
-
-    @FXML
-    void goToSettingsOrg(MouseEvent event) {
-        gui.changeGUI(event, "SettingsOrg.fxml");
-    }
-
-    @FXML
-    void goToYourEventsOrg(MouseEvent event) {
-        gui.changeGUI(event, "YourEventsOrg.fxml");
-    }
-
+public class GCHomeOrg extends EssentialGUI {
     @FXML
     void goToAddEvent(MouseEvent event) {
-        gui.changeGUI(event, "AddEvent.fxml");
+        changeGUI(event, "AddEvent.fxml");
     }
 }

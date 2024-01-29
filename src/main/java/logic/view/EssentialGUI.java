@@ -16,18 +16,21 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import logic.utils.LoggedUser;
+import logic.controllers.CFacade;
 
 public class EssentialGUI extends Application {
 
     private static final String APP_NAME = "NightPlan";
 //    private static FXMLLoader loader = new FXMLLoader();
-    private static String sceneName;
+    protected static String sceneName;
 
-    private static Scene scene;
-    private static final Logger logger = Logger.getLogger(APP_NAME);
+    protected static Scene scene;
+    protected static final Logger logger = Logger.getLogger(APP_NAME);
+    protected CFacade cfacade;
 
     public EssentialGUI(){
-        //da inserire cose...
+        this.cfacade = new CFacade();
     }
 
     @Override
@@ -81,5 +84,45 @@ public class EssentialGUI extends Application {
         loadApp();
         launch(args);
     }
+
+    public void goToHome(MouseEvent event){
+        switch(LoggedUser.getUserType()){
+            case USER:
+                changeGUI(event, "HomeUser.fxml");
+                break;
+            case ORGANIZER:
+                changeGUI(event, "HomeOrg.fxml");
+                break;
+        }
+
+    }
+
+    public void goToNotifications(MouseEvent event){
+        changeGUI(event, "Notifications.fxml");
+    }
+
+    public void goToYourEvents(MouseEvent event){
+        switch(LoggedUser.getUserType()){
+            case USER:
+                changeGUI(event, "YourEventsUser.fxml");
+                break;
+            case ORGANIZER:
+                changeGUI(event, "YourEventsOrg.fxml");
+                break;
+        }
+    }
+
+    public void goToSettings(MouseEvent event){
+        switch(LoggedUser.getUserType()){
+            case USER:
+                changeGUI(event, "SettingsUser.fxml");
+                break;
+            case ORGANIZER:
+                changeGUI(event, "SettingsOrg.fxml");
+                break;
+        }
+    }
+
+
 
 }

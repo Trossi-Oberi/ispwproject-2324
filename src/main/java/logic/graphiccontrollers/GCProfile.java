@@ -11,7 +11,7 @@ import logic.view.EssentialGUI;
 import logic.utils.LoggedUser;
 import logic.utils.UserTypes;
 
-public class GCProfile {
+public class GCProfile extends EssentialGUI{
 
     @FXML
     private Text userName;
@@ -37,13 +37,11 @@ public class GCProfile {
     private Button goBackBtn;
 
     private AlertPopup alert;
-    private EssentialGUI gui;
     private UserTypes type;
 
     @FXML
     public void initialize() {
         this.alert = new AlertPopup();
-        this.gui = new EssentialGUI();
         switch(LoggedUser.getUserType()){
             case USER:
                 this.type = UserTypes.USER;
@@ -59,47 +57,6 @@ public class GCProfile {
         this.gender.setText(LoggedUser.getGender());
         this.city.setText(LoggedUser.getCity());
         this.userType.setText(type.toString());
-    }
-
-    @FXML
-    void goBack(MouseEvent event) {
-        switch (type){
-            case USER:
-                gui.changeGUI(event, "SettingsUser.fxml");
-                break;
-            case ORGANIZER:
-                gui.changeGUI(event, "SettingsOrg.fxml");
-                break;
-        }
-    }
-
-    @FXML
-    void goToHomeUser(MouseEvent event) {
-        switch (type){
-            case USER:
-                gui.changeGUI(event, "HomeUser.fxml");
-                break;
-            case ORGANIZER:
-                gui.changeGUI(event, "HomeOrg.fxml");
-                break;
-        }
-    }
-
-    @FXML
-    void goToNotifications(MouseEvent event) {
-        gui.changeGUI(event, "Notifications.fxml");
-    }
-
-    @FXML
-    void goToYourEventsUser(MouseEvent event) {
-        switch (type){
-            case USER:
-                gui.changeGUI(event, "YourEventsUser.fxml");
-                break;
-            case ORGANIZER:
-                gui.changeGUI(event, "YourEventsOrg.fxml");
-                break;
-        }
     }
 
 }

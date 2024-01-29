@@ -7,9 +7,7 @@ import javafx.scene.control.Button;
 import logic.utils.Alerts;
 import logic.view.AlertPopup;
 import logic.view.EssentialGUI;
-public class GCSettingsOrg {
-
-    private EssentialGUI gui;
+public class GCSettingsOrg extends EssentialGUI{
     private AlertPopup alert;
 
     @FXML
@@ -17,32 +15,17 @@ public class GCSettingsOrg {
     @FXML
     public void initialize() {
         this.alert = new AlertPopup();
-        this.gui = new EssentialGUI();
-    }
-    @FXML
-    void goToHomeOrg(MouseEvent event) {
-        gui.changeGUI(event, "HomeOrg.fxml");
-    }
-
-    @FXML
-    void goToNotifications(MouseEvent event) {
-        gui.changeGUI(event, "Notifications.fxml");
-    }
-
-    @FXML
-    void goToYourEventsOrg(MouseEvent event) {
-        gui.changeGUI(event, "YourEventsOrg.fxml");
     }
 
     @FXML
     void goToProfile(MouseEvent event) {
-        gui.changeGUI(event, "Profile.fxml");
+        changeGUI(event, "Profile.fxml");
     }
 
     @FXML
     void leaveApp(MouseEvent event) {
         //LoggedUser.setStatus("Offline");
-        gui.changeGUI(event, "Login.fxml");
+        changeGUI(event, "Login.fxml");
         this.alert.displayAlertPopup(Alerts.INFORMATION,"Logged out successfully. You have been returned to the login screen!");
     }
 

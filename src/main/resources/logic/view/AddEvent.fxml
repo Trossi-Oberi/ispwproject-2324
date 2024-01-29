@@ -22,7 +22,7 @@
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" layoutX="348.0" mnemonicParsing="false" onMouseClicked="#goToYourEventsOrg" prefHeight="88.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-border-width: 0;" text="Your events" AnchorPane.leftAnchor="348.0" AnchorPane.topAnchor="0.0">
+      <Button alignment="CENTER" layoutX="348.0" mnemonicParsing="false" onMouseClicked="#goToYourEvents" prefHeight="88.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-border-width: 0;" text="Your events" AnchorPane.leftAnchor="348.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>
@@ -32,7 +32,7 @@
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" layoutX="648.0" mnemonicParsing="false" onMouseClicked="#goToSettingsOrg" prefHeight="88.0" prefWidth="153.0" style="-fx-background-color: transparent; -fx-border-width: 0;" text="Settings" AnchorPane.leftAnchor="646.0" AnchorPane.topAnchor="0.0">
+      <Button alignment="CENTER" layoutX="648.0" mnemonicParsing="false" onMouseClicked="#goToSettings" prefHeight="88.0" prefWidth="153.0" style="-fx-background-color: transparent; -fx-border-width: 0;" text="Settings" AnchorPane.leftAnchor="646.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>
@@ -112,7 +112,7 @@
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Button>
-      <Button layoutX="217.0" layoutY="468.0" mnemonicParsing="false" onMouseClicked="#goToHomeOrg" prefHeight="88.0" prefWidth="168.0" text="Cancel" AnchorPane.leftAnchor="217.0">
+      <Button layoutX="217.0" layoutY="468.0" mnemonicParsing="false" onMouseClicked="#goToHome" prefHeight="88.0" prefWidth="168.0" text="Cancel" AnchorPane.leftAnchor="217.0">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
