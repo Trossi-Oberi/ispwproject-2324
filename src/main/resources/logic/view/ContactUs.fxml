@@ -14,12 +14,12 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.graphiccontrollers.GCContactUs">
    <children>
       <Rectangle fill="#6c89c4a1" height="88.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" />
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" mnemonicParsing="false" onMouseClicked="#goToHomeUser" prefHeight="88.0" prefWidth="130.0" style="-fx-border-width: 0; -fx-background-color: transparent;" text="Home" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="0.0">
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" mnemonicParsing="false" onMouseClicked="#goToHome" prefHeight="88.0" prefWidth="130.0" style="-fx-border-width: 0; -fx-background-color: transparent;" text="Home" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" layoutX="347.2" mnemonicParsing="false" onMouseClicked="#goToYourEventsUser" prefHeight="88.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-background-insets: 0; -fx-background-radius: 0;" text="Your events" AnchorPane.leftAnchor="346.0" AnchorPane.topAnchor="0.0">
+      <Button alignment="CENTER" layoutX="347.2" mnemonicParsing="false" onMouseClicked="#goToYourEvents" prefHeight="88.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-background-insets: 0; -fx-background-radius: 0;" text="Your events" AnchorPane.leftAnchor="346.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>
@@ -47,7 +47,7 @@
             <Font name="Baloo 2 Regular" size="30.0" />
          </font>
       </Text>
-      <Hyperlink layoutX="334.0" layoutY="190.0" text="https://github.com/snyppololo">
+      <Hyperlink fx:id="nicoHyperlink" layoutX="334.0" layoutY="190.0" onAction="#openLink" text="https://github.com/snyppololo">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>
@@ -62,7 +62,7 @@
             <Font name="Baloo 2 Regular" size="26.0" />
          </font>
       </Text>
-      <Hyperlink layoutX="334.0" layoutY="240.0" text="https://github.com/DeveloperMatt02">
+      <Hyperlink fx:id="mattHyperlink" layoutX="334.0" layoutY="240.0" onAction="#openLink" text="https://github.com/DeveloperMatt02">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>

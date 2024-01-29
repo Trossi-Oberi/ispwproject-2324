@@ -50,7 +50,7 @@
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Button>
-      <Button layoutX="433.0" layoutY="188.0" mnemonicParsing="false" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;" text="Contact us">
+      <Button layoutX="433.0" layoutY="188.0" mnemonicParsing="false" onMouseClicked="#goToContactUs" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;" text="Contact us">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>

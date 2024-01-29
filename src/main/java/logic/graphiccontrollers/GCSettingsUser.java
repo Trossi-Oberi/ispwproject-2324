@@ -23,6 +23,11 @@ public class GCSettingsUser extends EssentialGUI {
     void goToProfile(MouseEvent event) {
         changeGUI(event, "Profile.fxml");
     }
+
+    @FXML
+    void goToContactUs(MouseEvent event) {
+        changeGUI(event, "ContactUs.fxml");
+    }
     @FXML
     void leaveApp(MouseEvent event) {
         //LoggedUser.setStatus("Offline");
