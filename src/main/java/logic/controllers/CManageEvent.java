@@ -13,17 +13,19 @@ public class CManageEvent {
 
     public void addEvent(BEvent eventBean) {
         MEvent eventModel = new MEvent(eventBean);
-        /*if (eventModel.getID() != 0) {
-            updateMyAccommodation(model);
-        }
-        else {
-            try {
-                rand = SecureRandom.getInstanceStrong();
-            } catch (NoSuchAlgorithmException e) {
-                logger.log(Level.SEVERE, e.getMessage());
-            }
-            model.setID(this.rand.nextInt(100000));*/
-        eventModel.saveEvent();
-        //}
+        EventDAO dao = new EventDAO();
+        dao.createEvent(eventModel.getEventInfo());
+    }
+
+    public void retrieveEvent(){
+
+    }
+
+    public void updateEvent(BEvent eventBean){
+
+    }
+
+    public void deleteEvent(int eventID){
+
     }
 }

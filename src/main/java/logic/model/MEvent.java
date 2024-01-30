@@ -50,10 +50,7 @@ public class MEvent {
     }
 
 
-    public void saveEvent() {
-        EventDAO dao = new EventDAO();
-        dao.createEvent(this.getEventInfo());
-    }
+
 
     /*public void updateEvent() {
         AccommodationDao dao = new AccommodationDao();
