@@ -43,7 +43,7 @@
          </viewport>
       </ImageView>
       <ListView layoutX="8.0" layoutY="144.0" prefHeight="446.0" prefWidth="296.0" />
-      <Text layoutX="74.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Events in your area">
+      <Text layoutX="74.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Events in your city">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>

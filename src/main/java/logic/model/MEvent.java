@@ -1,7 +1,5 @@
 package logic.model;
 import logic.beans.BEvent;
-import logic.dao.EventDAO;
-import logic.utils.LoggedUser;
 
 import java.io.File;
 
@@ -21,7 +19,6 @@ public class MEvent {
 
 
     public MEvent(BEvent eventBean) {
-//        id = bean.getID();
         eventName = eventBean.getEventName();
         eventCity = eventBean.getEventCity();
         eventAddress = eventBean.getEventAddress();

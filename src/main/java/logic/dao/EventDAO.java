@@ -15,9 +15,7 @@ import logic.model.MEvent;
 public class EventDAO {
 
     public MEvent createEvent(BEvent eventInfo) {
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Events(id,organizer,organizer_id,name,city,address,music_genre,date,time,image) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)")){
-//            statement.setLong(1, eventInfo.getID());
-//            statement.setBinaryStream(2,eventInfo.getInputFile(), eventInfo.getFileLength());
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Events(event_id,organizer,organizer_id,name,city,address,music_genre,date,time,image) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)")){
             statement.setString(1,eventInfo.getEventOrganizer());
             statement.setInt(2, LoggedUser.getUserID()); //preso dalla sessione (classe LoggedUser)
             statement.setString(3,eventInfo.getEventName());
@@ -39,4 +37,19 @@ public class EventDAO {
         }
         return new MEvent(eventInfo);
     }
+
+   /* public ArrayList<MEvent> retrieveMyEvents(int organizer_id){
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT (event_id,organizer,name,city,address,music_genre,date,time,image) FROM Events WHERE organizer_id = ?")){
+            statement.setInt(1, organizer_id);
+            statement.execute();
+        }
+        catch (SQLException e) {
+            //Logger.getLogger("NightPlan").log(Level.SEVERE, EXCEPTION);
+            Logger.getLogger("NightPlan").log(Level.SEVERE, e.getMessage());
+        }
+        finally {
+            SingletonDBSession.getInstance().closeConn();
+        }
+        return new MEvent(eventInfo);
+    }*/
 }
