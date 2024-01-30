@@ -8,6 +8,7 @@ import logic.utils.LoggedUser;
 public class CLogin {
     private UserDAO userDao;
     private MUser userModel;
+
     public CLogin() {
         this.userDao = new UserDAO();
         this.userModel = new MUser();
@@ -17,13 +18,14 @@ public class CLogin {
         int ret;
         this.userModel.setUsrAndPswByBean(logBean); //qui ancora non avviene il controllo della correttezza dei dati,
         ret = this.userDao.checkLoginInfo(this.userModel); //qui effettivamente e' il DAO che va a controllare la correttezza delle credenziali
-        if(ret == 1) {
+        if (ret == 1) {
             createLoggedSession();
         }
         return ret;
     }
 
-    private void createLoggedSession(){
+    private void createLoggedSession() {
+        LoggedUser.setUserID(this.userModel.getUserID());
         LoggedUser.setUserName(this.userModel.getUserName());
         LoggedUser.setUserType(this.userModel.getUserType());
         LoggedUser.setFirstName(this.userModel.getFirstName());

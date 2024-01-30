@@ -4,6 +4,7 @@ create table Events
 (
     id INT AUTO_INCREMENT PRIMARY KEY,
     organizer VARCHAR(50) NOT NULL,
+#     org_id INT NOT NULL, VA MODIFICATO TUTTO DI CONSEGUENZA MA PRIMA VOGLIO SALVARE L'ID IN LOGGEDUSER
     name VARCHAR(50) NOT NULL,
     city VARCHAR(50) NOT NULL,
     address VARCHAR(50) NOT NULL,
@@ -13,12 +14,6 @@ create table Events
     image LONGBLOB
 );
 
-/*create table EventImages
-(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    image_data LONGBLOB
-);
-*/
 create table Users
 (
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -36,5 +31,3 @@ create table Users
 insert into Users (id, username, password, firstName, lastName, dateOfBirth, gender, city, userType, userStatus)values (NULL, 'Matteo', 'Matteo', 'Matteo', 'Trossi', '16/03/1998', 'Male', 'Anagni', 'User', 'Online');
 
 insert into Users (id, username, password, firstName, lastName, dateOfBirth, gender, city, userType, userStatus)values (NULL, 'Nicolas', 'Nicolas', 'Nicolas', 'Oberi', '16/03/1998', 'Male', 'Cave', 'Organizer', 'Online');
-
-# insert into EventImages (image_data) values (load_file('C:\Users\ianni\Desktop\ISPW\Progetto\repo\ispwproject-2324\src\main\resources\images\home\Capture-decran-2023-09-25-a-14.34.08.jpg'));

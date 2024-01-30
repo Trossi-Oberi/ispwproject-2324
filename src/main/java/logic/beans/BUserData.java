@@ -16,6 +16,7 @@ public class BUserData {
     public BUserData() {
 
     }
+
     public BUserData(String username) {
         this.username = username;
     }
@@ -25,7 +26,7 @@ public class BUserData {
         this.password = password;
     }
 
-    public void setFirstName(String firstName){ //throws LengthFieldException, NullValueException {
+    public void setFirstName(String firstName) { //throws LengthFieldException, NullValueException {
 //        if(name == null || name.equalsIgnoreCase("")) {
 //            throw new NullValueException("Please insert a valid name");
 //        }
@@ -35,7 +36,7 @@ public class BUserData {
         this.firstName = firstName;
     }
 
-    public void setLastName(String lastName){ //throws LengthFieldException, NullValueException{
+    public void setLastName(String lastName) { //throws LengthFieldException, NullValueException{
 //        if((surname == null || surname.equalsIgnoreCase(""))){
 //            throw new NullValueException("Please insert a valid surname");
 //        }
@@ -45,7 +46,7 @@ public class BUserData {
         this.lastName = lastName;
     }
 
-    public void setBirthDate(LocalDate birthDate){ //throws NullValueException {
+    public void setBirthDate(LocalDate birthDate) { //throws NullValueException {
 //        if(dateOfBirth == null){
 //            throw new NullValueException("Please insert a valid date of birth");
 //        }
