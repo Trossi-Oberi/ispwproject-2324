@@ -2,9 +2,9 @@ flush binary logs;
 use nightplan;
 create table Events
 (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    event_id INT AUTO_INCREMENT PRIMARY KEY,
     organizer VARCHAR(50) NOT NULL,
-#     org_id INT NOT NULL, VA MODIFICATO TUTTO DI CONSEGUENZA MA PRIMA VOGLIO SALVARE L'ID IN LOGGEDUSER
+    organizer_id INT NOT NULL,
     name VARCHAR(50) NOT NULL,
     city VARCHAR(50) NOT NULL,
     address VARCHAR(50) NOT NULL,
