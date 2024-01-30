@@ -13,8 +13,6 @@ public class BUserData {
     private String username;
     private String password;
 
-    private Logger logger = Logger.getLogger("NightPlan");
-
     public BUserData() {
 
     }
