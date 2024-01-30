@@ -48,7 +48,7 @@
       </PasswordField>
       <ChoiceBox fx:id="gender" layoutX="413.0" layoutY="331.0" prefHeight="44.0" prefWidth="214.0" />
       <DatePicker fx:id="birthDate" layoutX="413.0" layoutY="391.0" prefHeight="44.0" prefWidth="214.0" promptText="dd/mm/yy" />
-      <TextField fx:id="cityField" layoutX="413.0" layoutY="450.0" prefHeight="44.0" prefWidth="214.0" promptText="City">
+      <TextField fx:id="cityField" layoutX="413.0" layoutY="450.0" prefHeight="44.0" prefWidth="214.0" promptText="Write province">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>

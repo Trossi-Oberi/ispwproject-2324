@@ -76,7 +76,7 @@
             <Font name="Baloo 2 Regular" size="30.0" />
          </font>
       </Text>
-      <Text fx:id="userName" layoutX="265.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="374.63671875">
+      <Text fx:id="userName" layoutX="265.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="513.63671875">
          <font>
             <Font name="Baloo 2 Regular" size="30.0" />
          </font>

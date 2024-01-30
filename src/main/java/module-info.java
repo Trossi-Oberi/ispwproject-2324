@@ -15,6 +15,9 @@ module trossi.oberi {
     requires java.desktop;
     requires javafx.media;
     requires java.base;
+    requires java.net.http;
+    requires org.json;
+
 
 //    opens logic;
     opens logic.graphiccontrollers;

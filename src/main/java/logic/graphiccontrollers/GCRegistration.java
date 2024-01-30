@@ -4,11 +4,15 @@ package logic.graphiccontrollers;
         import javafx.scene.control.*;
         import javafx.scene.input.MouseEvent;
 
+        import logic.beans.BCity;
         import logic.beans.BUserData;
         import logic.controllers.CRegistration;
+        import logic.model.MCity;
         import logic.utils.Alerts;
         import logic.view.AlertPopup;
         import logic.view.EssentialGUI;
+
+        import java.util.logging.Logger;
 
 public class GCRegistration {
 
@@ -53,6 +57,12 @@ public class GCRegistration {
     private CRegistration registrationCtrl;
     private BUserData dataBean;
 
+    private BCity cityBean;
+
+    @FXML
+    private ListView<String> cityListView;
+
+    private static final Logger logger = Logger.getLogger(GCRegistration.class.getName());
 
     @FXML
     public void initialize() {
@@ -62,6 +72,9 @@ public class GCRegistration {
         this.gender.getItems().addAll("Male", "Female", "Other");
         this.group = new ToggleGroup();
         this.dataBean = new BUserData();
+
+        this.cityBean = new BCity();
+        setupCityInputListener();
 
         userRadio.setSelected(true);
         userRadio.setToggleGroup(group);
@@ -105,5 +118,23 @@ public class GCRegistration {
             this.alert.displayAlertPopup(Alerts.INFORMATION, "Cannot complete registration!");
         }
     }
+
+
+    private void setupCityInputListener(){
+        this.cityField.textProperty().addListener((observable, oldValue, newValue) -> {
+            updateCityListView(newValue);
+        });
+    }
+    private void updateCityListView(String input){
+        if (input.isEmpty()) {
+            // Se l'input è vuoto, svuota la lista
+            this.cityBean.setField("");
+        } else {
+            // Altrimenti, chiedi al modello di ottenere le città corrispondenti all'input
+            this.cityBean.setField(input);
+            this.registrationCtrl.retrieveCities(cityBean);
+        }
+    }
+
 }
 
