@@ -1,6 +1,7 @@
 package logic.model;
 import logic.beans.BEvent;
 import logic.dao.EventDAO;
+import logic.utils.LoggedUser;
 
 import java.io.File;
 
@@ -16,10 +17,11 @@ public class MEvent {
     private byte[] eventPicData;
     private String eventOrganizer;
 
+    private int organizerID;
+
 
     public MEvent(BEvent eventBean) {
 //        id = bean.getID();
-
         eventName = eventBean.getEventName();
         eventCity = eventBean.getEventCity();
         eventAddress = eventBean.getEventAddress();
@@ -50,10 +52,7 @@ public class MEvent {
     }
 
 
-    public void saveEvent() {
-        EventDAO dao = new EventDAO();
-        dao.createEvent(this.getEventInfo());
-    }
+
 
     /*public void updateEvent() {
         AccommodationDao dao = new AccommodationDao();
@@ -97,10 +96,6 @@ public class MEvent {
     public void setEventPic(){
 
     }
-
-    /*public void setHouseImageBytes(byte[] input) {
-        this.houseImage = input;
-    }*/
 
 }
 

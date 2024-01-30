@@ -52,10 +52,12 @@ public class GCLogin {
                 case USER:
                     this.alert.displayAlertPopup(Alerts.INFORMATION,"Logged in successfully as a user");
                     gui.changeGUI(event, "HomeUser.fxml");
+//                    System.out.println("user logged with id "+LoggedUser.getUserID());
                     break;
                 case ORGANIZER:
                     this.alert.displayAlertPopup(Alerts.INFORMATION,"Logged in successfully as an organizer");
                     gui.changeGUI(event, "HomeOrg.fxml");
+//                    System.out.println("user logged with id "+LoggedUser.getUserID());
                     break;
                 default:
                     this.alert.displayAlertPopup(Alerts.ERROR,"FATAL: Cannot load HomePage from Login");

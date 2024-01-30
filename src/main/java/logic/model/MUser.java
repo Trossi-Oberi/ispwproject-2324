@@ -13,6 +13,7 @@ public class MUser {
     private String username;
     private String password;
     private String userType;
+    private int userID;
 
     public void setCredentialsByBean(BUserData dataBean) {
         this.firstName = dataBean.getFirstName();
@@ -29,6 +30,7 @@ public class MUser {
         this.username = dataBean.getUsername();
         this.password = dataBean.getPassword();
     }
+
     public void setUserType(String userType) {
         this.userType = userType;
     }
@@ -36,17 +38,25 @@ public class MUser {
     public void setFirstName(String firstname) {
         this.firstName = firstname;
     }
+
     public void setLastName(String lastname) {
         this.lastName = lastname;
     }
+
     public void setBirthDate(String birthdate) {
         this.birthDate = birthdate;
     }
+
     public void setGender(String gen) {
         this.gender = gen;
     }
-    public void setCity(String city){
+
+    public void setCity(String city) {
         this.city = city;
+    }
+
+    public void setId(int id) {
+        this.userID = id;
     }
 
     public String getFirstName() {
@@ -65,7 +75,7 @@ public class MUser {
         return this.gender;
     }
 
-    public String getCity(){
+    public String getCity() {
         return this.city;
     }
 
@@ -79,5 +89,9 @@ public class MUser {
 
     public String getUserType() {
         return this.userType;
+    }
+
+    public int getUserID() {
+        return this.userID;
     }
 }

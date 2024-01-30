@@ -15,15 +15,13 @@ import java.util.logging.Logger;
 public class UserDAO {
     public int checkLoginInfo(MUser usrMod) {
         int ret = 0;
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT firstName, lastName, dateOfBirth, gender, city, userType FROM users WHERE (username=? and password=?)")){
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id, firstName, lastName, dateOfBirth, gender, city, userType FROM users WHERE (username=? and password=?)")) {
             statement.setString(1, usrMod.getUserName());
             statement.setString(2, usrMod.getPassword());
             ret = getLoggedUser(statement, usrMod);
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             Logger.getLogger("NightPlan").log(Level.SEVERE, "SQLException occurred during the fetch of credentials");
-        }
-        finally {
+        } finally {
             SingletonDBSession.getInstance().closeConn();
         }
         return ret;
@@ -33,25 +31,25 @@ public class UserDAO {
     public int getLoggedUser(PreparedStatement statement, MUser usrMod) {
         //verifica il tipo di utente che siamo
 
-        try(ResultSet rs = statement.executeQuery()){
-            while(rs.next()) {
-                usrMod.setFirstName(rs.getString(1));
-                usrMod.setLastName(rs.getString(2));
-                usrMod.setBirthDate(rs.getString(3));
-                usrMod.setGender(rs.getString(4));
-                usrMod.setCity(rs.getString(5));
-                usrMod.setUserType(rs.getString(6));
+        try (ResultSet rs = statement.executeQuery()) {
+            while (rs.next()) {
+                usrMod.setId(rs.getInt(1));
+                usrMod.setFirstName(rs.getString(2));
+                usrMod.setLastName(rs.getString(3));
+                usrMod.setBirthDate(rs.getString(4));
+                usrMod.setGender(rs.getString(5));
+                usrMod.setCity(rs.getString(6));
+                usrMod.setUserType(rs.getString(7));
                 return 1;
             }
-        }
-        catch(SQLException e) {
+        } catch (SQLException e) {
             Logger.getLogger("NightPlan").log(Level.SEVERE, "Cannot get logged user");
         }
         return 0;
     }
 
     public void registerUser(MUser usrModel) {
-        try(PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Users (id, username, password, firstName, lastName, dateOfBirth, gender, city, userType,  userStatus) VALUES(NULL,?,?,?,?,?,?,?,?,?)")){
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Users (id, username, password, firstName, lastName, dateOfBirth, gender, city, userType,  userStatus) VALUES(NULL,?,?,?,?,?,?,?,?,?)")) {
             statement.setString(1, usrModel.getUserName());
             statement.setString(2, usrModel.getPassword());
             statement.setString(3, usrModel.getFirstName());
