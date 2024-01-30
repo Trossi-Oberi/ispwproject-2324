@@ -1,5 +1,6 @@
 package logic.model;
 
+import java.lang.reflect.Array;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -12,17 +13,19 @@ import java.util.logging.Logger;
 
 import org.json.*;
 
-public class MCity {
+public class MProvince {
 
-    private String field;
+    private String selectedProvince;
+
+    private ArrayList<String> provincesList = new ArrayList<String>();
 
     private static final String API_BASE_URL = "https://axqvoqvbfjpaamphztgd.functions.supabase.co";  // Sostituisci con il tuo URL di base dell'API
 
     private HttpClient httpClient = HttpClient.newHttpClient();
     private final Logger logger = Logger.getLogger("NightPlan");
 
-    public CompletableFuture<Void> getCitiesByProvince(String provincia) {
-        String apiUrl = API_BASE_URL + "/comuni/provincia/" + provincia;
+    public CompletableFuture<Void> getProvinces() {
+        String apiUrl = API_BASE_URL + "/province";
 
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .uri(URI.create(apiUrl))
@@ -34,38 +37,37 @@ public class MCity {
                     if (response.statusCode() == 200 && !response.body().isEmpty()) {
                         // La richiesta è andata a buon fine, stampa il JSON nel logger
                         String responseBody = response.body();
-                        //logger.log(Level.INFO, "JSON Response for province {0}: {1}", new Object[]{provincia, responseBody});
+                        //logger.log(Level.INFO, "JSON Response (provinces list): {0}", new Object[]{responseBody});
 
-                        // Processa il JSON e stampa i nomi delle città
-                        //printCityNames(responseBody);
+                        // Processa il JSON e salva i nomi delle province nel Model
+                        setProvincesList(responseBody);
                     } else {
                         // Se la richiesta non ha successo, stampa un messaggio di errore
-                        logger.log(Level.WARNING, "Failed to get cities for province {0}. Status code: {1}. API Error",
-                                new Object[]{provincia, response.statusCode()});
+                        logger.log(Level.WARNING, "Failed to get provinces. Status code: {0}. API Error",
+                                new Object[]{response.statusCode()});
                     }
                 });
     }
+    public void setSelectedProvince(String province){
+        this.selectedProvince = province;
+    }
 
-    /*
-    private void printCityNames(String jsonString) {
-        JSONArray firstLevelArray = new JSONArray(jsonString); // Getting the big array
+    public String getSelectedProvince(){
+        return this.selectedProvince;
+    }
 
-        for(int i = 0 ; i < firstLevelArray.length(); i++)
+    public void setProvincesList(String jsonString){
+        JSONArray getArray = new JSONArray(jsonString); // Getting the big array
+
+        for(int i = 0 ; i < getArray.length(); i++)
         {
-            String cityName = firstLevelArray.getJSONObject(i).getString("nome");
-            //logger.log(Level.OFF, cityName);
-            System.out.println(cityName);
-            // But how sure are you that you won't have a null in there?
+            String provinceName = getArray.getJSONObject(i).getString("nome");
+            this.provincesList.add(provinceName);
         }
     }
-    */
 
-
-    public void setField(String field){
-        this.field = field;
+    public ArrayList<String> getProvincesList(){
+        return this.provincesList;
     }
 
-    public String getField(){
-        return this.field;
-    }
 }
