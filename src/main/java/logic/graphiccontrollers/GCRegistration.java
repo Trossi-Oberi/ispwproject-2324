@@ -5,19 +5,24 @@ package logic.graphiccontrollers;
         import javafx.scene.input.MouseEvent;
 
         import logic.beans.BCity;
+        import logic.beans.BProvince;
         import logic.beans.BUserData;
         import logic.controllers.CRegistration;
-        import logic.model.MCity;
         import logic.utils.Alerts;
         import logic.view.AlertPopup;
         import logic.view.EssentialGUI;
 
-        import java.util.logging.Logger;
+        import java.util.ArrayList;
+        import java.util.concurrent.CompletableFuture;
+        import java.util.concurrent.ExecutionException;
 
 public class GCRegistration {
 
     @FXML
     private DatePicker birthDate;
+
+    @FXML
+    private ChoiceBox<String> cityBox;
 
     @FXML
     private TextField emailField;
@@ -29,13 +34,16 @@ public class GCRegistration {
     private ChoiceBox<String> gender;
 
     @FXML
-    private TextField cityField;
-
-    @FXML
     private TextField lastNameField;
 
     @FXML
+    private RadioButton organizerRadio;
+
+    @FXML
     private PasswordField passwordField;
+
+    @FXML
+    private ChoiceBox<String> provinceBox;
 
     @FXML
     private Button registerButton;
@@ -47,10 +55,9 @@ public class GCRegistration {
     private RadioButton userRadio;
 
     @FXML
-    private RadioButton organizerRadio;
-
-    @FXML
     private ToggleGroup group;
+
+
 
     private AlertPopup alert;
     private EssentialGUI gui;
@@ -59,13 +66,15 @@ public class GCRegistration {
 
     private BCity cityBean;
 
-    @FXML
-    private ListView<String> cityListView;
+    private BProvince provinceBean;
 
-    private static final Logger logger = Logger.getLogger(GCRegistration.class.getName());
+    //da rimuovere
+    //private static final Logger logger = Logger.getLogger(GCRegistration.class.getName());
 
     @FXML
     public void initialize() {
+
+
         this.alert = new AlertPopup();
         this.gui = new EssentialGUI();
         this.registrationCtrl = new CRegistration();
@@ -73,13 +82,16 @@ public class GCRegistration {
         this.group = new ToggleGroup();
         this.dataBean = new BUserData();
 
+        this.provinceBean = new BProvince();
         this.cityBean = new BCity();
-        setupCityInputListener();
+
+        this.registrationCtrl.retrieveProvinces(this.provinceBean, this.provinceBox);
 
         userRadio.setSelected(true);
         userRadio.setToggleGroup(group);
         organizerRadio.setToggleGroup(group);
     }
+
     @FXML
     public void registerControl(MouseEvent event) {
         try{
@@ -89,9 +101,9 @@ public class GCRegistration {
             this.dataBean.setLastName(this.lastNameField.getText());
             this.dataBean.setGender(this.gender.getValue());
             this.dataBean.setBirthDate(this.birthDate.getValue());
-            this.dataBean.setCity(this.cityField.getText());
+            this.dataBean.setCity(this.cityBox.getValue());
             register(event);
-        } catch (Exception e){
+        } catch (Exception e){ //vanno configurate tutte le eccezioni nel dataBean (nome troppo lungo, data non valida, etc...)
             this.alert.displayAlertPopup(Alerts.ERROR, e.getMessage());
         }
     }
@@ -100,6 +112,7 @@ public class GCRegistration {
     public void returnBack(MouseEvent event){
         gui.changeGUI(event, "Login.fxml");
     }
+
 
     private void register(MouseEvent event){
         try {
@@ -120,8 +133,9 @@ public class GCRegistration {
     }
 
 
+    /*
     private void setupCityInputListener(){
-        this.cityField.textProperty().addListener((observable, oldValue, newValue) -> {
+        this.provinceBox.textProperty().addListener((observable, oldValue, newValue) -> {
             updateCityListView(newValue);
         });
     }
@@ -135,6 +149,7 @@ public class GCRegistration {
             this.registrationCtrl.retrieveCities(cityBean);
         }
     }
+    */
 
 }
 
