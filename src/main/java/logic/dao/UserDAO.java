@@ -48,6 +48,19 @@ public class UserDAO {
         return 0;
     }
 
+    public String getUserCityByID(int id) {
+        String userCity;
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT city FROM users WHERE id=?")) {
+            statement.setInt(1,id);
+            try(ResultSet rs = statement.executeQuery()){
+                userCity = rs.getString(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return userCity;
+    }
+
     public void registerUser(MUser usrModel) {
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Users (id, username, password, firstName, lastName, dateOfBirth, gender, city, userType,  userStatus) VALUES(NULL,?,?,?,?,?,?,?,?,?)")) {
             statement.setString(1, usrModel.getUserName());

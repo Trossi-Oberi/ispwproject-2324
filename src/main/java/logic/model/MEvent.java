@@ -15,6 +15,8 @@ public class MEvent {
     private byte[] eventPicData;
     private String eventOrganizer;
 
+    private int eventID;
+
     private int organizerID;
 
 
@@ -56,9 +58,9 @@ public class MEvent {
         dao.update(this.getInfo());
     }*/
 
-    /*public void setID(long id) {
-        this.id = id;
-    }*/
+    public void setEventID(int id) {
+        this.eventID = id;
+    }
 
     /*public long getID() {
         return this.id;
@@ -90,8 +92,16 @@ public class MEvent {
         this.eventTime = eventTime;
     }
 
-    public void setEventPic(){
+    public void setEventPicDataFromDB(byte[] picData){
+        this.eventPicData = picData;
+    }
 
+    public void setEventOrganizer(String eventOrg){
+        this.eventOrganizer = eventOrg;
+    }
+
+    public void setEventOrganizerID(int id){
+        this.organizerID = id;
     }
 
 }

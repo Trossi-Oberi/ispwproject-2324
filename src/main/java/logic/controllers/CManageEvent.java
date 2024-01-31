@@ -3,6 +3,7 @@ import logic.beans.BEvent;
 import logic.dao.EventDAO;
 import logic.model.MEvent;
 import logic.utils.LoggedUser;
+import logic.utils.UserTypes;
 
 import java.util.ArrayList;
 
@@ -27,13 +28,19 @@ public class CManageEvent {
     3: user si trova su schermata YourEventsUser e gli vengono mostrati gli eventi passati e futuri a cui ha messo la partecipazione - query con relazione user_id e event_id
     */
 
-    /*public ArrayList<MEvent> retrieveMyEvents(){
+    public ArrayList<MEvent> retrieveMyEvents(UserTypes usertype, String fxmlpage){
         ArrayList<MEvent> myEvents = new ArrayList<>();
-
-        myEvents = eventDAO.retrieveMyEvents(LoggedUser.getUserID());
+        if(usertype == UserTypes.ORGANIZER && fxmlpage.equals("YourEventsOrg.fxml")){
+            myEvents = eventDAO.retrieveMyEvents(LoggedUser.getUserID(), 0);
+        }else if(usertype == UserTypes.USER && fxmlpage.equals("HomeUser.fxml") ){
+            myEvents = eventDAO.retrieveMyEvents(LoggedUser.getUserID(), 1);
+        }else{
+            //codice se sei USER e ti trovi su YourEventsUser
+            myEvents = eventDAO.retrieveMyEvents(LoggedUser.getUserID(), 2);
+        }
 
         return myEvents;
-    }*/
+    }
 
     public void updateEvent(BEvent eventBean){
 
