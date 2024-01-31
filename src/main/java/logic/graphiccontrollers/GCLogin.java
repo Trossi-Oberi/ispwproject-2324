@@ -35,6 +35,7 @@ public class GCLogin {
 
     @FXML
     public void initialize() {
+
         this.alert = new AlertPopup();
         this.gui = new EssentialGUI();
         this.loginController = new CLogin();

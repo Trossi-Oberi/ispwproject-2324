@@ -10,6 +10,7 @@ import logic.model.MProvince;
 import logic.model.MUser;
 
 import java.time.LocalDate;
+import java.util.concurrent.Semaphore;
 
 public class CRegistration {
 
@@ -25,6 +26,10 @@ public class CRegistration {
         this.userModel = new MUser();
         this.cityModel = new MCity();
         this.provinceModel = new MProvince();
+    }
+
+    public CRegistration(Semaphore lock){
+
     }
 
     public boolean registerUserControl(BUserData usrBean) {
@@ -44,6 +49,7 @@ public class CRegistration {
         return true;
     }
 
+    /*//v1
     public void retrieveProvinces(BProvince provinceBean, ChoiceBox<String> provinceBox){
             this.provinceModel.getProvinces().thenAccept(provinces -> {
                 provinceBean.setProvincesList(this.provinceModel.getProvincesList());
@@ -52,6 +58,19 @@ public class CRegistration {
                 }
                 provinceBox.getItems().addAll(provinceBean.getProvincesList());
             });
+    }*/
+
+    //v2
+    public BProvince retrieveProvinces(BProvince provinceBean){
+
+        this.provinceModel.getProvinces().thenAccept(provinces -> {
+            provinceBean.setProvincesList(this.provinceModel.getProvincesList());
+            /*for (int i = 0; i < provinceBean.getProvincesList().size(); i++) {
+                System.out.println(provinceBean.getProvincesList().get(i));
+            }*/
+
+        });
+        return provinceBean;
     }
 
     private int checkBirthDate(LocalDate birthDate) {

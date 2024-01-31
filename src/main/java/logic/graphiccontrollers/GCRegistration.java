@@ -1,20 +1,28 @@
 package logic.graphiccontrollers;
 
-        import javafx.fxml.FXML;
-        import javafx.scene.control.*;
-        import javafx.scene.input.MouseEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 
-        import logic.beans.BCity;
-        import logic.beans.BProvince;
-        import logic.beans.BUserData;
-        import logic.controllers.CRegistration;
-        import logic.utils.Alerts;
-        import logic.view.AlertPopup;
-        import logic.view.EssentialGUI;
+import javafx.util.Duration;
+import logic.beans.BCity;
+import logic.beans.BProvince;
+import logic.beans.BUserData;
+import logic.controllers.CRegistration;
+import logic.utils.Alerts;
+import logic.utils.MusicGenres;
+import logic.view.AlertPopup;
+import logic.view.EssentialGUI;
 
-        import java.util.ArrayList;
-        import java.util.concurrent.CompletableFuture;
-        import java.util.concurrent.ExecutionException;
+import javafx.animation.PauseTransition;
+
+import java.util.ArrayList;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+import javafx.application.Platform;
 
 public class GCRegistration {
 
@@ -58,7 +66,6 @@ public class GCRegistration {
     private ToggleGroup group;
 
 
-
     private AlertPopup alert;
     private EssentialGUI gui;
     private CRegistration registrationCtrl;
@@ -74,18 +81,47 @@ public class GCRegistration {
     @FXML
     public void initialize() {
 
-
         this.alert = new AlertPopup();
         this.gui = new EssentialGUI();
         this.registrationCtrl = new CRegistration();
         this.gender.getItems().addAll("Male", "Female", "Other");
         this.group = new ToggleGroup();
         this.dataBean = new BUserData();
-
         this.provinceBean = new BProvince();
         this.cityBean = new BCity();
 
-        this.registrationCtrl.retrieveProvinces(this.provinceBean, this.provinceBox);
+        PauseTransition pauseTransition = new PauseTransition(Duration.seconds(1.1));
+        pauseTransition.setOnFinished(event -> {
+            // Azione da eseguire dopo la pausa
+            ObservableList<String> provincesList = FXCollections.observableArrayList(provinceBean.getProvincesList());
+            provinceBox.setItems(provincesList);
+        });
+        provinceBean = registrationCtrl.retrieveProvinces(provinceBean);
+        pauseTransition.play(); // Avvio della transizione di pausa
+
+
+
+
+
+        /*CompletableFuture<BProvince> future = CompletableFuture.supplyAsync(() -> {
+            // Simula una chiamata API asincrona
+            provinceBean = registrationCtrl.retrieveProvinces(provinceBean);
+            try {
+                Thread.sleep(1000); // Simula un'attesa di 2 secondi
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            return provinceBean;
+        });
+
+        future.thenAccept(result -> {
+            // Aggiorna l'interfaccia utente con il risultato
+            Platform.runLater(() -> {
+                ObservableList<String> provincesList = FXCollections.observableArrayList(provinceBean.getProvincesList());
+                provinceBox.setItems(provincesList);
+                //provinceBox.setValue(provincesList.get(0));
+            });
+        });*/
 
         userRadio.setSelected(true);
         userRadio.setToggleGroup(group);
@@ -94,7 +130,7 @@ public class GCRegistration {
 
     @FXML
     public void registerControl(MouseEvent event) {
-        try{
+        try {
             this.dataBean.setUsername(this.emailField.getText());
             this.dataBean.setPassword(this.passwordField.getText());
             this.dataBean.setFirstName(this.firstNameField.getText());
@@ -103,34 +139,36 @@ public class GCRegistration {
             this.dataBean.setBirthDate(this.birthDate.getValue());
             this.dataBean.setCity(this.cityBox.getValue());
             register(event);
-        } catch (Exception e){ //vanno configurate tutte le eccezioni nel dataBean (nome troppo lungo, data non valida, etc...)
+        } catch (
+                Exception e) { //vanno configurate tutte le eccezioni nel dataBean (nome troppo lungo, data non valida, etc...)
             this.alert.displayAlertPopup(Alerts.ERROR, e.getMessage());
         }
     }
 
     @FXML
-    public void returnBack(MouseEvent event){
+    public void returnBack(MouseEvent event) {
         gui.changeGUI(event, "Login.fxml");
     }
 
 
-    private void register(MouseEvent event){
+    private void register(MouseEvent event) {
         try {
-            if(userRadio.isSelected()){
+            if (userRadio.isSelected()) {
                 this.dataBean.setType(this.userRadio.getText());
             } else {
                 this.dataBean.setType(this.organizerRadio.getText());
             }
-            if(this.registrationCtrl.registerUserControl(this.dataBean)){
+            if (this.registrationCtrl.registerUserControl(this.dataBean)) {
                 this.alert.displayAlertPopup(Alerts.INFORMATION, "Successfully registered to NightPlan");
                 this.gui.changeGUI(event, "Login.fxml");
             } else {
                 this.alert.displayAlertPopup(Alerts.WARNING, "Registration procedure failed. Please retry...");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             this.alert.displayAlertPopup(Alerts.INFORMATION, "Cannot complete registration!");
         }
     }
+
 
 
     /*
@@ -150,6 +188,4 @@ public class GCRegistration {
         }
     }
     */
-
 }
-
