@@ -1,35 +1,19 @@
 package logic.controllers;
 
-import javafx.scene.control.ChoiceBox;
-import logic.beans.BCity;
-import logic.beans.BProvince;
 import logic.beans.BUserData;
 import logic.dao.UserDAO;
-import logic.model.MCity;
-import logic.model.MProvince;
 import logic.model.MUser;
 
 import java.time.LocalDate;
-import java.util.concurrent.Semaphore;
+
 
 public class CRegistration {
-
     private UserDAO userDao;
     private MUser userModel;
-
-    private MCity cityModel;
-
-    private MProvince provinceModel;
 
     public CRegistration(){
         this.userDao = new UserDAO();
         this.userModel = new MUser();
-        this.cityModel = new MCity();
-        this.provinceModel = new MProvince();
-    }
-
-    public CRegistration(Semaphore lock){
-
     }
 
     public boolean registerUserControl(BUserData usrBean) {
@@ -43,36 +27,6 @@ public class CRegistration {
         return true;
     }
 
-    public boolean retrieveCities(BCity cityBean){
-        this.cityModel.setField(cityBean.getField());
-        this.cityModel.getCitiesByProvince(this.cityModel.getField());
-        return true;
-    }
-
-    /*//v1
-    public void retrieveProvinces(BProvince provinceBean, ChoiceBox<String> provinceBox){
-            this.provinceModel.getProvinces().thenAccept(provinces -> {
-                provinceBean.setProvincesList(this.provinceModel.getProvincesList());
-                for (int i = 0; i < provinceBean.getProvincesList().size(); i++) {
-                    System.out.println(provinceBean.getProvincesList().get(i));
-                }
-                provinceBox.getItems().addAll(provinceBean.getProvincesList());
-            });
-    }*/
-
-    //v2
-    public BProvince retrieveProvinces(BProvince provinceBean){
-
-        this.provinceModel.getProvinces().thenAccept(provinces -> {
-            provinceBean.setProvincesList(this.provinceModel.getProvincesList());
-            /*for (int i = 0; i < provinceBean.getProvincesList().size(); i++) {
-                System.out.println(provinceBean.getProvincesList().get(i));
-            }*/
-
-        });
-        return provinceBean;
-    }
-
     private int checkBirthDate(LocalDate birthDate) {
         LocalDate today = LocalDate.now();
         // the user is for sure adult
@@ -81,6 +35,5 @@ public class CRegistration {
         }
         return -1;
     }
-
 
 }
