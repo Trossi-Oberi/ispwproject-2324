@@ -9,9 +9,10 @@ import javafx.scene.input.MouseEvent;
 import logic.beans.BUserData;
 import logic.controllers.CRegistration;
 import logic.utils.Alerts;
-import logic.utils.MusicGenres;
 import logic.view.AlertPopup;
 import logic.view.EssentialGUI;
+
+import java.util.ArrayList;
 
 public class GCRegistration {
 
@@ -54,6 +55,8 @@ public class GCRegistration {
     @FXML
     private ToggleGroup group;
 
+    private ArrayList<String> provincesList = new ArrayList<>();
+    private ArrayList<String> citiesList = new ArrayList<>();
 
     private AlertPopup alert;
     private EssentialGUI gui;
@@ -72,29 +75,10 @@ public class GCRegistration {
         this.group = new ToggleGroup();
         this.dataBean = new BUserData();
 
-
-
-
-
-        /*CompletableFuture<BProvince> future = CompletableFuture.supplyAsync(() -> {
-            // Simula una chiamata API asincrona
-            provinceBean = registrationCtrl.retrieveProvinces(provinceBean);
-            try {
-                Thread.sleep(1000); // Simula un'attesa di 2 secondi
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            return provinceBean;
-        });
-
-        future.thenAccept(result -> {
-            // Aggiorna l'interfaccia utente con il risultato
-            Platform.runLater(() -> {
-                ObservableList<String> provincesList = FXCollections.observableArrayList(provinceBean.getProvincesList());
-                provinceBox.setItems(provincesList);
-                //provinceBox.setValue(provincesList.get(0));
-            });
-        });*/
+        this.registrationCtrl.fetchProvincesList(this.provincesList);
+        ObservableList<String> provincesList = FXCollections.observableArrayList(this.provincesList);
+        this.provinceBox.setItems(provincesList);
+        setupProvinceBoxListener();
 
         userRadio.setSelected(true);
         userRadio.setToggleGroup(group);
@@ -123,6 +107,11 @@ public class GCRegistration {
         gui.changeGUI(event, "Login.fxml");
     }
 
+    @FXML
+    void loadProvinceBox(MouseEvent event) {
+
+
+    }
 
     private void register(MouseEvent event) {
         try {
@@ -142,23 +131,16 @@ public class GCRegistration {
         }
     }
 
-
-
-    /*
-    private void setupCityInputListener(){
-        this.provinceBox.textProperty().addListener((observable, oldValue, newValue) -> {
-            updateCityListView(newValue);
+    private void setupProvinceBoxListener(){
+        this.provinceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            this.citiesList.clear();
+            this.registrationCtrl.fetchCitiesList(this.citiesList, String.valueOf(newValue));
+            updateCityListView();
         });
     }
-    private void updateCityListView(String input){
-        if (input.isEmpty()) {
-            // Se l'input è vuoto, svuota la lista
-            this.cityBean.setField("");
-        } else {
-            // Altrimenti, chiedi al modello di ottenere le città corrispondenti all'input
-            this.cityBean.setField(input);
-            this.registrationCtrl.retrieveCities(cityBean);
-        }
+    private void updateCityListView(){
+        ObservableList<String> citiesList = FXCollections.observableArrayList(this.citiesList);
+        this.cityBox.setItems(citiesList);
     }
-    */
+
 }

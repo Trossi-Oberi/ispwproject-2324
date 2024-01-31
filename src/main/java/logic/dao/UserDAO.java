@@ -3,14 +3,13 @@ package logic.dao;
 import logic.utils.SingletonDBSession;
 import logic.model.MUser;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import java.util.ArrayList;
 
 public class UserDAO {
     public int checkLoginInfo(MUser usrMod) {
@@ -79,5 +78,4 @@ public class UserDAO {
             SingletonDBSession.getInstance().closeConn();
         }
     }
-
 }

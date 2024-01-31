@@ -73,7 +73,7 @@
          </font>
       </Text>
       <ChoiceBox fx:id="cityBox" layoutX="414.0" layoutY="438.0" prefHeight="34.0" prefWidth="214.0" />
-      <ChoiceBox fx:id="provinceBox" layoutX="414.0" layoutY="396.0" prefHeight="34.0" prefWidth="214.0" />
+      <ChoiceBox fx:id="provinceBox" layoutX="414.0" layoutY="396.0" onMouseClicked="#loadProvinceBox" prefHeight="34.0" prefWidth="214.0" />
       <Text layoutX="184.0" layoutY="417.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Province">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />

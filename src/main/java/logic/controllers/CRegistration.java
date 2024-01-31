@@ -3,17 +3,22 @@ package logic.controllers;
 import logic.beans.BUserData;
 import logic.dao.UserDAO;
 import logic.model.MUser;
+import logic.dao.LocationDAO;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 
 public class CRegistration {
+    private LocationDAO locationDao;
     private UserDAO userDao;
     private MUser userModel;
 
     public CRegistration(){
         this.userDao = new UserDAO();
         this.userModel = new MUser();
+
+        this.locationDao = new LocationDAO();
     }
 
     public boolean registerUserControl(BUserData usrBean) {
@@ -25,6 +30,24 @@ public class CRegistration {
             this.userDao.registerUser(this.userModel);
         }
         return true;
+    }
+
+    public boolean fetchProvincesList(ArrayList<String> provincesList){
+        if(this.locationDao.getProvincesList(provincesList)){
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public boolean fetchCitiesList(ArrayList<String> citiesList, String selectedProvince){
+        if(this.locationDao.getCitiesList(citiesList, selectedProvince)){
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     private int checkBirthDate(LocalDate birthDate) {
