@@ -2,8054 +2,8060 @@ flush binary logs;
 use nightplan;
 create table Events
 (
-    event_id INT AUTO_INCREMENT PRIMARY KEY,
-    organizer VARCHAR(50) NOT NULL,
-    organizer_id INT NOT NULL,
-    name VARCHAR(50) NOT NULL,
-    city VARCHAR(50) NOT NULL,
-    address VARCHAR(50) NOT NULL,
-    music_genre VARCHAR(25) NOT NULL,
-    date VARCHAR(15) NOT NULL,
-    time VARCHAR(15) NOT NULL,
-    image LONGBLOB
+    event_id     INT AUTO_INCREMENT PRIMARY KEY,
+    organizer    VARCHAR(50) NOT NULL,
+    organizer_id INT         NOT NULL,
+    name         VARCHAR(50) NOT NULL,
+    city         VARCHAR(50) NOT NULL,
+    address      VARCHAR(50) NOT NULL,
+    music_genre  VARCHAR(25) NOT NULL,
+    date         VARCHAR(15) NOT NULL,
+    time         VARCHAR(15) NOT NULL,
+    image        LONGBLOB
 );
 
 create table Users
 (
-    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    username VARCHAR(50) NOT NULL unique,
-    password VARCHAR(50) NOT NULL,
-    firstName VARCHAR(50) NOT NULL,
-    lastName VARCHAR(50) NOT NULL,
-    dateOfBirth VARCHAR(20) NOT NULL,
-    gender VARCHAR(10) NOT NULL,
-    city VARCHAR(30) NOT NULL,
-    userType VARCHAR(20),
-    userStatus VARCHAR(15)
+    id          INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    username    VARCHAR(50)                    NOT NULL unique,
+    password    VARCHAR(50)                    NOT NULL,
+    firstName   VARCHAR(50)                    NOT NULL,
+    lastName    VARCHAR(50)                    NOT NULL,
+    dateOfBirth VARCHAR(20)                    NOT NULL,
+    gender      VARCHAR(10)                    NOT NULL,
+    city        VARCHAR(30)                    NOT NULL,
+    userType    VARCHAR(20),
+    userStatus  VARCHAR(15)
 );
 
 create table Provinces
 (
-    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    name VARCHAR(50) NOT NULL unique
+    id   INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    name VARCHAR(50)                    NOT NULL unique
 );
 
 create table Cities
 (
-    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    name VARCHAR(50) NOT NULL,
-    province VARCHAR(50) NOT NULL
+    id       INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    name     VARCHAR(50)                    NOT NULL,
+    province VARCHAR(50)                    NOT NULL
 );
 
-insert into Users (id, username, password, firstName, lastName, dateOfBirth, gender, city, userType, userStatus)values (NULL, 'Matteo', 'Matteo', 'Matteo', 'Trossi', '16/03/1998', 'Male', 'Anagni', 'User', 'Online');
+insert into Users (id, username, password, firstName, lastName, dateOfBirth, gender, city, userType, userStatus)
+values (NULL, 'Matteo', 'Matteo', 'Matteo', 'Trossi', '16/03/1998', 'Male', 'Anagni', 'User', 'Online');
 
-insert into Users (id, username, password, firstName, lastName, dateOfBirth, gender, city, userType, userStatus)values (NULL, 'Nicolas', 'Nicolas', 'Nicolas', 'Oberi', '16/03/1998', 'Male', 'Cave', 'Organizer', 'Online');
+insert into Users (id, username, password, firstName, lastName, dateOfBirth, gender, city, userType, userStatus)
+values (NULL, 'Nicolas', 'Nicolas', 'Nicolas', 'Oberi', '16/03/1998', 'Male', 'Cave', 'Organizer', 'Online');
 
-insert into Provinces (id, name) values (NULL, 'Alessandria');
-insert into Provinces (id, name) values (NULL, 'Ancona');
-insert into Provinces (id, name) values (NULL, 'Arezzo');
-insert into Provinces (id, name) values (NULL, 'Ascoli Piceno');
-insert into Provinces (id, name) values (NULL, 'Asti');
-insert into Provinces (id, name) values (NULL, 'Avellino');
-insert into Provinces (id, name) values (NULL, 'Bari');
-insert into Provinces (id, name) values (NULL, 'Barletta-Andria-Trani');
-insert into Provinces (id, name) values (NULL, 'Belluno');
-insert into Provinces (id, name) values (NULL, 'Benevento');
-insert into Provinces (id, name) values (NULL, 'Bergamo');
-insert into Provinces (id, name) values (NULL, 'Biella');
-insert into Provinces (id, name) values (NULL, 'Bologna');
-insert into Provinces (id, name) values (NULL, 'Bolzano');
-insert into Provinces (id, name) values (NULL, 'Brescia');
-insert into Provinces (id, name) values (NULL, 'Brindisi');
-insert into Provinces (id, name) values (NULL, 'Cagliari');
-insert into Provinces (id, name) values (NULL, 'Caltanissetta');
-insert into Provinces (id, name) values (NULL, 'Campobasso');
-insert into Provinces (id, name) values (NULL, 'Caserta');
-insert into Provinces (id, name) values (NULL, 'Catania');
-insert into Provinces (id, name) values (NULL, 'Catanzaro');
-insert into Provinces (id, name) values (NULL, 'Chieti');
-insert into Provinces (id, name) values (NULL, 'Como');
-insert into Provinces (id, name) values (NULL, 'Cosenza');
-insert into Provinces (id, name) values (NULL, 'Cremona');
-insert into Provinces (id, name) values (NULL, 'Crotone');
-insert into Provinces (id, name) values (NULL, 'Cuneo');
-insert into Provinces (id, name) values (NULL, 'Enna');
-insert into Provinces (id, name) values (NULL, 'Fermo');
-insert into Provinces (id, name) values (NULL, 'Ferrara');
-insert into Provinces (id, name) values (NULL, 'Firenze');
-insert into Provinces (id, name) values (NULL, 'Foggia');
-insert into Provinces (id, name) values (NULL, 'Forlì-Cesena');
-insert into Provinces (id, name) values (NULL, 'Frosinone');
-insert into Provinces (id, name) values (NULL, 'Genova');
-insert into Provinces (id, name) values (NULL, 'Gorizia');
-insert into Provinces (id, name) values (NULL, 'Grosseto');
-insert into Provinces (id, name) values (NULL, 'Imperia');
-insert into Provinces (id, name) values (NULL, 'Isernia');
-insert into Provinces (id, name) values (NULL, 'L''Aquila');
-insert into Provinces (id, name) values (NULL, 'La Spezia');
-insert into Provinces (id, name) values (NULL, 'Latina');
-insert into Provinces (id, name) values (NULL, 'Lecce');
-insert into Provinces (id, name) values (NULL, 'Lecco');
-insert into Provinces (id, name) values (NULL, 'Livorno');
-insert into Provinces (id, name) values (NULL, 'Lodi');
-insert into Provinces (id, name) values (NULL, 'Lucca');
-insert into Provinces (id, name) values (NULL, 'Macerata');
-insert into Provinces (id, name) values (NULL, 'Mantova');
-insert into Provinces (id, name) values (NULL, 'Massa-Carrara');
-insert into Provinces (id, name) values (NULL, 'Matera');
-insert into Provinces (id, name) values (NULL, 'Messina');
-insert into Provinces (id, name) values (NULL, 'Milano');
-insert into Provinces (id, name) values (NULL, 'Modena');
-insert into Provinces (id, name) values (NULL, 'Monza e della Brianza');
-insert into Provinces (id, name) values (NULL, 'Napoli');
-insert into Provinces (id, name) values (NULL, 'Novara');
-insert into Provinces (id, name) values (NULL, 'Nuoro');
-insert into Provinces (id, name) values (NULL, 'Oristano');
-insert into Provinces (id, name) values (NULL, 'Padova');
-insert into Provinces (id, name) values (NULL, 'Palermo');
-insert into Provinces (id, name) values (NULL, 'Parma');
-insert into Provinces (id, name) values (NULL, 'Pavia');
-insert into Provinces (id, name) values (NULL, 'Perugia');
-insert into Provinces (id, name) values (NULL, 'Pesaro e Urbino');
-insert into Provinces (id, name) values (NULL, 'Pescara');
-insert into Provinces (id, name) values (NULL, 'Piacenza');
-insert into Provinces (id, name) values (NULL, 'Pisa');
-insert into Provinces (id, name) values (NULL, 'Pistoia');
-insert into Provinces (id, name) values (NULL, 'Pordenone');
-insert into Provinces (id, name) values (NULL, 'Potenza');
-insert into Provinces (id, name) values (NULL, 'Prato');
-insert into Provinces (id, name) values (NULL, 'Ragusa');
-insert into Provinces (id, name) values (NULL, 'Ravenna');
-insert into Provinces (id, name) values (NULL, 'Reggio Calabria');
-insert into Provinces (id, name) values (NULL, 'Reggio nell''Emilia');
-insert into Provinces (id, name) values (NULL, 'Rieti');
-insert into Provinces (id, name) values (NULL, 'Rimini');
-insert into Provinces (id, name) values (NULL, 'Roma');
-insert into Provinces (id, name) values (NULL, 'Rovigo');
-insert into Provinces (id, name) values (NULL, 'Salerno');
-insert into Provinces (id, name) values (NULL, 'Sassari');
-insert into Provinces (id, name) values (NULL, 'Savona');
-insert into Provinces (id, name) values (NULL, 'Siena');
-insert into Provinces (id, name) values (NULL, 'Siracusa');
-insert into Provinces (id, name) values (NULL, 'Sondrio');
-insert into Provinces (id, name) values (NULL, 'Sud Sardegna');
-insert into Provinces (id, name) values (NULL, 'Taranto');
-insert into Provinces (id, name) values (NULL, 'Teramo');
-insert into Provinces (id, name) values (NULL, 'Terni');
-insert into Provinces (id, name) values (NULL, 'Torino');
-insert into Provinces (id, name) values (NULL, 'Trapani');
-insert into Provinces (id, name) values (NULL, 'Trento');
-insert into Provinces (id, name) values (NULL, 'Treviso');
-insert into Provinces (id, name) values (NULL, 'Trieste');
-insert into Provinces (id, name) values (NULL, 'Udine');
-insert into Provinces (id, name) values (NULL, 'Valle d''Aosta');
-insert into Provinces (id, name) values (NULL, 'Varese');
-insert into Provinces (id, name) values (NULL, 'Venezia');
-insert into Provinces (id, name) values (NULL, 'Verbano-Cusio-Ossola');
-insert into Provinces (id, name) values (NULL, 'Vercelli');
-insert into Provinces (id, name) values (NULL, 'Verona');
-insert into Provinces (id, name) values (NULL, 'Vibo Valentia');
-insert into Provinces (id, name) values (NULL, 'Vicenza');
-insert into Provinces (id, name) values (NULL, 'Viterbo');
+insert into Provinces (id, name)
+values
+    (NULL, 'Agrigento'),
+    (NULL, 'Alessandria'),
+    (NULL, 'Ancona'),
+    (NULL, 'Arezzo'),
+    (NULL, 'Ascoli Piceno'),
+    (NULL, 'Asti'),
+    (NULL, 'Avellino'),
+    (NULL, 'Bari'),
+    (NULL, 'Barletta-Andria-Trani'),
+    (NULL, 'Belluno'),
+    (NULL, 'Benevento'),
+    (NULL, 'Bergamo'),
+    (NULL, 'Biella'),
+    (NULL, 'Bologna'),
+    (NULL, 'Bolzano'),
+    (NULL, 'Brescia'),
+    (NULL, 'Brindisi'),
+    (NULL, 'Cagliari'),
+    (NULL, 'Caltanissetta'),
+    (NULL, 'Campobasso'),
+    (NULL, 'Caserta'),
+    (NULL, 'Catania'),
+    (NULL, 'Catanzaro'),
+    (NULL, 'Chieti'),
+    (NULL, 'Como'),
+    (NULL, 'Cosenza'),
+    (NULL, 'Cremona'),
+    (NULL, 'Crotone'),
+    (NULL, 'Cuneo'),
+    (NULL, 'Enna'),
+    (NULL, 'Fermo'),
+    (NULL, 'Ferrara'),
+    (NULL, 'Firenze'),
+    (NULL, 'Foggia'),
+    (NULL, 'Forlì-Cesena'),
+    (NULL, 'Frosinone'),
+    (NULL, 'Genova'),
+    (NULL, 'Gorizia'),
+    (NULL, 'Grosseto'),
+    (NULL, 'Imperia'),
+    (NULL, 'Isernia'),
+    (NULL, 'L''Aquila'),
+    (NULL, 'La Spezia'),
+    (NULL, 'Latina'),
+    (NULL, 'Lecce'),
+    (NULL, 'Lecco'),
+    (NULL, 'Livorno'),
+    (NULL, 'Lodi'),
+    (NULL, 'Lucca'),
+    (NULL, 'Macerata'),
+    (NULL, 'Mantova'),
+    (NULL, 'Massa-Carrara'),
+    (NULL, 'Matera'),
+    (NULL, 'Messina'),
+    (NULL, 'Milano'),
+    (NULL, 'Modena'),
+    (NULL, 'Monza e della Brianza'),
+    (NULL, 'Napoli'),
+    (NULL, 'Novara'),
+    (NULL, 'Nuoro'),
+    (NULL, 'Oristano'),
+    (NULL, 'Padova'),
+    (NULL, 'Palermo'),
+    (NULL, 'Parma'),
+    (NULL, 'Pavia'),
+    (NULL, 'Perugia'),
+    (NULL, 'Pesaro e Urbino'),
+    (NULL, 'Pescara'),
+    (NULL, 'Piacenza'),
+    (NULL, 'Pisa'),
+    (NULL, 'Pistoia'),
+    (NULL, 'Pordenone'),
+    (NULL, 'Potenza'),
+    (NULL, 'Prato'),
+    (NULL, 'Ragusa'),
+    (NULL, 'Ravenna'),
+    (NULL, 'Reggio Calabria'),
+    (NULL, 'Reggio nell''Emilia'),
+    (NULL, 'Rieti'),
+    (NULL, 'Rimini'),
+    (NULL, 'Roma'),
+    (NULL, 'Rovigo'),
+    (NULL, 'Salerno'),
+    (NULL, 'Sassari'),
+    (NULL, 'Savona'),
+    (NULL, 'Siena'),
+    (NULL, 'Siracusa'),
+    (NULL, 'Sondrio'),
+    (NULL, 'Sud Sardegna'),
+    (NULL, 'Taranto'),
+    (NULL, 'Teramo'),
+    (NULL, 'Terni'),
+    (NULL, 'Torino'),
+    (NULL, 'Trapani'),
+    (NULL, 'Trento'),
+    (NULL, 'Treviso'),
+    (NULL, 'Trieste'),
+    (NULL, 'Udine'),
+    (NULL, 'Valle d''Aosta'),
+    (NULL, 'Varese'),
+    (NULL, 'Venezia'),
+    (NULL, 'Verbano-Cusio-Ossola'),
+    (NULL, 'Vercelli'),
+    (NULL, 'Verona'),
+    (NULL, 'Vibo Valentia'),
+    (NULL, 'Vicenza'),
+    (NULL, 'Viterbo');
 
-insert into Cities (id, name, province) values (NULL, 'Abano Terme', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Abbadia Cerreto', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Abbadia Lariana', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Abbadia San Salvatore', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Abbasanta', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Abbateggio', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Abbiategrasso', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Abetone Cutigliano', 'Pistoia');
-insert into Cities (id, name, province) values (NULL, 'Abriola', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Acate', 'Ragusa');
-insert into Cities (id, name, province) values (NULL, 'Accadia', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Acceglio', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Accettura', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Acciano', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Accumoli', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Acerenza', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Acerno', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Acerra', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Aci Bonaccorsi', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Aci Castello', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Aci Catena', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Aci Sant''Antonio', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Acireale', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Acquafondata', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Acquaformosa', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Acquafredda', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Acqualagna', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Acquanegra Cremonese', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Acquanegra sul Chiese', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Acquapendente', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Acquappesa', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Acquaro', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Acquasanta Terme', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Acquasparta', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Acquaviva Collecroce', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Acquaviva Picena', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Acquaviva Platani', 'Caltanissetta');
-insert into Cities (id, name, province) values (NULL, 'Acquaviva d''Isernia', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Acquaviva delle Fonti', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Acquedolci', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Acqui Terme', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Acri', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Acuto', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Adelfia', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Adrano', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Adrara San Martino', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Adrara San Rocco', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Adria', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Adro', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Affi', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Affile', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Afragola', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Africo', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Agazzano', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Agerola', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Aggius', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Agira', 'Enna');
-insert into Cities (id, name, province) values (NULL, 'Agliana', 'Pistoia');
-insert into Cities (id, name, province) values (NULL, 'Agliano Terme', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Aglientu', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Agliè', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Agna', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Agnadello', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Agnana Calabra', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Agnone', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Agnosine', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Agordo', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Agosta', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Agra', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Agrate Brianza', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Agrate Conturbia', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Agrigento', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Agropoli', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Agugliano', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Agugliaro', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Aicurzio', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Aidomaggiore', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Aidone', 'Enna');
-insert into Cities (id, name, province) values (NULL, 'Aielli', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Aiello Calabro', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Aiello del Friuli', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Aiello del Sabato', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Aieta', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Ailano', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Ailoche', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Airasca', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Airola', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Airole', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Airuno', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Aisone', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Ala', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Ala di Stura', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Alagna', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Alagna Valsesia', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Alanno', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Alano di Piave', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Alassio', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Alatri', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Alba', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Alba Adriatica', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Albagiara', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Albairate', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Albanella', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Albano Laziale', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Albano Sant''Alessandro', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Albano Vercellese', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Albano di Lucania', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Albaredo Arnaboldi', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Albaredo d''Adige', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Albaredo per San Marco', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Albareto', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Albaretto della Torre', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Albavilla', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Albenga', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Albera Ligure', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Alberobello', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Alberona', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Albese con Cassano', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Albettone', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Albi', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Albiano', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Albiano d''Ivrea', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Albiate', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Albidona', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Albignasego', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Albinea', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Albino', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Albiolo', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Albisola Superiore', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Albissola Marina', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Albizzate', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Albonese', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Albosaggia', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Albugnano', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Albuzzano', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Alcamo', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Alcara li Fusi', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Aldeno', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Aldino', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Ales', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Alessandria', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Alessandria del Carretto', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Alessandria della Rocca', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Alessano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Alezio', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Alfano', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Alfedena', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Alfianello', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Alfiano Natta', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Alfonsine', 'Ravenna');
-insert into Cities (id, name, province) values (NULL, 'Alghero', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Algua', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Alia', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Aliano', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Alice Bel Colle', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Alice Castello', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Alife', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Alimena', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Aliminusa', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Allai', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Alleghe', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Allein', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Allerona', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Alliste', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Allumiere', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Alluvioni Piovera', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Almenno San Bartolomeo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Almenno San Salvatore', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Almese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Almè', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Alonte', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Alpago', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Alpette', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Alpignano', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Alseno', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Alserio', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Alta Val Tidone', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Alta Valle Intelvi', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Altamura', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Altare', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Altavalle', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Altavilla Irpina', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Altavilla Milicia', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Altavilla Monferrato', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Altavilla Silentina', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Altavilla Vicentina', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Altidona', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Altilia', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Altino', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Altissimo', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Altivole', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Alto', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Alto Reno Terme', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Alto Sermenza', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Altofonte', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Altomonte', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Altopascio', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Altopiano della Vigolana', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Alviano', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Alvignano', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Alvito', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Alzano Lombardo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Alzano Scrivia', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Alzate Brianza', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Alà dei Sardi', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Alì', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Alì Terme', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Amalfi', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Amandola', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Amantea', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Amaro', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Amaroni', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Amaseno', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Amato', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Amatrice', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Ambivere', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Amblar-Don', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Ameglia', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Amelia', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Amendolara', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Ameno', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Amorosi', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Ampezzo', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Anacapri', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Anagni', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Ancarano', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Ancona', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Andali', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Andalo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Andalo Valtellino', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Andezeno', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Andora', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Andorno Micca', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Andrano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Andrate', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Andreis', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Andretta', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Andria', 'Barletta-Andria-Trani');
-insert into Cities (id, name, province) values (NULL, 'Andriano', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Anela', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Anfo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Angera', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Anghiari', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Angiari', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Angolo Terme', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Angri', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Angrogna', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Anguillara Sabazia', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Anguillara Veneta', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Annicco', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Annone Veneto', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Annone di Brianza', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Anoia', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Antegnate', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Anterivo', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Antey-Saint-André', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Anticoli Corrado', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Antignano', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Antillo', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Antonimina', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Antrodoco', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Antrona Schieranco', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Anversa degli Abruzzi', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Anzano del Parco', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Anzano di Puglia', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Anzi', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Anzio', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Anzola d''Ossola', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Anzola dell''Emilia', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Aosta', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Apecchio', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Apice', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Apiro', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Apollosa', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Appiano Gentile', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Appiano sulla strada del vino', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Appignano', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Appignano del Tronto', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Aprica', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Apricale', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Apricena', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Aprigliano', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Aprilia', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Aquara', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Aquila d''Arroscia', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Aquileia', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Aquilonia', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Aquino', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Aradeo', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Aragona', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Aramengo', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Arba', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Arborea', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Arborio', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Arbus', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Arcade', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Arce', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Arcene', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Arcevia', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Archi', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Arcidosso', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Arcinazzo Romano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Arcisate', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Arco', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Arcola', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Arcole', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Arconate', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Arcore', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Arcugnano', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Ardara', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Ardauli', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Ardea', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Ardenno', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Ardesio', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Ardore', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Arena', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Arena Po', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Arenzano', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Arese', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Arezzo', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Argegno', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Argelato', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Argenta', 'Ferrara');
-insert into Cities (id, name, province) values (NULL, 'Argentera', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Arguello', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Argusto', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Ari', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Ariano Irpino', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Ariano nel Polesine', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Ariccia', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Arielli', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Arienzo', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Arignano', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Aritzo', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Arizzano', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Arlena di Castro', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Arluno', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Armeno', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Armento', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Armo', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Armungia', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Arnad', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Arnara', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Arnasco', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Arnesano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Arola', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Arona', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Arosio', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Arpaia', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Arpaise', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Arpino', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Arquata Scrivia', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Arquata del Tronto', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Arquà Petrarca', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Arquà Polesine', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Arre', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Arrone', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Arsago Seprio', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Arsiero', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Arsita', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Arsiè', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Arsoli', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Arta Terme', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Artegna', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Artena', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Artogne', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Arvier', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Arzachena', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Arzago d''Adda', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Arzana', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Arzano', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Arzergrande', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Arzignano', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Ascea', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Asciano', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Ascoli Piceno', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Ascoli Satriano', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Ascrea', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Asiago', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Asigliano Veneto', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Asigliano Vercellese', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Asola', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Asolo', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Assago', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Assemini', 'Cagliari');
-insert into Cities (id, name, province) values (NULL, 'Assisi', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Asso', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Assolo', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Assoro', 'Enna');
-insert into Cities (id, name, province) values (NULL, 'Asti', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Asuni', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Ateleta', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Atella', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Atena Lucana', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Atessa', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Atina', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Atrani', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Atri', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Atripalda', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Attigliano', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Attimis', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Atzara', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Augusta', 'Siracusa');
-insert into Cities (id, name, province) values (NULL, 'Auletta', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Aulla', 'Massa-Carrara');
-insert into Cities (id, name, province) values (NULL, 'Aurano', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Aurigo', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Auronzo di Cadore', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Ausonia', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Austis', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Avegno', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Avelengo', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Avella', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Avellino', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Averara', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Aversa', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Avetrana', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Avezzano', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Aviano', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Aviatico', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Avigliana', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Avigliano', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Avigliano Umbro', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Avio', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Avise', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Avola', 'Siracusa');
-insert into Cities (id, name, province) values (NULL, 'Avolasca', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Ayas', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Aymavilles', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Azeglio', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Azzanello', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Azzano Decimo', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Azzano Mella', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Azzano San Paolo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Azzano d''Asti', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Azzate', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Azzio', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Azzone', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Baceno', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Bacoli', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Badalucco', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Badesi', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Badia', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Badia Calavena', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Badia Pavese', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Badia Polesine', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Badia Tedalda', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Badolato', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Bagaladi', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Bagheria', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Bagnacavallo', 'Ravenna');
-insert into Cities (id, name, province) values (NULL, 'Bagnara Calabra', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Bagnara di Romagna', 'Ravenna');
-insert into Cities (id, name, province) values (NULL, 'Bagnaria', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Bagnaria Arsa', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Bagnasco', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Bagnatica', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Bagni di Lucca', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Bagno a Ripoli', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Bagno di Romagna', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Bagnoli Irpino', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Bagnoli del Trigno', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Bagnoli di Sopra', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Bagnolo Cremasco', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Bagnolo Mella', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Bagnolo Piemonte', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Bagnolo San Vito', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Bagnolo del Salento', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Bagnolo di Po', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Bagnolo in Piano', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Bagnone', 'Massa-Carrara');
-insert into Cities (id, name, province) values (NULL, 'Bagnoregio', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Bagolino', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Baia e Latina', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Baiano', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Bairo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Baiso', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Bajardo', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Balangero', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Baldichieri d''Asti', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Baldissero Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Baldissero Torinese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Baldissero d''Alba', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Balestrate', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Balestrino', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Ballabio', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Ballao', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Balme', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Balmuccia', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Balocco', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Balsorano', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Balvano', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Balzola', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Banari', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Banchette', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Bannio Anzino', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Banzi', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Baone', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Baradili', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Baragiano', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Baranello', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Barano d''Ischia', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Baranzate', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Barasso', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Baratili San Pietro', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Barbania', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Barbara', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Barbarano Mossano', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Barbarano Romano', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Barbaresco', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Barbariga', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Barbata', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Barberino Tavarnelle', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Barberino di Mugello', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Barbianello', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Barbiano', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Barbona', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Barcellona Pozzo di Gotto', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Barcis', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Bard', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Bardello con Malgesso e Bregano', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Bardi', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Bardineto', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Bardolino', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Bardonecchia', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Bareggio', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Barengo', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Baressa', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Barete', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Barga', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Bargagli', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Barge', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Barghe', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Bari', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Bari Sardo', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Bariano', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Baricella', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Barile', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Barisciano', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Barlassina', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Barletta', 'Barletta-Andria-Trani');
-insert into Cities (id, name, province) values (NULL, 'Barni', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Barolo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Barone Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Baronissi', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Barrafranca', 'Enna');
-insert into Cities (id, name, province) values (NULL, 'Barrali', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Barrea', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Barumini', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Barzago', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Barzana', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Barzanò', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Barzio', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Basaluzzo', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Bascapè', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Baschi', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Basciano', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Baselga di Pinè', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Baselice', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Basiano', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Basicò', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Basiglio', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Basiliano', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Bassano Bresciano', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Bassano Romano', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Bassano del Grappa', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Bassano in Teverina', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Bassiano', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Bassignana', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Bastia Mondovì', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Bastia Umbra', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Bastida Pancarana', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Bastiglia', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Battaglia Terme', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Battifollo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Battipaglia', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Battuda', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Baucina', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Bauladu', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Baunei', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Baveno', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Bedero Valcuvia', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Bedizzole', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Bedollo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Bedonia', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Bedulita', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Bee', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Beinasco', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Beinette', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Belcastro', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Belfiore', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Belforte Monferrato', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Belforte all''Isauro', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Belforte del Chienti', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Belgioioso', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Belgirate', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Bella', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Bellagio', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Bellano', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Bellante', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Bellaria-Igea Marina', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Bellegra', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Bellino', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Bellinzago Lombardo', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Bellinzago Novarese', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Bellizzi', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Bellona', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Bellosguardo', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Belluno', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Bellusco', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Belmonte Calabro', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Belmonte Castello', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Belmonte Mezzagno', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Belmonte Piceno', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Belmonte del Sannio', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Belmonte in Sabina', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Belpasso', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Belsito', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Belvedere Langhe', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Belvedere Marittimo', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Belvedere Ostrense', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Belvedere di Spinello', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Belveglio', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Belvì', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Bema', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Bene Lario', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Bene Vagienna', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Benestare', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Benetutti', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Benevello', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Benevento', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Benna', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Bentivoglio', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Berbenno', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Berbenno di Valtellina', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Berceto', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Berchidda', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Beregazzo con Figliaro', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Bereguardo', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Bergamasco', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Bergamo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Bergantino', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Bergeggi', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Bergolo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Berlingo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Bernalda', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Bernareggio', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Bernate Ticino', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Bernezzo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Bertinoro', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Bertiolo', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Bertonico', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Berzano di San Pietro', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Berzano di Tortona', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Berzo Demo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Berzo Inferiore', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Berzo San Fermo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Besana in Brianza', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Besano', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Besate', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Besenello', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Besenzone', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Besnate', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Besozzo', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Bessude', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Bettola', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Bettona', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Beura-Cardezza', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Bevagna', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Beverino', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Bevilacqua', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Biancavilla', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Bianchi', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Bianco', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Biandrate', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Biandronno', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Bianzano', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Bianzone', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Bianzè', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Biassono', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Bibbiano', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Bibbiena', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Bibbona', 'Livorno');
-insert into Cities (id, name, province) values (NULL, 'Bibiana', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Biccari', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Bicinicco', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Bidonì', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Biella', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Bienno', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Bieno', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Bientina', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Binago', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Binasco', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Binetto', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Bioglio', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Bionaz', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Bione', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Birori', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Bisaccia', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Bisacquino', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Bisceglie', 'Barletta-Andria-Trani');
-insert into Cities (id, name, province) values (NULL, 'Bisegna', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Bisenti', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Bisignano', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Bistagno', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Bisuschio', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Bitetto', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Bitonto', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Bitritto', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Bitti', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Bivona', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Bivongi', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Bizzarone', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Bleggio Superiore', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Blello', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Blera', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Blessagno', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Blevio', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Blufi', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Boara Pisani', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Bobbio', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Bobbio Pellice', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Boca', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Bocchigliero', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Boccioleto', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Bocenago', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Bodio Lomnago', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Boffalora d''Adda', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Boffalora sopra Ticino', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Bogliasco', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Bognanco', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Bogogno', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Boissano', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Bojano', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Bolano', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Bolgare', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Bollate', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Bollengo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Bologna', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Bolognano', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Bolognetta', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Bolognola', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Bolotana', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Bolsena', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Boltiere', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Bolzano', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Bolzano Novarese', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Bolzano Vicentino', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Bomarzo', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Bomba', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Bompensiere', 'Caltanissetta');
-insert into Cities (id, name, province) values (NULL, 'Bompietro', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Bomporto', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Bonarcado', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Bonassola', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Bonate Sopra', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Bonate Sotto', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Bonavigo', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Bondeno', 'Ferrara');
-insert into Cities (id, name, province) values (NULL, 'Bondone', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Bonea', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Bonefro', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Bonemerse', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Bonifati', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Bonito', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Bonnanaro', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Bono', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Bonorva', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Bonvicino', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Borbona', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Borca di Cadore', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Bordano', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Bordighera', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Bordolano', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Bore', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Boretto', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Borgarello', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Borgaro Torinese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Borgetto', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Borghetto Lodigiano', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Borghetto Santo Spirito', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Borghetto d''Arroscia', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Borghetto di Borbera', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Borghetto di Vara', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Borghi', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Borgia', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Borgiallo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Borgio Verezzi', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Borgo Chiese', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Borgo Lares', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Borgo Mantovano', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Borgo Pace', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Borgo Priolo', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Borgo San Dalmazzo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Borgo San Giacomo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Borgo San Giovanni', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Borgo San Lorenzo', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Borgo San Martino', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Borgo San Siro', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Borgo Ticino', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Borgo Tossignano', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Borgo Val di Taro', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Borgo Valbelluna', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Borgo Valsugana', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Borgo Velino', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Borgo Veneto', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Borgo Vercelli', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Borgo Virgilio', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Borgo a Mozzano', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Borgo d''Ale', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Borgo d''Anaunia', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Borgo di Terzo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Borgocarbonara', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Borgofranco d''Ivrea', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Borgolavezzaro', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Borgomale', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Borgomanero', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Borgomaro', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Borgomasino', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Borgomezzavalle', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Borgone Susa', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Borgonovo Val Tidone', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Borgoratto Alessandrino', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Borgoratto Mormorolo', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Borgoricco', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Borgorose', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Borgosatollo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Borgosesia', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Bormida', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Bormio', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Bornasco', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Borno', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Boroneddu', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Borore', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Borrello', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Borriana', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Borso del Grappa', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Bortigali', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Bortigiadas', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Borutta', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Borzonasca', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Bosa', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Bosaro', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Boschi Sant''Anna', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Bosco Chiesanuova', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Bosco Marengo', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Bosconero', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Boscoreale', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Boscotrecase', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Bosia', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Bosio', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Bosisio Parini', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Bosnasco', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Bossico', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Bossolasco', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Botricello', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Botrugno', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Bottanuco', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Botticino', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Bottidda', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Bova', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Bova Marina', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Bovalino', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Bovegno', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Boves', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Bovezzo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Boville Ernica', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Bovino', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Bovisio-Masciago', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Bovolenta', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Bovolone', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Bozzole', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Bozzolo', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Bra', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Bracca', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Bracciano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Bracigliano', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Braies', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Brallo di Pregola', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Brancaleone', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Brandico', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Brandizzo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Branzi', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Braone', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Brebbia', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Breda di Piave', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Breganze', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Bregnano', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Brembate', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Brembate di Sopra', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Brembio', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Breme', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Brendola', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Brenna', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Brennero', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Breno', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Brenta', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Brentino Belluno', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Brentonico', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Brenzone sul Garda', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Brescello', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Brescia', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Bresimo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Bressana Bottarone', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Bressanone', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Bressanvido', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Bresso', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Brezzo di Bedero', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Briaglia', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Briatico', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Bricherasio', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Brienno', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Brienza', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Briga Alta', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Briga Novarese', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Brignano Gera d''Adda', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Brignano-Frascata', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Brindisi', 'Brindisi');
-insert into Cities (id, name, province) values (NULL, 'Brindisi Montagna', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Brinzio', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Briona', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Brione', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Briosco', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Brisighella', 'Ravenna');
-insert into Cities (id, name, province) values (NULL, 'Brissago-Valtravaglia', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Brissogne', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Brittoli', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Brivio', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Broccostella', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Brogliano', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Brognaturo', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Brolo', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Brondello', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Broni', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Bronte', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Bronzolo', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Brossasco', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Brosso', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Brovello-Carpugnino', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Brozolo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Brugherio', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Brugine', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Brugnato', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Brugnera', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Bruino', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Brumano', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Brunate', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Brunello', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Brunico', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Bruno', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Brusaporto', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Brusasco', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Brusciano', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Brusimpiano', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Brusnengo', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Brusson', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Bruzolo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Bruzzano Zeffirio', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Bubbiano', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Bubbio', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Buccheri', 'Siracusa');
-insert into Cities (id, name, province) values (NULL, 'Bucchianico', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Bucciano', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Buccinasco', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Buccino', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Bucine', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Buddusò', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Budoia', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Budoni', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Budrio', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Buggerru', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Buggiano', 'Pistoia');
-insert into Cities (id, name, province) values (NULL, 'Buglio in Monte', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Bugnara', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Buguggiate', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Buja', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Bulciago', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Bulgarograsso', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Bultei', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Bulzi', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Buonabitacolo', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Buonalbergo', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Buonconvento', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Buonvicino', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Burago di Molgora', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Burcei', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Burgio', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Burgos', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Buriasco', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Burolo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Buronzo', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Busachi', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Busalla', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Busano', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Busca', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Buscate', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Buscemi', 'Siracusa');
-insert into Cities (id, name, province) values (NULL, 'Buseto Palizzolo', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Busnago', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Bussero', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Busseto', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Bussi sul Tirino', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Busso', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Bussolengo', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Bussoleno', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Busto Arsizio', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Busto Garolfo', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Butera', 'Caltanissetta');
-insert into Cities (id, name, province) values (NULL, 'Buti', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Buttapietra', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Buttigliera Alta', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Buttigliera d''Asti', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Buttrio', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Cabella Ligure', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Cabiate', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Cabras', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Caccamo', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Caccuri', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Cadegliano-Viconago', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Cadelbosco di Sopra', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Cadeo', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Caderzone Terme', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Cadoneghe', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Cadorago', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Cadrezzate con Osmate', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Caerano di San Marco', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Cafasse', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Caggiano', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Cagli', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Cagliari', 'Cagliari');
-insert into Cities (id, name, province) values (NULL, 'Caglio', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Cagnano Amiterno', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Cagnano Varano', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Caianello', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Caiazzo', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Caines', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Caino', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Caiolo', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Cairano', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Cairate', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Cairo Montenotte', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Caivano', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Calabritto', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Calalzo di Cadore', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Calamandrana', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Calamonaci', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Calangianus', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Calanna', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Calasca-Castiglione', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Calascibetta', 'Enna');
-insert into Cities (id, name, province) values (NULL, 'Calascio', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Calasetta', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Calatabiano', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Calatafimi-Segesta', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Calcata', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Calceranica al Lago', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Calci', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Calciano', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Calcinaia', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Calcinate', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Calcinato', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Calcio', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Calco', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Caldaro sulla strada del vino', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Caldarola', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Calderara di Reno', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Caldes', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Caldiero', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Caldogno', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Caldonazzo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Calendasco', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Calenzano', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Calestano', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Calice Ligure', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Calice al Cornoviglio', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Calimera', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Calitri', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Calizzano', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Callabiana', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Calliano', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Calliano Monferrato', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Calolziocorte', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Calopezzati', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Calosso', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Caloveto', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Caltabellotta', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Caltagirone', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Caltanissetta', 'Caltanissetta');
-insert into Cities (id, name, province) values (NULL, 'Caltavuturo', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Caltignaga', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Calto', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Caltrano', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Calusco d''Adda', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Caluso', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Calvagese della Riviera', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Calvanico', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Calvatone', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Calvello', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Calvene', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Calvenzano', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Calvera', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Calvi', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Calvi Risorta', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Calvi dell''Umbria', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Calvignano', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Calvignasco', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Calvisano', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Calvizzano', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Camagna Monferrato', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Camaiore', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Camandona', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Camastra', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Cambiago', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Cambiano', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Cambiasca', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Camburzano', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Camerana', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Camerano', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Camerano Casasco', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Camerata Cornello', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Camerata Nuova', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Camerata Picena', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Cameri', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Camerino', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Camerota', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Camigliano', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Camini', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Camino', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Camino al Tagliamento', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Camisano', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Camisano Vicentino', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Cammarata', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Camogli', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Campagna', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Campagna Lupia', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Campagnano di Roma', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Campagnatico', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Campagnola Cremasca', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Campagnola Emilia', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Campana', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Camparada', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Campegine', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Campello sul Clitunno', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Campertogno', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Campi Bisenzio', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Campi Salentina', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Campiglia Cervo', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Campiglia Marittima', 'Livorno');
-insert into Cities (id, name, province) values (NULL, 'Campiglia dei Berici', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Campiglione Fenile', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Campione d''Italia', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Campitello di Fassa', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Campli', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Campo Calabro', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Campo Ligure', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Campo San Martino', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Campo Tures', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Campo di Giove', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Campo di Trens', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Campo nell''Elba', 'Livorno');
-insert into Cities (id, name, province) values (NULL, 'Campobasso', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Campobello di Licata', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Campobello di Mazara', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Campochiaro', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Campodarsego', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Campodenno', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Campodimele', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Campodipietra', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Campodolcino', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Campodoro', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Campofelice di Fitalia', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Campofelice di Roccella', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Campofilone', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Campofiorito', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Campoformido', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Campofranco', 'Caltanissetta');
-insert into Cities (id, name, province) values (NULL, 'Campogalliano', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Campolattaro', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Campoli Appennino', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Campoli del Monte Taburno', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Campolieto', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Campolongo Maggiore', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Campolongo Tapogliano', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Campomaggiore', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Campomarino', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Campomorone', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Camponogara', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Campora', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Camporeale', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Camporgiano', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Camporosso', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Camporotondo Etneo', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Camporotondo di Fiastrone', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Camposampiero', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Camposano', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Camposanto', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Campospinoso', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Campotosto', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Camugnano', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Canal San Bovo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Canale', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Canale Monterano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Canale d''Agordo', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Canaro', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Canazei', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Cancellara', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Cancello ed Arnone', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Canda', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Candela', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Candelo', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Candia Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Candia Lomellina', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Candiana', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Candida', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Candidoni', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Candiolo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Canegrate', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Canelli', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Canepina', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Caneva', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Canicattini Bagni', 'Siracusa');
-insert into Cities (id, name, province) values (NULL, 'Canicattì', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Canino', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Canischio', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Canistro', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Canna', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Cannalonga', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Cannara', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Cannero Riviera', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Canneto Pavese', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Canneto sull''Oglio', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Cannobio', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Cannole', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Canolo', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Canonica d''Adda', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Canosa Sannita', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Canosa di Puglia', 'Barletta-Andria-Trani');
-insert into Cities (id, name, province) values (NULL, 'Canosio', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Canossa', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Cansano', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Cantagallo', 'Prato');
-insert into Cities (id, name, province) values (NULL, 'Cantalice', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Cantalupa', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Cantalupo Ligure', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Cantalupo in Sabina', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Cantalupo nel Sannio', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Cantarana', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Cantello', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Canterano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Cantiano', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Cantoira', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Cantù', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Canzano', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Canzo', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Caorle', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Caorso', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Capaccio Paestum', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Capaci', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Capalbio', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Capannoli', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Capannori', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Capena', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Capergnanica', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Capestrano', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Capiago Intimiano', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Capistrano', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Capistrello', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Capitignano', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Capizzi', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Capizzone', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Capo d''Orlando', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Capo di Ponte', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Capodimonte', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Capodrise', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Capoliveri', 'Livorno');
-insert into Cities (id, name, province) values (NULL, 'Capolona', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Caponago', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Caporciano', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Caposele', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Capoterra', 'Cagliari');
-insert into Cities (id, name, province) values (NULL, 'Capovalle', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Cappadocia', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Cappella Cantone', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Cappella Maggiore', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Cappella de'' Picenardi', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Cappelle sul Tavo', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Capracotta', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Capraia Isola', 'Livorno');
-insert into Cities (id, name, province) values (NULL, 'Capraia e Limite', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Capralba', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Capranica', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Capranica Prenestina', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Caprarica di Lecce', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Caprarola', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Caprauna', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Caprese Michelangelo', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Caprezzo', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Capri', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Capri Leone', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Capriana', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Capriano del Colle', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Capriata d''Orba', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Capriate San Gervasio', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Capriati a Volturno', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Caprie', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Capriglia Irpina', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Capriglio', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Caprile', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Caprino Bergamasco', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Caprino Veronese', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Capriolo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Capriva del Friuli', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'Capua', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Capurso', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Caraffa del Bianco', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Caraffa di Catanzaro', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Caraglio', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Caramagna Piemonte', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Caramanico Terme', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Carapelle', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Carapelle Calvisio', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Carasco', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Carassai', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Carate Brianza', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Carate Urio', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Caravaggio', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Caravate', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Caravino', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Caravonica', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Carbognano', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Carbonara Scrivia', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Carbonara al Ticino', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Carbonara di Nola', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Carbonate', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Carbone', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Carbonera', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Carbonia', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Carcare', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Carceri', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Carcoforo', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Cardano al Campo', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Cardedu', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Cardeto', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Cardinale', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Cardito', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Cardè', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Careggine', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Carema', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Carenno', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Carentino', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Careri', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Caresana', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Caresanablot', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Carezzano', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Carfizzi', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Cargeghe', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Cariati', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Carife', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Carignano', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Carimate', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Carinaro', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Carini', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Carinola', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Carisio', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Carisolo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Carlantino', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Carlazzo', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Carlentini', 'Siracusa');
-insert into Cities (id, name, province) values (NULL, 'Carlino', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Carloforte', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Carlopoli', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Carmagnola', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Carmiano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Carmignano', 'Prato');
-insert into Cities (id, name, province) values (NULL, 'Carmignano di Brenta', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Carnago', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Carnate', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Carobbio degli Angeli', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Carolei', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Carona', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Caronia', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Caronno Pertusella', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Caronno Varesino', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Carosino', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Carovigno', 'Brindisi');
-insert into Cities (id, name, province) values (NULL, 'Carovilli', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Carpaneto Piacentino', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Carpanzano', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Carpegna', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Carpenedolo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Carpeneto', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Carpi', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Carpiano', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Carpignano Salentino', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Carpignano Sesia', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Carpineti', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Carpineto Romano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Carpineto Sinello', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Carpineto della Nora', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Carpino', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Carpinone', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Carrara', 'Massa-Carrara');
-insert into Cities (id, name, province) values (NULL, 'Carrega Ligure', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Carro', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Carrodano', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Carrosio', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Carrè', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Carrù', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Carsoli', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Cartigliano', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Cartignano', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Cartoceto', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Cartosio', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Cartura', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Carugate', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Carugo', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Carunchio', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Carvico', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Carzano', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Casabona', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Casacalenda', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Casacanditella', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Casagiove', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Casal Cermelli', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Casal Velino', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Casal di Principe', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Casalanguida', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Casalattico', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Casalbeltrame', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Casalbordino', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Casalbore', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Casalborgone', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Casalbuono', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Casalbuttano ed Uniti', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Casalciprano', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Casalduni', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Casale Corte Cerro', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Casale Cremasco-Vidolasco', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Casale Litta', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Casale Marittimo', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Casale Monferrato', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Casale di Scodosia', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Casale sul Sile', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Casalecchio di Reno', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Casaleggio Boiro', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Casaleggio Novara', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Casaleone', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Casaletto Ceredano', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Casaletto Lodigiano', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Casaletto Spartano', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Casaletto Vaprio', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Casaletto di Sopra', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Casalfiumanese', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Casalgrande', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Casalgrasso', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Casali del Manco', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Casalincontrada', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Casalino', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Casalmaggiore', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Casalmaiocco', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Casalmorano', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Casalmoro', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Casalnoceto', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Casalnuovo Monterotaro', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Casalnuovo di Napoli', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Casaloldo', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Casalpusterlengo', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Casalromano', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Casalserugo', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Casaluce', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Casalvecchio Siculo', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Casalvecchio di Puglia', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Casalvieri', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Casalvolone', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Casalzuigno', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Casamarciano', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Casamassima', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Casamicciola Terme', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Casandrino', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Casanova Elvo', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Casanova Lerrone', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Casanova Lonati', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Casape', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Casapesenna', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Casapinta', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Casaprota', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Casapulla', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Casarano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Casargo', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Casarile', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Casarsa della Delizia', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Casarza Ligure', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Casasco', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Casatenovo', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Casatisma', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Casavatore', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Casazza', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Cascia', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Casciago', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Casciana Terme Lari', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Cascina', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Cascinette d''Ivrea', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Casei Gerola', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Caselette', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Casella', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Caselle Landi', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Caselle Lurani', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Caselle Torinese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Caselle in Pittari', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Caserta', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Casier', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Casignana', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Casina', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Casirate d''Adda', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Caslino d''Erba', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Casnate con Bernate', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Casnigo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Casola Valsenio', 'Ravenna');
-insert into Cities (id, name, province) values (NULL, 'Casola di Napoli', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Casola in Lunigiana', 'Massa-Carrara');
-insert into Cities (id, name, province) values (NULL, 'Casole d''Elsa', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Casoli', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Casorate Primo', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Casorate Sempione', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Casorezzo', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Casoria', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Casorzo Monferrato', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Casperia', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Caspoggio', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Cassacco', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Cassago Brianza', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Cassano Irpino', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Cassano Magnago', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Cassano Spinola', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Cassano Valcuvia', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Cassano all''Ionio', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Cassano d''Adda', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Cassano delle Murge', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Cassaro', 'Siracusa');
-insert into Cities (id, name, province) values (NULL, 'Cassiglio', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Cassina Rizzardi', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Cassina Valsassina', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Cassina de'' Pecchi', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Cassinasco', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Cassine', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Cassinelle', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Cassinetta di Lugagnano', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Cassino', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Cassola', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Cassolnovo', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Castagnaro', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Castagneto Carducci', 'Livorno');
-insert into Cities (id, name, province) values (NULL, 'Castagneto Po', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Castagnito', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Castagnole Monferrato', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Castagnole Piemonte', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Castagnole delle Lanze', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Castana', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Castano Primo', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Casteggio', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Castegnato', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Castegnero', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Castel Baronia', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Castel Boglione', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Castel Bolognese', 'Ravenna');
-insert into Cities (id, name, province) values (NULL, 'Castel Campagnano', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Castel Castagna', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Castel Condino', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Castel Focognano', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Castel Frentano', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Castel Gabbiano', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Castel Gandolfo', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Castel Giorgio', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Castel Goffredo', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Castel Guelfo di Bologna', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Castel Ivano', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Castel Madama', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Castel Maggiore', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Castel Mella', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Castel Morrone', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Castel Ritaldi', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Castel Rocchero', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Castel Rozzone', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Castel San Giorgio', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Castel San Giovanni', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Castel San Lorenzo', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Castel San Niccolò', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Castel San Pietro Romano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Castel San Pietro Terme', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Castel San Vincenzo', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Castel Sant''Angelo', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Castel Sant''Elia', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Castel Viscardo', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Castel Vittorio', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Castel Volturno', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Castel d''Aiano', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Castel d''Ario', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Castel d''Azzano', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Castel del Giudice', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Castel del Monte', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Castel del Piano', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Castel del Rio', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Castel di Casio', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Castel di Ieri', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Castel di Iudica', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Castel di Lama', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Castel di Lucio', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Castel di Sangro', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Castel di Sasso', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Castel di Tora', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Castelbaldo', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Castelbelforte', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Castelbellino', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Castelbello-Ciardes', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Castelbianco', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Castelbottaccio', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Castelbuono', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Castelcivita', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Castelcovati', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Castelcucco', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Casteldaccia', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Casteldelci', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Casteldelfino', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Casteldidone', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Castelfidardo', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Castelfiorentino', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Castelforte', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Castelfranci', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Castelfranco Emilia', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Castelfranco Piandiscò', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Castelfranco Veneto', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Castelfranco di Sotto', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Castelfranco in Miscano', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Castelgerundo', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Castelgomberto', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Castelgrande', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Castelguglielmo', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Castelguidone', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Castell''Alfero', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Castell''Arquato', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Castell''Azzara', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Castell''Umberto', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Castellabate', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Castellafiume', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Castellalto', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Castellammare del Golfo', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Castellammare di Stabia', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Castellamonte', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Castellana Grotte', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Castellana Sicula', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Castellaneta', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Castellania Coppi', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Castellanza', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Castellar Guidobono', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Castellarano', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Castellaro', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Castellazzo Bormida', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Castellazzo Novarese', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Castelleone', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Castelleone di Suasa', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Castellero', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Castelletto Cervo', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Castelletto Merli', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Castelletto Molina', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Castelletto Monferrato', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Castelletto Stura', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Castelletto Uzzone', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Castelletto d''Erro', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Castelletto d''Orba', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Castelletto di Branduzzo', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Castelletto sopra Ticino', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Castelli', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Castelli Calepio', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Castellina Marittima', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Castellina in Chianti', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Castellinaldo d''Alba', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Castellino Tanaro', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Castellino del Biferno', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Castelliri', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Castello Cabiaglio', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Castello Tesino', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Castello d''Agogna', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Castello d''Argile', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Castello del Matese', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Castello dell''Acqua', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Castello di Annone', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Castello di Brianza', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Castello di Cisterna', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Castello di Godego', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Castello-Molina di Fiemme', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Castellucchio', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Castelluccio Inferiore', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Castelluccio Superiore', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Castelluccio Valmaggiore', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Castelluccio dei Sauri', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Castelmagno', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Castelmarte', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Castelmassa', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Castelmauro', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Castelmezzano', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Castelmola', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Castelnovetto', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Castelnovo Bariano', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Castelnovo del Friuli', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Castelnovo di Sotto', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Castelnovo ne'' Monti', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Castelnuovo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Castelnuovo Belbo', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Castelnuovo Berardenga', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Castelnuovo Bocca d''Adda', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Castelnuovo Bormida', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Castelnuovo Bozzente', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Castelnuovo Calcea', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Castelnuovo Cilento', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Castelnuovo Don Bosco', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Castelnuovo Magra', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Castelnuovo Nigra', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Castelnuovo Parano', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Castelnuovo Rangone', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Castelnuovo Scrivia', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Castelnuovo del Garda', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Castelnuovo della Daunia', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Castelnuovo di Ceva', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Castelnuovo di Conza', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Castelnuovo di Farfa', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Castelnuovo di Garfagnana', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Castelnuovo di Porto', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Castelnuovo di Val di Cecina', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Castelpagano', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Castelpetroso', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Castelpizzuto', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Castelplanio', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Castelpoto', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Castelraimondo', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Castelrotto', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Castelsantangelo sul Nera', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Castelsaraceno', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Castelsardo', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Castelseprio', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Castelsilano', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Castelspina', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Casteltermini', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Castelveccana', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Castelvecchio Calvisio', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Castelvecchio Subequo', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Castelvecchio di Rocca Barbena', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Castelvenere', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Castelverde', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Castelverrino', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Castelvetere in Val Fortore', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Castelvetere sul Calore', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Castelvetrano', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Castelvetro Piacentino', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Castelvetro di Modena', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Castelvisconti', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Castenaso', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Castenedolo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Castiadas', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Castiglion Fibocchi', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Castiglion Fiorentino', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Castiglione Chiavarese', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Castiglione Cosentino', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Castiglione Falletto', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Castiglione Messer Marino', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Castiglione Messer Raimondo', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Castiglione Olona', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Castiglione Tinella', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Castiglione Torinese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Castiglione a Casauria', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Castiglione d''Adda', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Castiglione d''Orcia', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Castiglione dei Pepoli', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Castiglione del Genovesi', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Castiglione del Lago', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Castiglione della Pescaia', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Castiglione delle Stiviere', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Castiglione di Garfagnana', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Castiglione di Sicilia', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Castiglione in Teverina', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Castignano', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Castilenti', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Castino', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Castione Andevenno', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Castione della Presolana', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Castions di Strada', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Castiraga Vidardo', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Casto', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Castorano', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Castrezzato', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Castri di Lecce', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Castrignano de'' Greci', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Castrignano del Capo', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Castro', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Castro', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Castro dei Volsci', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Castrocaro Terme e Terra del Sole', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Castrocielo', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Castrofilippo', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Castrolibero', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Castronno', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Castronovo di Sicilia', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Castronuovo di Sant''Andrea', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Castropignano', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Castroreale', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Castroregio', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Castrovillari', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Catania', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Catanzaro', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Catenanuova', 'Enna');
-insert into Cities (id, name, province) values (NULL, 'Catignano', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Cattolica', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Cattolica Eraclea', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Caulonia', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Cautano', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Cava Manara', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Cava de'' Tirreni', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Cavaglietto', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Cavaglio d''Agogna', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Cavaglià', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Cavagnolo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Cavaion Veronese', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Cavalese', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Cavallerleone', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Cavallermaggiore', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Cavallino', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Cavallino-Treporti', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Cavallirio', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Cavareno', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Cavargna', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Cavaria con Premezzo', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Cavarzere', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Cavaso del Tomba', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Cavasso Nuovo', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Cavatore', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Cavazzo Carnico', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Cave', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Cavedago', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Cavedine', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Cavenago d''Adda', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Cavenago di Brianza', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Cavernago', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Cavezzo', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Cavizzana', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Cavour', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Cavriago', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Cavriana', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Cavriglia', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Cazzago Brabbia', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Cazzago San Martino', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Cazzano Sant''Andrea', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Cazzano di Tramigna', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Ceccano', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Cecima', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Cecina', 'Livorno');
-insert into Cities (id, name, province) values (NULL, 'Cedegolo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Cedrasco', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Cefalà Diana', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Cefalù', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Ceggia', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Ceglie Messapica', 'Brindisi');
-insert into Cities (id, name, province) values (NULL, 'Celano', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Celenza Valfortore', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Celenza sul Trigno', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Celico', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Cella Dati', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Cella Monte', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Cellamare', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Cellara', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Cellarengo', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Cellatica', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Celle Enomondo', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Celle Ligure', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Celle di Bulgheria', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Celle di Macra', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Celle di San Vito', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Celleno', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Cellere', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Cellino Attanasio', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Cellino San Marco', 'Brindisi');
-insert into Cities (id, name, province) values (NULL, 'Cellio con Breia', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Cellole', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Cembra Lisignago', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Cenadi', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Cenate Sopra', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Cenate Sotto', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Cencenighe Agordino', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Cene', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Ceneselli', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Cengio', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Centallo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Cento', 'Ferrara');
-insert into Cities (id, name, province) values (NULL, 'Centola', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Centrache', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Centro Valle Intelvi', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Centuripe', 'Enna');
-insert into Cities (id, name, province) values (NULL, 'Cepagatti', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Ceppaloni', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Ceppo Morelli', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Ceprano', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Cerami', 'Enna');
-insert into Cities (id, name, province) values (NULL, 'Ceranesi', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Cerano', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Cerano d''Intelvi', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Ceranova', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Ceraso', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Cercemaggiore', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Cercenasco', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Cercepiccola', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Cerchiara di Calabria', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Cerchio', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Cercino', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Cercivento', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Cercola', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Cerda', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Cerea', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Ceregnano', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Cerenzia', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Ceres', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Ceresara', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Cereseto', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Ceresole Alba', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Ceresole Reale', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Cerete', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Ceretto Lomellina', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Cergnago', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Ceriale', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Ceriana', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Ceriano Laghetto', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Cerignale', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Cerignola', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Cerisano', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Cermenate', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Cermes', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Cermignano', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Cernobbio', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Cernusco Lombardone', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Cernusco sul Naviglio', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Cerreto Grue', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Cerreto Guidi', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Cerreto Laziale', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Cerreto Sannita', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Cerreto d''Asti', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Cerreto d''Esi', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Cerreto di Spoleto', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Cerretto Langhe', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Cerrina Monferrato', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Cerrione', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Cerro Maggiore', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Cerro Tanaro', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Cerro Veronese', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Cerro al Lambro', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Cerro al Volturno', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Cersosimo', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Certaldo', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Certosa di Pavia', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Cerva', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Cervara di Roma', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Cervarese Santa Croce', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Cervaro', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Cervasca', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Cervatto', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Cerveno', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Cervere', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Cervesina', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Cerveteri', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Cervia', 'Ravenna');
-insert into Cities (id, name, province) values (NULL, 'Cervicati', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Cervignano d''Adda', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Cervignano del Friuli', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Cervinara', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Cervino', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Cervo', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Cerzeto', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Cesa', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Cesana Brianza', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Cesana Torinese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Cesano Boscone', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Cesano Maderno', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Cesara', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Cesarò', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Cesate', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Cesena', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Cesenatico', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Cesinali', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Cesio', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Cesiomaggiore', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Cessalto', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Cessaniti', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Cessapalombo', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Cessole', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Cetara', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Ceto', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Cetona', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Cetraro', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Ceva', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Cevo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Challand-Saint-Anselme', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Challand-Saint-Victor', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Chambave', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Chamois', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Champdepraz', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Champorcher', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Charvensod', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Cherasco', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Cheremule', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Chialamberto', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Chiampo', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Chianche', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Chianciano Terme', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Chianni', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Chianocco', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Chiaramonte Gulfi', 'Ragusa');
-insert into Cities (id, name, province) values (NULL, 'Chiaramonti', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Chiarano', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Chiaravalle', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Chiaravalle Centrale', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Chiari', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Chiaromonte', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Chiauci', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Chiavari', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Chiavenna', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Chiaverano', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Chienes', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Chieri', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Chies d''Alpago', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Chiesa in Valmalenco', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Chiesanuova', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Chiesina Uzzanese', 'Pistoia');
-insert into Cities (id, name, province) values (NULL, 'Chieti', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Chieuti', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Chieve', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Chignolo Po', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Chignolo d''Isola', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Chioggia', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Chiomonte', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Chions', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Chiopris-Viscone', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Chitignano', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Chiuduno', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Chiuppano', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Chiuro', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Chiusa', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Chiusa Sclafani', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Chiusa di Pesio', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Chiusa di San Michele', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Chiusaforte', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Chiusanico', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Chiusano d''Asti', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Chiusano di San Domenico', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Chiusavecchia', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Chiusdino', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Chiusi', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Chiusi della Verna', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Chivasso', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Châtillon', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Ciampino', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Cianciana', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Cibiana di Cadore', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Cicagna', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Cicala', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Cicciano', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Cicerale', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Ciciliano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Cicognolo', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Ciconio', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Cigliano', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Cigliè', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Cigognola', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Cigole', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Cilavegna', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Cimadolmo', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Cimbergo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Ciminna', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Ciminà', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Cimitile', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Cimolais', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Cimone', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Cinaglio', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Cineto Romano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Cingia de'' Botti', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Cingoli', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Cinigiano', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Cinisello Balsamo', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Cinisi', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Cino', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Cinquefrondi', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Cintano', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Cinte Tesino', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Cinto Caomaggiore', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Cinto Euganeo', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Cinzano', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Ciorlano', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Cipressa', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Circello', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Cirigliano', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Cirimido', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Ciriè', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Cirò', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Cirò Marina', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Cis', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Cisano Bergamasco', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Cisano sul Neva', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Ciserano', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Cislago', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Cisliano', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Cison di Valmarino', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Cissone', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Cisterna d''Asti', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Cisterna di Latina', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Cisternino', 'Brindisi');
-insert into Cities (id, name, province) values (NULL, 'Citerna', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Cittadella', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Cittaducale', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Cittanova', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Cittareale', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Cittiglio', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Città Sant''Angelo', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Città della Pieve', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Città di Castello', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Civate', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Civezza', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Civezzano', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Civiasco', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Cividale del Friuli', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Cividate Camuno', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Cividate al Piano', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Civita', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Civita Castellana', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Civita d''Antino', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Civitacampomarano', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Civitaluparella', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Civitanova Marche', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Civitanova del Sannio', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Civitaquana', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Civitavecchia', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Civitella Alfedena', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Civitella Casanova', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Civitella Messer Raimondo', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Civitella Paganico', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Civitella Roveto', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Civitella San Paolo', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Civitella d''Agliano', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Civitella del Tronto', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Civitella di Romagna', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Civitella in Val di Chiana', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Civo', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Claino con Osteno', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Claut', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Clauzetto', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Clavesana', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Claviere', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Cles', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Cleto', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Clivio', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Clusone', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Coassolo Torinese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Coazze', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Coazzolo', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Coccaglio', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Cocconato', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Cocquio-Trevisago', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Cocullo', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Codevigo', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Codevilla', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Codigoro', 'Ferrara');
-insert into Cities (id, name, province) values (NULL, 'Codogno', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Codognè', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Codroipo', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Codrongianos', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Coggiola', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Cogliate', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Cogne', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Cogoleto', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Cogollo del Cengio', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Cogorno', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Colazza', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Colceresa', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Colere', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Colfelice', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Coli', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Colico', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Collalto Sabino', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Collarmele', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Collazzone', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Colle Brianza', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Colle San Magno', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Colle Sannita', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Colle Santa Lucia', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Colle Umberto', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Colle d''Anchise', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Colle di Tora', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Colle di Val d''Elsa', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Collebeato', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Collecchio', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Collecorvino', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Colledara', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Colledimacine', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Colledimezzo', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Colleferro', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Collegiove', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Collegno', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Collelongo', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Collepardo', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Collepasso', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Collepietro', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Colleretto Castelnuovo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Colleretto Giacosa', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Collesalvetti', 'Livorno');
-insert into Cities (id, name, province) values (NULL, 'Collesano', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Colletorto', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Collevecchio', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Colli Verdi', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Colli a Volturno', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Colli al Metauro', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Colli del Tronto', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Colli sul Velino', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Colliano', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Collinas', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Collio', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Collobiano', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Colloredo di Monte Albano', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Colmurano', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Colobraro', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Cologna Veneta', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Cologne', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Cologno Monzese', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Cologno al Serio', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Colognola ai Colli', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Colonna', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Colonnella', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Colonno', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Colorina', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Colorno', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Colosimi', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Colturano', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Colverde', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Colzate', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Comabbio', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Comacchio', 'Ferrara');
-insert into Cities (id, name, province) values (NULL, 'Comano', 'Massa-Carrara');
-insert into Cities (id, name, province) values (NULL, 'Comano Terme', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Comazzo', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Comeglians', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Comelico Superiore', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Comerio', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Comezzano-Cizzago', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Comignago', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Comiso', 'Ragusa');
-insert into Cities (id, name, province) values (NULL, 'Comitini', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Comiziano', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Commessaggio', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Commezzadura', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Como', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Compiano', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Comun Nuovo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Comunanza', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Cona', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Conca Casale', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Conca dei Marini', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Conca della Campania', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Concamarise', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Concerviano', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Concesio', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Concordia Sagittaria', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Concordia sulla Secchia', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Concorezzo', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Condofuri', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Condove', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Condrò', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Conegliano', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Confienza', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Configni', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Conflenti', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Coniolo', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Conselice', 'Ravenna');
-insert into Cities (id, name, province) values (NULL, 'Conselve', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Contessa Entellina', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Contigliano', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Contrada', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Controguerra', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Controne', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Contursi Terme', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Contà', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Conversano', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Conza della Campania', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Conzano', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Copertino', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Copiano', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Copparo', 'Ferrara');
-insert into Cities (id, name, province) values (NULL, 'Corana', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Corato', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Corbara', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Corbetta', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Corbola', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Corchiano', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Corciano', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Cordenons', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Cordignano', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Cordovado', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Coreglia Antelminelli', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Coreglia Ligure', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Coreno Ausonio', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Corfinio', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Cori', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Coriano', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Corigliano d''Otranto', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Corigliano-Rossano', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Corinaldo', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Corio', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Corleone', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Corleto Monforte', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Corleto Perticara', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Cormano', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Cormons', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'Corna Imagna', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Cornalba', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Cornale e Bastida', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Cornaredo', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Cornate d''Adda', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Cornedo Vicentino', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Cornedo all''Isarco', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Cornegliano Laudense', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Corneliano d''Alba', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Corniglio', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Corno Giovine', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Corno di Rosazzo', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Cornovecchio', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Cornuda', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Correggio', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Correzzana', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Correzzola', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Corrido', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Corridonia', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Corropoli', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Corsano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Corsico', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Corsione', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Cortaccia sulla strada del vino', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Cortale', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Cortandone', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Cortanze', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Cortazzone', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Corte Brugnatella', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Corte Franca', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Corte Palasio', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Corte de'' Cortesi con Cignone', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Corte de'' Frati', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Cortemaggiore', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Cortemilia', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Corteno Golgi', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Cortenova', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Cortenuova', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Corteolona e Genzone', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Cortiglione', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Cortina d''Ampezzo', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Cortina sulla strada del vino', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Cortino', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Cortona', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Corvara', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Corvara in Badia', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Corvino San Quirico', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Corzano', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Coseano', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Cosenza', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Cosio Valtellino', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Cosio d''Arroscia', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Cosoleto', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Cossano Belbo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Cossano Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Cossato', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Cosseria', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Cossignano', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Cossogno', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Cossoine', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Cossombrato', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Costa Masnaga', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Costa Serina', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Costa Valle Imagna', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Costa Vescovato', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Costa Volpino', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Costa de'' Nobili', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Costa di Mezzate', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Costa di Rovigo', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Costabissara', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Costacciaro', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Costanzana', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Costarainera', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Costermano sul Garda', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Costigliole Saluzzo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Costigliole d''Asti', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Cotignola', 'Ravenna');
-insert into Cities (id, name, province) values (NULL, 'Cotronei', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Cottanello', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Courmayeur', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Covo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Cozzo', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Craco', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Crandola Valsassina', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Cravagliana', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Cravanzana', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Craveggia', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Creazzo', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Crecchio', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Credaro', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Credera Rubbiano', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Crema', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Cremella', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Cremenaga', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Cremeno', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Cremia', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Cremolino', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Cremona', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Cremosano', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Crescentino', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Crespadoro', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Crespiatica', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Crespina Lorenzana', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Crespino', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Cressa', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Crevacuore', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Crevalcore', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Crevoladossola', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Crispano', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Crispiano', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Crissolo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Crocefieschi', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Crocetta del Montello', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Crodo', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Crognaleto', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Cropalati', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Cropani', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Crosia', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Crosio della Valle', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Crotone', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Crotta d''Adda', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Crova', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Croviana', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Crucoli', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Cuasso al Monte', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Cuccaro Vetere', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Cucciago', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Cuceglio', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Cuggiono', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Cugliate-Fabiasco', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Cuglieri', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Cugnoli', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Cumiana', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Cumignano sul Naviglio', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Cunardo', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Cuneo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Cunico', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Cuorgnè', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Cupello', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Cupra Marittima', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Cupramontana', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Cura Carpignano', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Curcuris', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Cureggio', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Curiglia con Monteviasco', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Curinga', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Curino', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Curno', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Curon Venosta', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Cursi', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Curtarolo', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Curtatone', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Curti', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Cusago', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Cusano Milanino', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Cusano Mutri', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Cusino', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Cusio', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Custonaci', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Cutro', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Cutrofiano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Cuveglio', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Cuvio', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Dairago', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Dalmine', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Dambel', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Danta di Cadore', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Darfo Boario Terme', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Dasà', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Davagna', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Daverio', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Davoli', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Dazio', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Decimomannu', 'Cagliari');
-insert into Cities (id, name, province) values (NULL, 'Decimoputzu', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Decollatura', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Dego', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Deiva Marina', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Delebio', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Delia', 'Caltanissetta');
-insert into Cities (id, name, province) values (NULL, 'Delianuova', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Deliceto', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Dello', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Demonte', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Denice', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Denno', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Dernice', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Derovere', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Deruta', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Dervio', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Desana', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Desenzano del Garda', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Desio', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Desulo', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Diamante', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Diano Arentino', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Diano Castello', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Diano Marina', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Diano San Pietro', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Diano d''Alba', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Dicomano', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Dignano', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Dimaro Folgarida', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Dinami', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Dipignano', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Diso', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Divignano', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Dizzasco', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Dobbiaco', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Doberdò del Lago-Doberdob', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'Dogliani', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Dogliola', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Dogna', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Dolceacqua', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Dolcedo', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Dolcè', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Dolegna del Collio', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'Dolianova', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Dolo', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Dolzago', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Domanico', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Domaso', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Domegge di Cadore', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Domicella', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Domodossola', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Domus de Maria', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Domusnovas', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Donato', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Dongo', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Donnas', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Donori', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Dorgali', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Dorio', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Dormelletto', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Dorno', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Dorzano', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Dosolo', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Dossena', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Dosso del Liro', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Doues', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Dovadola', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Dovera', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Dozza', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Dragoni', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Drapia', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Drena', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Drenchia', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Dresano', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Dro', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Dronero', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Druento', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Druogno', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Dualchi', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Dubino', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Due Carrare', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Dueville', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Dugenta', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Duino Aurisina-Devin Nabrežina', 'Trieste');
-insert into Cities (id, name, province) values (NULL, 'Dumenza', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Duno', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Durazzano', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Duronia', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Dusino San Michele', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Eboli', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Edolo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Egna', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Elice', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Elini', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Ello', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Elmas', 'Cagliari');
-insert into Cities (id, name, province) values (NULL, 'Elva', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Emarèse', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Empoli', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Endine Gaiano', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Enego', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Enemonzo', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Enna', 'Enna');
-insert into Cities (id, name, province) values (NULL, 'Entracque', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Entratico', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Envie', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Episcopia', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Eraclea', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Erba', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Erbezzo', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Erbusco', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Erbè', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Erchie', 'Brindisi');
-insert into Cities (id, name, province) values (NULL, 'Ercolano', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Erice', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Erli', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Erto e Casso', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Erula', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Erve', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Esanatoglia', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Escalaplano', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Escolca', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Esine', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Esino Lario', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Esperia', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Esporlatu', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Este', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Esterzili', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Etroubles', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Eupilio', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Exilles', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Fabbrica Curone', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Fabbriche di Vergemoli', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Fabbrico', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Fabriano', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Fabrica di Roma', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Fabrizia', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Fabro', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Faedis', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Faedo Valtellino', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Faenza', 'Ravenna');
-insert into Cities (id, name, province) values (NULL, 'Faeto', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Fagagna', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Faggeto Lario', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Faggiano', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Fagnano Alto', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Fagnano Castello', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Fagnano Olona', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Fai della Paganella', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Faicchio', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Falcade', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Falciano del Massico', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Falconara Albanese', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Falconara Marittima', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Falcone', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Faleria', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Falerna', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Falerone', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Fallo', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Faloppio', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Falvaterra', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Falzes', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Fanano', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Fanna', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Fano', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Fano Adriano', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Fara Filiorum Petri', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Fara Gera d''Adda', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Fara Novarese', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Fara Olivana con Sola', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Fara San Martino', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Fara Vicentino', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Fara in Sabina', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Fardella', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Farigliano', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Farindola', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Farini', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Farnese', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Farra d''Isonzo', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'Farra di Soligo', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Fasano', 'Brindisi');
-insert into Cities (id, name, province) values (NULL, 'Fascia', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Fauglia', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Faule', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Favale di Malvaro', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Favara', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Favignana', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Favria', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Feisoglio', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Feletto', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Felino', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Felitto', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Felizzano', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Feltre', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Fenegrò', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Fenestrelle', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Ferentillo', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Ferentino', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Ferla', 'Siracusa');
-insert into Cities (id, name, province) values (NULL, 'Fermignano', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Fermo', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Ferno', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Feroleto Antico', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Feroleto della Chiesa', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Ferrandina', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Ferrara', 'Ferrara');
-insert into Cities (id, name, province) values (NULL, 'Ferrara di Monte Baldo', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Ferrazzano', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Ferrera Erbognone', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Ferrera di Varese', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Ferrere', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Ferriere', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Ferruzzano', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Fiamignano', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Fiano', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Fiano Romano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Fiastra', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Fiavè', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Ficarazzi', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Ficarolo', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Ficarra', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Ficulle', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Fidenza', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Fierozzo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Fiesco', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Fiesole', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Fiesse', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Fiesso Umbertiano', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Fiesso d''Artico', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Figino Serenza', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Figline Vegliaturo', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Figline e Incisa Valdarno', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Filacciano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Filadelfia', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Filago', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Filandari', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Filattiera', 'Massa-Carrara');
-insert into Cities (id, name, province) values (NULL, 'Filettino', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Filetto', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Filiano', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Filighera', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Filignano', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Filogaso', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Filottrano', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Finale Emilia', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Finale Ligure', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Fino Mornasco', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Fino del Monte', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Fiorano Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Fiorano Modenese', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Fiorano al Serio', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Fiorenzuola d''Arda', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Firenze', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Firenzuola', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Firmo', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Fiscaglia', 'Ferrara');
-insert into Cities (id, name, province) values (NULL, 'Fisciano', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Fiuggi', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Fiumalbo', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Fiumara', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Fiume Veneto', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Fiumedinisi', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Fiumefreddo Bruzio', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Fiumefreddo di Sicilia', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Fiumicello Villa Vicentina', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Fiumicino', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Fiuminata', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Fivizzano', 'Massa-Carrara');
-insert into Cities (id, name, province) values (NULL, 'Fiè allo Sciliar', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Flaibano', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Flero', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Floresta', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Floridia', 'Siracusa');
-insert into Cities (id, name, province) values (NULL, 'Florinas', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Flumeri', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Fluminimaggiore', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Flussio', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Fobello', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Foggia', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Foglianise', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Fogliano Redipuglia', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'Foglizzo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Foiano della Chiana', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Foiano di Val Fortore', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Folgaria', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Folignano', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Foligno', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Follina', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Follo', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Follonica', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Fombio', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Fondachelli-Fantina', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Fondi', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Fonni', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Fontainemore', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Fontana Liri', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Fontanafredda', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Fontanarosa', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Fontanelice', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Fontanella', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Fontanellato', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Fontanelle', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Fontaneto d''Agogna', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Fontanetto Po', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Fontanigorda', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Fontanile', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Fontaniva', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Fonte', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Fonte Nuova', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Fontecchio', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Fontechiari', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Fontegreca', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Fonteno', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Fontevivo', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Fonzaso', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Foppolo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Forano', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Force', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Forchia', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Forcola', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Fordongianus', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Forenza', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Foresto Sparso', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Forgaria nel Friuli', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Forino', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Forio', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Forlimpopoli', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Forlì', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Forlì del Sannio', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Formazza', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Formello', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Formia', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Formicola', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Formigara', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Formigine', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Formigliana', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Fornace', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Fornelli', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Forni Avoltri', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Forni di Sopra', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Forni di Sotto', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Forno Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Fornovo San Giovanni', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Fornovo di Taro', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Forte dei Marmi', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Fortezza', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Fortunago', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Forza d''Agrò', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Fosciandora', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Fosdinovo', 'Massa-Carrara');
-insert into Cities (id, name, province) values (NULL, 'Fossa', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Fossacesia', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Fossalta di Piave', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Fossalta di Portogruaro', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Fossalto', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Fossano', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Fossato Serralta', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Fossato di Vico', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Fossombrone', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Fossò', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Foza', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Frabosa Soprana', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Frabosa Sottana', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Fraconalto', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Fragagnano', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Fragneto Monforte', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Fragneto l''Abate', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Fraine', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Framura', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Francavilla Angitola', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Francavilla Bisio', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Francavilla Fontana', 'Brindisi');
-insert into Cities (id, name, province) values (NULL, 'Francavilla Marittima', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Francavilla al Mare', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Francavilla d''Ete', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Francavilla di Sicilia', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Francavilla in Sinni', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Francica', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Francofonte', 'Siracusa');
-insert into Cities (id, name, province) values (NULL, 'Francolise', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Frascaro', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Frascarolo', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Frascati', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Frascineto', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Frassilongo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Frassinelle Polesine', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Frassinello Monferrato', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Frassineto Po', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Frassinetto', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Frassino', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Frassinoro', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Frasso Sabino', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Frasso Telesino', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Fratta Polesine', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Fratta Todina', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Frattamaggiore', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Frattaminore', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Fratte Rosa', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Frazzanò', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Fregona', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Fresagrandinaria', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Fresonara', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Frigento', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Frignano', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Frinco', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Frisa', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Frisanco', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Front', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Frontino', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Frontone', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Frosinone', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Frosolone', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Frossasco', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Frugarolo', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Fubine Monferrato', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Fucecchio', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Fuipiano Valle Imagna', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Fumane', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Fumone', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Funes', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Furci', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Furci Siculo', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Furnari', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Furore', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Furtei', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Fuscaldo', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Fusignano', 'Ravenna');
-insert into Cities (id, name, province) values (NULL, 'Fusine', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Futani', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Fénis', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Gabbioneta-Binanuova', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Gabiano', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Gabicce Mare', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Gaby', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Gadesco-Pieve Delmona', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Gadoni', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Gaeta', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Gaggi', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Gaggiano', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Gaggio Montano', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Gaglianico', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Gagliano Aterno', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Gagliano Castelferrato', 'Enna');
-insert into Cities (id, name, province) values (NULL, 'Gagliano del Capo', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Gagliato', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Gagliole', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Gaiarine', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Gaiba', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Gaiola', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Gaiole in Chianti', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Gairo', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Gais', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Galati Mamertino', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Galatina', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Galatone', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Galatro', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Galbiate', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Galeata', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Galgagnano', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Gallarate', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Gallese', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Galliate', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Galliate Lombardo', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Galliavola', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Gallicano', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Gallicano nel Lazio', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Gallicchio', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Galliera', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Galliera Veneta', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Gallinaro', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Gallio', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Gallipoli', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Gallo Matese', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Gallodoro', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Galluccio', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Galtellì', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Galzignano Terme', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Gamalero', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Gambara', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Gambarana', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Gambasca', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Gambassi Terme', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Gambatesa', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Gambellara', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Gamberale', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Gambettola', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Gambolò', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Gambugliano', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Gandellino', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Gandino', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Gandosso', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Gangi', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Garaguso', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Garbagna', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Garbagna Novarese', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Garbagnate Milanese', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Garbagnate Monastero', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Garda', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Gardone Riviera', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Gardone Val Trompia', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Garessio', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Gargallo', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Gargazzone', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Gargnano', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Garlasco', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Garlate', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Garlenda', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Garniga Terme', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Garzeno', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Garzigliana', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Gasperina', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Gassino Torinese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Gattatico', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Gatteo', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Gattico-Veruno', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Gattinara', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Gavardo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Gavello', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Gaverina Terme', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Gavi', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Gavignano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Gavirate', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Gavoi', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Gavorrano', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Gazoldo degli Ippoliti', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Gazzada Schianno', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Gazzaniga', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Gazzo', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Gazzo Veronese', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Gazzola', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Gazzuolo', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Gela', 'Caltanissetta');
-insert into Cities (id, name, province) values (NULL, 'Gemmano', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Gemona del Friuli', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Gemonio', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Genazzano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Genga', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Genivolta', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Genola', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Genoni', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Genova', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Genuri', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Genzano di Lucania', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Genzano di Roma', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Gera Lario', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Gerace', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Geraci Siculo', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Gerano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Gerenzago', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Gerenzano', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Gergei', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Germagnano', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Germagno', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Germignaga', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Gerocarne', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Gerola Alta', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Gerre de'' Caprioli', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Gesico', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Gessate', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Gessopalena', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Gesturi', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Gesualdo', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Ghedi', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Ghemme', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Ghiffa', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Ghilarza', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Ghisalba', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Ghislarengo', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Giacciano con Baruchella', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Giaglione', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Gianico', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Giano Vetusto', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Giano dell''Umbria', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Giardinello', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Giardini-Naxos', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Giarole', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Giarratana', 'Ragusa');
-insert into Cities (id, name, province) values (NULL, 'Giarre', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Giave', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Giaveno', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Giavera del Montello', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Giba', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Gibellina', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Gifflenga', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Giffone', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Giffoni Sei Casali', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Giffoni Valle Piana', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Gignese', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Gignod', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Gildone', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Gimigliano', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Ginestra', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Ginestra degli Schiavoni', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Ginosa', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Gioi', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Gioia Sannitica', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Gioia Tauro', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Gioia dei Marsi', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Gioia del Colle', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Gioiosa Ionica', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Gioiosa Marea', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Giove', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Giovinazzo', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Giovo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Girasole', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Girifalco', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Gissi', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Giuggianello', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Giugliano in Campania', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Giuliana', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Giuliano Teatino', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Giuliano di Roma', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Giulianova', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Giungano', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Giurdignano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Giussago', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Giussano', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Giustenice', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Giustino', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Giusvalla', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Givoletto', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Gizzeria', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Glorenza', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Godega di Sant''Urbano', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Godiasco Salice Terme', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Godrano', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Goito', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Golasecca', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Golferenzo', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Golfo Aranci', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Gombito', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Gonars', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Goni', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Gonnesa', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Gonnoscodina', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Gonnosfanadiga', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Gonnosnò', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Gonnostramatza', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Gonzaga', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Gordona', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Gorga', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Gorgo al Monticano', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Gorgoglione', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Gorgonzola', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Goriano Sicoli', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Gorizia', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'Gorla Maggiore', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Gorla Minore', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Gorlago', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Gorle', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Gornate Olona', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Gorno', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Goro', 'Ferrara');
-insert into Cities (id, name, province) values (NULL, 'Gorreto', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Gorzegno', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Gosaldo', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Gossolengo', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Gottasecca', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Gottolengo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Govone', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Gozzano', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Gradara', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Gradisca d''Isonzo', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'Grado', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'Gradoli', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Graffignana', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Graffignano', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Graglia', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Gragnano', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Gragnano Trebbiense', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Grammichele', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Grana Monferrato', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Granarolo dell''Emilia', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Grandate', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Grandola ed Uniti', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Graniti', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Granozzo con Monticello', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Grantola', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Grantorto', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Granze', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Grassano', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Grassobbio', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Gratteri', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Gravedona ed Uniti', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Gravellona Lomellina', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Gravellona Toce', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Gravere', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Gravina di Catania', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Gravina in Puglia', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Grazzanise', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Grazzano Badoglio', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Greccio', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Greci', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Greggio', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Gremiasco', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Gressan', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Gressoney-La-Trinité', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Gressoney-Saint-Jean', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Greve in Chianti', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Grezzago', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Grezzana', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Griante', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Gricignano di Aversa', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Grignasco', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Grigno', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Grimacco', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Grimaldi', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Grinzane Cavour', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Grisignano di Zocco', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Grisolia', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Grizzana Morandi', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Grognardo', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Gromo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Grondona', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Grone', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Grontardo', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Gropello Cairoli', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Gropparello', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Groscavallo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Grosio', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Grosotto', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Grosseto', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Grosso', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Grottaferrata', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Grottaglie', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Grottaminarda', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Grottammare', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Grottazzolina', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Grotte', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Grotte di Castro', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Grotteria', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Grottole', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Grottolella', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Gruaro', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Grugliasco', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Grumello Cremonese ed Uniti', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Grumello del Monte', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Grumento Nova', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Grumo Appula', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Grumo Nevano', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Grumolo delle Abbadesse', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Guagnano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Gualdo', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Gualdo Cattaneo', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Gualdo Tadino', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Gualtieri', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Gualtieri Sicaminò', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Guamaggiore', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Guanzate', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Guarcino', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Guarda Veneta', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Guardabosone', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Guardamiglio', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Guardavalle', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Guardea', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Guardia Lombardi', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Guardia Perticara', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Guardia Piemontese', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Guardia Sanframondi', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Guardiagrele', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Guardialfiera', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Guardiaregia', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Guardistallo', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Guarene', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Guasila', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Guastalla', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Guazzora', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Gubbio', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Gudo Visconti', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Guglionesi', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Guidizzolo', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Guidonia Montecelio', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Guiglia', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Guilmi', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Gurro', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Guspini', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Gussago', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Gussola', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Hône', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Idro', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Iglesias', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Igliano', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Ilbono', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Illasi', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Illorai', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Imbersago', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Imer', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Imola', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Imperia', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Impruneta', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Inarzo', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Incisa Scapaccino', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Incudine', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Induno Olona', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Ingria', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Intragna', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Introbio', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Introd', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Introdacqua', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Inverigo', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Inverno e Monteleone', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Inverso Pinasca', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Inveruno', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Invorio', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Inzago', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Ionadi', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Irgoli', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Irma', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Irsina', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Isasca', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Isca sullo Ionio', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Ischia', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Ischia di Castro', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Ischitella', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Iseo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Isera', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Isernia', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Isili', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Isnello', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Isola Dovarese', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Isola Rizza', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Isola Sant''Antonio', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Isola Vicentina', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Isola d''Asti', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Isola del Cantone', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Isola del Giglio', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Isola del Gran Sasso d''Italia', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Isola del Liri', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Isola del Piano', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Isola della Scala', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Isola delle Femmine', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Isola di Capo Rizzuto', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Isola di Fondra', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Isolabella', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Isolabona', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Isole Tremiti', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Isorella', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Ispani', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Ispica', 'Ragusa');
-insert into Cities (id, name, province) values (NULL, 'Ispra', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Issiglio', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Issime', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Isso', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Issogne', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Istrana', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Itala', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Itri', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Ittireddu', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Ittiri', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Ivrea', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Izano', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Jacurso', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Jelsi', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Jenne', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Jerago con Orago', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Jerzu', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Jesi', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Jesolo', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Jolanda di Savoia', 'Ferrara');
-insert into Cities (id, name, province) values (NULL, 'Joppolo', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Joppolo Giancaxio', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Jovençan', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'L''Aquila', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'La Cassa', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'La Loggia', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'La Maddalena', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'La Magdeleine', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'La Morra', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'La Salle', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'La Spezia', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'La Thuile', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'La Valle', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'La Valle Agordina', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'La Valletta Brianza', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Labico', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Labro', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Lacchiarella', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Lacco Ameno', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Lacedonia', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Laces', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Laconi', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Ladispoli', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Laerru', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Laganadi', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Laghi', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Laglio', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Lagnasco', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Lago', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Lagonegro', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Lagosanto', 'Ferrara');
-insert into Cities (id, name, province) values (NULL, 'Lagundo', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Laigueglia', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Lainate', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Laino', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Laino Borgo', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Laino Castello', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Laion', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Laives', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Lajatico', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Lallio', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Lama Mocogno', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Lama dei Peligni', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Lambrugo', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Lamezia Terme', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Lamon', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Lampedusa e Linosa', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Lamporecchio', 'Pistoia');
-insert into Cities (id, name, province) values (NULL, 'Lamporo', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Lana', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Lanciano', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Landiona', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Landriano', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Langhirano', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Langosco', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Lanusei', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Lanuvio', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Lanzada', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Lanzo Torinese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Lapedona', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Lapio', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Lappano', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Larciano', 'Pistoia');
-insert into Cities (id, name, province) values (NULL, 'Lardirago', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Lariano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Larino', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Las Plassas', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Lasa', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Lascari', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Lasnigo', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Lastebasse', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Lastra a Signa', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Latera', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Laterina Pergine Valdarno', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Laterza', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Latiano', 'Brindisi');
-insert into Cities (id, name, province) values (NULL, 'Latina', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Latisana', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Latronico', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Lattarico', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Lauco', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Laureana Cilento', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Laureana di Borrello', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Lauregno', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Laurenzana', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Lauria', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Lauriano', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Laurino', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Laurito', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Lauro', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Lavagna', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Lavagno', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Lavarone', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Lavello', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Lavena Ponte Tresa', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Laveno-Mombello', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Lavenone', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Laviano', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Lavis', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Lazise', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Lazzate', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Lecce', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Lecce nei Marsi', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Lecco', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Ledro', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Leffe', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Leggiuno', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Legnago', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Legnano', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Legnaro', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Lei', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Leini', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Leivi', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Lemie', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Lendinara', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Leni', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Lenna', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Leno', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Lenola', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Lenta', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Lentate sul Seveso', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Lentella', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Lentini', 'Siracusa');
-insert into Cities (id, name, province) values (NULL, 'Leonessa', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Leonforte', 'Enna');
-insert into Cities (id, name, province) values (NULL, 'Leporano', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Lequile', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Lequio Berria', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Lequio Tanaro', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Lercara Friddi', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Lerici', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Lerma', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Lesa', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Lesegno', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Lesignano de'' Bagni', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Lesina', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Lesmo', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Lessolo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Lessona', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Lestizza', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Letino', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Letojanni', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Lettere', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Lettomanoppello', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Lettopalena', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Levanto', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Levate', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Leverano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Levice', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Levico Terme', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Levone', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Lezzeno', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Liberi', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Librizzi', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Licata', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Licciana Nardi', 'Massa-Carrara');
-insert into Cities (id, name, province) values (NULL, 'Licenza', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Licodia Eubea', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Lierna', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Lignana', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Lignano Sabbiadoro', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Lillianes', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Limana', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Limatola', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Limbadi', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Limbiate', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Limena', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Limido Comasco', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Limina', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Limone Piemonte', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Limone sul Garda', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Limosano', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Linarolo', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Linguaglossa', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Lioni', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Lipari', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Lipomo', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Lirio', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Liscate', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Liscia', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Lisciano Niccone', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Lisio', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Lissone', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Liveri', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Livigno', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Livinallongo del Col di Lana', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Livo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Livo', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Livorno', 'Livorno');
-insert into Cities (id, name, province) values (NULL, 'Livorno Ferraris', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Livraga', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Lizzanello', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Lizzano', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Lizzano in Belvedere', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Loano', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Loazzolo', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Locana', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Locate Varesino', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Locate di Triulzi', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Locatello', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Loceri', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Locorotondo', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Locri', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Loculi', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Lodi', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Lodi Vecchio', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Lodine', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Lodrino', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Lodè', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Lograto', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Loiano', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Loiri Porto San Paolo', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Lomagna', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Lomazzo', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Lombardore', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Lombriasco', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Lomello', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Lona-Lases', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Lonate Ceppino', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Lonate Pozzolo', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Lonato del Garda', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Londa', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Longano', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Longare', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Longarone', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Longhena', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Longi', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Longiano', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Longobardi', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Longobucco', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Longone Sabino', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Longone al Segrino', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Lonigo', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Loranzè', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Loreggia', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Loreglia', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Lorenzago di Cadore', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Loreo', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Loreto', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Loreto Aprutino', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Loria', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Loro Ciuffenna', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Loro Piceno', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Lorsica', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Losine', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Lotzorai', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Lovere', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Lovero', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Lozio', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Lozza', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Lozzo Atestino', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Lozzo di Cadore', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Lozzolo', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Lu e Cuccaro Monferrato', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Lubriano', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Lucca', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Lucca Sicula', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Lucera', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Lucignano', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Lucinasco', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Lucito', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Luco dei Marsi', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Lucoli', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Lugagnano Val d''Arda', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Lugnano in Teverina', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Lugo', 'Ravenna');
-insert into Cities (id, name, province) values (NULL, 'Lugo di Vicenza', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Luino', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Luisago', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Lula', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Lumarzo', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Lumezzane', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Lunamatrona', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Lunano', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Lungavilla', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Lungro', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Luni', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Luogosano', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Luogosanto', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Lupara', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Lurago Marinone', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Lurago d''Erba', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Lurano', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Luras', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Lurate Caccivio', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Lusciano', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Luserna', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Luserna San Giovanni', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Lusernetta', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Lusevera', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Lusia', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Lusiana Conco', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Lusigliè', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Luson', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Lustra', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Luvinate', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Luzzana', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Luzzara', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Luzzi', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Maccagno con Pino e Veddasca', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Maccastorna', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Macchia Valfortore', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Macchia d''Isernia', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Macchiagodena', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Macello', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Macerata', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Macerata Campania', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Macerata Feltria', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Macherio', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Maclodio', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Macomer', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Macra', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Macugnaga', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Maddaloni', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Madesimo', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Madignano', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Madone', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Madonna del Sasso', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Madruzzo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Maenza', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Mafalda', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Magasa', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Magenta', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Maggiora', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Magherno', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Magione', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Magisano', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Magliano Alfieri', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Magliano Alpi', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Magliano Romano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Magliano Sabina', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Magliano Vetere', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Magliano de'' Marsi', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Magliano di Tenna', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Magliano in Toscana', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Maglie', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Magliolo', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Maglione', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Magnacavallo', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Magnago', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Magnano', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Magnano in Riviera', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Magomadas', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Magreglio', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Magrè sulla strada del vino', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Maida', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Maierato', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Maierà', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Maiolati Spontini', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Maiolo', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Maiori', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Mairago', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Mairano', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Maissana', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Majano', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Malagnino', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Malalbergo', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Malborghetto Valbruna', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Malcesine', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Malegno', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Maleo', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Malesco', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Maletto', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Malfa', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Malgrate', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Malito', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Mallare', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Malles Venosta', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Malnate', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Malo', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Malonno', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Maltignano', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Malvagna', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Malvicino', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Malvito', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Malé', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Mammola', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Mamoiada', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Manciano', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Mandanici', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Mandas', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Mandatoriccio', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Mandela', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Mandello Vitta', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Mandello del Lario', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Manduria', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Manerba del Garda', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Manerbio', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Manfredonia', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Mango', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Mangone', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Maniace', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Maniago', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Manocalzati', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Manoppello', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Mansuè', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Manta', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Mantello', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Mantova', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Manzano', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Manziana', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Mapello', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Mappano', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Mara', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Maracalagonis', 'Cagliari');
-insert into Cities (id, name, province) values (NULL, 'Maranello', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Marano Equo', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Marano Lagunare', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Marano Marchesato', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Marano Principato', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Marano Ticino', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Marano Vicentino', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Marano di Napoli', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Marano di Valpolicella', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Marano sul Panaro', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Maranzana', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Maratea', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Marcallo con Casone', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Marcaria', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Marcedusa', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Marcellina', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Marcellinara', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Marcetelli', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Marcheno', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Marchirolo', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Marciana', 'Livorno');
-insert into Cities (id, name, province) values (NULL, 'Marciana Marina', 'Livorno');
-insert into Cities (id, name, province) values (NULL, 'Marcianise', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Marciano della Chiana', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Marcignago', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Marcon', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Marebbe', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Marene', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Mareno di Piave', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Marentino', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Maretto', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Margarita', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Margherita di Savoia', 'Barletta-Andria-Trani');
-insert into Cities (id, name, province) values (NULL, 'Margno', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Mariana Mantovana', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Mariano Comense', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Mariano del Friuli', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'Marianopoli', 'Caltanissetta');
-insert into Cities (id, name, province) values (NULL, 'Mariglianella', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Marigliano', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Marina di Gioiosa Ionica', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Marineo', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Marino', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Marlengo', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Marliana', 'Pistoia');
-insert into Cities (id, name, province) values (NULL, 'Marmentino', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Marmirolo', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Marmora', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Marnate', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Marone', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Maropati', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Marostica', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Marradi', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Marrubiu', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Marsaglia', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Marsala', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Marsciano', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Marsico Nuovo', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Marsicovetere', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Marta', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Martano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Martellago', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Martello', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Martignacco', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Martignana di Po', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Martignano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Martina Franca', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Martinengo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Martiniana Po', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Martinsicuro', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Martirano', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Martirano Lombardo', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Martis', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Martone', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Marudo', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Maruggio', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Marzabotto', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Marzano', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Marzano Appio', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Marzano di Nola', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Marzi', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Marzio', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Masainas', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Masate', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Mascali', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Mascalucia', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Maschito', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Masciago Primo', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Maser', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Masera', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Maserada sul Piave', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Maserà di Padova', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Masi', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Masi Torello', 'Ferrara');
-insert into Cities (id, name, province) values (NULL, 'Masio', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Maslianico', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Masone', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Massa', 'Massa-Carrara');
-insert into Cities (id, name, province) values (NULL, 'Massa Fermana', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Massa Lombarda', 'Ravenna');
-insert into Cities (id, name, province) values (NULL, 'Massa Lubrense', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Massa Marittima', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Massa Martana', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Massa d''Albe', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Massa di Somma', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Massa e Cozzile', 'Pistoia');
-insert into Cities (id, name, province) values (NULL, 'Massafra', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Massalengo', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Massanzago', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Massarosa', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Massazza', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Massello', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Masserano', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Massignano', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Massimeno', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Massimino', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Massino Visconti', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Massiola', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Masullas', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Matelica', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Matera', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Mathi', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Matino', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Matrice', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Mattie', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Mattinata', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Mazara del Vallo', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Mazzano', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Mazzano Romano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Mazzarino', 'Caltanissetta');
-insert into Cities (id, name, province) values (NULL, 'Mazzarrone', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Mazzarrà Sant''Andrea', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Mazzin', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Mazzo di Valtellina', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Mazzè', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Meana Sardo', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Meana di Susa', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Meda', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Mede', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Medea', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'Medesano', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Medicina', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Mediglia', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Medolago', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Medole', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Medolla', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Meduna di Livenza', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Meduno', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Megliadino San Vitale', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Meina', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Melara', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Melazzo', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Meldola', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Mele', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Melegnano', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Melendugno', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Meleti', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Melfi', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Melicucco', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Melicuccà', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Melilli', 'Siracusa');
-insert into Cities (id, name, province) values (NULL, 'Melissa', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Melissano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Melito Irpino', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Melito di Napoli', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Melito di Porto Salvo', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Melizzano', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Melle', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Mello', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Melpignano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Meltina', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Melzo', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Menaggio', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Menconico', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Mendatica', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Mendicino', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Menfi', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Mentana', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Meolo', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Merana', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Merano', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Merate', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Mercallo', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Mercatello sul Metauro', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Mercatino Conca', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Mercato San Severino', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Mercato Saraceno', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Mercenasco', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Mercogliano', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Mereto di Tomba', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Mergo', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Mergozzo', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Merlara', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Merlino', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Merone', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Merì', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Mesagne', 'Brindisi');
-insert into Cities (id, name, province) values (NULL, 'Mese', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Mesenzana', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Mesero', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Mesola', 'Ferrara');
-insert into Cities (id, name, province) values (NULL, 'Mesoraca', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Messina', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Mestrino', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Meta', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Mezzago', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Mezzana', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Mezzana Bigli', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Mezzana Mortigliengo', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Mezzana Rabattone', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Mezzane di Sotto', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Mezzanego', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Mezzanino', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Mezzano', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Mezzenile', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Mezzocorona', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Mezzojuso', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Mezzoldo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Mezzolombardo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Mezzomerico', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Miagliano', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Miane', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Miasino', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Miazzina', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Micigliano', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Miggiano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Miglianico', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Miglierina', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Miglionico', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Mignanego', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Mignano Monte Lungo', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Milano', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Milazzo', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Milena', 'Caltanissetta');
-insert into Cities (id, name, province) values (NULL, 'Mileto', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Milis', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Militello Rosmarino', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Militello in Val di Catania', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Millesimo', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Milo', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Milzano', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Mineo', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Minerbe', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Minerbio', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Minervino Murge', 'Barletta-Andria-Trani');
-insert into Cities (id, name, province) values (NULL, 'Minervino di Lecce', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Minori', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Minturno', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Minucciano', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Mioglia', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Mira', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Mirabella Eclano', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Mirabella Imbaccari', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Mirabello Monferrato', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Mirabello Sannitico', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Miradolo Terme', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Miranda', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Mirandola', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Mirano', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Mirto', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Misano Adriatico', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Misano di Gera d''Adda', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Misiliscemi', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Misilmeri', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Misinto', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Missaglia', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Missanello', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Misterbianco', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Mistretta', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Moasca', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Moconesi', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Modena', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Modica', 'Ragusa');
-insert into Cities (id, name, province) values (NULL, 'Modigliana', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Modolo', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Modugno', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Moena', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Moggio', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Moggio Udinese', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Moglia', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Mogliano', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Mogliano Veneto', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Mogorella', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Mogoro', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Moiano', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Moimacco', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Moio Alcantara', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Moio de'' Calvi', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Moio della Civitella', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Moiola', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Mola di Bari', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Molare', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Molazzana', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Molfetta', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Molina Aterno', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Molinara', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Molinella', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Molini di Triora', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Molino dei Torti', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Molise', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Moliterno', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Mollia', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Molochio', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Molteno', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Moltrasio', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Molveno', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Mombaldone', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Mombarcaro', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Mombaroccio', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Mombaruzzo', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Mombasiglio', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Mombello Monferrato', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Mombello di Torino', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Mombercelli', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Momo', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Mompantero', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Mompeo', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Momperone', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Monacilioni', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Monale', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Monasterace', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Monastero Bormida', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Monastero di Lanzo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Monastero di Vasco', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Monasterolo Casotto', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Monasterolo del Castello', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Monasterolo di Savigliano', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Monastier di Treviso', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Monastir', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Moncalieri', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Moncalvo', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Moncenisio', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Moncestino', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Monchiero', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Monchio delle Corti', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Moncrivello', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Moncucco Torinese', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Mondaino', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Mondavio', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Mondolfo', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Mondovì', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Mondragone', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Moneglia', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Monesiglio', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Monfalcone', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'Monforte San Giorgio', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Monforte d''Alba', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Monfumo', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Mongardino', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Monghidoro', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Mongiana', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Mongiardino Ligure', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Mongiuffi Melia', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Mongrando', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Mongrassano', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Monguelfo-Tesido', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Monguzzo', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Moniga del Garda', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Monleale', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Monno', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Monopoli', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Monreale', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Monrupino-Repentabor', 'Trieste');
-insert into Cities (id, name, province) values (NULL, 'Monsampietro Morico', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Monsampolo del Tronto', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Monsano', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Monselice', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Monserrato', 'Cagliari');
-insert into Cities (id, name, province) values (NULL, 'Monsummano Terme', 'Pistoia');
-insert into Cities (id, name, province) values (NULL, 'Montabone', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Montacuto', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Montafia', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Montagano', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Montagna in Valtellina', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Montagna sulla Strada del Vino', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Montagnana', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Montagnareale', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Montaguto', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Montaione', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Montalbano Elicona', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Montalbano Jonico', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Montalcino', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Montaldeo', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Montaldo Bormida', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Montaldo Roero', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Montaldo Scarampi', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Montaldo Torinese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Montaldo di Mondovì', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Montale', 'Pistoia');
-insert into Cities (id, name, province) values (NULL, 'Montalenghe', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Montallegro', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Montalto Carpasio', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Montalto Dora', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Montalto Pavese', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Montalto Uffugo', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Montalto delle Marche', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Montalto di Castro', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Montanaro', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Montanaso Lombardo', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Montanera', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Montano Antilia', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Montano Lucino', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Montappone', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Montaquila', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Montasola', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Montauro', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Montazzoli', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Monte Argentario', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Monte Castello di Vibio', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Monte Cavallo', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Monte Cerignone', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Monte Compatri', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Monte Cremasco', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Monte Giberto', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Monte Grimano Terme', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Monte Isola', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Monte Marenzo', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Monte Porzio', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Monte Porzio Catone', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Monte Rinaldo', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Monte Roberto', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Monte Romano', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Monte San Biagio', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Monte San Giacomo', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Monte San Giovanni Campano', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Monte San Giovanni in Sabina', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Monte San Giusto', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Monte San Martino', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Monte San Pietrangeli', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Monte San Pietro', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Monte San Savino', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Monte San Vito', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Monte Sant''Angelo', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Monte Santa Maria Tiberina', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Monte Urano', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Monte Vidon Combatte', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Monte Vidon Corrado', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Monte di Malo', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Monte di Procida', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Montebello Jonico', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Montebello Vicentino', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Montebello della Battaglia', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Montebello di Bertona', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Montebello sul Sangro', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Montebelluna', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Montebruno', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Montebuono', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Montecalvo Irpino', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Montecalvo Versiggia', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Montecalvo in Foglia', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Montecarlo', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Montecarotto', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Montecassiano', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Montecastello', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Montecastrilli', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Montecatini Val di Cecina', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Montecatini-Terme', 'Pistoia');
-insert into Cities (id, name, province) values (NULL, 'Montecchia di Crosara', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Montecchio', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Montecchio Emilia', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Montecchio Maggiore', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Montecchio Precalcino', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Montechiaro d''Acqui', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Montechiaro d''Asti', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Montechiarugolo', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Montecilfone', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Montecopiolo', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Montecorice', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Montecorvino Pugliano', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Montecorvino Rovella', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Montecosaro', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Montecrestese', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Montecreto', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Montedinove', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Montedoro', 'Caltanissetta');
-insert into Cities (id, name, province) values (NULL, 'Montefalcione', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Montefalco', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Montefalcone Appennino', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Montefalcone di Val Fortore', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Montefalcone nel Sannio', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Montefano', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Montefelcino', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Monteferrante', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Montefiascone', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Montefino', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Montefiore Conca', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Montefiore dell''Aso', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Montefiorino', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Monteflavio', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Monteforte Cilento', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Monteforte Irpino', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Monteforte d''Alpone', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Montefortino', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Montefranco', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Montefredane', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Montefusco', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Montegabbione', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Montegalda', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Montegaldella', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Montegallo', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Montegioco', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Montegiordano', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Montegiorgio', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Montegranaro', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Montegridolfo', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Montegrino Valtravaglia', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Montegrosso Pian Latte', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Montegrosso d''Asti', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Montegrotto Terme', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Monteiasi', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Montelabbate', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Montelanico', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Montelapiano', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Monteleone Rocca Doria', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Monteleone Sabino', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Monteleone d''Orvieto', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Monteleone di Fermo', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Monteleone di Puglia', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Monteleone di Spoleto', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Montelepre', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Montelibretti', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Montella', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Montello', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Montelongo', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Montelparo', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Montelupo Albese', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Montelupo Fiorentino', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Montelupone', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Montemaggiore Belsito', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Montemagno', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Montemale di Cuneo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Montemarano', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Montemarciano', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Montemarzino', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Montemesola', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Montemezzo', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Montemignaio', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Montemiletto', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Montemilone', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Montemitro', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Montemonaco', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Montemurlo', 'Prato');
-insert into Cities (id, name, province) values (NULL, 'Montemurro', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Montenars', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Montenero Sabino', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Montenero Val Cocchiara', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Montenero di Bisaccia', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Montenerodomo', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Monteodorisio', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Montepaone', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Monteparano', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Monteprandone', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Montepulciano', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Monterchi', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Montereale', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Montereale Valcellina', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Monterenzio', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Monteriggioni', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Monteroduni', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Monteroni d''Arbia', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Monteroni di Lecce', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Monterosi', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Monterosso Almo', 'Ragusa');
-insert into Cities (id, name, province) values (NULL, 'Monterosso Calabro', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Monterosso Grana', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Monterosso al Mare', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Monterotondo', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Monterotondo Marittimo', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Monterubbiano', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Montesano Salentino', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Montesano sulla Marcellana', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Montesarchio', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Montescaglioso', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Montescano', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Montescheno', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Montescudaio', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Montescudo-Monte Colombo', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Montese', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Montesegale', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Montesilvano', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Montespertoli', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Monteu Roero', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Monteu da Po', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Montevago', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Montevarchi', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Montevecchia', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Monteverde', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Monteverdi Marittimo', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Monteviale', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Montezemolo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Monti', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Montiano', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Monticelli Brusati', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Monticelli Pavese', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Monticelli d''Ongina', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Monticello Brianza', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Monticello Conte Otto', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Monticello d''Alba', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Montichiari', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Monticiano', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Montieri', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Montiglio Monferrato', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Montignoso', 'Massa-Carrara');
-insert into Cities (id, name, province) values (NULL, 'Montirone', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Montjovet', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Montodine', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Montoggio', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Montone', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Montopoli di Sabina', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Montopoli in Val d''Arno', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Montorfano', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Montorio Romano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Montorio al Vomano', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Montorio nei Frentani', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Montoro', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Montorso Vicentino', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Montottone', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Montresta', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Montà', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Montù Beccaria', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Monvalle', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Monza', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Monzambano', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Monzuno', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Morano Calabro', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Morano sul Po', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Moransengo-Tonengo', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Moraro', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'Morazzone', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Morbegno', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Morbello', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Morciano di Leuca', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Morciano di Romagna', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Morcone', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Mordano', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Morengo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Mores', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Moresco', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Moretta', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Morfasso', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Morgano', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Morgex', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Morgongiori', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Mori', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Moriago della Battaglia', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Moricone', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Morigerati', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Morimondo', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Morino', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Moriondo Torinese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Morlupo', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Mormanno', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Mornago', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Mornese', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Mornico Losana', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Mornico al Serio', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Morolo', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Morozzo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Morra De Sanctis', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Morro Reatino', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Morro d''Alba', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Morro d''Oro', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Morrone del Sannio', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Morrovalle', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Morsano al Tagliamento', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Morsasco', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Mortara', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Mortegliano', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Morterone', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Moruzzo', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Moscazzano', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Moschiano', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Mosciano Sant''Angelo', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Moscufo', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Moso in Passiria', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Mossa', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'Motta Baluffi', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Motta Camastra', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Motta Montecorvino', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Motta San Giovanni', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Motta Sant''Anastasia', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Motta Santa Lucia', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Motta Visconti', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Motta d''Affermo', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Motta de'' Conti', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Motta di Livenza', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Mottafollone', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Mottalciata', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Motteggiana', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Mottola', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Mozzagrogna', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Mozzanica', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Mozzate', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Mozzecane', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Mozzo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Muccia', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Muggia', 'Trieste');
-insert into Cities (id, name, province) values (NULL, 'Muggiò', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Mugnano del Cardinale', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Mugnano di Napoli', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Mulazzano', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Mulazzo', 'Massa-Carrara');
-insert into Cities (id, name, province) values (NULL, 'Mura', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Muravera', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Murazzano', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Murello', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Murialdo', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Murisengo', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Murlo', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Muro Leccese', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Muro Lucano', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Muros', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Muscoline', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Musei', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Musile di Piave', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Musso', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Mussolente', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Mussomeli', 'Caltanissetta');
-insert into Cities (id, name, province) values (NULL, 'Muzzana del Turgnano', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Muzzano', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Nago-Torbole', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Nalles', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Nanto', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Napoli', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Narbolia', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Narcao', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Nardodipace', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Nardò', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Narni', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Naro', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Narzole', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Nasino', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Naso', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Naturno', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Nave', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Navelli', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Naz-Sciaves', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Nazzano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Ne', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Nebbiuno', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Negrar di Valpolicella', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Neirone', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Neive', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Nembro', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Nemi', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Nemoli', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Neoneli', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Nepi', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Nereto', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Nerola', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Nervesa della Battaglia', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Nerviano', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Nespolo', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Nesso', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Netro', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Nettuno', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Neviano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Neviano degli Arduini', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Neviglie', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Niardo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Nibbiola', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Nibionno', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Nichelino', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Nicolosi', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Nicorvo', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Nicosia', 'Enna');
-insert into Cities (id, name, province) values (NULL, 'Nicotera', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Niella Belbo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Niella Tanaro', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Nimis', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Niscemi', 'Caltanissetta');
-insert into Cities (id, name, province) values (NULL, 'Nissoria', 'Enna');
-insert into Cities (id, name, province) values (NULL, 'Nizza Monferrato', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Nizza di Sicilia', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Noale', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Noasca', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Nocara', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Nocciano', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Nocera Inferiore', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Nocera Superiore', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Nocera Terinese', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Nocera Umbra', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Noceto', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Noci', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Nociglia', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Noepoli', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Nogara', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Nogaredo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Nogarole Rocca', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Nogarole Vicentino', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Noicattaro', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Nola', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Nole', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Noli', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Nomaglio', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Nomi', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Nonantola', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'None', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Nonio', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Noragugume', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Norbello', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Norcia', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Norma', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Nosate', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Notaresco', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Noto', 'Siracusa');
-insert into Cities (id, name, province) values (NULL, 'Nova Levante', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Nova Milanese', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Nova Ponente', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Nova Siri', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Novafeltria', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Novaledo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Novalesa', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Novara', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Novara di Sicilia', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Novate Mezzola', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Novate Milanese', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Nove', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Novedrate', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Novella', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Novellara', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Novello', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Noventa Padovana', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Noventa Vicentina', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Noventa di Piave', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Novi Ligure', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Novi Velia', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Novi di Modena', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Noviglio', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Novoli', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Nucetto', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Nughedu San Nicolò', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Nughedu Santa Vittoria', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Nule', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Nulvi', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Numana', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Nuoro', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Nurachi', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Nuragus', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Nurallao', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Nuraminis', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Nureci', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Nurri', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Nus', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Nusco', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Nuvolento', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Nuvolera', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Nuxis', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Occhieppo Inferiore', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Occhieppo Superiore', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Occhiobello', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Occimiano', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Ocre', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Odalengo Grande', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Odalengo Piccolo', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Oderzo', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Odolo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Ofena', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Offagna', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Offanengo', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Offida', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Offlaga', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Oggebbio', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Oggiona con Santo Stefano', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Oggiono', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Oglianico', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Ogliastro Cilento', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Olbia', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Olcenengo', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Oldenico', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Oleggio', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Oleggio Castello', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Olevano Romano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Olevano di Lomellina', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Olevano sul Tusciano', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Olgiate Comasco', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Olgiate Molgora', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Olgiate Olona', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Olginate', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Oliena', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Oliva Gessi', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Olivadi', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Oliveri', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Oliveto Citra', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Oliveto Lario', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Oliveto Lucano', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Olivetta San Michele', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Olivola', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Ollastra', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Ollolai', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Ollomont', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Olmedo', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Olmeneta', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Olmo Gentile', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Olmo al Brembo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Oltre il Colle', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Oltressenda Alta', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Oltrona di San Mamette', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Olzai', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Ome', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Omegna', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Omignano', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Onano', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Onanì', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Oncino', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Oneta', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Onifai', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Oniferi', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Ono San Pietro', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Onore', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Onzo', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Opera', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Opi', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Oppeano', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Oppido Lucano', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Oppido Mamertina', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Ora', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Orani', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Oratino', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Orbassano', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Orbetello', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Orciano Pisano', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Orco Feglino', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Ordona', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Orero', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Orgiano', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Orgosolo', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Oria', 'Brindisi');
-insert into Cities (id, name, province) values (NULL, 'Oricola', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Origgio', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Orino', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Orio Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Orio Litta', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Orio al Serio', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Oriolo', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Oriolo Romano', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Oristano', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Ormea', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Ormelle', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Ornago', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Ornavasso', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Ornica', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Orosei', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Orotelli', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Orria', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Orroli', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Orsago', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Orsara Bormida', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Orsara di Puglia', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Orsenigo', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Orsogna', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Orsomarso', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Orta Nova', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Orta San Giulio', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Orta di Atella', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Ortacesus', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Orte', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Ortelle', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Ortezzano', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Ortignano Raggiolo', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Ortisei', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Ortona', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Ortona dei Marsi', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Ortovero', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Ortucchio', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Ortueri', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Orune', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Orvieto', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Orvinio', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Orzinuovi', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Orzivecchi', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Osasco', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Osasio', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Oschiri', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Osidda', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Osiglia', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Osilo', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Osimo', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Osini', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Osio Sopra', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Osio Sotto', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Osnago', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Osoppo', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Ospedaletti', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Ospedaletto', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Ospedaletto Euganeo', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Ospedaletto Lodigiano', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Ospedaletto d''Alpinolo', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Ospitale di Cadore', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Ospitaletto', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Ossago Lodigiano', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Ossana', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Ossi', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Ossimo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Ossona', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Ostana', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Ostellato', 'Ferrara');
-insert into Cities (id, name, province) values (NULL, 'Ostiano', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Ostiglia', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Ostra', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Ostra Vetere', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Ostuni', 'Brindisi');
-insert into Cities (id, name, province) values (NULL, 'Otranto', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Otricoli', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Ottana', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Ottati', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Ottaviano', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Ottiglio', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Ottobiano', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Ottone', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Oulx', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Ovada', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Ovaro', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Oviglio', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Ovindoli', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Ovodda', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Oyace', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Ozegna', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Ozieri', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Ozzano Monferrato', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Ozzano dell''Emilia', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Ozzero', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Pabillonis', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Pace del Mela', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Paceco', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Pacentro', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Pachino', 'Siracusa');
-insert into Cities (id, name, province) values (NULL, 'Paciano', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Padenghe sul Garda', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Paderna', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Paderno Dugnano', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Paderno Franciacorta', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Paderno Ponchielli', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Paderno d''Adda', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Padova', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Padria', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Padru', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Padula', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Paduli', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Paesana', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Paese', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Pagani', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Paganico Sabino', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Pagazzano', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Pagliara', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Paglieta', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Pagnacco', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Pagno', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Pagnona', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Pago Veiano', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Pago del Vallo di Lauro', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Paisco Loveno', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Paitone', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Paladina', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Palagano', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Palagianello', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Palagiano', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Palagonia', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Palaia', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Palanzano', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Palata', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Palau', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Palazzago', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Palazzo Adriano', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Palazzo Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Palazzo Pignano', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Palazzo San Gervasio', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Palazzolo Acreide', 'Siracusa');
-insert into Cities (id, name, province) values (NULL, 'Palazzolo Vercellese', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Palazzolo dello Stella', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Palazzolo sull''Oglio', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Palazzuolo sul Senio', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Palena', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Palermiti', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Palermo', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Palestrina', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Palestro', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Paliano', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Palizzi', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Pallagorio', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Pallanzeno', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Pallare', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Palma Campania', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Palma di Montechiaro', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Palmanova', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Palmariggi', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Palmas Arborea', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Palmi', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Palmiano', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Palmoli', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Palo del Colle', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Palombara Sabina', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Palombaro', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Palomonte', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Palosco', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Paludi', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Paluzza', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Palù', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Palù del Fersina', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Pamparato', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Pancalieri', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Pancarana', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Panchià', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Pandino', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Panettieri', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Panicale', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Pannarano', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Panni', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Pantelleria', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Pantigliate', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Paola', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Paolisi', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Papasidero', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Papozze', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Parabiago', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Parabita', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Paratico', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Parcines', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Parella', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Parenti', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Parete', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Pareto', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Parghelia', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Parlasco', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Parma', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Parodi Ligure', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Paroldo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Parolise', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Parona', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Parrano', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Parre', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Partanna', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Partinico', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Paruzzaro', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Parzanica', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Pasian di Prato', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Pasiano di Pordenone', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Paspardo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Passerano Marmorito', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Passignano sul Trasimeno', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Passirano', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Pastena', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Pastorano', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Pastrengo', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Pasturana', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Pasturo', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Paterno', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Paterno Calabro', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Paternopoli', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Paternò', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Patrica', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Pattada', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Patti', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Patù', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Pau', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Paularo', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Pauli Arbarei', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Paulilatino', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Paullo', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Paupisi', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Pavarolo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Pavia', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Pavia di Udine', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Pavone Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Pavone del Mella', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Pavullo nel Frignano', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Pazzano', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Peccioli', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Pecetto Torinese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Pecetto di Valenza', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Pedara', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Pedaso', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Pedavena', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Pedemonte', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Pederobba', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Pedesina', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Pedivigliano', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Pedrengo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Peglio', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Peglio', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Pegognaga', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Peia', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Peio', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Pelago', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Pella', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Pellegrino Parmense', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Pellezzano', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Pellizzano', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Pelugo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Penango', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Penna San Giovanni', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Penna Sant''Andrea', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Penna in Teverina', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Pennabilli', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Pennadomo', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Pennapiedimonte', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Penne', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Pentone', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Perano', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Perarolo di Cadore', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Perca', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Percile', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Perdasdefogu', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Perdaxius', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Perdifumo', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Pereto', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Perfugas', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Pergine Valsugana', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Pergola', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Perinaldo', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Perito', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Perledo', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Perletto', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Perlo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Perloz', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Pernumia', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Pero', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Perosa Argentina', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Perosa Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Perrero', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Persico Dosimo', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Pertengo', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Pertica Alta', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Pertica Bassa', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Pertosa', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Pertusio', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Perugia', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Pesaro', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Pescaglia', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Pescantina', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Pescara', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Pescarolo ed Uniti', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Pescasseroli', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Pescate', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Pesche', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Peschici', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Peschiera Borromeo', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Peschiera del Garda', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Pescia', 'Pistoia');
-insert into Cities (id, name, province) values (NULL, 'Pescina', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Pesco Sannita', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Pescocostanzo', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Pescolanciano', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Pescopagano', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Pescopennataro', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Pescorocchiano', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Pescosansonesco', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Pescosolido', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Pessano con Bornago', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Pessina Cremonese', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Pessinetto', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Petacciato', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Petilia Policastro', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Petina', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Petralia Soprana', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Petralia Sottana', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Petrella Salto', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Petrella Tifernina', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Petriano', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Petriolo', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Petritoli', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Petrizzi', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Petronà', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Petrosino', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Petruro Irpino', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Pettenasco', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Pettinengo', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Pettineo', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Pettoranello del Molise', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Pettorano sul Gizio', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Pettorazza Grimani', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Peveragno', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Pezzana', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Pezzaze', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Pezzolo Valle Uzzone', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Piacenza', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Piacenza d''Adige', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Piadena Drizzona', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Piaggine', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Pian Camuno', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Piana Crixia', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Piana degli Albanesi', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Piana di Monte Verna', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Piancastagnaio', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Piancogno', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Piandimeleto', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Piane Crati', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Pianella', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Pianello Val Tidone', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Pianello del Lario', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Pianengo', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Pianezza', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Pianezze', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Pianfei', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Pianico', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Pianiga', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Piano di Sorrento', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Pianopoli', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Pianoro', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Piansano', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Piantedo', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Piario', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Piasco', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Piateda', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Piatto', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Piazza Armerina', 'Enna');
-insert into Cities (id, name, province) values (NULL, 'Piazza Brembana', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Piazza al Serchio', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Piazzatorre', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Piazzola sul Brenta', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Piazzolo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Picciano', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Picerno', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Picinisco', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Pico', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Piea', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Piedicavallo', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Piedimonte Etneo', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Piedimonte Matese', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Piedimonte San Germano', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Piedimulera', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Piegaro', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Pienza', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Pieranica', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Pietra Ligure', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Pietra Marazzi', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Pietra de'' Giorgi', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Pietrabbondante', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Pietrabruna', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Pietracamela', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Pietracatella', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Pietracupa', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Pietradefusi', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Pietraferrazzana', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Pietrafitta', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Pietragalla', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Pietralunga', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Pietramelara', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Pietramontecorvino', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Pietranico', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Pietrapaola', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Pietrapertosa', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Pietraperzia', 'Enna');
-insert into Cities (id, name, province) values (NULL, 'Pietraporzio', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Pietraroja', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Pietrarubbia', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Pietrasanta', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Pietrastornina', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Pietravairano', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Pietrelcina', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Pieve Albignola', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Pieve Emanuele', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Pieve Fissiraga', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Pieve Fosciana', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Pieve Ligure', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Pieve Porto Morone', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Pieve San Giacomo', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Pieve Santo Stefano', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Pieve Tesino', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Pieve Torina', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Pieve Vergonte', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Pieve a Nievole', 'Pistoia');
-insert into Cities (id, name, province) values (NULL, 'Pieve d''Olmi', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Pieve del Cairo', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Pieve del Grappa', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Pieve di Bono-Prezzo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Pieve di Cadore', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Pieve di Cento', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Pieve di Soligo', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Pieve di Teco', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Pievepelago', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Piglio', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Pigna', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Pignataro Interamna', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Pignataro Maggiore', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Pignola', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Pignone', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Pigra', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Pila', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Pimentel', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Pimonte', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Pinarolo Po', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Pinasca', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Pincara', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Pinerolo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Pineto', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Pino Torinese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Pino d''Asti', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Pinzano al Tagliamento', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Pinzolo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Piobbico', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Piobesi Torinese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Piobesi d''Alba', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Piode', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Pioltello', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Piombino', 'Livorno');
-insert into Cities (id, name, province) values (NULL, 'Piombino Dese', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Pioraco', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Piossasco', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Piove di Sacco', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Piovene Rocchette', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Piovà Massaia', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Piozzano', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Piozzo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Piraino', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Pisa', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Pisano', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Piscina', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Piscinas', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Pisciotta', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Pisogne', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Pisoniano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Pisticci', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Pistoia', 'Pistoia');
-insert into Cities (id, name, province) values (NULL, 'Pitigliano', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Piubega', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Piuro', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Piverone', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Pizzale', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Pizzighettone', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Pizzo', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Pizzoferrato', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Pizzoli', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Pizzone', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Pizzoni', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Placanica', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Plataci', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Platania', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Platì', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Plaus', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Plesio', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Ploaghe', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Plodio', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Pocapaglia', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Pocenia', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Podenzana', 'Massa-Carrara');
-insert into Cities (id, name, province) values (NULL, 'Podenzano', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Pofi', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Poggiardo', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Poggibonsi', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Poggio Bustone', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Poggio Catino', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Poggio Imperiale', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Poggio Mirteto', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Poggio Moiano', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Poggio Nativo', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Poggio Picenze', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Poggio Renatico', 'Ferrara');
-insert into Cities (id, name, province) values (NULL, 'Poggio Rusco', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Poggio San Lorenzo', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Poggio San Marcello', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Poggio San Vicino', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Poggio Sannita', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Poggio Torriana', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Poggio a Caiano', 'Prato');
-insert into Cities (id, name, province) values (NULL, 'Poggiodomo', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Poggiofiorito', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Poggiomarino', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Poggioreale', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Poggiorsini', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Poggiridenti', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Pogliano Milanese', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Pognana Lario', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Pognano', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Pogno', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Poirino', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Pojana Maggiore', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Polaveno', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Polcenigo', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Polesella', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Polesine Zibello', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Poli', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Polia', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Policoro', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Polignano a Mare', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Polinago', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Polino', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Polistena', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Polizzi Generosa', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Polla', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Pollein', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Pollena Trocchia', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Pollenza', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Pollica', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Pollina', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Pollone', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Pollutri', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Polonghera', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Polpenazze del Garda', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Polverara', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Polverigi', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Pomarance', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Pomaretto', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Pomarico', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Pomaro Monferrato', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Pomarolo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Pombia', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Pomezia', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Pomigliano d''Arco', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Pompei', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Pompeiana', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Pompiano', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Pomponesco', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Pompu', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Poncarale', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Ponderano', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Ponna', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Ponsacco', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Ponso', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Pont Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Pont-Saint-Martin', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Pontassieve', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Pontboset', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Ponte', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Ponte Buggianese', 'Pistoia');
-insert into Cities (id, name, province) values (NULL, 'Ponte Gardena', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Ponte Lambro', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Ponte Nizza', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Ponte Nossa', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Ponte San Nicolò', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Ponte San Pietro', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Ponte dell''Olio', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Ponte di Legno', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Ponte di Piave', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Ponte in Valtellina', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Ponte nelle Alpi', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Pontebba', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Pontecagnano Faiano', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Pontecchio Polesine', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Pontechianale', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Pontecorvo', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Pontecurone', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Pontedassio', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Pontedera', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Pontelandolfo', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Pontelatone', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Pontelongo', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Pontenure', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Ponteranica', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Pontestura', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Pontevico', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Pontey', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Ponti', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Ponti sul Mincio', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Pontida', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Pontinia', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Pontinvrea', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Pontirolo Nuovo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Pontoglio', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Pontremoli', 'Massa-Carrara');
-insert into Cities (id, name, province) values (NULL, 'Ponza', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Ponzano Monferrato', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Ponzano Romano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Ponzano Veneto', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Ponzano di Fermo', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Ponzone', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Popoli', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Poppi', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Porano', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Porcari', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Porcia', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Pordenone', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Porlezza', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Pornassio', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Porpetto', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Portacomaro', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Portalbera', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Porte', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Porte di Rendena', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Portici', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Portico di Caserta', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Portico e San Benedetto', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Portigliola', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Porto Azzurro', 'Livorno');
-insert into Cities (id, name, province) values (NULL, 'Porto Ceresio', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Porto Cesareo', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Porto Empedocle', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Porto Mantovano', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Porto Recanati', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Porto San Giorgio', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Porto Sant''Elpidio', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Porto Tolle', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Porto Torres', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Porto Valtravaglia', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Porto Viro', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Portobuffolè', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Portocannone', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Portoferraio', 'Livorno');
-insert into Cities (id, name, province) values (NULL, 'Portofino', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Portogruaro', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Portomaggiore', 'Ferrara');
-insert into Cities (id, name, province) values (NULL, 'Portopalo di Capo Passero', 'Siracusa');
-insert into Cities (id, name, province) values (NULL, 'Portoscuso', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Portovenere', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Portula', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Posada', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Posina', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Positano', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Possagno', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Posta', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Posta Fibreno', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Postal', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Postalesio', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Postiglione', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Postua', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Potenza', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Potenza Picena', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Pove del Grappa', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Povegliano', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Povegliano Veronese', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Poviglio', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Povoletto', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Pozzaglia Sabina', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Pozzaglio ed Uniti', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Pozzallo', 'Ragusa');
-insert into Cities (id, name, province) values (NULL, 'Pozzilli', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Pozzo d''Adda', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Pozzol Groppo', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Pozzolengo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Pozzoleone', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Pozzolo Formigaro', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Pozzomaggiore', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Pozzonovo', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Pozzuoli', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Pozzuolo Martesana', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Pozzuolo del Friuli', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Pradalunga', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Pradamano', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Pradleves', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Pragelato', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Praia a Mare', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Praiano', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Pralboino', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Prali', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Pralormo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Pralungo', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Pramaggiore', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Pramollo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Prarolo', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Prarostino', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Prasco', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Prascorsano', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Prata Camportaccio', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Prata Sannita', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Prata d''Ansidonia', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Prata di Pordenone', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Prata di Principato Ultra', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Pratella', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Pratiglione', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Prato', 'Prato');
-insert into Cities (id, name, province) values (NULL, 'Prato Carnico', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Prato Sesia', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Prato allo Stelvio', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Pratola Peligna', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Pratola Serra', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Pratovecchio Stia', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Pravisdomini', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Pray', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Prazzo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Precenicco', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Preci', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Predaia', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Predappio', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Predazzo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Predoi', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Predore', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Predosa', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Preganziol', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Pregnana Milanese', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Prelà', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Premana', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Premariacco', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Premeno', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Premia', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Premilcuore', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Premolo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Premosello-Chiovenda', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Preone', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Prepotto', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Preseglie', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Presenzano', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Presezzo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Presicce-Acquarica', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Pressana', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Pretoro', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Prevalle', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Prezza', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Priero', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Prignano Cilento', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Prignano sulla Secchia', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Primaluna', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Primiero San Martino di Castrozza', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Priocca', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Priola', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Priolo Gargallo', 'Siracusa');
-insert into Cities (id, name, province) values (NULL, 'Priverno', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Prizzi', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Proceno', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Procida', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Propata', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Proserpio', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Prossedi', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Provaglio Val Sabbia', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Provaglio d''Iseo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Proves', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Provvidenti', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Prunetto', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Pré-Saint-Didier', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Puegnago del Garda', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Puglianello', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Pula', 'Cagliari');
-insert into Cities (id, name, province) values (NULL, 'Pulfero', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Pulsano', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Pumenengo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Pusiano', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Putifigari', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Putignano', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Quadrelle', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Quadri', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Quagliuzzo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Qualiano', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Quaranti', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Quaregna Cerreto', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Quargnento', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Quarna Sopra', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Quarna Sotto', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Quarona', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Quarrata', 'Pistoia');
-insert into Cities (id, name, province) values (NULL, 'Quart', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Quarto', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Quarto d''Altino', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Quartu Sant''Elena', 'Cagliari');
-insert into Cities (id, name, province) values (NULL, 'Quartucciu', 'Cagliari');
-insert into Cities (id, name, province) values (NULL, 'Quassolo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Quattordio', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Quattro Castella', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Quero Vas', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Quiliano', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Quincinetto', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Quindici', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Quingentole', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Quintano', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Quinto Vercellese', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Quinto Vicentino', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Quinto di Treviso', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Quinzano d''Oglio', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Quistello', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Rabbi', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Racale', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Racalmuto', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Racconigi', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Raccuja', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Racines', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Radda in Chianti', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Raddusa', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Radicofani', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Radicondoli', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Raffadali', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Ragalna', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Ragogna', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Ragusa', 'Ragusa');
-insert into Cities (id, name, province) values (NULL, 'Raiano', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Ramacca', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Rancio Valcuvia', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Ranco', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Randazzo', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Ranica', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Ranzanico', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Ranzo', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Rapagnano', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Rapallo', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Rapino', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Rapolano Terme', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Rapolla', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Rapone', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Rassa', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Rasun-Anterselva', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Rasura', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Ravanusa', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Ravarino', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Ravascletto', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Ravello', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Ravenna', 'Ravenna');
-insert into Cities (id, name, province) values (NULL, 'Raveo', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Raviscanina', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Re', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Rea', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Realmonte', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Reana del Rojale', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Reano', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Recale', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Recanati', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Recco', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Recetto', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Recoaro Terme', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Redavalle', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Redondesco', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Refrancore', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Refrontolo', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Regalbuto', 'Enna');
-insert into Cities (id, name, province) values (NULL, 'Reggello', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Reggio di Calabria', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Reggio nell''Emilia', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Reggiolo', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Reino', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Reitano', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Remanzacco', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Remedello', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Renate', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Rende', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Renon', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Resana', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Rescaldina', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Resia', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Resiutta', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Resuttano', 'Caltanissetta');
-insert into Cities (id, name, province) values (NULL, 'Retorbido', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Revello', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Revigliasco d''Asti', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Revine Lago', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Rezzago', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Rezzato', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Rezzo', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Rezzoaglio', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Rho', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Rhêmes-Notre-Dame', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Rhêmes-Saint-Georges', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Riace', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Rialto', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Riano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Riardo', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Ribera', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Ribordone', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Ricadi', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Ricaldone', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Riccia', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Riccione', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Riccò del Golfo di Spezia', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Ricengo', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Ricigliano', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Riese Pio X', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Riesi', 'Caltanissetta');
-insert into Cities (id, name, province) values (NULL, 'Rieti', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Rifiano', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Rifreddo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Rignano Flaminio', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Rignano Garganico', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Rignano sull''Arno', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Rigolato', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Rimella', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Rimini', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Rio', 'Livorno');
-insert into Cities (id, name, province) values (NULL, 'Rio Saliceto', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Rio di Pusteria', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Riofreddo', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Riola Sardo', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Riolo Terme', 'Ravenna');
-insert into Cities (id, name, province) values (NULL, 'Riolunato', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Riomaggiore', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Rionero Sannitico', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Rionero in Vulture', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Ripa Teatina', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Ripabottoni', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Ripacandida', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Ripalimosani', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Ripalta Arpina', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Ripalta Cremasca', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Ripalta Guerina', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Riparbella', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Ripatransone', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Ripe San Ginesio', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Ripi', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Riposto', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Rittana', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Riva Ligure', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Riva del Garda', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Riva del Po', 'Ferrara');
-insert into Cities (id, name, province) values (NULL, 'Riva di Solto', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Riva presso Chieri', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Rivalba', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Rivalta Bormida', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Rivalta di Torino', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Rivamonte Agordino', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Rivanazzano Terme', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Rivara', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Rivarolo Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Rivarolo Mantovano', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Rivarolo del Re ed Uniti', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Rivarone', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Rivarossa', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Rive', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Rive d''Arcano', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Rivello', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Rivergaro', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Rivignano Teor', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Rivisondoli', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Rivodutri', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Rivoli', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Rivoli Veronese', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Rivolta d''Adda', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Rizziconi', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Roana', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Roaschia', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Roascio', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Roasio', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Roatto', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Robassomero', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Robbiate', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Robbio', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Robecchetto con Induno', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Robecco Pavese', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Robecco d''Oglio', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Robecco sul Naviglio', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Robella', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Robilante', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Roburent', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Rocca Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Rocca Canterano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Rocca Cigliè', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Rocca Grimalda', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Rocca Imperiale', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Rocca Massima', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Rocca Pia', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Rocca Pietore', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Rocca Priora', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Rocca San Casciano', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Rocca San Felice', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Rocca San Giovanni', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Rocca Santa Maria', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Rocca Santo Stefano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Rocca Sinibalda', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Rocca Susella', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Rocca d''Arazzo', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Rocca d''Arce', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Rocca d''Evandro', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Rocca de'' Baldi', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Rocca de'' Giorgi', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Rocca di Botte', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Rocca di Cambio', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Rocca di Cave', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Rocca di Mezzo', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Rocca di Neto', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Rocca di Papa', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Roccabascerana', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Roccabernarda', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Roccabianca', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Roccabruna', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Roccacasale', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Roccadaspide', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Roccafiorita', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Roccafluvione', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Roccaforte Ligure', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Roccaforte Mondovì', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Roccaforte del Greco', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Roccaforzata', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Roccafranca', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Roccagiovine', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Roccagloriosa', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Roccagorga', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Roccalbegna', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Roccalumera', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Roccamandolfi', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Roccamena', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Roccamonfina', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Roccamontepiano', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Roccamorice', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Roccanova', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Roccantica', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Roccapalumba', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Roccapiemonte', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Roccarainola', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Roccaraso', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Roccaromana', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Roccascalegna', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Roccasecca', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Roccasecca dei Volsci', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Roccasicura', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Roccasparvera', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Roccaspinalveti', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Roccastrada', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Roccavaldina', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Roccaverano', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Roccavignale', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Roccavione', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Roccavivara', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Roccella Ionica', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Roccella Valdemone', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Rocchetta Belbo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Rocchetta Ligure', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Rocchetta Nervina', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Rocchetta Palafea', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Rocchetta Sant''Antonio', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Rocchetta Tanaro', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Rocchetta a Volturno', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Rocchetta di Vara', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Rocchetta e Croce', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Rodano', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Roddi', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Roddino', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Rodello', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Rodengo', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Rodengo Saiano', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Rodero', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Rodi Garganico', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Rodigo', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Rodì Milici', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Rofrano', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Rogeno', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Roggiano Gravina', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Roghudi', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Rogliano', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Rognano', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Rogno', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Rogolo', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Roiate', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Roio del Sangro', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Roisan', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Roletto', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Rolo', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Roma', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Romagnano Sesia', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Romagnano al Monte', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Romagnese', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Romana', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Romanengo', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Romano Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Romano d''Ezzelino', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Romano di Lombardia', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Romans d''Isonzo', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'Rombiolo', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Romeno', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Romentino', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Rometta', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Ronago', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Roncade', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Roncadelle', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Roncaro', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Roncegno Terme', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Roncello', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Ronchi Valsugana', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Ronchi dei Legionari', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'Ronchis', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Ronciglione', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Ronco Biellese', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Ronco Briantino', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Ronco Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Ronco Scrivia', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Ronco all''Adige', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Roncobello', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Roncoferraro', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Roncofreddo', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Roncola', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Roncà', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Rondanina', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Rondissone', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Ronsecco', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Ronzo-Chienis', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Ronzone', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Roppolo', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Rorà', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Rosarno', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Rosasco', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Rosate', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Rosazza', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Rosciano', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Roscigno', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Rose', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Rosello', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Roseto Capo Spulico', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Roseto Valfortore', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Roseto degli Abruzzi', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Rosignano Marittimo', 'Livorno');
-insert into Cities (id, name, province) values (NULL, 'Rosignano Monferrato', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Rosolina', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Rosolini', 'Siracusa');
-insert into Cities (id, name, province) values (NULL, 'Rosora', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Rossa', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Rossana', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Rossano Veneto', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Rossiglione', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Rosta', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Rosà', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Rota Greca', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Rota d''Imagna', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Rotella', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Rotello', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Rotonda', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Rotondella', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Rotondi', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Rottofreno', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Rotzo', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Roure', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Rovasenda', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Rovato', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Rovegno', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Rovellasca', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Rovello Porro', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Roverbella', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Roverchiara', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Roveredo di Guà', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Roveredo in Piano', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Rovereto', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Roverè Veronese', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Roverè della Luna', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Rovescala', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Rovetta', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Roviano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Rovigo', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Rovito', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Rovolon', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Rozzano', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Roè Volciano', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Rubano', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Rubiana', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Rubiera', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Ruda', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Rudiano', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Rueglio', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Ruffano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Ruffia', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Ruffrè-Mendola', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Rufina', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Ruinas', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Rumo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Ruoti', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Russi', 'Ravenna');
-insert into Cities (id, name, province) values (NULL, 'Rutigliano', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Rutino', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Ruviano', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Ruvo del Monte', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Ruvo di Puglia', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Sabaudia', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Sabbio Chiese', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Sabbioneta', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Sacco', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Saccolongo', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Sacile', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Sacrofano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Sadali', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Sagama', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Sagliano Micca', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Sagrado', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'Sagron Mis', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Saint-Christophe', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Saint-Denis', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Saint-Marcel', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Saint-Nicolas', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Saint-Oyen', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Saint-Pierre', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Saint-Rhémy-en-Bosses', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Saint-Vincent', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Sala Baganza', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Sala Biellese', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Sala Bolognese', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Sala Comacina', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Sala Consilina', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Sala Monferrato', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Salandra', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Salaparuta', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Salara', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Salasco', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Salassa', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Salbertrand', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Salcedo', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Salcito', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Sale', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Sale Marasino', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Sale San Giovanni', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Sale delle Langhe', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Salemi', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Salento', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Salerano Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Salerano sul Lambro', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Salerno', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Salgareda', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Sali Vercellese', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Salice Salentino', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Saliceto', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Salisano', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Salizzole', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Salle', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Salmour', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Salorno sulla strada del vino', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Salsomaggiore Terme', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Saltrio', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Saludecio', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Saluggia', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Salussola', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Saluzzo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Salve', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Salvirola', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Salvitelle', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Salza Irpina', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Salza di Pinerolo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Salzano', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Salò', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Samarate', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Samassi', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Samatzai', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Sambuca Pistoiese', 'Pistoia');
-insert into Cities (id, name, province) values (NULL, 'Sambuca di Sicilia', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Sambuci', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Sambuco', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Sammichele di Bari', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Samo', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Samolaco', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Samone', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Samone', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Sampeyre', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Samugheo', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'San Bartolomeo Val Cavargna', 'Como');
-insert into Cities (id, name, province) values (NULL, 'San Bartolomeo al Mare', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'San Bartolomeo in Galdo', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'San Basile', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'San Basilio', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'San Bassano', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'San Bellino', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'San Benedetto Belbo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'San Benedetto Po', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'San Benedetto Ullano', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'San Benedetto Val di Sambro', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'San Benedetto dei Marsi', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'San Benedetto del Tronto', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'San Benedetto in Perillis', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'San Benigno Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'San Bernardino Verbano', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'San Biagio Platani', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'San Biagio Saracinisco', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'San Biagio della Cima', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'San Biagio di Callalta', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'San Biase', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'San Bonifacio', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'San Buono', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'San Calogero', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'San Candido', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'San Canzian d''Isonzo', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'San Carlo Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'San Casciano dei Bagni', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'San Casciano in Val di Pesa', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'San Cassiano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'San Cataldo', 'Caltanissetta');
-insert into Cities (id, name, province) values (NULL, 'San Cesareo', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'San Cesario di Lecce', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'San Cesario sul Panaro', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'San Chirico Nuovo', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'San Chirico Raparo', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'San Cipirello', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'San Cipriano Picentino', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'San Cipriano Po', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'San Cipriano d''Aversa', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'San Clemente', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'San Colombano Belmonte', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'San Colombano Certenoli', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'San Colombano al Lambro', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'San Cono', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'San Cosmo Albanese', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'San Costantino Albanese', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'San Costantino Calabro', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'San Costanzo', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'San Cristoforo', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'San Damiano Macra', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'San Damiano al Colle', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'San Damiano d''Asti', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'San Daniele Po', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'San Daniele del Friuli', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'San Demetrio Corone', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'San Demetrio ne'' Vestini', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'San Didero', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'San Donaci', 'Brindisi');
-insert into Cities (id, name, province) values (NULL, 'San Donato Milanese', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'San Donato Val di Comino', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'San Donato di Lecce', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'San Donato di Ninea', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'San Donà di Piave', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'San Dorligo della Valle-Dolina', 'Trieste');
-insert into Cities (id, name, province) values (NULL, 'San Fele', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'San Felice Circeo', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'San Felice a Cancello', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'San Felice del Benaco', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'San Felice del Molise', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'San Felice sul Panaro', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'San Ferdinando', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'San Ferdinando di Puglia', 'Barletta-Andria-Trani');
-insert into Cities (id, name, province) values (NULL, 'San Fermo della Battaglia', 'Como');
-insert into Cities (id, name, province) values (NULL, 'San Fili', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'San Filippo del Mela', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'San Fior', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'San Fiorano', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'San Floriano del Collio-Števerjan', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'San Floro', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'San Francesco al Campo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'San Fratello', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'San Gavino Monreale', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'San Gemini', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'San Genesio Atesino', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'San Genesio ed Uniti', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'San Gennaro Vesuviano', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'San Germano Chisone', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'San Germano Vercellese', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'San Gervasio Bresciano', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'San Giacomo Filippo', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'San Giacomo Vercellese', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'San Giacomo degli Schiavoni', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'San Giacomo delle Segnate', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'San Gillio', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'San Gimignano', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'San Ginesio', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'San Giorgio Albanese', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'San Giorgio Bigarello', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'San Giorgio Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'San Giorgio Ionico', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'San Giorgio La Molara', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'San Giorgio Lucano', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'San Giorgio Monferrato', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'San Giorgio Morgeto', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'San Giorgio Piacentino', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'San Giorgio Scarampi', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'San Giorgio a Cremano', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'San Giorgio a Liri', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'San Giorgio del Sannio', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'San Giorgio della Richinvelda', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'San Giorgio delle Pertiche', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'San Giorgio di Lomellina', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'San Giorgio di Nogaro', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'San Giorgio di Piano', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'San Giorgio in Bosco', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'San Giorgio su Legnano', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'San Giorio di Susa', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'San Giovanni Bianco', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'San Giovanni Gemini', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'San Giovanni Ilarione', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'San Giovanni Incarico', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'San Giovanni Lipioni', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'San Giovanni Lupatoto', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'San Giovanni Rotondo', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'San Giovanni Suergiu', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'San Giovanni Teatino', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'San Giovanni Valdarno', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'San Giovanni a Piro', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'San Giovanni al Natisone', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'San Giovanni del Dosso', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'San Giovanni di Fassa-Sèn Jan', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'San Giovanni di Gerace', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'San Giovanni in Croce', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'San Giovanni in Fiore', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'San Giovanni in Galdo', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'San Giovanni in Marignano', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'San Giovanni in Persiceto', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'San Giovanni la Punta', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'San Giuliano Milanese', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'San Giuliano Terme', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'San Giuliano del Sannio', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'San Giuliano di Puglia', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'San Giuseppe Jato', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'San Giuseppe Vesuviano', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'San Giustino', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'San Giusto Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'San Godenzo', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'San Gregorio Magno', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'San Gregorio Matese', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'San Gregorio d''Ippona', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'San Gregorio da Sassola', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'San Gregorio di Catania', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'San Gregorio nelle Alpi', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'San Lazzaro di Savena', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'San Leo', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'San Leonardo', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'San Leonardo in Passiria', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'San Leucio del Sannio', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'San Lorenzello', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'San Lorenzo', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'San Lorenzo Bellizzi', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'San Lorenzo Dorsino', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'San Lorenzo Isontino', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'San Lorenzo Maggiore', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'San Lorenzo Nuovo', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'San Lorenzo al Mare', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'San Lorenzo del Vallo', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'San Lorenzo di Sebato', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'San Lorenzo in Campo', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'San Luca', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'San Lucido', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'San Lupo', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'San Mango Piemonte', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'San Mango d''Aquino', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'San Mango sul Calore', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'San Marcellino', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'San Marcello', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'San Marcello Piteglio', 'Pistoia');
-insert into Cities (id, name, province) values (NULL, 'San Marco Argentano', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'San Marco Evangelista', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'San Marco d''Alunzio', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'San Marco dei Cavoti', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'San Marco in Lamis', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'San Marco la Catola', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'San Martino Alfieri', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'San Martino Buon Albergo', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'San Martino Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'San Martino Sannita', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'San Martino Siccomario', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'San Martino Valle Caudina', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'San Martino al Tagliamento', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'San Martino d''Agri', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'San Martino dall''Argine', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'San Martino del Lago', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'San Martino di Finita', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'San Martino di Lupari', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'San Martino di Venezze', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'San Martino in Badia', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'San Martino in Passiria', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'San Martino in Pensilis', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'San Martino in Rio', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'San Martino in Strada', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'San Martino sulla Marrucina', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'San Marzano Oliveto', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'San Marzano di San Giuseppe', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'San Marzano sul Sarno', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'San Massimo', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'San Maurizio Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'San Maurizio d''Opaglio', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'San Mauro Castelverde', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'San Mauro Cilento', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'San Mauro Forte', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'San Mauro Marchesato', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'San Mauro Pascoli', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'San Mauro Torinese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'San Mauro di Saline', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'San Mauro la Bruca', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'San Michele Mondovì', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'San Michele Salentino', 'Brindisi');
-insert into Cities (id, name, province) values (NULL, 'San Michele al Tagliamento', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'San Michele all''Adige', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'San Michele di Ganzaria', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'San Michele di Serino', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'San Miniato', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'San Nazzaro', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'San Nazzaro Sesia', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'San Nazzaro Val Cavargna', 'Como');
-insert into Cities (id, name, province) values (NULL, 'San Nicandro Garganico', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'San Nicola Arcella', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'San Nicola Baronia', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'San Nicola Manfredi', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'San Nicola da Crissa', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'San Nicola dell''Alto', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'San Nicola la Strada', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'San Nicolò Gerrei', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'San Nicolò d''Arcidano', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'San Nicolò di Comelico', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'San Pancrazio', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'San Pancrazio Salentino', 'Brindisi');
-insert into Cities (id, name, province) values (NULL, 'San Paolo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'San Paolo Albanese', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'San Paolo Bel Sito', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'San Paolo Solbrito', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'San Paolo d''Argon', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'San Paolo di Civitate', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'San Paolo di Jesi', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'San Pellegrino Terme', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'San Pier Niceto', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'San Pier d''Isonzo', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'San Piero Patti', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'San Pietro Apostolo', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'San Pietro Avellana', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'San Pietro Clarenza', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'San Pietro Infine', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'San Pietro Mosezzo', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'San Pietro Mussolino', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'San Pietro Val Lemina', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'San Pietro Vernotico', 'Brindisi');
-insert into Cities (id, name, province) values (NULL, 'San Pietro Viminario', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'San Pietro a Maida', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'San Pietro al Natisone', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'San Pietro al Tanagro', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'San Pietro di Cadore', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'San Pietro di Caridà', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'San Pietro di Feletto', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'San Pietro di Morubio', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'San Pietro in Amantea', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'San Pietro in Cariano', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'San Pietro in Casale', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'San Pietro in Cerro', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'San Pietro in Gu', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'San Pietro in Guarano', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'San Pietro in Lama', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'San Pio delle Camere', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'San Polo Matese', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'San Polo d''Enza', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'San Polo dei Cavalieri', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'San Polo di Piave', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'San Ponso', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'San Possidonio', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'San Potito Sannitico', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'San Potito Ultra', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'San Prisco', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'San Procopio', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'San Prospero', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'San Quirico d''Orcia', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'San Quirino', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'San Raffaele Cimena', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'San Roberto', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'San Rocco al Porto', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'San Romano in Garfagnana', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'San Rufo', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'San Salvatore Monferrato', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'San Salvatore Telesino', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'San Salvatore di Fitalia', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'San Salvo', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'San Sebastiano Curone', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'San Sebastiano al Vesuvio', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'San Sebastiano da Po', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'San Secondo Parmense', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'San Secondo di Pinerolo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'San Severino Lucano', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'San Severino Marche', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'San Severo', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'San Siro', 'Como');
-insert into Cities (id, name, province) values (NULL, 'San Sossio Baronia', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'San Sostene', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'San Sosti', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'San Sperate', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'San Stino di Livenza', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'San Tammaro', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'San Teodoro', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'San Teodoro', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'San Tomaso Agordino', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'San Valentino Torio', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'San Valentino in Abruzzo Citeriore', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'San Venanzo', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'San Vendemiano', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'San Vero Milis', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'San Vincenzo', 'Livorno');
-insert into Cities (id, name, province) values (NULL, 'San Vincenzo La Costa', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'San Vincenzo Valle Roveto', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'San Vitaliano', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'San Vito', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'San Vito Chietino', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'San Vito Lo Capo', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'San Vito Romano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'San Vito al Tagliamento', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'San Vito al Torre', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'San Vito dei Normanni', 'Brindisi');
-insert into Cities (id, name, province) values (NULL, 'San Vito di Cadore', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'San Vito di Fagagna', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'San Vito di Leguzzano', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'San Vito sullo Ionio', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'San Vittore Olona', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'San Vittore del Lazio', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'San Zeno Naviglio', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'San Zeno di Montagna', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'San Zenone al Lambro', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'San Zenone al Po', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'San Zenone degli Ezzelini', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Sanarica', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Sandigliano', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Sandrigo', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Sanfront', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Sanfrè', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Sangano', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Sangiano', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Sangineto', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Sanguinetto', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Sanluri', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Sannazzaro de'' Burgondi', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Sannicandro di Bari', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Sannicola', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Sanremo', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Sansepolcro', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Sant''Agapito', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Sant''Agata Bolognese', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Sant''Agata Feltria', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Sant''Agata Fossili', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Sant''Agata de'' Goti', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Sant''Agata del Bianco', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Sant''Agata di Esaro', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Sant''Agata di Militello', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Sant''Agata di Puglia', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Sant''Agata li Battiati', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Sant''Agata sul Santerno', 'Ravenna');
-insert into Cities (id, name, province) values (NULL, 'Sant''Agnello', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Sant''Albano Stura', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Sant''Alessio Siculo', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Sant''Alessio con Vialone', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Sant''Alessio in Aspromonte', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Sant''Alfio', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Sant''Ambrogio di Torino', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Sant''Ambrogio di Valpolicella', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Sant''Ambrogio sul Garigliano', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Sant''Anastasia', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Sant''Anatolia di Narco', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Sant''Andrea Apostolo dello Ionio', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Sant''Andrea Frius', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Sant''Andrea del Garigliano', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Sant''Andrea di Conza', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Sant''Angelo Le Fratte', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Sant''Angelo Limosano', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Sant''Angelo Lodigiano', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Sant''Angelo Lomellina', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Sant''Angelo Muxaro', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Sant''Angelo Romano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Sant''Angelo a Cupolo', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Sant''Angelo a Fasanella', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Sant''Angelo a Scala', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Sant''Angelo all''Esca', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Sant''Angelo d''Alife', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Sant''Angelo dei Lombardi', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Sant''Angelo del Pesco', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Sant''Angelo di Brolo', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Sant''Angelo di Piove di Sacco', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Sant''Angelo in Pontano', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Sant''Angelo in Vado', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Sant''Anna Arresi', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Sant''Anna d''Alfaedo', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Sant''Antimo', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Sant''Antioco', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Sant''Antonino di Susa', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Sant''Antonio Abate', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Sant''Antonio di Gallura', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Sant''Apollinare', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Sant''Arcangelo', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Sant''Arcangelo Trimonte', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Sant''Arpino', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Sant''Arsenio', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Sant''Egidio alla Vibrata', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Sant''Egidio del Monte Albino', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Sant''Elena', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Sant''Elena Sannita', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Sant''Elia Fiumerapido', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Sant''Elia a Pianisi', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Sant''Elpidio a Mare', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Sant''Eufemia a Maiella', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Sant''Eufemia d''Aspromonte', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Sant''Eusanio Forconese', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Sant''Eusanio del Sangro', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Sant''Ilario d''Enza', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Sant''Ilario dello Ionio', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Sant''Ippolito', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Sant''Olcese', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Sant''Omero', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Sant''Omobono Terme', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Sant''Onofrio', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Sant''Oreste', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Sant''Orsola Terme', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Sant''Urbano', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Santa Brigida', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Santa Caterina Albanese', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Santa Caterina Villarmosa', 'Caltanissetta');
-insert into Cities (id, name, province) values (NULL, 'Santa Caterina dello Ionio', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Santa Cesarea Terme', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Santa Cristina Gela', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Santa Cristina Valgardena', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Santa Cristina d''Aspromonte', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Santa Cristina e Bissone', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Santa Croce Camerina', 'Ragusa');
-insert into Cities (id, name, province) values (NULL, 'Santa Croce del Sannio', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Santa Croce di Magliano', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Santa Croce sull''Arno', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Santa Domenica Talao', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Santa Domenica Vittoria', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Santa Elisabetta', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Santa Fiora', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Santa Flavia', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Santa Giuletta', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Santa Giusta', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Santa Giustina', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Santa Giustina in Colle', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Santa Luce', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Santa Lucia del Mela', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Santa Lucia di Piave', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Santa Lucia di Serino', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Santa Margherita Ligure', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Santa Margherita di Belice', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Santa Margherita di Staffora', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Santa Maria Capua Vetere', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Santa Maria Coghinas', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Santa Maria Hoè', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Santa Maria Imbaro', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Santa Maria Maggiore', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Santa Maria Nuova', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Santa Maria a Monte', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Santa Maria a Vico', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Santa Maria del Cedro', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Santa Maria del Molise', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Santa Maria della Versa', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Santa Maria di Licodia', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Santa Maria di Sala', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Santa Maria la Carità', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Santa Maria la Fossa', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Santa Maria la Longa', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Santa Marina', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Santa Marina Salina', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Santa Marinella', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Santa Ninfa', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Santa Paolina', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Santa Severina', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Santa Sofia', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Santa Sofia d''Epiro', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Santa Teresa Gallura', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Santa Teresa di Riva', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Santa Venerina', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Santa Vittoria d''Alba', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Santa Vittoria in Matenano', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Santadi', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Santarcangelo di Romagna', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Sante Marie', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Santena', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Santeramo in Colle', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Santhià', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Santi Cosma e Damiano', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Santo Stefano Belbo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Santo Stefano Lodigiano', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Santo Stefano Quisquina', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Santo Stefano Roero', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Santo Stefano Ticino', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Santo Stefano al Mare', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Santo Stefano d''Aveto', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Santo Stefano del Sole', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Santo Stefano di Cadore', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Santo Stefano di Camastra', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Santo Stefano di Magra', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Santo Stefano di Rogliano', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Santo Stefano di Sessanio', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Santo Stefano in Aspromonte', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Santomenna', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Santopadre', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Santorso', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Santu Lussurgiu', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Sanza', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Sanzeno', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Saonara', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Saponara', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Sappada', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Sapri', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Saracena', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Saracinesco', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Sarcedo', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Sarconi', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Sardara', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Sardigliano', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Sarego', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Sarentino', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Sarezzano', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Sarezzo', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Sarmato', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Sarmede', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Sarnano', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Sarnico', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Sarno', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Sarnonico', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Saronno', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Sarre', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Sarroch', 'Cagliari');
-insert into Cities (id, name, province) values (NULL, 'Sarsina', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Sarteano', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Sartirana Lomellina', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Sarule', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Sarzana', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Sassano', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Sassari', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Sassello', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Sassetta', 'Livorno');
-insert into Cities (id, name, province) values (NULL, 'Sassinoro', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Sasso Marconi', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Sasso di Castalda', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Sassocorvaro Auditore', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Sassofeltrio', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Sassoferrato', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Sassuolo', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Satriano', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Satriano di Lucania', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Sauris', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Sauze d''Oulx', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Sauze di Cesana', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Sava', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Savelli', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Saviano', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Savigliano', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Savignano Irpino', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Savignano sul Panaro', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Savignano sul Rubicone', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Savignone', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Saviore dell''Adamello', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Savoca', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Savogna', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Savogna d''Isonzo-Sovodnje ob Soči', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'Savoia di Lucania', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Savona', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Scafa', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Scafati', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Scagnello', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Scala', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Scala Coeli', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Scaldasole', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Scalea', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Scalenghe', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Scaletta Zanclea', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Scampitella', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Scandale', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Scandiano', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Scandicci', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Scandolara Ravara', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Scandolara Ripa d''Oglio', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Scandriglia', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Scanno', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Scano di Montiferro', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Scansano', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Scanzano Jonico', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Scanzorosciate', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Scapoli', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Scarlino', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Scarmagno', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Scarnafigi', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Scarperia e San Piero', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Scena', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Scerni', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Scheggia e Pascelupo', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Scheggino', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Schiavi di Abruzzo', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Schiavon', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Schignano', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Schilpario', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Schio', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Schivenoglia', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Sciacca', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Sciara', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Scicli', 'Ragusa');
-insert into Cities (id, name, province) values (NULL, 'Scido', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Scigliano', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Scilla', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Scillato', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Sciolze', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Scisciano', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Sclafani Bagni', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Scontrone', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Scopa', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Scopello', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Scoppito', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Scordia', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Scorrano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Scorzè', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Scurcola Marsicana', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Scurelle', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Scurzolengo', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Seborga', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Secinaro', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Seclì', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Secugnago', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Sedegliano', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Sedico', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Sedilo', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Sedini', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Sedriano', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Sedrina', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Sefro', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Segariu', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Seggiano', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Segni', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Segonzano', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Segrate', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Segusino', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Selargius', 'Cagliari');
-insert into Cities (id, name, province) values (NULL, 'Selci', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Selegas', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Sella Giudicarie', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Sellano', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Sellero', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Sellia', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Sellia Marina', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Selva dei Molini', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Selva di Cadore', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Selva di Progno', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Selva di Val Gardena', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Selvazzano Dentro', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Selvino', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Semestene', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Semiana', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Seminara', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Semproniano', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Senago', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Senale-San Felice', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Senales', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Seneghe', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Senerchia', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Seniga', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Senigallia', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Senis', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Senise', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Senna Comasco', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Senna Lodigiana', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Sennariolo', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Sennori', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Senorbì', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Sepino', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Sequals', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Seravezza', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Serdiana', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Seregno', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Seren del Grappa', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Sergnano', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Seriate', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Serina', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Serino', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Serle', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Sermide e Felonica', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Sermoneta', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Sernaglia della Battaglia', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Sernio', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Serole', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Serra Riccò', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Serra San Bruno', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Serra San Quirico', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Serra Sant''Abbondio', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Serra d''Aiello', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Serra de'' Conti', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Serracapriola', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Serradifalco', 'Caltanissetta');
-insert into Cities (id, name, province) values (NULL, 'Serralunga d''Alba', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Serralunga di Crea', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Serramanna', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Serramazzoni', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Serramezzana', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Serramonacesca', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Serrapetrona', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Serrara Fontana', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Serrastretta', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Serrata', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Serravalle Langhe', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Serravalle Pistoiese', 'Pistoia');
-insert into Cities (id, name, province) values (NULL, 'Serravalle Scrivia', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Serravalle Sesia', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Serravalle a Po', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Serravalle di Chienti', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Serre', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Serrenti', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Serri', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Serrone', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Sersale', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Servigliano', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Sessa Aurunca', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Sessa Cilento', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Sessame', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Sessano del Molise', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Sesta Godano', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Sestino', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Sesto', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Sesto Calende', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Sesto Campano', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Sesto Fiorentino', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Sesto San Giovanni', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Sesto al Reghena', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Sesto ed Uniti', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Sestola', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Sestri Levante', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Sestriere', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Sestu', 'Cagliari');
-insert into Cities (id, name, province) values (NULL, 'Settala', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Settefrati', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Settime', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Settimo Milanese', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Settimo Rottaro', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Settimo San Pietro', 'Cagliari');
-insert into Cities (id, name, province) values (NULL, 'Settimo Torinese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Settimo Vittone', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Settingiano', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Setzu', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Seui', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Seulo', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Seveso', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Sezzadio', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Sezze', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Sfruz', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Sgonico-Zgonik', 'Trieste');
-insert into Cities (id, name, province) values (NULL, 'Sgurgola', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Siamaggiore', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Siamanna', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Siano', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Siapiccia', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Sicignano degli Alburni', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Siculiana', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Siddi', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Siderno', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Siena', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Sigillo', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Signa', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Silandro', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Silanus', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Silea', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Siligo', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Siliqua', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Silius', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Sillano Giuncugnano', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Sillavengo', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Silvano Pietra', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Silvano d''Orba', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Silvi', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Simala', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Simaxis', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Simbario', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Simeri Crichi', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Sinagra', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Sinalunga', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Sindia', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Sini', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Sinio', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Siniscola', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Sinnai', 'Cagliari');
-insert into Cities (id, name, province) values (NULL, 'Sinopoli', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Siracusa', 'Siracusa');
-insert into Cities (id, name, province) values (NULL, 'Sirignano', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Siris', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Sirmione', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Sirolo', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Sirone', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Sirtori', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Sissa Trecasali', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Siurgus Donigala', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Siziano', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Sizzano', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Sluderno', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Smerillo', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Soave', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Socchieve', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Soddì', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Sogliano Cavour', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Sogliano al Rubicone', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Soglio', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Soiano del Lago', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Solagna', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Solarino', 'Siracusa');
-insert into Cities (id, name, province) values (NULL, 'Solaro', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Solarolo', 'Ravenna');
-insert into Cities (id, name, province) values (NULL, 'Solarolo Rainerio', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Solarussa', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Solbiate Arno', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Solbiate Olona', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Solbiate con Cagno', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Soldano', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Soleminis', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Solero', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Solesino', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Soleto', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Solferino', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Soliera', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Solignano', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Solofra', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Solonghello', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Solopaca', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Solto Collina', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Solza', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Somaglia', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Somano', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Somma Lombardo', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Somma Vesuviana', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Sommacampagna', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Sommariva Perno', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Sommariva del Bosco', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Sommatino', 'Caltanissetta');
-insert into Cities (id, name, province) values (NULL, 'Sommo', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Sona', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Soncino', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Sondalo', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Sondrio', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Songavazzo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Sonico', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Sonnino', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Sora', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Soraga di Fassa', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Soragna', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Sorano', 'Grosseto');
-insert into Cities (id, name, province) values (NULL, 'Sorbo San Basile', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Sorbo Serpico', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Sorbolo Mezzani', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Sordevolo', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Sordio', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Soresina', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Sorgono', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Sorgà', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Sori', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Sorianello', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Soriano Calabro', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Soriano nel Cimino', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Sorico', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Soriso', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Sorisole', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Sormano', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Sorradile', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Sorrento', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Sorso', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Sortino', 'Siracusa');
-insert into Cities (id, name, province) values (NULL, 'Sospiro', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Sospirolo', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Sossano', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Sostegno', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Sotto il Monte Giovanni XXIII', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Sover', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Soverato', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Sovere', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Soveria Mannelli', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Soveria Simeri', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Soverzene', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Sovicille', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Sovico', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Sovizzo', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Sovramonte', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Sozzago', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Spadafora', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Spadola', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Sparanise', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Sparone', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Specchia', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Spello', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Sperlinga', 'Enna');
-insert into Cities (id, name, province) values (NULL, 'Sperlonga', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Sperone', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Spessa', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Spezzano Albanese', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Spezzano della Sila', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Spiazzo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Spigno Monferrato', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Spigno Saturnia', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Spilamberto', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Spilimbergo', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Spilinga', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Spinadesco', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Spinazzola', 'Barletta-Andria-Trani');
-insert into Cities (id, name, province) values (NULL, 'Spinea', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Spineda', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Spinete', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Spineto Scrivia', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Spinetoli', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Spino d''Adda', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Spinone al Lago', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Spinoso', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Spirano', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Spoleto', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Spoltore', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Spongano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Spormaggiore', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Sporminore', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Spotorno', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Spresiano', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Spriana', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Squillace', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Squinzano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Staffolo', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Stagno Lombardo', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Staiti', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Stalettì', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Stanghella', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Staranzano', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'Statte', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Stazzano', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Stazzema', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Stazzona', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Stefanaconi', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Stella', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Stella Cilento', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Stellanello', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Stelvio', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Stenico', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Sternatia', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Stezzano', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Stienta', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Stigliano', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Stignano', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Stilo', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Stimigliano', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Stintino', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Stio', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Stornara', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Stornarella', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Storo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Stra', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Stradella', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Strambinello', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Strambino', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Strangolagalli', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Stregna', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Strembo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Stresa', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Strevi', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Striano', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Strona', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Stroncone', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Strongoli', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Stroppiana', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Stroppo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Strozza', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Sturno', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Suardi', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Subbiano', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Subiaco', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Succivo', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Sueglio', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Suelli', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Suello', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Suisio', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Sulbiate', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Sulmona', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Sulzano', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Sumirago', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Summonte', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Suni', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Suno', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Supersano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Supino', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Surano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Surbo', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Susa', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Susegana', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Sustinente', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Sutera', 'Caltanissetta');
-insert into Cities (id, name, province) values (NULL, 'Sutri', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Sutrio', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Suvereto', 'Livorno');
-insert into Cities (id, name, province) values (NULL, 'Suzzara', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Taceno', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Tadasuni', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Taggia', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Tagliacozzo', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Taglio di Po', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Tagliolo Monferrato', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Taibon Agordino', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Taino', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Taipana', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Talamello', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Talamona', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Talana', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Taleggio', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Talla', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Talmassons', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Tambre', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Taormina', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Tarano', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Taranta Peligna', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Tarantasca', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Taranto', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Tarcento', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Tarquinia', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Tarsia', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Tartano', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Tarvisio', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Tarzo', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Tassarolo', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Taurano', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Taurasi', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Taurianova', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Taurisano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Tavagnacco', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Tavagnasco', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Tavazzano con Villavesco', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Tavenna', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Taverna', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Tavernerio', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Tavernola Bergamasca', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Tavernole sul Mella', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Taviano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Tavigliano', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Tavoleto', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Tavullia', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Teana', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Teano', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Teggiano', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Teglio', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Teglio Veneto', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Telese Terme', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Telgate', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Telti', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Telve', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Telve di Sopra', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Tempio Pausania', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Temù', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Tenna', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Tenno', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Teolo', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Teora', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Teramo', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Terdobbiate', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Terelle', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Terento', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Terenzo', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Tergu', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Terlano', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Terlizzi', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Terme Vigliatore', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Termeno sulla strada del vino', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Termini Imerese', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Termoli', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Ternate', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Ternengo', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Terni', 'Terni');
-insert into Cities (id, name, province) values (NULL, 'Terno d''Isola', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Terracina', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Terragnolo', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Terralba', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Terranova Sappo Minulio', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Terranova da Sibari', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Terranova dei Passerini', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Terranova di Pollino', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Terranuova Bracciolini', 'Arezzo');
-insert into Cities (id, name, province) values (NULL, 'Terrasini', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Terrassa Padovana', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Terravecchia', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Terrazzo', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Terre Roveresche', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Terre d''Adige', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Terre del Reno', 'Ferrara');
-insert into Cities (id, name, province) values (NULL, 'Terricciola', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Terruggia', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Tertenia', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Terzigno', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Terzo', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Terzo d''Aquileia', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Terzolas', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Terzorio', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Tesero', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Tesimo', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Tessennano', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Testico', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Teti', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Teulada', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Teverola', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Tezze sul Brenta', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Thiene', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Thiesi', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Tiana', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Ticengo', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Ticineto', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Tiggiano', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Tiglieto', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Tigliole', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Tignale', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Tinnura', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Tione degli Abruzzi', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Tione di Trento', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Tirano', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Tires', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Tiriolo', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Tirolo', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Tissi', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Tito', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Tivoli', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Tizzano Val Parma', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Toano', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Tocco Caudio', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Tocco da Casauria', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Toceno', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Todi', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Toffia', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Toirano', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Tolentino', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Tolfa', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Tollegno', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Tollo', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Tolmezzo', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Tolve', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Tombolo', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Ton', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Tonara', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Tonco', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Tonezza del Cimone', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Tora e Piccilli', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Torano Castello', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Torano Nuovo', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Torbole Casaglia', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Torcegno', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Torchiara', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Torchiarolo', 'Brindisi');
-insert into Cities (id, name, province) values (NULL, 'Torella dei Lombardi', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Torella del Sannio', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Torgiano', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Torgnon', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Torino', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Torino di Sangro', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Toritto', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Torlino Vimercati', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Tornaco', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Tornareccio', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Tornata', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Tornimparte', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Torno', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Tornolo', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Toro', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Torpè', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Torraca', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Torralba', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Torrazza Coste', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Torrazza Piemonte', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Torrazzo', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Torre Annunziata', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Torre Beretti e Castellaro', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Torre Boldone', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Torre Bormida', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Torre Cajetani', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Torre Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Torre Le Nocelle', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Torre Mondovì', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Torre Orsaia', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Torre Pallavicina', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Torre Pellice', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Torre San Giorgio', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Torre San Patrizio', 'Fermo');
-insert into Cities (id, name, province) values (NULL, 'Torre Santa Susanna', 'Brindisi');
-insert into Cities (id, name, province) values (NULL, 'Torre d''Arese', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Torre d''Isola', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Torre de'' Busi', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Torre de'' Negri', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Torre de'' Passeri', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Torre de'' Picenardi', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Torre de'' Roveri', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Torre del Greco', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Torre di Mosto', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Torre di Ruggiero', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Torre di Santa Maria', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Torreano', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Torrebelvicino', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Torrebruna', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Torrecuso', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Torreglia', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Torregrotta', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Torremaggiore', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Torrenova', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Torresina', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Torretta', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Torrevecchia Pia', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Torrevecchia Teatina', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Torri del Benaco', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Torri di Quartesolo', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Torri in Sabina', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Torrice', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Torricella', 'Taranto');
-insert into Cities (id, name, province) values (NULL, 'Torricella Peligna', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Torricella Sicura', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Torricella Verzate', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Torricella del Pizzo', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Torricella in Sabina', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Torriglia', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Torrile', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Torrioni', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Torrita Tiberina', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Torrita di Siena', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Tortolì', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Tortona', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Tortora', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Tortorella', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Tortoreto', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Tortorici', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Torviscosa', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Toscolano-Maderno', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Tossicia', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Tovo San Giacomo', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Tovo di Sant''Agata', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Trabia', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Tradate', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Tramatza', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Trambileno', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Tramonti', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Tramonti di Sopra', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Tramonti di Sotto', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Tramutola', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Trana', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Trani', 'Barletta-Andria-Trani');
-insert into Cities (id, name, province) values (NULL, 'Traona', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Trapani', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Trappeto', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Trarego Viggiona', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Trasacco', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Trasaghis', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Trasquera', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Tratalias', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Travacò Siccomario', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Travagliato', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Travedona-Monate', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Traversella', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Traversetolo', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Traves', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Travesio', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Travo', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Tre Ville', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Trebaseleghe', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Trebisacce', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Trecase', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Trecastagni', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Trecastelli', 'Ancona');
-insert into Cities (id, name, province) values (NULL, 'Trecate', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Trecchina', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Trecenta', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Tredozio', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Treglio', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Tregnago', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Treia', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Treiso', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Tremestieri Etneo', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Tremezzina', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Tremosine sul Garda', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Trentinara', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Trento', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Trentola Ducenta', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Trenzano', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Treppo Grande', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Treppo Ligosullo', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Trepuzzi', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Trequanda', 'Siena');
-insert into Cities (id, name, province) values (NULL, 'Tresana', 'Massa-Carrara');
-insert into Cities (id, name, province) values (NULL, 'Trescore Balneario', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Trescore Cremasco', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Tresignana', 'Ferrara');
-insert into Cities (id, name, province) values (NULL, 'Tresivio', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Tresnuraghes', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Trevenzuolo', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Trevi', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Trevi nel Lazio', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Trevico', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Treviglio', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Trevignano', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Trevignano Romano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Treville', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Treviolo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Treviso', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Treviso Bresciano', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Trezzano Rosa', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Trezzano sul Naviglio', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Trezzo Tinella', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Trezzo sull''Adda', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Trezzone', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Tribano', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Tribiano', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Tribogna', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Tricarico', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Tricase', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Tricerro', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Tricesimo', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Triei', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Trieste', 'Trieste');
-insert into Cities (id, name, province) values (NULL, 'Triggiano', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Trigolo', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Trinitapoli', 'Barletta-Andria-Trani');
-insert into Cities (id, name, province) values (NULL, 'Trinità', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Trinità d''Agultu e Vignola', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Trino', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Triora', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Tripi', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Trisobbio', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Trissino', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Triuggio', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Trivento', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Trivigliano', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Trivignano Udinese', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Trivigno', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Trivolzio', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Trodena nel parco naturale', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Trofarello', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Troia', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Troina', 'Enna');
-insert into Cities (id, name, province) values (NULL, 'Tromello', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Trontano', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Tronzano Lago Maggiore', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Tronzano Vercellese', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Tropea', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Trovo', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Truccazzano', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Tubre', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Tufara', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Tufillo', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Tufino', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Tufo', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Tuglie', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Tuili', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Tula', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Tuoro sul Trasimeno', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Turania', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Turano Lodigiano', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Turate', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Turbigo', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Turi', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Turri', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Turriaco', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'Turrivalignani', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Tursi', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Tusa', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Tuscania', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Ubiale Clanezzo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Uboldo', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Ucria', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Udine', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Ugento', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Uggiano la Chiesa', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Uggiate-Trevano', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Ulassai', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Ultimo', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Ulà Tirso', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Umbertide', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Umbriatico', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Urago d''Oglio', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Uras', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Urbana', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Urbania', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Urbe', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Urbino', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Urbisaglia', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Urgnano', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Uri', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Ururi', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Urzulei', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Uscio', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Usellus', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Usini', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Usmate Velate', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Ussana', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Ussaramanna', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Ussassai', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Usseaux', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Usseglio', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Ussita', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Ustica', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Uta', 'Cagliari');
-insert into Cities (id, name, province) values (NULL, 'Uzzano', 'Pistoia');
-insert into Cities (id, name, province) values (NULL, 'Vaccarizzo Albanese', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Vacone', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Vacri', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Vadena', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Vado Ligure', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Vagli Sotto', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Vaglia', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Vaglio Basilicata', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Vaglio Serra', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Vaiano', 'Prato');
-insert into Cities (id, name, province) values (NULL, 'Vaiano Cremasco', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Vaie', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Vailate', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Vairano Patenora', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Vajont', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Val Brembilla', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Val Liona', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Val Masino', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Val Rezzo', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Val della Torre', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Val di Chy', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Val di Nizza', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Val di Vizze', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Val di Zoldo', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Valbondione', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Valbrembo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Valbrenta', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Valbrevenna', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Valbrona', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Valchiusa', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Valdagno', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Valdaone', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Valdaora', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Valdastico', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Valdengo', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Valderice', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Valdidentro', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Valdieri', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Valdilana', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Valdina', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Valdisotto', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Valdobbiadene', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Valduggia', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Valeggio', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Valeggio sul Mincio', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Valentano', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Valenza', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Valenzano', 'Bari');
-insert into Cities (id, name, province) values (NULL, 'Valera Fratta', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Valfabbrica', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Valfenera', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Valfloriana', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Valfornace', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Valfurva', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Valganna', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Valgioie', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Valgoglio', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Valgrana', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Valgreghentino', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Valgrisenche', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Valguarnera Caropepe', 'Enna');
-insert into Cities (id, name, province) values (NULL, 'Vallada Agordina', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Vallanzengo', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Vallarsa', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Vallata', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Valle Agricola', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Valle Aurina', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Valle Cannobina', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Valle Castellana', 'Teramo');
-insert into Cities (id, name, province) values (NULL, 'Valle Lomellina', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Valle Salimbene', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Valle San Nicolao', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Valle dell''Angelo', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Valle di Cadore', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Valle di Casies', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Valle di Maddaloni', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Vallebona', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Vallecorsa', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Vallecrosia', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Valledolmo', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Valledoria', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Vallefiorita', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Vallefoglia', 'Pesaro e Urbino');
-insert into Cities (id, name, province) values (NULL, 'Vallelaghi', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Vallelonga', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Vallelunga Pratameno', 'Caltanissetta');
-insert into Cities (id, name, province) values (NULL, 'Vallemaio', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Vallepietra', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Vallerano', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Vallermosa', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Vallerotonda', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Vallesaccarda', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Valleve', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Valli del Pasubio', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Vallinfreda', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Vallio Terme', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Vallo Torinese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Vallo della Lucania', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Vallo di Nera', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Valloriate', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Valmacca', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Valmadrera', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Valmontone', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Valmorea', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Valmozzola', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Valnegra', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Valpelline', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Valperga', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Valprato Soana', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Valsamoggia', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Valsavarenche', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Valsinni', 'Matera');
-insert into Cities (id, name, province) values (NULL, 'Valsolda', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Valstrona', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Valtopina', 'Perugia');
-insert into Cities (id, name, province) values (NULL, 'Valtorta', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Valtournenche', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Valva', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Valvarrone', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Valvasone Arzene', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Valverde', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Valvestino', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Vandoies', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Vanzaghello', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Vanzago', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Vanzone con San Carlo', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Vaprio d''Adda', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Vaprio d''Agogna', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Varallo', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Varallo Pombia', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Varano Borghi', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Varano de'' Melegari', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Varapodio', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Varazze', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Varco Sabino', 'Rieti');
-insert into Cities (id, name, province) values (NULL, 'Varedo', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Varenna', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Varese', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Varese Ligure', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Varisella', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Varmo', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Varna', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Varsi', 'Parma');
-insert into Cities (id, name, province) values (NULL, 'Varzi', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Varzo', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Vasanello', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Vasia', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Vasto', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Vastogirardi', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Vauda Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Vazzano', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Vazzola', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Vecchiano', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Vedano Olona', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Vedano al Lambro', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Vedelago', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Vedeseta', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Veduggio con Colzano', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Veggiano', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Veglie', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Veglio', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Vejano', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Veleso', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Velezzo Lomellina', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Velletri', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Vellezzo Bellini', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Velo Veronese', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Velo d''Astico', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Velturno', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Venafro', 'Isernia');
-insert into Cities (id, name, province) values (NULL, 'Venaria Reale', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Venarotta', 'Ascoli Piceno');
-insert into Cities (id, name, province) values (NULL, 'Venasca', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Venaus', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Vendone', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Venegono Inferiore', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Venegono Superiore', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Venetico', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Venezia', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Veniano', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Venosa', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Ventasso', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Venticano', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Ventimiglia', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Ventimiglia di Sicilia', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Ventotene', 'Latina');
-insert into Cities (id, name, province) values (NULL, 'Venzone', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Verano', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Verano Brianza', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Verbania', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Verbicaro', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Vercana', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Verceia', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Vercelli', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Vercurago', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Verdellino', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Verdello', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Verderio', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Verduno', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Vergato', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Verghereto', 'Forlì-Cesena');
-insert into Cities (id, name, province) values (NULL, 'Vergiate', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Vermezzo con Zelo', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Vermiglio', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Vernante', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Vernasca', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Vernate', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Vernazza', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Vernio', 'Prato');
-insert into Cities (id, name, province) values (NULL, 'Vernole', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Verolanuova', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Verolavecchia', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Verolengo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Veroli', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Verona', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Veronella', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Verrayes', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Verretto', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Verrone', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Verrua Po', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Verrua Savoia', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Verrès', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Vertemate con Minoprio', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Vertova', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Verucchio', 'Rimini');
-insert into Cities (id, name, province) values (NULL, 'Vervio', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Verzegnis', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Verzino', 'Crotone');
-insert into Cities (id, name, province) values (NULL, 'Verzuolo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Vescovana', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Vescovato', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Vesime', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Vespolate', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Vessalico', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Vestenanova', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Vestignè', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Vestone', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Vetralla', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Vetto', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Vezza d''Alba', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Vezza d''Oglio', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Vezzano Ligure', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Vezzano sul Crostolo', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Vezzi Portio', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Viadana', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Viadanica', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Viagrande', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Viale', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Vialfrè', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Viano', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Viareggio', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Viarigi', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Vibo Valentia', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Vibonati', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Vicalvi', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Vicari', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Vicchio', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Vicenza', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Vico Equense', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Vico del Gargano', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Vico nel Lazio', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Vicoforte', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Vicoli', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Vicolungo', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Vicopisano', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Vicovaro', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Viddalba', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Vidigulfo', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Vidor', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Vidracco', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Vieste', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Vietri di Potenza', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Vietri sul Mare', 'Salerno');
-insert into Cities (id, name, province) values (NULL, 'Vigano San Martino', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Viganò', 'Lecco');
-insert into Cities (id, name, province) values (NULL, 'Vigarano Mainarda', 'Ferrara');
-insert into Cities (id, name, province) values (NULL, 'Vigasio', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Vigevano', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Viggianello', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Viggiano', 'Potenza');
-insert into Cities (id, name, province) values (NULL, 'Viggiù', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Vighizzolo d''Este', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Vigliano Biellese', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Vigliano d''Asti', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Vignale Monferrato', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Vignanello', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Vignate', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Vignola', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Vignola-Falesina', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Vignole Borbera', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Vignolo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Vignone', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Vigo di Cadore', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Vigodarzere', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Vigolo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Vigolzone', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Vigone', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Vigonovo', 'Venezia');
-insert into Cities (id, name, province) values (NULL, 'Vigonza', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Viguzzolo', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Villa Bartolomea', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Villa Basilica', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Villa Biscossi', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Villa Carcina', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Villa Castelli', 'Brindisi');
-insert into Cities (id, name, province) values (NULL, 'Villa Celiera', 'Pescara');
-insert into Cities (id, name, province) values (NULL, 'Villa Collemandina', 'Lucca');
-insert into Cities (id, name, province) values (NULL, 'Villa Cortese', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Villa Estense', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Villa Faraldi', 'Imperia');
-insert into Cities (id, name, province) values (NULL, 'Villa Guardia', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Villa Lagarina', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Villa Latina', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Villa Literno', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Villa Minozzo', 'Reggio nell''Emilia');
-insert into Cities (id, name, province) values (NULL, 'Villa San Giovanni', 'Reggio Calabria');
-insert into Cities (id, name, province) values (NULL, 'Villa San Giovanni in Tuscia', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Villa San Pietro', 'Cagliari');
-insert into Cities (id, name, province) values (NULL, 'Villa San Secondo', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Villa Sant''Angelo', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Villa Sant''Antonio', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Villa Santa Lucia', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Villa Santa Lucia degli Abruzzi', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Villa Santa Maria', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Villa Santina', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Villa Santo Stefano', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Villa Verde', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Villa d''Adda', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Villa d''Almè', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Villa d''Ogna', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Villa del Bosco', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Villa del Conte', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Villa di Briano', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Villa di Chiavenna', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Villa di Serio', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Villa di Tirano', 'Sondrio');
-insert into Cities (id, name, province) values (NULL, 'Villabassa', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Villabate', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Villachiara', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Villacidro', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Villadeati', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Villadose', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Villadossola', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Villafalletto', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Villafranca Padovana', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Villafranca Piemonte', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Villafranca Sicula', 'Agrigento');
-insert into Cities (id, name, province) values (NULL, 'Villafranca Tirrena', 'Messina');
-insert into Cities (id, name, province) values (NULL, 'Villafranca d''Asti', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Villafranca di Verona', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Villafranca in Lunigiana', 'Massa-Carrara');
-insert into Cities (id, name, province) values (NULL, 'Villafrati', 'Palermo');
-insert into Cities (id, name, province) values (NULL, 'Villaga', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Villagrande Strisaili', 'Nuoro');
-insert into Cities (id, name, province) values (NULL, 'Villalago', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Villalba', 'Caltanissetta');
-insert into Cities (id, name, province) values (NULL, 'Villalfonsina', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Villalvernia', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Villamagna', 'Chieti');
-insert into Cities (id, name, province) values (NULL, 'Villamaina', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Villamar', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Villamarzana', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Villamassargia', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Villamiroglio', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Villandro', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Villanova Biellese', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Villanova Canavese', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Villanova Marchesana', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Villanova Mondovì', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Villanova Monferrato', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Villanova Monteleone', 'Sassari');
-insert into Cities (id, name, province) values (NULL, 'Villanova Solaro', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Villanova Truschedu', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Villanova Tulo', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Villanova d''Albenga', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Villanova d''Ardenghi', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Villanova d''Asti', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Villanova del Battista', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Villanova del Ghebbo', 'Rovigo');
-insert into Cities (id, name, province) values (NULL, 'Villanova del Sillaro', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Villanova di Camposampiero', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Villanova sull''Arda', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Villanovaforru', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Villanovafranca', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Villanterio', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Villanuova sul Clisi', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Villaperuccio', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Villapiana', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Villaputzu', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Villar Dora', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Villar Focchiardo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Villar Pellice', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Villar Perosa', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Villar San Costanzo', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Villarbasse', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Villarboit', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Villareggia', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Villaricca', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Villaromagnano', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Villarosa', 'Enna');
-insert into Cities (id, name, province) values (NULL, 'Villasalto', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Villasanta', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Villasimius', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Villasor', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Villaspeciosa', 'Sud Sardegna');
-insert into Cities (id, name, province) values (NULL, 'Villastellone', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Villata', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Villaurbana', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Villavallelonga', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Villaverla', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Ville d''Anaunia', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Ville di Fiemme', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Villeneuve', 'Valle d''Aosta');
-insert into Cities (id, name, province) values (NULL, 'Villesse', 'Gorizia');
-insert into Cities (id, name, province) values (NULL, 'Villetta Barrea', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Villette', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Villimpenta', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Villongo', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Villorba', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Vilminore di Scalve', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Vimercate', 'Monza e della Brianza');
-insert into Cities (id, name, province) values (NULL, 'Vimodrone', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Vinadio', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Vinchiaturo', 'Campobasso');
-insert into Cities (id, name, province) values (NULL, 'Vinchio', 'Asti');
-insert into Cities (id, name, province) values (NULL, 'Vinci', 'Firenze');
-insert into Cities (id, name, province) values (NULL, 'Vinovo', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Vinzaglio', 'Novara');
-insert into Cities (id, name, province) values (NULL, 'Viola', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Vione', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Vipiteno', 'Bolzano');
-insert into Cities (id, name, province) values (NULL, 'Virle Piemonte', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Visano', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Vische', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Visciano', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Visco', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Visone', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Visso', 'Macerata');
-insert into Cities (id, name, province) values (NULL, 'Vistarino', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Vistrorio', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Vita', 'Trapani');
-insert into Cities (id, name, province) values (NULL, 'Viterbo', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Viticuso', 'Frosinone');
-insert into Cities (id, name, province) values (NULL, 'Vito d''Asio', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Vitorchiano', 'Viterbo');
-insert into Cities (id, name, province) values (NULL, 'Vittoria', 'Ragusa');
-insert into Cities (id, name, province) values (NULL, 'Vittorio Veneto', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Vittorito', 'L''Aquila');
-insert into Cities (id, name, province) values (NULL, 'Vittuone', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Vitulano', 'Benevento');
-insert into Cities (id, name, province) values (NULL, 'Vitulazio', 'Caserta');
-insert into Cities (id, name, province) values (NULL, 'Vivaro', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Vivaro Romano', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Viverone', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Vizzini', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Vizzola Ticino', 'Varese');
-insert into Cities (id, name, province) values (NULL, 'Vizzolo Predabissi', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Viù', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Vo', 'Padova');
-insert into Cities (id, name, province) values (NULL, 'Vobarno', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Vobbia', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Vocca', 'Vercelli');
-insert into Cities (id, name, province) values (NULL, 'Vodo Cadore', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Voghera', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Voghiera', 'Ferrara');
-insert into Cities (id, name, province) values (NULL, 'Vogogna', 'Verbano-Cusio-Ossola');
-insert into Cities (id, name, province) values (NULL, 'Volano', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Volla', 'Napoli');
-insert into Cities (id, name, province) values (NULL, 'Volongo', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Volpago del Montello', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Volpara', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Volpedo', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Volpeglino', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Volpiano', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Volta Mantovana', 'Mantova');
-insert into Cities (id, name, province) values (NULL, 'Voltaggio', 'Alessandria');
-insert into Cities (id, name, province) values (NULL, 'Voltago Agordino', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Volterra', 'Pisa');
-insert into Cities (id, name, province) values (NULL, 'Voltido', 'Cremona');
-insert into Cities (id, name, province) values (NULL, 'Volturara Appula', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Volturara Irpina', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Volturino', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Volvera', 'Torino');
-insert into Cities (id, name, province) values (NULL, 'Vottignasco', 'Cuneo');
-insert into Cities (id, name, province) values (NULL, 'Zaccanopoli', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Zafferana Etnea', 'Catania');
-insert into Cities (id, name, province) values (NULL, 'Zagarise', 'Catanzaro');
-insert into Cities (id, name, province) values (NULL, 'Zagarolo', 'Roma');
-insert into Cities (id, name, province) values (NULL, 'Zambrone', 'Vibo Valentia');
-insert into Cities (id, name, province) values (NULL, 'Zandobbio', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Zanica', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Zanè', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Zapponeta', 'Foggia');
-insert into Cities (id, name, province) values (NULL, 'Zavattarello', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Zeccone', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Zeddiani', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Zelbio', 'Como');
-insert into Cities (id, name, province) values (NULL, 'Zelo Buon Persico', 'Lodi');
-insert into Cities (id, name, province) values (NULL, 'Zeme', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Zenevredo', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Zenson di Piave', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Zerba', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Zerbo', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Zerbolò', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Zerfaliu', 'Oristano');
-insert into Cities (id, name, province) values (NULL, 'Zeri', 'Massa-Carrara');
-insert into Cities (id, name, province) values (NULL, 'Zermeghedo', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Zero Branco', 'Treviso');
-insert into Cities (id, name, province) values (NULL, 'Zevio', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Ziano Piacentino', 'Piacenza');
-insert into Cities (id, name, province) values (NULL, 'Ziano di Fiemme', 'Trento');
-insert into Cities (id, name, province) values (NULL, 'Zibido San Giacomo', 'Milano');
-insert into Cities (id, name, province) values (NULL, 'Zignago', 'La Spezia');
-insert into Cities (id, name, province) values (NULL, 'Zimella', 'Verona');
-insert into Cities (id, name, province) values (NULL, 'Zimone', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Zinasco', 'Pavia');
-insert into Cities (id, name, province) values (NULL, 'Zoagli', 'Genova');
-insert into Cities (id, name, province) values (NULL, 'Zocca', 'Modena');
-insert into Cities (id, name, province) values (NULL, 'Zogno', 'Bergamo');
-insert into Cities (id, name, province) values (NULL, 'Zola Predosa', 'Bologna');
-insert into Cities (id, name, province) values (NULL, 'Zollino', 'Lecce');
-insert into Cities (id, name, province) values (NULL, 'Zone', 'Brescia');
-insert into Cities (id, name, province) values (NULL, 'Zoppola', 'Pordenone');
-insert into Cities (id, name, province) values (NULL, 'Zoppè di Cadore', 'Belluno');
-insert into Cities (id, name, province) values (NULL, 'Zovencedo', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Zubiena', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Zuccarello', 'Savona');
-insert into Cities (id, name, province) values (NULL, 'Zugliano', 'Vicenza');
-insert into Cities (id, name, province) values (NULL, 'Zuglio', 'Udine');
-insert into Cities (id, name, province) values (NULL, 'Zumaglia', 'Biella');
-insert into Cities (id, name, province) values (NULL, 'Zumpano', 'Cosenza');
-insert into Cities (id, name, province) values (NULL, 'Zungoli', 'Avellino');
-insert into Cities (id, name, province) values (NULL, 'Zungri', 'Vibo Valentia');
+insert into Cities (id, name, province) values
+       (NULL, 'Abano Terme', 'Padova'),
+       (NULL, 'Abbadia Cerreto', 'Lodi'),
+       (NULL, 'Abbadia Lariana', 'Lecco'),
+       (NULL, 'Abbadia San Salvatore', 'Siena'),
+       (NULL, 'Abbasanta', 'Oristano'),
+       (NULL, 'Abbateggio', 'Pescara'),
+       (NULL, 'Abbiategrasso', 'Milano'),
+       (NULL, 'Abetone Cutigliano', 'Pistoia'),
+       (NULL, 'Abriola', 'Potenza'),
+       (NULL, 'Acate', 'Ragusa'),
+       (NULL, 'Accadia', 'Foggia'),
+       (NULL, 'Acceglio', 'Cuneo'),
+       (NULL, 'Accettura', 'Matera'),
+       (NULL, 'Acciano', 'L''Aquila'),
+       (NULL, 'Accumoli', 'Rieti'),
+       (NULL, 'Acerenza', 'Potenza'),
+       (NULL, 'Acerno', 'Salerno'),
+       (NULL, 'Acerra', 'Napoli'),
+       (NULL, 'Aci Bonaccorsi', 'Catania'),
+       (NULL, 'Aci Castello', 'Catania'),
+       (NULL, 'Aci Catena', 'Catania'),
+       (NULL, 'Aci Sant''Antonio', 'Catania'),
+       (NULL, 'Acireale', 'Catania'),
+       (NULL, 'Acquafondata', 'Frosinone'),
+       (NULL, 'Acquaformosa', 'Cosenza'),
+       (NULL, 'Acquafredda', 'Brescia'),
+       (NULL, 'Acqualagna', 'Pesaro e Urbino'),
+       (NULL, 'Acquanegra Cremonese', 'Cremona'),
+       (NULL, 'Acquanegra sul Chiese', 'Mantova'),
+       (NULL, 'Acquapendente', 'Viterbo'),
+       (NULL, 'Acquappesa', 'Cosenza'),
+       (NULL, 'Acquaro', 'Vibo Valentia'),
+       (NULL, 'Acquasanta Terme', 'Ascoli Piceno'),
+       (NULL, 'Acquasparta', 'Terni'),
+       (NULL, 'Acquaviva Collecroce', 'Campobasso'),
+       (NULL, 'Acquaviva Picena', 'Ascoli Piceno'),
+       (NULL, 'Acquaviva Platani', 'Caltanissetta'),
+       (NULL, 'Acquaviva d''Isernia', 'Isernia'),
+       (NULL, 'Acquaviva delle Fonti', 'Bari'),
+       (NULL, 'Acquedolci', 'Messina'),
+       (NULL, 'Acqui Terme', 'Alessandria'),
+       (NULL, 'Acri', 'Cosenza'),
+       (NULL, 'Acuto', 'Frosinone'),
+       (NULL, 'Adelfia', 'Bari'),
+       (NULL, 'Adrano', 'Catania'),
+       (NULL, 'Adrara San Martino', 'Bergamo'),
+       (NULL, 'Adrara San Rocco', 'Bergamo'),
+       (NULL, 'Adria', 'Rovigo'),
+       (NULL, 'Adro', 'Brescia'),
+       (NULL, 'Affi', 'Verona'),
+       (NULL, 'Affile', 'Roma'),
+       (NULL, 'Afragola', 'Napoli'),
+       (NULL, 'Africo', 'Reggio Calabria'),
+       (NULL, 'Agazzano', 'Piacenza'),
+       (NULL, 'Agerola', 'Napoli'),
+       (NULL, 'Aggius', 'Sassari'),
+       (NULL, 'Agira', 'Enna'),
+       (NULL, 'Agliana', 'Pistoia'),
+       (NULL, 'Agliano Terme', 'Asti'),
+       (NULL, 'Aglientu', 'Sassari'),
+       (NULL, 'Agliè', 'Torino'),
+       (NULL, 'Agna', 'Padova'),
+       (NULL, 'Agnadello', 'Cremona'),
+       (NULL, 'Agnana Calabra', 'Reggio Calabria'),
+       (NULL, 'Agnone', 'Isernia'),
+       (NULL, 'Agnosine', 'Brescia'),
+       (NULL, 'Agordo', 'Belluno'),
+       (NULL, 'Agosta', 'Roma'),
+       (NULL, 'Agra', 'Varese'),
+       (NULL, 'Agrate Brianza', 'Monza e della Brianza'),
+       (NULL, 'Agrate Conturbia', 'Novara'),
+       (NULL, 'Agrigento', 'Agrigento'),
+       (NULL, 'Agropoli', 'Salerno'),
+       (NULL, 'Agugliano', 'Ancona'),
+       (NULL, 'Agugliaro', 'Vicenza'),
+       (NULL, 'Aicurzio', 'Monza e della Brianza'),
+       (NULL, 'Aidomaggiore', 'Oristano'),
+       (NULL, 'Aidone', 'Enna'),
+       (NULL, 'Aielli', 'L''Aquila'),
+       (NULL, 'Aiello Calabro', 'Cosenza'),
+       (NULL, 'Aiello del Friuli', 'Udine'),
+       (NULL, 'Aiello del Sabato', 'Avellino'),
+       (NULL, 'Aieta', 'Cosenza'),
+       (NULL, 'Ailano', 'Caserta'),
+       (NULL, 'Ailoche', 'Biella'),
+       (NULL, 'Airasca', 'Torino'),
+       (NULL, 'Airola', 'Benevento'),
+       (NULL, 'Airole', 'Imperia'),
+       (NULL, 'Airuno', 'Lecco'),
+       (NULL, 'Aisone', 'Cuneo'),
+       (NULL, 'Ala', 'Trento'),
+       (NULL, 'Ala di Stura', 'Torino'),
+       (NULL, 'Alagna', 'Pavia'),
+       (NULL, 'Alagna Valsesia', 'Vercelli'),
+       (NULL, 'Alanno', 'Pescara'),
+       (NULL, 'Alano di Piave', 'Belluno'),
+       (NULL, 'Alassio', 'Savona'),
+       (NULL, 'Alatri', 'Frosinone'),
+       (NULL, 'Alba', 'Cuneo'),
+       (NULL, 'Alba Adriatica', 'Teramo'),
+       (NULL, 'Albagiara', 'Oristano'),
+       (NULL, 'Albairate', 'Milano'),
+       (NULL, 'Albanella', 'Salerno'),
+       (NULL, 'Albano Laziale', 'Roma'),
+       (NULL, 'Albano Sant''Alessandro', 'Bergamo'),
+       (NULL, 'Albano Vercellese', 'Vercelli'),
+       (NULL, 'Albano di Lucania', 'Potenza'),
+       (NULL, 'Albaredo Arnaboldi', 'Pavia'),
+       (NULL, 'Albaredo d''Adige', 'Verona'),
+       (NULL, 'Albaredo per San Marco', 'Sondrio'),
+       (NULL, 'Albareto', 'Parma'),
+       (NULL, 'Albaretto della Torre', 'Cuneo'),
+       (NULL, 'Albavilla', 'Como'),
+       (NULL, 'Albenga', 'Savona'),
+       (NULL, 'Albera Ligure', 'Alessandria'),
+       (NULL, 'Alberobello', 'Bari'),
+       (NULL, 'Alberona', 'Foggia'),
+       (NULL, 'Albese con Cassano', 'Como'),
+       (NULL, 'Albettone', 'Vicenza'),
+       (NULL, 'Albi', 'Catanzaro'),
+       (NULL, 'Albiano', 'Trento'),
+       (NULL, 'Albiano d''Ivrea', 'Torino'),
+       (NULL, 'Albiate', 'Monza e della Brianza'),
+       (NULL, 'Albidona', 'Cosenza'),
+       (NULL, 'Albignasego', 'Padova'),
+       (NULL, 'Albinea', 'Reggio nell''Emilia'),
+       (NULL, 'Albino', 'Bergamo'),
+       (NULL, 'Albiolo', 'Como'),
+       (NULL, 'Albisola Superiore', 'Savona'),
+       (NULL, 'Albissola Marina', 'Savona'),
+       (NULL, 'Albizzate', 'Varese'),
+       (NULL, 'Albonese', 'Pavia'),
+       (NULL, 'Albosaggia', 'Sondrio'),
+       (NULL, 'Albugnano', 'Asti'),
+       (NULL, 'Albuzzano', 'Pavia'),
+       (NULL, 'Alcamo', 'Trapani'),
+       (NULL, 'Alcara li Fusi', 'Messina'),
+       (NULL, 'Aldeno', 'Trento'),
+       (NULL, 'Aldino', 'Bolzano'),
+       (NULL, 'Ales', 'Oristano'),
+       (NULL, 'Alessandria', 'Alessandria'),
+       (NULL, 'Alessandria del Carretto', 'Cosenza'),
+       (NULL, 'Alessandria della Rocca', 'Agrigento'),
+       (NULL, 'Alessano', 'Lecce'),
+       (NULL, 'Alezio', 'Lecce'),
+       (NULL, 'Alfano', 'Salerno'),
+       (NULL, 'Alfedena', 'L''Aquila'),
+       (NULL, 'Alfianello', 'Brescia'),
+       (NULL, 'Alfiano Natta', 'Alessandria'),
+       (NULL, 'Alfonsine', 'Ravenna'),
+       (NULL, 'Alghero', 'Sassari'),
+       (NULL, 'Algua', 'Bergamo'),
+       (NULL, 'Alia', 'Palermo'),
+       (NULL, 'Aliano', 'Matera'),
+       (NULL, 'Alice Bel Colle', 'Alessandria'),
+       (NULL, 'Alice Castello', 'Vercelli'),
+       (NULL, 'Alife', 'Caserta'),
+       (NULL, 'Alimena', 'Palermo'),
+       (NULL, 'Aliminusa', 'Palermo'),
+       (NULL, 'Allai', 'Oristano'),
+       (NULL, 'Alleghe', 'Belluno'),
+       (NULL, 'Allein', 'Valle d''Aosta'),
+       (NULL, 'Allerona', 'Terni'),
+       (NULL, 'Alliste', 'Lecce'),
+       (NULL, 'Allumiere', 'Roma'),
+       (NULL, 'Alluvioni Piovera', 'Alessandria'),
+       (NULL, 'Almenno San Bartolomeo', 'Bergamo'),
+       (NULL, 'Almenno San Salvatore', 'Bergamo'),
+       (NULL, 'Almese', 'Torino'),
+       (NULL, 'Almè', 'Bergamo'),
+       (NULL, 'Alonte', 'Vicenza'),
+       (NULL, 'Alpago', 'Belluno'),
+       (NULL, 'Alpette', 'Torino'),
+       (NULL, 'Alpignano', 'Torino'),
+       (NULL, 'Alseno', 'Piacenza'),
+       (NULL, 'Alserio', 'Como'),
+       (NULL, 'Alta Val Tidone', 'Piacenza'),
+       (NULL, 'Alta Valle Intelvi', 'Como'),
+       (NULL, 'Altamura', 'Bari'),
+       (NULL, 'Altare', 'Savona'),
+       (NULL, 'Altavalle', 'Trento'),
+       (NULL, 'Altavilla Irpina', 'Avellino'),
+       (NULL, 'Altavilla Milicia', 'Palermo'),
+       (NULL, 'Altavilla Monferrato', 'Alessandria'),
+       (NULL, 'Altavilla Silentina', 'Salerno'),
+       (NULL, 'Altavilla Vicentina', 'Vicenza'),
+       (NULL, 'Altidona', 'Fermo'),
+       (NULL, 'Altilia', 'Cosenza'),
+       (NULL, 'Altino', 'Chieti'),
+       (NULL, 'Altissimo', 'Vicenza'),
+       (NULL, 'Altivole', 'Treviso'),
+       (NULL, 'Alto', 'Cuneo'),
+       (NULL, 'Alto Reno Terme', 'Bologna'),
+       (NULL, 'Alto Sermenza', 'Vercelli'),
+       (NULL, 'Altofonte', 'Palermo'),
+       (NULL, 'Altomonte', 'Cosenza'),
+       (NULL, 'Altopascio', 'Lucca'),
+       (NULL, 'Altopiano della Vigolana', 'Trento'),
+       (NULL, 'Alviano', 'Terni'),
+       (NULL, 'Alvignano', 'Caserta'),
+       (NULL, 'Alvito', 'Frosinone'),
+       (NULL, 'Alzano Lombardo', 'Bergamo'),
+       (NULL, 'Alzano Scrivia', 'Alessandria'),
+       (NULL, 'Alzate Brianza', 'Como'),
+       (NULL, 'Alà dei Sardi', 'Sassari'),
+       (NULL, 'Alì', 'Messina'),
+       (NULL, 'Alì Terme', 'Messina'),
+       (NULL, 'Amalfi', 'Salerno'),
+       (NULL, 'Amandola', 'Fermo'),
+       (NULL, 'Amantea', 'Cosenza'),
+       (NULL, 'Amaro', 'Udine'),
+       (NULL, 'Amaroni', 'Catanzaro'),
+       (NULL, 'Amaseno', 'Frosinone'),
+       (NULL, 'Amato', 'Catanzaro'),
+       (NULL, 'Amatrice', 'Rieti'),
+       (NULL, 'Ambivere', 'Bergamo'),
+       (NULL, 'Amblar-Don', 'Trento'),
+       (NULL, 'Ameglia', 'La Spezia'),
+       (NULL, 'Amelia', 'Terni'),
+       (NULL, 'Amendolara', 'Cosenza'),
+       (NULL, 'Ameno', 'Novara'),
+       (NULL, 'Amorosi', 'Benevento'),
+       (NULL, 'Ampezzo', 'Udine'),
+       (NULL, 'Anacapri', 'Napoli'),
+       (NULL, 'Anagni', 'Frosinone'),
+       (NULL, 'Ancarano', 'Teramo'),
+       (NULL, 'Ancona', 'Ancona'),
+       (NULL, 'Andali', 'Catanzaro'),
+       (NULL, 'Andalo', 'Trento'),
+       (NULL, 'Andalo Valtellino', 'Sondrio'),
+       (NULL, 'Andezeno', 'Torino'),
+       (NULL, 'Andora', 'Savona'),
+       (NULL, 'Andorno Micca', 'Biella'),
+       (NULL, 'Andrano', 'Lecce'),
+       (NULL, 'Andrate', 'Torino'),
+       (NULL, 'Andreis', 'Pordenone'),
+       (NULL, 'Andretta', 'Avellino'),
+       (NULL, 'Andria', 'Barletta-Andria-Trani'),
+       (NULL, 'Andriano', 'Bolzano'),
+       (NULL, 'Anela', 'Sassari'),
+       (NULL, 'Anfo', 'Brescia'),
+       (NULL, 'Angera', 'Varese'),
+       (NULL, 'Anghiari', 'Arezzo'),
+       (NULL, 'Angiari', 'Verona'),
+       (NULL, 'Angolo Terme', 'Brescia'),
+       (NULL, 'Angri', 'Salerno'),
+       (NULL, 'Angrogna', 'Torino'),
+       (NULL, 'Anguillara Sabazia', 'Roma'),
+       (NULL, 'Anguillara Veneta', 'Padova'),
+       (NULL, 'Annicco', 'Cremona'),
+       (NULL, 'Annone Veneto', 'Venezia'),
+       (NULL, 'Annone di Brianza', 'Lecco'),
+       (NULL, 'Anoia', 'Reggio Calabria'),
+       (NULL, 'Antegnate', 'Bergamo'),
+       (NULL, 'Anterivo', 'Bolzano'),
+       (NULL, 'Antey-Saint-André', 'Valle d''Aosta'),
+       (NULL, 'Anticoli Corrado', 'Roma'),
+       (NULL, 'Antignano', 'Asti'),
+       (NULL, 'Antillo', 'Messina'),
+       (NULL, 'Antonimina', 'Reggio Calabria'),
+       (NULL, 'Antrodoco', 'Rieti'),
+       (NULL, 'Antrona Schieranco', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Anversa degli Abruzzi', 'L''Aquila'),
+       (NULL, 'Anzano del Parco', 'Como'),
+       (NULL, 'Anzano di Puglia', 'Foggia'),
+       (NULL, 'Anzi', 'Potenza'),
+       (NULL, 'Anzio', 'Roma'),
+       (NULL, 'Anzola d''Ossola', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Anzola dell''Emilia', 'Bologna'),
+       (NULL, 'Aosta', 'Valle d''Aosta'),
+       (NULL, 'Apecchio', 'Pesaro e Urbino'),
+       (NULL, 'Apice', 'Benevento'),
+       (NULL, 'Apiro', 'Macerata'),
+       (NULL, 'Apollosa', 'Benevento'),
+       (NULL, 'Appiano Gentile', 'Como'),
+       (NULL, 'Appiano sulla strada del vino', 'Bolzano'),
+       (NULL, 'Appignano', 'Macerata'),
+       (NULL, 'Appignano del Tronto', 'Ascoli Piceno'),
+       (NULL, 'Aprica', 'Sondrio'),
+       (NULL, 'Apricale', 'Imperia'),
+       (NULL, 'Apricena', 'Foggia'),
+       (NULL, 'Aprigliano', 'Cosenza'),
+       (NULL, 'Aprilia', 'Latina'),
+       (NULL, 'Aquara', 'Salerno'),
+       (NULL, 'Aquila d''Arroscia', 'Imperia'),
+       (NULL, 'Aquileia', 'Udine'),
+       (NULL, 'Aquilonia', 'Avellino'),
+       (NULL, 'Aquino', 'Frosinone'),
+       (NULL, 'Aradeo', 'Lecce'),
+       (NULL, 'Aragona', 'Agrigento'),
+       (NULL, 'Aramengo', 'Asti'),
+       (NULL, 'Arba', 'Pordenone'),
+       (NULL, 'Arborea', 'Oristano'),
+       (NULL, 'Arborio', 'Vercelli'),
+       (NULL, 'Arbus', 'Sud Sardegna'),
+       (NULL, 'Arcade', 'Treviso'),
+       (NULL, 'Arce', 'Frosinone'),
+       (NULL, 'Arcene', 'Bergamo'),
+       (NULL, 'Arcevia', 'Ancona'),
+       (NULL, 'Archi', 'Chieti'),
+       (NULL, 'Arcidosso', 'Grosseto'),
+       (NULL, 'Arcinazzo Romano', 'Roma'),
+       (NULL, 'Arcisate', 'Varese'),
+       (NULL, 'Arco', 'Trento'),
+       (NULL, 'Arcola', 'La Spezia'),
+       (NULL, 'Arcole', 'Verona'),
+       (NULL, 'Arconate', 'Milano'),
+       (NULL, 'Arcore', 'Monza e della Brianza'),
+       (NULL, 'Arcugnano', 'Vicenza'),
+       (NULL, 'Ardara', 'Sassari'),
+       (NULL, 'Ardauli', 'Oristano'),
+       (NULL, 'Ardea', 'Roma'),
+       (NULL, 'Ardenno', 'Sondrio'),
+       (NULL, 'Ardesio', 'Bergamo'),
+       (NULL, 'Ardore', 'Reggio Calabria'),
+       (NULL, 'Arena', 'Vibo Valentia'),
+       (NULL, 'Arena Po', 'Pavia'),
+       (NULL, 'Arenzano', 'Genova'),
+       (NULL, 'Arese', 'Milano'),
+       (NULL, 'Arezzo', 'Arezzo'),
+       (NULL, 'Argegno', 'Como'),
+       (NULL, 'Argelato', 'Bologna'),
+       (NULL, 'Argenta', 'Ferrara'),
+       (NULL, 'Argentera', 'Cuneo'),
+       (NULL, 'Arguello', 'Cuneo'),
+       (NULL, 'Argusto', 'Catanzaro'),
+       (NULL, 'Ari', 'Chieti'),
+       (NULL, 'Ariano Irpino', 'Avellino'),
+       (NULL, 'Ariano nel Polesine', 'Rovigo'),
+       (NULL, 'Ariccia', 'Roma'),
+       (NULL, 'Arielli', 'Chieti'),
+       (NULL, 'Arienzo', 'Caserta'),
+       (NULL, 'Arignano', 'Torino'),
+       (NULL, 'Aritzo', 'Nuoro'),
+       (NULL, 'Arizzano', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Arlena di Castro', 'Viterbo'),
+       (NULL, 'Arluno', 'Milano'),
+       (NULL, 'Armeno', 'Novara'),
+       (NULL, 'Armento', 'Potenza'),
+       (NULL, 'Armo', 'Imperia'),
+       (NULL, 'Armungia', 'Sud Sardegna'),
+       (NULL, 'Arnad', 'Valle d''Aosta'),
+       (NULL, 'Arnara', 'Frosinone'),
+       (NULL, 'Arnasco', 'Savona'),
+       (NULL, 'Arnesano', 'Lecce'),
+       (NULL, 'Arola', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Arona', 'Novara'),
+       (NULL, 'Arosio', 'Como'),
+       (NULL, 'Arpaia', 'Benevento'),
+       (NULL, 'Arpaise', 'Benevento'),
+       (NULL, 'Arpino', 'Frosinone'),
+       (NULL, 'Arquata Scrivia', 'Alessandria'),
+       (NULL, 'Arquata del Tronto', 'Ascoli Piceno'),
+       (NULL, 'Arquà Petrarca', 'Padova'),
+       (NULL, 'Arquà Polesine', 'Rovigo'),
+       (NULL, 'Arre', 'Padova'),
+       (NULL, 'Arrone', 'Terni'),
+       (NULL, 'Arsago Seprio', 'Varese'),
+       (NULL, 'Arsiero', 'Vicenza'),
+       (NULL, 'Arsita', 'Teramo'),
+       (NULL, 'Arsiè', 'Belluno'),
+       (NULL, 'Arsoli', 'Roma'),
+       (NULL, 'Arta Terme', 'Udine'),
+       (NULL, 'Artegna', 'Udine'),
+       (NULL, 'Artena', 'Roma'),
+       (NULL, 'Artogne', 'Brescia'),
+       (NULL, 'Arvier', 'Valle d''Aosta'),
+       (NULL, 'Arzachena', 'Sassari'),
+       (NULL, 'Arzago d''Adda', 'Bergamo'),
+       (NULL, 'Arzana', 'Nuoro'),
+       (NULL, 'Arzano', 'Napoli'),
+       (NULL, 'Arzergrande', 'Padova'),
+       (NULL, 'Arzignano', 'Vicenza'),
+       (NULL, 'Ascea', 'Salerno'),
+       (NULL, 'Asciano', 'Siena'),
+       (NULL, 'Ascoli Piceno', 'Ascoli Piceno'),
+       (NULL, 'Ascoli Satriano', 'Foggia'),
+       (NULL, 'Ascrea', 'Rieti'),
+       (NULL, 'Asiago', 'Vicenza'),
+       (NULL, 'Asigliano Veneto', 'Vicenza'),
+       (NULL, 'Asigliano Vercellese', 'Vercelli'),
+       (NULL, 'Asola', 'Mantova'),
+       (NULL, 'Asolo', 'Treviso'),
+       (NULL, 'Assago', 'Milano'),
+       (NULL, 'Assemini', 'Cagliari'),
+       (NULL, 'Assisi', 'Perugia'),
+       (NULL, 'Asso', 'Como'),
+       (NULL, 'Assolo', 'Oristano'),
+       (NULL, 'Assoro', 'Enna'),
+       (NULL, 'Asti', 'Asti'),
+       (NULL, 'Asuni', 'Oristano'),
+       (NULL, 'Ateleta', 'L''Aquila'),
+       (NULL, 'Atella', 'Potenza'),
+       (NULL, 'Atena Lucana', 'Salerno'),
+       (NULL, 'Atessa', 'Chieti'),
+       (NULL, 'Atina', 'Frosinone'),
+       (NULL, 'Atrani', 'Salerno'),
+       (NULL, 'Atri', 'Teramo'),
+       (NULL, 'Atripalda', 'Avellino'),
+       (NULL, 'Attigliano', 'Terni'),
+       (NULL, 'Attimis', 'Udine'),
+       (NULL, 'Atzara', 'Nuoro'),
+       (NULL, 'Augusta', 'Siracusa'),
+       (NULL, 'Auletta', 'Salerno'),
+       (NULL, 'Aulla', 'Massa-Carrara'),
+       (NULL, 'Aurano', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Aurigo', 'Imperia'),
+       (NULL, 'Auronzo di Cadore', 'Belluno'),
+       (NULL, 'Ausonia', 'Frosinone'),
+       (NULL, 'Austis', 'Nuoro'),
+       (NULL, 'Avegno', 'Genova'),
+       (NULL, 'Avelengo', 'Bolzano'),
+       (NULL, 'Avella', 'Avellino'),
+       (NULL, 'Avellino', 'Avellino'),
+       (NULL, 'Averara', 'Bergamo'),
+       (NULL, 'Aversa', 'Caserta'),
+       (NULL, 'Avetrana', 'Taranto'),
+       (NULL, 'Avezzano', 'L''Aquila'),
+       (NULL, 'Aviano', 'Pordenone'),
+       (NULL, 'Aviatico', 'Bergamo'),
+       (NULL, 'Avigliana', 'Torino'),
+       (NULL, 'Avigliano', 'Potenza'),
+       (NULL, 'Avigliano Umbro', 'Terni'),
+       (NULL, 'Avio', 'Trento'),
+       (NULL, 'Avise', 'Valle d''Aosta'),
+       (NULL, 'Avola', 'Siracusa'),
+       (NULL, 'Avolasca', 'Alessandria'),
+       (NULL, 'Ayas', 'Valle d''Aosta'),
+       (NULL, 'Aymavilles', 'Valle d''Aosta'),
+       (NULL, 'Azeglio', 'Torino'),
+       (NULL, 'Azzanello', 'Cremona'),
+       (NULL, 'Azzano Decimo', 'Pordenone'),
+       (NULL, 'Azzano Mella', 'Brescia'),
+       (NULL, 'Azzano San Paolo', 'Bergamo'),
+       (NULL, 'Azzano d''Asti', 'Asti'),
+       (NULL, 'Azzate', 'Varese'),
+       (NULL, 'Azzio', 'Varese'),
+       (NULL, 'Azzone', 'Bergamo'),
+       (NULL, 'Baceno', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Bacoli', 'Napoli'),
+       (NULL, 'Badalucco', 'Imperia'),
+       (NULL, 'Badesi', 'Sassari'),
+       (NULL, 'Badia', 'Bolzano'),
+       (NULL, 'Badia Calavena', 'Verona'),
+       (NULL, 'Badia Pavese', 'Pavia'),
+       (NULL, 'Badia Polesine', 'Rovigo'),
+       (NULL, 'Badia Tedalda', 'Arezzo'),
+       (NULL, 'Badolato', 'Catanzaro'),
+       (NULL, 'Bagaladi', 'Reggio Calabria'),
+       (NULL, 'Bagheria', 'Palermo'),
+       (NULL, 'Bagnacavallo', 'Ravenna'),
+       (NULL, 'Bagnara Calabra', 'Reggio Calabria'),
+       (NULL, 'Bagnara di Romagna', 'Ravenna'),
+       (NULL, 'Bagnaria', 'Pavia'),
+       (NULL, 'Bagnaria Arsa', 'Udine'),
+       (NULL, 'Bagnasco', 'Cuneo'),
+       (NULL, 'Bagnatica', 'Bergamo'),
+       (NULL, 'Bagni di Lucca', 'Lucca'),
+       (NULL, 'Bagno a Ripoli', 'Firenze'),
+       (NULL, 'Bagno di Romagna', 'Forlì-Cesena'),
+       (NULL, 'Bagnoli Irpino', 'Avellino'),
+       (NULL, 'Bagnoli del Trigno', 'Isernia'),
+       (NULL, 'Bagnoli di Sopra', 'Padova'),
+       (NULL, 'Bagnolo Cremasco', 'Cremona'),
+       (NULL, 'Bagnolo Mella', 'Brescia'),
+       (NULL, 'Bagnolo Piemonte', 'Cuneo'),
+       (NULL, 'Bagnolo San Vito', 'Mantova'),
+       (NULL, 'Bagnolo del Salento', 'Lecce'),
+       (NULL, 'Bagnolo di Po', 'Rovigo'),
+       (NULL, 'Bagnolo in Piano', 'Reggio nell''Emilia'),
+       (NULL, 'Bagnone', 'Massa-Carrara'),
+       (NULL, 'Bagnoregio', 'Viterbo'),
+       (NULL, 'Bagolino', 'Brescia'),
+       (NULL, 'Baia e Latina', 'Caserta'),
+       (NULL, 'Baiano', 'Avellino'),
+       (NULL, 'Bairo', 'Torino'),
+       (NULL, 'Baiso', 'Reggio nell''Emilia'),
+       (NULL, 'Bajardo', 'Imperia'),
+       (NULL, 'Balangero', 'Torino'),
+       (NULL, 'Baldichieri d''Asti', 'Asti'),
+       (NULL, 'Baldissero Canavese', 'Torino'),
+       (NULL, 'Baldissero Torinese', 'Torino'),
+       (NULL, 'Baldissero d''Alba', 'Cuneo'),
+       (NULL, 'Balestrate', 'Palermo'),
+       (NULL, 'Balestrino', 'Savona'),
+       (NULL, 'Ballabio', 'Lecco'),
+       (NULL, 'Ballao', 'Sud Sardegna'),
+       (NULL, 'Balme', 'Torino'),
+       (NULL, 'Balmuccia', 'Vercelli'),
+       (NULL, 'Balocco', 'Vercelli'),
+       (NULL, 'Balsorano', 'L''Aquila'),
+       (NULL, 'Balvano', 'Potenza'),
+       (NULL, 'Balzola', 'Alessandria'),
+       (NULL, 'Banari', 'Sassari'),
+       (NULL, 'Banchette', 'Torino'),
+       (NULL, 'Bannio Anzino', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Banzi', 'Potenza'),
+       (NULL, 'Baone', 'Padova'),
+       (NULL, 'Baradili', 'Oristano'),
+       (NULL, 'Baragiano', 'Potenza'),
+       (NULL, 'Baranello', 'Campobasso'),
+       (NULL, 'Barano d''Ischia', 'Napoli'),
+       (NULL, 'Baranzate', 'Milano'),
+       (NULL, 'Barasso', 'Varese'),
+       (NULL, 'Baratili San Pietro', 'Oristano'),
+       (NULL, 'Barbania', 'Torino'),
+       (NULL, 'Barbara', 'Ancona'),
+       (NULL, 'Barbarano Mossano', 'Vicenza'),
+       (NULL, 'Barbarano Romano', 'Viterbo'),
+       (NULL, 'Barbaresco', 'Cuneo'),
+       (NULL, 'Barbariga', 'Brescia'),
+       (NULL, 'Barbata', 'Bergamo'),
+       (NULL, 'Barberino Tavarnelle', 'Firenze'),
+       (NULL, 'Barberino di Mugello', 'Firenze'),
+       (NULL, 'Barbianello', 'Pavia'),
+       (NULL, 'Barbiano', 'Bolzano'),
+       (NULL, 'Barbona', 'Padova'),
+       (NULL, 'Barcellona Pozzo di Gotto', 'Messina'),
+       (NULL, 'Barcis', 'Pordenone'),
+       (NULL, 'Bard', 'Valle d''Aosta'),
+       (NULL, 'Bardello con Malgesso e Bregano', 'Varese'),
+       (NULL, 'Bardi', 'Parma'),
+       (NULL, 'Bardineto', 'Savona'),
+       (NULL, 'Bardolino', 'Verona'),
+       (NULL, 'Bardonecchia', 'Torino'),
+       (NULL, 'Bareggio', 'Milano'),
+       (NULL, 'Barengo', 'Novara'),
+       (NULL, 'Baressa', 'Oristano'),
+       (NULL, 'Barete', 'L''Aquila'),
+       (NULL, 'Barga', 'Lucca'),
+       (NULL, 'Bargagli', 'Genova'),
+       (NULL, 'Barge', 'Cuneo'),
+       (NULL, 'Barghe', 'Brescia'),
+       (NULL, 'Bari', 'Bari'),
+       (NULL, 'Bari Sardo', 'Nuoro'),
+       (NULL, 'Bariano', 'Bergamo'),
+       (NULL, 'Baricella', 'Bologna'),
+       (NULL, 'Barile', 'Potenza'),
+       (NULL, 'Barisciano', 'L''Aquila'),
+       (NULL, 'Barlassina', 'Monza e della Brianza'),
+       (NULL, 'Barletta', 'Barletta-Andria-Trani'),
+       (NULL, 'Barni', 'Como'),
+       (NULL, 'Barolo', 'Cuneo'),
+       (NULL, 'Barone Canavese', 'Torino'),
+       (NULL, 'Baronissi', 'Salerno'),
+       (NULL, 'Barrafranca', 'Enna'),
+       (NULL, 'Barrali', 'Sud Sardegna'),
+       (NULL, 'Barrea', 'L''Aquila'),
+       (NULL, 'Barumini', 'Sud Sardegna'),
+       (NULL, 'Barzago', 'Lecco'),
+       (NULL, 'Barzana', 'Bergamo'),
+       (NULL, 'Barzanò', 'Lecco'),
+       (NULL, 'Barzio', 'Lecco'),
+       (NULL, 'Basaluzzo', 'Alessandria'),
+       (NULL, 'Bascapè', 'Pavia'),
+       (NULL, 'Baschi', 'Terni'),
+       (NULL, 'Basciano', 'Teramo'),
+       (NULL, 'Baselga di Pinè', 'Trento'),
+       (NULL, 'Baselice', 'Benevento'),
+       (NULL, 'Basiano', 'Milano'),
+       (NULL, 'Basicò', 'Messina'),
+       (NULL, 'Basiglio', 'Milano'),
+       (NULL, 'Basiliano', 'Udine'),
+       (NULL, 'Bassano Bresciano', 'Brescia'),
+       (NULL, 'Bassano Romano', 'Viterbo'),
+       (NULL, 'Bassano del Grappa', 'Vicenza'),
+       (NULL, 'Bassano in Teverina', 'Viterbo'),
+       (NULL, 'Bassiano', 'Latina'),
+       (NULL, 'Bassignana', 'Alessandria'),
+       (NULL, 'Bastia Mondovì', 'Cuneo'),
+       (NULL, 'Bastia Umbra', 'Perugia'),
+       (NULL, 'Bastida Pancarana', 'Pavia'),
+       (NULL, 'Bastiglia', 'Modena'),
+       (NULL, 'Battaglia Terme', 'Padova'),
+       (NULL, 'Battifollo', 'Cuneo'),
+       (NULL, 'Battipaglia', 'Salerno'),
+       (NULL, 'Battuda', 'Pavia'),
+       (NULL, 'Baucina', 'Palermo'),
+       (NULL, 'Bauladu', 'Oristano'),
+       (NULL, 'Baunei', 'Nuoro'),
+       (NULL, 'Baveno', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Bedero Valcuvia', 'Varese'),
+       (NULL, 'Bedizzole', 'Brescia'),
+       (NULL, 'Bedollo', 'Trento'),
+       (NULL, 'Bedonia', 'Parma'),
+       (NULL, 'Bedulita', 'Bergamo'),
+       (NULL, 'Bee', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Beinasco', 'Torino'),
+       (NULL, 'Beinette', 'Cuneo'),
+       (NULL, 'Belcastro', 'Catanzaro'),
+       (NULL, 'Belfiore', 'Verona'),
+       (NULL, 'Belforte Monferrato', 'Alessandria'),
+       (NULL, 'Belforte all''Isauro', 'Pesaro e Urbino'),
+       (NULL, 'Belforte del Chienti', 'Macerata'),
+       (NULL, 'Belgioioso', 'Pavia'),
+       (NULL, 'Belgirate', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Bella', 'Potenza'),
+       (NULL, 'Bellagio', 'Como'),
+       (NULL, 'Bellano', 'Lecco'),
+       (NULL, 'Bellante', 'Teramo'),
+       (NULL, 'Bellaria-Igea Marina', 'Rimini'),
+       (NULL, 'Bellegra', 'Roma'),
+       (NULL, 'Bellino', 'Cuneo'),
+       (NULL, 'Bellinzago Lombardo', 'Milano'),
+       (NULL, 'Bellinzago Novarese', 'Novara'),
+       (NULL, 'Bellizzi', 'Salerno'),
+       (NULL, 'Bellona', 'Caserta'),
+       (NULL, 'Bellosguardo', 'Salerno'),
+       (NULL, 'Belluno', 'Belluno'),
+       (NULL, 'Bellusco', 'Monza e della Brianza'),
+       (NULL, 'Belmonte Calabro', 'Cosenza'),
+       (NULL, 'Belmonte Castello', 'Frosinone'),
+       (NULL, 'Belmonte Mezzagno', 'Palermo'),
+       (NULL, 'Belmonte Piceno', 'Fermo'),
+       (NULL, 'Belmonte del Sannio', 'Isernia'),
+       (NULL, 'Belmonte in Sabina', 'Rieti'),
+       (NULL, 'Belpasso', 'Catania'),
+       (NULL, 'Belsito', 'Cosenza'),
+       (NULL, 'Belvedere Langhe', 'Cuneo'),
+       (NULL, 'Belvedere Marittimo', 'Cosenza'),
+       (NULL, 'Belvedere Ostrense', 'Ancona'),
+       (NULL, 'Belvedere di Spinello', 'Crotone'),
+       (NULL, 'Belveglio', 'Asti'),
+       (NULL, 'Belvì', 'Nuoro'),
+       (NULL, 'Bema', 'Sondrio'),
+       (NULL, 'Bene Lario', 'Como'),
+       (NULL, 'Bene Vagienna', 'Cuneo'),
+       (NULL, 'Benestare', 'Reggio Calabria'),
+       (NULL, 'Benetutti', 'Sassari'),
+       (NULL, 'Benevello', 'Cuneo'),
+       (NULL, 'Benevento', 'Benevento'),
+       (NULL, 'Benna', 'Biella'),
+       (NULL, 'Bentivoglio', 'Bologna'),
+       (NULL, 'Berbenno', 'Bergamo'),
+       (NULL, 'Berbenno di Valtellina', 'Sondrio'),
+       (NULL, 'Berceto', 'Parma'),
+       (NULL, 'Berchidda', 'Sassari'),
+       (NULL, 'Beregazzo con Figliaro', 'Como'),
+       (NULL, 'Bereguardo', 'Pavia'),
+       (NULL, 'Bergamasco', 'Alessandria'),
+       (NULL, 'Bergamo', 'Bergamo'),
+       (NULL, 'Bergantino', 'Rovigo'),
+       (NULL, 'Bergeggi', 'Savona'),
+       (NULL, 'Bergolo', 'Cuneo'),
+       (NULL, 'Berlingo', 'Brescia'),
+       (NULL, 'Bernalda', 'Matera'),
+       (NULL, 'Bernareggio', 'Monza e della Brianza'),
+       (NULL, 'Bernate Ticino', 'Milano'),
+       (NULL, 'Bernezzo', 'Cuneo'),
+       (NULL, 'Bertinoro', 'Forlì-Cesena'),
+       (NULL, 'Bertiolo', 'Udine'),
+       (NULL, 'Bertonico', 'Lodi'),
+       (NULL, 'Berzano di San Pietro', 'Asti'),
+       (NULL, 'Berzano di Tortona', 'Alessandria'),
+       (NULL, 'Berzo Demo', 'Brescia'),
+       (NULL, 'Berzo Inferiore', 'Brescia'),
+       (NULL, 'Berzo San Fermo', 'Bergamo'),
+       (NULL, 'Besana in Brianza', 'Monza e della Brianza'),
+       (NULL, 'Besano', 'Varese'),
+       (NULL, 'Besate', 'Milano'),
+       (NULL, 'Besenello', 'Trento'),
+       (NULL, 'Besenzone', 'Piacenza'),
+       (NULL, 'Besnate', 'Varese'),
+       (NULL, 'Besozzo', 'Varese'),
+       (NULL, 'Bessude', 'Sassari'),
+       (NULL, 'Bettola', 'Piacenza'),
+       (NULL, 'Bettona', 'Perugia'),
+       (NULL, 'Beura-Cardezza', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Bevagna', 'Perugia'),
+       (NULL, 'Beverino', 'La Spezia'),
+       (NULL, 'Bevilacqua', 'Verona'),
+       (NULL, 'Biancavilla', 'Catania'),
+       (NULL, 'Bianchi', 'Cosenza'),
+       (NULL, 'Bianco', 'Reggio Calabria'),
+       (NULL, 'Biandrate', 'Novara'),
+       (NULL, 'Biandronno', 'Varese'),
+       (NULL, 'Bianzano', 'Bergamo'),
+       (NULL, 'Bianzone', 'Sondrio'),
+       (NULL, 'Bianzè', 'Vercelli'),
+       (NULL, 'Biassono', 'Monza e della Brianza'),
+       (NULL, 'Bibbiano', 'Reggio nell''Emilia'),
+       (NULL, 'Bibbiena', 'Arezzo'),
+       (NULL, 'Bibbona', 'Livorno'),
+       (NULL, 'Bibiana', 'Torino'),
+       (NULL, 'Biccari', 'Foggia'),
+       (NULL, 'Bicinicco', 'Udine'),
+       (NULL, 'Bidonì', 'Oristano'),
+       (NULL, 'Biella', 'Biella'),
+       (NULL, 'Bienno', 'Brescia'),
+       (NULL, 'Bieno', 'Trento'),
+       (NULL, 'Bientina', 'Pisa'),
+       (NULL, 'Binago', 'Como'),
+       (NULL, 'Binasco', 'Milano'),
+       (NULL, 'Binetto', 'Bari'),
+       (NULL, 'Bioglio', 'Biella'),
+       (NULL, 'Bionaz', 'Valle d''Aosta'),
+       (NULL, 'Bione', 'Brescia'),
+       (NULL, 'Birori', 'Nuoro'),
+       (NULL, 'Bisaccia', 'Avellino'),
+       (NULL, 'Bisacquino', 'Palermo'),
+       (NULL, 'Bisceglie', 'Barletta-Andria-Trani'),
+       (NULL, 'Bisegna', 'L''Aquila'),
+       (NULL, 'Bisenti', 'Teramo'),
+       (NULL, 'Bisignano', 'Cosenza'),
+       (NULL, 'Bistagno', 'Alessandria'),
+       (NULL, 'Bisuschio', 'Varese'),
+       (NULL, 'Bitetto', 'Bari'),
+       (NULL, 'Bitonto', 'Bari'),
+       (NULL, 'Bitritto', 'Bari'),
+       (NULL, 'Bitti', 'Nuoro'),
+       (NULL, 'Bivona', 'Agrigento'),
+       (NULL, 'Bivongi', 'Reggio Calabria'),
+       (NULL, 'Bizzarone', 'Como'),
+       (NULL, 'Bleggio Superiore', 'Trento'),
+       (NULL, 'Blello', 'Bergamo'),
+       (NULL, 'Blera', 'Viterbo'),
+       (NULL, 'Blessagno', 'Como'),
+       (NULL, 'Blevio', 'Como'),
+       (NULL, 'Blufi', 'Palermo'),
+       (NULL, 'Boara Pisani', 'Padova'),
+       (NULL, 'Bobbio', 'Piacenza'),
+       (NULL, 'Bobbio Pellice', 'Torino'),
+       (NULL, 'Boca', 'Novara'),
+       (NULL, 'Bocchigliero', 'Cosenza'),
+       (NULL, 'Boccioleto', 'Vercelli'),
+       (NULL, 'Bocenago', 'Trento'),
+       (NULL, 'Bodio Lomnago', 'Varese'),
+       (NULL, 'Boffalora d''Adda', 'Lodi'),
+       (NULL, 'Boffalora sopra Ticino', 'Milano'),
+       (NULL, 'Bogliasco', 'Genova'),
+       (NULL, 'Bognanco', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Bogogno', 'Novara'),
+       (NULL, 'Boissano', 'Savona'),
+       (NULL, 'Bojano', 'Campobasso'),
+       (NULL, 'Bolano', 'La Spezia'),
+       (NULL, 'Bolgare', 'Bergamo'),
+       (NULL, 'Bollate', 'Milano'),
+       (NULL, 'Bollengo', 'Torino'),
+       (NULL, 'Bologna', 'Bologna'),
+       (NULL, 'Bolognano', 'Pescara'),
+       (NULL, 'Bolognetta', 'Palermo'),
+       (NULL, 'Bolognola', 'Macerata'),
+       (NULL, 'Bolotana', 'Nuoro'),
+       (NULL, 'Bolsena', 'Viterbo'),
+       (NULL, 'Boltiere', 'Bergamo'),
+       (NULL, 'Bolzano', 'Bolzano'),
+       (NULL, 'Bolzano Novarese', 'Novara'),
+       (NULL, 'Bolzano Vicentino', 'Vicenza'),
+       (NULL, 'Bomarzo', 'Viterbo'),
+       (NULL, 'Bomba', 'Chieti'),
+       (NULL, 'Bompensiere', 'Caltanissetta'),
+       (NULL, 'Bompietro', 'Palermo'),
+       (NULL, 'Bomporto', 'Modena'),
+       (NULL, 'Bonarcado', 'Oristano'),
+       (NULL, 'Bonassola', 'La Spezia'),
+       (NULL, 'Bonate Sopra', 'Bergamo'),
+       (NULL, 'Bonate Sotto', 'Bergamo'),
+       (NULL, 'Bonavigo', 'Verona'),
+       (NULL, 'Bondeno', 'Ferrara'),
+       (NULL, 'Bondone', 'Trento'),
+       (NULL, 'Bonea', 'Benevento'),
+       (NULL, 'Bonefro', 'Campobasso'),
+       (NULL, 'Bonemerse', 'Cremona'),
+       (NULL, 'Bonifati', 'Cosenza'),
+       (NULL, 'Bonito', 'Avellino'),
+       (NULL, 'Bonnanaro', 'Sassari'),
+       (NULL, 'Bono', 'Sassari'),
+       (NULL, 'Bonorva', 'Sassari'),
+       (NULL, 'Bonvicino', 'Cuneo'),
+       (NULL, 'Borbona', 'Rieti'),
+       (NULL, 'Borca di Cadore', 'Belluno'),
+       (NULL, 'Bordano', 'Udine'),
+       (NULL, 'Bordighera', 'Imperia'),
+       (NULL, 'Bordolano', 'Cremona'),
+       (NULL, 'Bore', 'Parma'),
+       (NULL, 'Boretto', 'Reggio nell''Emilia'),
+       (NULL, 'Borgarello', 'Pavia'),
+       (NULL, 'Borgaro Torinese', 'Torino'),
+       (NULL, 'Borgetto', 'Palermo'),
+       (NULL, 'Borghetto Lodigiano', 'Lodi'),
+       (NULL, 'Borghetto Santo Spirito', 'Savona'),
+       (NULL, 'Borghetto d''Arroscia', 'Imperia'),
+       (NULL, 'Borghetto di Borbera', 'Alessandria'),
+       (NULL, 'Borghetto di Vara', 'La Spezia'),
+       (NULL, 'Borghi', 'Forlì-Cesena'),
+       (NULL, 'Borgia', 'Catanzaro'),
+       (NULL, 'Borgiallo', 'Torino'),
+       (NULL, 'Borgio Verezzi', 'Savona'),
+       (NULL, 'Borgo Chiese', 'Trento'),
+       (NULL, 'Borgo Lares', 'Trento'),
+       (NULL, 'Borgo Mantovano', 'Mantova'),
+       (NULL, 'Borgo Pace', 'Pesaro e Urbino'),
+       (NULL, 'Borgo Priolo', 'Pavia'),
+       (NULL, 'Borgo San Dalmazzo', 'Cuneo'),
+       (NULL, 'Borgo San Giacomo', 'Brescia'),
+       (NULL, 'Borgo San Giovanni', 'Lodi'),
+       (NULL, 'Borgo San Lorenzo', 'Firenze'),
+       (NULL, 'Borgo San Martino', 'Alessandria'),
+       (NULL, 'Borgo San Siro', 'Pavia'),
+       (NULL, 'Borgo Ticino', 'Novara'),
+       (NULL, 'Borgo Tossignano', 'Bologna'),
+       (NULL, 'Borgo Val di Taro', 'Parma'),
+       (NULL, 'Borgo Valbelluna', 'Belluno'),
+       (NULL, 'Borgo Valsugana', 'Trento'),
+       (NULL, 'Borgo Velino', 'Rieti'),
+       (NULL, 'Borgo Veneto', 'Padova'),
+       (NULL, 'Borgo Vercelli', 'Vercelli'),
+       (NULL, 'Borgo Virgilio', 'Mantova'),
+       (NULL, 'Borgo a Mozzano', 'Lucca'),
+       (NULL, 'Borgo d''Ale', 'Vercelli'),
+       (NULL, 'Borgo d''Anaunia', 'Trento'),
+       (NULL, 'Borgo di Terzo', 'Bergamo'),
+       (NULL, 'Borgocarbonara', 'Mantova'),
+       (NULL, 'Borgofranco d''Ivrea', 'Torino'),
+       (NULL, 'Borgolavezzaro', 'Novara'),
+       (NULL, 'Borgomale', 'Cuneo'),
+       (NULL, 'Borgomanero', 'Novara'),
+       (NULL, 'Borgomaro', 'Imperia'),
+       (NULL, 'Borgomasino', 'Torino'),
+       (NULL, 'Borgomezzavalle', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Borgone Susa', 'Torino'),
+       (NULL, 'Borgonovo Val Tidone', 'Piacenza'),
+       (NULL, 'Borgoratto Alessandrino', 'Alessandria'),
+       (NULL, 'Borgoratto Mormorolo', 'Pavia'),
+       (NULL, 'Borgoricco', 'Padova'),
+       (NULL, 'Borgorose', 'Rieti'),
+       (NULL, 'Borgosatollo', 'Brescia'),
+       (NULL, 'Borgosesia', 'Vercelli'),
+       (NULL, 'Bormida', 'Savona'),
+       (NULL, 'Bormio', 'Sondrio'),
+       (NULL, 'Bornasco', 'Pavia'),
+       (NULL, 'Borno', 'Brescia'),
+       (NULL, 'Boroneddu', 'Oristano'),
+       (NULL, 'Borore', 'Nuoro'),
+       (NULL, 'Borrello', 'Chieti'),
+       (NULL, 'Borriana', 'Biella'),
+       (NULL, 'Borso del Grappa', 'Treviso'),
+       (NULL, 'Bortigali', 'Nuoro'),
+       (NULL, 'Bortigiadas', 'Sassari'),
+       (NULL, 'Borutta', 'Sassari'),
+       (NULL, 'Borzonasca', 'Genova'),
+       (NULL, 'Bosa', 'Oristano'),
+       (NULL, 'Bosaro', 'Rovigo'),
+       (NULL, 'Boschi Sant''Anna', 'Verona'),
+       (NULL, 'Bosco Chiesanuova', 'Verona'),
+       (NULL, 'Bosco Marengo', 'Alessandria'),
+       (NULL, 'Bosconero', 'Torino'),
+       (NULL, 'Boscoreale', 'Napoli'),
+       (NULL, 'Boscotrecase', 'Napoli'),
+       (NULL, 'Bosia', 'Cuneo'),
+       (NULL, 'Bosio', 'Alessandria'),
+       (NULL, 'Bosisio Parini', 'Lecco'),
+       (NULL, 'Bosnasco', 'Pavia'),
+       (NULL, 'Bossico', 'Bergamo'),
+       (NULL, 'Bossolasco', 'Cuneo'),
+       (NULL, 'Botricello', 'Catanzaro'),
+       (NULL, 'Botrugno', 'Lecce'),
+       (NULL, 'Bottanuco', 'Bergamo'),
+       (NULL, 'Botticino', 'Brescia'),
+       (NULL, 'Bottidda', 'Sassari'),
+       (NULL, 'Bova', 'Reggio Calabria'),
+       (NULL, 'Bova Marina', 'Reggio Calabria'),
+       (NULL, 'Bovalino', 'Reggio Calabria'),
+       (NULL, 'Bovegno', 'Brescia'),
+       (NULL, 'Boves', 'Cuneo'),
+       (NULL, 'Bovezzo', 'Brescia'),
+       (NULL, 'Boville Ernica', 'Frosinone'),
+       (NULL, 'Bovino', 'Foggia'),
+       (NULL, 'Bovisio-Masciago', 'Monza e della Brianza'),
+       (NULL, 'Bovolenta', 'Padova'),
+       (NULL, 'Bovolone', 'Verona'),
+       (NULL, 'Bozzole', 'Alessandria'),
+       (NULL, 'Bozzolo', 'Mantova'),
+       (NULL, 'Bra', 'Cuneo'),
+       (NULL, 'Bracca', 'Bergamo'),
+       (NULL, 'Bracciano', 'Roma'),
+       (NULL, 'Bracigliano', 'Salerno'),
+       (NULL, 'Braies', 'Bolzano'),
+       (NULL, 'Brallo di Pregola', 'Pavia'),
+       (NULL, 'Brancaleone', 'Reggio Calabria'),
+       (NULL, 'Brandico', 'Brescia'),
+       (NULL, 'Brandizzo', 'Torino'),
+       (NULL, 'Branzi', 'Bergamo'),
+       (NULL, 'Braone', 'Brescia'),
+       (NULL, 'Brebbia', 'Varese'),
+       (NULL, 'Breda di Piave', 'Treviso'),
+       (NULL, 'Breganze', 'Vicenza'),
+       (NULL, 'Bregnano', 'Como'),
+       (NULL, 'Brembate', 'Bergamo'),
+       (NULL, 'Brembate di Sopra', 'Bergamo'),
+       (NULL, 'Brembio', 'Lodi'),
+       (NULL, 'Breme', 'Pavia'),
+       (NULL, 'Brendola', 'Vicenza'),
+       (NULL, 'Brenna', 'Como'),
+       (NULL, 'Brennero', 'Bolzano'),
+       (NULL, 'Breno', 'Brescia'),
+       (NULL, 'Brenta', 'Varese'),
+       (NULL, 'Brentino Belluno', 'Verona'),
+       (NULL, 'Brentonico', 'Trento'),
+       (NULL, 'Brenzone sul Garda', 'Verona'),
+       (NULL, 'Brescello', 'Reggio nell''Emilia'),
+       (NULL, 'Brescia', 'Brescia'),
+       (NULL, 'Bresimo', 'Trento'),
+       (NULL, 'Bressana Bottarone', 'Pavia'),
+       (NULL, 'Bressanone', 'Bolzano'),
+       (NULL, 'Bressanvido', 'Vicenza'),
+       (NULL, 'Bresso', 'Milano'),
+       (NULL, 'Brezzo di Bedero', 'Varese'),
+       (NULL, 'Briaglia', 'Cuneo'),
+       (NULL, 'Briatico', 'Vibo Valentia'),
+       (NULL, 'Bricherasio', 'Torino'),
+       (NULL, 'Brienno', 'Como'),
+       (NULL, 'Brienza', 'Potenza'),
+       (NULL, 'Briga Alta', 'Cuneo'),
+       (NULL, 'Briga Novarese', 'Novara'),
+       (NULL, 'Brignano Gera d''Adda', 'Bergamo'),
+       (NULL, 'Brignano-Frascata', 'Alessandria'),
+       (NULL, 'Brindisi', 'Brindisi'),
+       (NULL, 'Brindisi Montagna', 'Potenza'),
+       (NULL, 'Brinzio', 'Varese'),
+       (NULL, 'Briona', 'Novara'),
+       (NULL, 'Brione', 'Brescia'),
+       (NULL, 'Briosco', 'Monza e della Brianza'),
+       (NULL, 'Brisighella', 'Ravenna'),
+       (NULL, 'Brissago-Valtravaglia', 'Varese'),
+       (NULL, 'Brissogne', 'Valle d''Aosta'),
+       (NULL, 'Brittoli', 'Pescara'),
+       (NULL, 'Brivio', 'Lecco'),
+       (NULL, 'Broccostella', 'Frosinone'),
+       (NULL, 'Brogliano', 'Vicenza'),
+       (NULL, 'Brognaturo', 'Vibo Valentia'),
+       (NULL, 'Brolo', 'Messina'),
+       (NULL, 'Brondello', 'Cuneo'),
+       (NULL, 'Broni', 'Pavia'),
+       (NULL, 'Bronte', 'Catania'),
+       (NULL, 'Bronzolo', 'Bolzano'),
+       (NULL, 'Brossasco', 'Cuneo'),
+       (NULL, 'Brosso', 'Torino'),
+       (NULL, 'Brovello-Carpugnino', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Brozolo', 'Torino'),
+       (NULL, 'Brugherio', 'Monza e della Brianza'),
+       (NULL, 'Brugine', 'Padova'),
+       (NULL, 'Brugnato', 'La Spezia'),
+       (NULL, 'Brugnera', 'Pordenone'),
+       (NULL, 'Bruino', 'Torino'),
+       (NULL, 'Brumano', 'Bergamo'),
+       (NULL, 'Brunate', 'Como'),
+       (NULL, 'Brunello', 'Varese'),
+       (NULL, 'Brunico', 'Bolzano'),
+       (NULL, 'Bruno', 'Asti'),
+       (NULL, 'Brusaporto', 'Bergamo'),
+       (NULL, 'Brusasco', 'Torino'),
+       (NULL, 'Brusciano', 'Napoli'),
+       (NULL, 'Brusimpiano', 'Varese'),
+       (NULL, 'Brusnengo', 'Biella'),
+       (NULL, 'Brusson', 'Valle d''Aosta'),
+       (NULL, 'Bruzolo', 'Torino'),
+       (NULL, 'Bruzzano Zeffirio', 'Reggio Calabria'),
+       (NULL, 'Bubbiano', 'Milano'),
+       (NULL, 'Bubbio', 'Asti'),
+       (NULL, 'Buccheri', 'Siracusa'),
+       (NULL, 'Bucchianico', 'Chieti'),
+       (NULL, 'Bucciano', 'Benevento'),
+       (NULL, 'Buccinasco', 'Milano'),
+       (NULL, 'Buccino', 'Salerno'),
+       (NULL, 'Bucine', 'Arezzo'),
+       (NULL, 'Buddusò', 'Sassari'),
+       (NULL, 'Budoia', 'Pordenone'),
+       (NULL, 'Budoni', 'Sassari'),
+       (NULL, 'Budrio', 'Bologna'),
+       (NULL, 'Buggerru', 'Sud Sardegna'),
+       (NULL, 'Buggiano', 'Pistoia'),
+       (NULL, 'Buglio in Monte', 'Sondrio'),
+       (NULL, 'Bugnara', 'L''Aquila'),
+       (NULL, 'Buguggiate', 'Varese'),
+       (NULL, 'Buja', 'Udine'),
+       (NULL, 'Bulciago', 'Lecco'),
+       (NULL, 'Bulgarograsso', 'Como'),
+       (NULL, 'Bultei', 'Sassari'),
+       (NULL, 'Bulzi', 'Sassari'),
+       (NULL, 'Buonabitacolo', 'Salerno'),
+       (NULL, 'Buonalbergo', 'Benevento'),
+       (NULL, 'Buonconvento', 'Siena'),
+       (NULL, 'Buonvicino', 'Cosenza'),
+       (NULL, 'Burago di Molgora', 'Monza e della Brianza'),
+       (NULL, 'Burcei', 'Sud Sardegna'),
+       (NULL, 'Burgio', 'Agrigento'),
+       (NULL, 'Burgos', 'Sassari'),
+       (NULL, 'Buriasco', 'Torino'),
+       (NULL, 'Burolo', 'Torino'),
+       (NULL, 'Buronzo', 'Vercelli'),
+       (NULL, 'Busachi', 'Oristano'),
+       (NULL, 'Busalla', 'Genova'),
+       (NULL, 'Busano', 'Torino'),
+       (NULL, 'Busca', 'Cuneo'),
+       (NULL, 'Buscate', 'Milano'),
+       (NULL, 'Buscemi', 'Siracusa'),
+       (NULL, 'Buseto Palizzolo', 'Trapani'),
+       (NULL, 'Busnago', 'Monza e della Brianza'),
+       (NULL, 'Bussero', 'Milano'),
+       (NULL, 'Busseto', 'Parma'),
+       (NULL, 'Bussi sul Tirino', 'Pescara'),
+       (NULL, 'Busso', 'Campobasso'),
+       (NULL, 'Bussolengo', 'Verona'),
+       (NULL, 'Bussoleno', 'Torino'),
+       (NULL, 'Busto Arsizio', 'Varese'),
+       (NULL, 'Busto Garolfo', 'Milano'),
+       (NULL, 'Butera', 'Caltanissetta'),
+       (NULL, 'Buti', 'Pisa'),
+       (NULL, 'Buttapietra', 'Verona'),
+       (NULL, 'Buttigliera Alta', 'Torino'),
+       (NULL, 'Buttigliera d''Asti', 'Asti'),
+       (NULL, 'Buttrio', 'Udine'),
+       (NULL, 'Cabella Ligure', 'Alessandria'),
+       (NULL, 'Cabiate', 'Como'),
+       (NULL, 'Cabras', 'Oristano'),
+       (NULL, 'Caccamo', 'Palermo'),
+       (NULL, 'Caccuri', 'Crotone'),
+       (NULL, 'Cadegliano-Viconago', 'Varese'),
+       (NULL, 'Cadelbosco di Sopra', 'Reggio nell''Emilia'),
+       (NULL, 'Cadeo', 'Piacenza'),
+       (NULL, 'Caderzone Terme', 'Trento'),
+       (NULL, 'Cadoneghe', 'Padova'),
+       (NULL, 'Cadorago', 'Como'),
+       (NULL, 'Cadrezzate con Osmate', 'Varese'),
+       (NULL, 'Caerano di San Marco', 'Treviso'),
+       (NULL, 'Cafasse', 'Torino'),
+       (NULL, 'Caggiano', 'Salerno'),
+       (NULL, 'Cagli', 'Pesaro e Urbino'),
+       (NULL, 'Cagliari', 'Cagliari'),
+       (NULL, 'Caglio', 'Como'),
+       (NULL, 'Cagnano Amiterno', 'L''Aquila'),
+       (NULL, 'Cagnano Varano', 'Foggia'),
+       (NULL, 'Caianello', 'Caserta'),
+       (NULL, 'Caiazzo', 'Caserta'),
+       (NULL, 'Caines', 'Bolzano'),
+       (NULL, 'Caino', 'Brescia'),
+       (NULL, 'Caiolo', 'Sondrio'),
+       (NULL, 'Cairano', 'Avellino'),
+       (NULL, 'Cairate', 'Varese'),
+       (NULL, 'Cairo Montenotte', 'Savona'),
+       (NULL, 'Caivano', 'Napoli'),
+       (NULL, 'Calabritto', 'Avellino'),
+       (NULL, 'Calalzo di Cadore', 'Belluno'),
+       (NULL, 'Calamandrana', 'Asti'),
+       (NULL, 'Calamonaci', 'Agrigento'),
+       (NULL, 'Calangianus', 'Sassari'),
+       (NULL, 'Calanna', 'Reggio Calabria'),
+       (NULL, 'Calasca-Castiglione', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Calascibetta', 'Enna'),
+       (NULL, 'Calascio', 'L''Aquila'),
+       (NULL, 'Calasetta', 'Sud Sardegna'),
+       (NULL, 'Calatabiano', 'Catania'),
+       (NULL, 'Calatafimi-Segesta', 'Trapani'),
+       (NULL, 'Calcata', 'Viterbo'),
+       (NULL, 'Calceranica al Lago', 'Trento'),
+       (NULL, 'Calci', 'Pisa'),
+       (NULL, 'Calciano', 'Matera'),
+       (NULL, 'Calcinaia', 'Pisa'),
+       (NULL, 'Calcinate', 'Bergamo'),
+       (NULL, 'Calcinato', 'Brescia'),
+       (NULL, 'Calcio', 'Bergamo'),
+       (NULL, 'Calco', 'Lecco'),
+       (NULL, 'Caldaro sulla strada del vino', 'Bolzano'),
+       (NULL, 'Caldarola', 'Macerata'),
+       (NULL, 'Calderara di Reno', 'Bologna'),
+       (NULL, 'Caldes', 'Trento'),
+       (NULL, 'Caldiero', 'Verona'),
+       (NULL, 'Caldogno', 'Vicenza'),
+       (NULL, 'Caldonazzo', 'Trento'),
+       (NULL, 'Calendasco', 'Piacenza'),
+       (NULL, 'Calenzano', 'Firenze'),
+       (NULL, 'Calestano', 'Parma'),
+       (NULL, 'Calice Ligure', 'Savona'),
+       (NULL, 'Calice al Cornoviglio', 'La Spezia'),
+       (NULL, 'Calimera', 'Lecce'),
+       (NULL, 'Calitri', 'Avellino'),
+       (NULL, 'Calizzano', 'Savona'),
+       (NULL, 'Callabiana', 'Biella'),
+       (NULL, 'Calliano', 'Trento'),
+       (NULL, 'Calliano Monferrato', 'Asti'),
+       (NULL, 'Calolziocorte', 'Lecco'),
+       (NULL, 'Calopezzati', 'Cosenza'),
+       (NULL, 'Calosso', 'Asti'),
+       (NULL, 'Caloveto', 'Cosenza'),
+       (NULL, 'Caltabellotta', 'Agrigento'),
+       (NULL, 'Caltagirone', 'Catania'),
+       (NULL, 'Caltanissetta', 'Caltanissetta'),
+       (NULL, 'Caltavuturo', 'Palermo'),
+       (NULL, 'Caltignaga', 'Novara'),
+       (NULL, 'Calto', 'Rovigo'),
+       (NULL, 'Caltrano', 'Vicenza'),
+       (NULL, 'Calusco d''Adda', 'Bergamo'),
+       (NULL, 'Caluso', 'Torino'),
+       (NULL, 'Calvagese della Riviera', 'Brescia'),
+       (NULL, 'Calvanico', 'Salerno'),
+       (NULL, 'Calvatone', 'Cremona'),
+       (NULL, 'Calvello', 'Potenza'),
+       (NULL, 'Calvene', 'Vicenza'),
+       (NULL, 'Calvenzano', 'Bergamo'),
+       (NULL, 'Calvera', 'Potenza'),
+       (NULL, 'Calvi', 'Benevento'),
+       (NULL, 'Calvi Risorta', 'Caserta'),
+       (NULL, 'Calvi dell''Umbria', 'Terni'),
+       (NULL, 'Calvignano', 'Pavia'),
+       (NULL, 'Calvignasco', 'Milano'),
+       (NULL, 'Calvisano', 'Brescia'),
+       (NULL, 'Calvizzano', 'Napoli'),
+       (NULL, 'Camagna Monferrato', 'Alessandria'),
+       (NULL, 'Camaiore', 'Lucca'),
+       (NULL, 'Camandona', 'Biella'),
+       (NULL, 'Camastra', 'Agrigento'),
+       (NULL, 'Cambiago', 'Milano'),
+       (NULL, 'Cambiano', 'Torino'),
+       (NULL, 'Cambiasca', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Camburzano', 'Biella'),
+       (NULL, 'Camerana', 'Cuneo'),
+       (NULL, 'Camerano', 'Ancona'),
+       (NULL, 'Camerano Casasco', 'Asti'),
+       (NULL, 'Camerata Cornello', 'Bergamo'),
+       (NULL, 'Camerata Nuova', 'Roma'),
+       (NULL, 'Camerata Picena', 'Ancona'),
+       (NULL, 'Cameri', 'Novara'),
+       (NULL, 'Camerino', 'Macerata'),
+       (NULL, 'Camerota', 'Salerno'),
+       (NULL, 'Camigliano', 'Caserta'),
+       (NULL, 'Camini', 'Reggio Calabria'),
+       (NULL, 'Camino', 'Alessandria'),
+       (NULL, 'Camino al Tagliamento', 'Udine'),
+       (NULL, 'Camisano', 'Cremona'),
+       (NULL, 'Camisano Vicentino', 'Vicenza'),
+       (NULL, 'Cammarata', 'Agrigento'),
+       (NULL, 'Camogli', 'Genova'),
+       (NULL, 'Campagna', 'Salerno'),
+       (NULL, 'Campagna Lupia', 'Venezia'),
+       (NULL, 'Campagnano di Roma', 'Roma'),
+       (NULL, 'Campagnatico', 'Grosseto'),
+       (NULL, 'Campagnola Cremasca', 'Cremona'),
+       (NULL, 'Campagnola Emilia', 'Reggio nell''Emilia'),
+       (NULL, 'Campana', 'Cosenza'),
+       (NULL, 'Camparada', 'Monza e della Brianza'),
+       (NULL, 'Campegine', 'Reggio nell''Emilia'),
+       (NULL, 'Campello sul Clitunno', 'Perugia'),
+       (NULL, 'Campertogno', 'Vercelli'),
+       (NULL, 'Campi Bisenzio', 'Firenze'),
+       (NULL, 'Campi Salentina', 'Lecce'),
+       (NULL, 'Campiglia Cervo', 'Biella'),
+       (NULL, 'Campiglia Marittima', 'Livorno'),
+       (NULL, 'Campiglia dei Berici', 'Vicenza'),
+       (NULL, 'Campiglione Fenile', 'Torino'),
+       (NULL, 'Campione d''Italia', 'Como'),
+       (NULL, 'Campitello di Fassa', 'Trento'),
+       (NULL, 'Campli', 'Teramo'),
+       (NULL, 'Campo Calabro', 'Reggio Calabria'),
+       (NULL, 'Campo Ligure', 'Genova'),
+       (NULL, 'Campo San Martino', 'Padova'),
+       (NULL, 'Campo Tures', 'Bolzano'),
+       (NULL, 'Campo di Giove', 'L''Aquila'),
+       (NULL, 'Campo di Trens', 'Bolzano'),
+       (NULL, 'Campo nell''Elba', 'Livorno'),
+       (NULL, 'Campobasso', 'Campobasso'),
+       (NULL, 'Campobello di Licata', 'Agrigento'),
+       (NULL, 'Campobello di Mazara', 'Trapani'),
+       (NULL, 'Campochiaro', 'Campobasso'),
+       (NULL, 'Campodarsego', 'Padova'),
+       (NULL, 'Campodenno', 'Trento'),
+       (NULL, 'Campodimele', 'Latina'),
+       (NULL, 'Campodipietra', 'Campobasso'),
+       (NULL, 'Campodolcino', 'Sondrio'),
+       (NULL, 'Campodoro', 'Padova'),
+       (NULL, 'Campofelice di Fitalia', 'Palermo'),
+       (NULL, 'Campofelice di Roccella', 'Palermo'),
+       (NULL, 'Campofilone', 'Fermo'),
+       (NULL, 'Campofiorito', 'Palermo'),
+       (NULL, 'Campoformido', 'Udine'),
+       (NULL, 'Campofranco', 'Caltanissetta'),
+       (NULL, 'Campogalliano', 'Modena'),
+       (NULL, 'Campolattaro', 'Benevento'),
+       (NULL, 'Campoli Appennino', 'Frosinone'),
+       (NULL, 'Campoli del Monte Taburno', 'Benevento'),
+       (NULL, 'Campolieto', 'Campobasso'),
+       (NULL, 'Campolongo Maggiore', 'Venezia'),
+       (NULL, 'Campolongo Tapogliano', 'Udine'),
+       (NULL, 'Campomaggiore', 'Potenza'),
+       (NULL, 'Campomarino', 'Campobasso'),
+       (NULL, 'Campomorone', 'Genova'),
+       (NULL, 'Camponogara', 'Venezia'),
+       (NULL, 'Campora', 'Salerno'),
+       (NULL, 'Camporeale', 'Palermo'),
+       (NULL, 'Camporgiano', 'Lucca'),
+       (NULL, 'Camporosso', 'Imperia'),
+       (NULL, 'Camporotondo Etneo', 'Catania'),
+       (NULL, 'Camporotondo di Fiastrone', 'Macerata'),
+       (NULL, 'Camposampiero', 'Padova'),
+       (NULL, 'Camposano', 'Napoli'),
+       (NULL, 'Camposanto', 'Modena'),
+       (NULL, 'Campospinoso', 'Pavia'),
+       (NULL, 'Campotosto', 'L''Aquila'),
+       (NULL, 'Camugnano', 'Bologna'),
+       (NULL, 'Canal San Bovo', 'Trento'),
+       (NULL, 'Canale', 'Cuneo'),
+       (NULL, 'Canale Monterano', 'Roma'),
+       (NULL, 'Canale d''Agordo', 'Belluno'),
+       (NULL, 'Canaro', 'Rovigo'),
+       (NULL, 'Canazei', 'Trento'),
+       (NULL, 'Cancellara', 'Potenza'),
+       (NULL, 'Cancello ed Arnone', 'Caserta'),
+       (NULL, 'Canda', 'Rovigo'),
+       (NULL, 'Candela', 'Foggia'),
+       (NULL, 'Candelo', 'Biella'),
+       (NULL, 'Candia Canavese', 'Torino'),
+       (NULL, 'Candia Lomellina', 'Pavia'),
+       (NULL, 'Candiana', 'Padova'),
+       (NULL, 'Candida', 'Avellino'),
+       (NULL, 'Candidoni', 'Reggio Calabria'),
+       (NULL, 'Candiolo', 'Torino'),
+       (NULL, 'Canegrate', 'Milano'),
+       (NULL, 'Canelli', 'Asti'),
+       (NULL, 'Canepina', 'Viterbo'),
+       (NULL, 'Caneva', 'Pordenone'),
+       (NULL, 'Canicattini Bagni', 'Siracusa'),
+       (NULL, 'Canicattì', 'Agrigento'),
+       (NULL, 'Canino', 'Viterbo'),
+       (NULL, 'Canischio', 'Torino'),
+       (NULL, 'Canistro', 'L''Aquila'),
+       (NULL, 'Canna', 'Cosenza'),
+       (NULL, 'Cannalonga', 'Salerno'),
+       (NULL, 'Cannara', 'Perugia'),
+       (NULL, 'Cannero Riviera', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Canneto Pavese', 'Pavia'),
+       (NULL, 'Canneto sull''Oglio', 'Mantova'),
+       (NULL, 'Cannobio', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Cannole', 'Lecce'),
+       (NULL, 'Canolo', 'Reggio Calabria'),
+       (NULL, 'Canonica d''Adda', 'Bergamo'),
+       (NULL, 'Canosa Sannita', 'Chieti'),
+       (NULL, 'Canosa di Puglia', 'Barletta-Andria-Trani'),
+       (NULL, 'Canosio', 'Cuneo'),
+       (NULL, 'Canossa', 'Reggio nell''Emilia'),
+       (NULL, 'Cansano', 'L''Aquila'),
+       (NULL, 'Cantagallo', 'Prato'),
+       (NULL, 'Cantalice', 'Rieti'),
+       (NULL, 'Cantalupa', 'Torino'),
+       (NULL, 'Cantalupo Ligure', 'Alessandria'),
+       (NULL, 'Cantalupo in Sabina', 'Rieti'),
+       (NULL, 'Cantalupo nel Sannio', 'Isernia'),
+       (NULL, 'Cantarana', 'Asti'),
+       (NULL, 'Cantello', 'Varese'),
+       (NULL, 'Canterano', 'Roma'),
+       (NULL, 'Cantiano', 'Pesaro e Urbino'),
+       (NULL, 'Cantoira', 'Torino'),
+       (NULL, 'Cantù', 'Como'),
+       (NULL, 'Canzano', 'Teramo'),
+       (NULL, 'Canzo', 'Como'),
+       (NULL, 'Caorle', 'Venezia'),
+       (NULL, 'Caorso', 'Piacenza'),
+       (NULL, 'Capaccio Paestum', 'Salerno'),
+       (NULL, 'Capaci', 'Palermo'),
+       (NULL, 'Capalbio', 'Grosseto'),
+       (NULL, 'Capannoli', 'Pisa'),
+       (NULL, 'Capannori', 'Lucca'),
+       (NULL, 'Capena', 'Roma'),
+       (NULL, 'Capergnanica', 'Cremona'),
+       (NULL, 'Capestrano', 'L''Aquila'),
+       (NULL, 'Capiago Intimiano', 'Como'),
+       (NULL, 'Capistrano', 'Vibo Valentia'),
+       (NULL, 'Capistrello', 'L''Aquila'),
+       (NULL, 'Capitignano', 'L''Aquila'),
+       (NULL, 'Capizzi', 'Messina'),
+       (NULL, 'Capizzone', 'Bergamo'),
+       (NULL, 'Capo d''Orlando', 'Messina'),
+       (NULL, 'Capo di Ponte', 'Brescia'),
+       (NULL, 'Capodimonte', 'Viterbo'),
+       (NULL, 'Capodrise', 'Caserta'),
+       (NULL, 'Capoliveri', 'Livorno'),
+       (NULL, 'Capolona', 'Arezzo'),
+       (NULL, 'Caponago', 'Monza e della Brianza'),
+       (NULL, 'Caporciano', 'L''Aquila'),
+       (NULL, 'Caposele', 'Avellino'),
+       (NULL, 'Capoterra', 'Cagliari'),
+       (NULL, 'Capovalle', 'Brescia'),
+       (NULL, 'Cappadocia', 'L''Aquila'),
+       (NULL, 'Cappella Cantone', 'Cremona'),
+       (NULL, 'Cappella Maggiore', 'Treviso'),
+       (NULL, 'Cappella de'' Picenardi', 'Cremona'),
+       (NULL, 'Cappelle sul Tavo', 'Pescara'),
+       (NULL, 'Capracotta', 'Isernia'),
+       (NULL, 'Capraia Isola', 'Livorno'),
+       (NULL, 'Capraia e Limite', 'Firenze'),
+       (NULL, 'Capralba', 'Cremona'),
+       (NULL, 'Capranica', 'Viterbo'),
+       (NULL, 'Capranica Prenestina', 'Roma'),
+       (NULL, 'Caprarica di Lecce', 'Lecce'),
+       (NULL, 'Caprarola', 'Viterbo'),
+       (NULL, 'Caprauna', 'Cuneo'),
+       (NULL, 'Caprese Michelangelo', 'Arezzo'),
+       (NULL, 'Caprezzo', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Capri', 'Napoli'),
+       (NULL, 'Capri Leone', 'Messina'),
+       (NULL, 'Capriana', 'Trento'),
+       (NULL, 'Capriano del Colle', 'Brescia'),
+       (NULL, 'Capriata d''Orba', 'Alessandria'),
+       (NULL, 'Capriate San Gervasio', 'Bergamo'),
+       (NULL, 'Capriati a Volturno', 'Caserta'),
+       (NULL, 'Caprie', 'Torino'),
+       (NULL, 'Capriglia Irpina', 'Avellino'),
+       (NULL, 'Capriglio', 'Asti'),
+       (NULL, 'Caprile', 'Biella'),
+       (NULL, 'Caprino Bergamasco', 'Bergamo'),
+       (NULL, 'Caprino Veronese', 'Verona'),
+       (NULL, 'Capriolo', 'Brescia'),
+       (NULL, 'Capriva del Friuli', 'Gorizia'),
+       (NULL, 'Capua', 'Caserta'),
+       (NULL, 'Capurso', 'Bari'),
+       (NULL, 'Caraffa del Bianco', 'Reggio Calabria'),
+       (NULL, 'Caraffa di Catanzaro', 'Catanzaro'),
+       (NULL, 'Caraglio', 'Cuneo'),
+       (NULL, 'Caramagna Piemonte', 'Cuneo'),
+       (NULL, 'Caramanico Terme', 'Pescara'),
+       (NULL, 'Carapelle', 'Foggia'),
+       (NULL, 'Carapelle Calvisio', 'L''Aquila'),
+       (NULL, 'Carasco', 'Genova'),
+       (NULL, 'Carassai', 'Ascoli Piceno'),
+       (NULL, 'Carate Brianza', 'Monza e della Brianza'),
+       (NULL, 'Carate Urio', 'Como'),
+       (NULL, 'Caravaggio', 'Bergamo'),
+       (NULL, 'Caravate', 'Varese'),
+       (NULL, 'Caravino', 'Torino'),
+       (NULL, 'Caravonica', 'Imperia'),
+       (NULL, 'Carbognano', 'Viterbo'),
+       (NULL, 'Carbonara Scrivia', 'Alessandria'),
+       (NULL, 'Carbonara al Ticino', 'Pavia'),
+       (NULL, 'Carbonara di Nola', 'Napoli'),
+       (NULL, 'Carbonate', 'Como'),
+       (NULL, 'Carbone', 'Potenza'),
+       (NULL, 'Carbonera', 'Treviso'),
+       (NULL, 'Carbonia', 'Sud Sardegna'),
+       (NULL, 'Carcare', 'Savona'),
+       (NULL, 'Carceri', 'Padova'),
+       (NULL, 'Carcoforo', 'Vercelli'),
+       (NULL, 'Cardano al Campo', 'Varese'),
+       (NULL, 'Cardedu', 'Nuoro'),
+       (NULL, 'Cardeto', 'Reggio Calabria'),
+       (NULL, 'Cardinale', 'Catanzaro'),
+       (NULL, 'Cardito', 'Napoli'),
+       (NULL, 'Cardè', 'Cuneo'),
+       (NULL, 'Careggine', 'Lucca'),
+       (NULL, 'Carema', 'Torino'),
+       (NULL, 'Carenno', 'Lecco'),
+       (NULL, 'Carentino', 'Alessandria'),
+       (NULL, 'Careri', 'Reggio Calabria'),
+       (NULL, 'Caresana', 'Vercelli'),
+       (NULL, 'Caresanablot', 'Vercelli'),
+       (NULL, 'Carezzano', 'Alessandria'),
+       (NULL, 'Carfizzi', 'Crotone'),
+       (NULL, 'Cargeghe', 'Sassari'),
+       (NULL, 'Cariati', 'Cosenza'),
+       (NULL, 'Carife', 'Avellino'),
+       (NULL, 'Carignano', 'Torino'),
+       (NULL, 'Carimate', 'Como'),
+       (NULL, 'Carinaro', 'Caserta'),
+       (NULL, 'Carini', 'Palermo'),
+       (NULL, 'Carinola', 'Caserta'),
+       (NULL, 'Carisio', 'Vercelli'),
+       (NULL, 'Carisolo', 'Trento'),
+       (NULL, 'Carlantino', 'Foggia'),
+       (NULL, 'Carlazzo', 'Como'),
+       (NULL, 'Carlentini', 'Siracusa'),
+       (NULL, 'Carlino', 'Udine'),
+       (NULL, 'Carloforte', 'Sud Sardegna'),
+       (NULL, 'Carlopoli', 'Catanzaro'),
+       (NULL, 'Carmagnola', 'Torino'),
+       (NULL, 'Carmiano', 'Lecce'),
+       (NULL, 'Carmignano', 'Prato'),
+       (NULL, 'Carmignano di Brenta', 'Padova'),
+       (NULL, 'Carnago', 'Varese'),
+       (NULL, 'Carnate', 'Monza e della Brianza'),
+       (NULL, 'Carobbio degli Angeli', 'Bergamo'),
+       (NULL, 'Carolei', 'Cosenza'),
+       (NULL, 'Carona', 'Bergamo'),
+       (NULL, 'Caronia', 'Messina'),
+       (NULL, 'Caronno Pertusella', 'Varese'),
+       (NULL, 'Caronno Varesino', 'Varese'),
+       (NULL, 'Carosino', 'Taranto'),
+       (NULL, 'Carovigno', 'Brindisi'),
+       (NULL, 'Carovilli', 'Isernia'),
+       (NULL, 'Carpaneto Piacentino', 'Piacenza'),
+       (NULL, 'Carpanzano', 'Cosenza'),
+       (NULL, 'Carpegna', 'Pesaro e Urbino'),
+       (NULL, 'Carpenedolo', 'Brescia'),
+       (NULL, 'Carpeneto', 'Alessandria'),
+       (NULL, 'Carpi', 'Modena'),
+       (NULL, 'Carpiano', 'Milano'),
+       (NULL, 'Carpignano Salentino', 'Lecce'),
+       (NULL, 'Carpignano Sesia', 'Novara'),
+       (NULL, 'Carpineti', 'Reggio nell''Emilia'),
+       (NULL, 'Carpineto Romano', 'Roma'),
+       (NULL, 'Carpineto Sinello', 'Chieti'),
+       (NULL, 'Carpineto della Nora', 'Pescara'),
+       (NULL, 'Carpino', 'Foggia'),
+       (NULL, 'Carpinone', 'Isernia'),
+       (NULL, 'Carrara', 'Massa-Carrara'),
+       (NULL, 'Carrega Ligure', 'Alessandria'),
+       (NULL, 'Carro', 'La Spezia'),
+       (NULL, 'Carrodano', 'La Spezia'),
+       (NULL, 'Carrosio', 'Alessandria'),
+       (NULL, 'Carrè', 'Vicenza'),
+       (NULL, 'Carrù', 'Cuneo'),
+       (NULL, 'Carsoli', 'L''Aquila'),
+       (NULL, 'Cartigliano', 'Vicenza'),
+       (NULL, 'Cartignano', 'Cuneo'),
+       (NULL, 'Cartoceto', 'Pesaro e Urbino'),
+       (NULL, 'Cartosio', 'Alessandria'),
+       (NULL, 'Cartura', 'Padova'),
+       (NULL, 'Carugate', 'Milano'),
+       (NULL, 'Carugo', 'Como'),
+       (NULL, 'Carunchio', 'Chieti'),
+       (NULL, 'Carvico', 'Bergamo'),
+       (NULL, 'Carzano', 'Trento'),
+       (NULL, 'Casabona', 'Crotone'),
+       (NULL, 'Casacalenda', 'Campobasso'),
+       (NULL, 'Casacanditella', 'Chieti'),
+       (NULL, 'Casagiove', 'Caserta'),
+       (NULL, 'Casal Cermelli', 'Alessandria'),
+       (NULL, 'Casal Velino', 'Salerno'),
+       (NULL, 'Casal di Principe', 'Caserta'),
+       (NULL, 'Casalanguida', 'Chieti'),
+       (NULL, 'Casalattico', 'Frosinone'),
+       (NULL, 'Casalbeltrame', 'Novara'),
+       (NULL, 'Casalbordino', 'Chieti'),
+       (NULL, 'Casalbore', 'Avellino'),
+       (NULL, 'Casalborgone', 'Torino'),
+       (NULL, 'Casalbuono', 'Salerno'),
+       (NULL, 'Casalbuttano ed Uniti', 'Cremona'),
+       (NULL, 'Casalciprano', 'Campobasso'),
+       (NULL, 'Casalduni', 'Benevento'),
+       (NULL, 'Casale Corte Cerro', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Casale Cremasco-Vidolasco', 'Cremona'),
+       (NULL, 'Casale Litta', 'Varese'),
+       (NULL, 'Casale Marittimo', 'Pisa'),
+       (NULL, 'Casale Monferrato', 'Alessandria'),
+       (NULL, 'Casale di Scodosia', 'Padova'),
+       (NULL, 'Casale sul Sile', 'Treviso'),
+       (NULL, 'Casalecchio di Reno', 'Bologna'),
+       (NULL, 'Casaleggio Boiro', 'Alessandria'),
+       (NULL, 'Casaleggio Novara', 'Novara'),
+       (NULL, 'Casaleone', 'Verona'),
+       (NULL, 'Casaletto Ceredano', 'Cremona'),
+       (NULL, 'Casaletto Lodigiano', 'Lodi'),
+       (NULL, 'Casaletto Spartano', 'Salerno'),
+       (NULL, 'Casaletto Vaprio', 'Cremona'),
+       (NULL, 'Casaletto di Sopra', 'Cremona'),
+       (NULL, 'Casalfiumanese', 'Bologna'),
+       (NULL, 'Casalgrande', 'Reggio nell''Emilia'),
+       (NULL, 'Casalgrasso', 'Cuneo'),
+       (NULL, 'Casali del Manco', 'Cosenza'),
+       (NULL, 'Casalincontrada', 'Chieti'),
+       (NULL, 'Casalino', 'Novara'),
+       (NULL, 'Casalmaggiore', 'Cremona'),
+       (NULL, 'Casalmaiocco', 'Lodi'),
+       (NULL, 'Casalmorano', 'Cremona'),
+       (NULL, 'Casalmoro', 'Mantova'),
+       (NULL, 'Casalnoceto', 'Alessandria'),
+       (NULL, 'Casalnuovo Monterotaro', 'Foggia'),
+       (NULL, 'Casalnuovo di Napoli', 'Napoli'),
+       (NULL, 'Casaloldo', 'Mantova'),
+       (NULL, 'Casalpusterlengo', 'Lodi'),
+       (NULL, 'Casalromano', 'Mantova'),
+       (NULL, 'Casalserugo', 'Padova'),
+       (NULL, 'Casaluce', 'Caserta'),
+       (NULL, 'Casalvecchio Siculo', 'Messina'),
+       (NULL, 'Casalvecchio di Puglia', 'Foggia'),
+       (NULL, 'Casalvieri', 'Frosinone'),
+       (NULL, 'Casalvolone', 'Novara'),
+       (NULL, 'Casalzuigno', 'Varese'),
+       (NULL, 'Casamarciano', 'Napoli'),
+       (NULL, 'Casamassima', 'Bari'),
+       (NULL, 'Casamicciola Terme', 'Napoli'),
+       (NULL, 'Casandrino', 'Napoli'),
+       (NULL, 'Casanova Elvo', 'Vercelli'),
+       (NULL, 'Casanova Lerrone', 'Savona'),
+       (NULL, 'Casanova Lonati', 'Pavia'),
+       (NULL, 'Casape', 'Roma'),
+       (NULL, 'Casapesenna', 'Caserta'),
+       (NULL, 'Casapinta', 'Biella'),
+       (NULL, 'Casaprota', 'Rieti'),
+       (NULL, 'Casapulla', 'Caserta'),
+       (NULL, 'Casarano', 'Lecce'),
+       (NULL, 'Casargo', 'Lecco'),
+       (NULL, 'Casarile', 'Milano'),
+       (NULL, 'Casarsa della Delizia', 'Pordenone'),
+       (NULL, 'Casarza Ligure', 'Genova'),
+       (NULL, 'Casasco', 'Alessandria'),
+       (NULL, 'Casatenovo', 'Lecco'),
+       (NULL, 'Casatisma', 'Pavia'),
+       (NULL, 'Casavatore', 'Napoli'),
+       (NULL, 'Casazza', 'Bergamo'),
+       (NULL, 'Cascia', 'Perugia'),
+       (NULL, 'Casciago', 'Varese'),
+       (NULL, 'Casciana Terme Lari', 'Pisa'),
+       (NULL, 'Cascina', 'Pisa'),
+       (NULL, 'Cascinette d''Ivrea', 'Torino'),
+       (NULL, 'Casei Gerola', 'Pavia'),
+       (NULL, 'Caselette', 'Torino'),
+       (NULL, 'Casella', 'Genova'),
+       (NULL, 'Caselle Landi', 'Lodi'),
+       (NULL, 'Caselle Lurani', 'Lodi'),
+       (NULL, 'Caselle Torinese', 'Torino'),
+       (NULL, 'Caselle in Pittari', 'Salerno'),
+       (NULL, 'Caserta', 'Caserta'),
+       (NULL, 'Casier', 'Treviso'),
+       (NULL, 'Casignana', 'Reggio Calabria'),
+       (NULL, 'Casina', 'Reggio nell''Emilia'),
+       (NULL, 'Casirate d''Adda', 'Bergamo'),
+       (NULL, 'Caslino d''Erba', 'Como'),
+       (NULL, 'Casnate con Bernate', 'Como'),
+       (NULL, 'Casnigo', 'Bergamo'),
+       (NULL, 'Casola Valsenio', 'Ravenna'),
+       (NULL, 'Casola di Napoli', 'Napoli'),
+       (NULL, 'Casola in Lunigiana', 'Massa-Carrara'),
+       (NULL, 'Casole d''Elsa', 'Siena'),
+       (NULL, 'Casoli', 'Chieti'),
+       (NULL, 'Casorate Primo', 'Pavia'),
+       (NULL, 'Casorate Sempione', 'Varese'),
+       (NULL, 'Casorezzo', 'Milano'),
+       (NULL, 'Casoria', 'Napoli'),
+       (NULL, 'Casorzo Monferrato', 'Asti'),
+       (NULL, 'Casperia', 'Rieti'),
+       (NULL, 'Caspoggio', 'Sondrio'),
+       (NULL, 'Cassacco', 'Udine'),
+       (NULL, 'Cassago Brianza', 'Lecco'),
+       (NULL, 'Cassano Irpino', 'Avellino'),
+       (NULL, 'Cassano Magnago', 'Varese'),
+       (NULL, 'Cassano Spinola', 'Alessandria'),
+       (NULL, 'Cassano Valcuvia', 'Varese'),
+       (NULL, 'Cassano all''Ionio', 'Cosenza'),
+       (NULL, 'Cassano d''Adda', 'Milano'),
+       (NULL, 'Cassano delle Murge', 'Bari'),
+       (NULL, 'Cassaro', 'Siracusa'),
+       (NULL, 'Cassiglio', 'Bergamo'),
+       (NULL, 'Cassina Rizzardi', 'Como'),
+       (NULL, 'Cassina Valsassina', 'Lecco'),
+       (NULL, 'Cassina de'' Pecchi', 'Milano'),
+       (NULL, 'Cassinasco', 'Asti'),
+       (NULL, 'Cassine', 'Alessandria'),
+       (NULL, 'Cassinelle', 'Alessandria'),
+       (NULL, 'Cassinetta di Lugagnano', 'Milano'),
+       (NULL, 'Cassino', 'Frosinone'),
+       (NULL, 'Cassola', 'Vicenza'),
+       (NULL, 'Cassolnovo', 'Pavia'),
+       (NULL, 'Castagnaro', 'Verona'),
+       (NULL, 'Castagneto Carducci', 'Livorno'),
+       (NULL, 'Castagneto Po', 'Torino'),
+       (NULL, 'Castagnito', 'Cuneo'),
+       (NULL, 'Castagnole Monferrato', 'Asti'),
+       (NULL, 'Castagnole Piemonte', 'Torino'),
+       (NULL, 'Castagnole delle Lanze', 'Asti'),
+       (NULL, 'Castana', 'Pavia'),
+       (NULL, 'Castano Primo', 'Milano'),
+       (NULL, 'Casteggio', 'Pavia'),
+       (NULL, 'Castegnato', 'Brescia'),
+       (NULL, 'Castegnero', 'Vicenza'),
+       (NULL, 'Castel Baronia', 'Avellino'),
+       (NULL, 'Castel Boglione', 'Asti'),
+       (NULL, 'Castel Bolognese', 'Ravenna'),
+       (NULL, 'Castel Campagnano', 'Caserta'),
+       (NULL, 'Castel Castagna', 'Teramo'),
+       (NULL, 'Castel Condino', 'Trento'),
+       (NULL, 'Castel Focognano', 'Arezzo'),
+       (NULL, 'Castel Frentano', 'Chieti'),
+       (NULL, 'Castel Gabbiano', 'Cremona'),
+       (NULL, 'Castel Gandolfo', 'Roma'),
+       (NULL, 'Castel Giorgio', 'Terni'),
+       (NULL, 'Castel Goffredo', 'Mantova'),
+       (NULL, 'Castel Guelfo di Bologna', 'Bologna'),
+       (NULL, 'Castel Ivano', 'Trento'),
+       (NULL, 'Castel Madama', 'Roma'),
+       (NULL, 'Castel Maggiore', 'Bologna'),
+       (NULL, 'Castel Mella', 'Brescia'),
+       (NULL, 'Castel Morrone', 'Caserta'),
+       (NULL, 'Castel Ritaldi', 'Perugia'),
+       (NULL, 'Castel Rocchero', 'Asti'),
+       (NULL, 'Castel Rozzone', 'Bergamo'),
+       (NULL, 'Castel San Giorgio', 'Salerno'),
+       (NULL, 'Castel San Giovanni', 'Piacenza'),
+       (NULL, 'Castel San Lorenzo', 'Salerno'),
+       (NULL, 'Castel San Niccolò', 'Arezzo'),
+       (NULL, 'Castel San Pietro Romano', 'Roma'),
+       (NULL, 'Castel San Pietro Terme', 'Bologna'),
+       (NULL, 'Castel San Vincenzo', 'Isernia'),
+       (NULL, 'Castel Sant''Angelo', 'Rieti'),
+       (NULL, 'Castel Sant''Elia', 'Viterbo'),
+       (NULL, 'Castel Viscardo', 'Terni'),
+       (NULL, 'Castel Vittorio', 'Imperia'),
+       (NULL, 'Castel Volturno', 'Caserta'),
+       (NULL, 'Castel d''Aiano', 'Bologna'),
+       (NULL, 'Castel d''Ario', 'Mantova'),
+       (NULL, 'Castel d''Azzano', 'Verona'),
+       (NULL, 'Castel del Giudice', 'Isernia'),
+       (NULL, 'Castel del Monte', 'L''Aquila'),
+       (NULL, 'Castel del Piano', 'Grosseto'),
+       (NULL, 'Castel del Rio', 'Bologna'),
+       (NULL, 'Castel di Casio', 'Bologna'),
+       (NULL, 'Castel di Ieri', 'L''Aquila'),
+       (NULL, 'Castel di Iudica', 'Catania'),
+       (NULL, 'Castel di Lama', 'Ascoli Piceno'),
+       (NULL, 'Castel di Lucio', 'Messina'),
+       (NULL, 'Castel di Sangro', 'L''Aquila'),
+       (NULL, 'Castel di Sasso', 'Caserta'),
+       (NULL, 'Castel di Tora', 'Rieti'),
+       (NULL, 'Castelbaldo', 'Padova'),
+       (NULL, 'Castelbelforte', 'Mantova'),
+       (NULL, 'Castelbellino', 'Ancona'),
+       (NULL, 'Castelbello-Ciardes', 'Bolzano'),
+       (NULL, 'Castelbianco', 'Savona'),
+       (NULL, 'Castelbottaccio', 'Campobasso'),
+       (NULL, 'Castelbuono', 'Palermo'),
+       (NULL, 'Castelcivita', 'Salerno'),
+       (NULL, 'Castelcovati', 'Brescia'),
+       (NULL, 'Castelcucco', 'Treviso'),
+       (NULL, 'Casteldaccia', 'Palermo'),
+       (NULL, 'Casteldelci', 'Rimini'),
+       (NULL, 'Casteldelfino', 'Cuneo'),
+       (NULL, 'Casteldidone', 'Cremona'),
+       (NULL, 'Castelfidardo', 'Ancona'),
+       (NULL, 'Castelfiorentino', 'Firenze'),
+       (NULL, 'Castelforte', 'Latina'),
+       (NULL, 'Castelfranci', 'Avellino'),
+       (NULL, 'Castelfranco Emilia', 'Modena'),
+       (NULL, 'Castelfranco Piandiscò', 'Arezzo'),
+       (NULL, 'Castelfranco Veneto', 'Treviso'),
+       (NULL, 'Castelfranco di Sotto', 'Pisa'),
+       (NULL, 'Castelfranco in Miscano', 'Benevento'),
+       (NULL, 'Castelgerundo', 'Lodi'),
+       (NULL, 'Castelgomberto', 'Vicenza'),
+       (NULL, 'Castelgrande', 'Potenza'),
+       (NULL, 'Castelguglielmo', 'Rovigo'),
+       (NULL, 'Castelguidone', 'Chieti'),
+       (NULL, 'Castell''Alfero', 'Asti'),
+       (NULL, 'Castell''Arquato', 'Piacenza'),
+       (NULL, 'Castell''Azzara', 'Grosseto'),
+       (NULL, 'Castell''Umberto', 'Messina'),
+       (NULL, 'Castellabate', 'Salerno'),
+       (NULL, 'Castellafiume', 'L''Aquila'),
+       (NULL, 'Castellalto', 'Teramo'),
+       (NULL, 'Castellammare del Golfo', 'Trapani'),
+       (NULL, 'Castellammare di Stabia', 'Napoli'),
+       (NULL, 'Castellamonte', 'Torino'),
+       (NULL, 'Castellana Grotte', 'Bari'),
+       (NULL, 'Castellana Sicula', 'Palermo'),
+       (NULL, 'Castellaneta', 'Taranto'),
+       (NULL, 'Castellania Coppi', 'Alessandria'),
+       (NULL, 'Castellanza', 'Varese'),
+       (NULL, 'Castellar Guidobono', 'Alessandria'),
+       (NULL, 'Castellarano', 'Reggio nell''Emilia'),
+       (NULL, 'Castellaro', 'Imperia'),
+       (NULL, 'Castellazzo Bormida', 'Alessandria'),
+       (NULL, 'Castellazzo Novarese', 'Novara'),
+       (NULL, 'Castelleone', 'Cremona'),
+       (NULL, 'Castelleone di Suasa', 'Ancona'),
+       (NULL, 'Castellero', 'Asti'),
+       (NULL, 'Castelletto Cervo', 'Biella'),
+       (NULL, 'Castelletto Merli', 'Alessandria'),
+       (NULL, 'Castelletto Molina', 'Asti'),
+       (NULL, 'Castelletto Monferrato', 'Alessandria'),
+       (NULL, 'Castelletto Stura', 'Cuneo'),
+       (NULL, 'Castelletto Uzzone', 'Cuneo'),
+       (NULL, 'Castelletto d''Erro', 'Alessandria'),
+       (NULL, 'Castelletto d''Orba', 'Alessandria'),
+       (NULL, 'Castelletto di Branduzzo', 'Pavia'),
+       (NULL, 'Castelletto sopra Ticino', 'Novara'),
+       (NULL, 'Castelli', 'Teramo'),
+       (NULL, 'Castelli Calepio', 'Bergamo'),
+       (NULL, 'Castellina Marittima', 'Pisa'),
+       (NULL, 'Castellina in Chianti', 'Siena'),
+       (NULL, 'Castellinaldo d''Alba', 'Cuneo'),
+       (NULL, 'Castellino Tanaro', 'Cuneo'),
+       (NULL, 'Castellino del Biferno', 'Campobasso'),
+       (NULL, 'Castelliri', 'Frosinone'),
+       (NULL, 'Castello Cabiaglio', 'Varese'),
+       (NULL, 'Castello Tesino', 'Trento'),
+       (NULL, 'Castello d''Agogna', 'Pavia'),
+       (NULL, 'Castello d''Argile', 'Bologna'),
+       (NULL, 'Castello del Matese', 'Caserta'),
+       (NULL, 'Castello dell''Acqua', 'Sondrio'),
+       (NULL, 'Castello di Annone', 'Asti'),
+       (NULL, 'Castello di Brianza', 'Lecco'),
+       (NULL, 'Castello di Cisterna', 'Napoli'),
+       (NULL, 'Castello di Godego', 'Treviso'),
+       (NULL, 'Castello-Molina di Fiemme', 'Trento'),
+       (NULL, 'Castellucchio', 'Mantova'),
+       (NULL, 'Castelluccio Inferiore', 'Potenza'),
+       (NULL, 'Castelluccio Superiore', 'Potenza'),
+       (NULL, 'Castelluccio Valmaggiore', 'Foggia'),
+       (NULL, 'Castelluccio dei Sauri', 'Foggia'),
+       (NULL, 'Castelmagno', 'Cuneo'),
+       (NULL, 'Castelmarte', 'Como'),
+       (NULL, 'Castelmassa', 'Rovigo'),
+       (NULL, 'Castelmauro', 'Campobasso'),
+       (NULL, 'Castelmezzano', 'Potenza'),
+       (NULL, 'Castelmola', 'Messina'),
+       (NULL, 'Castelnovetto', 'Pavia'),
+       (NULL, 'Castelnovo Bariano', 'Rovigo'),
+       (NULL, 'Castelnovo del Friuli', 'Pordenone'),
+       (NULL, 'Castelnovo di Sotto', 'Reggio nell''Emilia'),
+       (NULL, 'Castelnovo ne'' Monti', 'Reggio nell''Emilia'),
+       (NULL, 'Castelnuovo', 'Trento'),
+       (NULL, 'Castelnuovo Belbo', 'Asti'),
+       (NULL, 'Castelnuovo Berardenga', 'Siena'),
+       (NULL, 'Castelnuovo Bocca d''Adda', 'Lodi'),
+       (NULL, 'Castelnuovo Bormida', 'Alessandria'),
+       (NULL, 'Castelnuovo Bozzente', 'Como'),
+       (NULL, 'Castelnuovo Calcea', 'Asti'),
+       (NULL, 'Castelnuovo Cilento', 'Salerno'),
+       (NULL, 'Castelnuovo Don Bosco', 'Asti'),
+       (NULL, 'Castelnuovo Magra', 'La Spezia'),
+       (NULL, 'Castelnuovo Nigra', 'Torino'),
+       (NULL, 'Castelnuovo Parano', 'Frosinone'),
+       (NULL, 'Castelnuovo Rangone', 'Modena'),
+       (NULL, 'Castelnuovo Scrivia', 'Alessandria'),
+       (NULL, 'Castelnuovo del Garda', 'Verona'),
+       (NULL, 'Castelnuovo della Daunia', 'Foggia'),
+       (NULL, 'Castelnuovo di Ceva', 'Cuneo'),
+       (NULL, 'Castelnuovo di Conza', 'Salerno'),
+       (NULL, 'Castelnuovo di Farfa', 'Rieti'),
+       (NULL, 'Castelnuovo di Garfagnana', 'Lucca'),
+       (NULL, 'Castelnuovo di Porto', 'Roma'),
+       (NULL, 'Castelnuovo di Val di Cecina', 'Pisa'),
+       (NULL, 'Castelpagano', 'Benevento'),
+       (NULL, 'Castelpetroso', 'Isernia'),
+       (NULL, 'Castelpizzuto', 'Isernia'),
+       (NULL, 'Castelplanio', 'Ancona'),
+       (NULL, 'Castelpoto', 'Benevento'),
+       (NULL, 'Castelraimondo', 'Macerata'),
+       (NULL, 'Castelrotto', 'Bolzano'),
+       (NULL, 'Castelsantangelo sul Nera', 'Macerata'),
+       (NULL, 'Castelsaraceno', 'Potenza'),
+       (NULL, 'Castelsardo', 'Sassari'),
+       (NULL, 'Castelseprio', 'Varese'),
+       (NULL, 'Castelsilano', 'Crotone'),
+       (NULL, 'Castelspina', 'Alessandria'),
+       (NULL, 'Casteltermini', 'Agrigento'),
+       (NULL, 'Castelveccana', 'Varese'),
+       (NULL, 'Castelvecchio Calvisio', 'L''Aquila'),
+       (NULL, 'Castelvecchio Subequo', 'L''Aquila'),
+       (NULL, 'Castelvecchio di Rocca Barbena', 'Savona'),
+       (NULL, 'Castelvenere', 'Benevento'),
+       (NULL, 'Castelverde', 'Cremona'),
+       (NULL, 'Castelverrino', 'Isernia'),
+       (NULL, 'Castelvetere in Val Fortore', 'Benevento'),
+       (NULL, 'Castelvetere sul Calore', 'Avellino'),
+       (NULL, 'Castelvetrano', 'Trapani'),
+       (NULL, 'Castelvetro Piacentino', 'Piacenza'),
+       (NULL, 'Castelvetro di Modena', 'Modena'),
+       (NULL, 'Castelvisconti', 'Cremona'),
+       (NULL, 'Castenaso', 'Bologna'),
+       (NULL, 'Castenedolo', 'Brescia'),
+       (NULL, 'Castiadas', 'Sud Sardegna'),
+       (NULL, 'Castiglion Fibocchi', 'Arezzo'),
+       (NULL, 'Castiglion Fiorentino', 'Arezzo'),
+       (NULL, 'Castiglione Chiavarese', 'Genova'),
+       (NULL, 'Castiglione Cosentino', 'Cosenza'),
+       (NULL, 'Castiglione Falletto', 'Cuneo'),
+       (NULL, 'Castiglione Messer Marino', 'Chieti'),
+       (NULL, 'Castiglione Messer Raimondo', 'Teramo'),
+       (NULL, 'Castiglione Olona', 'Varese'),
+       (NULL, 'Castiglione Tinella', 'Cuneo'),
+       (NULL, 'Castiglione Torinese', 'Torino'),
+       (NULL, 'Castiglione a Casauria', 'Pescara'),
+       (NULL, 'Castiglione d''Adda', 'Lodi'),
+       (NULL, 'Castiglione d''Orcia', 'Siena'),
+       (NULL, 'Castiglione dei Pepoli', 'Bologna'),
+       (NULL, 'Castiglione del Genovesi', 'Salerno'),
+       (NULL, 'Castiglione del Lago', 'Perugia'),
+       (NULL, 'Castiglione della Pescaia', 'Grosseto'),
+       (NULL, 'Castiglione delle Stiviere', 'Mantova'),
+       (NULL, 'Castiglione di Garfagnana', 'Lucca'),
+       (NULL, 'Castiglione di Sicilia', 'Catania'),
+       (NULL, 'Castiglione in Teverina', 'Viterbo'),
+       (NULL, 'Castignano', 'Ascoli Piceno'),
+       (NULL, 'Castilenti', 'Teramo'),
+       (NULL, 'Castino', 'Cuneo'),
+       (NULL, 'Castione Andevenno', 'Sondrio'),
+       (NULL, 'Castione della Presolana', 'Bergamo'),
+       (NULL, 'Castions di Strada', 'Udine'),
+       (NULL, 'Castiraga Vidardo', 'Lodi'),
+       (NULL, 'Casto', 'Brescia'),
+       (NULL, 'Castorano', 'Ascoli Piceno'),
+       (NULL, 'Castrezzato', 'Brescia'),
+       (NULL, 'Castri di Lecce', 'Lecce'),
+       (NULL, 'Castrignano de'' Greci', 'Lecce'),
+       (NULL, 'Castrignano del Capo', 'Lecce'),
+       (NULL, 'Castro', 'Bergamo'),
+       (NULL, 'Castro', 'Lecce'),
+       (NULL, 'Castro dei Volsci', 'Frosinone'),
+       (NULL, 'Castrocaro Terme e Terra del Sole', 'Forlì-Cesena'),
+       (NULL, 'Castrocielo', 'Frosinone'),
+       (NULL, 'Castrofilippo', 'Agrigento'),
+       (NULL, 'Castrolibero', 'Cosenza'),
+       (NULL, 'Castronno', 'Varese'),
+       (NULL, 'Castronovo di Sicilia', 'Palermo'),
+       (NULL, 'Castronuovo di Sant''Andrea', 'Potenza'),
+       (NULL, 'Castropignano', 'Campobasso'),
+       (NULL, 'Castroreale', 'Messina'),
+       (NULL, 'Castroregio', 'Cosenza'),
+       (NULL, 'Castrovillari', 'Cosenza'),
+       (NULL, 'Catania', 'Catania'),
+       (NULL, 'Catanzaro', 'Catanzaro'),
+       (NULL, 'Catenanuova', 'Enna'),
+       (NULL, 'Catignano', 'Pescara'),
+       (NULL, 'Cattolica', 'Rimini'),
+       (NULL, 'Cattolica Eraclea', 'Agrigento'),
+       (NULL, 'Caulonia', 'Reggio Calabria'),
+       (NULL, 'Cautano', 'Benevento'),
+       (NULL, 'Cava Manara', 'Pavia'),
+       (NULL, 'Cava de'' Tirreni', 'Salerno'),
+       (NULL, 'Cavaglietto', 'Novara'),
+       (NULL, 'Cavaglio d''Agogna', 'Novara'),
+       (NULL, 'Cavaglià', 'Biella'),
+       (NULL, 'Cavagnolo', 'Torino'),
+       (NULL, 'Cavaion Veronese', 'Verona'),
+       (NULL, 'Cavalese', 'Trento'),
+       (NULL, 'Cavallerleone', 'Cuneo'),
+       (NULL, 'Cavallermaggiore', 'Cuneo'),
+       (NULL, 'Cavallino', 'Lecce'),
+       (NULL, 'Cavallino-Treporti', 'Venezia'),
+       (NULL, 'Cavallirio', 'Novara'),
+       (NULL, 'Cavareno', 'Trento'),
+       (NULL, 'Cavargna', 'Como'),
+       (NULL, 'Cavaria con Premezzo', 'Varese'),
+       (NULL, 'Cavarzere', 'Venezia'),
+       (NULL, 'Cavaso del Tomba', 'Treviso'),
+       (NULL, 'Cavasso Nuovo', 'Pordenone'),
+       (NULL, 'Cavatore', 'Alessandria'),
+       (NULL, 'Cavazzo Carnico', 'Udine'),
+       (NULL, 'Cave', 'Roma'),
+       (NULL, 'Cavedago', 'Trento'),
+       (NULL, 'Cavedine', 'Trento'),
+       (NULL, 'Cavenago d''Adda', 'Lodi'),
+       (NULL, 'Cavenago di Brianza', 'Monza e della Brianza'),
+       (NULL, 'Cavernago', 'Bergamo'),
+       (NULL, 'Cavezzo', 'Modena'),
+       (NULL, 'Cavizzana', 'Trento'),
+       (NULL, 'Cavour', 'Torino'),
+       (NULL, 'Cavriago', 'Reggio nell''Emilia'),
+       (NULL, 'Cavriana', 'Mantova'),
+       (NULL, 'Cavriglia', 'Arezzo'),
+       (NULL, 'Cazzago Brabbia', 'Varese'),
+       (NULL, 'Cazzago San Martino', 'Brescia'),
+       (NULL, 'Cazzano Sant''Andrea', 'Bergamo'),
+       (NULL, 'Cazzano di Tramigna', 'Verona'),
+       (NULL, 'Ceccano', 'Frosinone'),
+       (NULL, 'Cecima', 'Pavia'),
+       (NULL, 'Cecina', 'Livorno'),
+       (NULL, 'Cedegolo', 'Brescia'),
+       (NULL, 'Cedrasco', 'Sondrio'),
+       (NULL, 'Cefalà Diana', 'Palermo'),
+       (NULL, 'Cefalù', 'Palermo'),
+       (NULL, 'Ceggia', 'Venezia'),
+       (NULL, 'Ceglie Messapica', 'Brindisi'),
+       (NULL, 'Celano', 'L''Aquila'),
+       (NULL, 'Celenza Valfortore', 'Foggia'),
+       (NULL, 'Celenza sul Trigno', 'Chieti'),
+       (NULL, 'Celico', 'Cosenza'),
+       (NULL, 'Cella Dati', 'Cremona'),
+       (NULL, 'Cella Monte', 'Alessandria'),
+       (NULL, 'Cellamare', 'Bari'),
+       (NULL, 'Cellara', 'Cosenza'),
+       (NULL, 'Cellarengo', 'Asti'),
+       (NULL, 'Cellatica', 'Brescia'),
+       (NULL, 'Celle Enomondo', 'Asti'),
+       (NULL, 'Celle Ligure', 'Savona'),
+       (NULL, 'Celle di Bulgheria', 'Salerno'),
+       (NULL, 'Celle di Macra', 'Cuneo'),
+       (NULL, 'Celle di San Vito', 'Foggia'),
+       (NULL, 'Celleno', 'Viterbo'),
+       (NULL, 'Cellere', 'Viterbo'),
+       (NULL, 'Cellino Attanasio', 'Teramo'),
+       (NULL, 'Cellino San Marco', 'Brindisi'),
+       (NULL, 'Cellio con Breia', 'Vercelli'),
+       (NULL, 'Cellole', 'Caserta'),
+       (NULL, 'Cembra Lisignago', 'Trento'),
+       (NULL, 'Cenadi', 'Catanzaro'),
+       (NULL, 'Cenate Sopra', 'Bergamo'),
+       (NULL, 'Cenate Sotto', 'Bergamo'),
+       (NULL, 'Cencenighe Agordino', 'Belluno'),
+       (NULL, 'Cene', 'Bergamo'),
+       (NULL, 'Ceneselli', 'Rovigo'),
+       (NULL, 'Cengio', 'Savona'),
+       (NULL, 'Centallo', 'Cuneo'),
+       (NULL, 'Cento', 'Ferrara'),
+       (NULL, 'Centola', 'Salerno'),
+       (NULL, 'Centrache', 'Catanzaro'),
+       (NULL, 'Centro Valle Intelvi', 'Como'),
+       (NULL, 'Centuripe', 'Enna'),
+       (NULL, 'Cepagatti', 'Pescara'),
+       (NULL, 'Ceppaloni', 'Benevento'),
+       (NULL, 'Ceppo Morelli', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Ceprano', 'Frosinone'),
+       (NULL, 'Cerami', 'Enna'),
+       (NULL, 'Ceranesi', 'Genova'),
+       (NULL, 'Cerano', 'Novara'),
+       (NULL, 'Cerano d''Intelvi', 'Como'),
+       (NULL, 'Ceranova', 'Pavia'),
+       (NULL, 'Ceraso', 'Salerno'),
+       (NULL, 'Cercemaggiore', 'Campobasso'),
+       (NULL, 'Cercenasco', 'Torino'),
+       (NULL, 'Cercepiccola', 'Campobasso'),
+       (NULL, 'Cerchiara di Calabria', 'Cosenza'),
+       (NULL, 'Cerchio', 'L''Aquila'),
+       (NULL, 'Cercino', 'Sondrio'),
+       (NULL, 'Cercivento', 'Udine'),
+       (NULL, 'Cercola', 'Napoli'),
+       (NULL, 'Cerda', 'Palermo'),
+       (NULL, 'Cerea', 'Verona'),
+       (NULL, 'Ceregnano', 'Rovigo'),
+       (NULL, 'Cerenzia', 'Crotone'),
+       (NULL, 'Ceres', 'Torino'),
+       (NULL, 'Ceresara', 'Mantova'),
+       (NULL, 'Cereseto', 'Alessandria'),
+       (NULL, 'Ceresole Alba', 'Cuneo'),
+       (NULL, 'Ceresole Reale', 'Torino'),
+       (NULL, 'Cerete', 'Bergamo'),
+       (NULL, 'Ceretto Lomellina', 'Pavia'),
+       (NULL, 'Cergnago', 'Pavia'),
+       (NULL, 'Ceriale', 'Savona'),
+       (NULL, 'Ceriana', 'Imperia'),
+       (NULL, 'Ceriano Laghetto', 'Monza e della Brianza'),
+       (NULL, 'Cerignale', 'Piacenza'),
+       (NULL, 'Cerignola', 'Foggia'),
+       (NULL, 'Cerisano', 'Cosenza'),
+       (NULL, 'Cermenate', 'Como'),
+       (NULL, 'Cermes', 'Bolzano'),
+       (NULL, 'Cermignano', 'Teramo'),
+       (NULL, 'Cernobbio', 'Como'),
+       (NULL, 'Cernusco Lombardone', 'Lecco'),
+       (NULL, 'Cernusco sul Naviglio', 'Milano'),
+       (NULL, 'Cerreto Grue', 'Alessandria'),
+       (NULL, 'Cerreto Guidi', 'Firenze'),
+       (NULL, 'Cerreto Laziale', 'Roma'),
+       (NULL, 'Cerreto Sannita', 'Benevento'),
+       (NULL, 'Cerreto d''Asti', 'Asti'),
+       (NULL, 'Cerreto d''Esi', 'Ancona'),
+       (NULL, 'Cerreto di Spoleto', 'Perugia'),
+       (NULL, 'Cerretto Langhe', 'Cuneo'),
+       (NULL, 'Cerrina Monferrato', 'Alessandria'),
+       (NULL, 'Cerrione', 'Biella'),
+       (NULL, 'Cerro Maggiore', 'Milano'),
+       (NULL, 'Cerro Tanaro', 'Asti'),
+       (NULL, 'Cerro Veronese', 'Verona'),
+       (NULL, 'Cerro al Lambro', 'Milano'),
+       (NULL, 'Cerro al Volturno', 'Isernia'),
+       (NULL, 'Cersosimo', 'Potenza'),
+       (NULL, 'Certaldo', 'Firenze'),
+       (NULL, 'Certosa di Pavia', 'Pavia'),
+       (NULL, 'Cerva', 'Catanzaro'),
+       (NULL, 'Cervara di Roma', 'Roma'),
+       (NULL, 'Cervarese Santa Croce', 'Padova'),
+       (NULL, 'Cervaro', 'Frosinone'),
+       (NULL, 'Cervasca', 'Cuneo'),
+       (NULL, 'Cervatto', 'Vercelli'),
+       (NULL, 'Cerveno', 'Brescia'),
+       (NULL, 'Cervere', 'Cuneo'),
+       (NULL, 'Cervesina', 'Pavia'),
+       (NULL, 'Cerveteri', 'Roma'),
+       (NULL, 'Cervia', 'Ravenna'),
+       (NULL, 'Cervicati', 'Cosenza'),
+       (NULL, 'Cervignano d''Adda', 'Lodi'),
+       (NULL, 'Cervignano del Friuli', 'Udine'),
+       (NULL, 'Cervinara', 'Avellino'),
+       (NULL, 'Cervino', 'Caserta'),
+       (NULL, 'Cervo', 'Imperia'),
+       (NULL, 'Cerzeto', 'Cosenza'),
+       (NULL, 'Cesa', 'Caserta'),
+       (NULL, 'Cesana Brianza', 'Lecco'),
+       (NULL, 'Cesana Torinese', 'Torino'),
+       (NULL, 'Cesano Boscone', 'Milano'),
+       (NULL, 'Cesano Maderno', 'Monza e della Brianza'),
+       (NULL, 'Cesara', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Cesarò', 'Messina'),
+       (NULL, 'Cesate', 'Milano'),
+       (NULL, 'Cesena', 'Forlì-Cesena'),
+       (NULL, 'Cesenatico', 'Forlì-Cesena'),
+       (NULL, 'Cesinali', 'Avellino'),
+       (NULL, 'Cesio', 'Imperia'),
+       (NULL, 'Cesiomaggiore', 'Belluno'),
+       (NULL, 'Cessalto', 'Treviso'),
+       (NULL, 'Cessaniti', 'Vibo Valentia'),
+       (NULL, 'Cessapalombo', 'Macerata'),
+       (NULL, 'Cessole', 'Asti'),
+       (NULL, 'Cetara', 'Salerno'),
+       (NULL, 'Ceto', 'Brescia'),
+       (NULL, 'Cetona', 'Siena'),
+       (NULL, 'Cetraro', 'Cosenza'),
+       (NULL, 'Ceva', 'Cuneo'),
+       (NULL, 'Cevo', 'Brescia'),
+       (NULL, 'Challand-Saint-Anselme', 'Valle d''Aosta'),
+       (NULL, 'Challand-Saint-Victor', 'Valle d''Aosta'),
+       (NULL, 'Chambave', 'Valle d''Aosta'),
+       (NULL, 'Chamois', 'Valle d''Aosta'),
+       (NULL, 'Champdepraz', 'Valle d''Aosta'),
+       (NULL, 'Champorcher', 'Valle d''Aosta'),
+       (NULL, 'Charvensod', 'Valle d''Aosta'),
+       (NULL, 'Cherasco', 'Cuneo'),
+       (NULL, 'Cheremule', 'Sassari'),
+       (NULL, 'Chialamberto', 'Torino'),
+       (NULL, 'Chiampo', 'Vicenza'),
+       (NULL, 'Chianche', 'Avellino'),
+       (NULL, 'Chianciano Terme', 'Siena'),
+       (NULL, 'Chianni', 'Pisa'),
+       (NULL, 'Chianocco', 'Torino'),
+       (NULL, 'Chiaramonte Gulfi', 'Ragusa'),
+       (NULL, 'Chiaramonti', 'Sassari'),
+       (NULL, 'Chiarano', 'Treviso'),
+       (NULL, 'Chiaravalle', 'Ancona'),
+       (NULL, 'Chiaravalle Centrale', 'Catanzaro'),
+       (NULL, 'Chiari', 'Brescia'),
+       (NULL, 'Chiaromonte', 'Potenza'),
+       (NULL, 'Chiauci', 'Isernia'),
+       (NULL, 'Chiavari', 'Genova'),
+       (NULL, 'Chiavenna', 'Sondrio'),
+       (NULL, 'Chiaverano', 'Torino'),
+       (NULL, 'Chienes', 'Bolzano'),
+       (NULL, 'Chieri', 'Torino'),
+       (NULL, 'Chies d''Alpago', 'Belluno'),
+       (NULL, 'Chiesa in Valmalenco', 'Sondrio'),
+       (NULL, 'Chiesanuova', 'Torino'),
+       (NULL, 'Chiesina Uzzanese', 'Pistoia'),
+       (NULL, 'Chieti', 'Chieti'),
+       (NULL, 'Chieuti', 'Foggia'),
+       (NULL, 'Chieve', 'Cremona'),
+       (NULL, 'Chignolo Po', 'Pavia'),
+       (NULL, 'Chignolo d''Isola', 'Bergamo'),
+       (NULL, 'Chioggia', 'Venezia'),
+       (NULL, 'Chiomonte', 'Torino'),
+       (NULL, 'Chions', 'Pordenone'),
+       (NULL, 'Chiopris-Viscone', 'Udine'),
+       (NULL, 'Chitignano', 'Arezzo'),
+       (NULL, 'Chiuduno', 'Bergamo'),
+       (NULL, 'Chiuppano', 'Vicenza'),
+       (NULL, 'Chiuro', 'Sondrio'),
+       (NULL, 'Chiusa', 'Bolzano'),
+       (NULL, 'Chiusa Sclafani', 'Palermo'),
+       (NULL, 'Chiusa di Pesio', 'Cuneo'),
+       (NULL, 'Chiusa di San Michele', 'Torino'),
+       (NULL, 'Chiusaforte', 'Udine'),
+       (NULL, 'Chiusanico', 'Imperia'),
+       (NULL, 'Chiusano d''Asti', 'Asti'),
+       (NULL, 'Chiusano di San Domenico', 'Avellino'),
+       (NULL, 'Chiusavecchia', 'Imperia'),
+       (NULL, 'Chiusdino', 'Siena'),
+       (NULL, 'Chiusi', 'Siena'),
+       (NULL, 'Chiusi della Verna', 'Arezzo'),
+       (NULL, 'Chivasso', 'Torino'),
+       (NULL, 'Châtillon', 'Valle d''Aosta'),
+       (NULL, 'Ciampino', 'Roma'),
+       (NULL, 'Cianciana', 'Agrigento'),
+       (NULL, 'Cibiana di Cadore', 'Belluno'),
+       (NULL, 'Cicagna', 'Genova'),
+       (NULL, 'Cicala', 'Catanzaro'),
+       (NULL, 'Cicciano', 'Napoli'),
+       (NULL, 'Cicerale', 'Salerno'),
+       (NULL, 'Ciciliano', 'Roma'),
+       (NULL, 'Cicognolo', 'Cremona'),
+       (NULL, 'Ciconio', 'Torino'),
+       (NULL, 'Cigliano', 'Vercelli'),
+       (NULL, 'Cigliè', 'Cuneo'),
+       (NULL, 'Cigognola', 'Pavia'),
+       (NULL, 'Cigole', 'Brescia'),
+       (NULL, 'Cilavegna', 'Pavia'),
+       (NULL, 'Cimadolmo', 'Treviso'),
+       (NULL, 'Cimbergo', 'Brescia'),
+       (NULL, 'Ciminna', 'Palermo'),
+       (NULL, 'Ciminà', 'Reggio Calabria'),
+       (NULL, 'Cimitile', 'Napoli'),
+       (NULL, 'Cimolais', 'Pordenone'),
+       (NULL, 'Cimone', 'Trento'),
+       (NULL, 'Cinaglio', 'Asti'),
+       (NULL, 'Cineto Romano', 'Roma'),
+       (NULL, 'Cingia de'' Botti', 'Cremona'),
+       (NULL, 'Cingoli', 'Macerata'),
+       (NULL, 'Cinigiano', 'Grosseto'),
+       (NULL, 'Cinisello Balsamo', 'Milano'),
+       (NULL, 'Cinisi', 'Palermo'),
+       (NULL, 'Cino', 'Sondrio'),
+       (NULL, 'Cinquefrondi', 'Reggio Calabria'),
+       (NULL, 'Cintano', 'Torino'),
+       (NULL, 'Cinte Tesino', 'Trento'),
+       (NULL, 'Cinto Caomaggiore', 'Venezia'),
+       (NULL, 'Cinto Euganeo', 'Padova'),
+       (NULL, 'Cinzano', 'Torino'),
+       (NULL, 'Ciorlano', 'Caserta'),
+       (NULL, 'Cipressa', 'Imperia'),
+       (NULL, 'Circello', 'Benevento'),
+       (NULL, 'Cirigliano', 'Matera'),
+       (NULL, 'Cirimido', 'Como'),
+       (NULL, 'Ciriè', 'Torino'),
+       (NULL, 'Cirò', 'Crotone'),
+       (NULL, 'Cirò Marina', 'Crotone'),
+       (NULL, 'Cis', 'Trento'),
+       (NULL, 'Cisano Bergamasco', 'Bergamo'),
+       (NULL, 'Cisano sul Neva', 'Savona'),
+       (NULL, 'Ciserano', 'Bergamo'),
+       (NULL, 'Cislago', 'Varese'),
+       (NULL, 'Cisliano', 'Milano'),
+       (NULL, 'Cison di Valmarino', 'Treviso'),
+       (NULL, 'Cissone', 'Cuneo'),
+       (NULL, 'Cisterna d''Asti', 'Asti'),
+       (NULL, 'Cisterna di Latina', 'Latina'),
+       (NULL, 'Cisternino', 'Brindisi'),
+       (NULL, 'Citerna', 'Perugia'),
+       (NULL, 'Cittadella', 'Padova'),
+       (NULL, 'Cittaducale', 'Rieti'),
+       (NULL, 'Cittanova', 'Reggio Calabria'),
+       (NULL, 'Cittareale', 'Rieti'),
+       (NULL, 'Cittiglio', 'Varese'),
+       (NULL, 'Città Sant''Angelo', 'Pescara'),
+       (NULL, 'Città della Pieve', 'Perugia'),
+       (NULL, 'Città di Castello', 'Perugia'),
+       (NULL, 'Civate', 'Lecco'),
+       (NULL, 'Civezza', 'Imperia'),
+       (NULL, 'Civezzano', 'Trento'),
+       (NULL, 'Civiasco', 'Vercelli'),
+       (NULL, 'Cividale del Friuli', 'Udine'),
+       (NULL, 'Cividate Camuno', 'Brescia'),
+       (NULL, 'Cividate al Piano', 'Bergamo'),
+       (NULL, 'Civita', 'Cosenza'),
+       (NULL, 'Civita Castellana', 'Viterbo'),
+       (NULL, 'Civita d''Antino', 'L''Aquila'),
+       (NULL, 'Civitacampomarano', 'Campobasso'),
+       (NULL, 'Civitaluparella', 'Chieti'),
+       (NULL, 'Civitanova Marche', 'Macerata'),
+       (NULL, 'Civitanova del Sannio', 'Isernia'),
+       (NULL, 'Civitaquana', 'Pescara'),
+       (NULL, 'Civitavecchia', 'Roma'),
+       (NULL, 'Civitella Alfedena', 'L''Aquila'),
+       (NULL, 'Civitella Casanova', 'Pescara'),
+       (NULL, 'Civitella Messer Raimondo', 'Chieti'),
+       (NULL, 'Civitella Paganico', 'Grosseto'),
+       (NULL, 'Civitella Roveto', 'L''Aquila'),
+       (NULL, 'Civitella San Paolo', 'Roma'),
+       (NULL, 'Civitella d''Agliano', 'Viterbo'),
+       (NULL, 'Civitella del Tronto', 'Teramo'),
+       (NULL, 'Civitella di Romagna', 'Forlì-Cesena'),
+       (NULL, 'Civitella in Val di Chiana', 'Arezzo'),
+       (NULL, 'Civo', 'Sondrio'),
+       (NULL, 'Claino con Osteno', 'Como'),
+       (NULL, 'Claut', 'Pordenone'),
+       (NULL, 'Clauzetto', 'Pordenone'),
+       (NULL, 'Clavesana', 'Cuneo'),
+       (NULL, 'Claviere', 'Torino'),
+       (NULL, 'Cles', 'Trento'),
+       (NULL, 'Cleto', 'Cosenza'),
+       (NULL, 'Clivio', 'Varese'),
+       (NULL, 'Clusone', 'Bergamo'),
+       (NULL, 'Coassolo Torinese', 'Torino'),
+       (NULL, 'Coazze', 'Torino'),
+       (NULL, 'Coazzolo', 'Asti'),
+       (NULL, 'Coccaglio', 'Brescia'),
+       (NULL, 'Cocconato', 'Asti'),
+       (NULL, 'Cocquio-Trevisago', 'Varese'),
+       (NULL, 'Cocullo', 'L''Aquila'),
+       (NULL, 'Codevigo', 'Padova'),
+       (NULL, 'Codevilla', 'Pavia'),
+       (NULL, 'Codigoro', 'Ferrara'),
+       (NULL, 'Codogno', 'Lodi'),
+       (NULL, 'Codognè', 'Treviso'),
+       (NULL, 'Codroipo', 'Udine'),
+       (NULL, 'Codrongianos', 'Sassari'),
+       (NULL, 'Coggiola', 'Biella'),
+       (NULL, 'Cogliate', 'Monza e della Brianza'),
+       (NULL, 'Cogne', 'Valle d''Aosta'),
+       (NULL, 'Cogoleto', 'Genova'),
+       (NULL, 'Cogollo del Cengio', 'Vicenza'),
+       (NULL, 'Cogorno', 'Genova'),
+       (NULL, 'Colazza', 'Novara'),
+       (NULL, 'Colceresa', 'Vicenza'),
+       (NULL, 'Colere', 'Bergamo'),
+       (NULL, 'Colfelice', 'Frosinone'),
+       (NULL, 'Coli', 'Piacenza'),
+       (NULL, 'Colico', 'Lecco'),
+       (NULL, 'Collalto Sabino', 'Rieti'),
+       (NULL, 'Collarmele', 'L''Aquila'),
+       (NULL, 'Collazzone', 'Perugia'),
+       (NULL, 'Colle Brianza', 'Lecco'),
+       (NULL, 'Colle San Magno', 'Frosinone'),
+       (NULL, 'Colle Sannita', 'Benevento'),
+       (NULL, 'Colle Santa Lucia', 'Belluno'),
+       (NULL, 'Colle Umberto', 'Treviso'),
+       (NULL, 'Colle d''Anchise', 'Campobasso'),
+       (NULL, 'Colle di Tora', 'Rieti'),
+       (NULL, 'Colle di Val d''Elsa', 'Siena'),
+       (NULL, 'Collebeato', 'Brescia'),
+       (NULL, 'Collecchio', 'Parma'),
+       (NULL, 'Collecorvino', 'Pescara'),
+       (NULL, 'Colledara', 'Teramo'),
+       (NULL, 'Colledimacine', 'Chieti'),
+       (NULL, 'Colledimezzo', 'Chieti'),
+       (NULL, 'Colleferro', 'Roma'),
+       (NULL, 'Collegiove', 'Rieti'),
+       (NULL, 'Collegno', 'Torino'),
+       (NULL, 'Collelongo', 'L''Aquila'),
+       (NULL, 'Collepardo', 'Frosinone'),
+       (NULL, 'Collepasso', 'Lecce'),
+       (NULL, 'Collepietro', 'L''Aquila'),
+       (NULL, 'Colleretto Castelnuovo', 'Torino'),
+       (NULL, 'Colleretto Giacosa', 'Torino'),
+       (NULL, 'Collesalvetti', 'Livorno'),
+       (NULL, 'Collesano', 'Palermo'),
+       (NULL, 'Colletorto', 'Campobasso'),
+       (NULL, 'Collevecchio', 'Rieti'),
+       (NULL, 'Colli Verdi', 'Pavia'),
+       (NULL, 'Colli a Volturno', 'Isernia'),
+       (NULL, 'Colli al Metauro', 'Pesaro e Urbino'),
+       (NULL, 'Colli del Tronto', 'Ascoli Piceno'),
+       (NULL, 'Colli sul Velino', 'Rieti'),
+       (NULL, 'Colliano', 'Salerno'),
+       (NULL, 'Collinas', 'Sud Sardegna'),
+       (NULL, 'Collio', 'Brescia'),
+       (NULL, 'Collobiano', 'Vercelli'),
+       (NULL, 'Colloredo di Monte Albano', 'Udine'),
+       (NULL, 'Colmurano', 'Macerata'),
+       (NULL, 'Colobraro', 'Matera'),
+       (NULL, 'Cologna Veneta', 'Verona'),
+       (NULL, 'Cologne', 'Brescia'),
+       (NULL, 'Cologno Monzese', 'Milano'),
+       (NULL, 'Cologno al Serio', 'Bergamo'),
+       (NULL, 'Colognola ai Colli', 'Verona'),
+       (NULL, 'Colonna', 'Roma'),
+       (NULL, 'Colonnella', 'Teramo'),
+       (NULL, 'Colonno', 'Como'),
+       (NULL, 'Colorina', 'Sondrio'),
+       (NULL, 'Colorno', 'Parma'),
+       (NULL, 'Colosimi', 'Cosenza'),
+       (NULL, 'Colturano', 'Milano'),
+       (NULL, 'Colverde', 'Como'),
+       (NULL, 'Colzate', 'Bergamo'),
+       (NULL, 'Comabbio', 'Varese'),
+       (NULL, 'Comacchio', 'Ferrara'),
+       (NULL, 'Comano', 'Massa-Carrara'),
+       (NULL, 'Comano Terme', 'Trento'),
+       (NULL, 'Comazzo', 'Lodi'),
+       (NULL, 'Comeglians', 'Udine'),
+       (NULL, 'Comelico Superiore', 'Belluno'),
+       (NULL, 'Comerio', 'Varese'),
+       (NULL, 'Comezzano-Cizzago', 'Brescia'),
+       (NULL, 'Comignago', 'Novara'),
+       (NULL, 'Comiso', 'Ragusa'),
+       (NULL, 'Comitini', 'Agrigento'),
+       (NULL, 'Comiziano', 'Napoli'),
+       (NULL, 'Commessaggio', 'Mantova'),
+       (NULL, 'Commezzadura', 'Trento'),
+       (NULL, 'Como', 'Como'),
+       (NULL, 'Compiano', 'Parma'),
+       (NULL, 'Comun Nuovo', 'Bergamo'),
+       (NULL, 'Comunanza', 'Ascoli Piceno'),
+       (NULL, 'Cona', 'Venezia'),
+       (NULL, 'Conca Casale', 'Isernia'),
+       (NULL, 'Conca dei Marini', 'Salerno'),
+       (NULL, 'Conca della Campania', 'Caserta'),
+       (NULL, 'Concamarise', 'Verona'),
+       (NULL, 'Concerviano', 'Rieti'),
+       (NULL, 'Concesio', 'Brescia'),
+       (NULL, 'Concordia Sagittaria', 'Venezia'),
+       (NULL, 'Concordia sulla Secchia', 'Modena'),
+       (NULL, 'Concorezzo', 'Monza e della Brianza'),
+       (NULL, 'Condofuri', 'Reggio Calabria'),
+       (NULL, 'Condove', 'Torino'),
+       (NULL, 'Condrò', 'Messina'),
+       (NULL, 'Conegliano', 'Treviso'),
+       (NULL, 'Confienza', 'Pavia'),
+       (NULL, 'Configni', 'Rieti'),
+       (NULL, 'Conflenti', 'Catanzaro'),
+       (NULL, 'Coniolo', 'Alessandria'),
+       (NULL, 'Conselice', 'Ravenna'),
+       (NULL, 'Conselve', 'Padova'),
+       (NULL, 'Contessa Entellina', 'Palermo'),
+       (NULL, 'Contigliano', 'Rieti'),
+       (NULL, 'Contrada', 'Avellino'),
+       (NULL, 'Controguerra', 'Teramo'),
+       (NULL, 'Controne', 'Salerno'),
+       (NULL, 'Contursi Terme', 'Salerno'),
+       (NULL, 'Contà', 'Trento'),
+       (NULL, 'Conversano', 'Bari'),
+       (NULL, 'Conza della Campania', 'Avellino'),
+       (NULL, 'Conzano', 'Alessandria'),
+       (NULL, 'Copertino', 'Lecce'),
+       (NULL, 'Copiano', 'Pavia'),
+       (NULL, 'Copparo', 'Ferrara'),
+       (NULL, 'Corana', 'Pavia'),
+       (NULL, 'Corato', 'Bari'),
+       (NULL, 'Corbara', 'Salerno'),
+       (NULL, 'Corbetta', 'Milano'),
+       (NULL, 'Corbola', 'Rovigo'),
+       (NULL, 'Corchiano', 'Viterbo'),
+       (NULL, 'Corciano', 'Perugia'),
+       (NULL, 'Cordenons', 'Pordenone'),
+       (NULL, 'Cordignano', 'Treviso'),
+       (NULL, 'Cordovado', 'Pordenone'),
+       (NULL, 'Coreglia Antelminelli', 'Lucca'),
+       (NULL, 'Coreglia Ligure', 'Genova'),
+       (NULL, 'Coreno Ausonio', 'Frosinone'),
+       (NULL, 'Corfinio', 'L''Aquila'),
+       (NULL, 'Cori', 'Latina'),
+       (NULL, 'Coriano', 'Rimini'),
+       (NULL, 'Corigliano d''Otranto', 'Lecce'),
+       (NULL, 'Corigliano-Rossano', 'Cosenza'),
+       (NULL, 'Corinaldo', 'Ancona'),
+       (NULL, 'Corio', 'Torino'),
+       (NULL, 'Corleone', 'Palermo'),
+       (NULL, 'Corleto Monforte', 'Salerno'),
+       (NULL, 'Corleto Perticara', 'Potenza'),
+       (NULL, 'Cormano', 'Milano'),
+       (NULL, 'Cormons', 'Gorizia'),
+       (NULL, 'Corna Imagna', 'Bergamo'),
+       (NULL, 'Cornalba', 'Bergamo'),
+       (NULL, 'Cornale e Bastida', 'Pavia'),
+       (NULL, 'Cornaredo', 'Milano'),
+       (NULL, 'Cornate d''Adda', 'Monza e della Brianza'),
+       (NULL, 'Cornedo Vicentino', 'Vicenza'),
+       (NULL, 'Cornedo all''Isarco', 'Bolzano'),
+       (NULL, 'Cornegliano Laudense', 'Lodi'),
+       (NULL, 'Corneliano d''Alba', 'Cuneo'),
+       (NULL, 'Corniglio', 'Parma'),
+       (NULL, 'Corno Giovine', 'Lodi'),
+       (NULL, 'Corno di Rosazzo', 'Udine'),
+       (NULL, 'Cornovecchio', 'Lodi'),
+       (NULL, 'Cornuda', 'Treviso'),
+       (NULL, 'Correggio', 'Reggio nell''Emilia'),
+       (NULL, 'Correzzana', 'Monza e della Brianza'),
+       (NULL, 'Correzzola', 'Padova'),
+       (NULL, 'Corrido', 'Como'),
+       (NULL, 'Corridonia', 'Macerata'),
+       (NULL, 'Corropoli', 'Teramo'),
+       (NULL, 'Corsano', 'Lecce'),
+       (NULL, 'Corsico', 'Milano'),
+       (NULL, 'Corsione', 'Asti'),
+       (NULL, 'Cortaccia sulla strada del vino', 'Bolzano'),
+       (NULL, 'Cortale', 'Catanzaro'),
+       (NULL, 'Cortandone', 'Asti'),
+       (NULL, 'Cortanze', 'Asti'),
+       (NULL, 'Cortazzone', 'Asti'),
+       (NULL, 'Corte Brugnatella', 'Piacenza'),
+       (NULL, 'Corte Franca', 'Brescia'),
+       (NULL, 'Corte Palasio', 'Lodi'),
+       (NULL, 'Corte de'' Cortesi con Cignone', 'Cremona'),
+       (NULL, 'Corte de'' Frati', 'Cremona'),
+       (NULL, 'Cortemaggiore', 'Piacenza'),
+       (NULL, 'Cortemilia', 'Cuneo'),
+       (NULL, 'Corteno Golgi', 'Brescia'),
+       (NULL, 'Cortenova', 'Lecco'),
+       (NULL, 'Cortenuova', 'Bergamo'),
+       (NULL, 'Corteolona e Genzone', 'Pavia'),
+       (NULL, 'Cortiglione', 'Asti'),
+       (NULL, 'Cortina d''Ampezzo', 'Belluno'),
+       (NULL, 'Cortina sulla strada del vino', 'Bolzano'),
+       (NULL, 'Cortino', 'Teramo'),
+       (NULL, 'Cortona', 'Arezzo'),
+       (NULL, 'Corvara', 'Pescara'),
+       (NULL, 'Corvara in Badia', 'Bolzano'),
+       (NULL, 'Corvino San Quirico', 'Pavia'),
+       (NULL, 'Corzano', 'Brescia'),
+       (NULL, 'Coseano', 'Udine'),
+       (NULL, 'Cosenza', 'Cosenza'),
+       (NULL, 'Cosio Valtellino', 'Sondrio'),
+       (NULL, 'Cosio d''Arroscia', 'Imperia'),
+       (NULL, 'Cosoleto', 'Reggio Calabria'),
+       (NULL, 'Cossano Belbo', 'Cuneo'),
+       (NULL, 'Cossano Canavese', 'Torino'),
+       (NULL, 'Cossato', 'Biella'),
+       (NULL, 'Cosseria', 'Savona'),
+       (NULL, 'Cossignano', 'Ascoli Piceno'),
+       (NULL, 'Cossogno', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Cossoine', 'Sassari'),
+       (NULL, 'Cossombrato', 'Asti'),
+       (NULL, 'Costa Masnaga', 'Lecco'),
+       (NULL, 'Costa Serina', 'Bergamo'),
+       (NULL, 'Costa Valle Imagna', 'Bergamo'),
+       (NULL, 'Costa Vescovato', 'Alessandria'),
+       (NULL, 'Costa Volpino', 'Bergamo'),
+       (NULL, 'Costa de'' Nobili', 'Pavia'),
+       (NULL, 'Costa di Mezzate', 'Bergamo'),
+       (NULL, 'Costa di Rovigo', 'Rovigo'),
+       (NULL, 'Costabissara', 'Vicenza'),
+       (NULL, 'Costacciaro', 'Perugia'),
+       (NULL, 'Costanzana', 'Vercelli'),
+       (NULL, 'Costarainera', 'Imperia'),
+       (NULL, 'Costermano sul Garda', 'Verona'),
+       (NULL, 'Costigliole Saluzzo', 'Cuneo'),
+       (NULL, 'Costigliole d''Asti', 'Asti'),
+       (NULL, 'Cotignola', 'Ravenna'),
+       (NULL, 'Cotronei', 'Crotone'),
+       (NULL, 'Cottanello', 'Rieti'),
+       (NULL, 'Courmayeur', 'Valle d''Aosta'),
+       (NULL, 'Covo', 'Bergamo'),
+       (NULL, 'Cozzo', 'Pavia'),
+       (NULL, 'Craco', 'Matera'),
+       (NULL, 'Crandola Valsassina', 'Lecco'),
+       (NULL, 'Cravagliana', 'Vercelli'),
+       (NULL, 'Cravanzana', 'Cuneo'),
+       (NULL, 'Craveggia', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Creazzo', 'Vicenza'),
+       (NULL, 'Crecchio', 'Chieti'),
+       (NULL, 'Credaro', 'Bergamo'),
+       (NULL, 'Credera Rubbiano', 'Cremona'),
+       (NULL, 'Crema', 'Cremona'),
+       (NULL, 'Cremella', 'Lecco'),
+       (NULL, 'Cremenaga', 'Varese'),
+       (NULL, 'Cremeno', 'Lecco'),
+       (NULL, 'Cremia', 'Como'),
+       (NULL, 'Cremolino', 'Alessandria'),
+       (NULL, 'Cremona', 'Cremona'),
+       (NULL, 'Cremosano', 'Cremona'),
+       (NULL, 'Crescentino', 'Vercelli'),
+       (NULL, 'Crespadoro', 'Vicenza'),
+       (NULL, 'Crespiatica', 'Lodi'),
+       (NULL, 'Crespina Lorenzana', 'Pisa'),
+       (NULL, 'Crespino', 'Rovigo'),
+       (NULL, 'Cressa', 'Novara'),
+       (NULL, 'Crevacuore', 'Biella'),
+       (NULL, 'Crevalcore', 'Bologna'),
+       (NULL, 'Crevoladossola', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Crispano', 'Napoli'),
+       (NULL, 'Crispiano', 'Taranto'),
+       (NULL, 'Crissolo', 'Cuneo'),
+       (NULL, 'Crocefieschi', 'Genova'),
+       (NULL, 'Crocetta del Montello', 'Treviso'),
+       (NULL, 'Crodo', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Crognaleto', 'Teramo'),
+       (NULL, 'Cropalati', 'Cosenza'),
+       (NULL, 'Cropani', 'Catanzaro'),
+       (NULL, 'Crosia', 'Cosenza'),
+       (NULL, 'Crosio della Valle', 'Varese'),
+       (NULL, 'Crotone', 'Crotone'),
+       (NULL, 'Crotta d''Adda', 'Cremona'),
+       (NULL, 'Crova', 'Vercelli'),
+       (NULL, 'Croviana', 'Trento'),
+       (NULL, 'Crucoli', 'Crotone'),
+       (NULL, 'Cuasso al Monte', 'Varese'),
+       (NULL, 'Cuccaro Vetere', 'Salerno'),
+       (NULL, 'Cucciago', 'Como'),
+       (NULL, 'Cuceglio', 'Torino'),
+       (NULL, 'Cuggiono', 'Milano'),
+       (NULL, 'Cugliate-Fabiasco', 'Varese'),
+       (NULL, 'Cuglieri', 'Oristano'),
+       (NULL, 'Cugnoli', 'Pescara'),
+       (NULL, 'Cumiana', 'Torino'),
+       (NULL, 'Cumignano sul Naviglio', 'Cremona'),
+       (NULL, 'Cunardo', 'Varese'),
+       (NULL, 'Cuneo', 'Cuneo'),
+       (NULL, 'Cunico', 'Asti'),
+       (NULL, 'Cuorgnè', 'Torino'),
+       (NULL, 'Cupello', 'Chieti'),
+       (NULL, 'Cupra Marittima', 'Ascoli Piceno'),
+       (NULL, 'Cupramontana', 'Ancona'),
+       (NULL, 'Cura Carpignano', 'Pavia'),
+       (NULL, 'Curcuris', 'Oristano'),
+       (NULL, 'Cureggio', 'Novara'),
+       (NULL, 'Curiglia con Monteviasco', 'Varese'),
+       (NULL, 'Curinga', 'Catanzaro'),
+       (NULL, 'Curino', 'Biella'),
+       (NULL, 'Curno', 'Bergamo'),
+       (NULL, 'Curon Venosta', 'Bolzano'),
+       (NULL, 'Cursi', 'Lecce'),
+       (NULL, 'Curtarolo', 'Padova'),
+       (NULL, 'Curtatone', 'Mantova'),
+       (NULL, 'Curti', 'Caserta'),
+       (NULL, 'Cusago', 'Milano'),
+       (NULL, 'Cusano Milanino', 'Milano'),
+       (NULL, 'Cusano Mutri', 'Benevento'),
+       (NULL, 'Cusino', 'Como'),
+       (NULL, 'Cusio', 'Bergamo'),
+       (NULL, 'Custonaci', 'Trapani'),
+       (NULL, 'Cutro', 'Crotone'),
+       (NULL, 'Cutrofiano', 'Lecce'),
+       (NULL, 'Cuveglio', 'Varese'),
+       (NULL, 'Cuvio', 'Varese'),
+       (NULL, 'Dairago', 'Milano'),
+       (NULL, 'Dalmine', 'Bergamo'),
+       (NULL, 'Dambel', 'Trento'),
+       (NULL, 'Danta di Cadore', 'Belluno'),
+       (NULL, 'Darfo Boario Terme', 'Brescia'),
+       (NULL, 'Dasà', 'Vibo Valentia'),
+       (NULL, 'Davagna', 'Genova'),
+       (NULL, 'Daverio', 'Varese'),
+       (NULL, 'Davoli', 'Catanzaro'),
+       (NULL, 'Dazio', 'Sondrio'),
+       (NULL, 'Decimomannu', 'Cagliari'),
+       (NULL, 'Decimoputzu', 'Sud Sardegna'),
+       (NULL, 'Decollatura', 'Catanzaro'),
+       (NULL, 'Dego', 'Savona'),
+       (NULL, 'Deiva Marina', 'La Spezia'),
+       (NULL, 'Delebio', 'Sondrio'),
+       (NULL, 'Delia', 'Caltanissetta'),
+       (NULL, 'Delianuova', 'Reggio Calabria'),
+       (NULL, 'Deliceto', 'Foggia'),
+       (NULL, 'Dello', 'Brescia'),
+       (NULL, 'Demonte', 'Cuneo'),
+       (NULL, 'Denice', 'Alessandria'),
+       (NULL, 'Denno', 'Trento'),
+       (NULL, 'Dernice', 'Alessandria'),
+       (NULL, 'Derovere', 'Cremona'),
+       (NULL, 'Deruta', 'Perugia'),
+       (NULL, 'Dervio', 'Lecco'),
+       (NULL, 'Desana', 'Vercelli'),
+       (NULL, 'Desenzano del Garda', 'Brescia'),
+       (NULL, 'Desio', 'Monza e della Brianza'),
+       (NULL, 'Desulo', 'Nuoro'),
+       (NULL, 'Diamante', 'Cosenza'),
+       (NULL, 'Diano Arentino', 'Imperia'),
+       (NULL, 'Diano Castello', 'Imperia'),
+       (NULL, 'Diano Marina', 'Imperia'),
+       (NULL, 'Diano San Pietro', 'Imperia'),
+       (NULL, 'Diano d''Alba', 'Cuneo'),
+       (NULL, 'Dicomano', 'Firenze'),
+       (NULL, 'Dignano', 'Udine'),
+       (NULL, 'Dimaro Folgarida', 'Trento'),
+       (NULL, 'Dinami', 'Vibo Valentia'),
+       (NULL, 'Dipignano', 'Cosenza'),
+       (NULL, 'Diso', 'Lecce'),
+       (NULL, 'Divignano', 'Novara'),
+       (NULL, 'Dizzasco', 'Como'),
+       (NULL, 'Dobbiaco', 'Bolzano'),
+       (NULL, 'Doberdò del Lago-Doberdob', 'Gorizia'),
+       (NULL, 'Dogliani', 'Cuneo'),
+       (NULL, 'Dogliola', 'Chieti'),
+       (NULL, 'Dogna', 'Udine'),
+       (NULL, 'Dolceacqua', 'Imperia'),
+       (NULL, 'Dolcedo', 'Imperia'),
+       (NULL, 'Dolcè', 'Verona'),
+       (NULL, 'Dolegna del Collio', 'Gorizia'),
+       (NULL, 'Dolianova', 'Sud Sardegna'),
+       (NULL, 'Dolo', 'Venezia'),
+       (NULL, 'Dolzago', 'Lecco'),
+       (NULL, 'Domanico', 'Cosenza'),
+       (NULL, 'Domaso', 'Como'),
+       (NULL, 'Domegge di Cadore', 'Belluno'),
+       (NULL, 'Domicella', 'Avellino'),
+       (NULL, 'Domodossola', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Domus de Maria', 'Sud Sardegna'),
+       (NULL, 'Domusnovas', 'Sud Sardegna'),
+       (NULL, 'Donato', 'Biella'),
+       (NULL, 'Dongo', 'Como'),
+       (NULL, 'Donnas', 'Valle d''Aosta'),
+       (NULL, 'Donori', 'Sud Sardegna'),
+       (NULL, 'Dorgali', 'Nuoro'),
+       (NULL, 'Dorio', 'Lecco'),
+       (NULL, 'Dormelletto', 'Novara'),
+       (NULL, 'Dorno', 'Pavia'),
+       (NULL, 'Dorzano', 'Biella'),
+       (NULL, 'Dosolo', 'Mantova'),
+       (NULL, 'Dossena', 'Bergamo'),
+       (NULL, 'Dosso del Liro', 'Como'),
+       (NULL, 'Doues', 'Valle d''Aosta'),
+       (NULL, 'Dovadola', 'Forlì-Cesena'),
+       (NULL, 'Dovera', 'Cremona'),
+       (NULL, 'Dozza', 'Bologna'),
+       (NULL, 'Dragoni', 'Caserta'),
+       (NULL, 'Drapia', 'Vibo Valentia'),
+       (NULL, 'Drena', 'Trento'),
+       (NULL, 'Drenchia', 'Udine'),
+       (NULL, 'Dresano', 'Milano'),
+       (NULL, 'Dro', 'Trento'),
+       (NULL, 'Dronero', 'Cuneo'),
+       (NULL, 'Druento', 'Torino'),
+       (NULL, 'Druogno', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Dualchi', 'Nuoro'),
+       (NULL, 'Dubino', 'Sondrio'),
+       (NULL, 'Due Carrare', 'Padova'),
+       (NULL, 'Dueville', 'Vicenza'),
+       (NULL, 'Dugenta', 'Benevento'),
+       (NULL, 'Duino Aurisina-Devin Nabrežina', 'Trieste'),
+       (NULL, 'Dumenza', 'Varese'),
+       (NULL, 'Duno', 'Varese'),
+       (NULL, 'Durazzano', 'Benevento'),
+       (NULL, 'Duronia', 'Campobasso'),
+       (NULL, 'Dusino San Michele', 'Asti'),
+       (NULL, 'Eboli', 'Salerno'),
+       (NULL, 'Edolo', 'Brescia'),
+       (NULL, 'Egna', 'Bolzano'),
+       (NULL, 'Elice', 'Pescara'),
+       (NULL, 'Elini', 'Nuoro'),
+       (NULL, 'Ello', 'Lecco'),
+       (NULL, 'Elmas', 'Cagliari'),
+       (NULL, 'Elva', 'Cuneo'),
+       (NULL, 'Emarèse', 'Valle d''Aosta'),
+       (NULL, 'Empoli', 'Firenze'),
+       (NULL, 'Endine Gaiano', 'Bergamo'),
+       (NULL, 'Enego', 'Vicenza'),
+       (NULL, 'Enemonzo', 'Udine'),
+       (NULL, 'Enna', 'Enna'),
+       (NULL, 'Entracque', 'Cuneo'),
+       (NULL, 'Entratico', 'Bergamo'),
+       (NULL, 'Envie', 'Cuneo'),
+       (NULL, 'Episcopia', 'Potenza'),
+       (NULL, 'Eraclea', 'Venezia'),
+       (NULL, 'Erba', 'Como'),
+       (NULL, 'Erbezzo', 'Verona'),
+       (NULL, 'Erbusco', 'Brescia'),
+       (NULL, 'Erbè', 'Verona'),
+       (NULL, 'Erchie', 'Brindisi'),
+       (NULL, 'Ercolano', 'Napoli'),
+       (NULL, 'Erice', 'Trapani'),
+       (NULL, 'Erli', 'Savona'),
+       (NULL, 'Erto e Casso', 'Pordenone'),
+       (NULL, 'Erula', 'Sassari'),
+       (NULL, 'Erve', 'Lecco'),
+       (NULL, 'Esanatoglia', 'Macerata'),
+       (NULL, 'Escalaplano', 'Sud Sardegna'),
+       (NULL, 'Escolca', 'Sud Sardegna'),
+       (NULL, 'Esine', 'Brescia'),
+       (NULL, 'Esino Lario', 'Lecco'),
+       (NULL, 'Esperia', 'Frosinone'),
+       (NULL, 'Esporlatu', 'Sassari'),
+       (NULL, 'Este', 'Padova'),
+       (NULL, 'Esterzili', 'Sud Sardegna'),
+       (NULL, 'Etroubles', 'Valle d''Aosta'),
+       (NULL, 'Eupilio', 'Como'),
+       (NULL, 'Exilles', 'Torino'),
+       (NULL, 'Fabbrica Curone', 'Alessandria'),
+       (NULL, 'Fabbriche di Vergemoli', 'Lucca'),
+       (NULL, 'Fabbrico', 'Reggio nell''Emilia'),
+       (NULL, 'Fabriano', 'Ancona'),
+       (NULL, 'Fabrica di Roma', 'Viterbo'),
+       (NULL, 'Fabrizia', 'Vibo Valentia'),
+       (NULL, 'Fabro', 'Terni'),
+       (NULL, 'Faedis', 'Udine'),
+       (NULL, 'Faedo Valtellino', 'Sondrio'),
+       (NULL, 'Faenza', 'Ravenna'),
+       (NULL, 'Faeto', 'Foggia'),
+       (NULL, 'Fagagna', 'Udine'),
+       (NULL, 'Faggeto Lario', 'Como'),
+       (NULL, 'Faggiano', 'Taranto'),
+       (NULL, 'Fagnano Alto', 'L''Aquila'),
+       (NULL, 'Fagnano Castello', 'Cosenza'),
+       (NULL, 'Fagnano Olona', 'Varese'),
+       (NULL, 'Fai della Paganella', 'Trento'),
+       (NULL, 'Faicchio', 'Benevento'),
+       (NULL, 'Falcade', 'Belluno'),
+       (NULL, 'Falciano del Massico', 'Caserta'),
+       (NULL, 'Falconara Albanese', 'Cosenza'),
+       (NULL, 'Falconara Marittima', 'Ancona'),
+       (NULL, 'Falcone', 'Messina'),
+       (NULL, 'Faleria', 'Viterbo'),
+       (NULL, 'Falerna', 'Catanzaro'),
+       (NULL, 'Falerone', 'Fermo'),
+       (NULL, 'Fallo', 'Chieti'),
+       (NULL, 'Faloppio', 'Como'),
+       (NULL, 'Falvaterra', 'Frosinone'),
+       (NULL, 'Falzes', 'Bolzano'),
+       (NULL, 'Fanano', 'Modena'),
+       (NULL, 'Fanna', 'Pordenone'),
+       (NULL, 'Fano', 'Pesaro e Urbino'),
+       (NULL, 'Fano Adriano', 'Teramo'),
+       (NULL, 'Fara Filiorum Petri', 'Chieti'),
+       (NULL, 'Fara Gera d''Adda', 'Bergamo'),
+       (NULL, 'Fara Novarese', 'Novara'),
+       (NULL, 'Fara Olivana con Sola', 'Bergamo'),
+       (NULL, 'Fara San Martino', 'Chieti'),
+       (NULL, 'Fara Vicentino', 'Vicenza'),
+       (NULL, 'Fara in Sabina', 'Rieti'),
+       (NULL, 'Fardella', 'Potenza'),
+       (NULL, 'Farigliano', 'Cuneo'),
+       (NULL, 'Farindola', 'Pescara'),
+       (NULL, 'Farini', 'Piacenza'),
+       (NULL, 'Farnese', 'Viterbo'),
+       (NULL, 'Farra d''Isonzo', 'Gorizia'),
+       (NULL, 'Farra di Soligo', 'Treviso'),
+       (NULL, 'Fasano', 'Brindisi'),
+       (NULL, 'Fascia', 'Genova'),
+       (NULL, 'Fauglia', 'Pisa'),
+       (NULL, 'Faule', 'Cuneo'),
+       (NULL, 'Favale di Malvaro', 'Genova'),
+       (NULL, 'Favara', 'Agrigento'),
+       (NULL, 'Favignana', 'Trapani'),
+       (NULL, 'Favria', 'Torino'),
+       (NULL, 'Feisoglio', 'Cuneo'),
+       (NULL, 'Feletto', 'Torino'),
+       (NULL, 'Felino', 'Parma'),
+       (NULL, 'Felitto', 'Salerno'),
+       (NULL, 'Felizzano', 'Alessandria'),
+       (NULL, 'Feltre', 'Belluno'),
+       (NULL, 'Fenegrò', 'Como'),
+       (NULL, 'Fenestrelle', 'Torino'),
+       (NULL, 'Ferentillo', 'Terni'),
+       (NULL, 'Ferentino', 'Frosinone'),
+       (NULL, 'Ferla', 'Siracusa'),
+       (NULL, 'Fermignano', 'Pesaro e Urbino'),
+       (NULL, 'Fermo', 'Fermo'),
+       (NULL, 'Ferno', 'Varese'),
+       (NULL, 'Feroleto Antico', 'Catanzaro'),
+       (NULL, 'Feroleto della Chiesa', 'Reggio Calabria'),
+       (NULL, 'Ferrandina', 'Matera'),
+       (NULL, 'Ferrara', 'Ferrara'),
+       (NULL, 'Ferrara di Monte Baldo', 'Verona'),
+       (NULL, 'Ferrazzano', 'Campobasso'),
+       (NULL, 'Ferrera Erbognone', 'Pavia'),
+       (NULL, 'Ferrera di Varese', 'Varese'),
+       (NULL, 'Ferrere', 'Asti'),
+       (NULL, 'Ferriere', 'Piacenza'),
+       (NULL, 'Ferruzzano', 'Reggio Calabria'),
+       (NULL, 'Fiamignano', 'Rieti'),
+       (NULL, 'Fiano', 'Torino'),
+       (NULL, 'Fiano Romano', 'Roma'),
+       (NULL, 'Fiastra', 'Macerata'),
+       (NULL, 'Fiavè', 'Trento'),
+       (NULL, 'Ficarazzi', 'Palermo'),
+       (NULL, 'Ficarolo', 'Rovigo'),
+       (NULL, 'Ficarra', 'Messina'),
+       (NULL, 'Ficulle', 'Terni'),
+       (NULL, 'Fidenza', 'Parma'),
+       (NULL, 'Fierozzo', 'Trento'),
+       (NULL, 'Fiesco', 'Cremona'),
+       (NULL, 'Fiesole', 'Firenze'),
+       (NULL, 'Fiesse', 'Brescia'),
+       (NULL, 'Fiesso Umbertiano', 'Rovigo'),
+       (NULL, 'Fiesso d''Artico', 'Venezia'),
+       (NULL, 'Figino Serenza', 'Como'),
+       (NULL, 'Figline Vegliaturo', 'Cosenza'),
+       (NULL, 'Figline e Incisa Valdarno', 'Firenze'),
+       (NULL, 'Filacciano', 'Roma'),
+       (NULL, 'Filadelfia', 'Vibo Valentia'),
+       (NULL, 'Filago', 'Bergamo'),
+       (NULL, 'Filandari', 'Vibo Valentia'),
+       (NULL, 'Filattiera', 'Massa-Carrara'),
+       (NULL, 'Filettino', 'Frosinone'),
+       (NULL, 'Filetto', 'Chieti'),
+       (NULL, 'Filiano', 'Potenza'),
+       (NULL, 'Filighera', 'Pavia'),
+       (NULL, 'Filignano', 'Isernia'),
+       (NULL, 'Filogaso', 'Vibo Valentia'),
+       (NULL, 'Filottrano', 'Ancona'),
+       (NULL, 'Finale Emilia', 'Modena'),
+       (NULL, 'Finale Ligure', 'Savona'),
+       (NULL, 'Fino Mornasco', 'Como'),
+       (NULL, 'Fino del Monte', 'Bergamo'),
+       (NULL, 'Fiorano Canavese', 'Torino'),
+       (NULL, 'Fiorano Modenese', 'Modena'),
+       (NULL, 'Fiorano al Serio', 'Bergamo'),
+       (NULL, 'Fiorenzuola d''Arda', 'Piacenza'),
+       (NULL, 'Firenze', 'Firenze'),
+       (NULL, 'Firenzuola', 'Firenze'),
+       (NULL, 'Firmo', 'Cosenza'),
+       (NULL, 'Fiscaglia', 'Ferrara'),
+       (NULL, 'Fisciano', 'Salerno'),
+       (NULL, 'Fiuggi', 'Frosinone'),
+       (NULL, 'Fiumalbo', 'Modena'),
+       (NULL, 'Fiumara', 'Reggio Calabria'),
+       (NULL, 'Fiume Veneto', 'Pordenone'),
+       (NULL, 'Fiumedinisi', 'Messina'),
+       (NULL, 'Fiumefreddo Bruzio', 'Cosenza'),
+       (NULL, 'Fiumefreddo di Sicilia', 'Catania'),
+       (NULL, 'Fiumicello Villa Vicentina', 'Udine'),
+       (NULL, 'Fiumicino', 'Roma'),
+       (NULL, 'Fiuminata', 'Macerata'),
+       (NULL, 'Fivizzano', 'Massa-Carrara'),
+       (NULL, 'Fiè allo Sciliar', 'Bolzano'),
+       (NULL, 'Flaibano', 'Udine'),
+       (NULL, 'Flero', 'Brescia'),
+       (NULL, 'Floresta', 'Messina'),
+       (NULL, 'Floridia', 'Siracusa'),
+       (NULL, 'Florinas', 'Sassari'),
+       (NULL, 'Flumeri', 'Avellino'),
+       (NULL, 'Fluminimaggiore', 'Sud Sardegna'),
+       (NULL, 'Flussio', 'Oristano'),
+       (NULL, 'Fobello', 'Vercelli'),
+       (NULL, 'Foggia', 'Foggia'),
+       (NULL, 'Foglianise', 'Benevento'),
+       (NULL, 'Fogliano Redipuglia', 'Gorizia'),
+       (NULL, 'Foglizzo', 'Torino'),
+       (NULL, 'Foiano della Chiana', 'Arezzo'),
+       (NULL, 'Foiano di Val Fortore', 'Benevento'),
+       (NULL, 'Folgaria', 'Trento'),
+       (NULL, 'Folignano', 'Ascoli Piceno'),
+       (NULL, 'Foligno', 'Perugia'),
+       (NULL, 'Follina', 'Treviso'),
+       (NULL, 'Follo', 'La Spezia'),
+       (NULL, 'Follonica', 'Grosseto'),
+       (NULL, 'Fombio', 'Lodi'),
+       (NULL, 'Fondachelli-Fantina', 'Messina'),
+       (NULL, 'Fondi', 'Latina'),
+       (NULL, 'Fonni', 'Nuoro'),
+       (NULL, 'Fontainemore', 'Valle d''Aosta'),
+       (NULL, 'Fontana Liri', 'Frosinone'),
+       (NULL, 'Fontanafredda', 'Pordenone'),
+       (NULL, 'Fontanarosa', 'Avellino'),
+       (NULL, 'Fontanelice', 'Bologna'),
+       (NULL, 'Fontanella', 'Bergamo'),
+       (NULL, 'Fontanellato', 'Parma'),
+       (NULL, 'Fontanelle', 'Treviso'),
+       (NULL, 'Fontaneto d''Agogna', 'Novara'),
+       (NULL, 'Fontanetto Po', 'Vercelli'),
+       (NULL, 'Fontanigorda', 'Genova'),
+       (NULL, 'Fontanile', 'Asti'),
+       (NULL, 'Fontaniva', 'Padova'),
+       (NULL, 'Fonte', 'Treviso'),
+       (NULL, 'Fonte Nuova', 'Roma'),
+       (NULL, 'Fontecchio', 'L''Aquila'),
+       (NULL, 'Fontechiari', 'Frosinone'),
+       (NULL, 'Fontegreca', 'Caserta'),
+       (NULL, 'Fonteno', 'Bergamo'),
+       (NULL, 'Fontevivo', 'Parma'),
+       (NULL, 'Fonzaso', 'Belluno'),
+       (NULL, 'Foppolo', 'Bergamo'),
+       (NULL, 'Forano', 'Rieti'),
+       (NULL, 'Force', 'Ascoli Piceno'),
+       (NULL, 'Forchia', 'Benevento'),
+       (NULL, 'Forcola', 'Sondrio'),
+       (NULL, 'Fordongianus', 'Oristano'),
+       (NULL, 'Forenza', 'Potenza'),
+       (NULL, 'Foresto Sparso', 'Bergamo'),
+       (NULL, 'Forgaria nel Friuli', 'Udine'),
+       (NULL, 'Forino', 'Avellino'),
+       (NULL, 'Forio', 'Napoli'),
+       (NULL, 'Forlimpopoli', 'Forlì-Cesena'),
+       (NULL, 'Forlì', 'Forlì-Cesena'),
+       (NULL, 'Forlì del Sannio', 'Isernia'),
+       (NULL, 'Formazza', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Formello', 'Roma'),
+       (NULL, 'Formia', 'Latina'),
+       (NULL, 'Formicola', 'Caserta'),
+       (NULL, 'Formigara', 'Cremona'),
+       (NULL, 'Formigine', 'Modena'),
+       (NULL, 'Formigliana', 'Vercelli'),
+       (NULL, 'Fornace', 'Trento'),
+       (NULL, 'Fornelli', 'Isernia'),
+       (NULL, 'Forni Avoltri', 'Udine'),
+       (NULL, 'Forni di Sopra', 'Udine'),
+       (NULL, 'Forni di Sotto', 'Udine'),
+       (NULL, 'Forno Canavese', 'Torino'),
+       (NULL, 'Fornovo San Giovanni', 'Bergamo'),
+       (NULL, 'Fornovo di Taro', 'Parma'),
+       (NULL, 'Forte dei Marmi', 'Lucca'),
+       (NULL, 'Fortezza', 'Bolzano'),
+       (NULL, 'Fortunago', 'Pavia'),
+       (NULL, 'Forza d''Agrò', 'Messina'),
+       (NULL, 'Fosciandora', 'Lucca'),
+       (NULL, 'Fosdinovo', 'Massa-Carrara'),
+       (NULL, 'Fossa', 'L''Aquila'),
+       (NULL, 'Fossacesia', 'Chieti'),
+       (NULL, 'Fossalta di Piave', 'Venezia'),
+       (NULL, 'Fossalta di Portogruaro', 'Venezia'),
+       (NULL, 'Fossalto', 'Campobasso'),
+       (NULL, 'Fossano', 'Cuneo'),
+       (NULL, 'Fossato Serralta', 'Catanzaro'),
+       (NULL, 'Fossato di Vico', 'Perugia'),
+       (NULL, 'Fossombrone', 'Pesaro e Urbino'),
+       (NULL, 'Fossò', 'Venezia'),
+       (NULL, 'Foza', 'Vicenza'),
+       (NULL, 'Frabosa Soprana', 'Cuneo'),
+       (NULL, 'Frabosa Sottana', 'Cuneo'),
+       (NULL, 'Fraconalto', 'Alessandria'),
+       (NULL, 'Fragagnano', 'Taranto'),
+       (NULL, 'Fragneto Monforte', 'Benevento'),
+       (NULL, 'Fragneto l''Abate', 'Benevento'),
+       (NULL, 'Fraine', 'Chieti'),
+       (NULL, 'Framura', 'La Spezia'),
+       (NULL, 'Francavilla Angitola', 'Vibo Valentia'),
+       (NULL, 'Francavilla Bisio', 'Alessandria'),
+       (NULL, 'Francavilla Fontana', 'Brindisi'),
+       (NULL, 'Francavilla Marittima', 'Cosenza'),
+       (NULL, 'Francavilla al Mare', 'Chieti'),
+       (NULL, 'Francavilla d''Ete', 'Fermo'),
+       (NULL, 'Francavilla di Sicilia', 'Messina'),
+       (NULL, 'Francavilla in Sinni', 'Potenza'),
+       (NULL, 'Francica', 'Vibo Valentia'),
+       (NULL, 'Francofonte', 'Siracusa'),
+       (NULL, 'Francolise', 'Caserta'),
+       (NULL, 'Frascaro', 'Alessandria'),
+       (NULL, 'Frascarolo', 'Pavia'),
+       (NULL, 'Frascati', 'Roma'),
+       (NULL, 'Frascineto', 'Cosenza'),
+       (NULL, 'Frassilongo', 'Trento'),
+       (NULL, 'Frassinelle Polesine', 'Rovigo'),
+       (NULL, 'Frassinello Monferrato', 'Alessandria'),
+       (NULL, 'Frassineto Po', 'Alessandria'),
+       (NULL, 'Frassinetto', 'Torino'),
+       (NULL, 'Frassino', 'Cuneo'),
+       (NULL, 'Frassinoro', 'Modena'),
+       (NULL, 'Frasso Sabino', 'Rieti'),
+       (NULL, 'Frasso Telesino', 'Benevento'),
+       (NULL, 'Fratta Polesine', 'Rovigo'),
+       (NULL, 'Fratta Todina', 'Perugia'),
+       (NULL, 'Frattamaggiore', 'Napoli'),
+       (NULL, 'Frattaminore', 'Napoli'),
+       (NULL, 'Fratte Rosa', 'Pesaro e Urbino'),
+       (NULL, 'Frazzanò', 'Messina'),
+       (NULL, 'Fregona', 'Treviso'),
+       (NULL, 'Fresagrandinaria', 'Chieti'),
+       (NULL, 'Fresonara', 'Alessandria'),
+       (NULL, 'Frigento', 'Avellino'),
+       (NULL, 'Frignano', 'Caserta'),
+       (NULL, 'Frinco', 'Asti'),
+       (NULL, 'Frisa', 'Chieti'),
+       (NULL, 'Frisanco', 'Pordenone'),
+       (NULL, 'Front', 'Torino'),
+       (NULL, 'Frontino', 'Pesaro e Urbino'),
+       (NULL, 'Frontone', 'Pesaro e Urbino'),
+       (NULL, 'Frosinone', 'Frosinone'),
+       (NULL, 'Frosolone', 'Isernia'),
+       (NULL, 'Frossasco', 'Torino'),
+       (NULL, 'Frugarolo', 'Alessandria'),
+       (NULL, 'Fubine Monferrato', 'Alessandria'),
+       (NULL, 'Fucecchio', 'Firenze'),
+       (NULL, 'Fuipiano Valle Imagna', 'Bergamo'),
+       (NULL, 'Fumane', 'Verona'),
+       (NULL, 'Fumone', 'Frosinone'),
+       (NULL, 'Funes', 'Bolzano'),
+       (NULL, 'Furci', 'Chieti'),
+       (NULL, 'Furci Siculo', 'Messina'),
+       (NULL, 'Furnari', 'Messina'),
+       (NULL, 'Furore', 'Salerno'),
+       (NULL, 'Furtei', 'Sud Sardegna'),
+       (NULL, 'Fuscaldo', 'Cosenza'),
+       (NULL, 'Fusignano', 'Ravenna'),
+       (NULL, 'Fusine', 'Sondrio'),
+       (NULL, 'Futani', 'Salerno'),
+       (NULL, 'Fénis', 'Valle d''Aosta'),
+       (NULL, 'Gabbioneta-Binanuova', 'Cremona'),
+       (NULL, 'Gabiano', 'Alessandria'),
+       (NULL, 'Gabicce Mare', 'Pesaro e Urbino'),
+       (NULL, 'Gaby', 'Valle d''Aosta'),
+       (NULL, 'Gadesco-Pieve Delmona', 'Cremona'),
+       (NULL, 'Gadoni', 'Nuoro'),
+       (NULL, 'Gaeta', 'Latina'),
+       (NULL, 'Gaggi', 'Messina'),
+       (NULL, 'Gaggiano', 'Milano'),
+       (NULL, 'Gaggio Montano', 'Bologna'),
+       (NULL, 'Gaglianico', 'Biella'),
+       (NULL, 'Gagliano Aterno', 'L''Aquila'),
+       (NULL, 'Gagliano Castelferrato', 'Enna'),
+       (NULL, 'Gagliano del Capo', 'Lecce'),
+       (NULL, 'Gagliato', 'Catanzaro'),
+       (NULL, 'Gagliole', 'Macerata'),
+       (NULL, 'Gaiarine', 'Treviso'),
+       (NULL, 'Gaiba', 'Rovigo'),
+       (NULL, 'Gaiola', 'Cuneo'),
+       (NULL, 'Gaiole in Chianti', 'Siena'),
+       (NULL, 'Gairo', 'Nuoro'),
+       (NULL, 'Gais', 'Bolzano'),
+       (NULL, 'Galati Mamertino', 'Messina'),
+       (NULL, 'Galatina', 'Lecce'),
+       (NULL, 'Galatone', 'Lecce'),
+       (NULL, 'Galatro', 'Reggio Calabria'),
+       (NULL, 'Galbiate', 'Lecco'),
+       (NULL, 'Galeata', 'Forlì-Cesena'),
+       (NULL, 'Galgagnano', 'Lodi'),
+       (NULL, 'Gallarate', 'Varese'),
+       (NULL, 'Gallese', 'Viterbo'),
+       (NULL, 'Galliate', 'Novara'),
+       (NULL, 'Galliate Lombardo', 'Varese'),
+       (NULL, 'Galliavola', 'Pavia'),
+       (NULL, 'Gallicano', 'Lucca'),
+       (NULL, 'Gallicano nel Lazio', 'Roma'),
+       (NULL, 'Gallicchio', 'Potenza'),
+       (NULL, 'Galliera', 'Bologna'),
+       (NULL, 'Galliera Veneta', 'Padova'),
+       (NULL, 'Gallinaro', 'Frosinone'),
+       (NULL, 'Gallio', 'Vicenza'),
+       (NULL, 'Gallipoli', 'Lecce'),
+       (NULL, 'Gallo Matese', 'Caserta'),
+       (NULL, 'Gallodoro', 'Messina'),
+       (NULL, 'Galluccio', 'Caserta'),
+       (NULL, 'Galtellì', 'Nuoro'),
+       (NULL, 'Galzignano Terme', 'Padova'),
+       (NULL, 'Gamalero', 'Alessandria'),
+       (NULL, 'Gambara', 'Brescia'),
+       (NULL, 'Gambarana', 'Pavia'),
+       (NULL, 'Gambasca', 'Cuneo'),
+       (NULL, 'Gambassi Terme', 'Firenze'),
+       (NULL, 'Gambatesa', 'Campobasso'),
+       (NULL, 'Gambellara', 'Vicenza'),
+       (NULL, 'Gamberale', 'Chieti'),
+       (NULL, 'Gambettola', 'Forlì-Cesena'),
+       (NULL, 'Gambolò', 'Pavia'),
+       (NULL, 'Gambugliano', 'Vicenza'),
+       (NULL, 'Gandellino', 'Bergamo'),
+       (NULL, 'Gandino', 'Bergamo'),
+       (NULL, 'Gandosso', 'Bergamo'),
+       (NULL, 'Gangi', 'Palermo'),
+       (NULL, 'Garaguso', 'Matera'),
+       (NULL, 'Garbagna', 'Alessandria'),
+       (NULL, 'Garbagna Novarese', 'Novara'),
+       (NULL, 'Garbagnate Milanese', 'Milano'),
+       (NULL, 'Garbagnate Monastero', 'Lecco'),
+       (NULL, 'Garda', 'Verona'),
+       (NULL, 'Gardone Riviera', 'Brescia'),
+       (NULL, 'Gardone Val Trompia', 'Brescia'),
+       (NULL, 'Garessio', 'Cuneo'),
+       (NULL, 'Gargallo', 'Novara'),
+       (NULL, 'Gargazzone', 'Bolzano'),
+       (NULL, 'Gargnano', 'Brescia'),
+       (NULL, 'Garlasco', 'Pavia'),
+       (NULL, 'Garlate', 'Lecco'),
+       (NULL, 'Garlenda', 'Savona'),
+       (NULL, 'Garniga Terme', 'Trento'),
+       (NULL, 'Garzeno', 'Como'),
+       (NULL, 'Garzigliana', 'Torino'),
+       (NULL, 'Gasperina', 'Catanzaro'),
+       (NULL, 'Gassino Torinese', 'Torino'),
+       (NULL, 'Gattatico', 'Reggio nell''Emilia'),
+       (NULL, 'Gatteo', 'Forlì-Cesena'),
+       (NULL, 'Gattico-Veruno', 'Novara'),
+       (NULL, 'Gattinara', 'Vercelli'),
+       (NULL, 'Gavardo', 'Brescia'),
+       (NULL, 'Gavello', 'Rovigo'),
+       (NULL, 'Gaverina Terme', 'Bergamo'),
+       (NULL, 'Gavi', 'Alessandria'),
+       (NULL, 'Gavignano', 'Roma'),
+       (NULL, 'Gavirate', 'Varese'),
+       (NULL, 'Gavoi', 'Nuoro'),
+       (NULL, 'Gavorrano', 'Grosseto'),
+       (NULL, 'Gazoldo degli Ippoliti', 'Mantova'),
+       (NULL, 'Gazzada Schianno', 'Varese'),
+       (NULL, 'Gazzaniga', 'Bergamo'),
+       (NULL, 'Gazzo', 'Padova'),
+       (NULL, 'Gazzo Veronese', 'Verona'),
+       (NULL, 'Gazzola', 'Piacenza'),
+       (NULL, 'Gazzuolo', 'Mantova'),
+       (NULL, 'Gela', 'Caltanissetta'),
+       (NULL, 'Gemmano', 'Rimini'),
+       (NULL, 'Gemona del Friuli', 'Udine'),
+       (NULL, 'Gemonio', 'Varese'),
+       (NULL, 'Genazzano', 'Roma'),
+       (NULL, 'Genga', 'Ancona'),
+       (NULL, 'Genivolta', 'Cremona'),
+       (NULL, 'Genola', 'Cuneo'),
+       (NULL, 'Genoni', 'Sud Sardegna'),
+       (NULL, 'Genova', 'Genova'),
+       (NULL, 'Genuri', 'Sud Sardegna'),
+       (NULL, 'Genzano di Lucania', 'Potenza'),
+       (NULL, 'Genzano di Roma', 'Roma'),
+       (NULL, 'Gera Lario', 'Como'),
+       (NULL, 'Gerace', 'Reggio Calabria'),
+       (NULL, 'Geraci Siculo', 'Palermo'),
+       (NULL, 'Gerano', 'Roma'),
+       (NULL, 'Gerenzago', 'Pavia'),
+       (NULL, 'Gerenzano', 'Varese'),
+       (NULL, 'Gergei', 'Sud Sardegna'),
+       (NULL, 'Germagnano', 'Torino'),
+       (NULL, 'Germagno', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Germignaga', 'Varese'),
+       (NULL, 'Gerocarne', 'Vibo Valentia'),
+       (NULL, 'Gerola Alta', 'Sondrio'),
+       (NULL, 'Gerre de'' Caprioli', 'Cremona'),
+       (NULL, 'Gesico', 'Sud Sardegna'),
+       (NULL, 'Gessate', 'Milano'),
+       (NULL, 'Gessopalena', 'Chieti'),
+       (NULL, 'Gesturi', 'Sud Sardegna'),
+       (NULL, 'Gesualdo', 'Avellino'),
+       (NULL, 'Ghedi', 'Brescia'),
+       (NULL, 'Ghemme', 'Novara'),
+       (NULL, 'Ghiffa', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Ghilarza', 'Oristano'),
+       (NULL, 'Ghisalba', 'Bergamo'),
+       (NULL, 'Ghislarengo', 'Vercelli'),
+       (NULL, 'Giacciano con Baruchella', 'Rovigo'),
+       (NULL, 'Giaglione', 'Torino'),
+       (NULL, 'Gianico', 'Brescia'),
+       (NULL, 'Giano Vetusto', 'Caserta'),
+       (NULL, 'Giano dell''Umbria', 'Perugia'),
+       (NULL, 'Giardinello', 'Palermo'),
+       (NULL, 'Giardini-Naxos', 'Messina'),
+       (NULL, 'Giarole', 'Alessandria'),
+       (NULL, 'Giarratana', 'Ragusa'),
+       (NULL, 'Giarre', 'Catania'),
+       (NULL, 'Giave', 'Sassari'),
+       (NULL, 'Giaveno', 'Torino'),
+       (NULL, 'Giavera del Montello', 'Treviso'),
+       (NULL, 'Giba', 'Sud Sardegna'),
+       (NULL, 'Gibellina', 'Trapani'),
+       (NULL, 'Gifflenga', 'Biella'),
+       (NULL, 'Giffone', 'Reggio Calabria'),
+       (NULL, 'Giffoni Sei Casali', 'Salerno'),
+       (NULL, 'Giffoni Valle Piana', 'Salerno'),
+       (NULL, 'Gignese', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Gignod', 'Valle d''Aosta'),
+       (NULL, 'Gildone', 'Campobasso'),
+       (NULL, 'Gimigliano', 'Catanzaro'),
+       (NULL, 'Ginestra', 'Potenza'),
+       (NULL, 'Ginestra degli Schiavoni', 'Benevento'),
+       (NULL, 'Ginosa', 'Taranto'),
+       (NULL, 'Gioi', 'Salerno'),
+       (NULL, 'Gioia Sannitica', 'Caserta'),
+       (NULL, 'Gioia Tauro', 'Reggio Calabria'),
+       (NULL, 'Gioia dei Marsi', 'L''Aquila'),
+       (NULL, 'Gioia del Colle', 'Bari'),
+       (NULL, 'Gioiosa Ionica', 'Reggio Calabria'),
+       (NULL, 'Gioiosa Marea', 'Messina'),
+       (NULL, 'Giove', 'Terni'),
+       (NULL, 'Giovinazzo', 'Bari'),
+       (NULL, 'Giovo', 'Trento'),
+       (NULL, 'Girasole', 'Nuoro'),
+       (NULL, 'Girifalco', 'Catanzaro'),
+       (NULL, 'Gissi', 'Chieti'),
+       (NULL, 'Giuggianello', 'Lecce'),
+       (NULL, 'Giugliano in Campania', 'Napoli'),
+       (NULL, 'Giuliana', 'Palermo'),
+       (NULL, 'Giuliano Teatino', 'Chieti'),
+       (NULL, 'Giuliano di Roma', 'Frosinone'),
+       (NULL, 'Giulianova', 'Teramo'),
+       (NULL, 'Giungano', 'Salerno'),
+       (NULL, 'Giurdignano', 'Lecce'),
+       (NULL, 'Giussago', 'Pavia'),
+       (NULL, 'Giussano', 'Monza e della Brianza'),
+       (NULL, 'Giustenice', 'Savona'),
+       (NULL, 'Giustino', 'Trento'),
+       (NULL, 'Giusvalla', 'Savona'),
+       (NULL, 'Givoletto', 'Torino'),
+       (NULL, 'Gizzeria', 'Catanzaro'),
+       (NULL, 'Glorenza', 'Bolzano'),
+       (NULL, 'Godega di Sant''Urbano', 'Treviso'),
+       (NULL, 'Godiasco Salice Terme', 'Pavia'),
+       (NULL, 'Godrano', 'Palermo'),
+       (NULL, 'Goito', 'Mantova'),
+       (NULL, 'Golasecca', 'Varese'),
+       (NULL, 'Golferenzo', 'Pavia'),
+       (NULL, 'Golfo Aranci', 'Sassari'),
+       (NULL, 'Gombito', 'Cremona'),
+       (NULL, 'Gonars', 'Udine'),
+       (NULL, 'Goni', 'Sud Sardegna'),
+       (NULL, 'Gonnesa', 'Sud Sardegna'),
+       (NULL, 'Gonnoscodina', 'Oristano'),
+       (NULL, 'Gonnosfanadiga', 'Sud Sardegna'),
+       (NULL, 'Gonnosnò', 'Oristano'),
+       (NULL, 'Gonnostramatza', 'Oristano'),
+       (NULL, 'Gonzaga', 'Mantova'),
+       (NULL, 'Gordona', 'Sondrio'),
+       (NULL, 'Gorga', 'Roma'),
+       (NULL, 'Gorgo al Monticano', 'Treviso'),
+       (NULL, 'Gorgoglione', 'Matera'),
+       (NULL, 'Gorgonzola', 'Milano'),
+       (NULL, 'Goriano Sicoli', 'L''Aquila'),
+       (NULL, 'Gorizia', 'Gorizia'),
+       (NULL, 'Gorla Maggiore', 'Varese'),
+       (NULL, 'Gorla Minore', 'Varese'),
+       (NULL, 'Gorlago', 'Bergamo'),
+       (NULL, 'Gorle', 'Bergamo'),
+       (NULL, 'Gornate Olona', 'Varese'),
+       (NULL, 'Gorno', 'Bergamo'),
+       (NULL, 'Goro', 'Ferrara'),
+       (NULL, 'Gorreto', 'Genova'),
+       (NULL, 'Gorzegno', 'Cuneo'),
+       (NULL, 'Gosaldo', 'Belluno'),
+       (NULL, 'Gossolengo', 'Piacenza'),
+       (NULL, 'Gottasecca', 'Cuneo'),
+       (NULL, 'Gottolengo', 'Brescia'),
+       (NULL, 'Govone', 'Cuneo'),
+       (NULL, 'Gozzano', 'Novara'),
+       (NULL, 'Gradara', 'Pesaro e Urbino'),
+       (NULL, 'Gradisca d''Isonzo', 'Gorizia'),
+       (NULL, 'Grado', 'Gorizia'),
+       (NULL, 'Gradoli', 'Viterbo'),
+       (NULL, 'Graffignana', 'Lodi'),
+       (NULL, 'Graffignano', 'Viterbo'),
+       (NULL, 'Graglia', 'Biella'),
+       (NULL, 'Gragnano', 'Napoli'),
+       (NULL, 'Gragnano Trebbiense', 'Piacenza'),
+       (NULL, 'Grammichele', 'Catania'),
+       (NULL, 'Grana Monferrato', 'Asti'),
+       (NULL, 'Granarolo dell''Emilia', 'Bologna'),
+       (NULL, 'Grandate', 'Como'),
+       (NULL, 'Grandola ed Uniti', 'Como'),
+       (NULL, 'Graniti', 'Messina'),
+       (NULL, 'Granozzo con Monticello', 'Novara'),
+       (NULL, 'Grantola', 'Varese'),
+       (NULL, 'Grantorto', 'Padova'),
+       (NULL, 'Granze', 'Padova'),
+       (NULL, 'Grassano', 'Matera'),
+       (NULL, 'Grassobbio', 'Bergamo'),
+       (NULL, 'Gratteri', 'Palermo'),
+       (NULL, 'Gravedona ed Uniti', 'Como'),
+       (NULL, 'Gravellona Lomellina', 'Pavia'),
+       (NULL, 'Gravellona Toce', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Gravere', 'Torino'),
+       (NULL, 'Gravina di Catania', 'Catania'),
+       (NULL, 'Gravina in Puglia', 'Bari'),
+       (NULL, 'Grazzanise', 'Caserta'),
+       (NULL, 'Grazzano Badoglio', 'Asti'),
+       (NULL, 'Greccio', 'Rieti'),
+       (NULL, 'Greci', 'Avellino'),
+       (NULL, 'Greggio', 'Vercelli'),
+       (NULL, 'Gremiasco', 'Alessandria'),
+       (NULL, 'Gressan', 'Valle d''Aosta'),
+       (NULL, 'Gressoney-La-Trinité', 'Valle d''Aosta'),
+       (NULL, 'Gressoney-Saint-Jean', 'Valle d''Aosta'),
+       (NULL, 'Greve in Chianti', 'Firenze'),
+       (NULL, 'Grezzago', 'Milano'),
+       (NULL, 'Grezzana', 'Verona'),
+       (NULL, 'Griante', 'Como'),
+       (NULL, 'Gricignano di Aversa', 'Caserta'),
+       (NULL, 'Grignasco', 'Novara'),
+       (NULL, 'Grigno', 'Trento'),
+       (NULL, 'Grimacco', 'Udine'),
+       (NULL, 'Grimaldi', 'Cosenza'),
+       (NULL, 'Grinzane Cavour', 'Cuneo'),
+       (NULL, 'Grisignano di Zocco', 'Vicenza'),
+       (NULL, 'Grisolia', 'Cosenza'),
+       (NULL, 'Grizzana Morandi', 'Bologna'),
+       (NULL, 'Grognardo', 'Alessandria'),
+       (NULL, 'Gromo', 'Bergamo'),
+       (NULL, 'Grondona', 'Alessandria'),
+       (NULL, 'Grone', 'Bergamo'),
+       (NULL, 'Grontardo', 'Cremona'),
+       (NULL, 'Gropello Cairoli', 'Pavia'),
+       (NULL, 'Gropparello', 'Piacenza'),
+       (NULL, 'Groscavallo', 'Torino'),
+       (NULL, 'Grosio', 'Sondrio'),
+       (NULL, 'Grosotto', 'Sondrio'),
+       (NULL, 'Grosseto', 'Grosseto'),
+       (NULL, 'Grosso', 'Torino'),
+       (NULL, 'Grottaferrata', 'Roma'),
+       (NULL, 'Grottaglie', 'Taranto'),
+       (NULL, 'Grottaminarda', 'Avellino'),
+       (NULL, 'Grottammare', 'Ascoli Piceno'),
+       (NULL, 'Grottazzolina', 'Fermo'),
+       (NULL, 'Grotte', 'Agrigento'),
+       (NULL, 'Grotte di Castro', 'Viterbo'),
+       (NULL, 'Grotteria', 'Reggio Calabria'),
+       (NULL, 'Grottole', 'Matera'),
+       (NULL, 'Grottolella', 'Avellino'),
+       (NULL, 'Gruaro', 'Venezia'),
+       (NULL, 'Grugliasco', 'Torino'),
+       (NULL, 'Grumello Cremonese ed Uniti', 'Cremona'),
+       (NULL, 'Grumello del Monte', 'Bergamo'),
+       (NULL, 'Grumento Nova', 'Potenza'),
+       (NULL, 'Grumo Appula', 'Bari'),
+       (NULL, 'Grumo Nevano', 'Napoli'),
+       (NULL, 'Grumolo delle Abbadesse', 'Vicenza'),
+       (NULL, 'Guagnano', 'Lecce'),
+       (NULL, 'Gualdo', 'Macerata'),
+       (NULL, 'Gualdo Cattaneo', 'Perugia'),
+       (NULL, 'Gualdo Tadino', 'Perugia'),
+       (NULL, 'Gualtieri', 'Reggio nell''Emilia'),
+       (NULL, 'Gualtieri Sicaminò', 'Messina'),
+       (NULL, 'Guamaggiore', 'Sud Sardegna'),
+       (NULL, 'Guanzate', 'Como'),
+       (NULL, 'Guarcino', 'Frosinone'),
+       (NULL, 'Guarda Veneta', 'Rovigo'),
+       (NULL, 'Guardabosone', 'Vercelli'),
+       (NULL, 'Guardamiglio', 'Lodi'),
+       (NULL, 'Guardavalle', 'Catanzaro'),
+       (NULL, 'Guardea', 'Terni'),
+       (NULL, 'Guardia Lombardi', 'Avellino'),
+       (NULL, 'Guardia Perticara', 'Potenza'),
+       (NULL, 'Guardia Piemontese', 'Cosenza'),
+       (NULL, 'Guardia Sanframondi', 'Benevento'),
+       (NULL, 'Guardiagrele', 'Chieti'),
+       (NULL, 'Guardialfiera', 'Campobasso'),
+       (NULL, 'Guardiaregia', 'Campobasso'),
+       (NULL, 'Guardistallo', 'Pisa'),
+       (NULL, 'Guarene', 'Cuneo'),
+       (NULL, 'Guasila', 'Sud Sardegna'),
+       (NULL, 'Guastalla', 'Reggio nell''Emilia'),
+       (NULL, 'Guazzora', 'Alessandria'),
+       (NULL, 'Gubbio', 'Perugia'),
+       (NULL, 'Gudo Visconti', 'Milano'),
+       (NULL, 'Guglionesi', 'Campobasso'),
+       (NULL, 'Guidizzolo', 'Mantova'),
+       (NULL, 'Guidonia Montecelio', 'Roma'),
+       (NULL, 'Guiglia', 'Modena'),
+       (NULL, 'Guilmi', 'Chieti'),
+       (NULL, 'Gurro', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Guspini', 'Sud Sardegna'),
+       (NULL, 'Gussago', 'Brescia'),
+       (NULL, 'Gussola', 'Cremona'),
+       (NULL, 'Hône', 'Valle d''Aosta'),
+       (NULL, 'Idro', 'Brescia'),
+       (NULL, 'Iglesias', 'Sud Sardegna'),
+       (NULL, 'Igliano', 'Cuneo'),
+       (NULL, 'Ilbono', 'Nuoro'),
+       (NULL, 'Illasi', 'Verona'),
+       (NULL, 'Illorai', 'Sassari'),
+       (NULL, 'Imbersago', 'Lecco'),
+       (NULL, 'Imer', 'Trento'),
+       (NULL, 'Imola', 'Bologna'),
+       (NULL, 'Imperia', 'Imperia'),
+       (NULL, 'Impruneta', 'Firenze'),
+       (NULL, 'Inarzo', 'Varese'),
+       (NULL, 'Incisa Scapaccino', 'Asti'),
+       (NULL, 'Incudine', 'Brescia'),
+       (NULL, 'Induno Olona', 'Varese'),
+       (NULL, 'Ingria', 'Torino'),
+       (NULL, 'Intragna', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Introbio', 'Lecco'),
+       (NULL, 'Introd', 'Valle d''Aosta'),
+       (NULL, 'Introdacqua', 'L''Aquila'),
+       (NULL, 'Inverigo', 'Como'),
+       (NULL, 'Inverno e Monteleone', 'Pavia'),
+       (NULL, 'Inverso Pinasca', 'Torino'),
+       (NULL, 'Inveruno', 'Milano'),
+       (NULL, 'Invorio', 'Novara'),
+       (NULL, 'Inzago', 'Milano'),
+       (NULL, 'Ionadi', 'Vibo Valentia'),
+       (NULL, 'Irgoli', 'Nuoro'),
+       (NULL, 'Irma', 'Brescia'),
+       (NULL, 'Irsina', 'Matera'),
+       (NULL, 'Isasca', 'Cuneo'),
+       (NULL, 'Isca sullo Ionio', 'Catanzaro'),
+       (NULL, 'Ischia', 'Napoli'),
+       (NULL, 'Ischia di Castro', 'Viterbo'),
+       (NULL, 'Ischitella', 'Foggia'),
+       (NULL, 'Iseo', 'Brescia'),
+       (NULL, 'Isera', 'Trento'),
+       (NULL, 'Isernia', 'Isernia'),
+       (NULL, 'Isili', 'Sud Sardegna'),
+       (NULL, 'Isnello', 'Palermo'),
+       (NULL, 'Isola Dovarese', 'Cremona'),
+       (NULL, 'Isola Rizza', 'Verona'),
+       (NULL, 'Isola Sant''Antonio', 'Alessandria'),
+       (NULL, 'Isola Vicentina', 'Vicenza'),
+       (NULL, 'Isola d''Asti', 'Asti'),
+       (NULL, 'Isola del Cantone', 'Genova'),
+       (NULL, 'Isola del Giglio', 'Grosseto'),
+       (NULL, 'Isola del Gran Sasso d''Italia', 'Teramo'),
+       (NULL, 'Isola del Liri', 'Frosinone'),
+       (NULL, 'Isola del Piano', 'Pesaro e Urbino'),
+       (NULL, 'Isola della Scala', 'Verona'),
+       (NULL, 'Isola delle Femmine', 'Palermo'),
+       (NULL, 'Isola di Capo Rizzuto', 'Crotone'),
+       (NULL, 'Isola di Fondra', 'Bergamo'),
+       (NULL, 'Isolabella', 'Torino'),
+       (NULL, 'Isolabona', 'Imperia'),
+       (NULL, 'Isole Tremiti', 'Foggia'),
+       (NULL, 'Isorella', 'Brescia'),
+       (NULL, 'Ispani', 'Salerno'),
+       (NULL, 'Ispica', 'Ragusa'),
+       (NULL, 'Ispra', 'Varese'),
+       (NULL, 'Issiglio', 'Torino'),
+       (NULL, 'Issime', 'Valle d''Aosta'),
+       (NULL, 'Isso', 'Bergamo'),
+       (NULL, 'Issogne', 'Valle d''Aosta'),
+       (NULL, 'Istrana', 'Treviso'),
+       (NULL, 'Itala', 'Messina'),
+       (NULL, 'Itri', 'Latina'),
+       (NULL, 'Ittireddu', 'Sassari'),
+       (NULL, 'Ittiri', 'Sassari'),
+       (NULL, 'Ivrea', 'Torino'),
+       (NULL, 'Izano', 'Cremona'),
+       (NULL, 'Jacurso', 'Catanzaro'),
+       (NULL, 'Jelsi', 'Campobasso'),
+       (NULL, 'Jenne', 'Roma'),
+       (NULL, 'Jerago con Orago', 'Varese'),
+       (NULL, 'Jerzu', 'Nuoro'),
+       (NULL, 'Jesi', 'Ancona'),
+       (NULL, 'Jesolo', 'Venezia'),
+       (NULL, 'Jolanda di Savoia', 'Ferrara'),
+       (NULL, 'Joppolo', 'Vibo Valentia'),
+       (NULL, 'Joppolo Giancaxio', 'Agrigento'),
+       (NULL, 'Jovençan', 'Valle d''Aosta'),
+       (NULL, 'L''Aquila', 'L''Aquila'),
+       (NULL, 'La Cassa', 'Torino'),
+       (NULL, 'La Loggia', 'Torino'),
+       (NULL, 'La Maddalena', 'Sassari'),
+       (NULL, 'La Magdeleine', 'Valle d''Aosta'),
+       (NULL, 'La Morra', 'Cuneo'),
+       (NULL, 'La Salle', 'Valle d''Aosta'),
+       (NULL, 'La Spezia', 'La Spezia'),
+       (NULL, 'La Thuile', 'Valle d''Aosta'),
+       (NULL, 'La Valle', 'Bolzano'),
+       (NULL, 'La Valle Agordina', 'Belluno'),
+       (NULL, 'La Valletta Brianza', 'Lecco'),
+       (NULL, 'Labico', 'Roma'),
+       (NULL, 'Labro', 'Rieti'),
+       (NULL, 'Lacchiarella', 'Milano'),
+       (NULL, 'Lacco Ameno', 'Napoli'),
+       (NULL, 'Lacedonia', 'Avellino'),
+       (NULL, 'Laces', 'Bolzano'),
+       (NULL, 'Laconi', 'Oristano'),
+       (NULL, 'Ladispoli', 'Roma'),
+       (NULL, 'Laerru', 'Sassari'),
+       (NULL, 'Laganadi', 'Reggio Calabria'),
+       (NULL, 'Laghi', 'Vicenza'),
+       (NULL, 'Laglio', 'Como'),
+       (NULL, 'Lagnasco', 'Cuneo'),
+       (NULL, 'Lago', 'Cosenza'),
+       (NULL, 'Lagonegro', 'Potenza'),
+       (NULL, 'Lagosanto', 'Ferrara'),
+       (NULL, 'Lagundo', 'Bolzano'),
+       (NULL, 'Laigueglia', 'Savona'),
+       (NULL, 'Lainate', 'Milano'),
+       (NULL, 'Laino', 'Como'),
+       (NULL, 'Laino Borgo', 'Cosenza'),
+       (NULL, 'Laino Castello', 'Cosenza'),
+       (NULL, 'Laion', 'Bolzano'),
+       (NULL, 'Laives', 'Bolzano'),
+       (NULL, 'Lajatico', 'Pisa'),
+       (NULL, 'Lallio', 'Bergamo'),
+       (NULL, 'Lama Mocogno', 'Modena'),
+       (NULL, 'Lama dei Peligni', 'Chieti'),
+       (NULL, 'Lambrugo', 'Como'),
+       (NULL, 'Lamezia Terme', 'Catanzaro'),
+       (NULL, 'Lamon', 'Belluno'),
+       (NULL, 'Lampedusa e Linosa', 'Agrigento'),
+       (NULL, 'Lamporecchio', 'Pistoia'),
+       (NULL, 'Lamporo', 'Vercelli'),
+       (NULL, 'Lana', 'Bolzano'),
+       (NULL, 'Lanciano', 'Chieti'),
+       (NULL, 'Landiona', 'Novara'),
+       (NULL, 'Landriano', 'Pavia'),
+       (NULL, 'Langhirano', 'Parma'),
+       (NULL, 'Langosco', 'Pavia'),
+       (NULL, 'Lanusei', 'Nuoro'),
+       (NULL, 'Lanuvio', 'Roma'),
+       (NULL, 'Lanzada', 'Sondrio'),
+       (NULL, 'Lanzo Torinese', 'Torino'),
+       (NULL, 'Lapedona', 'Fermo'),
+       (NULL, 'Lapio', 'Avellino'),
+       (NULL, 'Lappano', 'Cosenza'),
+       (NULL, 'Larciano', 'Pistoia'),
+       (NULL, 'Lardirago', 'Pavia'),
+       (NULL, 'Lariano', 'Roma'),
+       (NULL, 'Larino', 'Campobasso'),
+       (NULL, 'Las Plassas', 'Sud Sardegna'),
+       (NULL, 'Lasa', 'Bolzano'),
+       (NULL, 'Lascari', 'Palermo'),
+       (NULL, 'Lasnigo', 'Como'),
+       (NULL, 'Lastebasse', 'Vicenza'),
+       (NULL, 'Lastra a Signa', 'Firenze'),
+       (NULL, 'Latera', 'Viterbo'),
+       (NULL, 'Laterina Pergine Valdarno', 'Arezzo'),
+       (NULL, 'Laterza', 'Taranto'),
+       (NULL, 'Latiano', 'Brindisi'),
+       (NULL, 'Latina', 'Latina'),
+       (NULL, 'Latisana', 'Udine'),
+       (NULL, 'Latronico', 'Potenza'),
+       (NULL, 'Lattarico', 'Cosenza'),
+       (NULL, 'Lauco', 'Udine'),
+       (NULL, 'Laureana Cilento', 'Salerno'),
+       (NULL, 'Laureana di Borrello', 'Reggio Calabria'),
+       (NULL, 'Lauregno', 'Bolzano'),
+       (NULL, 'Laurenzana', 'Potenza'),
+       (NULL, 'Lauria', 'Potenza'),
+       (NULL, 'Lauriano', 'Torino'),
+       (NULL, 'Laurino', 'Salerno'),
+       (NULL, 'Laurito', 'Salerno'),
+       (NULL, 'Lauro', 'Avellino'),
+       (NULL, 'Lavagna', 'Genova'),
+       (NULL, 'Lavagno', 'Verona'),
+       (NULL, 'Lavarone', 'Trento'),
+       (NULL, 'Lavello', 'Potenza'),
+       (NULL, 'Lavena Ponte Tresa', 'Varese'),
+       (NULL, 'Laveno-Mombello', 'Varese'),
+       (NULL, 'Lavenone', 'Brescia'),
+       (NULL, 'Laviano', 'Salerno'),
+       (NULL, 'Lavis', 'Trento'),
+       (NULL, 'Lazise', 'Verona'),
+       (NULL, 'Lazzate', 'Monza e della Brianza'),
+       (NULL, 'Lecce', 'Lecce'),
+       (NULL, 'Lecce nei Marsi', 'L''Aquila'),
+       (NULL, 'Lecco', 'Lecco'),
+       (NULL, 'Ledro', 'Trento'),
+       (NULL, 'Leffe', 'Bergamo'),
+       (NULL, 'Leggiuno', 'Varese'),
+       (NULL, 'Legnago', 'Verona'),
+       (NULL, 'Legnano', 'Milano'),
+       (NULL, 'Legnaro', 'Padova'),
+       (NULL, 'Lei', 'Nuoro'),
+       (NULL, 'Leini', 'Torino'),
+       (NULL, 'Leivi', 'Genova'),
+       (NULL, 'Lemie', 'Torino'),
+       (NULL, 'Lendinara', 'Rovigo'),
+       (NULL, 'Leni', 'Messina'),
+       (NULL, 'Lenna', 'Bergamo'),
+       (NULL, 'Leno', 'Brescia'),
+       (NULL, 'Lenola', 'Latina'),
+       (NULL, 'Lenta', 'Vercelli'),
+       (NULL, 'Lentate sul Seveso', 'Monza e della Brianza'),
+       (NULL, 'Lentella', 'Chieti'),
+       (NULL, 'Lentini', 'Siracusa'),
+       (NULL, 'Leonessa', 'Rieti'),
+       (NULL, 'Leonforte', 'Enna'),
+       (NULL, 'Leporano', 'Taranto'),
+       (NULL, 'Lequile', 'Lecce'),
+       (NULL, 'Lequio Berria', 'Cuneo'),
+       (NULL, 'Lequio Tanaro', 'Cuneo'),
+       (NULL, 'Lercara Friddi', 'Palermo'),
+       (NULL, 'Lerici', 'La Spezia'),
+       (NULL, 'Lerma', 'Alessandria'),
+       (NULL, 'Lesa', 'Novara'),
+       (NULL, 'Lesegno', 'Cuneo'),
+       (NULL, 'Lesignano de'' Bagni', 'Parma'),
+       (NULL, 'Lesina', 'Foggia'),
+       (NULL, 'Lesmo', 'Monza e della Brianza'),
+       (NULL, 'Lessolo', 'Torino'),
+       (NULL, 'Lessona', 'Biella'),
+       (NULL, 'Lestizza', 'Udine'),
+       (NULL, 'Letino', 'Caserta'),
+       (NULL, 'Letojanni', 'Messina'),
+       (NULL, 'Lettere', 'Napoli'),
+       (NULL, 'Lettomanoppello', 'Pescara'),
+       (NULL, 'Lettopalena', 'Chieti'),
+       (NULL, 'Levanto', 'La Spezia'),
+       (NULL, 'Levate', 'Bergamo'),
+       (NULL, 'Leverano', 'Lecce'),
+       (NULL, 'Levice', 'Cuneo'),
+       (NULL, 'Levico Terme', 'Trento'),
+       (NULL, 'Levone', 'Torino'),
+       (NULL, 'Lezzeno', 'Como'),
+       (NULL, 'Liberi', 'Caserta'),
+       (NULL, 'Librizzi', 'Messina'),
+       (NULL, 'Licata', 'Agrigento'),
+       (NULL, 'Licciana Nardi', 'Massa-Carrara'),
+       (NULL, 'Licenza', 'Roma'),
+       (NULL, 'Licodia Eubea', 'Catania'),
+       (NULL, 'Lierna', 'Lecco'),
+       (NULL, 'Lignana', 'Vercelli'),
+       (NULL, 'Lignano Sabbiadoro', 'Udine'),
+       (NULL, 'Lillianes', 'Valle d''Aosta'),
+       (NULL, 'Limana', 'Belluno'),
+       (NULL, 'Limatola', 'Benevento'),
+       (NULL, 'Limbadi', 'Vibo Valentia'),
+       (NULL, 'Limbiate', 'Monza e della Brianza'),
+       (NULL, 'Limena', 'Padova'),
+       (NULL, 'Limido Comasco', 'Como'),
+       (NULL, 'Limina', 'Messina'),
+       (NULL, 'Limone Piemonte', 'Cuneo'),
+       (NULL, 'Limone sul Garda', 'Brescia'),
+       (NULL, 'Limosano', 'Campobasso'),
+       (NULL, 'Linarolo', 'Pavia'),
+       (NULL, 'Linguaglossa', 'Catania'),
+       (NULL, 'Lioni', 'Avellino'),
+       (NULL, 'Lipari', 'Messina'),
+       (NULL, 'Lipomo', 'Como'),
+       (NULL, 'Lirio', 'Pavia'),
+       (NULL, 'Liscate', 'Milano'),
+       (NULL, 'Liscia', 'Chieti'),
+       (NULL, 'Lisciano Niccone', 'Perugia'),
+       (NULL, 'Lisio', 'Cuneo'),
+       (NULL, 'Lissone', 'Monza e della Brianza'),
+       (NULL, 'Liveri', 'Napoli'),
+       (NULL, 'Livigno', 'Sondrio'),
+       (NULL, 'Livinallongo del Col di Lana', 'Belluno'),
+       (NULL, 'Livo', 'Trento'),
+       (NULL, 'Livo', 'Como'),
+       (NULL, 'Livorno', 'Livorno'),
+       (NULL, 'Livorno Ferraris', 'Vercelli'),
+       (NULL, 'Livraga', 'Lodi'),
+       (NULL, 'Lizzanello', 'Lecce'),
+       (NULL, 'Lizzano', 'Taranto'),
+       (NULL, 'Lizzano in Belvedere', 'Bologna'),
+       (NULL, 'Loano', 'Savona'),
+       (NULL, 'Loazzolo', 'Asti'),
+       (NULL, 'Locana', 'Torino'),
+       (NULL, 'Locate Varesino', 'Como'),
+       (NULL, 'Locate di Triulzi', 'Milano'),
+       (NULL, 'Locatello', 'Bergamo'),
+       (NULL, 'Loceri', 'Nuoro'),
+       (NULL, 'Locorotondo', 'Bari'),
+       (NULL, 'Locri', 'Reggio Calabria'),
+       (NULL, 'Loculi', 'Nuoro'),
+       (NULL, 'Lodi', 'Lodi'),
+       (NULL, 'Lodi Vecchio', 'Lodi'),
+       (NULL, 'Lodine', 'Nuoro'),
+       (NULL, 'Lodrino', 'Brescia'),
+       (NULL, 'Lodè', 'Nuoro'),
+       (NULL, 'Lograto', 'Brescia'),
+       (NULL, 'Loiano', 'Bologna'),
+       (NULL, 'Loiri Porto San Paolo', 'Sassari'),
+       (NULL, 'Lomagna', 'Lecco'),
+       (NULL, 'Lomazzo', 'Como'),
+       (NULL, 'Lombardore', 'Torino'),
+       (NULL, 'Lombriasco', 'Torino'),
+       (NULL, 'Lomello', 'Pavia'),
+       (NULL, 'Lona-Lases', 'Trento'),
+       (NULL, 'Lonate Ceppino', 'Varese'),
+       (NULL, 'Lonate Pozzolo', 'Varese'),
+       (NULL, 'Lonato del Garda', 'Brescia'),
+       (NULL, 'Londa', 'Firenze'),
+       (NULL, 'Longano', 'Isernia'),
+       (NULL, 'Longare', 'Vicenza'),
+       (NULL, 'Longarone', 'Belluno'),
+       (NULL, 'Longhena', 'Brescia'),
+       (NULL, 'Longi', 'Messina'),
+       (NULL, 'Longiano', 'Forlì-Cesena'),
+       (NULL, 'Longobardi', 'Cosenza'),
+       (NULL, 'Longobucco', 'Cosenza'),
+       (NULL, 'Longone Sabino', 'Rieti'),
+       (NULL, 'Longone al Segrino', 'Como'),
+       (NULL, 'Lonigo', 'Vicenza'),
+       (NULL, 'Loranzè', 'Torino'),
+       (NULL, 'Loreggia', 'Padova'),
+       (NULL, 'Loreglia', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Lorenzago di Cadore', 'Belluno'),
+       (NULL, 'Loreo', 'Rovigo'),
+       (NULL, 'Loreto', 'Ancona'),
+       (NULL, 'Loreto Aprutino', 'Pescara'),
+       (NULL, 'Loria', 'Treviso'),
+       (NULL, 'Loro Ciuffenna', 'Arezzo'),
+       (NULL, 'Loro Piceno', 'Macerata'),
+       (NULL, 'Lorsica', 'Genova'),
+       (NULL, 'Losine', 'Brescia'),
+       (NULL, 'Lotzorai', 'Nuoro'),
+       (NULL, 'Lovere', 'Bergamo'),
+       (NULL, 'Lovero', 'Sondrio'),
+       (NULL, 'Lozio', 'Brescia'),
+       (NULL, 'Lozza', 'Varese'),
+       (NULL, 'Lozzo Atestino', 'Padova'),
+       (NULL, 'Lozzo di Cadore', 'Belluno'),
+       (NULL, 'Lozzolo', 'Vercelli'),
+       (NULL, 'Lu e Cuccaro Monferrato', 'Alessandria'),
+       (NULL, 'Lubriano', 'Viterbo'),
+       (NULL, 'Lucca', 'Lucca'),
+       (NULL, 'Lucca Sicula', 'Agrigento'),
+       (NULL, 'Lucera', 'Foggia'),
+       (NULL, 'Lucignano', 'Arezzo'),
+       (NULL, 'Lucinasco', 'Imperia'),
+       (NULL, 'Lucito', 'Campobasso'),
+       (NULL, 'Luco dei Marsi', 'L''Aquila'),
+       (NULL, 'Lucoli', 'L''Aquila'),
+       (NULL, 'Lugagnano Val d''Arda', 'Piacenza'),
+       (NULL, 'Lugnano in Teverina', 'Terni'),
+       (NULL, 'Lugo', 'Ravenna'),
+       (NULL, 'Lugo di Vicenza', 'Vicenza'),
+       (NULL, 'Luino', 'Varese'),
+       (NULL, 'Luisago', 'Como'),
+       (NULL, 'Lula', 'Nuoro'),
+       (NULL, 'Lumarzo', 'Genova'),
+       (NULL, 'Lumezzane', 'Brescia'),
+       (NULL, 'Lunamatrona', 'Sud Sardegna'),
+       (NULL, 'Lunano', 'Pesaro e Urbino'),
+       (NULL, 'Lungavilla', 'Pavia'),
+       (NULL, 'Lungro', 'Cosenza'),
+       (NULL, 'Luni', 'La Spezia'),
+       (NULL, 'Luogosano', 'Avellino'),
+       (NULL, 'Luogosanto', 'Sassari'),
+       (NULL, 'Lupara', 'Campobasso'),
+       (NULL, 'Lurago Marinone', 'Como'),
+       (NULL, 'Lurago d''Erba', 'Como'),
+       (NULL, 'Lurano', 'Bergamo'),
+       (NULL, 'Luras', 'Sassari'),
+       (NULL, 'Lurate Caccivio', 'Como'),
+       (NULL, 'Lusciano', 'Caserta'),
+       (NULL, 'Luserna', 'Trento'),
+       (NULL, 'Luserna San Giovanni', 'Torino'),
+       (NULL, 'Lusernetta', 'Torino'),
+       (NULL, 'Lusevera', 'Udine'),
+       (NULL, 'Lusia', 'Rovigo'),
+       (NULL, 'Lusiana Conco', 'Vicenza'),
+       (NULL, 'Lusigliè', 'Torino'),
+       (NULL, 'Luson', 'Bolzano'),
+       (NULL, 'Lustra', 'Salerno'),
+       (NULL, 'Luvinate', 'Varese'),
+       (NULL, 'Luzzana', 'Bergamo'),
+       (NULL, 'Luzzara', 'Reggio nell''Emilia'),
+       (NULL, 'Luzzi', 'Cosenza'),
+       (NULL, 'Maccagno con Pino e Veddasca', 'Varese'),
+       (NULL, 'Maccastorna', 'Lodi'),
+       (NULL, 'Macchia Valfortore', 'Campobasso'),
+       (NULL, 'Macchia d''Isernia', 'Isernia'),
+       (NULL, 'Macchiagodena', 'Isernia'),
+       (NULL, 'Macello', 'Torino'),
+       (NULL, 'Macerata', 'Macerata'),
+       (NULL, 'Macerata Campania', 'Caserta'),
+       (NULL, 'Macerata Feltria', 'Pesaro e Urbino'),
+       (NULL, 'Macherio', 'Monza e della Brianza'),
+       (NULL, 'Maclodio', 'Brescia'),
+       (NULL, 'Macomer', 'Nuoro'),
+       (NULL, 'Macra', 'Cuneo'),
+       (NULL, 'Macugnaga', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Maddaloni', 'Caserta'),
+       (NULL, 'Madesimo', 'Sondrio'),
+       (NULL, 'Madignano', 'Cremona'),
+       (NULL, 'Madone', 'Bergamo'),
+       (NULL, 'Madonna del Sasso', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Madruzzo', 'Trento'),
+       (NULL, 'Maenza', 'Latina'),
+       (NULL, 'Mafalda', 'Campobasso'),
+       (NULL, 'Magasa', 'Brescia'),
+       (NULL, 'Magenta', 'Milano'),
+       (NULL, 'Maggiora', 'Novara'),
+       (NULL, 'Magherno', 'Pavia'),
+       (NULL, 'Magione', 'Perugia'),
+       (NULL, 'Magisano', 'Catanzaro'),
+       (NULL, 'Magliano Alfieri', 'Cuneo'),
+       (NULL, 'Magliano Alpi', 'Cuneo'),
+       (NULL, 'Magliano Romano', 'Roma'),
+       (NULL, 'Magliano Sabina', 'Rieti'),
+       (NULL, 'Magliano Vetere', 'Salerno'),
+       (NULL, 'Magliano de'' Marsi', 'L''Aquila'),
+       (NULL, 'Magliano di Tenna', 'Fermo'),
+       (NULL, 'Magliano in Toscana', 'Grosseto'),
+       (NULL, 'Maglie', 'Lecce'),
+       (NULL, 'Magliolo', 'Savona'),
+       (NULL, 'Maglione', 'Torino'),
+       (NULL, 'Magnacavallo', 'Mantova'),
+       (NULL, 'Magnago', 'Milano'),
+       (NULL, 'Magnano', 'Biella'),
+       (NULL, 'Magnano in Riviera', 'Udine'),
+       (NULL, 'Magomadas', 'Oristano'),
+       (NULL, 'Magreglio', 'Como'),
+       (NULL, 'Magrè sulla strada del vino', 'Bolzano'),
+       (NULL, 'Maida', 'Catanzaro'),
+       (NULL, 'Maierato', 'Vibo Valentia'),
+       (NULL, 'Maierà', 'Cosenza'),
+       (NULL, 'Maiolati Spontini', 'Ancona'),
+       (NULL, 'Maiolo', 'Rimini'),
+       (NULL, 'Maiori', 'Salerno'),
+       (NULL, 'Mairago', 'Lodi'),
+       (NULL, 'Mairano', 'Brescia'),
+       (NULL, 'Maissana', 'La Spezia'),
+       (NULL, 'Majano', 'Udine'),
+       (NULL, 'Malagnino', 'Cremona'),
+       (NULL, 'Malalbergo', 'Bologna'),
+       (NULL, 'Malborghetto Valbruna', 'Udine'),
+       (NULL, 'Malcesine', 'Verona'),
+       (NULL, 'Malegno', 'Brescia'),
+       (NULL, 'Maleo', 'Lodi'),
+       (NULL, 'Malesco', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Maletto', 'Catania'),
+       (NULL, 'Malfa', 'Messina'),
+       (NULL, 'Malgrate', 'Lecco'),
+       (NULL, 'Malito', 'Cosenza'),
+       (NULL, 'Mallare', 'Savona'),
+       (NULL, 'Malles Venosta', 'Bolzano'),
+       (NULL, 'Malnate', 'Varese'),
+       (NULL, 'Malo', 'Vicenza'),
+       (NULL, 'Malonno', 'Brescia'),
+       (NULL, 'Maltignano', 'Ascoli Piceno'),
+       (NULL, 'Malvagna', 'Messina'),
+       (NULL, 'Malvicino', 'Alessandria'),
+       (NULL, 'Malvito', 'Cosenza'),
+       (NULL, 'Malé', 'Trento'),
+       (NULL, 'Mammola', 'Reggio Calabria'),
+       (NULL, 'Mamoiada', 'Nuoro'),
+       (NULL, 'Manciano', 'Grosseto'),
+       (NULL, 'Mandanici', 'Messina'),
+       (NULL, 'Mandas', 'Sud Sardegna'),
+       (NULL, 'Mandatoriccio', 'Cosenza'),
+       (NULL, 'Mandela', 'Roma'),
+       (NULL, 'Mandello Vitta', 'Novara'),
+       (NULL, 'Mandello del Lario', 'Lecco'),
+       (NULL, 'Manduria', 'Taranto'),
+       (NULL, 'Manerba del Garda', 'Brescia'),
+       (NULL, 'Manerbio', 'Brescia'),
+       (NULL, 'Manfredonia', 'Foggia'),
+       (NULL, 'Mango', 'Cuneo'),
+       (NULL, 'Mangone', 'Cosenza'),
+       (NULL, 'Maniace', 'Catania'),
+       (NULL, 'Maniago', 'Pordenone'),
+       (NULL, 'Manocalzati', 'Avellino'),
+       (NULL, 'Manoppello', 'Pescara'),
+       (NULL, 'Mansuè', 'Treviso'),
+       (NULL, 'Manta', 'Cuneo'),
+       (NULL, 'Mantello', 'Sondrio'),
+       (NULL, 'Mantova', 'Mantova'),
+       (NULL, 'Manzano', 'Udine'),
+       (NULL, 'Manziana', 'Roma'),
+       (NULL, 'Mapello', 'Bergamo'),
+       (NULL, 'Mappano', 'Torino'),
+       (NULL, 'Mara', 'Sassari'),
+       (NULL, 'Maracalagonis', 'Cagliari'),
+       (NULL, 'Maranello', 'Modena'),
+       (NULL, 'Marano Equo', 'Roma'),
+       (NULL, 'Marano Lagunare', 'Udine'),
+       (NULL, 'Marano Marchesato', 'Cosenza'),
+       (NULL, 'Marano Principato', 'Cosenza'),
+       (NULL, 'Marano Ticino', 'Novara'),
+       (NULL, 'Marano Vicentino', 'Vicenza'),
+       (NULL, 'Marano di Napoli', 'Napoli'),
+       (NULL, 'Marano di Valpolicella', 'Verona'),
+       (NULL, 'Marano sul Panaro', 'Modena'),
+       (NULL, 'Maranzana', 'Asti'),
+       (NULL, 'Maratea', 'Potenza'),
+       (NULL, 'Marcallo con Casone', 'Milano'),
+       (NULL, 'Marcaria', 'Mantova'),
+       (NULL, 'Marcedusa', 'Catanzaro'),
+       (NULL, 'Marcellina', 'Roma'),
+       (NULL, 'Marcellinara', 'Catanzaro'),
+       (NULL, 'Marcetelli', 'Rieti'),
+       (NULL, 'Marcheno', 'Brescia'),
+       (NULL, 'Marchirolo', 'Varese'),
+       (NULL, 'Marciana', 'Livorno'),
+       (NULL, 'Marciana Marina', 'Livorno'),
+       (NULL, 'Marcianise', 'Caserta'),
+       (NULL, 'Marciano della Chiana', 'Arezzo'),
+       (NULL, 'Marcignago', 'Pavia'),
+       (NULL, 'Marcon', 'Venezia'),
+       (NULL, 'Marebbe', 'Bolzano'),
+       (NULL, 'Marene', 'Cuneo'),
+       (NULL, 'Mareno di Piave', 'Treviso'),
+       (NULL, 'Marentino', 'Torino'),
+       (NULL, 'Maretto', 'Asti'),
+       (NULL, 'Margarita', 'Cuneo'),
+       (NULL, 'Margherita di Savoia', 'Barletta-Andria-Trani'),
+       (NULL, 'Margno', 'Lecco'),
+       (NULL, 'Mariana Mantovana', 'Mantova'),
+       (NULL, 'Mariano Comense', 'Como'),
+       (NULL, 'Mariano del Friuli', 'Gorizia'),
+       (NULL, 'Marianopoli', 'Caltanissetta'),
+       (NULL, 'Mariglianella', 'Napoli'),
+       (NULL, 'Marigliano', 'Napoli'),
+       (NULL, 'Marina di Gioiosa Ionica', 'Reggio Calabria'),
+       (NULL, 'Marineo', 'Palermo'),
+       (NULL, 'Marino', 'Roma'),
+       (NULL, 'Marlengo', 'Bolzano'),
+       (NULL, 'Marliana', 'Pistoia'),
+       (NULL, 'Marmentino', 'Brescia'),
+       (NULL, 'Marmirolo', 'Mantova'),
+       (NULL, 'Marmora', 'Cuneo'),
+       (NULL, 'Marnate', 'Varese'),
+       (NULL, 'Marone', 'Brescia'),
+       (NULL, 'Maropati', 'Reggio Calabria'),
+       (NULL, 'Marostica', 'Vicenza'),
+       (NULL, 'Marradi', 'Firenze'),
+       (NULL, 'Marrubiu', 'Oristano'),
+       (NULL, 'Marsaglia', 'Cuneo'),
+       (NULL, 'Marsala', 'Trapani'),
+       (NULL, 'Marsciano', 'Perugia'),
+       (NULL, 'Marsico Nuovo', 'Potenza'),
+       (NULL, 'Marsicovetere', 'Potenza'),
+       (NULL, 'Marta', 'Viterbo'),
+       (NULL, 'Martano', 'Lecce'),
+       (NULL, 'Martellago', 'Venezia'),
+       (NULL, 'Martello', 'Bolzano'),
+       (NULL, 'Martignacco', 'Udine'),
+       (NULL, 'Martignana di Po', 'Cremona'),
+       (NULL, 'Martignano', 'Lecce'),
+       (NULL, 'Martina Franca', 'Taranto'),
+       (NULL, 'Martinengo', 'Bergamo'),
+       (NULL, 'Martiniana Po', 'Cuneo'),
+       (NULL, 'Martinsicuro', 'Teramo'),
+       (NULL, 'Martirano', 'Catanzaro'),
+       (NULL, 'Martirano Lombardo', 'Catanzaro'),
+       (NULL, 'Martis', 'Sassari'),
+       (NULL, 'Martone', 'Reggio Calabria'),
+       (NULL, 'Marudo', 'Lodi'),
+       (NULL, 'Maruggio', 'Taranto'),
+       (NULL, 'Marzabotto', 'Bologna'),
+       (NULL, 'Marzano', 'Pavia'),
+       (NULL, 'Marzano Appio', 'Caserta'),
+       (NULL, 'Marzano di Nola', 'Avellino'),
+       (NULL, 'Marzi', 'Cosenza'),
+       (NULL, 'Marzio', 'Varese'),
+       (NULL, 'Masainas', 'Sud Sardegna'),
+       (NULL, 'Masate', 'Milano'),
+       (NULL, 'Mascali', 'Catania'),
+       (NULL, 'Mascalucia', 'Catania'),
+       (NULL, 'Maschito', 'Potenza'),
+       (NULL, 'Masciago Primo', 'Varese'),
+       (NULL, 'Maser', 'Treviso'),
+       (NULL, 'Masera', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Maserada sul Piave', 'Treviso'),
+       (NULL, 'Maserà di Padova', 'Padova'),
+       (NULL, 'Masi', 'Padova'),
+       (NULL, 'Masi Torello', 'Ferrara'),
+       (NULL, 'Masio', 'Alessandria'),
+       (NULL, 'Maslianico', 'Como'),
+       (NULL, 'Masone', 'Genova'),
+       (NULL, 'Massa', 'Massa-Carrara'),
+       (NULL, 'Massa Fermana', 'Fermo'),
+       (NULL, 'Massa Lombarda', 'Ravenna'),
+       (NULL, 'Massa Lubrense', 'Napoli'),
+       (NULL, 'Massa Marittima', 'Grosseto'),
+       (NULL, 'Massa Martana', 'Perugia'),
+       (NULL, 'Massa d''Albe', 'L''Aquila'),
+       (NULL, 'Massa di Somma', 'Napoli'),
+       (NULL, 'Massa e Cozzile', 'Pistoia'),
+       (NULL, 'Massafra', 'Taranto'),
+       (NULL, 'Massalengo', 'Lodi'),
+       (NULL, 'Massanzago', 'Padova'),
+       (NULL, 'Massarosa', 'Lucca'),
+       (NULL, 'Massazza', 'Biella'),
+       (NULL, 'Massello', 'Torino'),
+       (NULL, 'Masserano', 'Biella'),
+       (NULL, 'Massignano', 'Ascoli Piceno'),
+       (NULL, 'Massimeno', 'Trento'),
+       (NULL, 'Massimino', 'Savona'),
+       (NULL, 'Massino Visconti', 'Novara'),
+       (NULL, 'Massiola', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Masullas', 'Oristano'),
+       (NULL, 'Matelica', 'Macerata'),
+       (NULL, 'Matera', 'Matera'),
+       (NULL, 'Mathi', 'Torino'),
+       (NULL, 'Matino', 'Lecce'),
+       (NULL, 'Matrice', 'Campobasso'),
+       (NULL, 'Mattie', 'Torino'),
+       (NULL, 'Mattinata', 'Foggia'),
+       (NULL, 'Mazara del Vallo', 'Trapani'),
+       (NULL, 'Mazzano', 'Brescia'),
+       (NULL, 'Mazzano Romano', 'Roma'),
+       (NULL, 'Mazzarino', 'Caltanissetta'),
+       (NULL, 'Mazzarrone', 'Catania'),
+       (NULL, 'Mazzarrà Sant''Andrea', 'Messina'),
+       (NULL, 'Mazzin', 'Trento'),
+       (NULL, 'Mazzo di Valtellina', 'Sondrio'),
+       (NULL, 'Mazzè', 'Torino'),
+       (NULL, 'Meana Sardo', 'Nuoro'),
+       (NULL, 'Meana di Susa', 'Torino'),
+       (NULL, 'Meda', 'Monza e della Brianza'),
+       (NULL, 'Mede', 'Pavia'),
+       (NULL, 'Medea', 'Gorizia'),
+       (NULL, 'Medesano', 'Parma'),
+       (NULL, 'Medicina', 'Bologna'),
+       (NULL, 'Mediglia', 'Milano'),
+       (NULL, 'Medolago', 'Bergamo'),
+       (NULL, 'Medole', 'Mantova'),
+       (NULL, 'Medolla', 'Modena'),
+       (NULL, 'Meduna di Livenza', 'Treviso'),
+       (NULL, 'Meduno', 'Pordenone'),
+       (NULL, 'Megliadino San Vitale', 'Padova'),
+       (NULL, 'Meina', 'Novara'),
+       (NULL, 'Melara', 'Rovigo'),
+       (NULL, 'Melazzo', 'Alessandria'),
+       (NULL, 'Meldola', 'Forlì-Cesena'),
+       (NULL, 'Mele', 'Genova'),
+       (NULL, 'Melegnano', 'Milano'),
+       (NULL, 'Melendugno', 'Lecce'),
+       (NULL, 'Meleti', 'Lodi'),
+       (NULL, 'Melfi', 'Potenza'),
+       (NULL, 'Melicucco', 'Reggio Calabria'),
+       (NULL, 'Melicuccà', 'Reggio Calabria'),
+       (NULL, 'Melilli', 'Siracusa'),
+       (NULL, 'Melissa', 'Crotone'),
+       (NULL, 'Melissano', 'Lecce'),
+       (NULL, 'Melito Irpino', 'Avellino'),
+       (NULL, 'Melito di Napoli', 'Napoli'),
+       (NULL, 'Melito di Porto Salvo', 'Reggio Calabria'),
+       (NULL, 'Melizzano', 'Benevento'),
+       (NULL, 'Melle', 'Cuneo'),
+       (NULL, 'Mello', 'Sondrio'),
+       (NULL, 'Melpignano', 'Lecce'),
+       (NULL, 'Meltina', 'Bolzano'),
+       (NULL, 'Melzo', 'Milano'),
+       (NULL, 'Menaggio', 'Como'),
+       (NULL, 'Menconico', 'Pavia'),
+       (NULL, 'Mendatica', 'Imperia'),
+       (NULL, 'Mendicino', 'Cosenza'),
+       (NULL, 'Menfi', 'Agrigento'),
+       (NULL, 'Mentana', 'Roma'),
+       (NULL, 'Meolo', 'Venezia'),
+       (NULL, 'Merana', 'Alessandria'),
+       (NULL, 'Merano', 'Bolzano'),
+       (NULL, 'Merate', 'Lecco'),
+       (NULL, 'Mercallo', 'Varese'),
+       (NULL, 'Mercatello sul Metauro', 'Pesaro e Urbino'),
+       (NULL, 'Mercatino Conca', 'Pesaro e Urbino'),
+       (NULL, 'Mercato San Severino', 'Salerno'),
+       (NULL, 'Mercato Saraceno', 'Forlì-Cesena'),
+       (NULL, 'Mercenasco', 'Torino'),
+       (NULL, 'Mercogliano', 'Avellino'),
+       (NULL, 'Mereto di Tomba', 'Udine'),
+       (NULL, 'Mergo', 'Ancona'),
+       (NULL, 'Mergozzo', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Merlara', 'Padova'),
+       (NULL, 'Merlino', 'Lodi'),
+       (NULL, 'Merone', 'Como'),
+       (NULL, 'Merì', 'Messina'),
+       (NULL, 'Mesagne', 'Brindisi'),
+       (NULL, 'Mese', 'Sondrio'),
+       (NULL, 'Mesenzana', 'Varese'),
+       (NULL, 'Mesero', 'Milano'),
+       (NULL, 'Mesola', 'Ferrara'),
+       (NULL, 'Mesoraca', 'Crotone'),
+       (NULL, 'Messina', 'Messina'),
+       (NULL, 'Mestrino', 'Padova'),
+       (NULL, 'Meta', 'Napoli'),
+       (NULL, 'Mezzago', 'Monza e della Brianza'),
+       (NULL, 'Mezzana', 'Trento'),
+       (NULL, 'Mezzana Bigli', 'Pavia'),
+       (NULL, 'Mezzana Mortigliengo', 'Biella'),
+       (NULL, 'Mezzana Rabattone', 'Pavia'),
+       (NULL, 'Mezzane di Sotto', 'Verona'),
+       (NULL, 'Mezzanego', 'Genova'),
+       (NULL, 'Mezzanino', 'Pavia'),
+       (NULL, 'Mezzano', 'Trento'),
+       (NULL, 'Mezzenile', 'Torino'),
+       (NULL, 'Mezzocorona', 'Trento'),
+       (NULL, 'Mezzojuso', 'Palermo'),
+       (NULL, 'Mezzoldo', 'Bergamo'),
+       (NULL, 'Mezzolombardo', 'Trento'),
+       (NULL, 'Mezzomerico', 'Novara'),
+       (NULL, 'Miagliano', 'Biella'),
+       (NULL, 'Miane', 'Treviso'),
+       (NULL, 'Miasino', 'Novara'),
+       (NULL, 'Miazzina', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Micigliano', 'Rieti'),
+       (NULL, 'Miggiano', 'Lecce'),
+       (NULL, 'Miglianico', 'Chieti'),
+       (NULL, 'Miglierina', 'Catanzaro'),
+       (NULL, 'Miglionico', 'Matera'),
+       (NULL, 'Mignanego', 'Genova'),
+       (NULL, 'Mignano Monte Lungo', 'Caserta'),
+       (NULL, 'Milano', 'Milano'),
+       (NULL, 'Milazzo', 'Messina'),
+       (NULL, 'Milena', 'Caltanissetta'),
+       (NULL, 'Mileto', 'Vibo Valentia'),
+       (NULL, 'Milis', 'Oristano'),
+       (NULL, 'Militello Rosmarino', 'Messina'),
+       (NULL, 'Militello in Val di Catania', 'Catania'),
+       (NULL, 'Millesimo', 'Savona'),
+       (NULL, 'Milo', 'Catania'),
+       (NULL, 'Milzano', 'Brescia'),
+       (NULL, 'Mineo', 'Catania'),
+       (NULL, 'Minerbe', 'Verona'),
+       (NULL, 'Minerbio', 'Bologna'),
+       (NULL, 'Minervino Murge', 'Barletta-Andria-Trani'),
+       (NULL, 'Minervino di Lecce', 'Lecce'),
+       (NULL, 'Minori', 'Salerno'),
+       (NULL, 'Minturno', 'Latina'),
+       (NULL, 'Minucciano', 'Lucca'),
+       (NULL, 'Mioglia', 'Savona'),
+       (NULL, 'Mira', 'Venezia'),
+       (NULL, 'Mirabella Eclano', 'Avellino'),
+       (NULL, 'Mirabella Imbaccari', 'Catania'),
+       (NULL, 'Mirabello Monferrato', 'Alessandria'),
+       (NULL, 'Mirabello Sannitico', 'Campobasso'),
+       (NULL, 'Miradolo Terme', 'Pavia'),
+       (NULL, 'Miranda', 'Isernia'),
+       (NULL, 'Mirandola', 'Modena'),
+       (NULL, 'Mirano', 'Venezia'),
+       (NULL, 'Mirto', 'Messina'),
+       (NULL, 'Misano Adriatico', 'Rimini'),
+       (NULL, 'Misano di Gera d''Adda', 'Bergamo'),
+       (NULL, 'Misiliscemi', 'Trapani'),
+       (NULL, 'Misilmeri', 'Palermo'),
+       (NULL, 'Misinto', 'Monza e della Brianza'),
+       (NULL, 'Missaglia', 'Lecco'),
+       (NULL, 'Missanello', 'Potenza'),
+       (NULL, 'Misterbianco', 'Catania'),
+       (NULL, 'Mistretta', 'Messina'),
+       (NULL, 'Moasca', 'Asti'),
+       (NULL, 'Moconesi', 'Genova'),
+       (NULL, 'Modena', 'Modena'),
+       (NULL, 'Modica', 'Ragusa'),
+       (NULL, 'Modigliana', 'Forlì-Cesena'),
+       (NULL, 'Modolo', 'Oristano'),
+       (NULL, 'Modugno', 'Bari'),
+       (NULL, 'Moena', 'Trento'),
+       (NULL, 'Moggio', 'Lecco'),
+       (NULL, 'Moggio Udinese', 'Udine'),
+       (NULL, 'Moglia', 'Mantova'),
+       (NULL, 'Mogliano', 'Macerata'),
+       (NULL, 'Mogliano Veneto', 'Treviso'),
+       (NULL, 'Mogorella', 'Oristano'),
+       (NULL, 'Mogoro', 'Oristano'),
+       (NULL, 'Moiano', 'Benevento'),
+       (NULL, 'Moimacco', 'Udine'),
+       (NULL, 'Moio Alcantara', 'Messina'),
+       (NULL, 'Moio de'' Calvi', 'Bergamo'),
+       (NULL, 'Moio della Civitella', 'Salerno'),
+       (NULL, 'Moiola', 'Cuneo'),
+       (NULL, 'Mola di Bari', 'Bari'),
+       (NULL, 'Molare', 'Alessandria'),
+       (NULL, 'Molazzana', 'Lucca'),
+       (NULL, 'Molfetta', 'Bari'),
+       (NULL, 'Molina Aterno', 'L''Aquila'),
+       (NULL, 'Molinara', 'Benevento'),
+       (NULL, 'Molinella', 'Bologna'),
+       (NULL, 'Molini di Triora', 'Imperia'),
+       (NULL, 'Molino dei Torti', 'Alessandria'),
+       (NULL, 'Molise', 'Campobasso'),
+       (NULL, 'Moliterno', 'Potenza'),
+       (NULL, 'Mollia', 'Vercelli'),
+       (NULL, 'Molochio', 'Reggio Calabria'),
+       (NULL, 'Molteno', 'Lecco'),
+       (NULL, 'Moltrasio', 'Como'),
+       (NULL, 'Molveno', 'Trento'),
+       (NULL, 'Mombaldone', 'Asti'),
+       (NULL, 'Mombarcaro', 'Cuneo'),
+       (NULL, 'Mombaroccio', 'Pesaro e Urbino'),
+       (NULL, 'Mombaruzzo', 'Asti'),
+       (NULL, 'Mombasiglio', 'Cuneo'),
+       (NULL, 'Mombello Monferrato', 'Alessandria'),
+       (NULL, 'Mombello di Torino', 'Torino'),
+       (NULL, 'Mombercelli', 'Asti'),
+       (NULL, 'Momo', 'Novara'),
+       (NULL, 'Mompantero', 'Torino'),
+       (NULL, 'Mompeo', 'Rieti'),
+       (NULL, 'Momperone', 'Alessandria'),
+       (NULL, 'Monacilioni', 'Campobasso'),
+       (NULL, 'Monale', 'Asti'),
+       (NULL, 'Monasterace', 'Reggio Calabria'),
+       (NULL, 'Monastero Bormida', 'Asti'),
+       (NULL, 'Monastero di Lanzo', 'Torino'),
+       (NULL, 'Monastero di Vasco', 'Cuneo'),
+       (NULL, 'Monasterolo Casotto', 'Cuneo'),
+       (NULL, 'Monasterolo del Castello', 'Bergamo'),
+       (NULL, 'Monasterolo di Savigliano', 'Cuneo'),
+       (NULL, 'Monastier di Treviso', 'Treviso'),
+       (NULL, 'Monastir', 'Sud Sardegna'),
+       (NULL, 'Moncalieri', 'Torino'),
+       (NULL, 'Moncalvo', 'Asti'),
+       (NULL, 'Moncenisio', 'Torino'),
+       (NULL, 'Moncestino', 'Alessandria'),
+       (NULL, 'Monchiero', 'Cuneo'),
+       (NULL, 'Monchio delle Corti', 'Parma'),
+       (NULL, 'Moncrivello', 'Vercelli'),
+       (NULL, 'Moncucco Torinese', 'Asti'),
+       (NULL, 'Mondaino', 'Rimini'),
+       (NULL, 'Mondavio', 'Pesaro e Urbino'),
+       (NULL, 'Mondolfo', 'Pesaro e Urbino'),
+       (NULL, 'Mondovì', 'Cuneo'),
+       (NULL, 'Mondragone', 'Caserta'),
+       (NULL, 'Moneglia', 'Genova'),
+       (NULL, 'Monesiglio', 'Cuneo'),
+       (NULL, 'Monfalcone', 'Gorizia'),
+       (NULL, 'Monforte San Giorgio', 'Messina'),
+       (NULL, 'Monforte d''Alba', 'Cuneo'),
+       (NULL, 'Monfumo', 'Treviso'),
+       (NULL, 'Mongardino', 'Asti'),
+       (NULL, 'Monghidoro', 'Bologna'),
+       (NULL, 'Mongiana', 'Vibo Valentia'),
+       (NULL, 'Mongiardino Ligure', 'Alessandria'),
+       (NULL, 'Mongiuffi Melia', 'Messina'),
+       (NULL, 'Mongrando', 'Biella'),
+       (NULL, 'Mongrassano', 'Cosenza'),
+       (NULL, 'Monguelfo-Tesido', 'Bolzano'),
+       (NULL, 'Monguzzo', 'Como'),
+       (NULL, 'Moniga del Garda', 'Brescia'),
+       (NULL, 'Monleale', 'Alessandria'),
+       (NULL, 'Monno', 'Brescia'),
+       (NULL, 'Monopoli', 'Bari'),
+       (NULL, 'Monreale', 'Palermo'),
+       (NULL, 'Monrupino-Repentabor', 'Trieste'),
+       (NULL, 'Monsampietro Morico', 'Fermo'),
+       (NULL, 'Monsampolo del Tronto', 'Ascoli Piceno'),
+       (NULL, 'Monsano', 'Ancona'),
+       (NULL, 'Monselice', 'Padova'),
+       (NULL, 'Monserrato', 'Cagliari'),
+       (NULL, 'Monsummano Terme', 'Pistoia'),
+       (NULL, 'Montabone', 'Asti'),
+       (NULL, 'Montacuto', 'Alessandria'),
+       (NULL, 'Montafia', 'Asti'),
+       (NULL, 'Montagano', 'Campobasso'),
+       (NULL, 'Montagna in Valtellina', 'Sondrio'),
+       (NULL, 'Montagna sulla Strada del Vino', 'Bolzano'),
+       (NULL, 'Montagnana', 'Padova'),
+       (NULL, 'Montagnareale', 'Messina'),
+       (NULL, 'Montaguto', 'Avellino'),
+       (NULL, 'Montaione', 'Firenze'),
+       (NULL, 'Montalbano Elicona', 'Messina'),
+       (NULL, 'Montalbano Jonico', 'Matera'),
+       (NULL, 'Montalcino', 'Siena'),
+       (NULL, 'Montaldeo', 'Alessandria'),
+       (NULL, 'Montaldo Bormida', 'Alessandria'),
+       (NULL, 'Montaldo Roero', 'Cuneo'),
+       (NULL, 'Montaldo Scarampi', 'Asti'),
+       (NULL, 'Montaldo Torinese', 'Torino'),
+       (NULL, 'Montaldo di Mondovì', 'Cuneo'),
+       (NULL, 'Montale', 'Pistoia'),
+       (NULL, 'Montalenghe', 'Torino'),
+       (NULL, 'Montallegro', 'Agrigento'),
+       (NULL, 'Montalto Carpasio', 'Imperia'),
+       (NULL, 'Montalto Dora', 'Torino'),
+       (NULL, 'Montalto Pavese', 'Pavia'),
+       (NULL, 'Montalto Uffugo', 'Cosenza'),
+       (NULL, 'Montalto delle Marche', 'Ascoli Piceno'),
+       (NULL, 'Montalto di Castro', 'Viterbo'),
+       (NULL, 'Montanaro', 'Torino'),
+       (NULL, 'Montanaso Lombardo', 'Lodi'),
+       (NULL, 'Montanera', 'Cuneo'),
+       (NULL, 'Montano Antilia', 'Salerno'),
+       (NULL, 'Montano Lucino', 'Como'),
+       (NULL, 'Montappone', 'Fermo'),
+       (NULL, 'Montaquila', 'Isernia'),
+       (NULL, 'Montasola', 'Rieti'),
+       (NULL, 'Montauro', 'Catanzaro'),
+       (NULL, 'Montazzoli', 'Chieti'),
+       (NULL, 'Monte Argentario', 'Grosseto'),
+       (NULL, 'Monte Castello di Vibio', 'Perugia'),
+       (NULL, 'Monte Cavallo', 'Macerata'),
+       (NULL, 'Monte Cerignone', 'Pesaro e Urbino'),
+       (NULL, 'Monte Compatri', 'Roma'),
+       (NULL, 'Monte Cremasco', 'Cremona'),
+       (NULL, 'Monte Giberto', 'Fermo'),
+       (NULL, 'Monte Grimano Terme', 'Pesaro e Urbino'),
+       (NULL, 'Monte Isola', 'Brescia'),
+       (NULL, 'Monte Marenzo', 'Lecco'),
+       (NULL, 'Monte Porzio', 'Pesaro e Urbino'),
+       (NULL, 'Monte Porzio Catone', 'Roma'),
+       (NULL, 'Monte Rinaldo', 'Fermo'),
+       (NULL, 'Monte Roberto', 'Ancona'),
+       (NULL, 'Monte Romano', 'Viterbo'),
+       (NULL, 'Monte San Biagio', 'Latina'),
+       (NULL, 'Monte San Giacomo', 'Salerno'),
+       (NULL, 'Monte San Giovanni Campano', 'Frosinone'),
+       (NULL, 'Monte San Giovanni in Sabina', 'Rieti'),
+       (NULL, 'Monte San Giusto', 'Macerata'),
+       (NULL, 'Monte San Martino', 'Macerata'),
+       (NULL, 'Monte San Pietrangeli', 'Fermo'),
+       (NULL, 'Monte San Pietro', 'Bologna'),
+       (NULL, 'Monte San Savino', 'Arezzo'),
+       (NULL, 'Monte San Vito', 'Ancona'),
+       (NULL, 'Monte Sant''Angelo', 'Foggia'),
+       (NULL, 'Monte Santa Maria Tiberina', 'Perugia'),
+       (NULL, 'Monte Urano', 'Fermo'),
+       (NULL, 'Monte Vidon Combatte', 'Fermo'),
+       (NULL, 'Monte Vidon Corrado', 'Fermo'),
+       (NULL, 'Monte di Malo', 'Vicenza'),
+       (NULL, 'Monte di Procida', 'Napoli'),
+       (NULL, 'Montebello Jonico', 'Reggio Calabria'),
+       (NULL, 'Montebello Vicentino', 'Vicenza'),
+       (NULL, 'Montebello della Battaglia', 'Pavia'),
+       (NULL, 'Montebello di Bertona', 'Pescara'),
+       (NULL, 'Montebello sul Sangro', 'Chieti'),
+       (NULL, 'Montebelluna', 'Treviso'),
+       (NULL, 'Montebruno', 'Genova'),
+       (NULL, 'Montebuono', 'Rieti'),
+       (NULL, 'Montecalvo Irpino', 'Avellino'),
+       (NULL, 'Montecalvo Versiggia', 'Pavia'),
+       (NULL, 'Montecalvo in Foglia', 'Pesaro e Urbino'),
+       (NULL, 'Montecarlo', 'Lucca'),
+       (NULL, 'Montecarotto', 'Ancona'),
+       (NULL, 'Montecassiano', 'Macerata'),
+       (NULL, 'Montecastello', 'Alessandria'),
+       (NULL, 'Montecastrilli', 'Terni'),
+       (NULL, 'Montecatini Val di Cecina', 'Pisa'),
+       (NULL, 'Montecatini-Terme', 'Pistoia'),
+       (NULL, 'Montecchia di Crosara', 'Verona'),
+       (NULL, 'Montecchio', 'Terni'),
+       (NULL, 'Montecchio Emilia', 'Reggio nell''Emilia'),
+       (NULL, 'Montecchio Maggiore', 'Vicenza'),
+       (NULL, 'Montecchio Precalcino', 'Vicenza'),
+       (NULL, 'Montechiaro d''Acqui', 'Alessandria'),
+       (NULL, 'Montechiaro d''Asti', 'Asti'),
+       (NULL, 'Montechiarugolo', 'Parma'),
+       (NULL, 'Montecilfone', 'Campobasso'),
+       (NULL, 'Montecopiolo', 'Rimini'),
+       (NULL, 'Montecorice', 'Salerno'),
+       (NULL, 'Montecorvino Pugliano', 'Salerno'),
+       (NULL, 'Montecorvino Rovella', 'Salerno'),
+       (NULL, 'Montecosaro', 'Macerata'),
+       (NULL, 'Montecrestese', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Montecreto', 'Modena'),
+       (NULL, 'Montedinove', 'Ascoli Piceno'),
+       (NULL, 'Montedoro', 'Caltanissetta'),
+       (NULL, 'Montefalcione', 'Avellino'),
+       (NULL, 'Montefalco', 'Perugia'),
+       (NULL, 'Montefalcone Appennino', 'Fermo'),
+       (NULL, 'Montefalcone di Val Fortore', 'Benevento'),
+       (NULL, 'Montefalcone nel Sannio', 'Campobasso'),
+       (NULL, 'Montefano', 'Macerata'),
+       (NULL, 'Montefelcino', 'Pesaro e Urbino'),
+       (NULL, 'Monteferrante', 'Chieti'),
+       (NULL, 'Montefiascone', 'Viterbo'),
+       (NULL, 'Montefino', 'Teramo'),
+       (NULL, 'Montefiore Conca', 'Rimini'),
+       (NULL, 'Montefiore dell''Aso', 'Ascoli Piceno'),
+       (NULL, 'Montefiorino', 'Modena'),
+       (NULL, 'Monteflavio', 'Roma'),
+       (NULL, 'Monteforte Cilento', 'Salerno'),
+       (NULL, 'Monteforte Irpino', 'Avellino'),
+       (NULL, 'Monteforte d''Alpone', 'Verona'),
+       (NULL, 'Montefortino', 'Fermo'),
+       (NULL, 'Montefranco', 'Terni'),
+       (NULL, 'Montefredane', 'Avellino'),
+       (NULL, 'Montefusco', 'Avellino'),
+       (NULL, 'Montegabbione', 'Terni'),
+       (NULL, 'Montegalda', 'Vicenza'),
+       (NULL, 'Montegaldella', 'Vicenza'),
+       (NULL, 'Montegallo', 'Ascoli Piceno'),
+       (NULL, 'Montegioco', 'Alessandria'),
+       (NULL, 'Montegiordano', 'Cosenza'),
+       (NULL, 'Montegiorgio', 'Fermo'),
+       (NULL, 'Montegranaro', 'Fermo'),
+       (NULL, 'Montegridolfo', 'Rimini'),
+       (NULL, 'Montegrino Valtravaglia', 'Varese'),
+       (NULL, 'Montegrosso Pian Latte', 'Imperia'),
+       (NULL, 'Montegrosso d''Asti', 'Asti'),
+       (NULL, 'Montegrotto Terme', 'Padova'),
+       (NULL, 'Monteiasi', 'Taranto'),
+       (NULL, 'Montelabbate', 'Pesaro e Urbino'),
+       (NULL, 'Montelanico', 'Roma'),
+       (NULL, 'Montelapiano', 'Chieti'),
+       (NULL, 'Monteleone Rocca Doria', 'Sassari'),
+       (NULL, 'Monteleone Sabino', 'Rieti'),
+       (NULL, 'Monteleone d''Orvieto', 'Terni'),
+       (NULL, 'Monteleone di Fermo', 'Fermo'),
+       (NULL, 'Monteleone di Puglia', 'Foggia'),
+       (NULL, 'Monteleone di Spoleto', 'Perugia'),
+       (NULL, 'Montelepre', 'Palermo'),
+       (NULL, 'Montelibretti', 'Roma'),
+       (NULL, 'Montella', 'Avellino'),
+       (NULL, 'Montello', 'Bergamo'),
+       (NULL, 'Montelongo', 'Campobasso'),
+       (NULL, 'Montelparo', 'Fermo'),
+       (NULL, 'Montelupo Albese', 'Cuneo'),
+       (NULL, 'Montelupo Fiorentino', 'Firenze'),
+       (NULL, 'Montelupone', 'Macerata'),
+       (NULL, 'Montemaggiore Belsito', 'Palermo'),
+       (NULL, 'Montemagno', 'Asti'),
+       (NULL, 'Montemale di Cuneo', 'Cuneo'),
+       (NULL, 'Montemarano', 'Avellino'),
+       (NULL, 'Montemarciano', 'Ancona'),
+       (NULL, 'Montemarzino', 'Alessandria'),
+       (NULL, 'Montemesola', 'Taranto'),
+       (NULL, 'Montemezzo', 'Como'),
+       (NULL, 'Montemignaio', 'Arezzo'),
+       (NULL, 'Montemiletto', 'Avellino'),
+       (NULL, 'Montemilone', 'Potenza'),
+       (NULL, 'Montemitro', 'Campobasso'),
+       (NULL, 'Montemonaco', 'Ascoli Piceno'),
+       (NULL, 'Montemurlo', 'Prato'),
+       (NULL, 'Montemurro', 'Potenza'),
+       (NULL, 'Montenars', 'Udine'),
+       (NULL, 'Montenero Sabino', 'Rieti'),
+       (NULL, 'Montenero Val Cocchiara', 'Isernia'),
+       (NULL, 'Montenero di Bisaccia', 'Campobasso'),
+       (NULL, 'Montenerodomo', 'Chieti'),
+       (NULL, 'Monteodorisio', 'Chieti'),
+       (NULL, 'Montepaone', 'Catanzaro'),
+       (NULL, 'Monteparano', 'Taranto'),
+       (NULL, 'Monteprandone', 'Ascoli Piceno'),
+       (NULL, 'Montepulciano', 'Siena'),
+       (NULL, 'Monterchi', 'Arezzo'),
+       (NULL, 'Montereale', 'L''Aquila'),
+       (NULL, 'Montereale Valcellina', 'Pordenone'),
+       (NULL, 'Monterenzio', 'Bologna'),
+       (NULL, 'Monteriggioni', 'Siena'),
+       (NULL, 'Monteroduni', 'Isernia'),
+       (NULL, 'Monteroni d''Arbia', 'Siena'),
+       (NULL, 'Monteroni di Lecce', 'Lecce'),
+       (NULL, 'Monterosi', 'Viterbo'),
+       (NULL, 'Monterosso Almo', 'Ragusa'),
+       (NULL, 'Monterosso Calabro', 'Vibo Valentia'),
+       (NULL, 'Monterosso Grana', 'Cuneo'),
+       (NULL, 'Monterosso al Mare', 'La Spezia'),
+       (NULL, 'Monterotondo', 'Roma'),
+       (NULL, 'Monterotondo Marittimo', 'Grosseto'),
+       (NULL, 'Monterubbiano', 'Fermo'),
+       (NULL, 'Montesano Salentino', 'Lecce'),
+       (NULL, 'Montesano sulla Marcellana', 'Salerno'),
+       (NULL, 'Montesarchio', 'Benevento'),
+       (NULL, 'Montescaglioso', 'Matera'),
+       (NULL, 'Montescano', 'Pavia'),
+       (NULL, 'Montescheno', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Montescudaio', 'Pisa'),
+       (NULL, 'Montescudo-Monte Colombo', 'Rimini'),
+       (NULL, 'Montese', 'Modena'),
+       (NULL, 'Montesegale', 'Pavia'),
+       (NULL, 'Montesilvano', 'Pescara'),
+       (NULL, 'Montespertoli', 'Firenze'),
+       (NULL, 'Monteu Roero', 'Cuneo'),
+       (NULL, 'Monteu da Po', 'Torino'),
+       (NULL, 'Montevago', 'Agrigento'),
+       (NULL, 'Montevarchi', 'Arezzo'),
+       (NULL, 'Montevecchia', 'Lecco'),
+       (NULL, 'Monteverde', 'Avellino'),
+       (NULL, 'Monteverdi Marittimo', 'Pisa'),
+       (NULL, 'Monteviale', 'Vicenza'),
+       (NULL, 'Montezemolo', 'Cuneo'),
+       (NULL, 'Monti', 'Sassari'),
+       (NULL, 'Montiano', 'Forlì-Cesena'),
+       (NULL, 'Monticelli Brusati', 'Brescia'),
+       (NULL, 'Monticelli Pavese', 'Pavia'),
+       (NULL, 'Monticelli d''Ongina', 'Piacenza'),
+       (NULL, 'Monticello Brianza', 'Lecco'),
+       (NULL, 'Monticello Conte Otto', 'Vicenza'),
+       (NULL, 'Monticello d''Alba', 'Cuneo'),
+       (NULL, 'Montichiari', 'Brescia'),
+       (NULL, 'Monticiano', 'Siena'),
+       (NULL, 'Montieri', 'Grosseto'),
+       (NULL, 'Montiglio Monferrato', 'Asti'),
+       (NULL, 'Montignoso', 'Massa-Carrara'),
+       (NULL, 'Montirone', 'Brescia'),
+       (NULL, 'Montjovet', 'Valle d''Aosta'),
+       (NULL, 'Montodine', 'Cremona'),
+       (NULL, 'Montoggio', 'Genova'),
+       (NULL, 'Montone', 'Perugia'),
+       (NULL, 'Montopoli di Sabina', 'Rieti'),
+       (NULL, 'Montopoli in Val d''Arno', 'Pisa'),
+       (NULL, 'Montorfano', 'Como'),
+       (NULL, 'Montorio Romano', 'Roma'),
+       (NULL, 'Montorio al Vomano', 'Teramo'),
+       (NULL, 'Montorio nei Frentani', 'Campobasso'),
+       (NULL, 'Montoro', 'Avellino'),
+       (NULL, 'Montorso Vicentino', 'Vicenza'),
+       (NULL, 'Montottone', 'Fermo'),
+       (NULL, 'Montresta', 'Oristano'),
+       (NULL, 'Montà', 'Cuneo'),
+       (NULL, 'Montù Beccaria', 'Pavia'),
+       (NULL, 'Monvalle', 'Varese'),
+       (NULL, 'Monza', 'Monza e della Brianza'),
+       (NULL, 'Monzambano', 'Mantova'),
+       (NULL, 'Monzuno', 'Bologna'),
+       (NULL, 'Morano Calabro', 'Cosenza'),
+       (NULL, 'Morano sul Po', 'Alessandria'),
+       (NULL, 'Moransengo-Tonengo', 'Asti'),
+       (NULL, 'Moraro', 'Gorizia'),
+       (NULL, 'Morazzone', 'Varese'),
+       (NULL, 'Morbegno', 'Sondrio'),
+       (NULL, 'Morbello', 'Alessandria'),
+       (NULL, 'Morciano di Leuca', 'Lecce'),
+       (NULL, 'Morciano di Romagna', 'Rimini'),
+       (NULL, 'Morcone', 'Benevento'),
+       (NULL, 'Mordano', 'Bologna'),
+       (NULL, 'Morengo', 'Bergamo'),
+       (NULL, 'Mores', 'Sassari'),
+       (NULL, 'Moresco', 'Fermo'),
+       (NULL, 'Moretta', 'Cuneo'),
+       (NULL, 'Morfasso', 'Piacenza'),
+       (NULL, 'Morgano', 'Treviso'),
+       (NULL, 'Morgex', 'Valle d''Aosta'),
+       (NULL, 'Morgongiori', 'Oristano'),
+       (NULL, 'Mori', 'Trento'),
+       (NULL, 'Moriago della Battaglia', 'Treviso'),
+       (NULL, 'Moricone', 'Roma'),
+       (NULL, 'Morigerati', 'Salerno'),
+       (NULL, 'Morimondo', 'Milano'),
+       (NULL, 'Morino', 'L''Aquila'),
+       (NULL, 'Moriondo Torinese', 'Torino'),
+       (NULL, 'Morlupo', 'Roma'),
+       (NULL, 'Mormanno', 'Cosenza'),
+       (NULL, 'Mornago', 'Varese'),
+       (NULL, 'Mornese', 'Alessandria'),
+       (NULL, 'Mornico Losana', 'Pavia'),
+       (NULL, 'Mornico al Serio', 'Bergamo'),
+       (NULL, 'Morolo', 'Frosinone'),
+       (NULL, 'Morozzo', 'Cuneo'),
+       (NULL, 'Morra De Sanctis', 'Avellino'),
+       (NULL, 'Morro Reatino', 'Rieti'),
+       (NULL, 'Morro d''Alba', 'Ancona'),
+       (NULL, 'Morro d''Oro', 'Teramo'),
+       (NULL, 'Morrone del Sannio', 'Campobasso'),
+       (NULL, 'Morrovalle', 'Macerata'),
+       (NULL, 'Morsano al Tagliamento', 'Pordenone'),
+       (NULL, 'Morsasco', 'Alessandria'),
+       (NULL, 'Mortara', 'Pavia'),
+       (NULL, 'Mortegliano', 'Udine'),
+       (NULL, 'Morterone', 'Lecco'),
+       (NULL, 'Moruzzo', 'Udine'),
+       (NULL, 'Moscazzano', 'Cremona'),
+       (NULL, 'Moschiano', 'Avellino'),
+       (NULL, 'Mosciano Sant''Angelo', 'Teramo'),
+       (NULL, 'Moscufo', 'Pescara'),
+       (NULL, 'Moso in Passiria', 'Bolzano'),
+       (NULL, 'Mossa', 'Gorizia'),
+       (NULL, 'Motta Baluffi', 'Cremona'),
+       (NULL, 'Motta Camastra', 'Messina'),
+       (NULL, 'Motta Montecorvino', 'Foggia'),
+       (NULL, 'Motta San Giovanni', 'Reggio Calabria'),
+       (NULL, 'Motta Sant''Anastasia', 'Catania'),
+       (NULL, 'Motta Santa Lucia', 'Catanzaro'),
+       (NULL, 'Motta Visconti', 'Milano'),
+       (NULL, 'Motta d''Affermo', 'Messina'),
+       (NULL, 'Motta de'' Conti', 'Vercelli'),
+       (NULL, 'Motta di Livenza', 'Treviso'),
+       (NULL, 'Mottafollone', 'Cosenza'),
+       (NULL, 'Mottalciata', 'Biella'),
+       (NULL, 'Motteggiana', 'Mantova'),
+       (NULL, 'Mottola', 'Taranto'),
+       (NULL, 'Mozzagrogna', 'Chieti'),
+       (NULL, 'Mozzanica', 'Bergamo'),
+       (NULL, 'Mozzate', 'Como'),
+       (NULL, 'Mozzecane', 'Verona'),
+       (NULL, 'Mozzo', 'Bergamo'),
+       (NULL, 'Muccia', 'Macerata'),
+       (NULL, 'Muggia', 'Trieste'),
+       (NULL, 'Muggiò', 'Monza e della Brianza'),
+       (NULL, 'Mugnano del Cardinale', 'Avellino'),
+       (NULL, 'Mugnano di Napoli', 'Napoli'),
+       (NULL, 'Mulazzano', 'Lodi'),
+       (NULL, 'Mulazzo', 'Massa-Carrara'),
+       (NULL, 'Mura', 'Brescia'),
+       (NULL, 'Muravera', 'Sud Sardegna'),
+       (NULL, 'Murazzano', 'Cuneo'),
+       (NULL, 'Murello', 'Cuneo'),
+       (NULL, 'Murialdo', 'Savona'),
+       (NULL, 'Murisengo', 'Alessandria'),
+       (NULL, 'Murlo', 'Siena'),
+       (NULL, 'Muro Leccese', 'Lecce'),
+       (NULL, 'Muro Lucano', 'Potenza'),
+       (NULL, 'Muros', 'Sassari'),
+       (NULL, 'Muscoline', 'Brescia'),
+       (NULL, 'Musei', 'Sud Sardegna'),
+       (NULL, 'Musile di Piave', 'Venezia'),
+       (NULL, 'Musso', 'Como'),
+       (NULL, 'Mussolente', 'Vicenza'),
+       (NULL, 'Mussomeli', 'Caltanissetta'),
+       (NULL, 'Muzzana del Turgnano', 'Udine'),
+       (NULL, 'Muzzano', 'Biella'),
+       (NULL, 'Nago-Torbole', 'Trento'),
+       (NULL, 'Nalles', 'Bolzano'),
+       (NULL, 'Nanto', 'Vicenza'),
+       (NULL, 'Napoli', 'Napoli'),
+       (NULL, 'Narbolia', 'Oristano'),
+       (NULL, 'Narcao', 'Sud Sardegna'),
+       (NULL, 'Nardodipace', 'Vibo Valentia'),
+       (NULL, 'Nardò', 'Lecce'),
+       (NULL, 'Narni', 'Terni'),
+       (NULL, 'Naro', 'Agrigento'),
+       (NULL, 'Narzole', 'Cuneo'),
+       (NULL, 'Nasino', 'Savona'),
+       (NULL, 'Naso', 'Messina'),
+       (NULL, 'Naturno', 'Bolzano'),
+       (NULL, 'Nave', 'Brescia'),
+       (NULL, 'Navelli', 'L''Aquila'),
+       (NULL, 'Naz-Sciaves', 'Bolzano'),
+       (NULL, 'Nazzano', 'Roma'),
+       (NULL, 'Ne', 'Genova'),
+       (NULL, 'Nebbiuno', 'Novara'),
+       (NULL, 'Negrar di Valpolicella', 'Verona'),
+       (NULL, 'Neirone', 'Genova'),
+       (NULL, 'Neive', 'Cuneo'),
+       (NULL, 'Nembro', 'Bergamo'),
+       (NULL, 'Nemi', 'Roma'),
+       (NULL, 'Nemoli', 'Potenza'),
+       (NULL, 'Neoneli', 'Oristano'),
+       (NULL, 'Nepi', 'Viterbo'),
+       (NULL, 'Nereto', 'Teramo'),
+       (NULL, 'Nerola', 'Roma'),
+       (NULL, 'Nervesa della Battaglia', 'Treviso'),
+       (NULL, 'Nerviano', 'Milano'),
+       (NULL, 'Nespolo', 'Rieti'),
+       (NULL, 'Nesso', 'Como'),
+       (NULL, 'Netro', 'Biella'),
+       (NULL, 'Nettuno', 'Roma'),
+       (NULL, 'Neviano', 'Lecce'),
+       (NULL, 'Neviano degli Arduini', 'Parma'),
+       (NULL, 'Neviglie', 'Cuneo'),
+       (NULL, 'Niardo', 'Brescia'),
+       (NULL, 'Nibbiola', 'Novara'),
+       (NULL, 'Nibionno', 'Lecco'),
+       (NULL, 'Nichelino', 'Torino'),
+       (NULL, 'Nicolosi', 'Catania'),
+       (NULL, 'Nicorvo', 'Pavia'),
+       (NULL, 'Nicosia', 'Enna'),
+       (NULL, 'Nicotera', 'Vibo Valentia'),
+       (NULL, 'Niella Belbo', 'Cuneo'),
+       (NULL, 'Niella Tanaro', 'Cuneo'),
+       (NULL, 'Nimis', 'Udine'),
+       (NULL, 'Niscemi', 'Caltanissetta'),
+       (NULL, 'Nissoria', 'Enna'),
+       (NULL, 'Nizza Monferrato', 'Asti'),
+       (NULL, 'Nizza di Sicilia', 'Messina'),
+       (NULL, 'Noale', 'Venezia'),
+       (NULL, 'Noasca', 'Torino'),
+       (NULL, 'Nocara', 'Cosenza'),
+       (NULL, 'Nocciano', 'Pescara'),
+       (NULL, 'Nocera Inferiore', 'Salerno'),
+       (NULL, 'Nocera Superiore', 'Salerno'),
+       (NULL, 'Nocera Terinese', 'Catanzaro'),
+       (NULL, 'Nocera Umbra', 'Perugia'),
+       (NULL, 'Noceto', 'Parma'),
+       (NULL, 'Noci', 'Bari'),
+       (NULL, 'Nociglia', 'Lecce'),
+       (NULL, 'Noepoli', 'Potenza'),
+       (NULL, 'Nogara', 'Verona'),
+       (NULL, 'Nogaredo', 'Trento'),
+       (NULL, 'Nogarole Rocca', 'Verona'),
+       (NULL, 'Nogarole Vicentino', 'Vicenza'),
+       (NULL, 'Noicattaro', 'Bari'),
+       (NULL, 'Nola', 'Napoli'),
+       (NULL, 'Nole', 'Torino'),
+       (NULL, 'Noli', 'Savona'),
+       (NULL, 'Nomaglio', 'Torino'),
+       (NULL, 'Nomi', 'Trento'),
+       (NULL, 'Nonantola', 'Modena'),
+       (NULL, 'None', 'Torino'),
+       (NULL, 'Nonio', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Noragugume', 'Nuoro'),
+       (NULL, 'Norbello', 'Oristano'),
+       (NULL, 'Norcia', 'Perugia'),
+       (NULL, 'Norma', 'Latina'),
+       (NULL, 'Nosate', 'Milano'),
+       (NULL, 'Notaresco', 'Teramo'),
+       (NULL, 'Noto', 'Siracusa'),
+       (NULL, 'Nova Levante', 'Bolzano'),
+       (NULL, 'Nova Milanese', 'Monza e della Brianza'),
+       (NULL, 'Nova Ponente', 'Bolzano'),
+       (NULL, 'Nova Siri', 'Matera'),
+       (NULL, 'Novafeltria', 'Rimini'),
+       (NULL, 'Novaledo', 'Trento'),
+       (NULL, 'Novalesa', 'Torino'),
+       (NULL, 'Novara', 'Novara'),
+       (NULL, 'Novara di Sicilia', 'Messina'),
+       (NULL, 'Novate Mezzola', 'Sondrio'),
+       (NULL, 'Novate Milanese', 'Milano'),
+       (NULL, 'Nove', 'Vicenza'),
+       (NULL, 'Novedrate', 'Como'),
+       (NULL, 'Novella', 'Trento'),
+       (NULL, 'Novellara', 'Reggio nell''Emilia'),
+       (NULL, 'Novello', 'Cuneo'),
+       (NULL, 'Noventa Padovana', 'Padova'),
+       (NULL, 'Noventa Vicentina', 'Vicenza'),
+       (NULL, 'Noventa di Piave', 'Venezia'),
+       (NULL, 'Novi Ligure', 'Alessandria'),
+       (NULL, 'Novi Velia', 'Salerno'),
+       (NULL, 'Novi di Modena', 'Modena'),
+       (NULL, 'Noviglio', 'Milano'),
+       (NULL, 'Novoli', 'Lecce'),
+       (NULL, 'Nucetto', 'Cuneo'),
+       (NULL, 'Nughedu San Nicolò', 'Sassari'),
+       (NULL, 'Nughedu Santa Vittoria', 'Oristano'),
+       (NULL, 'Nule', 'Sassari'),
+       (NULL, 'Nulvi', 'Sassari'),
+       (NULL, 'Numana', 'Ancona'),
+       (NULL, 'Nuoro', 'Nuoro'),
+       (NULL, 'Nurachi', 'Oristano'),
+       (NULL, 'Nuragus', 'Sud Sardegna'),
+       (NULL, 'Nurallao', 'Sud Sardegna'),
+       (NULL, 'Nuraminis', 'Sud Sardegna'),
+       (NULL, 'Nureci', 'Oristano'),
+       (NULL, 'Nurri', 'Sud Sardegna'),
+       (NULL, 'Nus', 'Valle d''Aosta'),
+       (NULL, 'Nusco', 'Avellino'),
+       (NULL, 'Nuvolento', 'Brescia'),
+       (NULL, 'Nuvolera', 'Brescia'),
+       (NULL, 'Nuxis', 'Sud Sardegna'),
+       (NULL, 'Occhieppo Inferiore', 'Biella'),
+       (NULL, 'Occhieppo Superiore', 'Biella'),
+       (NULL, 'Occhiobello', 'Rovigo'),
+       (NULL, 'Occimiano', 'Alessandria'),
+       (NULL, 'Ocre', 'L''Aquila'),
+       (NULL, 'Odalengo Grande', 'Alessandria'),
+       (NULL, 'Odalengo Piccolo', 'Alessandria'),
+       (NULL, 'Oderzo', 'Treviso'),
+       (NULL, 'Odolo', 'Brescia'),
+       (NULL, 'Ofena', 'L''Aquila'),
+       (NULL, 'Offagna', 'Ancona'),
+       (NULL, 'Offanengo', 'Cremona'),
+       (NULL, 'Offida', 'Ascoli Piceno'),
+       (NULL, 'Offlaga', 'Brescia'),
+       (NULL, 'Oggebbio', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Oggiona con Santo Stefano', 'Varese'),
+       (NULL, 'Oggiono', 'Lecco'),
+       (NULL, 'Oglianico', 'Torino'),
+       (NULL, 'Ogliastro Cilento', 'Salerno'),
+       (NULL, 'Olbia', 'Sassari'),
+       (NULL, 'Olcenengo', 'Vercelli'),
+       (NULL, 'Oldenico', 'Vercelli'),
+       (NULL, 'Oleggio', 'Novara'),
+       (NULL, 'Oleggio Castello', 'Novara'),
+       (NULL, 'Olevano Romano', 'Roma'),
+       (NULL, 'Olevano di Lomellina', 'Pavia'),
+       (NULL, 'Olevano sul Tusciano', 'Salerno'),
+       (NULL, 'Olgiate Comasco', 'Como'),
+       (NULL, 'Olgiate Molgora', 'Lecco'),
+       (NULL, 'Olgiate Olona', 'Varese'),
+       (NULL, 'Olginate', 'Lecco'),
+       (NULL, 'Oliena', 'Nuoro'),
+       (NULL, 'Oliva Gessi', 'Pavia'),
+       (NULL, 'Olivadi', 'Catanzaro'),
+       (NULL, 'Oliveri', 'Messina'),
+       (NULL, 'Oliveto Citra', 'Salerno'),
+       (NULL, 'Oliveto Lario', 'Lecco'),
+       (NULL, 'Oliveto Lucano', 'Matera'),
+       (NULL, 'Olivetta San Michele', 'Imperia'),
+       (NULL, 'Olivola', 'Alessandria'),
+       (NULL, 'Ollastra', 'Oristano'),
+       (NULL, 'Ollolai', 'Nuoro'),
+       (NULL, 'Ollomont', 'Valle d''Aosta'),
+       (NULL, 'Olmedo', 'Sassari'),
+       (NULL, 'Olmeneta', 'Cremona'),
+       (NULL, 'Olmo Gentile', 'Asti'),
+       (NULL, 'Olmo al Brembo', 'Bergamo'),
+       (NULL, 'Oltre il Colle', 'Bergamo'),
+       (NULL, 'Oltressenda Alta', 'Bergamo'),
+       (NULL, 'Oltrona di San Mamette', 'Como'),
+       (NULL, 'Olzai', 'Nuoro'),
+       (NULL, 'Ome', 'Brescia'),
+       (NULL, 'Omegna', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Omignano', 'Salerno'),
+       (NULL, 'Onano', 'Viterbo'),
+       (NULL, 'Onanì', 'Nuoro'),
+       (NULL, 'Oncino', 'Cuneo'),
+       (NULL, 'Oneta', 'Bergamo'),
+       (NULL, 'Onifai', 'Nuoro'),
+       (NULL, 'Oniferi', 'Nuoro'),
+       (NULL, 'Ono San Pietro', 'Brescia'),
+       (NULL, 'Onore', 'Bergamo'),
+       (NULL, 'Onzo', 'Savona'),
+       (NULL, 'Opera', 'Milano'),
+       (NULL, 'Opi', 'L''Aquila'),
+       (NULL, 'Oppeano', 'Verona'),
+       (NULL, 'Oppido Lucano', 'Potenza'),
+       (NULL, 'Oppido Mamertina', 'Reggio Calabria'),
+       (NULL, 'Ora', 'Bolzano'),
+       (NULL, 'Orani', 'Nuoro'),
+       (NULL, 'Oratino', 'Campobasso'),
+       (NULL, 'Orbassano', 'Torino'),
+       (NULL, 'Orbetello', 'Grosseto'),
+       (NULL, 'Orciano Pisano', 'Pisa'),
+       (NULL, 'Orco Feglino', 'Savona'),
+       (NULL, 'Ordona', 'Foggia'),
+       (NULL, 'Orero', 'Genova'),
+       (NULL, 'Orgiano', 'Vicenza'),
+       (NULL, 'Orgosolo', 'Nuoro'),
+       (NULL, 'Oria', 'Brindisi'),
+       (NULL, 'Oricola', 'L''Aquila'),
+       (NULL, 'Origgio', 'Varese'),
+       (NULL, 'Orino', 'Varese'),
+       (NULL, 'Orio Canavese', 'Torino'),
+       (NULL, 'Orio Litta', 'Lodi'),
+       (NULL, 'Orio al Serio', 'Bergamo'),
+       (NULL, 'Oriolo', 'Cosenza'),
+       (NULL, 'Oriolo Romano', 'Viterbo'),
+       (NULL, 'Oristano', 'Oristano'),
+       (NULL, 'Ormea', 'Cuneo'),
+       (NULL, 'Ormelle', 'Treviso'),
+       (NULL, 'Ornago', 'Monza e della Brianza'),
+       (NULL, 'Ornavasso', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Ornica', 'Bergamo'),
+       (NULL, 'Orosei', 'Nuoro'),
+       (NULL, 'Orotelli', 'Nuoro'),
+       (NULL, 'Orria', 'Salerno'),
+       (NULL, 'Orroli', 'Sud Sardegna'),
+       (NULL, 'Orsago', 'Treviso'),
+       (NULL, 'Orsara Bormida', 'Alessandria'),
+       (NULL, 'Orsara di Puglia', 'Foggia'),
+       (NULL, 'Orsenigo', 'Como'),
+       (NULL, 'Orsogna', 'Chieti'),
+       (NULL, 'Orsomarso', 'Cosenza'),
+       (NULL, 'Orta Nova', 'Foggia'),
+       (NULL, 'Orta San Giulio', 'Novara'),
+       (NULL, 'Orta di Atella', 'Caserta'),
+       (NULL, 'Ortacesus', 'Sud Sardegna'),
+       (NULL, 'Orte', 'Viterbo'),
+       (NULL, 'Ortelle', 'Lecce'),
+       (NULL, 'Ortezzano', 'Fermo'),
+       (NULL, 'Ortignano Raggiolo', 'Arezzo'),
+       (NULL, 'Ortisei', 'Bolzano'),
+       (NULL, 'Ortona', 'Chieti'),
+       (NULL, 'Ortona dei Marsi', 'L''Aquila'),
+       (NULL, 'Ortovero', 'Savona'),
+       (NULL, 'Ortucchio', 'L''Aquila'),
+       (NULL, 'Ortueri', 'Nuoro'),
+       (NULL, 'Orune', 'Nuoro'),
+       (NULL, 'Orvieto', 'Terni'),
+       (NULL, 'Orvinio', 'Rieti'),
+       (NULL, 'Orzinuovi', 'Brescia'),
+       (NULL, 'Orzivecchi', 'Brescia'),
+       (NULL, 'Osasco', 'Torino'),
+       (NULL, 'Osasio', 'Torino'),
+       (NULL, 'Oschiri', 'Sassari'),
+       (NULL, 'Osidda', 'Nuoro'),
+       (NULL, 'Osiglia', 'Savona'),
+       (NULL, 'Osilo', 'Sassari'),
+       (NULL, 'Osimo', 'Ancona'),
+       (NULL, 'Osini', 'Nuoro'),
+       (NULL, 'Osio Sopra', 'Bergamo'),
+       (NULL, 'Osio Sotto', 'Bergamo'),
+       (NULL, 'Osnago', 'Lecco'),
+       (NULL, 'Osoppo', 'Udine'),
+       (NULL, 'Ospedaletti', 'Imperia'),
+       (NULL, 'Ospedaletto', 'Trento'),
+       (NULL, 'Ospedaletto Euganeo', 'Padova'),
+       (NULL, 'Ospedaletto Lodigiano', 'Lodi'),
+       (NULL, 'Ospedaletto d''Alpinolo', 'Avellino'),
+       (NULL, 'Ospitale di Cadore', 'Belluno'),
+       (NULL, 'Ospitaletto', 'Brescia'),
+       (NULL, 'Ossago Lodigiano', 'Lodi'),
+       (NULL, 'Ossana', 'Trento'),
+       (NULL, 'Ossi', 'Sassari'),
+       (NULL, 'Ossimo', 'Brescia'),
+       (NULL, 'Ossona', 'Milano'),
+       (NULL, 'Ostana', 'Cuneo'),
+       (NULL, 'Ostellato', 'Ferrara'),
+       (NULL, 'Ostiano', 'Cremona'),
+       (NULL, 'Ostiglia', 'Mantova'),
+       (NULL, 'Ostra', 'Ancona'),
+       (NULL, 'Ostra Vetere', 'Ancona'),
+       (NULL, 'Ostuni', 'Brindisi'),
+       (NULL, 'Otranto', 'Lecce'),
+       (NULL, 'Otricoli', 'Terni'),
+       (NULL, 'Ottana', 'Nuoro'),
+       (NULL, 'Ottati', 'Salerno'),
+       (NULL, 'Ottaviano', 'Napoli'),
+       (NULL, 'Ottiglio', 'Alessandria'),
+       (NULL, 'Ottobiano', 'Pavia'),
+       (NULL, 'Ottone', 'Piacenza'),
+       (NULL, 'Oulx', 'Torino'),
+       (NULL, 'Ovada', 'Alessandria'),
+       (NULL, 'Ovaro', 'Udine'),
+       (NULL, 'Oviglio', 'Alessandria'),
+       (NULL, 'Ovindoli', 'L''Aquila'),
+       (NULL, 'Ovodda', 'Nuoro'),
+       (NULL, 'Oyace', 'Valle d''Aosta'),
+       (NULL, 'Ozegna', 'Torino'),
+       (NULL, 'Ozieri', 'Sassari'),
+       (NULL, 'Ozzano Monferrato', 'Alessandria'),
+       (NULL, 'Ozzano dell''Emilia', 'Bologna'),
+       (NULL, 'Ozzero', 'Milano'),
+       (NULL, 'Pabillonis', 'Sud Sardegna'),
+       (NULL, 'Pace del Mela', 'Messina'),
+       (NULL, 'Paceco', 'Trapani'),
+       (NULL, 'Pacentro', 'L''Aquila'),
+       (NULL, 'Pachino', 'Siracusa'),
+       (NULL, 'Paciano', 'Perugia'),
+       (NULL, 'Padenghe sul Garda', 'Brescia'),
+       (NULL, 'Paderna', 'Alessandria'),
+       (NULL, 'Paderno Dugnano', 'Milano'),
+       (NULL, 'Paderno Franciacorta', 'Brescia'),
+       (NULL, 'Paderno Ponchielli', 'Cremona'),
+       (NULL, 'Paderno d''Adda', 'Lecco'),
+       (NULL, 'Padova', 'Padova'),
+       (NULL, 'Padria', 'Sassari'),
+       (NULL, 'Padru', 'Sassari'),
+       (NULL, 'Padula', 'Salerno'),
+       (NULL, 'Paduli', 'Benevento'),
+       (NULL, 'Paesana', 'Cuneo'),
+       (NULL, 'Paese', 'Treviso'),
+       (NULL, 'Pagani', 'Salerno'),
+       (NULL, 'Paganico Sabino', 'Rieti'),
+       (NULL, 'Pagazzano', 'Bergamo'),
+       (NULL, 'Pagliara', 'Messina'),
+       (NULL, 'Paglieta', 'Chieti'),
+       (NULL, 'Pagnacco', 'Udine'),
+       (NULL, 'Pagno', 'Cuneo'),
+       (NULL, 'Pagnona', 'Lecco'),
+       (NULL, 'Pago Veiano', 'Benevento'),
+       (NULL, 'Pago del Vallo di Lauro', 'Avellino'),
+       (NULL, 'Paisco Loveno', 'Brescia'),
+       (NULL, 'Paitone', 'Brescia'),
+       (NULL, 'Paladina', 'Bergamo'),
+       (NULL, 'Palagano', 'Modena'),
+       (NULL, 'Palagianello', 'Taranto'),
+       (NULL, 'Palagiano', 'Taranto'),
+       (NULL, 'Palagonia', 'Catania'),
+       (NULL, 'Palaia', 'Pisa'),
+       (NULL, 'Palanzano', 'Parma'),
+       (NULL, 'Palata', 'Campobasso'),
+       (NULL, 'Palau', 'Sassari'),
+       (NULL, 'Palazzago', 'Bergamo'),
+       (NULL, 'Palazzo Adriano', 'Palermo'),
+       (NULL, 'Palazzo Canavese', 'Torino'),
+       (NULL, 'Palazzo Pignano', 'Cremona'),
+       (NULL, 'Palazzo San Gervasio', 'Potenza'),
+       (NULL, 'Palazzolo Acreide', 'Siracusa'),
+       (NULL, 'Palazzolo Vercellese', 'Vercelli'),
+       (NULL, 'Palazzolo dello Stella', 'Udine'),
+       (NULL, 'Palazzolo sull''Oglio', 'Brescia'),
+       (NULL, 'Palazzuolo sul Senio', 'Firenze'),
+       (NULL, 'Palena', 'Chieti'),
+       (NULL, 'Palermiti', 'Catanzaro'),
+       (NULL, 'Palermo', 'Palermo'),
+       (NULL, 'Palestrina', 'Roma'),
+       (NULL, 'Palestro', 'Pavia'),
+       (NULL, 'Paliano', 'Frosinone'),
+       (NULL, 'Palizzi', 'Reggio Calabria'),
+       (NULL, 'Pallagorio', 'Crotone'),
+       (NULL, 'Pallanzeno', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Pallare', 'Savona'),
+       (NULL, 'Palma Campania', 'Napoli'),
+       (NULL, 'Palma di Montechiaro', 'Agrigento'),
+       (NULL, 'Palmanova', 'Udine'),
+       (NULL, 'Palmariggi', 'Lecce'),
+       (NULL, 'Palmas Arborea', 'Oristano'),
+       (NULL, 'Palmi', 'Reggio Calabria'),
+       (NULL, 'Palmiano', 'Ascoli Piceno'),
+       (NULL, 'Palmoli', 'Chieti'),
+       (NULL, 'Palo del Colle', 'Bari'),
+       (NULL, 'Palombara Sabina', 'Roma'),
+       (NULL, 'Palombaro', 'Chieti'),
+       (NULL, 'Palomonte', 'Salerno'),
+       (NULL, 'Palosco', 'Bergamo'),
+       (NULL, 'Paludi', 'Cosenza'),
+       (NULL, 'Paluzza', 'Udine'),
+       (NULL, 'Palù', 'Verona'),
+       (NULL, 'Palù del Fersina', 'Trento'),
+       (NULL, 'Pamparato', 'Cuneo'),
+       (NULL, 'Pancalieri', 'Torino'),
+       (NULL, 'Pancarana', 'Pavia'),
+       (NULL, 'Panchià', 'Trento'),
+       (NULL, 'Pandino', 'Cremona'),
+       (NULL, 'Panettieri', 'Cosenza'),
+       (NULL, 'Panicale', 'Perugia'),
+       (NULL, 'Pannarano', 'Benevento'),
+       (NULL, 'Panni', 'Foggia'),
+       (NULL, 'Pantelleria', 'Trapani'),
+       (NULL, 'Pantigliate', 'Milano'),
+       (NULL, 'Paola', 'Cosenza'),
+       (NULL, 'Paolisi', 'Benevento'),
+       (NULL, 'Papasidero', 'Cosenza'),
+       (NULL, 'Papozze', 'Rovigo'),
+       (NULL, 'Parabiago', 'Milano'),
+       (NULL, 'Parabita', 'Lecce'),
+       (NULL, 'Paratico', 'Brescia'),
+       (NULL, 'Parcines', 'Bolzano'),
+       (NULL, 'Parella', 'Torino'),
+       (NULL, 'Parenti', 'Cosenza'),
+       (NULL, 'Parete', 'Caserta'),
+       (NULL, 'Pareto', 'Alessandria'),
+       (NULL, 'Parghelia', 'Vibo Valentia'),
+       (NULL, 'Parlasco', 'Lecco'),
+       (NULL, 'Parma', 'Parma'),
+       (NULL, 'Parodi Ligure', 'Alessandria'),
+       (NULL, 'Paroldo', 'Cuneo'),
+       (NULL, 'Parolise', 'Avellino'),
+       (NULL, 'Parona', 'Pavia'),
+       (NULL, 'Parrano', 'Terni'),
+       (NULL, 'Parre', 'Bergamo'),
+       (NULL, 'Partanna', 'Trapani'),
+       (NULL, 'Partinico', 'Palermo'),
+       (NULL, 'Paruzzaro', 'Novara'),
+       (NULL, 'Parzanica', 'Bergamo'),
+       (NULL, 'Pasian di Prato', 'Udine'),
+       (NULL, 'Pasiano di Pordenone', 'Pordenone'),
+       (NULL, 'Paspardo', 'Brescia'),
+       (NULL, 'Passerano Marmorito', 'Asti'),
+       (NULL, 'Passignano sul Trasimeno', 'Perugia'),
+       (NULL, 'Passirano', 'Brescia'),
+       (NULL, 'Pastena', 'Frosinone'),
+       (NULL, 'Pastorano', 'Caserta'),
+       (NULL, 'Pastrengo', 'Verona'),
+       (NULL, 'Pasturana', 'Alessandria'),
+       (NULL, 'Pasturo', 'Lecco'),
+       (NULL, 'Paterno', 'Potenza'),
+       (NULL, 'Paterno Calabro', 'Cosenza'),
+       (NULL, 'Paternopoli', 'Avellino'),
+       (NULL, 'Paternò', 'Catania'),
+       (NULL, 'Patrica', 'Frosinone'),
+       (NULL, 'Pattada', 'Sassari'),
+       (NULL, 'Patti', 'Messina'),
+       (NULL, 'Patù', 'Lecce'),
+       (NULL, 'Pau', 'Oristano'),
+       (NULL, 'Paularo', 'Udine'),
+       (NULL, 'Pauli Arbarei', 'Sud Sardegna'),
+       (NULL, 'Paulilatino', 'Oristano'),
+       (NULL, 'Paullo', 'Milano'),
+       (NULL, 'Paupisi', 'Benevento'),
+       (NULL, 'Pavarolo', 'Torino'),
+       (NULL, 'Pavia', 'Pavia'),
+       (NULL, 'Pavia di Udine', 'Udine'),
+       (NULL, 'Pavone Canavese', 'Torino'),
+       (NULL, 'Pavone del Mella', 'Brescia'),
+       (NULL, 'Pavullo nel Frignano', 'Modena'),
+       (NULL, 'Pazzano', 'Reggio Calabria'),
+       (NULL, 'Peccioli', 'Pisa'),
+       (NULL, 'Pecetto Torinese', 'Torino'),
+       (NULL, 'Pecetto di Valenza', 'Alessandria'),
+       (NULL, 'Pedara', 'Catania'),
+       (NULL, 'Pedaso', 'Fermo'),
+       (NULL, 'Pedavena', 'Belluno'),
+       (NULL, 'Pedemonte', 'Vicenza'),
+       (NULL, 'Pederobba', 'Treviso'),
+       (NULL, 'Pedesina', 'Sondrio'),
+       (NULL, 'Pedivigliano', 'Cosenza'),
+       (NULL, 'Pedrengo', 'Bergamo'),
+       (NULL, 'Peglio', 'Como'),
+       (NULL, 'Peglio', 'Pesaro e Urbino'),
+       (NULL, 'Pegognaga', 'Mantova'),
+       (NULL, 'Peia', 'Bergamo'),
+       (NULL, 'Peio', 'Trento'),
+       (NULL, 'Pelago', 'Firenze'),
+       (NULL, 'Pella', 'Novara'),
+       (NULL, 'Pellegrino Parmense', 'Parma'),
+       (NULL, 'Pellezzano', 'Salerno'),
+       (NULL, 'Pellizzano', 'Trento'),
+       (NULL, 'Pelugo', 'Trento'),
+       (NULL, 'Penango', 'Asti'),
+       (NULL, 'Penna San Giovanni', 'Macerata'),
+       (NULL, 'Penna Sant''Andrea', 'Teramo'),
+       (NULL, 'Penna in Teverina', 'Terni'),
+       (NULL, 'Pennabilli', 'Rimini'),
+       (NULL, 'Pennadomo', 'Chieti'),
+       (NULL, 'Pennapiedimonte', 'Chieti'),
+       (NULL, 'Penne', 'Pescara'),
+       (NULL, 'Pentone', 'Catanzaro'),
+       (NULL, 'Perano', 'Chieti'),
+       (NULL, 'Perarolo di Cadore', 'Belluno'),
+       (NULL, 'Perca', 'Bolzano'),
+       (NULL, 'Percile', 'Roma'),
+       (NULL, 'Perdasdefogu', 'Nuoro'),
+       (NULL, 'Perdaxius', 'Sud Sardegna'),
+       (NULL, 'Perdifumo', 'Salerno'),
+       (NULL, 'Pereto', 'L''Aquila'),
+       (NULL, 'Perfugas', 'Sassari'),
+       (NULL, 'Pergine Valsugana', 'Trento'),
+       (NULL, 'Pergola', 'Pesaro e Urbino'),
+       (NULL, 'Perinaldo', 'Imperia'),
+       (NULL, 'Perito', 'Salerno'),
+       (NULL, 'Perledo', 'Lecco'),
+       (NULL, 'Perletto', 'Cuneo'),
+       (NULL, 'Perlo', 'Cuneo'),
+       (NULL, 'Perloz', 'Valle d''Aosta'),
+       (NULL, 'Pernumia', 'Padova'),
+       (NULL, 'Pero', 'Milano'),
+       (NULL, 'Perosa Argentina', 'Torino'),
+       (NULL, 'Perosa Canavese', 'Torino'),
+       (NULL, 'Perrero', 'Torino'),
+       (NULL, 'Persico Dosimo', 'Cremona'),
+       (NULL, 'Pertengo', 'Vercelli'),
+       (NULL, 'Pertica Alta', 'Brescia'),
+       (NULL, 'Pertica Bassa', 'Brescia'),
+       (NULL, 'Pertosa', 'Salerno'),
+       (NULL, 'Pertusio', 'Torino'),
+       (NULL, 'Perugia', 'Perugia'),
+       (NULL, 'Pesaro', 'Pesaro e Urbino'),
+       (NULL, 'Pescaglia', 'Lucca'),
+       (NULL, 'Pescantina', 'Verona'),
+       (NULL, 'Pescara', 'Pescara'),
+       (NULL, 'Pescarolo ed Uniti', 'Cremona'),
+       (NULL, 'Pescasseroli', 'L''Aquila'),
+       (NULL, 'Pescate', 'Lecco'),
+       (NULL, 'Pesche', 'Isernia'),
+       (NULL, 'Peschici', 'Foggia'),
+       (NULL, 'Peschiera Borromeo', 'Milano'),
+       (NULL, 'Peschiera del Garda', 'Verona'),
+       (NULL, 'Pescia', 'Pistoia'),
+       (NULL, 'Pescina', 'L''Aquila'),
+       (NULL, 'Pesco Sannita', 'Benevento'),
+       (NULL, 'Pescocostanzo', 'L''Aquila'),
+       (NULL, 'Pescolanciano', 'Isernia'),
+       (NULL, 'Pescopagano', 'Potenza'),
+       (NULL, 'Pescopennataro', 'Isernia'),
+       (NULL, 'Pescorocchiano', 'Rieti'),
+       (NULL, 'Pescosansonesco', 'Pescara'),
+       (NULL, 'Pescosolido', 'Frosinone'),
+       (NULL, 'Pessano con Bornago', 'Milano'),
+       (NULL, 'Pessina Cremonese', 'Cremona'),
+       (NULL, 'Pessinetto', 'Torino'),
+       (NULL, 'Petacciato', 'Campobasso'),
+       (NULL, 'Petilia Policastro', 'Crotone'),
+       (NULL, 'Petina', 'Salerno'),
+       (NULL, 'Petralia Soprana', 'Palermo'),
+       (NULL, 'Petralia Sottana', 'Palermo'),
+       (NULL, 'Petrella Salto', 'Rieti'),
+       (NULL, 'Petrella Tifernina', 'Campobasso'),
+       (NULL, 'Petriano', 'Pesaro e Urbino'),
+       (NULL, 'Petriolo', 'Macerata'),
+       (NULL, 'Petritoli', 'Fermo'),
+       (NULL, 'Petrizzi', 'Catanzaro'),
+       (NULL, 'Petronà', 'Catanzaro'),
+       (NULL, 'Petrosino', 'Trapani'),
+       (NULL, 'Petruro Irpino', 'Avellino'),
+       (NULL, 'Pettenasco', 'Novara'),
+       (NULL, 'Pettinengo', 'Biella'),
+       (NULL, 'Pettineo', 'Messina'),
+       (NULL, 'Pettoranello del Molise', 'Isernia'),
+       (NULL, 'Pettorano sul Gizio', 'L''Aquila'),
+       (NULL, 'Pettorazza Grimani', 'Rovigo'),
+       (NULL, 'Peveragno', 'Cuneo'),
+       (NULL, 'Pezzana', 'Vercelli'),
+       (NULL, 'Pezzaze', 'Brescia'),
+       (NULL, 'Pezzolo Valle Uzzone', 'Cuneo'),
+       (NULL, 'Piacenza', 'Piacenza'),
+       (NULL, 'Piacenza d''Adige', 'Padova'),
+       (NULL, 'Piadena Drizzona', 'Cremona'),
+       (NULL, 'Piaggine', 'Salerno'),
+       (NULL, 'Pian Camuno', 'Brescia'),
+       (NULL, 'Piana Crixia', 'Savona'),
+       (NULL, 'Piana degli Albanesi', 'Palermo'),
+       (NULL, 'Piana di Monte Verna', 'Caserta'),
+       (NULL, 'Piancastagnaio', 'Siena'),
+       (NULL, 'Piancogno', 'Brescia'),
+       (NULL, 'Piandimeleto', 'Pesaro e Urbino'),
+       (NULL, 'Piane Crati', 'Cosenza'),
+       (NULL, 'Pianella', 'Pescara'),
+       (NULL, 'Pianello Val Tidone', 'Piacenza'),
+       (NULL, 'Pianello del Lario', 'Como'),
+       (NULL, 'Pianengo', 'Cremona'),
+       (NULL, 'Pianezza', 'Torino'),
+       (NULL, 'Pianezze', 'Vicenza'),
+       (NULL, 'Pianfei', 'Cuneo'),
+       (NULL, 'Pianico', 'Bergamo'),
+       (NULL, 'Pianiga', 'Venezia'),
+       (NULL, 'Piano di Sorrento', 'Napoli'),
+       (NULL, 'Pianopoli', 'Catanzaro'),
+       (NULL, 'Pianoro', 'Bologna'),
+       (NULL, 'Piansano', 'Viterbo'),
+       (NULL, 'Piantedo', 'Sondrio'),
+       (NULL, 'Piario', 'Bergamo'),
+       (NULL, 'Piasco', 'Cuneo'),
+       (NULL, 'Piateda', 'Sondrio'),
+       (NULL, 'Piatto', 'Biella'),
+       (NULL, 'Piazza Armerina', 'Enna'),
+       (NULL, 'Piazza Brembana', 'Bergamo'),
+       (NULL, 'Piazza al Serchio', 'Lucca'),
+       (NULL, 'Piazzatorre', 'Bergamo'),
+       (NULL, 'Piazzola sul Brenta', 'Padova'),
+       (NULL, 'Piazzolo', 'Bergamo'),
+       (NULL, 'Picciano', 'Pescara'),
+       (NULL, 'Picerno', 'Potenza'),
+       (NULL, 'Picinisco', 'Frosinone'),
+       (NULL, 'Pico', 'Frosinone'),
+       (NULL, 'Piea', 'Asti'),
+       (NULL, 'Piedicavallo', 'Biella'),
+       (NULL, 'Piedimonte Etneo', 'Catania'),
+       (NULL, 'Piedimonte Matese', 'Caserta'),
+       (NULL, 'Piedimonte San Germano', 'Frosinone'),
+       (NULL, 'Piedimulera', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Piegaro', 'Perugia'),
+       (NULL, 'Pienza', 'Siena'),
+       (NULL, 'Pieranica', 'Cremona'),
+       (NULL, 'Pietra Ligure', 'Savona'),
+       (NULL, 'Pietra Marazzi', 'Alessandria'),
+       (NULL, 'Pietra de'' Giorgi', 'Pavia'),
+       (NULL, 'Pietrabbondante', 'Isernia'),
+       (NULL, 'Pietrabruna', 'Imperia'),
+       (NULL, 'Pietracamela', 'Teramo'),
+       (NULL, 'Pietracatella', 'Campobasso'),
+       (NULL, 'Pietracupa', 'Campobasso'),
+       (NULL, 'Pietradefusi', 'Avellino'),
+       (NULL, 'Pietraferrazzana', 'Chieti'),
+       (NULL, 'Pietrafitta', 'Cosenza'),
+       (NULL, 'Pietragalla', 'Potenza'),
+       (NULL, 'Pietralunga', 'Perugia'),
+       (NULL, 'Pietramelara', 'Caserta'),
+       (NULL, 'Pietramontecorvino', 'Foggia'),
+       (NULL, 'Pietranico', 'Pescara'),
+       (NULL, 'Pietrapaola', 'Cosenza'),
+       (NULL, 'Pietrapertosa', 'Potenza'),
+       (NULL, 'Pietraperzia', 'Enna'),
+       (NULL, 'Pietraporzio', 'Cuneo'),
+       (NULL, 'Pietraroja', 'Benevento'),
+       (NULL, 'Pietrarubbia', 'Pesaro e Urbino'),
+       (NULL, 'Pietrasanta', 'Lucca'),
+       (NULL, 'Pietrastornina', 'Avellino'),
+       (NULL, 'Pietravairano', 'Caserta'),
+       (NULL, 'Pietrelcina', 'Benevento'),
+       (NULL, 'Pieve Albignola', 'Pavia'),
+       (NULL, 'Pieve Emanuele', 'Milano'),
+       (NULL, 'Pieve Fissiraga', 'Lodi'),
+       (NULL, 'Pieve Fosciana', 'Lucca'),
+       (NULL, 'Pieve Ligure', 'Genova'),
+       (NULL, 'Pieve Porto Morone', 'Pavia'),
+       (NULL, 'Pieve San Giacomo', 'Cremona'),
+       (NULL, 'Pieve Santo Stefano', 'Arezzo'),
+       (NULL, 'Pieve Tesino', 'Trento'),
+       (NULL, 'Pieve Torina', 'Macerata'),
+       (NULL, 'Pieve Vergonte', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Pieve a Nievole', 'Pistoia'),
+       (NULL, 'Pieve d''Olmi', 'Cremona'),
+       (NULL, 'Pieve del Cairo', 'Pavia'),
+       (NULL, 'Pieve del Grappa', 'Treviso'),
+       (NULL, 'Pieve di Bono-Prezzo', 'Trento'),
+       (NULL, 'Pieve di Cadore', 'Belluno'),
+       (NULL, 'Pieve di Cento', 'Bologna'),
+       (NULL, 'Pieve di Soligo', 'Treviso'),
+       (NULL, 'Pieve di Teco', 'Imperia'),
+       (NULL, 'Pievepelago', 'Modena'),
+       (NULL, 'Piglio', 'Frosinone'),
+       (NULL, 'Pigna', 'Imperia'),
+       (NULL, 'Pignataro Interamna', 'Frosinone'),
+       (NULL, 'Pignataro Maggiore', 'Caserta'),
+       (NULL, 'Pignola', 'Potenza'),
+       (NULL, 'Pignone', 'La Spezia'),
+       (NULL, 'Pigra', 'Como'),
+       (NULL, 'Pila', 'Vercelli'),
+       (NULL, 'Pimentel', 'Sud Sardegna'),
+       (NULL, 'Pimonte', 'Napoli'),
+       (NULL, 'Pinarolo Po', 'Pavia'),
+       (NULL, 'Pinasca', 'Torino'),
+       (NULL, 'Pincara', 'Rovigo'),
+       (NULL, 'Pinerolo', 'Torino'),
+       (NULL, 'Pineto', 'Teramo'),
+       (NULL, 'Pino Torinese', 'Torino'),
+       (NULL, 'Pino d''Asti', 'Asti'),
+       (NULL, 'Pinzano al Tagliamento', 'Pordenone'),
+       (NULL, 'Pinzolo', 'Trento'),
+       (NULL, 'Piobbico', 'Pesaro e Urbino'),
+       (NULL, 'Piobesi Torinese', 'Torino'),
+       (NULL, 'Piobesi d''Alba', 'Cuneo'),
+       (NULL, 'Piode', 'Vercelli'),
+       (NULL, 'Pioltello', 'Milano'),
+       (NULL, 'Piombino', 'Livorno'),
+       (NULL, 'Piombino Dese', 'Padova'),
+       (NULL, 'Pioraco', 'Macerata'),
+       (NULL, 'Piossasco', 'Torino'),
+       (NULL, 'Piove di Sacco', 'Padova'),
+       (NULL, 'Piovene Rocchette', 'Vicenza'),
+       (NULL, 'Piovà Massaia', 'Asti'),
+       (NULL, 'Piozzano', 'Piacenza'),
+       (NULL, 'Piozzo', 'Cuneo'),
+       (NULL, 'Piraino', 'Messina'),
+       (NULL, 'Pisa', 'Pisa'),
+       (NULL, 'Pisano', 'Novara'),
+       (NULL, 'Piscina', 'Torino'),
+       (NULL, 'Piscinas', 'Sud Sardegna'),
+       (NULL, 'Pisciotta', 'Salerno'),
+       (NULL, 'Pisogne', 'Brescia'),
+       (NULL, 'Pisoniano', 'Roma'),
+       (NULL, 'Pisticci', 'Matera'),
+       (NULL, 'Pistoia', 'Pistoia'),
+       (NULL, 'Pitigliano', 'Grosseto'),
+       (NULL, 'Piubega', 'Mantova'),
+       (NULL, 'Piuro', 'Sondrio'),
+       (NULL, 'Piverone', 'Torino'),
+       (NULL, 'Pizzale', 'Pavia'),
+       (NULL, 'Pizzighettone', 'Cremona'),
+       (NULL, 'Pizzo', 'Vibo Valentia'),
+       (NULL, 'Pizzoferrato', 'Chieti'),
+       (NULL, 'Pizzoli', 'L''Aquila'),
+       (NULL, 'Pizzone', 'Isernia'),
+       (NULL, 'Pizzoni', 'Vibo Valentia'),
+       (NULL, 'Placanica', 'Reggio Calabria'),
+       (NULL, 'Plataci', 'Cosenza'),
+       (NULL, 'Platania', 'Catanzaro'),
+       (NULL, 'Platì', 'Reggio Calabria'),
+       (NULL, 'Plaus', 'Bolzano'),
+       (NULL, 'Plesio', 'Como'),
+       (NULL, 'Ploaghe', 'Sassari'),
+       (NULL, 'Plodio', 'Savona'),
+       (NULL, 'Pocapaglia', 'Cuneo'),
+       (NULL, 'Pocenia', 'Udine'),
+       (NULL, 'Podenzana', 'Massa-Carrara'),
+       (NULL, 'Podenzano', 'Piacenza'),
+       (NULL, 'Pofi', 'Frosinone'),
+       (NULL, 'Poggiardo', 'Lecce'),
+       (NULL, 'Poggibonsi', 'Siena'),
+       (NULL, 'Poggio Bustone', 'Rieti'),
+       (NULL, 'Poggio Catino', 'Rieti'),
+       (NULL, 'Poggio Imperiale', 'Foggia'),
+       (NULL, 'Poggio Mirteto', 'Rieti'),
+       (NULL, 'Poggio Moiano', 'Rieti'),
+       (NULL, 'Poggio Nativo', 'Rieti'),
+       (NULL, 'Poggio Picenze', 'L''Aquila'),
+       (NULL, 'Poggio Renatico', 'Ferrara'),
+       (NULL, 'Poggio Rusco', 'Mantova'),
+       (NULL, 'Poggio San Lorenzo', 'Rieti'),
+       (NULL, 'Poggio San Marcello', 'Ancona'),
+       (NULL, 'Poggio San Vicino', 'Macerata'),
+       (NULL, 'Poggio Sannita', 'Isernia'),
+       (NULL, 'Poggio Torriana', 'Rimini'),
+       (NULL, 'Poggio a Caiano', 'Prato'),
+       (NULL, 'Poggiodomo', 'Perugia'),
+       (NULL, 'Poggiofiorito', 'Chieti'),
+       (NULL, 'Poggiomarino', 'Napoli'),
+       (NULL, 'Poggioreale', 'Trapani'),
+       (NULL, 'Poggiorsini', 'Bari'),
+       (NULL, 'Poggiridenti', 'Sondrio'),
+       (NULL, 'Pogliano Milanese', 'Milano'),
+       (NULL, 'Pognana Lario', 'Como'),
+       (NULL, 'Pognano', 'Bergamo'),
+       (NULL, 'Pogno', 'Novara'),
+       (NULL, 'Poirino', 'Torino'),
+       (NULL, 'Pojana Maggiore', 'Vicenza'),
+       (NULL, 'Polaveno', 'Brescia'),
+       (NULL, 'Polcenigo', 'Pordenone'),
+       (NULL, 'Polesella', 'Rovigo'),
+       (NULL, 'Polesine Zibello', 'Parma'),
+       (NULL, 'Poli', 'Roma'),
+       (NULL, 'Polia', 'Vibo Valentia'),
+       (NULL, 'Policoro', 'Matera'),
+       (NULL, 'Polignano a Mare', 'Bari'),
+       (NULL, 'Polinago', 'Modena'),
+       (NULL, 'Polino', 'Terni'),
+       (NULL, 'Polistena', 'Reggio Calabria'),
+       (NULL, 'Polizzi Generosa', 'Palermo'),
+       (NULL, 'Polla', 'Salerno'),
+       (NULL, 'Pollein', 'Valle d''Aosta'),
+       (NULL, 'Pollena Trocchia', 'Napoli'),
+       (NULL, 'Pollenza', 'Macerata'),
+       (NULL, 'Pollica', 'Salerno'),
+       (NULL, 'Pollina', 'Palermo'),
+       (NULL, 'Pollone', 'Biella'),
+       (NULL, 'Pollutri', 'Chieti'),
+       (NULL, 'Polonghera', 'Cuneo'),
+       (NULL, 'Polpenazze del Garda', 'Brescia'),
+       (NULL, 'Polverara', 'Padova'),
+       (NULL, 'Polverigi', 'Ancona'),
+       (NULL, 'Pomarance', 'Pisa'),
+       (NULL, 'Pomaretto', 'Torino'),
+       (NULL, 'Pomarico', 'Matera'),
+       (NULL, 'Pomaro Monferrato', 'Alessandria'),
+       (NULL, 'Pomarolo', 'Trento'),
+       (NULL, 'Pombia', 'Novara'),
+       (NULL, 'Pomezia', 'Roma'),
+       (NULL, 'Pomigliano d''Arco', 'Napoli'),
+       (NULL, 'Pompei', 'Napoli'),
+       (NULL, 'Pompeiana', 'Imperia'),
+       (NULL, 'Pompiano', 'Brescia'),
+       (NULL, 'Pomponesco', 'Mantova'),
+       (NULL, 'Pompu', 'Oristano'),
+       (NULL, 'Poncarale', 'Brescia'),
+       (NULL, 'Ponderano', 'Biella'),
+       (NULL, 'Ponna', 'Como'),
+       (NULL, 'Ponsacco', 'Pisa'),
+       (NULL, 'Ponso', 'Padova'),
+       (NULL, 'Pont Canavese', 'Torino'),
+       (NULL, 'Pont-Saint-Martin', 'Valle d''Aosta'),
+       (NULL, 'Pontassieve', 'Firenze'),
+       (NULL, 'Pontboset', 'Valle d''Aosta'),
+       (NULL, 'Ponte', 'Benevento'),
+       (NULL, 'Ponte Buggianese', 'Pistoia'),
+       (NULL, 'Ponte Gardena', 'Bolzano'),
+       (NULL, 'Ponte Lambro', 'Como'),
+       (NULL, 'Ponte Nizza', 'Pavia'),
+       (NULL, 'Ponte Nossa', 'Bergamo'),
+       (NULL, 'Ponte San Nicolò', 'Padova'),
+       (NULL, 'Ponte San Pietro', 'Bergamo'),
+       (NULL, 'Ponte dell''Olio', 'Piacenza'),
+       (NULL, 'Ponte di Legno', 'Brescia'),
+       (NULL, 'Ponte di Piave', 'Treviso'),
+       (NULL, 'Ponte in Valtellina', 'Sondrio'),
+       (NULL, 'Ponte nelle Alpi', 'Belluno'),
+       (NULL, 'Pontebba', 'Udine'),
+       (NULL, 'Pontecagnano Faiano', 'Salerno'),
+       (NULL, 'Pontecchio Polesine', 'Rovigo'),
+       (NULL, 'Pontechianale', 'Cuneo'),
+       (NULL, 'Pontecorvo', 'Frosinone'),
+       (NULL, 'Pontecurone', 'Alessandria'),
+       (NULL, 'Pontedassio', 'Imperia'),
+       (NULL, 'Pontedera', 'Pisa'),
+       (NULL, 'Pontelandolfo', 'Benevento'),
+       (NULL, 'Pontelatone', 'Caserta'),
+       (NULL, 'Pontelongo', 'Padova'),
+       (NULL, 'Pontenure', 'Piacenza'),
+       (NULL, 'Ponteranica', 'Bergamo'),
+       (NULL, 'Pontestura', 'Alessandria'),
+       (NULL, 'Pontevico', 'Brescia'),
+       (NULL, 'Pontey', 'Valle d''Aosta'),
+       (NULL, 'Ponti', 'Alessandria'),
+       (NULL, 'Ponti sul Mincio', 'Mantova'),
+       (NULL, 'Pontida', 'Bergamo'),
+       (NULL, 'Pontinia', 'Latina'),
+       (NULL, 'Pontinvrea', 'Savona'),
+       (NULL, 'Pontirolo Nuovo', 'Bergamo'),
+       (NULL, 'Pontoglio', 'Brescia'),
+       (NULL, 'Pontremoli', 'Massa-Carrara'),
+       (NULL, 'Ponza', 'Latina'),
+       (NULL, 'Ponzano Monferrato', 'Alessandria'),
+       (NULL, 'Ponzano Romano', 'Roma'),
+       (NULL, 'Ponzano Veneto', 'Treviso'),
+       (NULL, 'Ponzano di Fermo', 'Fermo'),
+       (NULL, 'Ponzone', 'Alessandria'),
+       (NULL, 'Popoli', 'Pescara'),
+       (NULL, 'Poppi', 'Arezzo'),
+       (NULL, 'Porano', 'Terni'),
+       (NULL, 'Porcari', 'Lucca'),
+       (NULL, 'Porcia', 'Pordenone'),
+       (NULL, 'Pordenone', 'Pordenone'),
+       (NULL, 'Porlezza', 'Como'),
+       (NULL, 'Pornassio', 'Imperia'),
+       (NULL, 'Porpetto', 'Udine'),
+       (NULL, 'Portacomaro', 'Asti'),
+       (NULL, 'Portalbera', 'Pavia'),
+       (NULL, 'Porte', 'Torino'),
+       (NULL, 'Porte di Rendena', 'Trento'),
+       (NULL, 'Portici', 'Napoli'),
+       (NULL, 'Portico di Caserta', 'Caserta'),
+       (NULL, 'Portico e San Benedetto', 'Forlì-Cesena'),
+       (NULL, 'Portigliola', 'Reggio Calabria'),
+       (NULL, 'Porto Azzurro', 'Livorno'),
+       (NULL, 'Porto Ceresio', 'Varese'),
+       (NULL, 'Porto Cesareo', 'Lecce'),
+       (NULL, 'Porto Empedocle', 'Agrigento'),
+       (NULL, 'Porto Mantovano', 'Mantova'),
+       (NULL, 'Porto Recanati', 'Macerata'),
+       (NULL, 'Porto San Giorgio', 'Fermo'),
+       (NULL, 'Porto Sant''Elpidio', 'Fermo'),
+       (NULL, 'Porto Tolle', 'Rovigo'),
+       (NULL, 'Porto Torres', 'Sassari'),
+       (NULL, 'Porto Valtravaglia', 'Varese'),
+       (NULL, 'Porto Viro', 'Rovigo'),
+       (NULL, 'Portobuffolè', 'Treviso'),
+       (NULL, 'Portocannone', 'Campobasso'),
+       (NULL, 'Portoferraio', 'Livorno'),
+       (NULL, 'Portofino', 'Genova'),
+       (NULL, 'Portogruaro', 'Venezia'),
+       (NULL, 'Portomaggiore', 'Ferrara'),
+       (NULL, 'Portopalo di Capo Passero', 'Siracusa'),
+       (NULL, 'Portoscuso', 'Sud Sardegna'),
+       (NULL, 'Portovenere', 'La Spezia'),
+       (NULL, 'Portula', 'Biella'),
+       (NULL, 'Posada', 'Nuoro'),
+       (NULL, 'Posina', 'Vicenza'),
+       (NULL, 'Positano', 'Salerno'),
+       (NULL, 'Possagno', 'Treviso'),
+       (NULL, 'Posta', 'Rieti'),
+       (NULL, 'Posta Fibreno', 'Frosinone'),
+       (NULL, 'Postal', 'Bolzano'),
+       (NULL, 'Postalesio', 'Sondrio'),
+       (NULL, 'Postiglione', 'Salerno'),
+       (NULL, 'Postua', 'Vercelli'),
+       (NULL, 'Potenza', 'Potenza'),
+       (NULL, 'Potenza Picena', 'Macerata'),
+       (NULL, 'Pove del Grappa', 'Vicenza'),
+       (NULL, 'Povegliano', 'Treviso'),
+       (NULL, 'Povegliano Veronese', 'Verona'),
+       (NULL, 'Poviglio', 'Reggio nell''Emilia'),
+       (NULL, 'Povoletto', 'Udine'),
+       (NULL, 'Pozzaglia Sabina', 'Rieti'),
+       (NULL, 'Pozzaglio ed Uniti', 'Cremona'),
+       (NULL, 'Pozzallo', 'Ragusa'),
+       (NULL, 'Pozzilli', 'Isernia'),
+       (NULL, 'Pozzo d''Adda', 'Milano'),
+       (NULL, 'Pozzol Groppo', 'Alessandria'),
+       (NULL, 'Pozzolengo', 'Brescia'),
+       (NULL, 'Pozzoleone', 'Vicenza'),
+       (NULL, 'Pozzolo Formigaro', 'Alessandria'),
+       (NULL, 'Pozzomaggiore', 'Sassari'),
+       (NULL, 'Pozzonovo', 'Padova'),
+       (NULL, 'Pozzuoli', 'Napoli'),
+       (NULL, 'Pozzuolo Martesana', 'Milano'),
+       (NULL, 'Pozzuolo del Friuli', 'Udine'),
+       (NULL, 'Pradalunga', 'Bergamo'),
+       (NULL, 'Pradamano', 'Udine'),
+       (NULL, 'Pradleves', 'Cuneo'),
+       (NULL, 'Pragelato', 'Torino'),
+       (NULL, 'Praia a Mare', 'Cosenza'),
+       (NULL, 'Praiano', 'Salerno'),
+       (NULL, 'Pralboino', 'Brescia'),
+       (NULL, 'Prali', 'Torino'),
+       (NULL, 'Pralormo', 'Torino'),
+       (NULL, 'Pralungo', 'Biella'),
+       (NULL, 'Pramaggiore', 'Venezia'),
+       (NULL, 'Pramollo', 'Torino'),
+       (NULL, 'Prarolo', 'Vercelli'),
+       (NULL, 'Prarostino', 'Torino'),
+       (NULL, 'Prasco', 'Alessandria'),
+       (NULL, 'Prascorsano', 'Torino'),
+       (NULL, 'Prata Camportaccio', 'Sondrio'),
+       (NULL, 'Prata Sannita', 'Caserta'),
+       (NULL, 'Prata d''Ansidonia', 'L''Aquila'),
+       (NULL, 'Prata di Pordenone', 'Pordenone'),
+       (NULL, 'Prata di Principato Ultra', 'Avellino'),
+       (NULL, 'Pratella', 'Caserta'),
+       (NULL, 'Pratiglione', 'Torino'),
+       (NULL, 'Prato', 'Prato'),
+       (NULL, 'Prato Carnico', 'Udine'),
+       (NULL, 'Prato Sesia', 'Novara'),
+       (NULL, 'Prato allo Stelvio', 'Bolzano'),
+       (NULL, 'Pratola Peligna', 'L''Aquila'),
+       (NULL, 'Pratola Serra', 'Avellino'),
+       (NULL, 'Pratovecchio Stia', 'Arezzo'),
+       (NULL, 'Pravisdomini', 'Pordenone'),
+       (NULL, 'Pray', 'Biella'),
+       (NULL, 'Prazzo', 'Cuneo'),
+       (NULL, 'Precenicco', 'Udine'),
+       (NULL, 'Preci', 'Perugia'),
+       (NULL, 'Predaia', 'Trento'),
+       (NULL, 'Predappio', 'Forlì-Cesena'),
+       (NULL, 'Predazzo', 'Trento'),
+       (NULL, 'Predoi', 'Bolzano'),
+       (NULL, 'Predore', 'Bergamo'),
+       (NULL, 'Predosa', 'Alessandria'),
+       (NULL, 'Preganziol', 'Treviso'),
+       (NULL, 'Pregnana Milanese', 'Milano'),
+       (NULL, 'Prelà', 'Imperia'),
+       (NULL, 'Premana', 'Lecco'),
+       (NULL, 'Premariacco', 'Udine'),
+       (NULL, 'Premeno', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Premia', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Premilcuore', 'Forlì-Cesena'),
+       (NULL, 'Premolo', 'Bergamo'),
+       (NULL, 'Premosello-Chiovenda', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Preone', 'Udine'),
+       (NULL, 'Prepotto', 'Udine'),
+       (NULL, 'Preseglie', 'Brescia'),
+       (NULL, 'Presenzano', 'Caserta'),
+       (NULL, 'Presezzo', 'Bergamo'),
+       (NULL, 'Presicce-Acquarica', 'Lecce'),
+       (NULL, 'Pressana', 'Verona'),
+       (NULL, 'Pretoro', 'Chieti'),
+       (NULL, 'Prevalle', 'Brescia'),
+       (NULL, 'Prezza', 'L''Aquila'),
+       (NULL, 'Priero', 'Cuneo'),
+       (NULL, 'Prignano Cilento', 'Salerno'),
+       (NULL, 'Prignano sulla Secchia', 'Modena'),
+       (NULL, 'Primaluna', 'Lecco'),
+       (NULL, 'Primiero San Martino di Castrozza', 'Trento'),
+       (NULL, 'Priocca', 'Cuneo'),
+       (NULL, 'Priola', 'Cuneo'),
+       (NULL, 'Priolo Gargallo', 'Siracusa'),
+       (NULL, 'Priverno', 'Latina'),
+       (NULL, 'Prizzi', 'Palermo'),
+       (NULL, 'Proceno', 'Viterbo'),
+       (NULL, 'Procida', 'Napoli'),
+       (NULL, 'Propata', 'Genova'),
+       (NULL, 'Proserpio', 'Como'),
+       (NULL, 'Prossedi', 'Latina'),
+       (NULL, 'Provaglio Val Sabbia', 'Brescia'),
+       (NULL, 'Provaglio d''Iseo', 'Brescia'),
+       (NULL, 'Proves', 'Bolzano'),
+       (NULL, 'Provvidenti', 'Campobasso'),
+       (NULL, 'Prunetto', 'Cuneo'),
+       (NULL, 'Pré-Saint-Didier', 'Valle d''Aosta'),
+       (NULL, 'Puegnago del Garda', 'Brescia'),
+       (NULL, 'Puglianello', 'Benevento'),
+       (NULL, 'Pula', 'Cagliari'),
+       (NULL, 'Pulfero', 'Udine'),
+       (NULL, 'Pulsano', 'Taranto'),
+       (NULL, 'Pumenengo', 'Bergamo'),
+       (NULL, 'Pusiano', 'Como'),
+       (NULL, 'Putifigari', 'Sassari'),
+       (NULL, 'Putignano', 'Bari'),
+       (NULL, 'Quadrelle', 'Avellino'),
+       (NULL, 'Quadri', 'Chieti'),
+       (NULL, 'Quagliuzzo', 'Torino'),
+       (NULL, 'Qualiano', 'Napoli'),
+       (NULL, 'Quaranti', 'Asti'),
+       (NULL, 'Quaregna Cerreto', 'Biella'),
+       (NULL, 'Quargnento', 'Alessandria'),
+       (NULL, 'Quarna Sopra', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Quarna Sotto', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Quarona', 'Vercelli'),
+       (NULL, 'Quarrata', 'Pistoia'),
+       (NULL, 'Quart', 'Valle d''Aosta'),
+       (NULL, 'Quarto', 'Napoli'),
+       (NULL, 'Quarto d''Altino', 'Venezia'),
+       (NULL, 'Quartu Sant''Elena', 'Cagliari'),
+       (NULL, 'Quartucciu', 'Cagliari'),
+       (NULL, 'Quassolo', 'Torino'),
+       (NULL, 'Quattordio', 'Alessandria'),
+       (NULL, 'Quattro Castella', 'Reggio nell''Emilia'),
+       (NULL, 'Quero Vas', 'Belluno'),
+       (NULL, 'Quiliano', 'Savona'),
+       (NULL, 'Quincinetto', 'Torino'),
+       (NULL, 'Quindici', 'Avellino'),
+       (NULL, 'Quingentole', 'Mantova'),
+       (NULL, 'Quintano', 'Cremona'),
+       (NULL, 'Quinto Vercellese', 'Vercelli'),
+       (NULL, 'Quinto Vicentino', 'Vicenza'),
+       (NULL, 'Quinto di Treviso', 'Treviso'),
+       (NULL, 'Quinzano d''Oglio', 'Brescia'),
+       (NULL, 'Quistello', 'Mantova'),
+       (NULL, 'Rabbi', 'Trento'),
+       (NULL, 'Racale', 'Lecce'),
+       (NULL, 'Racalmuto', 'Agrigento'),
+       (NULL, 'Racconigi', 'Cuneo'),
+       (NULL, 'Raccuja', 'Messina'),
+       (NULL, 'Racines', 'Bolzano'),
+       (NULL, 'Radda in Chianti', 'Siena'),
+       (NULL, 'Raddusa', 'Catania'),
+       (NULL, 'Radicofani', 'Siena'),
+       (NULL, 'Radicondoli', 'Siena'),
+       (NULL, 'Raffadali', 'Agrigento'),
+       (NULL, 'Ragalna', 'Catania'),
+       (NULL, 'Ragogna', 'Udine'),
+       (NULL, 'Ragusa', 'Ragusa'),
+       (NULL, 'Raiano', 'L''Aquila'),
+       (NULL, 'Ramacca', 'Catania'),
+       (NULL, 'Rancio Valcuvia', 'Varese'),
+       (NULL, 'Ranco', 'Varese'),
+       (NULL, 'Randazzo', 'Catania'),
+       (NULL, 'Ranica', 'Bergamo'),
+       (NULL, 'Ranzanico', 'Bergamo'),
+       (NULL, 'Ranzo', 'Imperia'),
+       (NULL, 'Rapagnano', 'Fermo'),
+       (NULL, 'Rapallo', 'Genova'),
+       (NULL, 'Rapino', 'Chieti'),
+       (NULL, 'Rapolano Terme', 'Siena'),
+       (NULL, 'Rapolla', 'Potenza'),
+       (NULL, 'Rapone', 'Potenza'),
+       (NULL, 'Rassa', 'Vercelli'),
+       (NULL, 'Rasun-Anterselva', 'Bolzano'),
+       (NULL, 'Rasura', 'Sondrio'),
+       (NULL, 'Ravanusa', 'Agrigento'),
+       (NULL, 'Ravarino', 'Modena'),
+       (NULL, 'Ravascletto', 'Udine'),
+       (NULL, 'Ravello', 'Salerno'),
+       (NULL, 'Ravenna', 'Ravenna'),
+       (NULL, 'Raveo', 'Udine'),
+       (NULL, 'Raviscanina', 'Caserta'),
+       (NULL, 'Re', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Rea', 'Pavia'),
+       (NULL, 'Realmonte', 'Agrigento'),
+       (NULL, 'Reana del Rojale', 'Udine'),
+       (NULL, 'Reano', 'Torino'),
+       (NULL, 'Recale', 'Caserta'),
+       (NULL, 'Recanati', 'Macerata'),
+       (NULL, 'Recco', 'Genova'),
+       (NULL, 'Recetto', 'Novara'),
+       (NULL, 'Recoaro Terme', 'Vicenza'),
+       (NULL, 'Redavalle', 'Pavia'),
+       (NULL, 'Redondesco', 'Mantova'),
+       (NULL, 'Refrancore', 'Asti'),
+       (NULL, 'Refrontolo', 'Treviso'),
+       (NULL, 'Regalbuto', 'Enna'),
+       (NULL, 'Reggello', 'Firenze'),
+       (NULL, 'Reggio di Calabria', 'Reggio Calabria'),
+       (NULL, 'Reggio nell''Emilia', 'Reggio nell''Emilia'),
+       (NULL, 'Reggiolo', 'Reggio nell''Emilia'),
+       (NULL, 'Reino', 'Benevento'),
+       (NULL, 'Reitano', 'Messina'),
+       (NULL, 'Remanzacco', 'Udine'),
+       (NULL, 'Remedello', 'Brescia'),
+       (NULL, 'Renate', 'Monza e della Brianza'),
+       (NULL, 'Rende', 'Cosenza'),
+       (NULL, 'Renon', 'Bolzano'),
+       (NULL, 'Resana', 'Treviso'),
+       (NULL, 'Rescaldina', 'Milano'),
+       (NULL, 'Resia', 'Udine'),
+       (NULL, 'Resiutta', 'Udine'),
+       (NULL, 'Resuttano', 'Caltanissetta'),
+       (NULL, 'Retorbido', 'Pavia'),
+       (NULL, 'Revello', 'Cuneo'),
+       (NULL, 'Revigliasco d''Asti', 'Asti'),
+       (NULL, 'Revine Lago', 'Treviso'),
+       (NULL, 'Rezzago', 'Como'),
+       (NULL, 'Rezzato', 'Brescia'),
+       (NULL, 'Rezzo', 'Imperia'),
+       (NULL, 'Rezzoaglio', 'Genova'),
+       (NULL, 'Rho', 'Milano'),
+       (NULL, 'Rhêmes-Notre-Dame', 'Valle d''Aosta'),
+       (NULL, 'Rhêmes-Saint-Georges', 'Valle d''Aosta'),
+       (NULL, 'Riace', 'Reggio Calabria'),
+       (NULL, 'Rialto', 'Savona'),
+       (NULL, 'Riano', 'Roma'),
+       (NULL, 'Riardo', 'Caserta'),
+       (NULL, 'Ribera', 'Agrigento'),
+       (NULL, 'Ribordone', 'Torino'),
+       (NULL, 'Ricadi', 'Vibo Valentia'),
+       (NULL, 'Ricaldone', 'Alessandria'),
+       (NULL, 'Riccia', 'Campobasso'),
+       (NULL, 'Riccione', 'Rimini'),
+       (NULL, 'Riccò del Golfo di Spezia', 'La Spezia'),
+       (NULL, 'Ricengo', 'Cremona'),
+       (NULL, 'Ricigliano', 'Salerno'),
+       (NULL, 'Riese Pio X', 'Treviso'),
+       (NULL, 'Riesi', 'Caltanissetta'),
+       (NULL, 'Rieti', 'Rieti'),
+       (NULL, 'Rifiano', 'Bolzano'),
+       (NULL, 'Rifreddo', 'Cuneo'),
+       (NULL, 'Rignano Flaminio', 'Roma'),
+       (NULL, 'Rignano Garganico', 'Foggia'),
+       (NULL, 'Rignano sull''Arno', 'Firenze'),
+       (NULL, 'Rigolato', 'Udine'),
+       (NULL, 'Rimella', 'Vercelli'),
+       (NULL, 'Rimini', 'Rimini'),
+       (NULL, 'Rio', 'Livorno'),
+       (NULL, 'Rio Saliceto', 'Reggio nell''Emilia'),
+       (NULL, 'Rio di Pusteria', 'Bolzano'),
+       (NULL, 'Riofreddo', 'Roma'),
+       (NULL, 'Riola Sardo', 'Oristano'),
+       (NULL, 'Riolo Terme', 'Ravenna'),
+       (NULL, 'Riolunato', 'Modena'),
+       (NULL, 'Riomaggiore', 'La Spezia'),
+       (NULL, 'Rionero Sannitico', 'Isernia'),
+       (NULL, 'Rionero in Vulture', 'Potenza'),
+       (NULL, 'Ripa Teatina', 'Chieti'),
+       (NULL, 'Ripabottoni', 'Campobasso'),
+       (NULL, 'Ripacandida', 'Potenza'),
+       (NULL, 'Ripalimosani', 'Campobasso'),
+       (NULL, 'Ripalta Arpina', 'Cremona'),
+       (NULL, 'Ripalta Cremasca', 'Cremona'),
+       (NULL, 'Ripalta Guerina', 'Cremona'),
+       (NULL, 'Riparbella', 'Pisa'),
+       (NULL, 'Ripatransone', 'Ascoli Piceno'),
+       (NULL, 'Ripe San Ginesio', 'Macerata'),
+       (NULL, 'Ripi', 'Frosinone'),
+       (NULL, 'Riposto', 'Catania'),
+       (NULL, 'Rittana', 'Cuneo'),
+       (NULL, 'Riva Ligure', 'Imperia'),
+       (NULL, 'Riva del Garda', 'Trento'),
+       (NULL, 'Riva del Po', 'Ferrara'),
+       (NULL, 'Riva di Solto', 'Bergamo'),
+       (NULL, 'Riva presso Chieri', 'Torino'),
+       (NULL, 'Rivalba', 'Torino'),
+       (NULL, 'Rivalta Bormida', 'Alessandria'),
+       (NULL, 'Rivalta di Torino', 'Torino'),
+       (NULL, 'Rivamonte Agordino', 'Belluno'),
+       (NULL, 'Rivanazzano Terme', 'Pavia'),
+       (NULL, 'Rivara', 'Torino'),
+       (NULL, 'Rivarolo Canavese', 'Torino'),
+       (NULL, 'Rivarolo Mantovano', 'Mantova'),
+       (NULL, 'Rivarolo del Re ed Uniti', 'Cremona'),
+       (NULL, 'Rivarone', 'Alessandria'),
+       (NULL, 'Rivarossa', 'Torino'),
+       (NULL, 'Rive', 'Vercelli'),
+       (NULL, 'Rive d''Arcano', 'Udine'),
+       (NULL, 'Rivello', 'Potenza'),
+       (NULL, 'Rivergaro', 'Piacenza'),
+       (NULL, 'Rivignano Teor', 'Udine'),
+       (NULL, 'Rivisondoli', 'L''Aquila'),
+       (NULL, 'Rivodutri', 'Rieti'),
+       (NULL, 'Rivoli', 'Torino'),
+       (NULL, 'Rivoli Veronese', 'Verona'),
+       (NULL, 'Rivolta d''Adda', 'Cremona'),
+       (NULL, 'Rizziconi', 'Reggio Calabria'),
+       (NULL, 'Roana', 'Vicenza'),
+       (NULL, 'Roaschia', 'Cuneo'),
+       (NULL, 'Roascio', 'Cuneo'),
+       (NULL, 'Roasio', 'Vercelli'),
+       (NULL, 'Roatto', 'Asti'),
+       (NULL, 'Robassomero', 'Torino'),
+       (NULL, 'Robbiate', 'Lecco'),
+       (NULL, 'Robbio', 'Pavia'),
+       (NULL, 'Robecchetto con Induno', 'Milano'),
+       (NULL, 'Robecco Pavese', 'Pavia'),
+       (NULL, 'Robecco d''Oglio', 'Cremona'),
+       (NULL, 'Robecco sul Naviglio', 'Milano'),
+       (NULL, 'Robella', 'Asti'),
+       (NULL, 'Robilante', 'Cuneo'),
+       (NULL, 'Roburent', 'Cuneo'),
+       (NULL, 'Rocca Canavese', 'Torino'),
+       (NULL, 'Rocca Canterano', 'Roma'),
+       (NULL, 'Rocca Cigliè', 'Cuneo'),
+       (NULL, 'Rocca Grimalda', 'Alessandria'),
+       (NULL, 'Rocca Imperiale', 'Cosenza'),
+       (NULL, 'Rocca Massima', 'Latina'),
+       (NULL, 'Rocca Pia', 'L''Aquila'),
+       (NULL, 'Rocca Pietore', 'Belluno'),
+       (NULL, 'Rocca Priora', 'Roma'),
+       (NULL, 'Rocca San Casciano', 'Forlì-Cesena'),
+       (NULL, 'Rocca San Felice', 'Avellino'),
+       (NULL, 'Rocca San Giovanni', 'Chieti'),
+       (NULL, 'Rocca Santa Maria', 'Teramo'),
+       (NULL, 'Rocca Santo Stefano', 'Roma'),
+       (NULL, 'Rocca Sinibalda', 'Rieti'),
+       (NULL, 'Rocca Susella', 'Pavia'),
+       (NULL, 'Rocca d''Arazzo', 'Asti'),
+       (NULL, 'Rocca d''Arce', 'Frosinone'),
+       (NULL, 'Rocca d''Evandro', 'Caserta'),
+       (NULL, 'Rocca de'' Baldi', 'Cuneo'),
+       (NULL, 'Rocca de'' Giorgi', 'Pavia'),
+       (NULL, 'Rocca di Botte', 'L''Aquila'),
+       (NULL, 'Rocca di Cambio', 'L''Aquila'),
+       (NULL, 'Rocca di Cave', 'Roma'),
+       (NULL, 'Rocca di Mezzo', 'L''Aquila'),
+       (NULL, 'Rocca di Neto', 'Crotone'),
+       (NULL, 'Rocca di Papa', 'Roma'),
+       (NULL, 'Roccabascerana', 'Avellino'),
+       (NULL, 'Roccabernarda', 'Crotone'),
+       (NULL, 'Roccabianca', 'Parma'),
+       (NULL, 'Roccabruna', 'Cuneo'),
+       (NULL, 'Roccacasale', 'L''Aquila'),
+       (NULL, 'Roccadaspide', 'Salerno'),
+       (NULL, 'Roccafiorita', 'Messina'),
+       (NULL, 'Roccafluvione', 'Ascoli Piceno'),
+       (NULL, 'Roccaforte Ligure', 'Alessandria'),
+       (NULL, 'Roccaforte Mondovì', 'Cuneo'),
+       (NULL, 'Roccaforte del Greco', 'Reggio Calabria'),
+       (NULL, 'Roccaforzata', 'Taranto'),
+       (NULL, 'Roccafranca', 'Brescia'),
+       (NULL, 'Roccagiovine', 'Roma'),
+       (NULL, 'Roccagloriosa', 'Salerno'),
+       (NULL, 'Roccagorga', 'Latina'),
+       (NULL, 'Roccalbegna', 'Grosseto'),
+       (NULL, 'Roccalumera', 'Messina'),
+       (NULL, 'Roccamandolfi', 'Isernia'),
+       (NULL, 'Roccamena', 'Palermo'),
+       (NULL, 'Roccamonfina', 'Caserta'),
+       (NULL, 'Roccamontepiano', 'Chieti'),
+       (NULL, 'Roccamorice', 'Pescara'),
+       (NULL, 'Roccanova', 'Potenza'),
+       (NULL, 'Roccantica', 'Rieti'),
+       (NULL, 'Roccapalumba', 'Palermo'),
+       (NULL, 'Roccapiemonte', 'Salerno'),
+       (NULL, 'Roccarainola', 'Napoli'),
+       (NULL, 'Roccaraso', 'L''Aquila'),
+       (NULL, 'Roccaromana', 'Caserta'),
+       (NULL, 'Roccascalegna', 'Chieti'),
+       (NULL, 'Roccasecca', 'Frosinone'),
+       (NULL, 'Roccasecca dei Volsci', 'Latina'),
+       (NULL, 'Roccasicura', 'Isernia'),
+       (NULL, 'Roccasparvera', 'Cuneo'),
+       (NULL, 'Roccaspinalveti', 'Chieti'),
+       (NULL, 'Roccastrada', 'Grosseto'),
+       (NULL, 'Roccavaldina', 'Messina'),
+       (NULL, 'Roccaverano', 'Asti'),
+       (NULL, 'Roccavignale', 'Savona'),
+       (NULL, 'Roccavione', 'Cuneo'),
+       (NULL, 'Roccavivara', 'Campobasso'),
+       (NULL, 'Roccella Ionica', 'Reggio Calabria'),
+       (NULL, 'Roccella Valdemone', 'Messina'),
+       (NULL, 'Rocchetta Belbo', 'Cuneo'),
+       (NULL, 'Rocchetta Ligure', 'Alessandria'),
+       (NULL, 'Rocchetta Nervina', 'Imperia'),
+       (NULL, 'Rocchetta Palafea', 'Asti'),
+       (NULL, 'Rocchetta Sant''Antonio', 'Foggia'),
+       (NULL, 'Rocchetta Tanaro', 'Asti'),
+       (NULL, 'Rocchetta a Volturno', 'Isernia'),
+       (NULL, 'Rocchetta di Vara', 'La Spezia'),
+       (NULL, 'Rocchetta e Croce', 'Caserta'),
+       (NULL, 'Rodano', 'Milano'),
+       (NULL, 'Roddi', 'Cuneo'),
+       (NULL, 'Roddino', 'Cuneo'),
+       (NULL, 'Rodello', 'Cuneo'),
+       (NULL, 'Rodengo', 'Bolzano'),
+       (NULL, 'Rodengo Saiano', 'Brescia'),
+       (NULL, 'Rodero', 'Como'),
+       (NULL, 'Rodi Garganico', 'Foggia'),
+       (NULL, 'Rodigo', 'Mantova'),
+       (NULL, 'Rodì Milici', 'Messina'),
+       (NULL, 'Rofrano', 'Salerno'),
+       (NULL, 'Rogeno', 'Lecco'),
+       (NULL, 'Roggiano Gravina', 'Cosenza'),
+       (NULL, 'Roghudi', 'Reggio Calabria'),
+       (NULL, 'Rogliano', 'Cosenza'),
+       (NULL, 'Rognano', 'Pavia'),
+       (NULL, 'Rogno', 'Bergamo'),
+       (NULL, 'Rogolo', 'Sondrio'),
+       (NULL, 'Roiate', 'Roma'),
+       (NULL, 'Roio del Sangro', 'Chieti'),
+       (NULL, 'Roisan', 'Valle d''Aosta'),
+       (NULL, 'Roletto', 'Torino'),
+       (NULL, 'Rolo', 'Reggio nell''Emilia'),
+       (NULL, 'Roma', 'Roma'),
+       (NULL, 'Romagnano Sesia', 'Novara'),
+       (NULL, 'Romagnano al Monte', 'Salerno'),
+       (NULL, 'Romagnese', 'Pavia'),
+       (NULL, 'Romana', 'Sassari'),
+       (NULL, 'Romanengo', 'Cremona'),
+       (NULL, 'Romano Canavese', 'Torino'),
+       (NULL, 'Romano d''Ezzelino', 'Vicenza'),
+       (NULL, 'Romano di Lombardia', 'Bergamo'),
+       (NULL, 'Romans d''Isonzo', 'Gorizia'),
+       (NULL, 'Rombiolo', 'Vibo Valentia'),
+       (NULL, 'Romeno', 'Trento'),
+       (NULL, 'Romentino', 'Novara'),
+       (NULL, 'Rometta', 'Messina'),
+       (NULL, 'Ronago', 'Como'),
+       (NULL, 'Roncade', 'Treviso'),
+       (NULL, 'Roncadelle', 'Brescia'),
+       (NULL, 'Roncaro', 'Pavia'),
+       (NULL, 'Roncegno Terme', 'Trento'),
+       (NULL, 'Roncello', 'Monza e della Brianza'),
+       (NULL, 'Ronchi Valsugana', 'Trento'),
+       (NULL, 'Ronchi dei Legionari', 'Gorizia'),
+       (NULL, 'Ronchis', 'Udine'),
+       (NULL, 'Ronciglione', 'Viterbo'),
+       (NULL, 'Ronco Biellese', 'Biella'),
+       (NULL, 'Ronco Briantino', 'Monza e della Brianza'),
+       (NULL, 'Ronco Canavese', 'Torino'),
+       (NULL, 'Ronco Scrivia', 'Genova'),
+       (NULL, 'Ronco all''Adige', 'Verona'),
+       (NULL, 'Roncobello', 'Bergamo'),
+       (NULL, 'Roncoferraro', 'Mantova'),
+       (NULL, 'Roncofreddo', 'Forlì-Cesena'),
+       (NULL, 'Roncola', 'Bergamo'),
+       (NULL, 'Roncà', 'Verona'),
+       (NULL, 'Rondanina', 'Genova'),
+       (NULL, 'Rondissone', 'Torino'),
+       (NULL, 'Ronsecco', 'Vercelli'),
+       (NULL, 'Ronzo-Chienis', 'Trento'),
+       (NULL, 'Ronzone', 'Trento'),
+       (NULL, 'Roppolo', 'Biella'),
+       (NULL, 'Rorà', 'Torino'),
+       (NULL, 'Rosarno', 'Reggio Calabria'),
+       (NULL, 'Rosasco', 'Pavia'),
+       (NULL, 'Rosate', 'Milano'),
+       (NULL, 'Rosazza', 'Biella'),
+       (NULL, 'Rosciano', 'Pescara'),
+       (NULL, 'Roscigno', 'Salerno'),
+       (NULL, 'Rose', 'Cosenza'),
+       (NULL, 'Rosello', 'Chieti'),
+       (NULL, 'Roseto Capo Spulico', 'Cosenza'),
+       (NULL, 'Roseto Valfortore', 'Foggia'),
+       (NULL, 'Roseto degli Abruzzi', 'Teramo'),
+       (NULL, 'Rosignano Marittimo', 'Livorno'),
+       (NULL, 'Rosignano Monferrato', 'Alessandria'),
+       (NULL, 'Rosolina', 'Rovigo'),
+       (NULL, 'Rosolini', 'Siracusa'),
+       (NULL, 'Rosora', 'Ancona'),
+       (NULL, 'Rossa', 'Vercelli'),
+       (NULL, 'Rossana', 'Cuneo'),
+       (NULL, 'Rossano Veneto', 'Vicenza'),
+       (NULL, 'Rossiglione', 'Genova'),
+       (NULL, 'Rosta', 'Torino'),
+       (NULL, 'Rosà', 'Vicenza'),
+       (NULL, 'Rota Greca', 'Cosenza'),
+       (NULL, 'Rota d''Imagna', 'Bergamo'),
+       (NULL, 'Rotella', 'Ascoli Piceno'),
+       (NULL, 'Rotello', 'Campobasso'),
+       (NULL, 'Rotonda', 'Potenza'),
+       (NULL, 'Rotondella', 'Matera'),
+       (NULL, 'Rotondi', 'Avellino'),
+       (NULL, 'Rottofreno', 'Piacenza'),
+       (NULL, 'Rotzo', 'Vicenza'),
+       (NULL, 'Roure', 'Torino'),
+       (NULL, 'Rovasenda', 'Vercelli'),
+       (NULL, 'Rovato', 'Brescia'),
+       (NULL, 'Rovegno', 'Genova'),
+       (NULL, 'Rovellasca', 'Como'),
+       (NULL, 'Rovello Porro', 'Como'),
+       (NULL, 'Roverbella', 'Mantova'),
+       (NULL, 'Roverchiara', 'Verona'),
+       (NULL, 'Roveredo di Guà', 'Verona'),
+       (NULL, 'Roveredo in Piano', 'Pordenone'),
+       (NULL, 'Rovereto', 'Trento'),
+       (NULL, 'Roverè Veronese', 'Verona'),
+       (NULL, 'Roverè della Luna', 'Trento'),
+       (NULL, 'Rovescala', 'Pavia'),
+       (NULL, 'Rovetta', 'Bergamo'),
+       (NULL, 'Roviano', 'Roma'),
+       (NULL, 'Rovigo', 'Rovigo'),
+       (NULL, 'Rovito', 'Cosenza'),
+       (NULL, 'Rovolon', 'Padova'),
+       (NULL, 'Rozzano', 'Milano'),
+       (NULL, 'Roè Volciano', 'Brescia'),
+       (NULL, 'Rubano', 'Padova'),
+       (NULL, 'Rubiana', 'Torino'),
+       (NULL, 'Rubiera', 'Reggio nell''Emilia'),
+       (NULL, 'Ruda', 'Udine'),
+       (NULL, 'Rudiano', 'Brescia'),
+       (NULL, 'Rueglio', 'Torino'),
+       (NULL, 'Ruffano', 'Lecce'),
+       (NULL, 'Ruffia', 'Cuneo'),
+       (NULL, 'Ruffrè-Mendola', 'Trento'),
+       (NULL, 'Rufina', 'Firenze'),
+       (NULL, 'Ruinas', 'Oristano'),
+       (NULL, 'Rumo', 'Trento'),
+       (NULL, 'Ruoti', 'Potenza'),
+       (NULL, 'Russi', 'Ravenna'),
+       (NULL, 'Rutigliano', 'Bari'),
+       (NULL, 'Rutino', 'Salerno'),
+       (NULL, 'Ruviano', 'Caserta'),
+       (NULL, 'Ruvo del Monte', 'Potenza'),
+       (NULL, 'Ruvo di Puglia', 'Bari'),
+       (NULL, 'Sabaudia', 'Latina'),
+       (NULL, 'Sabbio Chiese', 'Brescia'),
+       (NULL, 'Sabbioneta', 'Mantova'),
+       (NULL, 'Sacco', 'Salerno'),
+       (NULL, 'Saccolongo', 'Padova'),
+       (NULL, 'Sacile', 'Pordenone'),
+       (NULL, 'Sacrofano', 'Roma'),
+       (NULL, 'Sadali', 'Sud Sardegna'),
+       (NULL, 'Sagama', 'Oristano'),
+       (NULL, 'Sagliano Micca', 'Biella'),
+       (NULL, 'Sagrado', 'Gorizia'),
+       (NULL, 'Sagron Mis', 'Trento'),
+       (NULL, 'Saint-Christophe', 'Valle d''Aosta'),
+       (NULL, 'Saint-Denis', 'Valle d''Aosta'),
+       (NULL, 'Saint-Marcel', 'Valle d''Aosta'),
+       (NULL, 'Saint-Nicolas', 'Valle d''Aosta'),
+       (NULL, 'Saint-Oyen', 'Valle d''Aosta'),
+       (NULL, 'Saint-Pierre', 'Valle d''Aosta'),
+       (NULL, 'Saint-Rhémy-en-Bosses', 'Valle d''Aosta'),
+       (NULL, 'Saint-Vincent', 'Valle d''Aosta'),
+       (NULL, 'Sala Baganza', 'Parma'),
+       (NULL, 'Sala Biellese', 'Biella'),
+       (NULL, 'Sala Bolognese', 'Bologna'),
+       (NULL, 'Sala Comacina', 'Como'),
+       (NULL, 'Sala Consilina', 'Salerno'),
+       (NULL, 'Sala Monferrato', 'Alessandria'),
+       (NULL, 'Salandra', 'Matera'),
+       (NULL, 'Salaparuta', 'Trapani'),
+       (NULL, 'Salara', 'Rovigo'),
+       (NULL, 'Salasco', 'Vercelli'),
+       (NULL, 'Salassa', 'Torino'),
+       (NULL, 'Salbertrand', 'Torino'),
+       (NULL, 'Salcedo', 'Vicenza'),
+       (NULL, 'Salcito', 'Campobasso'),
+       (NULL, 'Sale', 'Alessandria'),
+       (NULL, 'Sale Marasino', 'Brescia'),
+       (NULL, 'Sale San Giovanni', 'Cuneo'),
+       (NULL, 'Sale delle Langhe', 'Cuneo'),
+       (NULL, 'Salemi', 'Trapani'),
+       (NULL, 'Salento', 'Salerno'),
+       (NULL, 'Salerano Canavese', 'Torino'),
+       (NULL, 'Salerano sul Lambro', 'Lodi'),
+       (NULL, 'Salerno', 'Salerno'),
+       (NULL, 'Salgareda', 'Treviso'),
+       (NULL, 'Sali Vercellese', 'Vercelli'),
+       (NULL, 'Salice Salentino', 'Lecce'),
+       (NULL, 'Saliceto', 'Cuneo'),
+       (NULL, 'Salisano', 'Rieti'),
+       (NULL, 'Salizzole', 'Verona'),
+       (NULL, 'Salle', 'Pescara'),
+       (NULL, 'Salmour', 'Cuneo'),
+       (NULL, 'Salorno sulla strada del vino', 'Bolzano'),
+       (NULL, 'Salsomaggiore Terme', 'Parma'),
+       (NULL, 'Saltrio', 'Varese'),
+       (NULL, 'Saludecio', 'Rimini'),
+       (NULL, 'Saluggia', 'Vercelli'),
+       (NULL, 'Salussola', 'Biella'),
+       (NULL, 'Saluzzo', 'Cuneo'),
+       (NULL, 'Salve', 'Lecce'),
+       (NULL, 'Salvirola', 'Cremona'),
+       (NULL, 'Salvitelle', 'Salerno'),
+       (NULL, 'Salza Irpina', 'Avellino'),
+       (NULL, 'Salza di Pinerolo', 'Torino'),
+       (NULL, 'Salzano', 'Venezia'),
+       (NULL, 'Salò', 'Brescia'),
+       (NULL, 'Samarate', 'Varese'),
+       (NULL, 'Samassi', 'Sud Sardegna'),
+       (NULL, 'Samatzai', 'Sud Sardegna'),
+       (NULL, 'Sambuca Pistoiese', 'Pistoia'),
+       (NULL, 'Sambuca di Sicilia', 'Agrigento'),
+       (NULL, 'Sambuci', 'Roma'),
+       (NULL, 'Sambuco', 'Cuneo'),
+       (NULL, 'Sammichele di Bari', 'Bari'),
+       (NULL, 'Samo', 'Reggio Calabria'),
+       (NULL, 'Samolaco', 'Sondrio'),
+       (NULL, 'Samone', 'Trento'),
+       (NULL, 'Samone', 'Torino'),
+       (NULL, 'Sampeyre', 'Cuneo'),
+       (NULL, 'Samugheo', 'Oristano'),
+       (NULL, 'San Bartolomeo Val Cavargna', 'Como'),
+       (NULL, 'San Bartolomeo al Mare', 'Imperia'),
+       (NULL, 'San Bartolomeo in Galdo', 'Benevento'),
+       (NULL, 'San Basile', 'Cosenza'),
+       (NULL, 'San Basilio', 'Sud Sardegna'),
+       (NULL, 'San Bassano', 'Cremona'),
+       (NULL, 'San Bellino', 'Rovigo'),
+       (NULL, 'San Benedetto Belbo', 'Cuneo'),
+       (NULL, 'San Benedetto Po', 'Mantova'),
+       (NULL, 'San Benedetto Ullano', 'Cosenza'),
+       (NULL, 'San Benedetto Val di Sambro', 'Bologna'),
+       (NULL, 'San Benedetto dei Marsi', 'L''Aquila'),
+       (NULL, 'San Benedetto del Tronto', 'Ascoli Piceno'),
+       (NULL, 'San Benedetto in Perillis', 'L''Aquila'),
+       (NULL, 'San Benigno Canavese', 'Torino'),
+       (NULL, 'San Bernardino Verbano', 'Verbano-Cusio-Ossola'),
+       (NULL, 'San Biagio Platani', 'Agrigento'),
+       (NULL, 'San Biagio Saracinisco', 'Frosinone'),
+       (NULL, 'San Biagio della Cima', 'Imperia'),
+       (NULL, 'San Biagio di Callalta', 'Treviso'),
+       (NULL, 'San Biase', 'Campobasso'),
+       (NULL, 'San Bonifacio', 'Verona'),
+       (NULL, 'San Buono', 'Chieti'),
+       (NULL, 'San Calogero', 'Vibo Valentia'),
+       (NULL, 'San Candido', 'Bolzano'),
+       (NULL, 'San Canzian d''Isonzo', 'Gorizia'),
+       (NULL, 'San Carlo Canavese', 'Torino'),
+       (NULL, 'San Casciano dei Bagni', 'Siena'),
+       (NULL, 'San Casciano in Val di Pesa', 'Firenze'),
+       (NULL, 'San Cassiano', 'Lecce'),
+       (NULL, 'San Cataldo', 'Caltanissetta'),
+       (NULL, 'San Cesareo', 'Roma'),
+       (NULL, 'San Cesario di Lecce', 'Lecce'),
+       (NULL, 'San Cesario sul Panaro', 'Modena'),
+       (NULL, 'San Chirico Nuovo', 'Potenza'),
+       (NULL, 'San Chirico Raparo', 'Potenza'),
+       (NULL, 'San Cipirello', 'Palermo'),
+       (NULL, 'San Cipriano Picentino', 'Salerno'),
+       (NULL, 'San Cipriano Po', 'Pavia'),
+       (NULL, 'San Cipriano d''Aversa', 'Caserta'),
+       (NULL, 'San Clemente', 'Rimini'),
+       (NULL, 'San Colombano Belmonte', 'Torino'),
+       (NULL, 'San Colombano Certenoli', 'Genova'),
+       (NULL, 'San Colombano al Lambro', 'Milano'),
+       (NULL, 'San Cono', 'Catania'),
+       (NULL, 'San Cosmo Albanese', 'Cosenza'),
+       (NULL, 'San Costantino Albanese', 'Potenza'),
+       (NULL, 'San Costantino Calabro', 'Vibo Valentia'),
+       (NULL, 'San Costanzo', 'Pesaro e Urbino'),
+       (NULL, 'San Cristoforo', 'Alessandria'),
+       (NULL, 'San Damiano Macra', 'Cuneo'),
+       (NULL, 'San Damiano al Colle', 'Pavia'),
+       (NULL, 'San Damiano d''Asti', 'Asti'),
+       (NULL, 'San Daniele Po', 'Cremona'),
+       (NULL, 'San Daniele del Friuli', 'Udine'),
+       (NULL, 'San Demetrio Corone', 'Cosenza'),
+       (NULL, 'San Demetrio ne'' Vestini', 'L''Aquila'),
+       (NULL, 'San Didero', 'Torino'),
+       (NULL, 'San Donaci', 'Brindisi'),
+       (NULL, 'San Donato Milanese', 'Milano'),
+       (NULL, 'San Donato Val di Comino', 'Frosinone'),
+       (NULL, 'San Donato di Lecce', 'Lecce'),
+       (NULL, 'San Donato di Ninea', 'Cosenza'),
+       (NULL, 'San Donà di Piave', 'Venezia'),
+       (NULL, 'San Dorligo della Valle-Dolina', 'Trieste'),
+       (NULL, 'San Fele', 'Potenza'),
+       (NULL, 'San Felice Circeo', 'Latina'),
+       (NULL, 'San Felice a Cancello', 'Caserta'),
+       (NULL, 'San Felice del Benaco', 'Brescia'),
+       (NULL, 'San Felice del Molise', 'Campobasso'),
+       (NULL, 'San Felice sul Panaro', 'Modena'),
+       (NULL, 'San Ferdinando', 'Reggio Calabria'),
+       (NULL, 'San Ferdinando di Puglia', 'Barletta-Andria-Trani'),
+       (NULL, 'San Fermo della Battaglia', 'Como'),
+       (NULL, 'San Fili', 'Cosenza'),
+       (NULL, 'San Filippo del Mela', 'Messina'),
+       (NULL, 'San Fior', 'Treviso'),
+       (NULL, 'San Fiorano', 'Lodi'),
+       (NULL, 'San Floriano del Collio-Števerjan', 'Gorizia'),
+       (NULL, 'San Floro', 'Catanzaro'),
+       (NULL, 'San Francesco al Campo', 'Torino'),
+       (NULL, 'San Fratello', 'Messina'),
+       (NULL, 'San Gavino Monreale', 'Sud Sardegna'),
+       (NULL, 'San Gemini', 'Terni'),
+       (NULL, 'San Genesio Atesino', 'Bolzano'),
+       (NULL, 'San Genesio ed Uniti', 'Pavia'),
+       (NULL, 'San Gennaro Vesuviano', 'Napoli'),
+       (NULL, 'San Germano Chisone', 'Torino'),
+       (NULL, 'San Germano Vercellese', 'Vercelli'),
+       (NULL, 'San Gervasio Bresciano', 'Brescia'),
+       (NULL, 'San Giacomo Filippo', 'Sondrio'),
+       (NULL, 'San Giacomo Vercellese', 'Vercelli'),
+       (NULL, 'San Giacomo degli Schiavoni', 'Campobasso'),
+       (NULL, 'San Giacomo delle Segnate', 'Mantova'),
+       (NULL, 'San Gillio', 'Torino'),
+       (NULL, 'San Gimignano', 'Siena'),
+       (NULL, 'San Ginesio', 'Macerata'),
+       (NULL, 'San Giorgio Albanese', 'Cosenza'),
+       (NULL, 'San Giorgio Bigarello', 'Mantova'),
+       (NULL, 'San Giorgio Canavese', 'Torino'),
+       (NULL, 'San Giorgio Ionico', 'Taranto'),
+       (NULL, 'San Giorgio La Molara', 'Benevento'),
+       (NULL, 'San Giorgio Lucano', 'Matera'),
+       (NULL, 'San Giorgio Monferrato', 'Alessandria'),
+       (NULL, 'San Giorgio Morgeto', 'Reggio Calabria'),
+       (NULL, 'San Giorgio Piacentino', 'Piacenza'),
+       (NULL, 'San Giorgio Scarampi', 'Asti'),
+       (NULL, 'San Giorgio a Cremano', 'Napoli'),
+       (NULL, 'San Giorgio a Liri', 'Frosinone'),
+       (NULL, 'San Giorgio del Sannio', 'Benevento'),
+       (NULL, 'San Giorgio della Richinvelda', 'Pordenone'),
+       (NULL, 'San Giorgio delle Pertiche', 'Padova'),
+       (NULL, 'San Giorgio di Lomellina', 'Pavia'),
+       (NULL, 'San Giorgio di Nogaro', 'Udine'),
+       (NULL, 'San Giorgio di Piano', 'Bologna'),
+       (NULL, 'San Giorgio in Bosco', 'Padova'),
+       (NULL, 'San Giorgio su Legnano', 'Milano'),
+       (NULL, 'San Giorio di Susa', 'Torino'),
+       (NULL, 'San Giovanni Bianco', 'Bergamo'),
+       (NULL, 'San Giovanni Gemini', 'Agrigento'),
+       (NULL, 'San Giovanni Ilarione', 'Verona'),
+       (NULL, 'San Giovanni Incarico', 'Frosinone'),
+       (NULL, 'San Giovanni Lipioni', 'Chieti'),
+       (NULL, 'San Giovanni Lupatoto', 'Verona'),
+       (NULL, 'San Giovanni Rotondo', 'Foggia'),
+       (NULL, 'San Giovanni Suergiu', 'Sud Sardegna'),
+       (NULL, 'San Giovanni Teatino', 'Chieti'),
+       (NULL, 'San Giovanni Valdarno', 'Arezzo'),
+       (NULL, 'San Giovanni a Piro', 'Salerno'),
+       (NULL, 'San Giovanni al Natisone', 'Udine'),
+       (NULL, 'San Giovanni del Dosso', 'Mantova'),
+       (NULL, 'San Giovanni di Fassa-Sèn Jan', 'Trento'),
+       (NULL, 'San Giovanni di Gerace', 'Reggio Calabria'),
+       (NULL, 'San Giovanni in Croce', 'Cremona'),
+       (NULL, 'San Giovanni in Fiore', 'Cosenza'),
+       (NULL, 'San Giovanni in Galdo', 'Campobasso'),
+       (NULL, 'San Giovanni in Marignano', 'Rimini'),
+       (NULL, 'San Giovanni in Persiceto', 'Bologna'),
+       (NULL, 'San Giovanni la Punta', 'Catania'),
+       (NULL, 'San Giuliano Milanese', 'Milano'),
+       (NULL, 'San Giuliano Terme', 'Pisa'),
+       (NULL, 'San Giuliano del Sannio', 'Campobasso'),
+       (NULL, 'San Giuliano di Puglia', 'Campobasso'),
+       (NULL, 'San Giuseppe Jato', 'Palermo'),
+       (NULL, 'San Giuseppe Vesuviano', 'Napoli'),
+       (NULL, 'San Giustino', 'Perugia'),
+       (NULL, 'San Giusto Canavese', 'Torino'),
+       (NULL, 'San Godenzo', 'Firenze'),
+       (NULL, 'San Gregorio Magno', 'Salerno'),
+       (NULL, 'San Gregorio Matese', 'Caserta'),
+       (NULL, 'San Gregorio d''Ippona', 'Vibo Valentia'),
+       (NULL, 'San Gregorio da Sassola', 'Roma'),
+       (NULL, 'San Gregorio di Catania', 'Catania'),
+       (NULL, 'San Gregorio nelle Alpi', 'Belluno'),
+       (NULL, 'San Lazzaro di Savena', 'Bologna'),
+       (NULL, 'San Leo', 'Rimini'),
+       (NULL, 'San Leonardo', 'Udine'),
+       (NULL, 'San Leonardo in Passiria', 'Bolzano'),
+       (NULL, 'San Leucio del Sannio', 'Benevento'),
+       (NULL, 'San Lorenzello', 'Benevento'),
+       (NULL, 'San Lorenzo', 'Reggio Calabria'),
+       (NULL, 'San Lorenzo Bellizzi', 'Cosenza'),
+       (NULL, 'San Lorenzo Dorsino', 'Trento'),
+       (NULL, 'San Lorenzo Isontino', 'Gorizia'),
+       (NULL, 'San Lorenzo Maggiore', 'Benevento'),
+       (NULL, 'San Lorenzo Nuovo', 'Viterbo'),
+       (NULL, 'San Lorenzo al Mare', 'Imperia'),
+       (NULL, 'San Lorenzo del Vallo', 'Cosenza'),
+       (NULL, 'San Lorenzo di Sebato', 'Bolzano'),
+       (NULL, 'San Lorenzo in Campo', 'Pesaro e Urbino'),
+       (NULL, 'San Luca', 'Reggio Calabria'),
+       (NULL, 'San Lucido', 'Cosenza'),
+       (NULL, 'San Lupo', 'Benevento'),
+       (NULL, 'San Mango Piemonte', 'Salerno'),
+       (NULL, 'San Mango d''Aquino', 'Catanzaro'),
+       (NULL, 'San Mango sul Calore', 'Avellino'),
+       (NULL, 'San Marcellino', 'Caserta'),
+       (NULL, 'San Marcello', 'Ancona'),
+       (NULL, 'San Marcello Piteglio', 'Pistoia'),
+       (NULL, 'San Marco Argentano', 'Cosenza'),
+       (NULL, 'San Marco Evangelista', 'Caserta'),
+       (NULL, 'San Marco d''Alunzio', 'Messina'),
+       (NULL, 'San Marco dei Cavoti', 'Benevento'),
+       (NULL, 'San Marco in Lamis', 'Foggia'),
+       (NULL, 'San Marco la Catola', 'Foggia'),
+       (NULL, 'San Martino Alfieri', 'Asti'),
+       (NULL, 'San Martino Buon Albergo', 'Verona'),
+       (NULL, 'San Martino Canavese', 'Torino'),
+       (NULL, 'San Martino Sannita', 'Benevento'),
+       (NULL, 'San Martino Siccomario', 'Pavia'),
+       (NULL, 'San Martino Valle Caudina', 'Avellino'),
+       (NULL, 'San Martino al Tagliamento', 'Pordenone'),
+       (NULL, 'San Martino d''Agri', 'Potenza'),
+       (NULL, 'San Martino dall''Argine', 'Mantova'),
+       (NULL, 'San Martino del Lago', 'Cremona'),
+       (NULL, 'San Martino di Finita', 'Cosenza'),
+       (NULL, 'San Martino di Lupari', 'Padova'),
+       (NULL, 'San Martino di Venezze', 'Rovigo'),
+       (NULL, 'San Martino in Badia', 'Bolzano'),
+       (NULL, 'San Martino in Passiria', 'Bolzano'),
+       (NULL, 'San Martino in Pensilis', 'Campobasso'),
+       (NULL, 'San Martino in Rio', 'Reggio nell''Emilia'),
+       (NULL, 'San Martino in Strada', 'Lodi'),
+       (NULL, 'San Martino sulla Marrucina', 'Chieti'),
+       (NULL, 'San Marzano Oliveto', 'Asti'),
+       (NULL, 'San Marzano di San Giuseppe', 'Taranto'),
+       (NULL, 'San Marzano sul Sarno', 'Salerno'),
+       (NULL, 'San Massimo', 'Campobasso'),
+       (NULL, 'San Maurizio Canavese', 'Torino'),
+       (NULL, 'San Maurizio d''Opaglio', 'Novara'),
+       (NULL, 'San Mauro Castelverde', 'Palermo'),
+       (NULL, 'San Mauro Cilento', 'Salerno'),
+       (NULL, 'San Mauro Forte', 'Matera'),
+       (NULL, 'San Mauro Marchesato', 'Crotone'),
+       (NULL, 'San Mauro Pascoli', 'Forlì-Cesena'),
+       (NULL, 'San Mauro Torinese', 'Torino'),
+       (NULL, 'San Mauro di Saline', 'Verona'),
+       (NULL, 'San Mauro la Bruca', 'Salerno'),
+       (NULL, 'San Michele Mondovì', 'Cuneo'),
+       (NULL, 'San Michele Salentino', 'Brindisi'),
+       (NULL, 'San Michele al Tagliamento', 'Venezia'),
+       (NULL, 'San Michele all''Adige', 'Trento'),
+       (NULL, 'San Michele di Ganzaria', 'Catania'),
+       (NULL, 'San Michele di Serino', 'Avellino'),
+       (NULL, 'San Miniato', 'Pisa'),
+       (NULL, 'San Nazzaro', 'Benevento'),
+       (NULL, 'San Nazzaro Sesia', 'Novara'),
+       (NULL, 'San Nazzaro Val Cavargna', 'Como'),
+       (NULL, 'San Nicandro Garganico', 'Foggia'),
+       (NULL, 'San Nicola Arcella', 'Cosenza'),
+       (NULL, 'San Nicola Baronia', 'Avellino'),
+       (NULL, 'San Nicola Manfredi', 'Benevento'),
+       (NULL, 'San Nicola da Crissa', 'Vibo Valentia'),
+       (NULL, 'San Nicola dell''Alto', 'Crotone'),
+       (NULL, 'San Nicola la Strada', 'Caserta'),
+       (NULL, 'San Nicolò Gerrei', 'Sud Sardegna'),
+       (NULL, 'San Nicolò d''Arcidano', 'Oristano'),
+       (NULL, 'San Nicolò di Comelico', 'Belluno'),
+       (NULL, 'San Pancrazio', 'Bolzano'),
+       (NULL, 'San Pancrazio Salentino', 'Brindisi'),
+       (NULL, 'San Paolo', 'Brescia'),
+       (NULL, 'San Paolo Albanese', 'Potenza'),
+       (NULL, 'San Paolo Bel Sito', 'Napoli'),
+       (NULL, 'San Paolo Solbrito', 'Asti'),
+       (NULL, 'San Paolo d''Argon', 'Bergamo'),
+       (NULL, 'San Paolo di Civitate', 'Foggia'),
+       (NULL, 'San Paolo di Jesi', 'Ancona'),
+       (NULL, 'San Pellegrino Terme', 'Bergamo'),
+       (NULL, 'San Pier Niceto', 'Messina'),
+       (NULL, 'San Pier d''Isonzo', 'Gorizia'),
+       (NULL, 'San Piero Patti', 'Messina'),
+       (NULL, 'San Pietro Apostolo', 'Catanzaro'),
+       (NULL, 'San Pietro Avellana', 'Isernia'),
+       (NULL, 'San Pietro Clarenza', 'Catania'),
+       (NULL, 'San Pietro Infine', 'Caserta'),
+       (NULL, 'San Pietro Mosezzo', 'Novara'),
+       (NULL, 'San Pietro Mussolino', 'Vicenza'),
+       (NULL, 'San Pietro Val Lemina', 'Torino'),
+       (NULL, 'San Pietro Vernotico', 'Brindisi'),
+       (NULL, 'San Pietro Viminario', 'Padova'),
+       (NULL, 'San Pietro a Maida', 'Catanzaro'),
+       (NULL, 'San Pietro al Natisone', 'Udine'),
+       (NULL, 'San Pietro al Tanagro', 'Salerno'),
+       (NULL, 'San Pietro di Cadore', 'Belluno'),
+       (NULL, 'San Pietro di Caridà', 'Reggio Calabria'),
+       (NULL, 'San Pietro di Feletto', 'Treviso'),
+       (NULL, 'San Pietro di Morubio', 'Verona'),
+       (NULL, 'San Pietro in Amantea', 'Cosenza'),
+       (NULL, 'San Pietro in Cariano', 'Verona'),
+       (NULL, 'San Pietro in Casale', 'Bologna'),
+       (NULL, 'San Pietro in Cerro', 'Piacenza'),
+       (NULL, 'San Pietro in Gu', 'Padova'),
+       (NULL, 'San Pietro in Guarano', 'Cosenza'),
+       (NULL, 'San Pietro in Lama', 'Lecce'),
+       (NULL, 'San Pio delle Camere', 'L''Aquila'),
+       (NULL, 'San Polo Matese', 'Campobasso'),
+       (NULL, 'San Polo d''Enza', 'Reggio nell''Emilia'),
+       (NULL, 'San Polo dei Cavalieri', 'Roma'),
+       (NULL, 'San Polo di Piave', 'Treviso'),
+       (NULL, 'San Ponso', 'Torino'),
+       (NULL, 'San Possidonio', 'Modena'),
+       (NULL, 'San Potito Sannitico', 'Caserta'),
+       (NULL, 'San Potito Ultra', 'Avellino'),
+       (NULL, 'San Prisco', 'Caserta'),
+       (NULL, 'San Procopio', 'Reggio Calabria'),
+       (NULL, 'San Prospero', 'Modena'),
+       (NULL, 'San Quirico d''Orcia', 'Siena'),
+       (NULL, 'San Quirino', 'Pordenone'),
+       (NULL, 'San Raffaele Cimena', 'Torino'),
+       (NULL, 'San Roberto', 'Reggio Calabria'),
+       (NULL, 'San Rocco al Porto', 'Lodi'),
+       (NULL, 'San Romano in Garfagnana', 'Lucca'),
+       (NULL, 'San Rufo', 'Salerno'),
+       (NULL, 'San Salvatore Monferrato', 'Alessandria'),
+       (NULL, 'San Salvatore Telesino', 'Benevento'),
+       (NULL, 'San Salvatore di Fitalia', 'Messina'),
+       (NULL, 'San Salvo', 'Chieti'),
+       (NULL, 'San Sebastiano Curone', 'Alessandria'),
+       (NULL, 'San Sebastiano al Vesuvio', 'Napoli'),
+       (NULL, 'San Sebastiano da Po', 'Torino'),
+       (NULL, 'San Secondo Parmense', 'Parma'),
+       (NULL, 'San Secondo di Pinerolo', 'Torino'),
+       (NULL, 'San Severino Lucano', 'Potenza'),
+       (NULL, 'San Severino Marche', 'Macerata'),
+       (NULL, 'San Severo', 'Foggia'),
+       (NULL, 'San Siro', 'Como'),
+       (NULL, 'San Sossio Baronia', 'Avellino'),
+       (NULL, 'San Sostene', 'Catanzaro'),
+       (NULL, 'San Sosti', 'Cosenza'),
+       (NULL, 'San Sperate', 'Sud Sardegna'),
+       (NULL, 'San Stino di Livenza', 'Venezia'),
+       (NULL, 'San Tammaro', 'Caserta'),
+       (NULL, 'San Teodoro', 'Messina'),
+       (NULL, 'San Teodoro', 'Sassari'),
+       (NULL, 'San Tomaso Agordino', 'Belluno'),
+       (NULL, 'San Valentino Torio', 'Salerno'),
+       (NULL, 'San Valentino in Abruzzo Citeriore', 'Pescara'),
+       (NULL, 'San Venanzo', 'Terni'),
+       (NULL, 'San Vendemiano', 'Treviso'),
+       (NULL, 'San Vero Milis', 'Oristano'),
+       (NULL, 'San Vincenzo', 'Livorno'),
+       (NULL, 'San Vincenzo La Costa', 'Cosenza'),
+       (NULL, 'San Vincenzo Valle Roveto', 'L''Aquila'),
+       (NULL, 'San Vitaliano', 'Napoli'),
+       (NULL, 'San Vito', 'Sud Sardegna'),
+       (NULL, 'San Vito Chietino', 'Chieti'),
+       (NULL, 'San Vito Lo Capo', 'Trapani'),
+       (NULL, 'San Vito Romano', 'Roma'),
+       (NULL, 'San Vito al Tagliamento', 'Pordenone'),
+       (NULL, 'San Vito al Torre', 'Udine'),
+       (NULL, 'San Vito dei Normanni', 'Brindisi'),
+       (NULL, 'San Vito di Cadore', 'Belluno'),
+       (NULL, 'San Vito di Fagagna', 'Udine'),
+       (NULL, 'San Vito di Leguzzano', 'Vicenza'),
+       (NULL, 'San Vito sullo Ionio', 'Catanzaro'),
+       (NULL, 'San Vittore Olona', 'Milano'),
+       (NULL, 'San Vittore del Lazio', 'Frosinone'),
+       (NULL, 'San Zeno Naviglio', 'Brescia'),
+       (NULL, 'San Zeno di Montagna', 'Verona'),
+       (NULL, 'San Zenone al Lambro', 'Milano'),
+       (NULL, 'San Zenone al Po', 'Pavia'),
+       (NULL, 'San Zenone degli Ezzelini', 'Treviso'),
+       (NULL, 'Sanarica', 'Lecce'),
+       (NULL, 'Sandigliano', 'Biella'),
+       (NULL, 'Sandrigo', 'Vicenza'),
+       (NULL, 'Sanfront', 'Cuneo'),
+       (NULL, 'Sanfrè', 'Cuneo'),
+       (NULL, 'Sangano', 'Torino'),
+       (NULL, 'Sangiano', 'Varese'),
+       (NULL, 'Sangineto', 'Cosenza'),
+       (NULL, 'Sanguinetto', 'Verona'),
+       (NULL, 'Sanluri', 'Sud Sardegna'),
+       (NULL, 'Sannazzaro de'' Burgondi', 'Pavia'),
+       (NULL, 'Sannicandro di Bari', 'Bari'),
+       (NULL, 'Sannicola', 'Lecce'),
+       (NULL, 'Sanremo', 'Imperia'),
+       (NULL, 'Sansepolcro', 'Arezzo'),
+       (NULL, 'Sant''Agapito', 'Isernia'),
+       (NULL, 'Sant''Agata Bolognese', 'Bologna'),
+       (NULL, 'Sant''Agata Feltria', 'Rimini'),
+       (NULL, 'Sant''Agata Fossili', 'Alessandria'),
+       (NULL, 'Sant''Agata de'' Goti', 'Benevento'),
+       (NULL, 'Sant''Agata del Bianco', 'Reggio Calabria'),
+       (NULL, 'Sant''Agata di Esaro', 'Cosenza'),
+       (NULL, 'Sant''Agata di Militello', 'Messina'),
+       (NULL, 'Sant''Agata di Puglia', 'Foggia'),
+       (NULL, 'Sant''Agata li Battiati', 'Catania'),
+       (NULL, 'Sant''Agata sul Santerno', 'Ravenna'),
+       (NULL, 'Sant''Agnello', 'Napoli'),
+       (NULL, 'Sant''Albano Stura', 'Cuneo'),
+       (NULL, 'Sant''Alessio Siculo', 'Messina'),
+       (NULL, 'Sant''Alessio con Vialone', 'Pavia'),
+       (NULL, 'Sant''Alessio in Aspromonte', 'Reggio Calabria'),
+       (NULL, 'Sant''Alfio', 'Catania'),
+       (NULL, 'Sant''Ambrogio di Torino', 'Torino'),
+       (NULL, 'Sant''Ambrogio di Valpolicella', 'Verona'),
+       (NULL, 'Sant''Ambrogio sul Garigliano', 'Frosinone'),
+       (NULL, 'Sant''Anastasia', 'Napoli'),
+       (NULL, 'Sant''Anatolia di Narco', 'Perugia'),
+       (NULL, 'Sant''Andrea Apostolo dello Ionio', 'Catanzaro'),
+       (NULL, 'Sant''Andrea Frius', 'Sud Sardegna'),
+       (NULL, 'Sant''Andrea del Garigliano', 'Frosinone'),
+       (NULL, 'Sant''Andrea di Conza', 'Avellino'),
+       (NULL, 'Sant''Angelo Le Fratte', 'Potenza'),
+       (NULL, 'Sant''Angelo Limosano', 'Campobasso'),
+       (NULL, 'Sant''Angelo Lodigiano', 'Lodi'),
+       (NULL, 'Sant''Angelo Lomellina', 'Pavia'),
+       (NULL, 'Sant''Angelo Muxaro', 'Agrigento'),
+       (NULL, 'Sant''Angelo Romano', 'Roma'),
+       (NULL, 'Sant''Angelo a Cupolo', 'Benevento'),
+       (NULL, 'Sant''Angelo a Fasanella', 'Salerno'),
+       (NULL, 'Sant''Angelo a Scala', 'Avellino'),
+       (NULL, 'Sant''Angelo all''Esca', 'Avellino'),
+       (NULL, 'Sant''Angelo d''Alife', 'Caserta'),
+       (NULL, 'Sant''Angelo dei Lombardi', 'Avellino'),
+       (NULL, 'Sant''Angelo del Pesco', 'Isernia'),
+       (NULL, 'Sant''Angelo di Brolo', 'Messina'),
+       (NULL, 'Sant''Angelo di Piove di Sacco', 'Padova'),
+       (NULL, 'Sant''Angelo in Pontano', 'Macerata'),
+       (NULL, 'Sant''Angelo in Vado', 'Pesaro e Urbino'),
+       (NULL, 'Sant''Anna Arresi', 'Sud Sardegna'),
+       (NULL, 'Sant''Anna d''Alfaedo', 'Verona'),
+       (NULL, 'Sant''Antimo', 'Napoli'),
+       (NULL, 'Sant''Antioco', 'Sud Sardegna'),
+       (NULL, 'Sant''Antonino di Susa', 'Torino'),
+       (NULL, 'Sant''Antonio Abate', 'Napoli'),
+       (NULL, 'Sant''Antonio di Gallura', 'Sassari'),
+       (NULL, 'Sant''Apollinare', 'Frosinone'),
+       (NULL, 'Sant''Arcangelo', 'Potenza'),
+       (NULL, 'Sant''Arcangelo Trimonte', 'Benevento'),
+       (NULL, 'Sant''Arpino', 'Caserta'),
+       (NULL, 'Sant''Arsenio', 'Salerno'),
+       (NULL, 'Sant''Egidio alla Vibrata', 'Teramo'),
+       (NULL, 'Sant''Egidio del Monte Albino', 'Salerno'),
+       (NULL, 'Sant''Elena', 'Padova'),
+       (NULL, 'Sant''Elena Sannita', 'Isernia'),
+       (NULL, 'Sant''Elia Fiumerapido', 'Frosinone'),
+       (NULL, 'Sant''Elia a Pianisi', 'Campobasso'),
+       (NULL, 'Sant''Elpidio a Mare', 'Fermo'),
+       (NULL, 'Sant''Eufemia a Maiella', 'Pescara'),
+       (NULL, 'Sant''Eufemia d''Aspromonte', 'Reggio Calabria'),
+       (NULL, 'Sant''Eusanio Forconese', 'L''Aquila'),
+       (NULL, 'Sant''Eusanio del Sangro', 'Chieti'),
+       (NULL, 'Sant''Ilario d''Enza', 'Reggio nell''Emilia'),
+       (NULL, 'Sant''Ilario dello Ionio', 'Reggio Calabria'),
+       (NULL, 'Sant''Ippolito', 'Pesaro e Urbino'),
+       (NULL, 'Sant''Olcese', 'Genova'),
+       (NULL, 'Sant''Omero', 'Teramo'),
+       (NULL, 'Sant''Omobono Terme', 'Bergamo'),
+       (NULL, 'Sant''Onofrio', 'Vibo Valentia'),
+       (NULL, 'Sant''Oreste', 'Roma'),
+       (NULL, 'Sant''Orsola Terme', 'Trento'),
+       (NULL, 'Sant''Urbano', 'Padova'),
+       (NULL, 'Santa Brigida', 'Bergamo'),
+       (NULL, 'Santa Caterina Albanese', 'Cosenza'),
+       (NULL, 'Santa Caterina Villarmosa', 'Caltanissetta'),
+       (NULL, 'Santa Caterina dello Ionio', 'Catanzaro'),
+       (NULL, 'Santa Cesarea Terme', 'Lecce'),
+       (NULL, 'Santa Cristina Gela', 'Palermo'),
+       (NULL, 'Santa Cristina Valgardena', 'Bolzano'),
+       (NULL, 'Santa Cristina d''Aspromonte', 'Reggio Calabria'),
+       (NULL, 'Santa Cristina e Bissone', 'Pavia'),
+       (NULL, 'Santa Croce Camerina', 'Ragusa'),
+       (NULL, 'Santa Croce del Sannio', 'Benevento'),
+       (NULL, 'Santa Croce di Magliano', 'Campobasso'),
+       (NULL, 'Santa Croce sull''Arno', 'Pisa'),
+       (NULL, 'Santa Domenica Talao', 'Cosenza'),
+       (NULL, 'Santa Domenica Vittoria', 'Messina'),
+       (NULL, 'Santa Elisabetta', 'Agrigento'),
+       (NULL, 'Santa Fiora', 'Grosseto'),
+       (NULL, 'Santa Flavia', 'Palermo'),
+       (NULL, 'Santa Giuletta', 'Pavia'),
+       (NULL, 'Santa Giusta', 'Oristano'),
+       (NULL, 'Santa Giustina', 'Belluno'),
+       (NULL, 'Santa Giustina in Colle', 'Padova'),
+       (NULL, 'Santa Luce', 'Pisa'),
+       (NULL, 'Santa Lucia del Mela', 'Messina'),
+       (NULL, 'Santa Lucia di Piave', 'Treviso'),
+       (NULL, 'Santa Lucia di Serino', 'Avellino'),
+       (NULL, 'Santa Margherita Ligure', 'Genova'),
+       (NULL, 'Santa Margherita di Belice', 'Agrigento'),
+       (NULL, 'Santa Margherita di Staffora', 'Pavia'),
+       (NULL, 'Santa Maria Capua Vetere', 'Caserta'),
+       (NULL, 'Santa Maria Coghinas', 'Sassari'),
+       (NULL, 'Santa Maria Hoè', 'Lecco'),
+       (NULL, 'Santa Maria Imbaro', 'Chieti'),
+       (NULL, 'Santa Maria Maggiore', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Santa Maria Nuova', 'Ancona'),
+       (NULL, 'Santa Maria a Monte', 'Pisa'),
+       (NULL, 'Santa Maria a Vico', 'Caserta'),
+       (NULL, 'Santa Maria del Cedro', 'Cosenza'),
+       (NULL, 'Santa Maria del Molise', 'Isernia'),
+       (NULL, 'Santa Maria della Versa', 'Pavia'),
+       (NULL, 'Santa Maria di Licodia', 'Catania'),
+       (NULL, 'Santa Maria di Sala', 'Venezia'),
+       (NULL, 'Santa Maria la Carità', 'Napoli'),
+       (NULL, 'Santa Maria la Fossa', 'Caserta'),
+       (NULL, 'Santa Maria la Longa', 'Udine'),
+       (NULL, 'Santa Marina', 'Salerno'),
+       (NULL, 'Santa Marina Salina', 'Messina'),
+       (NULL, 'Santa Marinella', 'Roma'),
+       (NULL, 'Santa Ninfa', 'Trapani'),
+       (NULL, 'Santa Paolina', 'Avellino'),
+       (NULL, 'Santa Severina', 'Crotone'),
+       (NULL, 'Santa Sofia', 'Forlì-Cesena'),
+       (NULL, 'Santa Sofia d''Epiro', 'Cosenza'),
+       (NULL, 'Santa Teresa Gallura', 'Sassari'),
+       (NULL, 'Santa Teresa di Riva', 'Messina'),
+       (NULL, 'Santa Venerina', 'Catania'),
+       (NULL, 'Santa Vittoria d''Alba', 'Cuneo'),
+       (NULL, 'Santa Vittoria in Matenano', 'Fermo'),
+       (NULL, 'Santadi', 'Sud Sardegna'),
+       (NULL, 'Santarcangelo di Romagna', 'Rimini'),
+       (NULL, 'Sante Marie', 'L''Aquila'),
+       (NULL, 'Santena', 'Torino'),
+       (NULL, 'Santeramo in Colle', 'Bari'),
+       (NULL, 'Santhià', 'Vercelli'),
+       (NULL, 'Santi Cosma e Damiano', 'Latina'),
+       (NULL, 'Santo Stefano Belbo', 'Cuneo'),
+       (NULL, 'Santo Stefano Lodigiano', 'Lodi'),
+       (NULL, 'Santo Stefano Quisquina', 'Agrigento'),
+       (NULL, 'Santo Stefano Roero', 'Cuneo'),
+       (NULL, 'Santo Stefano Ticino', 'Milano'),
+       (NULL, 'Santo Stefano al Mare', 'Imperia'),
+       (NULL, 'Santo Stefano d''Aveto', 'Genova'),
+       (NULL, 'Santo Stefano del Sole', 'Avellino'),
+       (NULL, 'Santo Stefano di Cadore', 'Belluno'),
+       (NULL, 'Santo Stefano di Camastra', 'Messina'),
+       (NULL, 'Santo Stefano di Magra', 'La Spezia'),
+       (NULL, 'Santo Stefano di Rogliano', 'Cosenza'),
+       (NULL, 'Santo Stefano di Sessanio', 'L''Aquila'),
+       (NULL, 'Santo Stefano in Aspromonte', 'Reggio Calabria'),
+       (NULL, 'Santomenna', 'Salerno'),
+       (NULL, 'Santopadre', 'Frosinone'),
+       (NULL, 'Santorso', 'Vicenza'),
+       (NULL, 'Santu Lussurgiu', 'Oristano'),
+       (NULL, 'Sanza', 'Salerno'),
+       (NULL, 'Sanzeno', 'Trento'),
+       (NULL, 'Saonara', 'Padova'),
+       (NULL, 'Saponara', 'Messina'),
+       (NULL, 'Sappada', 'Udine'),
+       (NULL, 'Sapri', 'Salerno'),
+       (NULL, 'Saracena', 'Cosenza'),
+       (NULL, 'Saracinesco', 'Roma'),
+       (NULL, 'Sarcedo', 'Vicenza'),
+       (NULL, 'Sarconi', 'Potenza'),
+       (NULL, 'Sardara', 'Sud Sardegna'),
+       (NULL, 'Sardigliano', 'Alessandria'),
+       (NULL, 'Sarego', 'Vicenza'),
+       (NULL, 'Sarentino', 'Bolzano'),
+       (NULL, 'Sarezzano', 'Alessandria'),
+       (NULL, 'Sarezzo', 'Brescia'),
+       (NULL, 'Sarmato', 'Piacenza'),
+       (NULL, 'Sarmede', 'Treviso'),
+       (NULL, 'Sarnano', 'Macerata'),
+       (NULL, 'Sarnico', 'Bergamo'),
+       (NULL, 'Sarno', 'Salerno'),
+       (NULL, 'Sarnonico', 'Trento'),
+       (NULL, 'Saronno', 'Varese'),
+       (NULL, 'Sarre', 'Valle d''Aosta'),
+       (NULL, 'Sarroch', 'Cagliari'),
+       (NULL, 'Sarsina', 'Forlì-Cesena'),
+       (NULL, 'Sarteano', 'Siena'),
+       (NULL, 'Sartirana Lomellina', 'Pavia'),
+       (NULL, 'Sarule', 'Nuoro'),
+       (NULL, 'Sarzana', 'La Spezia'),
+       (NULL, 'Sassano', 'Salerno'),
+       (NULL, 'Sassari', 'Sassari'),
+       (NULL, 'Sassello', 'Savona'),
+       (NULL, 'Sassetta', 'Livorno'),
+       (NULL, 'Sassinoro', 'Benevento'),
+       (NULL, 'Sasso Marconi', 'Bologna'),
+       (NULL, 'Sasso di Castalda', 'Potenza'),
+       (NULL, 'Sassocorvaro Auditore', 'Pesaro e Urbino'),
+       (NULL, 'Sassofeltrio', 'Rimini'),
+       (NULL, 'Sassoferrato', 'Ancona'),
+       (NULL, 'Sassuolo', 'Modena'),
+       (NULL, 'Satriano', 'Catanzaro'),
+       (NULL, 'Satriano di Lucania', 'Potenza'),
+       (NULL, 'Sauris', 'Udine'),
+       (NULL, 'Sauze d''Oulx', 'Torino'),
+       (NULL, 'Sauze di Cesana', 'Torino'),
+       (NULL, 'Sava', 'Taranto'),
+       (NULL, 'Savelli', 'Crotone'),
+       (NULL, 'Saviano', 'Napoli'),
+       (NULL, 'Savigliano', 'Cuneo'),
+       (NULL, 'Savignano Irpino', 'Avellino'),
+       (NULL, 'Savignano sul Panaro', 'Modena'),
+       (NULL, 'Savignano sul Rubicone', 'Forlì-Cesena'),
+       (NULL, 'Savignone', 'Genova'),
+       (NULL, 'Saviore dell''Adamello', 'Brescia'),
+       (NULL, 'Savoca', 'Messina'),
+       (NULL, 'Savogna', 'Udine'),
+       (NULL, 'Savogna d''Isonzo-Sovodnje ob Soči', 'Gorizia'),
+       (NULL, 'Savoia di Lucania', 'Potenza'),
+       (NULL, 'Savona', 'Savona'),
+       (NULL, 'Scafa', 'Pescara'),
+       (NULL, 'Scafati', 'Salerno'),
+       (NULL, 'Scagnello', 'Cuneo'),
+       (NULL, 'Scala', 'Salerno'),
+       (NULL, 'Scala Coeli', 'Cosenza'),
+       (NULL, 'Scaldasole', 'Pavia'),
+       (NULL, 'Scalea', 'Cosenza'),
+       (NULL, 'Scalenghe', 'Torino'),
+       (NULL, 'Scaletta Zanclea', 'Messina'),
+       (NULL, 'Scampitella', 'Avellino'),
+       (NULL, 'Scandale', 'Crotone'),
+       (NULL, 'Scandiano', 'Reggio nell''Emilia'),
+       (NULL, 'Scandicci', 'Firenze'),
+       (NULL, 'Scandolara Ravara', 'Cremona'),
+       (NULL, 'Scandolara Ripa d''Oglio', 'Cremona'),
+       (NULL, 'Scandriglia', 'Rieti'),
+       (NULL, 'Scanno', 'L''Aquila'),
+       (NULL, 'Scano di Montiferro', 'Oristano'),
+       (NULL, 'Scansano', 'Grosseto'),
+       (NULL, 'Scanzano Jonico', 'Matera'),
+       (NULL, 'Scanzorosciate', 'Bergamo'),
+       (NULL, 'Scapoli', 'Isernia'),
+       (NULL, 'Scarlino', 'Grosseto'),
+       (NULL, 'Scarmagno', 'Torino'),
+       (NULL, 'Scarnafigi', 'Cuneo'),
+       (NULL, 'Scarperia e San Piero', 'Firenze'),
+       (NULL, 'Scena', 'Bolzano'),
+       (NULL, 'Scerni', 'Chieti'),
+       (NULL, 'Scheggia e Pascelupo', 'Perugia'),
+       (NULL, 'Scheggino', 'Perugia'),
+       (NULL, 'Schiavi di Abruzzo', 'Chieti'),
+       (NULL, 'Schiavon', 'Vicenza'),
+       (NULL, 'Schignano', 'Como'),
+       (NULL, 'Schilpario', 'Bergamo'),
+       (NULL, 'Schio', 'Vicenza'),
+       (NULL, 'Schivenoglia', 'Mantova'),
+       (NULL, 'Sciacca', 'Agrigento'),
+       (NULL, 'Sciara', 'Palermo'),
+       (NULL, 'Scicli', 'Ragusa'),
+       (NULL, 'Scido', 'Reggio Calabria'),
+       (NULL, 'Scigliano', 'Cosenza'),
+       (NULL, 'Scilla', 'Reggio Calabria'),
+       (NULL, 'Scillato', 'Palermo'),
+       (NULL, 'Sciolze', 'Torino'),
+       (NULL, 'Scisciano', 'Napoli'),
+       (NULL, 'Sclafani Bagni', 'Palermo'),
+       (NULL, 'Scontrone', 'L''Aquila'),
+       (NULL, 'Scopa', 'Vercelli'),
+       (NULL, 'Scopello', 'Vercelli'),
+       (NULL, 'Scoppito', 'L''Aquila'),
+       (NULL, 'Scordia', 'Catania'),
+       (NULL, 'Scorrano', 'Lecce'),
+       (NULL, 'Scorzè', 'Venezia'),
+       (NULL, 'Scurcola Marsicana', 'L''Aquila'),
+       (NULL, 'Scurelle', 'Trento'),
+       (NULL, 'Scurzolengo', 'Asti'),
+       (NULL, 'Seborga', 'Imperia'),
+       (NULL, 'Secinaro', 'L''Aquila'),
+       (NULL, 'Seclì', 'Lecce'),
+       (NULL, 'Secugnago', 'Lodi'),
+       (NULL, 'Sedegliano', 'Udine'),
+       (NULL, 'Sedico', 'Belluno'),
+       (NULL, 'Sedilo', 'Oristano'),
+       (NULL, 'Sedini', 'Sassari'),
+       (NULL, 'Sedriano', 'Milano'),
+       (NULL, 'Sedrina', 'Bergamo'),
+       (NULL, 'Sefro', 'Macerata'),
+       (NULL, 'Segariu', 'Sud Sardegna'),
+       (NULL, 'Seggiano', 'Grosseto'),
+       (NULL, 'Segni', 'Roma'),
+       (NULL, 'Segonzano', 'Trento'),
+       (NULL, 'Segrate', 'Milano'),
+       (NULL, 'Segusino', 'Treviso'),
+       (NULL, 'Selargius', 'Cagliari'),
+       (NULL, 'Selci', 'Rieti'),
+       (NULL, 'Selegas', 'Sud Sardegna'),
+       (NULL, 'Sella Giudicarie', 'Trento'),
+       (NULL, 'Sellano', 'Perugia'),
+       (NULL, 'Sellero', 'Brescia'),
+       (NULL, 'Sellia', 'Catanzaro'),
+       (NULL, 'Sellia Marina', 'Catanzaro'),
+       (NULL, 'Selva dei Molini', 'Bolzano'),
+       (NULL, 'Selva di Cadore', 'Belluno'),
+       (NULL, 'Selva di Progno', 'Verona'),
+       (NULL, 'Selva di Val Gardena', 'Bolzano'),
+       (NULL, 'Selvazzano Dentro', 'Padova'),
+       (NULL, 'Selvino', 'Bergamo'),
+       (NULL, 'Semestene', 'Sassari'),
+       (NULL, 'Semiana', 'Pavia'),
+       (NULL, 'Seminara', 'Reggio Calabria'),
+       (NULL, 'Semproniano', 'Grosseto'),
+       (NULL, 'Senago', 'Milano'),
+       (NULL, 'Senale-San Felice', 'Bolzano'),
+       (NULL, 'Senales', 'Bolzano'),
+       (NULL, 'Seneghe', 'Oristano'),
+       (NULL, 'Senerchia', 'Avellino'),
+       (NULL, 'Seniga', 'Brescia'),
+       (NULL, 'Senigallia', 'Ancona'),
+       (NULL, 'Senis', 'Oristano'),
+       (NULL, 'Senise', 'Potenza'),
+       (NULL, 'Senna Comasco', 'Como'),
+       (NULL, 'Senna Lodigiana', 'Lodi'),
+       (NULL, 'Sennariolo', 'Oristano'),
+       (NULL, 'Sennori', 'Sassari'),
+       (NULL, 'Senorbì', 'Sud Sardegna'),
+       (NULL, 'Sepino', 'Campobasso'),
+       (NULL, 'Sequals', 'Pordenone'),
+       (NULL, 'Seravezza', 'Lucca'),
+       (NULL, 'Serdiana', 'Sud Sardegna'),
+       (NULL, 'Seregno', 'Monza e della Brianza'),
+       (NULL, 'Seren del Grappa', 'Belluno'),
+       (NULL, 'Sergnano', 'Cremona'),
+       (NULL, 'Seriate', 'Bergamo'),
+       (NULL, 'Serina', 'Bergamo'),
+       (NULL, 'Serino', 'Avellino'),
+       (NULL, 'Serle', 'Brescia'),
+       (NULL, 'Sermide e Felonica', 'Mantova'),
+       (NULL, 'Sermoneta', 'Latina'),
+       (NULL, 'Sernaglia della Battaglia', 'Treviso'),
+       (NULL, 'Sernio', 'Sondrio'),
+       (NULL, 'Serole', 'Asti'),
+       (NULL, 'Serra Riccò', 'Genova'),
+       (NULL, 'Serra San Bruno', 'Vibo Valentia'),
+       (NULL, 'Serra San Quirico', 'Ancona'),
+       (NULL, 'Serra Sant''Abbondio', 'Pesaro e Urbino'),
+       (NULL, 'Serra d''Aiello', 'Cosenza'),
+       (NULL, 'Serra de'' Conti', 'Ancona'),
+       (NULL, 'Serracapriola', 'Foggia'),
+       (NULL, 'Serradifalco', 'Caltanissetta'),
+       (NULL, 'Serralunga d''Alba', 'Cuneo'),
+       (NULL, 'Serralunga di Crea', 'Alessandria'),
+       (NULL, 'Serramanna', 'Sud Sardegna'),
+       (NULL, 'Serramazzoni', 'Modena'),
+       (NULL, 'Serramezzana', 'Salerno'),
+       (NULL, 'Serramonacesca', 'Pescara'),
+       (NULL, 'Serrapetrona', 'Macerata'),
+       (NULL, 'Serrara Fontana', 'Napoli'),
+       (NULL, 'Serrastretta', 'Catanzaro'),
+       (NULL, 'Serrata', 'Reggio Calabria'),
+       (NULL, 'Serravalle Langhe', 'Cuneo'),
+       (NULL, 'Serravalle Pistoiese', 'Pistoia'),
+       (NULL, 'Serravalle Scrivia', 'Alessandria'),
+       (NULL, 'Serravalle Sesia', 'Vercelli'),
+       (NULL, 'Serravalle a Po', 'Mantova'),
+       (NULL, 'Serravalle di Chienti', 'Macerata'),
+       (NULL, 'Serre', 'Salerno'),
+       (NULL, 'Serrenti', 'Sud Sardegna'),
+       (NULL, 'Serri', 'Sud Sardegna'),
+       (NULL, 'Serrone', 'Frosinone'),
+       (NULL, 'Sersale', 'Catanzaro'),
+       (NULL, 'Servigliano', 'Fermo'),
+       (NULL, 'Sessa Aurunca', 'Caserta'),
+       (NULL, 'Sessa Cilento', 'Salerno'),
+       (NULL, 'Sessame', 'Asti'),
+       (NULL, 'Sessano del Molise', 'Isernia'),
+       (NULL, 'Sesta Godano', 'La Spezia'),
+       (NULL, 'Sestino', 'Arezzo'),
+       (NULL, 'Sesto', 'Bolzano'),
+       (NULL, 'Sesto Calende', 'Varese'),
+       (NULL, 'Sesto Campano', 'Isernia'),
+       (NULL, 'Sesto Fiorentino', 'Firenze'),
+       (NULL, 'Sesto San Giovanni', 'Milano'),
+       (NULL, 'Sesto al Reghena', 'Pordenone'),
+       (NULL, 'Sesto ed Uniti', 'Cremona'),
+       (NULL, 'Sestola', 'Modena'),
+       (NULL, 'Sestri Levante', 'Genova'),
+       (NULL, 'Sestriere', 'Torino'),
+       (NULL, 'Sestu', 'Cagliari'),
+       (NULL, 'Settala', 'Milano'),
+       (NULL, 'Settefrati', 'Frosinone'),
+       (NULL, 'Settime', 'Asti'),
+       (NULL, 'Settimo Milanese', 'Milano'),
+       (NULL, 'Settimo Rottaro', 'Torino'),
+       (NULL, 'Settimo San Pietro', 'Cagliari'),
+       (NULL, 'Settimo Torinese', 'Torino'),
+       (NULL, 'Settimo Vittone', 'Torino'),
+       (NULL, 'Settingiano', 'Catanzaro'),
+       (NULL, 'Setzu', 'Sud Sardegna'),
+       (NULL, 'Seui', 'Sud Sardegna'),
+       (NULL, 'Seulo', 'Sud Sardegna'),
+       (NULL, 'Seveso', 'Monza e della Brianza'),
+       (NULL, 'Sezzadio', 'Alessandria'),
+       (NULL, 'Sezze', 'Latina'),
+       (NULL, 'Sfruz', 'Trento'),
+       (NULL, 'Sgonico-Zgonik', 'Trieste'),
+       (NULL, 'Sgurgola', 'Frosinone'),
+       (NULL, 'Siamaggiore', 'Oristano'),
+       (NULL, 'Siamanna', 'Oristano'),
+       (NULL, 'Siano', 'Salerno'),
+       (NULL, 'Siapiccia', 'Oristano'),
+       (NULL, 'Sicignano degli Alburni', 'Salerno'),
+       (NULL, 'Siculiana', 'Agrigento'),
+       (NULL, 'Siddi', 'Sud Sardegna'),
+       (NULL, 'Siderno', 'Reggio Calabria'),
+       (NULL, 'Siena', 'Siena'),
+       (NULL, 'Sigillo', 'Perugia'),
+       (NULL, 'Signa', 'Firenze'),
+       (NULL, 'Silandro', 'Bolzano'),
+       (NULL, 'Silanus', 'Nuoro'),
+       (NULL, 'Silea', 'Treviso'),
+       (NULL, 'Siligo', 'Sassari'),
+       (NULL, 'Siliqua', 'Sud Sardegna'),
+       (NULL, 'Silius', 'Sud Sardegna'),
+       (NULL, 'Sillano Giuncugnano', 'Lucca'),
+       (NULL, 'Sillavengo', 'Novara'),
+       (NULL, 'Silvano Pietra', 'Pavia'),
+       (NULL, 'Silvano d''Orba', 'Alessandria'),
+       (NULL, 'Silvi', 'Teramo'),
+       (NULL, 'Simala', 'Oristano'),
+       (NULL, 'Simaxis', 'Oristano'),
+       (NULL, 'Simbario', 'Vibo Valentia'),
+       (NULL, 'Simeri Crichi', 'Catanzaro'),
+       (NULL, 'Sinagra', 'Messina'),
+       (NULL, 'Sinalunga', 'Siena'),
+       (NULL, 'Sindia', 'Nuoro'),
+       (NULL, 'Sini', 'Oristano'),
+       (NULL, 'Sinio', 'Cuneo'),
+       (NULL, 'Siniscola', 'Nuoro'),
+       (NULL, 'Sinnai', 'Cagliari'),
+       (NULL, 'Sinopoli', 'Reggio Calabria'),
+       (NULL, 'Siracusa', 'Siracusa'),
+       (NULL, 'Sirignano', 'Avellino'),
+       (NULL, 'Siris', 'Oristano'),
+       (NULL, 'Sirmione', 'Brescia'),
+       (NULL, 'Sirolo', 'Ancona'),
+       (NULL, 'Sirone', 'Lecco'),
+       (NULL, 'Sirtori', 'Lecco'),
+       (NULL, 'Sissa Trecasali', 'Parma'),
+       (NULL, 'Siurgus Donigala', 'Sud Sardegna'),
+       (NULL, 'Siziano', 'Pavia'),
+       (NULL, 'Sizzano', 'Novara'),
+       (NULL, 'Sluderno', 'Bolzano'),
+       (NULL, 'Smerillo', 'Fermo'),
+       (NULL, 'Soave', 'Verona'),
+       (NULL, 'Socchieve', 'Udine'),
+       (NULL, 'Soddì', 'Oristano'),
+       (NULL, 'Sogliano Cavour', 'Lecce'),
+       (NULL, 'Sogliano al Rubicone', 'Forlì-Cesena'),
+       (NULL, 'Soglio', 'Asti'),
+       (NULL, 'Soiano del Lago', 'Brescia'),
+       (NULL, 'Solagna', 'Vicenza'),
+       (NULL, 'Solarino', 'Siracusa'),
+       (NULL, 'Solaro', 'Milano'),
+       (NULL, 'Solarolo', 'Ravenna'),
+       (NULL, 'Solarolo Rainerio', 'Cremona'),
+       (NULL, 'Solarussa', 'Oristano'),
+       (NULL, 'Solbiate Arno', 'Varese'),
+       (NULL, 'Solbiate Olona', 'Varese'),
+       (NULL, 'Solbiate con Cagno', 'Como'),
+       (NULL, 'Soldano', 'Imperia'),
+       (NULL, 'Soleminis', 'Sud Sardegna'),
+       (NULL, 'Solero', 'Alessandria'),
+       (NULL, 'Solesino', 'Padova'),
+       (NULL, 'Soleto', 'Lecce'),
+       (NULL, 'Solferino', 'Mantova'),
+       (NULL, 'Soliera', 'Modena'),
+       (NULL, 'Solignano', 'Parma'),
+       (NULL, 'Solofra', 'Avellino'),
+       (NULL, 'Solonghello', 'Alessandria'),
+       (NULL, 'Solopaca', 'Benevento'),
+       (NULL, 'Solto Collina', 'Bergamo'),
+       (NULL, 'Solza', 'Bergamo'),
+       (NULL, 'Somaglia', 'Lodi'),
+       (NULL, 'Somano', 'Cuneo'),
+       (NULL, 'Somma Lombardo', 'Varese'),
+       (NULL, 'Somma Vesuviana', 'Napoli'),
+       (NULL, 'Sommacampagna', 'Verona'),
+       (NULL, 'Sommariva Perno', 'Cuneo'),
+       (NULL, 'Sommariva del Bosco', 'Cuneo'),
+       (NULL, 'Sommatino', 'Caltanissetta'),
+       (NULL, 'Sommo', 'Pavia'),
+       (NULL, 'Sona', 'Verona'),
+       (NULL, 'Soncino', 'Cremona'),
+       (NULL, 'Sondalo', 'Sondrio'),
+       (NULL, 'Sondrio', 'Sondrio'),
+       (NULL, 'Songavazzo', 'Bergamo'),
+       (NULL, 'Sonico', 'Brescia'),
+       (NULL, 'Sonnino', 'Latina'),
+       (NULL, 'Sora', 'Frosinone'),
+       (NULL, 'Soraga di Fassa', 'Trento'),
+       (NULL, 'Soragna', 'Parma'),
+       (NULL, 'Sorano', 'Grosseto'),
+       (NULL, 'Sorbo San Basile', 'Catanzaro'),
+       (NULL, 'Sorbo Serpico', 'Avellino'),
+       (NULL, 'Sorbolo Mezzani', 'Parma'),
+       (NULL, 'Sordevolo', 'Biella'),
+       (NULL, 'Sordio', 'Lodi'),
+       (NULL, 'Soresina', 'Cremona'),
+       (NULL, 'Sorgono', 'Nuoro'),
+       (NULL, 'Sorgà', 'Verona'),
+       (NULL, 'Sori', 'Genova'),
+       (NULL, 'Sorianello', 'Vibo Valentia'),
+       (NULL, 'Soriano Calabro', 'Vibo Valentia'),
+       (NULL, 'Soriano nel Cimino', 'Viterbo'),
+       (NULL, 'Sorico', 'Como'),
+       (NULL, 'Soriso', 'Novara'),
+       (NULL, 'Sorisole', 'Bergamo'),
+       (NULL, 'Sormano', 'Como'),
+       (NULL, 'Sorradile', 'Oristano'),
+       (NULL, 'Sorrento', 'Napoli'),
+       (NULL, 'Sorso', 'Sassari'),
+       (NULL, 'Sortino', 'Siracusa'),
+       (NULL, 'Sospiro', 'Cremona'),
+       (NULL, 'Sospirolo', 'Belluno'),
+       (NULL, 'Sossano', 'Vicenza'),
+       (NULL, 'Sostegno', 'Biella'),
+       (NULL, 'Sotto il Monte Giovanni XXIII', 'Bergamo'),
+       (NULL, 'Sover', 'Trento'),
+       (NULL, 'Soverato', 'Catanzaro'),
+       (NULL, 'Sovere', 'Bergamo'),
+       (NULL, 'Soveria Mannelli', 'Catanzaro'),
+       (NULL, 'Soveria Simeri', 'Catanzaro'),
+       (NULL, 'Soverzene', 'Belluno'),
+       (NULL, 'Sovicille', 'Siena'),
+       (NULL, 'Sovico', 'Monza e della Brianza'),
+       (NULL, 'Sovizzo', 'Vicenza'),
+       (NULL, 'Sovramonte', 'Belluno'),
+       (NULL, 'Sozzago', 'Novara'),
+       (NULL, 'Spadafora', 'Messina'),
+       (NULL, 'Spadola', 'Vibo Valentia'),
+       (NULL, 'Sparanise', 'Caserta'),
+       (NULL, 'Sparone', 'Torino'),
+       (NULL, 'Specchia', 'Lecce'),
+       (NULL, 'Spello', 'Perugia'),
+       (NULL, 'Sperlinga', 'Enna'),
+       (NULL, 'Sperlonga', 'Latina'),
+       (NULL, 'Sperone', 'Avellino'),
+       (NULL, 'Spessa', 'Pavia'),
+       (NULL, 'Spezzano Albanese', 'Cosenza'),
+       (NULL, 'Spezzano della Sila', 'Cosenza'),
+       (NULL, 'Spiazzo', 'Trento'),
+       (NULL, 'Spigno Monferrato', 'Alessandria'),
+       (NULL, 'Spigno Saturnia', 'Latina'),
+       (NULL, 'Spilamberto', 'Modena'),
+       (NULL, 'Spilimbergo', 'Pordenone'),
+       (NULL, 'Spilinga', 'Vibo Valentia'),
+       (NULL, 'Spinadesco', 'Cremona'),
+       (NULL, 'Spinazzola', 'Barletta-Andria-Trani'),
+       (NULL, 'Spinea', 'Venezia'),
+       (NULL, 'Spineda', 'Cremona'),
+       (NULL, 'Spinete', 'Campobasso'),
+       (NULL, 'Spineto Scrivia', 'Alessandria'),
+       (NULL, 'Spinetoli', 'Ascoli Piceno'),
+       (NULL, 'Spino d''Adda', 'Cremona'),
+       (NULL, 'Spinone al Lago', 'Bergamo'),
+       (NULL, 'Spinoso', 'Potenza'),
+       (NULL, 'Spirano', 'Bergamo'),
+       (NULL, 'Spoleto', 'Perugia'),
+       (NULL, 'Spoltore', 'Pescara'),
+       (NULL, 'Spongano', 'Lecce'),
+       (NULL, 'Spormaggiore', 'Trento'),
+       (NULL, 'Sporminore', 'Trento'),
+       (NULL, 'Spotorno', 'Savona'),
+       (NULL, 'Spresiano', 'Treviso'),
+       (NULL, 'Spriana', 'Sondrio'),
+       (NULL, 'Squillace', 'Catanzaro'),
+       (NULL, 'Squinzano', 'Lecce'),
+       (NULL, 'Staffolo', 'Ancona'),
+       (NULL, 'Stagno Lombardo', 'Cremona'),
+       (NULL, 'Staiti', 'Reggio Calabria'),
+       (NULL, 'Stalettì', 'Catanzaro'),
+       (NULL, 'Stanghella', 'Padova'),
+       (NULL, 'Staranzano', 'Gorizia'),
+       (NULL, 'Statte', 'Taranto'),
+       (NULL, 'Stazzano', 'Alessandria'),
+       (NULL, 'Stazzema', 'Lucca'),
+       (NULL, 'Stazzona', 'Como'),
+       (NULL, 'Stefanaconi', 'Vibo Valentia'),
+       (NULL, 'Stella', 'Savona'),
+       (NULL, 'Stella Cilento', 'Salerno'),
+       (NULL, 'Stellanello', 'Savona'),
+       (NULL, 'Stelvio', 'Bolzano'),
+       (NULL, 'Stenico', 'Trento'),
+       (NULL, 'Sternatia', 'Lecce'),
+       (NULL, 'Stezzano', 'Bergamo'),
+       (NULL, 'Stienta', 'Rovigo'),
+       (NULL, 'Stigliano', 'Matera'),
+       (NULL, 'Stignano', 'Reggio Calabria'),
+       (NULL, 'Stilo', 'Reggio Calabria'),
+       (NULL, 'Stimigliano', 'Rieti'),
+       (NULL, 'Stintino', 'Sassari'),
+       (NULL, 'Stio', 'Salerno'),
+       (NULL, 'Stornara', 'Foggia'),
+       (NULL, 'Stornarella', 'Foggia'),
+       (NULL, 'Storo', 'Trento'),
+       (NULL, 'Stra', 'Venezia'),
+       (NULL, 'Stradella', 'Pavia'),
+       (NULL, 'Strambinello', 'Torino'),
+       (NULL, 'Strambino', 'Torino'),
+       (NULL, 'Strangolagalli', 'Frosinone'),
+       (NULL, 'Stregna', 'Udine'),
+       (NULL, 'Strembo', 'Trento'),
+       (NULL, 'Stresa', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Strevi', 'Alessandria'),
+       (NULL, 'Striano', 'Napoli'),
+       (NULL, 'Strona', 'Biella'),
+       (NULL, 'Stroncone', 'Terni'),
+       (NULL, 'Strongoli', 'Crotone'),
+       (NULL, 'Stroppiana', 'Vercelli'),
+       (NULL, 'Stroppo', 'Cuneo'),
+       (NULL, 'Strozza', 'Bergamo'),
+       (NULL, 'Sturno', 'Avellino'),
+       (NULL, 'Suardi', 'Pavia'),
+       (NULL, 'Subbiano', 'Arezzo'),
+       (NULL, 'Subiaco', 'Roma'),
+       (NULL, 'Succivo', 'Caserta'),
+       (NULL, 'Sueglio', 'Lecco'),
+       (NULL, 'Suelli', 'Sud Sardegna'),
+       (NULL, 'Suello', 'Lecco'),
+       (NULL, 'Suisio', 'Bergamo'),
+       (NULL, 'Sulbiate', 'Monza e della Brianza'),
+       (NULL, 'Sulmona', 'L''Aquila'),
+       (NULL, 'Sulzano', 'Brescia'),
+       (NULL, 'Sumirago', 'Varese'),
+       (NULL, 'Summonte', 'Avellino'),
+       (NULL, 'Suni', 'Oristano'),
+       (NULL, 'Suno', 'Novara'),
+       (NULL, 'Supersano', 'Lecce'),
+       (NULL, 'Supino', 'Frosinone'),
+       (NULL, 'Surano', 'Lecce'),
+       (NULL, 'Surbo', 'Lecce'),
+       (NULL, 'Susa', 'Torino'),
+       (NULL, 'Susegana', 'Treviso'),
+       (NULL, 'Sustinente', 'Mantova'),
+       (NULL, 'Sutera', 'Caltanissetta'),
+       (NULL, 'Sutri', 'Viterbo'),
+       (NULL, 'Sutrio', 'Udine'),
+       (NULL, 'Suvereto', 'Livorno'),
+       (NULL, 'Suzzara', 'Mantova'),
+       (NULL, 'Taceno', 'Lecco'),
+       (NULL, 'Tadasuni', 'Oristano'),
+       (NULL, 'Taggia', 'Imperia'),
+       (NULL, 'Tagliacozzo', 'L''Aquila'),
+       (NULL, 'Taglio di Po', 'Rovigo'),
+       (NULL, 'Tagliolo Monferrato', 'Alessandria'),
+       (NULL, 'Taibon Agordino', 'Belluno'),
+       (NULL, 'Taino', 'Varese'),
+       (NULL, 'Taipana', 'Udine'),
+       (NULL, 'Talamello', 'Rimini'),
+       (NULL, 'Talamona', 'Sondrio'),
+       (NULL, 'Talana', 'Nuoro'),
+       (NULL, 'Taleggio', 'Bergamo'),
+       (NULL, 'Talla', 'Arezzo'),
+       (NULL, 'Talmassons', 'Udine'),
+       (NULL, 'Tambre', 'Belluno'),
+       (NULL, 'Taormina', 'Messina'),
+       (NULL, 'Tarano', 'Rieti'),
+       (NULL, 'Taranta Peligna', 'Chieti'),
+       (NULL, 'Tarantasca', 'Cuneo'),
+       (NULL, 'Taranto', 'Taranto'),
+       (NULL, 'Tarcento', 'Udine'),
+       (NULL, 'Tarquinia', 'Viterbo'),
+       (NULL, 'Tarsia', 'Cosenza'),
+       (NULL, 'Tartano', 'Sondrio'),
+       (NULL, 'Tarvisio', 'Udine'),
+       (NULL, 'Tarzo', 'Treviso'),
+       (NULL, 'Tassarolo', 'Alessandria'),
+       (NULL, 'Taurano', 'Avellino'),
+       (NULL, 'Taurasi', 'Avellino'),
+       (NULL, 'Taurianova', 'Reggio Calabria'),
+       (NULL, 'Taurisano', 'Lecce'),
+       (NULL, 'Tavagnacco', 'Udine'),
+       (NULL, 'Tavagnasco', 'Torino'),
+       (NULL, 'Tavazzano con Villavesco', 'Lodi'),
+       (NULL, 'Tavenna', 'Campobasso'),
+       (NULL, 'Taverna', 'Catanzaro'),
+       (NULL, 'Tavernerio', 'Como'),
+       (NULL, 'Tavernola Bergamasca', 'Bergamo'),
+       (NULL, 'Tavernole sul Mella', 'Brescia'),
+       (NULL, 'Taviano', 'Lecce'),
+       (NULL, 'Tavigliano', 'Biella'),
+       (NULL, 'Tavoleto', 'Pesaro e Urbino'),
+       (NULL, 'Tavullia', 'Pesaro e Urbino'),
+       (NULL, 'Teana', 'Potenza'),
+       (NULL, 'Teano', 'Caserta'),
+       (NULL, 'Teggiano', 'Salerno'),
+       (NULL, 'Teglio', 'Sondrio'),
+       (NULL, 'Teglio Veneto', 'Venezia'),
+       (NULL, 'Telese Terme', 'Benevento'),
+       (NULL, 'Telgate', 'Bergamo'),
+       (NULL, 'Telti', 'Sassari'),
+       (NULL, 'Telve', 'Trento'),
+       (NULL, 'Telve di Sopra', 'Trento'),
+       (NULL, 'Tempio Pausania', 'Sassari'),
+       (NULL, 'Temù', 'Brescia'),
+       (NULL, 'Tenna', 'Trento'),
+       (NULL, 'Tenno', 'Trento'),
+       (NULL, 'Teolo', 'Padova'),
+       (NULL, 'Teora', 'Avellino'),
+       (NULL, 'Teramo', 'Teramo'),
+       (NULL, 'Terdobbiate', 'Novara'),
+       (NULL, 'Terelle', 'Frosinone'),
+       (NULL, 'Terento', 'Bolzano'),
+       (NULL, 'Terenzo', 'Parma'),
+       (NULL, 'Tergu', 'Sassari'),
+       (NULL, 'Terlano', 'Bolzano'),
+       (NULL, 'Terlizzi', 'Bari'),
+       (NULL, 'Terme Vigliatore', 'Messina'),
+       (NULL, 'Termeno sulla strada del vino', 'Bolzano'),
+       (NULL, 'Termini Imerese', 'Palermo'),
+       (NULL, 'Termoli', 'Campobasso'),
+       (NULL, 'Ternate', 'Varese'),
+       (NULL, 'Ternengo', 'Biella'),
+       (NULL, 'Terni', 'Terni'),
+       (NULL, 'Terno d''Isola', 'Bergamo'),
+       (NULL, 'Terracina', 'Latina'),
+       (NULL, 'Terragnolo', 'Trento'),
+       (NULL, 'Terralba', 'Oristano'),
+       (NULL, 'Terranova Sappo Minulio', 'Reggio Calabria'),
+       (NULL, 'Terranova da Sibari', 'Cosenza'),
+       (NULL, 'Terranova dei Passerini', 'Lodi'),
+       (NULL, 'Terranova di Pollino', 'Potenza'),
+       (NULL, 'Terranuova Bracciolini', 'Arezzo'),
+       (NULL, 'Terrasini', 'Palermo'),
+       (NULL, 'Terrassa Padovana', 'Padova'),
+       (NULL, 'Terravecchia', 'Cosenza'),
+       (NULL, 'Terrazzo', 'Verona'),
+       (NULL, 'Terre Roveresche', 'Pesaro e Urbino'),
+       (NULL, 'Terre d''Adige', 'Trento'),
+       (NULL, 'Terre del Reno', 'Ferrara'),
+       (NULL, 'Terricciola', 'Pisa'),
+       (NULL, 'Terruggia', 'Alessandria'),
+       (NULL, 'Tertenia', 'Nuoro'),
+       (NULL, 'Terzigno', 'Napoli'),
+       (NULL, 'Terzo', 'Alessandria'),
+       (NULL, 'Terzo d''Aquileia', 'Udine'),
+       (NULL, 'Terzolas', 'Trento'),
+       (NULL, 'Terzorio', 'Imperia'),
+       (NULL, 'Tesero', 'Trento'),
+       (NULL, 'Tesimo', 'Bolzano'),
+       (NULL, 'Tessennano', 'Viterbo'),
+       (NULL, 'Testico', 'Savona'),
+       (NULL, 'Teti', 'Nuoro'),
+       (NULL, 'Teulada', 'Sud Sardegna'),
+       (NULL, 'Teverola', 'Caserta'),
+       (NULL, 'Tezze sul Brenta', 'Vicenza'),
+       (NULL, 'Thiene', 'Vicenza'),
+       (NULL, 'Thiesi', 'Sassari'),
+       (NULL, 'Tiana', 'Nuoro'),
+       (NULL, 'Ticengo', 'Cremona'),
+       (NULL, 'Ticineto', 'Alessandria'),
+       (NULL, 'Tiggiano', 'Lecce'),
+       (NULL, 'Tiglieto', 'Genova'),
+       (NULL, 'Tigliole', 'Asti'),
+       (NULL, 'Tignale', 'Brescia'),
+       (NULL, 'Tinnura', 'Oristano'),
+       (NULL, 'Tione degli Abruzzi', 'L''Aquila'),
+       (NULL, 'Tione di Trento', 'Trento'),
+       (NULL, 'Tirano', 'Sondrio'),
+       (NULL, 'Tires', 'Bolzano'),
+       (NULL, 'Tiriolo', 'Catanzaro'),
+       (NULL, 'Tirolo', 'Bolzano'),
+       (NULL, 'Tissi', 'Sassari'),
+       (NULL, 'Tito', 'Potenza'),
+       (NULL, 'Tivoli', 'Roma'),
+       (NULL, 'Tizzano Val Parma', 'Parma'),
+       (NULL, 'Toano', 'Reggio nell''Emilia'),
+       (NULL, 'Tocco Caudio', 'Benevento'),
+       (NULL, 'Tocco da Casauria', 'Pescara'),
+       (NULL, 'Toceno', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Todi', 'Perugia'),
+       (NULL, 'Toffia', 'Rieti'),
+       (NULL, 'Toirano', 'Savona'),
+       (NULL, 'Tolentino', 'Macerata'),
+       (NULL, 'Tolfa', 'Roma'),
+       (NULL, 'Tollegno', 'Biella'),
+       (NULL, 'Tollo', 'Chieti'),
+       (NULL, 'Tolmezzo', 'Udine'),
+       (NULL, 'Tolve', 'Potenza'),
+       (NULL, 'Tombolo', 'Padova'),
+       (NULL, 'Ton', 'Trento'),
+       (NULL, 'Tonara', 'Nuoro'),
+       (NULL, 'Tonco', 'Asti'),
+       (NULL, 'Tonezza del Cimone', 'Vicenza'),
+       (NULL, 'Tora e Piccilli', 'Caserta'),
+       (NULL, 'Torano Castello', 'Cosenza'),
+       (NULL, 'Torano Nuovo', 'Teramo'),
+       (NULL, 'Torbole Casaglia', 'Brescia'),
+       (NULL, 'Torcegno', 'Trento'),
+       (NULL, 'Torchiara', 'Salerno'),
+       (NULL, 'Torchiarolo', 'Brindisi'),
+       (NULL, 'Torella dei Lombardi', 'Avellino'),
+       (NULL, 'Torella del Sannio', 'Campobasso'),
+       (NULL, 'Torgiano', 'Perugia'),
+       (NULL, 'Torgnon', 'Valle d''Aosta'),
+       (NULL, 'Torino', 'Torino'),
+       (NULL, 'Torino di Sangro', 'Chieti'),
+       (NULL, 'Toritto', 'Bari'),
+       (NULL, 'Torlino Vimercati', 'Cremona'),
+       (NULL, 'Tornaco', 'Novara'),
+       (NULL, 'Tornareccio', 'Chieti'),
+       (NULL, 'Tornata', 'Cremona'),
+       (NULL, 'Tornimparte', 'L''Aquila'),
+       (NULL, 'Torno', 'Como'),
+       (NULL, 'Tornolo', 'Parma'),
+       (NULL, 'Toro', 'Campobasso'),
+       (NULL, 'Torpè', 'Nuoro'),
+       (NULL, 'Torraca', 'Salerno'),
+       (NULL, 'Torralba', 'Sassari'),
+       (NULL, 'Torrazza Coste', 'Pavia'),
+       (NULL, 'Torrazza Piemonte', 'Torino'),
+       (NULL, 'Torrazzo', 'Biella'),
+       (NULL, 'Torre Annunziata', 'Napoli'),
+       (NULL, 'Torre Beretti e Castellaro', 'Pavia'),
+       (NULL, 'Torre Boldone', 'Bergamo'),
+       (NULL, 'Torre Bormida', 'Cuneo'),
+       (NULL, 'Torre Cajetani', 'Frosinone'),
+       (NULL, 'Torre Canavese', 'Torino'),
+       (NULL, 'Torre Le Nocelle', 'Avellino'),
+       (NULL, 'Torre Mondovì', 'Cuneo'),
+       (NULL, 'Torre Orsaia', 'Salerno'),
+       (NULL, 'Torre Pallavicina', 'Bergamo'),
+       (NULL, 'Torre Pellice', 'Torino'),
+       (NULL, 'Torre San Giorgio', 'Cuneo'),
+       (NULL, 'Torre San Patrizio', 'Fermo'),
+       (NULL, 'Torre Santa Susanna', 'Brindisi'),
+       (NULL, 'Torre d''Arese', 'Pavia'),
+       (NULL, 'Torre d''Isola', 'Pavia'),
+       (NULL, 'Torre de'' Busi', 'Bergamo'),
+       (NULL, 'Torre de'' Negri', 'Pavia'),
+       (NULL, 'Torre de'' Passeri', 'Pescara'),
+       (NULL, 'Torre de'' Picenardi', 'Cremona'),
+       (NULL, 'Torre de'' Roveri', 'Bergamo'),
+       (NULL, 'Torre del Greco', 'Napoli'),
+       (NULL, 'Torre di Mosto', 'Venezia'),
+       (NULL, 'Torre di Ruggiero', 'Catanzaro'),
+       (NULL, 'Torre di Santa Maria', 'Sondrio'),
+       (NULL, 'Torreano', 'Udine'),
+       (NULL, 'Torrebelvicino', 'Vicenza'),
+       (NULL, 'Torrebruna', 'Chieti'),
+       (NULL, 'Torrecuso', 'Benevento'),
+       (NULL, 'Torreglia', 'Padova'),
+       (NULL, 'Torregrotta', 'Messina'),
+       (NULL, 'Torremaggiore', 'Foggia'),
+       (NULL, 'Torrenova', 'Messina'),
+       (NULL, 'Torresina', 'Cuneo'),
+       (NULL, 'Torretta', 'Palermo'),
+       (NULL, 'Torrevecchia Pia', 'Pavia'),
+       (NULL, 'Torrevecchia Teatina', 'Chieti'),
+       (NULL, 'Torri del Benaco', 'Verona'),
+       (NULL, 'Torri di Quartesolo', 'Vicenza'),
+       (NULL, 'Torri in Sabina', 'Rieti'),
+       (NULL, 'Torrice', 'Frosinone'),
+       (NULL, 'Torricella', 'Taranto'),
+       (NULL, 'Torricella Peligna', 'Chieti'),
+       (NULL, 'Torricella Sicura', 'Teramo'),
+       (NULL, 'Torricella Verzate', 'Pavia'),
+       (NULL, 'Torricella del Pizzo', 'Cremona'),
+       (NULL, 'Torricella in Sabina', 'Rieti'),
+       (NULL, 'Torriglia', 'Genova'),
+       (NULL, 'Torrile', 'Parma'),
+       (NULL, 'Torrioni', 'Avellino'),
+       (NULL, 'Torrita Tiberina', 'Roma'),
+       (NULL, 'Torrita di Siena', 'Siena'),
+       (NULL, 'Tortolì', 'Nuoro'),
+       (NULL, 'Tortona', 'Alessandria'),
+       (NULL, 'Tortora', 'Cosenza'),
+       (NULL, 'Tortorella', 'Salerno'),
+       (NULL, 'Tortoreto', 'Teramo'),
+       (NULL, 'Tortorici', 'Messina'),
+       (NULL, 'Torviscosa', 'Udine'),
+       (NULL, 'Toscolano-Maderno', 'Brescia'),
+       (NULL, 'Tossicia', 'Teramo'),
+       (NULL, 'Tovo San Giacomo', 'Savona'),
+       (NULL, 'Tovo di Sant''Agata', 'Sondrio'),
+       (NULL, 'Trabia', 'Palermo'),
+       (NULL, 'Tradate', 'Varese'),
+       (NULL, 'Tramatza', 'Oristano'),
+       (NULL, 'Trambileno', 'Trento'),
+       (NULL, 'Tramonti', 'Salerno'),
+       (NULL, 'Tramonti di Sopra', 'Pordenone'),
+       (NULL, 'Tramonti di Sotto', 'Pordenone'),
+       (NULL, 'Tramutola', 'Potenza'),
+       (NULL, 'Trana', 'Torino'),
+       (NULL, 'Trani', 'Barletta-Andria-Trani'),
+       (NULL, 'Traona', 'Sondrio'),
+       (NULL, 'Trapani', 'Trapani'),
+       (NULL, 'Trappeto', 'Palermo'),
+       (NULL, 'Trarego Viggiona', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Trasacco', 'L''Aquila'),
+       (NULL, 'Trasaghis', 'Udine'),
+       (NULL, 'Trasquera', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Tratalias', 'Sud Sardegna'),
+       (NULL, 'Travacò Siccomario', 'Pavia'),
+       (NULL, 'Travagliato', 'Brescia'),
+       (NULL, 'Travedona-Monate', 'Varese'),
+       (NULL, 'Traversella', 'Torino'),
+       (NULL, 'Traversetolo', 'Parma'),
+       (NULL, 'Traves', 'Torino'),
+       (NULL, 'Travesio', 'Pordenone'),
+       (NULL, 'Travo', 'Piacenza'),
+       (NULL, 'Tre Ville', 'Trento'),
+       (NULL, 'Trebaseleghe', 'Padova'),
+       (NULL, 'Trebisacce', 'Cosenza'),
+       (NULL, 'Trecase', 'Napoli'),
+       (NULL, 'Trecastagni', 'Catania'),
+       (NULL, 'Trecastelli', 'Ancona'),
+       (NULL, 'Trecate', 'Novara'),
+       (NULL, 'Trecchina', 'Potenza'),
+       (NULL, 'Trecenta', 'Rovigo'),
+       (NULL, 'Tredozio', 'Forlì-Cesena'),
+       (NULL, 'Treglio', 'Chieti'),
+       (NULL, 'Tregnago', 'Verona'),
+       (NULL, 'Treia', 'Macerata'),
+       (NULL, 'Treiso', 'Cuneo'),
+       (NULL, 'Tremestieri Etneo', 'Catania'),
+       (NULL, 'Tremezzina', 'Como'),
+       (NULL, 'Tremosine sul Garda', 'Brescia'),
+       (NULL, 'Trentinara', 'Salerno'),
+       (NULL, 'Trento', 'Trento'),
+       (NULL, 'Trentola Ducenta', 'Caserta'),
+       (NULL, 'Trenzano', 'Brescia'),
+       (NULL, 'Treppo Grande', 'Udine'),
+       (NULL, 'Treppo Ligosullo', 'Udine'),
+       (NULL, 'Trepuzzi', 'Lecce'),
+       (NULL, 'Trequanda', 'Siena'),
+       (NULL, 'Tresana', 'Massa-Carrara'),
+       (NULL, 'Trescore Balneario', 'Bergamo'),
+       (NULL, 'Trescore Cremasco', 'Cremona'),
+       (NULL, 'Tresignana', 'Ferrara'),
+       (NULL, 'Tresivio', 'Sondrio'),
+       (NULL, 'Tresnuraghes', 'Oristano'),
+       (NULL, 'Trevenzuolo', 'Verona'),
+       (NULL, 'Trevi', 'Perugia'),
+       (NULL, 'Trevi nel Lazio', 'Frosinone'),
+       (NULL, 'Trevico', 'Avellino'),
+       (NULL, 'Treviglio', 'Bergamo'),
+       (NULL, 'Trevignano', 'Treviso'),
+       (NULL, 'Trevignano Romano', 'Roma'),
+       (NULL, 'Treville', 'Alessandria'),
+       (NULL, 'Treviolo', 'Bergamo'),
+       (NULL, 'Treviso', 'Treviso'),
+       (NULL, 'Treviso Bresciano', 'Brescia'),
+       (NULL, 'Trezzano Rosa', 'Milano'),
+       (NULL, 'Trezzano sul Naviglio', 'Milano'),
+       (NULL, 'Trezzo Tinella', 'Cuneo'),
+       (NULL, 'Trezzo sull''Adda', 'Milano'),
+       (NULL, 'Trezzone', 'Como'),
+       (NULL, 'Tribano', 'Padova'),
+       (NULL, 'Tribiano', 'Milano'),
+       (NULL, 'Tribogna', 'Genova'),
+       (NULL, 'Tricarico', 'Matera'),
+       (NULL, 'Tricase', 'Lecce'),
+       (NULL, 'Tricerro', 'Vercelli'),
+       (NULL, 'Tricesimo', 'Udine'),
+       (NULL, 'Triei', 'Nuoro'),
+       (NULL, 'Trieste', 'Trieste'),
+       (NULL, 'Triggiano', 'Bari'),
+       (NULL, 'Trigolo', 'Cremona'),
+       (NULL, 'Trinitapoli', 'Barletta-Andria-Trani'),
+       (NULL, 'Trinità', 'Cuneo'),
+       (NULL, 'Trinità d''Agultu e Vignola', 'Sassari'),
+       (NULL, 'Trino', 'Vercelli'),
+       (NULL, 'Triora', 'Imperia'),
+       (NULL, 'Tripi', 'Messina'),
+       (NULL, 'Trisobbio', 'Alessandria'),
+       (NULL, 'Trissino', 'Vicenza'),
+       (NULL, 'Triuggio', 'Monza e della Brianza'),
+       (NULL, 'Trivento', 'Campobasso'),
+       (NULL, 'Trivigliano', 'Frosinone'),
+       (NULL, 'Trivignano Udinese', 'Udine'),
+       (NULL, 'Trivigno', 'Potenza'),
+       (NULL, 'Trivolzio', 'Pavia'),
+       (NULL, 'Trodena nel parco naturale', 'Bolzano'),
+       (NULL, 'Trofarello', 'Torino'),
+       (NULL, 'Troia', 'Foggia'),
+       (NULL, 'Troina', 'Enna'),
+       (NULL, 'Tromello', 'Pavia'),
+       (NULL, 'Trontano', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Tronzano Lago Maggiore', 'Varese'),
+       (NULL, 'Tronzano Vercellese', 'Vercelli'),
+       (NULL, 'Tropea', 'Vibo Valentia'),
+       (NULL, 'Trovo', 'Pavia'),
+       (NULL, 'Truccazzano', 'Milano'),
+       (NULL, 'Tubre', 'Bolzano'),
+       (NULL, 'Tufara', 'Campobasso'),
+       (NULL, 'Tufillo', 'Chieti'),
+       (NULL, 'Tufino', 'Napoli'),
+       (NULL, 'Tufo', 'Avellino'),
+       (NULL, 'Tuglie', 'Lecce'),
+       (NULL, 'Tuili', 'Sud Sardegna'),
+       (NULL, 'Tula', 'Sassari'),
+       (NULL, 'Tuoro sul Trasimeno', 'Perugia'),
+       (NULL, 'Turania', 'Rieti'),
+       (NULL, 'Turano Lodigiano', 'Lodi'),
+       (NULL, 'Turate', 'Como'),
+       (NULL, 'Turbigo', 'Milano'),
+       (NULL, 'Turi', 'Bari'),
+       (NULL, 'Turri', 'Sud Sardegna'),
+       (NULL, 'Turriaco', 'Gorizia'),
+       (NULL, 'Turrivalignani', 'Pescara'),
+       (NULL, 'Tursi', 'Matera'),
+       (NULL, 'Tusa', 'Messina'),
+       (NULL, 'Tuscania', 'Viterbo'),
+       (NULL, 'Ubiale Clanezzo', 'Bergamo'),
+       (NULL, 'Uboldo', 'Varese'),
+       (NULL, 'Ucria', 'Messina'),
+       (NULL, 'Udine', 'Udine'),
+       (NULL, 'Ugento', 'Lecce'),
+       (NULL, 'Uggiano la Chiesa', 'Lecce'),
+       (NULL, 'Uggiate-Trevano', 'Como'),
+       (NULL, 'Ulassai', 'Nuoro'),
+       (NULL, 'Ultimo', 'Bolzano'),
+       (NULL, 'Ulà Tirso', 'Oristano'),
+       (NULL, 'Umbertide', 'Perugia'),
+       (NULL, 'Umbriatico', 'Crotone'),
+       (NULL, 'Urago d''Oglio', 'Brescia'),
+       (NULL, 'Uras', 'Oristano'),
+       (NULL, 'Urbana', 'Padova'),
+       (NULL, 'Urbania', 'Pesaro e Urbino'),
+       (NULL, 'Urbe', 'Savona'),
+       (NULL, 'Urbino', 'Pesaro e Urbino'),
+       (NULL, 'Urbisaglia', 'Macerata'),
+       (NULL, 'Urgnano', 'Bergamo'),
+       (NULL, 'Uri', 'Sassari'),
+       (NULL, 'Ururi', 'Campobasso'),
+       (NULL, 'Urzulei', 'Nuoro'),
+       (NULL, 'Uscio', 'Genova'),
+       (NULL, 'Usellus', 'Oristano'),
+       (NULL, 'Usini', 'Sassari'),
+       (NULL, 'Usmate Velate', 'Monza e della Brianza'),
+       (NULL, 'Ussana', 'Sud Sardegna'),
+       (NULL, 'Ussaramanna', 'Sud Sardegna'),
+       (NULL, 'Ussassai', 'Nuoro'),
+       (NULL, 'Usseaux', 'Torino'),
+       (NULL, 'Usseglio', 'Torino'),
+       (NULL, 'Ussita', 'Macerata'),
+       (NULL, 'Ustica', 'Palermo'),
+       (NULL, 'Uta', 'Cagliari'),
+       (NULL, 'Uzzano', 'Pistoia'),
+       (NULL, 'Vaccarizzo Albanese', 'Cosenza'),
+       (NULL, 'Vacone', 'Rieti'),
+       (NULL, 'Vacri', 'Chieti'),
+       (NULL, 'Vadena', 'Bolzano'),
+       (NULL, 'Vado Ligure', 'Savona'),
+       (NULL, 'Vagli Sotto', 'Lucca'),
+       (NULL, 'Vaglia', 'Firenze'),
+       (NULL, 'Vaglio Basilicata', 'Potenza'),
+       (NULL, 'Vaglio Serra', 'Asti'),
+       (NULL, 'Vaiano', 'Prato'),
+       (NULL, 'Vaiano Cremasco', 'Cremona'),
+       (NULL, 'Vaie', 'Torino'),
+       (NULL, 'Vailate', 'Cremona'),
+       (NULL, 'Vairano Patenora', 'Caserta'),
+       (NULL, 'Vajont', 'Pordenone'),
+       (NULL, 'Val Brembilla', 'Bergamo'),
+       (NULL, 'Val Liona', 'Vicenza'),
+       (NULL, 'Val Masino', 'Sondrio'),
+       (NULL, 'Val Rezzo', 'Como'),
+       (NULL, 'Val della Torre', 'Torino'),
+       (NULL, 'Val di Chy', 'Torino'),
+       (NULL, 'Val di Nizza', 'Pavia'),
+       (NULL, 'Val di Vizze', 'Bolzano'),
+       (NULL, 'Val di Zoldo', 'Belluno'),
+       (NULL, 'Valbondione', 'Bergamo'),
+       (NULL, 'Valbrembo', 'Bergamo'),
+       (NULL, 'Valbrenta', 'Vicenza'),
+       (NULL, 'Valbrevenna', 'Genova'),
+       (NULL, 'Valbrona', 'Como'),
+       (NULL, 'Valchiusa', 'Torino'),
+       (NULL, 'Valdagno', 'Vicenza'),
+       (NULL, 'Valdaone', 'Trento'),
+       (NULL, 'Valdaora', 'Bolzano'),
+       (NULL, 'Valdastico', 'Vicenza'),
+       (NULL, 'Valdengo', 'Biella'),
+       (NULL, 'Valderice', 'Trapani'),
+       (NULL, 'Valdidentro', 'Sondrio'),
+       (NULL, 'Valdieri', 'Cuneo'),
+       (NULL, 'Valdilana', 'Biella'),
+       (NULL, 'Valdina', 'Messina'),
+       (NULL, 'Valdisotto', 'Sondrio'),
+       (NULL, 'Valdobbiadene', 'Treviso'),
+       (NULL, 'Valduggia', 'Vercelli'),
+       (NULL, 'Valeggio', 'Pavia'),
+       (NULL, 'Valeggio sul Mincio', 'Verona'),
+       (NULL, 'Valentano', 'Viterbo'),
+       (NULL, 'Valenza', 'Alessandria'),
+       (NULL, 'Valenzano', 'Bari'),
+       (NULL, 'Valera Fratta', 'Lodi'),
+       (NULL, 'Valfabbrica', 'Perugia'),
+       (NULL, 'Valfenera', 'Asti'),
+       (NULL, 'Valfloriana', 'Trento'),
+       (NULL, 'Valfornace', 'Macerata'),
+       (NULL, 'Valfurva', 'Sondrio'),
+       (NULL, 'Valganna', 'Varese'),
+       (NULL, 'Valgioie', 'Torino'),
+       (NULL, 'Valgoglio', 'Bergamo'),
+       (NULL, 'Valgrana', 'Cuneo'),
+       (NULL, 'Valgreghentino', 'Lecco'),
+       (NULL, 'Valgrisenche', 'Valle d''Aosta'),
+       (NULL, 'Valguarnera Caropepe', 'Enna'),
+       (NULL, 'Vallada Agordina', 'Belluno'),
+       (NULL, 'Vallanzengo', 'Biella'),
+       (NULL, 'Vallarsa', 'Trento'),
+       (NULL, 'Vallata', 'Avellino'),
+       (NULL, 'Valle Agricola', 'Caserta'),
+       (NULL, 'Valle Aurina', 'Bolzano'),
+       (NULL, 'Valle Cannobina', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Valle Castellana', 'Teramo'),
+       (NULL, 'Valle Lomellina', 'Pavia'),
+       (NULL, 'Valle Salimbene', 'Pavia'),
+       (NULL, 'Valle San Nicolao', 'Biella'),
+       (NULL, 'Valle dell''Angelo', 'Salerno'),
+       (NULL, 'Valle di Cadore', 'Belluno'),
+       (NULL, 'Valle di Casies', 'Bolzano'),
+       (NULL, 'Valle di Maddaloni', 'Caserta'),
+       (NULL, 'Vallebona', 'Imperia'),
+       (NULL, 'Vallecorsa', 'Frosinone'),
+       (NULL, 'Vallecrosia', 'Imperia'),
+       (NULL, 'Valledolmo', 'Palermo'),
+       (NULL, 'Valledoria', 'Sassari'),
+       (NULL, 'Vallefiorita', 'Catanzaro'),
+       (NULL, 'Vallefoglia', 'Pesaro e Urbino'),
+       (NULL, 'Vallelaghi', 'Trento'),
+       (NULL, 'Vallelonga', 'Vibo Valentia'),
+       (NULL, 'Vallelunga Pratameno', 'Caltanissetta'),
+       (NULL, 'Vallemaio', 'Frosinone'),
+       (NULL, 'Vallepietra', 'Roma'),
+       (NULL, 'Vallerano', 'Viterbo'),
+       (NULL, 'Vallermosa', 'Sud Sardegna'),
+       (NULL, 'Vallerotonda', 'Frosinone'),
+       (NULL, 'Vallesaccarda', 'Avellino'),
+       (NULL, 'Valleve', 'Bergamo'),
+       (NULL, 'Valli del Pasubio', 'Vicenza'),
+       (NULL, 'Vallinfreda', 'Roma'),
+       (NULL, 'Vallio Terme', 'Brescia'),
+       (NULL, 'Vallo Torinese', 'Torino'),
+       (NULL, 'Vallo della Lucania', 'Salerno'),
+       (NULL, 'Vallo di Nera', 'Perugia'),
+       (NULL, 'Valloriate', 'Cuneo'),
+       (NULL, 'Valmacca', 'Alessandria'),
+       (NULL, 'Valmadrera', 'Lecco'),
+       (NULL, 'Valmontone', 'Roma'),
+       (NULL, 'Valmorea', 'Como'),
+       (NULL, 'Valmozzola', 'Parma'),
+       (NULL, 'Valnegra', 'Bergamo'),
+       (NULL, 'Valpelline', 'Valle d''Aosta'),
+       (NULL, 'Valperga', 'Torino'),
+       (NULL, 'Valprato Soana', 'Torino'),
+       (NULL, 'Valsamoggia', 'Bologna'),
+       (NULL, 'Valsavarenche', 'Valle d''Aosta'),
+       (NULL, 'Valsinni', 'Matera'),
+       (NULL, 'Valsolda', 'Como'),
+       (NULL, 'Valstrona', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Valtopina', 'Perugia'),
+       (NULL, 'Valtorta', 'Bergamo'),
+       (NULL, 'Valtournenche', 'Valle d''Aosta'),
+       (NULL, 'Valva', 'Salerno'),
+       (NULL, 'Valvarrone', 'Lecco'),
+       (NULL, 'Valvasone Arzene', 'Pordenone'),
+       (NULL, 'Valverde', 'Catania'),
+       (NULL, 'Valvestino', 'Brescia'),
+       (NULL, 'Vandoies', 'Bolzano'),
+       (NULL, 'Vanzaghello', 'Milano'),
+       (NULL, 'Vanzago', 'Milano'),
+       (NULL, 'Vanzone con San Carlo', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Vaprio d''Adda', 'Milano'),
+       (NULL, 'Vaprio d''Agogna', 'Novara'),
+       (NULL, 'Varallo', 'Vercelli'),
+       (NULL, 'Varallo Pombia', 'Novara'),
+       (NULL, 'Varano Borghi', 'Varese'),
+       (NULL, 'Varano de'' Melegari', 'Parma'),
+       (NULL, 'Varapodio', 'Reggio Calabria'),
+       (NULL, 'Varazze', 'Savona'),
+       (NULL, 'Varco Sabino', 'Rieti'),
+       (NULL, 'Varedo', 'Monza e della Brianza'),
+       (NULL, 'Varenna', 'Lecco'),
+       (NULL, 'Varese', 'Varese'),
+       (NULL, 'Varese Ligure', 'La Spezia'),
+       (NULL, 'Varisella', 'Torino'),
+       (NULL, 'Varmo', 'Udine'),
+       (NULL, 'Varna', 'Bolzano'),
+       (NULL, 'Varsi', 'Parma'),
+       (NULL, 'Varzi', 'Pavia'),
+       (NULL, 'Varzo', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Vasanello', 'Viterbo'),
+       (NULL, 'Vasia', 'Imperia'),
+       (NULL, 'Vasto', 'Chieti'),
+       (NULL, 'Vastogirardi', 'Isernia'),
+       (NULL, 'Vauda Canavese', 'Torino'),
+       (NULL, 'Vazzano', 'Vibo Valentia'),
+       (NULL, 'Vazzola', 'Treviso'),
+       (NULL, 'Vecchiano', 'Pisa'),
+       (NULL, 'Vedano Olona', 'Varese'),
+       (NULL, 'Vedano al Lambro', 'Monza e della Brianza'),
+       (NULL, 'Vedelago', 'Treviso'),
+       (NULL, 'Vedeseta', 'Bergamo'),
+       (NULL, 'Veduggio con Colzano', 'Monza e della Brianza'),
+       (NULL, 'Veggiano', 'Padova'),
+       (NULL, 'Veglie', 'Lecce'),
+       (NULL, 'Veglio', 'Biella'),
+       (NULL, 'Vejano', 'Viterbo'),
+       (NULL, 'Veleso', 'Como'),
+       (NULL, 'Velezzo Lomellina', 'Pavia'),
+       (NULL, 'Velletri', 'Roma'),
+       (NULL, 'Vellezzo Bellini', 'Pavia'),
+       (NULL, 'Velo Veronese', 'Verona'),
+       (NULL, 'Velo d''Astico', 'Vicenza'),
+       (NULL, 'Velturno', 'Bolzano'),
+       (NULL, 'Venafro', 'Isernia'),
+       (NULL, 'Venaria Reale', 'Torino'),
+       (NULL, 'Venarotta', 'Ascoli Piceno'),
+       (NULL, 'Venasca', 'Cuneo'),
+       (NULL, 'Venaus', 'Torino'),
+       (NULL, 'Vendone', 'Savona'),
+       (NULL, 'Venegono Inferiore', 'Varese'),
+       (NULL, 'Venegono Superiore', 'Varese'),
+       (NULL, 'Venetico', 'Messina'),
+       (NULL, 'Venezia', 'Venezia'),
+       (NULL, 'Veniano', 'Como'),
+       (NULL, 'Venosa', 'Potenza'),
+       (NULL, 'Ventasso', 'Reggio nell''Emilia'),
+       (NULL, 'Venticano', 'Avellino'),
+       (NULL, 'Ventimiglia', 'Imperia'),
+       (NULL, 'Ventimiglia di Sicilia', 'Palermo'),
+       (NULL, 'Ventotene', 'Latina'),
+       (NULL, 'Venzone', 'Udine'),
+       (NULL, 'Verano', 'Bolzano'),
+       (NULL, 'Verano Brianza', 'Monza e della Brianza'),
+       (NULL, 'Verbania', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Verbicaro', 'Cosenza'),
+       (NULL, 'Vercana', 'Como'),
+       (NULL, 'Verceia', 'Sondrio'),
+       (NULL, 'Vercelli', 'Vercelli'),
+       (NULL, 'Vercurago', 'Lecco'),
+       (NULL, 'Verdellino', 'Bergamo'),
+       (NULL, 'Verdello', 'Bergamo'),
+       (NULL, 'Verderio', 'Lecco'),
+       (NULL, 'Verduno', 'Cuneo'),
+       (NULL, 'Vergato', 'Bologna'),
+       (NULL, 'Verghereto', 'Forlì-Cesena'),
+       (NULL, 'Vergiate', 'Varese'),
+       (NULL, 'Vermezzo con Zelo', 'Milano'),
+       (NULL, 'Vermiglio', 'Trento'),
+       (NULL, 'Vernante', 'Cuneo'),
+       (NULL, 'Vernasca', 'Piacenza'),
+       (NULL, 'Vernate', 'Milano'),
+       (NULL, 'Vernazza', 'La Spezia'),
+       (NULL, 'Vernio', 'Prato'),
+       (NULL, 'Vernole', 'Lecce'),
+       (NULL, 'Verolanuova', 'Brescia'),
+       (NULL, 'Verolavecchia', 'Brescia'),
+       (NULL, 'Verolengo', 'Torino'),
+       (NULL, 'Veroli', 'Frosinone'),
+       (NULL, 'Verona', 'Verona'),
+       (NULL, 'Veronella', 'Verona'),
+       (NULL, 'Verrayes', 'Valle d''Aosta'),
+       (NULL, 'Verretto', 'Pavia'),
+       (NULL, 'Verrone', 'Biella'),
+       (NULL, 'Verrua Po', 'Pavia'),
+       (NULL, 'Verrua Savoia', 'Torino'),
+       (NULL, 'Verrès', 'Valle d''Aosta'),
+       (NULL, 'Vertemate con Minoprio', 'Como'),
+       (NULL, 'Vertova', 'Bergamo'),
+       (NULL, 'Verucchio', 'Rimini'),
+       (NULL, 'Vervio', 'Sondrio'),
+       (NULL, 'Verzegnis', 'Udine'),
+       (NULL, 'Verzino', 'Crotone'),
+       (NULL, 'Verzuolo', 'Cuneo'),
+       (NULL, 'Vescovana', 'Padova'),
+       (NULL, 'Vescovato', 'Cremona'),
+       (NULL, 'Vesime', 'Asti'),
+       (NULL, 'Vespolate', 'Novara'),
+       (NULL, 'Vessalico', 'Imperia'),
+       (NULL, 'Vestenanova', 'Verona'),
+       (NULL, 'Vestignè', 'Torino'),
+       (NULL, 'Vestone', 'Brescia'),
+       (NULL, 'Vetralla', 'Viterbo'),
+       (NULL, 'Vetto', 'Reggio nell''Emilia'),
+       (NULL, 'Vezza d''Alba', 'Cuneo'),
+       (NULL, 'Vezza d''Oglio', 'Brescia'),
+       (NULL, 'Vezzano Ligure', 'La Spezia'),
+       (NULL, 'Vezzano sul Crostolo', 'Reggio nell''Emilia'),
+       (NULL, 'Vezzi Portio', 'Savona'),
+       (NULL, 'Viadana', 'Mantova'),
+       (NULL, 'Viadanica', 'Bergamo'),
+       (NULL, 'Viagrande', 'Catania'),
+       (NULL, 'Viale', 'Asti'),
+       (NULL, 'Vialfrè', 'Torino'),
+       (NULL, 'Viano', 'Reggio nell''Emilia'),
+       (NULL, 'Viareggio', 'Lucca'),
+       (NULL, 'Viarigi', 'Asti'),
+       (NULL, 'Vibo Valentia', 'Vibo Valentia'),
+       (NULL, 'Vibonati', 'Salerno'),
+       (NULL, 'Vicalvi', 'Frosinone'),
+       (NULL, 'Vicari', 'Palermo'),
+       (NULL, 'Vicchio', 'Firenze'),
+       (NULL, 'Vicenza', 'Vicenza'),
+       (NULL, 'Vico Equense', 'Napoli'),
+       (NULL, 'Vico del Gargano', 'Foggia'),
+       (NULL, 'Vico nel Lazio', 'Frosinone'),
+       (NULL, 'Vicoforte', 'Cuneo'),
+       (NULL, 'Vicoli', 'Pescara'),
+       (NULL, 'Vicolungo', 'Novara'),
+       (NULL, 'Vicopisano', 'Pisa'),
+       (NULL, 'Vicovaro', 'Roma'),
+       (NULL, 'Viddalba', 'Sassari'),
+       (NULL, 'Vidigulfo', 'Pavia'),
+       (NULL, 'Vidor', 'Treviso'),
+       (NULL, 'Vidracco', 'Torino'),
+       (NULL, 'Vieste', 'Foggia'),
+       (NULL, 'Vietri di Potenza', 'Potenza'),
+       (NULL, 'Vietri sul Mare', 'Salerno'),
+       (NULL, 'Vigano San Martino', 'Bergamo'),
+       (NULL, 'Viganò', 'Lecco'),
+       (NULL, 'Vigarano Mainarda', 'Ferrara'),
+       (NULL, 'Vigasio', 'Verona'),
+       (NULL, 'Vigevano', 'Pavia'),
+       (NULL, 'Viggianello', 'Potenza'),
+       (NULL, 'Viggiano', 'Potenza'),
+       (NULL, 'Viggiù', 'Varese'),
+       (NULL, 'Vighizzolo d''Este', 'Padova'),
+       (NULL, 'Vigliano Biellese', 'Biella'),
+       (NULL, 'Vigliano d''Asti', 'Asti'),
+       (NULL, 'Vignale Monferrato', 'Alessandria'),
+       (NULL, 'Vignanello', 'Viterbo'),
+       (NULL, 'Vignate', 'Milano'),
+       (NULL, 'Vignola', 'Modena'),
+       (NULL, 'Vignola-Falesina', 'Trento'),
+       (NULL, 'Vignole Borbera', 'Alessandria'),
+       (NULL, 'Vignolo', 'Cuneo'),
+       (NULL, 'Vignone', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Vigo di Cadore', 'Belluno'),
+       (NULL, 'Vigodarzere', 'Padova'),
+       (NULL, 'Vigolo', 'Bergamo'),
+       (NULL, 'Vigolzone', 'Piacenza'),
+       (NULL, 'Vigone', 'Torino'),
+       (NULL, 'Vigonovo', 'Venezia'),
+       (NULL, 'Vigonza', 'Padova'),
+       (NULL, 'Viguzzolo', 'Alessandria'),
+       (NULL, 'Villa Bartolomea', 'Verona'),
+       (NULL, 'Villa Basilica', 'Lucca'),
+       (NULL, 'Villa Biscossi', 'Pavia'),
+       (NULL, 'Villa Carcina', 'Brescia'),
+       (NULL, 'Villa Castelli', 'Brindisi'),
+       (NULL, 'Villa Celiera', 'Pescara'),
+       (NULL, 'Villa Collemandina', 'Lucca'),
+       (NULL, 'Villa Cortese', 'Milano'),
+       (NULL, 'Villa Estense', 'Padova'),
+       (NULL, 'Villa Faraldi', 'Imperia'),
+       (NULL, 'Villa Guardia', 'Como'),
+       (NULL, 'Villa Lagarina', 'Trento'),
+       (NULL, 'Villa Latina', 'Frosinone'),
+       (NULL, 'Villa Literno', 'Caserta'),
+       (NULL, 'Villa Minozzo', 'Reggio nell''Emilia'),
+       (NULL, 'Villa San Giovanni', 'Reggio Calabria'),
+       (NULL, 'Villa San Giovanni in Tuscia', 'Viterbo'),
+       (NULL, 'Villa San Pietro', 'Cagliari'),
+       (NULL, 'Villa San Secondo', 'Asti'),
+       (NULL, 'Villa Sant''Angelo', 'L''Aquila'),
+       (NULL, 'Villa Sant''Antonio', 'Oristano'),
+       (NULL, 'Villa Santa Lucia', 'Frosinone'),
+       (NULL, 'Villa Santa Lucia degli Abruzzi', 'L''Aquila'),
+       (NULL, 'Villa Santa Maria', 'Chieti'),
+       (NULL, 'Villa Santina', 'Udine'),
+       (NULL, 'Villa Santo Stefano', 'Frosinone'),
+       (NULL, 'Villa Verde', 'Oristano'),
+       (NULL, 'Villa d''Adda', 'Bergamo'),
+       (NULL, 'Villa d''Almè', 'Bergamo'),
+       (NULL, 'Villa d''Ogna', 'Bergamo'),
+       (NULL, 'Villa del Bosco', 'Biella'),
+       (NULL, 'Villa del Conte', 'Padova'),
+       (NULL, 'Villa di Briano', 'Caserta'),
+       (NULL, 'Villa di Chiavenna', 'Sondrio'),
+       (NULL, 'Villa di Serio', 'Bergamo'),
+       (NULL, 'Villa di Tirano', 'Sondrio'),
+       (NULL, 'Villabassa', 'Bolzano'),
+       (NULL, 'Villabate', 'Palermo'),
+       (NULL, 'Villachiara', 'Brescia'),
+       (NULL, 'Villacidro', 'Sud Sardegna'),
+       (NULL, 'Villadeati', 'Alessandria'),
+       (NULL, 'Villadose', 'Rovigo'),
+       (NULL, 'Villadossola', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Villafalletto', 'Cuneo'),
+       (NULL, 'Villafranca Padovana', 'Padova'),
+       (NULL, 'Villafranca Piemonte', 'Torino'),
+       (NULL, 'Villafranca Sicula', 'Agrigento'),
+       (NULL, 'Villafranca Tirrena', 'Messina'),
+       (NULL, 'Villafranca d''Asti', 'Asti'),
+       (NULL, 'Villafranca di Verona', 'Verona'),
+       (NULL, 'Villafranca in Lunigiana', 'Massa-Carrara'),
+       (NULL, 'Villafrati', 'Palermo'),
+       (NULL, 'Villaga', 'Vicenza'),
+       (NULL, 'Villagrande Strisaili', 'Nuoro'),
+       (NULL, 'Villalago', 'L''Aquila'),
+       (NULL, 'Villalba', 'Caltanissetta'),
+       (NULL, 'Villalfonsina', 'Chieti'),
+       (NULL, 'Villalvernia', 'Alessandria'),
+       (NULL, 'Villamagna', 'Chieti'),
+       (NULL, 'Villamaina', 'Avellino'),
+       (NULL, 'Villamar', 'Sud Sardegna'),
+       (NULL, 'Villamarzana', 'Rovigo'),
+       (NULL, 'Villamassargia', 'Sud Sardegna'),
+       (NULL, 'Villamiroglio', 'Alessandria'),
+       (NULL, 'Villandro', 'Bolzano'),
+       (NULL, 'Villanova Biellese', 'Biella'),
+       (NULL, 'Villanova Canavese', 'Torino'),
+       (NULL, 'Villanova Marchesana', 'Rovigo'),
+       (NULL, 'Villanova Mondovì', 'Cuneo'),
+       (NULL, 'Villanova Monferrato', 'Alessandria'),
+       (NULL, 'Villanova Monteleone', 'Sassari'),
+       (NULL, 'Villanova Solaro', 'Cuneo'),
+       (NULL, 'Villanova Truschedu', 'Oristano'),
+       (NULL, 'Villanova Tulo', 'Sud Sardegna'),
+       (NULL, 'Villanova d''Albenga', 'Savona'),
+       (NULL, 'Villanova d''Ardenghi', 'Pavia'),
+       (NULL, 'Villanova d''Asti', 'Asti'),
+       (NULL, 'Villanova del Battista', 'Avellino'),
+       (NULL, 'Villanova del Ghebbo', 'Rovigo'),
+       (NULL, 'Villanova del Sillaro', 'Lodi'),
+       (NULL, 'Villanova di Camposampiero', 'Padova'),
+       (NULL, 'Villanova sull''Arda', 'Piacenza'),
+       (NULL, 'Villanovaforru', 'Sud Sardegna'),
+       (NULL, 'Villanovafranca', 'Sud Sardegna'),
+       (NULL, 'Villanterio', 'Pavia'),
+       (NULL, 'Villanuova sul Clisi', 'Brescia'),
+       (NULL, 'Villaperuccio', 'Sud Sardegna'),
+       (NULL, 'Villapiana', 'Cosenza'),
+       (NULL, 'Villaputzu', 'Sud Sardegna'),
+       (NULL, 'Villar Dora', 'Torino'),
+       (NULL, 'Villar Focchiardo', 'Torino'),
+       (NULL, 'Villar Pellice', 'Torino'),
+       (NULL, 'Villar Perosa', 'Torino'),
+       (NULL, 'Villar San Costanzo', 'Cuneo'),
+       (NULL, 'Villarbasse', 'Torino'),
+       (NULL, 'Villarboit', 'Vercelli'),
+       (NULL, 'Villareggia', 'Torino'),
+       (NULL, 'Villaricca', 'Napoli'),
+       (NULL, 'Villaromagnano', 'Alessandria'),
+       (NULL, 'Villarosa', 'Enna'),
+       (NULL, 'Villasalto', 'Sud Sardegna'),
+       (NULL, 'Villasanta', 'Monza e della Brianza'),
+       (NULL, 'Villasimius', 'Sud Sardegna'),
+       (NULL, 'Villasor', 'Sud Sardegna'),
+       (NULL, 'Villaspeciosa', 'Sud Sardegna'),
+       (NULL, 'Villastellone', 'Torino'),
+       (NULL, 'Villata', 'Vercelli'),
+       (NULL, 'Villaurbana', 'Oristano'),
+       (NULL, 'Villavallelonga', 'L''Aquila'),
+       (NULL, 'Villaverla', 'Vicenza'),
+       (NULL, 'Ville d''Anaunia', 'Trento'),
+       (NULL, 'Ville di Fiemme', 'Trento'),
+       (NULL, 'Villeneuve', 'Valle d''Aosta'),
+       (NULL, 'Villesse', 'Gorizia'),
+       (NULL, 'Villetta Barrea', 'L''Aquila'),
+       (NULL, 'Villette', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Villimpenta', 'Mantova'),
+       (NULL, 'Villongo', 'Bergamo'),
+       (NULL, 'Villorba', 'Treviso'),
+       (NULL, 'Vilminore di Scalve', 'Bergamo'),
+       (NULL, 'Vimercate', 'Monza e della Brianza'),
+       (NULL, 'Vimodrone', 'Milano'),
+       (NULL, 'Vinadio', 'Cuneo'),
+       (NULL, 'Vinchiaturo', 'Campobasso'),
+       (NULL, 'Vinchio', 'Asti'),
+       (NULL, 'Vinci', 'Firenze'),
+       (NULL, 'Vinovo', 'Torino'),
+       (NULL, 'Vinzaglio', 'Novara'),
+       (NULL, 'Viola', 'Cuneo'),
+       (NULL, 'Vione', 'Brescia'),
+       (NULL, 'Vipiteno', 'Bolzano'),
+       (NULL, 'Virle Piemonte', 'Torino'),
+       (NULL, 'Visano', 'Brescia'),
+       (NULL, 'Vische', 'Torino'),
+       (NULL, 'Visciano', 'Napoli'),
+       (NULL, 'Visco', 'Udine'),
+       (NULL, 'Visone', 'Alessandria'),
+       (NULL, 'Visso', 'Macerata'),
+       (NULL, 'Vistarino', 'Pavia'),
+       (NULL, 'Vistrorio', 'Torino'),
+       (NULL, 'Vita', 'Trapani'),
+       (NULL, 'Viterbo', 'Viterbo'),
+       (NULL, 'Viticuso', 'Frosinone'),
+       (NULL, 'Vito d''Asio', 'Pordenone'),
+       (NULL, 'Vitorchiano', 'Viterbo'),
+       (NULL, 'Vittoria', 'Ragusa'),
+       (NULL, 'Vittorio Veneto', 'Treviso'),
+       (NULL, 'Vittorito', 'L''Aquila'),
+       (NULL, 'Vittuone', 'Milano'),
+       (NULL, 'Vitulano', 'Benevento'),
+       (NULL, 'Vitulazio', 'Caserta'),
+       (NULL, 'Vivaro', 'Pordenone'),
+       (NULL, 'Vivaro Romano', 'Roma'),
+       (NULL, 'Viverone', 'Biella'),
+       (NULL, 'Vizzini', 'Catania'),
+       (NULL, 'Vizzola Ticino', 'Varese'),
+       (NULL, 'Vizzolo Predabissi', 'Milano'),
+       (NULL, 'Viù', 'Torino'),
+       (NULL, 'Vo''', 'Padova'),
+       (NULL, 'Vobarno', 'Brescia'),
+       (NULL, 'Vobbia', 'Genova'),
+       (NULL, 'Vocca', 'Vercelli'),
+       (NULL, 'Vodo Cadore', 'Belluno'),
+       (NULL, 'Voghera', 'Pavia'),
+       (NULL, 'Voghiera', 'Ferrara'),
+       (NULL, 'Vogogna', 'Verbano-Cusio-Ossola'),
+       (NULL, 'Volano', 'Trento'),
+       (NULL, 'Volla', 'Napoli'),
+       (NULL, 'Volongo', 'Cremona'),
+       (NULL, 'Volpago del Montello', 'Treviso'),
+       (NULL, 'Volpara', 'Pavia'),
+       (NULL, 'Volpedo', 'Alessandria'),
+       (NULL, 'Volpeglino', 'Alessandria'),
+       (NULL, 'Volpiano', 'Torino'),
+       (NULL, 'Volta Mantovana', 'Mantova'),
+       (NULL, 'Voltaggio', 'Alessandria'),
+       (NULL, 'Voltago Agordino', 'Belluno'),
+       (NULL, 'Volterra', 'Pisa'),
+       (NULL, 'Voltido', 'Cremona'),
+       (NULL, 'Volturara Appula', 'Foggia'),
+       (NULL, 'Volturara Irpina', 'Avellino'),
+       (NULL, 'Volturino', 'Foggia'),
+       (NULL, 'Volvera', 'Torino'),
+       (NULL, 'Vottignasco', 'Cuneo'),
+       (NULL, 'Zaccanopoli', 'Vibo Valentia'),
+       (NULL, 'Zafferana Etnea', 'Catania'),
+       (NULL, 'Zagarise', 'Catanzaro'),
+       (NULL, 'Zagarolo', 'Roma'),
+       (NULL, 'Zambrone', 'Vibo Valentia'),
+       (NULL, 'Zandobbio', 'Bergamo'),
+       (NULL, 'Zanica', 'Bergamo'),
+       (NULL, 'Zanè', 'Vicenza'),
+       (NULL, 'Zapponeta', 'Foggia'),
+       (NULL, 'Zavattarello', 'Pavia'),
+       (NULL, 'Zeccone', 'Pavia'),
+       (NULL, 'Zeddiani', 'Oristano'),
+       (NULL, 'Zelbio', 'Como'),
+       (NULL, 'Zelo Buon Persico', 'Lodi'),
+       (NULL, 'Zeme', 'Pavia'),
+       (NULL, 'Zenevredo', 'Pavia'),
+       (NULL, 'Zenson di Piave', 'Treviso'),
+       (NULL, 'Zerba', 'Piacenza'),
+       (NULL, 'Zerbo', 'Pavia'),
+       (NULL, 'Zerbolò', 'Pavia'),
+       (NULL, 'Zerfaliu', 'Oristano'),
+       (NULL, 'Zeri', 'Massa-Carrara'),
+       (NULL, 'Zermeghedo', 'Vicenza'),
+       (NULL, 'Zero Branco', 'Treviso'),
+       (NULL, 'Zevio', 'Verona'),
+       (NULL, 'Ziano Piacentino', 'Piacenza'),
+       (NULL, 'Ziano di Fiemme', 'Trento'),
+       (NULL, 'Zibido San Giacomo', 'Milano'),
+       (NULL, 'Zignago', 'La Spezia'),
+       (NULL, 'Zimella', 'Verona'),
+       (NULL, 'Zimone', 'Biella'),
+       (NULL, 'Zinasco', 'Pavia'),
+       (NULL, 'Zoagli', 'Genova'),
+       (NULL, 'Zocca', 'Modena'),
+       (NULL, 'Zogno', 'Bergamo'),
+       (NULL, 'Zola Predosa', 'Bologna'),
+       (NULL, 'Zollino', 'Lecce'),
+       (NULL, 'Zone', 'Brescia'),
+       (NULL, 'Zoppola', 'Pordenone'),
+       (NULL, 'Zoppè di Cadore', 'Belluno'),
+       (NULL, 'Zovencedo', 'Vicenza'),
+       (NULL, 'Zubiena', 'Biella'),
+       (NULL, 'Zuccarello', 'Savona'),
+       (NULL, 'Zugliano', 'Vicenza'),
+       (NULL, 'Zuglio', 'Udine'),
+       (NULL, 'Zumaglia', 'Biella'),
+       (NULL, 'Zumpano', 'Cosenza'),
+       (NULL, 'Zungoli', 'Avellino'),
+       (NULL, 'Zungri', 'Vibo Valentia');
