@@ -35,8 +35,6 @@ public class GCProfile extends EssentialGUI{
 
     @FXML
     private Button goBackBtn;
-
-    private AlertPopup alert;
     private UserTypes type;
 
     @FXML

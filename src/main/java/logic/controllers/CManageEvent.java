@@ -1,4 +1,5 @@
 package logic.controllers;
+
 import logic.beans.BEvent;
 import logic.dao.EventDAO;
 import logic.model.MEvent;
@@ -12,7 +13,7 @@ public class CManageEvent {
     private EventDAO eventDAO;
 
 
-    public CManageEvent(){
+    public CManageEvent() {
         eventDAO = new EventDAO();
     }
 
@@ -29,25 +30,34 @@ public class CManageEvent {
     3: user si trova su schermata YourEventsUser e gli vengono mostrati gli eventi passati e futuri a cui ha messo la partecipazione - query con relazione user_id e event_id
     */
 
-    public ArrayList<MEvent> retrieveMyEvents(UserTypes usertype, String fxmlpage){
-        ArrayList<MEvent> myEvents = new ArrayList<>();
-        if(usertype == UserTypes.ORGANIZER && fxmlpage.equals("YourEventsOrg.fxml")){
+    public ArrayList<BEvent> retrieveMyEvents(UserTypes usertype, String fxmlpage) {
+        ArrayList<MEvent> myEvents;
+        if (usertype == UserTypes.ORGANIZER && fxmlpage.equals("YourEventsOrg.fxml")) { //Caso 1:
             myEvents = eventDAO.retrieveMyEvents(LoggedUser.getUserID(), 0);
-        }else if(usertype == UserTypes.USER && fxmlpage.equals("HomeUser.fxml") ){
+
+        } else if (usertype == UserTypes.USER && fxmlpage.equals("HomeUser.fxml")) {    //Caso 2:
             myEvents = eventDAO.retrieveMyEvents(LoggedUser.getUserID(), 1);
-        }else{
-            //codice se sei USER e ti trovi su YourEventsUser
+        } else {                                                                        //Caso 3:
             myEvents = eventDAO.retrieveMyEvents(LoggedUser.getUserID(), 2);
         }
-
-        return myEvents;
+        return getEventBeansListFromModelsList(myEvents);
     }
 
-    public void updateEvent(BEvent eventBean){
+    public void updateEvent(BEvent eventBean) {
 
     }
 
-    public void deleteEvent(int eventID){
+    public void deleteEvent(int eventID) {
 
+    }
+
+    private ArrayList<BEvent> getEventBeansListFromModelsList(ArrayList<MEvent> eventModelList){
+        ArrayList<BEvent> myEventsBeans = new ArrayList<>();
+        BEvent tempEventBean = new BEvent();
+        for (int i = 0; i < eventModelList.size(); i++) {
+            tempEventBean = eventModelList.get(i).getEventInfo();
+            myEventsBeans.add(tempEventBean);
+        }
+        return myEventsBeans;
     }
 }

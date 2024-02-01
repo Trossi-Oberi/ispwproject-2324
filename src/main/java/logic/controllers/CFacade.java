@@ -1,13 +1,14 @@
 package logic.controllers;
 
 import logic.beans.*;
+import logic.utils.UserTypes;
 
 import java.util.ArrayList;
 
 public class CFacade {
     private CLogin loginController;
     private CRegistration regController;
-    private CManageEvent addEventController;
+    private CManageEvent manageEventController;
     private BUserData dBean;
 
     public CFacade() {
@@ -15,10 +16,17 @@ public class CFacade {
 
     //AddEvent methods
     public boolean addEvent(BEvent bean) {
-        if (addEventController == null) {
-            addEventController = new CManageEvent();
+        if (manageEventController == null) {
+            manageEventController = new CManageEvent();
         }
-        return addEventController.addEvent(bean); //chiamata al controller effettivo
+        return manageEventController.addEvent(bean); //chiamata al controller effettivo
+    }
+
+    public ArrayList<BEvent> retrieveEvents(UserTypes userType, String fxmlpage){
+        if (manageEventController == null){
+            manageEventController = new CManageEvent();
+        }
+        return manageEventController.retrieveMyEvents(userType,fxmlpage);
     }
 
     public int loginUser(BUserData bean){

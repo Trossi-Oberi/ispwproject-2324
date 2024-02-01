@@ -3,7 +3,6 @@ package logic.graphiccontrollers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.input.MouseEvent;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
@@ -29,7 +28,7 @@ import logic.controllers.CFacade;
 
 public class GCAddEvent extends EssentialGUI {
 
-    ObservableList<String> musicGenresList = FXCollections.observableArrayList(MusicGenres.musicgenresarr);
+    ObservableList<String> musicGenresList = FXCollections.observableArrayList(MusicGenres.MUSIC_GENRES);
     private CFacade facade = new CFacade();
     @FXML
     private DatePicker datePicker;
@@ -50,7 +49,6 @@ public class GCAddEvent extends EssentialGUI {
     private Label pickedFileLabel;
     @FXML
     private ChoiceBox<String> musicGenreBox;
-
     private BEvent eventBean;
     private File eventPicFile;
 
@@ -69,7 +67,7 @@ public class GCAddEvent extends EssentialGUI {
             }
         });
 
-        musicGenreBox.setValue(MusicGenres.musicgenresarr[0]);
+        musicGenreBox.setValue(MusicGenres.MUSIC_GENRES[0]);
         musicGenreBox.setItems(musicGenresList);
     }
 
