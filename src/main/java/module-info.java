@@ -1,28 +1,21 @@
 module trossi.oberi {
-//    exports logic.beans;
-    exports logic.graphiccontrollers;
-//    exports logic.controllers;
-//    exports logic.model;
-//    exports logic;
-    exports logic.view;
+    opens logic.graphiccontrollers;
 
+    requires java.base;
+    requires java.net.http;
+    requires java.desktop;
     requires java.logging;
     requires transitive java.sql;
+
     requires javafx.base;
     requires javafx.controls;
     requires javafx.fxml;
-    requires transitive javafx.graphics;
-    requires java.desktop;
     requires javafx.media;
-    requires java.base;
-    requires java.net.http;
+    requires transitive javafx.graphics;
+
     requires org.json;
 
+    exports logic.view;
+    exports logic.graphiccontrollers;
 
-//    opens logic;
-    opens logic.graphiccontrollers;
-    /*opens logic.controllers;
-    opens logic.beans;
-    opens logic.model;
-    opens logic.view;
-*/}
+}
