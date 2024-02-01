@@ -2,6 +2,8 @@ package logic.controllers;
 
 import logic.beans.*;
 
+import java.util.ArrayList;
+
 public class CFacade {
     private CLogin loginController;
     private CRegistration regController;
@@ -12,18 +14,18 @@ public class CFacade {
     }
 
     //AddEvent methods
-    public void addEvent(BEvent bean) {
+    public boolean addEvent(BEvent bean) {
         if (addEventController == null) {
             addEventController = new CManageEvent();
         }
-        addEventController.addEvent(bean); //chiamata al controller effettivo
+        return addEventController.addEvent(bean); //chiamata al controller effettivo
     }
 
-    public void checkLogIn(BUserData bean){
+    public int loginUser(BUserData bean){
         if (loginController == null){
             loginController = new CLogin();
         }
-        loginController.checkLogInControl(bean);
+        return loginController.checkLogInControl(bean);
     }
 
     public boolean registerUser(BUserData bean){
@@ -31,5 +33,19 @@ public class CFacade {
             regController = new CRegistration();
         }
         return regController.registerUserControl(bean);
+    }
+
+    public ArrayList<String> getProvincesList(){
+        if (regController == null){
+            regController = new CRegistration();
+        }
+        return regController.getProvincesList();
+    }
+
+    public ArrayList<String> getCitiesList(String province){
+        if (regController == null){
+            regController = new CRegistration();
+        }
+        return regController.getCitiesList(province);
     }
 }

@@ -16,9 +16,10 @@ public class CManageEvent {
         eventDAO = new EventDAO();
     }
 
-    public void addEvent(BEvent eventBean) {
+    public boolean addEvent(BEvent eventBean) {
         MEvent eventModel = new MEvent(eventBean);
-        eventDAO.createEvent(eventModel.getEventInfo());
+        eventDAO.createEvent(eventModel);
+        return true;
     }
 
     /*

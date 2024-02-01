@@ -11,6 +11,7 @@ import javafx.scene.control.DateCell;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.fxml.FXML;
+import logic.utils.Alerts;
 import logic.utils.LoggedUser;
 import logic.view.EssentialGUI;
 import logic.utils.MusicGenres;
@@ -26,7 +27,7 @@ import logic.beans.BEvent;
 import logic.controllers.CFacade;
 
 
-public class GCAddEvent extends EssentialGUI{
+public class GCAddEvent extends EssentialGUI {
 
     ObservableList<String> musicGenresList = FXCollections.observableArrayList(MusicGenres.musicgenresarr);
     private CFacade facade = new CFacade();
@@ -53,9 +54,10 @@ public class GCAddEvent extends EssentialGUI{
     private BEvent eventBean;
     private File eventPicFile;
 
-    public GCAddEvent(){
+    public GCAddEvent() {
         eventBean = new BEvent();
     }
+
     @FXML
     public void initialize() {
         //Disabilita le date precedenti a quella odierna per il datePicker
@@ -66,7 +68,7 @@ public class GCAddEvent extends EssentialGUI{
                 setDisable(date.isBefore(LocalDate.now()));
             }
         });
-        
+
         musicGenreBox.setValue(MusicGenres.musicgenresarr[0]);
         musicGenreBox.setItems(musicGenresList);
     }
@@ -78,13 +80,14 @@ public class GCAddEvent extends EssentialGUI{
         fc.getExtensionFilters().addAll(imageFilter);
         eventPicFile = fc.showOpenDialog(null);
 
-        if (eventPicFile!=null){
+        if (eventPicFile != null) {
             pickedFileLabel.setText(eventPicFile.getName());
         }
 
     }
 
-    @FXML //azioni da eseguire quando clicko pulsante "CONFIRM"
+    @FXML
+        //azioni da eseguire quando clicko pulsante "CONFIRM"
     void addEventControl(MouseEvent event) {
         //try{
         eventBean.setEventName(eventNameTF.getText());
@@ -95,14 +98,20 @@ public class GCAddEvent extends EssentialGUI{
         }*/
         eventBean.setEventMusicGenre(musicGenreBox.getValue());
         eventBean.setEventDate(datePicker.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-        eventBean.setEventTime(eventHourTF.getText(),eventMinutesTF.getText());
+        eventBean.setEventTime(eventHourTF.getText(), eventMinutesTF.getText());
         eventBean.setEventPicData(eventPicFile);
         eventBean.setEventOrganizer(LoggedUser.getUserName());
-        facade.addEvent(eventBean);
-        System.out.println("evento aggiunto correttamente");
-        changeGUI(event, "HomeOrg.fxml");
-
-
+        try {
+            if (facade.addEvent(eventBean)) {
+                //alerts
+                alert.displayAlertPopup(Alerts.INFORMATION, "Event added successfully");
+                changeGUI(event, "HomeOrg.fxml");
+            } else {
+                alert.displayAlertPopup(Alerts.WARNING, "Event adding procedure failed. Please retry...");
+            }
+        }catch(Exception e){
+            alert.displayAlertPopup(Alerts.INFORMATION, "Cannot complete event adding procedure!");
+        }
 
 
     }

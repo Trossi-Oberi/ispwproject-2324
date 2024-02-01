@@ -29,6 +29,8 @@ public class EssentialGUI extends Application {
     protected static final Logger logger = Logger.getLogger(APP_NAME);
     protected CFacade cfacade;
 
+    protected AlertPopup alert = new AlertPopup();
+
     public EssentialGUI(){
         this.cfacade = new CFacade();
     }

@@ -7,11 +7,12 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import logic.beans.BUserData;
-import logic.controllers.CRegistration;
+import logic.controllers.CFacade;
 import logic.utils.Alerts;
 import logic.view.AlertPopup;
 import logic.view.EssentialGUI;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class GCRegistration {
@@ -60,7 +61,7 @@ public class GCRegistration {
 
     private AlertPopup alert;
     private EssentialGUI gui;
-    private CRegistration registrationCtrl;
+    private CFacade facadeController;
     private BUserData dataBean;
     //da rimuovere
     //private static final Logger logger = Logger.getLogger(GCRegistration.class.getName());
@@ -70,12 +71,21 @@ public class GCRegistration {
 
         this.alert = new AlertPopup();
         this.gui = new EssentialGUI();
-        this.registrationCtrl = new CRegistration();
+        this.facadeController = new CFacade();
         this.gender.getItems().addAll("Male", "Female", "Other");
         //this.group = new ToggleGroup();
         this.dataBean = new BUserData();
 
-        this.provincesList = this.registrationCtrl.getProvincesList();
+        //Disabilita le date successive a quella odierna per il datePicker
+        birthDate.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(date.isAfter(LocalDate.now()));
+            }
+        });
+
+        this.provincesList = facadeController.getProvincesList();
         ObservableList<String> provincesList = FXCollections.observableArrayList(this.provincesList);
         this.provinceBox.setItems(provincesList);
         setupProvinceBoxListener();
@@ -120,7 +130,7 @@ public class GCRegistration {
             } else {
                 this.dataBean.setType(this.organizerRadio.getText());
             }
-            if (this.registrationCtrl.registerUserControl(this.dataBean)) {
+            if (facadeController.registerUser(this.dataBean)) {
                 this.alert.displayAlertPopup(Alerts.INFORMATION, "Successfully registered to NightPlan");
                 this.gui.changeGUI(event, "Login.fxml");
             } else {
@@ -134,7 +144,7 @@ public class GCRegistration {
     private void setupProvinceBoxListener(){
         this.provinceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             this.citiesList.clear();
-            this.citiesList = this.registrationCtrl.getCitiesList(String.valueOf(newValue));
+            this.citiesList = facadeController.getCitiesList(String.valueOf(newValue));
             updateCityListView();
         });
     }
