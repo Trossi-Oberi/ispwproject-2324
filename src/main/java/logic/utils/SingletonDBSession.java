@@ -16,7 +16,8 @@ public class SingletonDBSession {
     private final String password;
     private final String url;
     private InputStream inputStream;
-    private static final Logger logger = Logger.getLogger("NightPlan");
+    private static final String APPNAME = "NightPlan";
+    private static final Logger logger = Logger.getLogger(APPNAME);
     protected Connection connection = null;
 
 
