@@ -13,17 +13,17 @@ import logic.model.MEvent;
 
 public class EventDAO {
 
-    public MEvent createEvent(BEvent eventInfo) {
+    public void createEvent(MEvent eventModel) {
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Events(event_id,organizer,organizer_id,name,city,address,music_genre,date,time,image) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)")){
-            statement.setString(1,eventInfo.getEventOrganizer());
+            statement.setString(1,eventModel.getEventOrganizer());
             statement.setInt(2, LoggedUser.getUserID()); //preso dalla sessione (classe LoggedUser)
-            statement.setString(3,eventInfo.getEventName());
-            statement.setString(4,eventInfo.getEventCity());
-            statement.setString(5,eventInfo.getEventAddress());
-            statement.setString(6,eventInfo.getEventMusicGenre());
-            statement.setString(7,eventInfo.getEventDate());
-            statement.setString(8,eventInfo.getEventTime());
-            statement.setBytes(9,eventInfo.getEventPicData());
+            statement.setString(3,eventModel.getEventName());
+            statement.setString(4,eventModel.getEventCity());
+            statement.setString(5,eventModel.getEventAddress());
+            statement.setString(6,eventModel.getEventMusicGenre());
+            statement.setString(7,eventModel.getEventDate());
+            statement.setString(8,eventModel.getEventTime());
+            statement.setBytes(9,eventModel.getEventPicData());
 
             statement.execute();
         }
@@ -34,7 +34,6 @@ public class EventDAO {
         finally {
             SingletonDBSession.getInstance().closeConn();
         }
-        return new MEvent(eventInfo);
     }
 
     public ArrayList<MEvent> retrieveMyEvents(int user_id, int queryType){

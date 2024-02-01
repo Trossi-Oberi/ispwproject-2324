@@ -29,7 +29,7 @@ public class UserDAO {
     private int getLoggedUser(PreparedStatement statement, MUser usrMod) {
         //verifica il tipo di utente che siamo
         try (ResultSet rs = statement.executeQuery()) {
-            while (rs.next()) {
+            if (rs.next()) {
                 usrMod.setId(rs.getInt(1));
                 usrMod.setFirstName(rs.getString(2));
                 usrMod.setLastName(rs.getString(3));

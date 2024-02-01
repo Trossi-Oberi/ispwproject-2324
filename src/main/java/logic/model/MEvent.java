@@ -66,16 +66,30 @@ public class MEvent {
         return this.id;
     }*/
 
+    //event_id, organizer, organizer_id, name, city, address, musicgenre, date, time, image
+    public String getEventOrganizer(){return this.eventOrganizer;}
+
+    public String getEventName(){return this.eventName;}
+    public String getEventCity() {
+        return eventCity;
+    }
+
+    public String getEventAddress(){return this.eventAddress;}
+
+    public String getEventMusicGenre(){return this.eventMusicGenre;}
+
+    public String getEventDate(){return this.eventDate;}
+
+    public String getEventTime(){return this.eventTime;}
+
+    public byte[] getEventPicData(){return this.eventPicData;}
+
     public void setEventName(String eventName) {
         this.eventName = eventName;
     }
 
     public void setEventCity(String eventCity) {
-        this.eventCity = getEventCity(eventCity);
-    }
-
-    public String getEventCity(String eventCity) {
-        return eventCity;
+        this.eventCity = eventCity;
     }
 
     public void setEventAddress(String eventAddress) {

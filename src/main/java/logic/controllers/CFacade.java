@@ -14,11 +14,11 @@ public class CFacade {
     }
 
     //AddEvent methods
-    public void addEvent(BEvent bean) {
+    public boolean addEvent(BEvent bean) {
         if (addEventController == null) {
             addEventController = new CManageEvent();
         }
-        addEventController.addEvent(bean); //chiamata al controller effettivo
+        return addEventController.addEvent(bean); //chiamata al controller effettivo
     }
 
     public int loginUser(BUserData bean){
