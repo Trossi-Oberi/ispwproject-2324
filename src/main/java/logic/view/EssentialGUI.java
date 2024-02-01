@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -87,6 +88,7 @@ public class EssentialGUI extends Application {
         launch(args);
     }
 
+    @FXML
     public void goToHome(MouseEvent event){
         switch(LoggedUser.getUserType()){
             case USER:
@@ -99,10 +101,12 @@ public class EssentialGUI extends Application {
 
     }
 
+    @FXML
     public void goToNotifications(MouseEvent event){
         changeGUI(event, "Notifications.fxml");
     }
 
+    @FXML
     public void goToYourEvents(MouseEvent event){
         switch(LoggedUser.getUserType()){
             case USER:
@@ -113,7 +117,7 @@ public class EssentialGUI extends Application {
                 break;
         }
     }
-
+    @FXML
     public void goToSettings(MouseEvent event){
         switch(LoggedUser.getUserType()){
             case USER:
@@ -124,7 +128,4 @@ public class EssentialGUI extends Application {
                 break;
         }
     }
-
-
-
 }

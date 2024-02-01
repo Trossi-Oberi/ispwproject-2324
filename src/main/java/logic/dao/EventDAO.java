@@ -24,7 +24,6 @@ public class EventDAO {
             statement.setString(7,eventModel.getEventDate());
             statement.setString(8,eventModel.getEventTime());
             statement.setBytes(9,eventModel.getEventPicData());
-
             statement.execute();
         }
         catch (SQLException e) {
@@ -40,7 +39,7 @@ public class EventDAO {
         ArrayList<MEvent> myEvents = new ArrayList<>();
 
         if(queryType == 0) { //ORGANIZER && YourEventsOrg
-            try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT (event_id,organizer,organizer_id,name,city,address,music_genre,date,time,image) FROM Events WHERE organizer_id = ?")) {
+            try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT event_id,organizer,organizer_id,name,city,address,music_genre,date,time,image FROM events WHERE (organizer_id = ?)")) {
                 statement.setInt(1, userID);
                 myEvents = getEventsArrayList(statement);
             } catch (SQLException e) {
@@ -50,11 +49,13 @@ public class EventDAO {
 
         }else if(queryType == 1){   //USER && HomeUser
             UserDAO userDAO = new UserDAO();
-            try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT (event_id,organizer,organizer_id,name,city,address,music_genre,date,time,image) FROM Events WHERE city = ?")) {
+            try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT event_id,organizer,organizer_id,name,city,address,music_genre,date,time,image FROM events WHERE (city = ?)")) {
                 statement.setString(1, userDAO.getUserCityByID(userID));
                 myEvents = getEventsArrayList(statement);
             }catch (SQLException e) {
                 //Logger.getLogger("NightPlan").log(Level.SEVERE, EXCEPTION);
+                Logger.getLogger("NightPlan").log(Level.SEVERE, e.getMessage());
+            }catch (RuntimeException e){
                 Logger.getLogger("NightPlan").log(Level.SEVERE, e.getMessage());
             }
 
@@ -62,19 +63,15 @@ public class EventDAO {
 
         }
 
-
-
-
-
         return myEvents;
     }
 
     public ArrayList<MEvent> getEventsArrayList(PreparedStatement statement){
-        MEvent eventModel = new MEvent();
         ArrayList<MEvent> events = new ArrayList<>();
         //event_id,organizer,name,city,address,music_genre,date,time,image
         try (ResultSet rs = statement.executeQuery()) {
             while (rs.next()) {
+                MEvent eventModel = new MEvent();
                 eventModel.setEventID(rs.getInt(1));
                 eventModel.setEventOrganizer(rs.getString(2));
                 eventModel.setEventOrganizerID(rs.getInt(3));

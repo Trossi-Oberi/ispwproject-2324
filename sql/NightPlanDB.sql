@@ -47,6 +47,11 @@ values (NULL, 'Matteo', 'Matteo', 'Matteo', 'Trossi', '16/03/1998', 'Male', 'Ana
 insert into Users (id, username, password, firstName, lastName, dateOfBirth, gender, city, userType, userStatus)
 values (NULL, 'Nicolas', 'Nicolas', 'Nicolas', 'Oberi', '16/03/1998', 'Male', 'Cave', 'Organizer', 'Online');
 
+insert into Events (event_id, organizer, organizer_id, name, city, address, music_genre, date, time, image)
+values
+    (NULL, 'Nicolas', 2, 'Uane', 'Anagni', 'Via Casilina', 'Pop', '03-03-2024', '18:40', NULL),
+    (NULL, 'Nicolas', 2, 'Eleo', 'Frosinone', 'Via Marittima', 'Rap', '03-04-2025', '01:30', NULL);
+
 insert into Provinces (id, name)
 values
     (NULL, 'Agrigento'),

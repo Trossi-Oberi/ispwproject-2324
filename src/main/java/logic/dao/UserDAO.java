@@ -5,13 +5,14 @@ import logic.model.MUser;
 
 import java.sql.*;
 
-import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import java.util.ArrayList;
-
 public class UserDAO {
+    private static final Logger logger = Logger.getLogger("NightPlan");
+
+    private String userCity;
+
     public int checkLoginInfo(MUser usrMod) {
         int ret = 0;
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id, firstName, lastName, dateOfBirth, gender, city, userType FROM users WHERE (username=? and password=?)")) {
@@ -45,15 +46,16 @@ public class UserDAO {
         return 0;
     }
 
-    public String getUserCityByID(int id) {
-        String userCity;
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT city FROM users WHERE id=?")) {
-            statement.setInt(1,id);
-            try(ResultSet rs = statement.executeQuery()){
-                userCity = rs.getString(1);
+    public String getUserCityByID(int usrId) {
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT city FROM users WHERE (id=?)")) {
+            statement.setInt(1, usrId);
+            try (ResultSet rs = statement.executeQuery()){
+                rs.next();
+                this.userCity = rs.getString(1);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
+            logger.log(Level.SEVERE, "SQLException in getUserCityByID " + e + " -- MSG: " + e.getSQLState());
         }
         return userCity;
     }
