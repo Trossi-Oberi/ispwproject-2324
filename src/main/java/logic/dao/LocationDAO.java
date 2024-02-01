@@ -10,7 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LocationDAO {
-    public boolean getProvincesList(ArrayList<String> provincesList){
+    public ArrayList<String> getProvincesList(){
+        ArrayList<String> provincesList = new ArrayList<>();
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT name FROM provinces")) {
             try (ResultSet rs = statement.executeQuery()){
                 while (rs.next()){
@@ -24,10 +25,11 @@ public class LocationDAO {
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
-        return true;
+        return provincesList;
     }
 
-    public boolean getCitiesList(ArrayList<String> citiesList, String selectedProvince){
+    public ArrayList<String> getCitiesList(String selectedProvince){
+        ArrayList<String> citiesList = new ArrayList<>();
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT name FROM cities WHERE province = ?")) {
             statement.setString(1, selectedProvince);
             try (ResultSet rs = statement.executeQuery()){
@@ -42,6 +44,6 @@ public class LocationDAO {
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
-        return true;
+        return citiesList;
     }
 }

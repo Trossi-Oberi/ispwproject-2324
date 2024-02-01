@@ -5,6 +5,7 @@ import logic.dao.UserDAO;
 import logic.model.MUser;
 import logic.dao.LocationDAO;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -17,7 +18,6 @@ public class CRegistration {
     public CRegistration(){
         this.userDao = new UserDAO();
         this.userModel = new MUser();
-
         this.locationDao = new LocationDAO();
     }
 
@@ -32,22 +32,16 @@ public class CRegistration {
         return true;
     }
 
-    public boolean fetchProvincesList(ArrayList<String> provincesList){
-        if(this.locationDao.getProvincesList(provincesList)){
-            return true;
-        } else {
-            return false;
-        }
-
+    public ArrayList<String> getProvincesList(){
+        ArrayList<String> provincesList;
+        provincesList = this.locationDao.getProvincesList();
+        return provincesList;
     }
 
-    public boolean fetchCitiesList(ArrayList<String> citiesList, String selectedProvince){
-        if(this.locationDao.getCitiesList(citiesList, selectedProvince)){
-            return true;
-        } else {
-            return false;
-        }
-
+    public ArrayList<String> getCitiesList(String selectedProvince){
+        ArrayList<String> citiesList;
+        citiesList = this.locationDao.getCitiesList(selectedProvince);
+        return citiesList;
     }
 
     private int checkBirthDate(LocalDate birthDate) {

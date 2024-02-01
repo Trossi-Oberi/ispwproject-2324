@@ -53,7 +53,7 @@ public class GCRegistration {
     private RadioButton userRadio;
 
     @FXML
-    private ToggleGroup group;
+    private final ToggleGroup group = new ToggleGroup();
 
     private ArrayList<String> provincesList = new ArrayList<>();
     private ArrayList<String> citiesList = new ArrayList<>();
@@ -72,10 +72,10 @@ public class GCRegistration {
         this.gui = new EssentialGUI();
         this.registrationCtrl = new CRegistration();
         this.gender.getItems().addAll("Male", "Female", "Other");
-        this.group = new ToggleGroup();
+        //this.group = new ToggleGroup();
         this.dataBean = new BUserData();
 
-        this.registrationCtrl.fetchProvincesList(this.provincesList);
+        this.provincesList = this.registrationCtrl.getProvincesList();
         ObservableList<String> provincesList = FXCollections.observableArrayList(this.provincesList);
         this.provinceBox.setItems(provincesList);
         setupProvinceBoxListener();
@@ -134,7 +134,7 @@ public class GCRegistration {
     private void setupProvinceBoxListener(){
         this.provinceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             this.citiesList.clear();
-            this.registrationCtrl.fetchCitiesList(this.citiesList, String.valueOf(newValue));
+            this.citiesList = this.registrationCtrl.getCitiesList(String.valueOf(newValue));
             updateCityListView();
         });
     }

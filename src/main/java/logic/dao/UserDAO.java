@@ -26,10 +26,8 @@ public class UserDAO {
         return ret;
     }
 
-    //DA VEDERE SE CAMBIARE SCOPO DA PUBLIC IN PRIVATE
-    public int getLoggedUser(PreparedStatement statement, MUser usrMod) {
+    private int getLoggedUser(PreparedStatement statement, MUser usrMod) {
         //verifica il tipo di utente che siamo
-
         try (ResultSet rs = statement.executeQuery()) {
             while (rs.next()) {
                 usrMod.setId(rs.getInt(1));
