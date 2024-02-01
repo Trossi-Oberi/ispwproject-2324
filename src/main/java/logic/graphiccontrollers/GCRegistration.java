@@ -12,6 +12,7 @@ import logic.utils.Alerts;
 import logic.view.AlertPopup;
 import logic.view.EssentialGUI;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class GCRegistration {
@@ -74,6 +75,15 @@ public class GCRegistration {
         this.gender.getItems().addAll("Male", "Female", "Other");
         //this.group = new ToggleGroup();
         this.dataBean = new BUserData();
+
+        //Disabilita le date successive a quella odierna per il datePicker
+        birthDate.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(date.isAfter(LocalDate.now()));
+            }
+        });
 
         this.provincesList = facadeController.getProvincesList();
         ObservableList<String> provincesList = FXCollections.observableArrayList(this.provincesList);
