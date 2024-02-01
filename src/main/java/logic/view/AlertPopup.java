@@ -42,6 +42,9 @@ public class AlertPopup {
                     type = Alert.AlertType.INFORMATION;
                     headerText = "Alert";
                     break;
+                default:
+                    logger.log(Level.SEVERE, "Alert type not found");
+                    break;
             }
         } catch (IllegalArgumentException e){
             logger.log(Level.SEVERE, "Image path not found!", e);
