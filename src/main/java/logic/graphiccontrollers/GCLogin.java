@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
+import logic.controllers.CFacade;
 import logic.controllers.CLogin;
 import logic.utils.Alerts;
 import logic.utils.LoggedUser;
@@ -18,7 +19,7 @@ import logic.beans.BUserData;
 public class GCLogin {
     private EssentialGUI gui;
     private AlertPopup alert;
-    private CLogin loginController;
+    private CFacade facadeController;
     @FXML
     private Button GoogleLoginButton;
     @FXML
@@ -38,7 +39,7 @@ public class GCLogin {
 
         this.alert = new AlertPopup();
         this.gui = new EssentialGUI();
-        this.loginController = new CLogin();
+        this.facadeController = new CFacade();
     }
 
     public void registerControl(MouseEvent event){
@@ -48,7 +49,7 @@ public class GCLogin {
     public void loginControl(MouseEvent event){
         BUserData userBean = new BUserData(this.usrname.getText(), this.passwd.getText());
 
-        if(this.loginController.checkLogInControl(userBean) == 1){
+        if(facadeController.loginUser(userBean) == 1){
             switch(LoggedUser.getUserType()){
                 case USER:
                     this.alert.displayAlertPopup(Alerts.INFORMATION,"Logged in successfully as a user");
