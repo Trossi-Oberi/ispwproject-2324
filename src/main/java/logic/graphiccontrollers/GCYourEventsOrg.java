@@ -28,6 +28,9 @@ public class GCYourEventsOrg extends GCYourEventsGeneral{
     private ListView<String> upcEventsLW;
     
     private ArrayList <BEvent> eventsBeanList = new ArrayList<>();
+
+    private ArrayList <BEvent> upcEventsBeanList = new ArrayList<>();
+    private ArrayList <BEvent> pastEventsBeanList = new ArrayList<>();
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     @FXML
@@ -48,11 +51,13 @@ public class GCYourEventsOrg extends GCYourEventsGeneral{
             String eventDateString = bEvent.getEventDate();
             LocalDate date = LocalDate.parse(eventDateString,dateTimeFormatter);
             if(LocalDate.now().isBefore(date)){
+                upcEventsBeanList.add(bEvent);
                 this.upcEventsLW.getItems().add(bEvent.getEventName());
                 this.timeAndDateLW.getItems().add(formatTimeAndDate(bEvent.getEventDate(), bEvent.getEventTime()));
                 this.musicLW.getItems().add(bEvent.getEventMusicGenre());
                 
             }else{
+                pastEventsBeanList.add(bEvent);
                 this.pastEventsLW.getItems().add(bEvent.getEventName());
                 this.analyticsLW.getItems().add(bEvent.getEventName()+" - Analytics");
             }
