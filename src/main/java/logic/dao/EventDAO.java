@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 
 import logic.utils.LoggedUser;
 import logic.utils.SingletonDBSession;
-import logic.beans.BEvent;
 import logic.model.MEvent;
 
 public class EventDAO {
