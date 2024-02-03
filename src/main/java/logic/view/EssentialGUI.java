@@ -28,11 +28,11 @@ public class EssentialGUI extends Application {
     protected static Scene scene;
     protected static final Logger logger = Logger.getLogger(APP_NAME);
     protected CFacade cfacade;
-
-    protected AlertPopup alert = new AlertPopup();
+    protected AlertPopup alert;
 
     public EssentialGUI(){
         this.cfacade = new CFacade();
+        this.alert = new AlertPopup();
     }
 
     @Override
@@ -40,15 +40,21 @@ public class EssentialGUI extends Application {
         try{
             stage.setTitle(APP_NAME);
             String logoPath = "/icons/cuore.png";
-            String absolutePath = getClass().getResource(logoPath).toExternalForm();
-            //gestire NullPointerException
+            String absolutePath;
+            try {
+                absolutePath = getClass().getResource(logoPath).toExternalForm();
+            } catch (NullPointerException e){
+                throw new NullPointerException();
+            }
             Image logoImage = new Image(absolutePath);
             stage.getIcons().add(logoImage);
             stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
-        } catch(Exception e){
-            logger.log(Level.SEVERE, "Cannot load GUI\n", e);
+        } catch(NullPointerException e){
+            logger.log(Level.SEVERE, "Cannot load absolute path of app icon\n", e);
+        } catch(IllegalArgumentException e){
+            logger.log(Level.SEVERE, "Cannot load EssentialGUI due to illegal argument into logo image\n", e);
         }
     }
 
@@ -63,13 +69,14 @@ public class EssentialGUI extends Application {
 
     public static void loadApp(){
         try {
-//            loader = new FXMLLoader();
             URL loc = EssentialGUI.class.getResource(sceneName);
-            Parent root = FXMLLoader.load(loc); //checkare se loc!=null
+            Parent root = null;
+            if(loc != null) {
+                root = FXMLLoader.load(loc);
+            }
             scene = new Scene(root);
             scene.getStylesheets().add(EssentialGUI.class.getResource("application.css").toExternalForm());
-            //gestire NullPointerException
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             logger.log(Level.SEVERE, "Cannot load scene\n", e);
         }
     }
