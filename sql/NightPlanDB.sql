@@ -51,7 +51,7 @@ insert into Events (event_id, organizer, organizer_id, name, city, address, musi
 values
     (NULL, 'Nicolas', 2, 'Uane', 'Anagni', 'Via Casilina', 'Pop', '03-03-2024', '18:40', NULL),
     (NULL, 'Nicolas', 2, 'Eleo', 'Frosinone', 'Via Marittima', 'Rap', '03-04-2025', '01:30', NULL),
-    (NULL, 'Nicolas', 2, 'Uane passato', 'Anagni', 'Via Casilina passata', 'Techno', '03-04-2020', '22:30', NULL);
+    (NULL, 'Nicolas', 2, 'Uane passato', 'Anagni', 'Via Casilina passata', 'Techno', '03-04-2020', '22:30', 'C:\\Users\\niky2\\Pictures\\Acer\\Planet9_Wallpaper_5000x2813.jpg');
 
 insert into Provinces (id, name)
 values
