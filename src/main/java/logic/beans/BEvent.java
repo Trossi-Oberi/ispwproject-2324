@@ -1,10 +1,5 @@
 package logic.beans;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class BEvent {
     private String eventName;
     private String eventCity;
@@ -12,13 +7,8 @@ public class BEvent {
     private String eventMusicGenre;
     private String eventDate;
     private String eventTime;
-    private File eventPicFile;
-
     private byte[] eventPicData;
     private String eventOrganizer;
-    //private byte[] inputFile;
-
-    private Logger logger = Logger.getLogger("NightPlan");
 
     public BEvent() {
     }
@@ -49,23 +39,9 @@ public class BEvent {
 
     public void setEventTime(String eventTime){this.eventTime = eventTime;}
 
-    /*public void setEventPicFile(File eventPicFile){ //throws LengthFieldException, NullValueException{
-        this.eventPicFile = eventPicFile;
-    }*/
-
-    public void setEventPicData(File eventPicFile){ //ALL = Data + File, rende disponibile sia la versione file che la versione binaria dell'immagine
-        this.eventPicFile = eventPicFile;
-        if (eventPicFile!=null){
-            try {
-                this.eventPicData = Files.readAllBytes(eventPicFile.toPath());
-            } catch (IOException e) {
-                logger.log(Level.SEVERE, e.getMessage());
-            }
-        }
+    public void setEventPicData(byte[] picData){ //ALL = Data + File, rende disponibile sia la versione file che la versione binaria dell'immagine
+        this.eventPicData = picData;
     }
-
-
-
     public void setEventOrganizer(String eventOrganizer){ //throws LengthFieldException {
         this.eventOrganizer = eventOrganizer;
     }
@@ -95,8 +71,6 @@ public class BEvent {
     }
 
     public String getEventOrganizer(){return this.eventOrganizer;}
-
-    public File getEventPicFile(){return this.eventPicFile;}
 
     public byte[] getEventPicData(){return this.eventPicData;}
 

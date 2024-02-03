@@ -53,9 +53,9 @@ public class CManageEvent {
 
     private ArrayList<BEvent> getEventBeansListFromModelsList(ArrayList<MEvent> eventModelList){
         ArrayList<BEvent> myEventsBeans = new ArrayList<>();
-        BEvent tempEventBean = new BEvent();
-        for (int i = 0; i < eventModelList.size(); i++) {
-            tempEventBean = eventModelList.get(i).getEventInfo();
+        BEvent tempEventBean;
+        for (MEvent mEvent : eventModelList) {
+            tempEventBean = mEvent.getEventInfo();
             myEventsBeans.add(tempEventBean);
         }
         return myEventsBeans;

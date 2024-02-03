@@ -12,6 +12,8 @@ import logic.model.MEvent;
 
 public class EventDAO {
 
+    private static final String APPNAME = "NightPlan";
+
     public void createEvent(MEvent eventModel) {
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Events(event_id,organizer,organizer_id,name,city,address,music_genre,date,time,image) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)")){
             statement.setString(1,eventModel.getEventOrganizer());
@@ -27,7 +29,7 @@ public class EventDAO {
         }
         catch (SQLException e) {
             //Logger.getLogger("NightPlan").log(Level.SEVERE, EXCEPTION);
-            Logger.getLogger("NightPlan").log(Level.SEVERE, e.getMessage());
+            Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
         }
         finally {
             SingletonDBSession.getInstance().closeConn();
@@ -42,8 +44,8 @@ public class EventDAO {
                 statement.setInt(1, userID);
                 myEvents = getEventsArrayList(statement);
             } catch (SQLException e) {
-                //Logger.getLogger("NightPlan").log(Level.SEVERE, EXCEPTION);
-                Logger.getLogger("NightPlan").log(Level.SEVERE, e.getMessage());
+                //Logger.getLogger(APPNAME).log(Level.SEVERE, EXCEPTION);
+                Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
             }
 
         }else if(queryType == 1){   //USER && HomeUser
@@ -52,10 +54,10 @@ public class EventDAO {
                 statement.setString(1, userDAO.getUserCityByID(userID));
                 myEvents = getEventsArrayList(statement);
             }catch (SQLException e) {
-                //Logger.getLogger("NightPlan").log(Level.SEVERE, EXCEPTION);
-                Logger.getLogger("NightPlan").log(Level.SEVERE, e.getMessage());
+                //Logger.getLogger(APPNAME).log(Level.SEVERE, EXCEPTION);
+                Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
             }catch (RuntimeException e){
-                Logger.getLogger("NightPlan").log(Level.SEVERE, e.getMessage());
+                Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
             }
 
         }else{  //USER && YourEventsUser
@@ -84,7 +86,7 @@ public class EventDAO {
                 events.add(eventModel);
             }
         } catch (SQLException e) {
-            Logger.getLogger("NightPlan").log(Level.SEVERE, "Cannot get logged user");
+            Logger.getLogger(APPNAME).log(Level.SEVERE, "Cannot get logged user");
         }
         return events;
     }

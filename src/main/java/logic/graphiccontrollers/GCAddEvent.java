@@ -16,8 +16,11 @@ import logic.view.EssentialGUI;
 import logic.utils.MusicGenres;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
 
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -49,8 +52,9 @@ public class GCAddEvent extends EssentialGUI {
     private Label pickedFileLabel;
     @FXML
     private ChoiceBox<String> musicGenreBox;
+
     private BEvent eventBean;
-    private File eventPicFile;
+    private byte[] eventPicData;
 
     public GCAddEvent() {
         eventBean = new BEvent();
@@ -76,10 +80,19 @@ public class GCAddEvent extends EssentialGUI {
         FileChooser fc = new FileChooser();
         ExtensionFilter imageFilter = new ExtensionFilter("Immagini (*.png, *.jpg)", "*.png", "*jpg");
         fc.getExtensionFilters().addAll(imageFilter);
-        eventPicFile = fc.showOpenDialog(null);
+        File eventPicFile = fc.showOpenDialog(null);
 
         if (eventPicFile != null) {
             pickedFileLabel.setText(eventPicFile.getName());
+        }
+
+        //conversione da file ad array di bytes
+        if (eventPicFile !=null){
+            try {
+                this.eventPicData = Files.readAllBytes(eventPicFile.toPath());
+            } catch (IOException e) {
+                logger.log(Level.SEVERE, e.getMessage());
+            }
         }
 
     }
@@ -97,7 +110,7 @@ public class GCAddEvent extends EssentialGUI {
         eventBean.setEventMusicGenre(musicGenreBox.getValue());
         eventBean.setEventDate(datePicker.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
         eventBean.setEventTime(eventHourTF.getText(), eventMinutesTF.getText());
-        eventBean.setEventPicData(eventPicFile);
+        eventBean.setEventPicData(eventPicData);
         eventBean.setEventOrganizer(LoggedUser.getUserName());
         try {
             if (facade.addEvent(eventBean)) {

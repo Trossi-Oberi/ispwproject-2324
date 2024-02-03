@@ -27,9 +27,8 @@ public class MEvent {
         eventMusicGenre = eventBean.getEventMusicGenre();
         eventDate = eventBean.getEventDate();
         eventTime = eventBean.getEventTime();
-        if (eventBean.getEventPicFile()!=null){
-            eventPicData = eventBean.getEventPicData();
-        }
+        //eventPicFile = eventBean.getEventPicFile();
+        eventPicData = eventBean.getEventPicData();
         eventOrganizer = eventBean.getEventOrganizer();
     }
 
@@ -46,7 +45,8 @@ public class MEvent {
         eventInfo.setEventMusicGenre(eventMusicGenre);
         eventInfo.setEventDate(eventDate);
         eventInfo.setEventTime(eventTime);
-        eventInfo.setEventPicData(eventPicFile); //data = array di bytes
+        //eventInfo.setEventPicFile(eventPicFile);
+        eventInfo.setEventPicData(eventPicData); //data = array di bytes
         return eventInfo;
     }
 

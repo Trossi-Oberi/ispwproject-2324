@@ -1,7 +1,6 @@
 package logic.beans;
 
 import java.time.LocalDate;
-import java.util.logging.Logger;
 
 public class BUserData {
     private String firstName;
@@ -15,10 +14,6 @@ public class BUserData {
 
     public BUserData() {
 
-    }
-
-    public BUserData(String username) {
-        this.username = username;
     }
 
     public BUserData(String username, String password) {

@@ -9,7 +9,6 @@ public class CFacade {
     private CLogin loginController;
     private CRegistration regController;
     private CManageEvent manageEventController;
-    private BUserData dBean;
 
     public CFacade() {
     }
