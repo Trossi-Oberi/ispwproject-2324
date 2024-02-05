@@ -14,6 +14,7 @@ module trossi.oberi {
     requires transitive javafx.graphics;
 
     requires org.json;
+    requires javafx.web;
 
     exports logic.view;
     exports logic.graphiccontrollers;

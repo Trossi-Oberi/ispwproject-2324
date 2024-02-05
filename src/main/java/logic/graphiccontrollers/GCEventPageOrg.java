@@ -26,7 +26,7 @@ public class GCEventPageOrg extends GCEventPageGeneral {
 
     @FXML
     void goBack(MouseEvent event) {
-
+        goToYourEvents(event);
     }
 
 
