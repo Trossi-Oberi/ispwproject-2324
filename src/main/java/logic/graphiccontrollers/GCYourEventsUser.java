@@ -73,15 +73,15 @@ public class GCYourEventsUser extends GCYourEventsGeneral {
 
         }
     }
-
-    private void setupEventClickListener(){
+    @Override
+    public void setupEventClickListener(){
         upComingEventsLV.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 int selectedEventIndex = upComingEventsLV.getSelectionModel().getSelectedIndex();
                 // Verifica se è stato effettuato un doppio clic
                 BEvent selectedEventBean = upComingEventsBeans.get(selectedEventIndex);
                 try {
-                    onItemDoubleClick(event, selectedEventBean);
+                    onItemDoubleClick(event, selectedEventBean, "EventPageUser.fxml");
                 } catch (RuntimeException e){
                     alert.displayAlertPopup(Alerts.ERROR, "Runtime exception on double click");
                 }
@@ -93,17 +93,17 @@ public class GCYourEventsUser extends GCYourEventsGeneral {
                 // Verifica se è stato effettuato un doppio clic
                 BEvent selectedEventBean = pastEventsBeans.get(selectedEventIndex);
                 try {
-                    onItemDoubleClick(event, selectedEventBean);
+                    onItemDoubleClick(event, selectedEventBean, "EventPageUser.fxml");
                 } catch (RuntimeException e){
                     alert.displayAlertPopup(Alerts.ERROR, "Runtime exception on double click");
                 }
             }
         });
     }
-
-    private void onItemDoubleClick(MouseEvent event, BEvent selectedEventBean) throws RuntimeException {
+    @Override
+    public void onItemDoubleClick(MouseEvent event, BEvent selectedEventBean, String fxmlpage) throws RuntimeException {
         try {
-            URL loc = EssentialGUI.class.getResource("EventPageUser.fxml");
+            URL loc = EssentialGUI.class.getResource(fxmlpage);
             FXMLLoader loader = new FXMLLoader(loc);
             Parent root = null;
             if(loc != null) {
