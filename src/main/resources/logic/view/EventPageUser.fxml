@@ -112,6 +112,11 @@
             <Font name="Baloo 2 Regular" size="22.0" />
          </font>
       </Text>
+      <Button fx:id="viewMap" layoutX="609.0" layoutY="189.0" mnemonicParsing="false" onMouseClicked="#goBack" prefHeight="0.0" prefWidth="130.0" style="-fx-background-radius: 0;" text="Map">
+         <font>
+            <Font name="Baloo 2 Regular" size="20.0" />
+         </font>
+      </Button>
     </children>
     <rotationAxis>
         <Point3D />
