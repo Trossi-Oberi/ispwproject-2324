@@ -16,6 +16,7 @@ public class GCHelpFAQs extends EssentialGUI implements InfoPages  {
     @FXML
     private Hyperlink projectHyperlink;
 
+    @Override
     public void openLink(ActionEvent actionEvent) throws URISyntaxException, IOException {
         Desktop.getDesktop().browse(new URI(projectHyperlink.getText()));
         projectHyperlink.setVisited(false);
