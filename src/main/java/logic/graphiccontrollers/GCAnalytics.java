@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import logic.beans.BEvent;
+import logic.controllers.CFacade;
 import logic.utils.LoggedUser;
 import logic.view.EssentialGUI;
 
@@ -18,6 +19,7 @@ import javafx.scene.text.Text;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Random;
 import java.util.logging.Level;
 
 public class GCAnalytics extends EssentialGUI {
@@ -48,13 +50,31 @@ public class GCAnalytics extends EssentialGUI {
     @FXML
     private ImageView eventImage;
 
+    int eventID;
+    int timesClicked = -1; //volte che l'evento e' stato clickato (Random)
+    int participations; //partecipazioni segnate (Query dal DB)
+    int nParticipants = -1; //partecipanti effettivi (Random tra 0 e participations)
+
+    CFacade facadeController;
+
     @FXML
     public void initialize() {
-        //
+        facadeController = new CFacade();
+        Random rand = new Random();
+        //retrieve del numero delle participations
+        participations = facadeController.retrieveParticipationsToEvent(eventID);
+        if (timesClicked == -1){
+            timesClicked = rand.nextInt(5000-participations+1) + participations;
+            nParticipants = rand.nextInt(participations+1);
+        }
+        timesClickedL.setText(""+timesClicked);
+        plannedL.setText(""+participations);
+        participantsL.setText(""+nParticipants);
 
     }
 
     public void initAnalyticsByBean(BEvent eventBean){
+        this.eventID = eventBean.getEventID();
         eventNameL.setText(eventBean.getEventName());
         cityL.setText(eventBean.getEventCity());
         addressL.setText(eventBean.getEventAddress());

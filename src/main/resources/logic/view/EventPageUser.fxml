@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.graphiccontrollers.GCEventPage">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.graphiccontrollers.GCEventPageUser">
     <children>
         <Rectangle fill="#6c89c4a1" height="88.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" />
         <Button alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" mnemonicParsing="false" onMouseClicked="#goToHome" prefHeight="88.0" prefWidth="130.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-insets: 0;" text="Home" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="0.0">

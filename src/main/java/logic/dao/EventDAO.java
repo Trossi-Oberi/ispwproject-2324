@@ -122,4 +122,21 @@ public class EventDAO {
             SingletonDBSession.getInstance().closeConn();
         }
     }
+
+
+    public int getParticipationsToEvent(int id) {
+        int res = 0;
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT COUNT(user_id) FROM userevent WHERE (event_id = ?)")) {
+            statement.setInt(1, id); //id_evento preso come parametro
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                res = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
+        } finally {
+            SingletonDBSession.getInstance().closeConn();
+        }
+        return res;
+    }
 }

@@ -12,7 +12,7 @@ import logic.utils.Alerts;
 
 import java.io.*;
 
-public class GCEventPage extends GCHomeUser {
+public class GCEventPageGeneral extends GCHomeUser {
 
     @FXML
     private Text address;
@@ -41,14 +41,14 @@ public class GCEventPage extends GCHomeUser {
     @FXML
     private Button participateEventBtn;
 
-    private BEvent eventBean;
+    protected BEvent eventBean;
 
     @FXML
     public void initialize(){
 
     }
 
-    public void initEventBean(BEvent eventB){
+    public void initEventFromBean(BEvent eventB){
         this.eventName.setText(eventB.getEventName());
         this.city.setText(eventB.getEventCity());
         this.address.setText(eventB.getEventAddress());
@@ -67,24 +67,7 @@ public class GCEventPage extends GCHomeUser {
         this.eventBean = eventB;
     }
 
-    @FXML
-    public void goBack(MouseEvent event) {
-        goToHome(event);
-    }
 
-    @FXML
-    public void participateToEvent(MouseEvent event) {
-        try {
-            if(cfacade.participateToEvent(this.eventBean)){
-                alert.displayAlertPopup(Alerts.INFORMATION, "Event participation successfully added!\nYou can now view it on Your Events page");
-                goBack(event);
-            } else {
-                alert.displayAlertPopup(Alerts.ERROR, "Event participation failed :(");
-                goBack(event);
-            }
-        } catch (DuplicateEventParticipation e) {
-            alert.displayAlertPopup(Alerts.WARNING, "Event participation already planned");
-            goBack(event);
-        }
-    }
+
+
 }

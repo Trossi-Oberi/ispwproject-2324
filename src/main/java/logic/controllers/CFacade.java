@@ -37,6 +37,13 @@ public class CFacade {
         return manageEventController.retrieveMyEvents(userType, className);
     }
 
+    public int retrieveParticipationsToEvent(int id){
+        if (manageEventController == null){
+            manageEventController = new CManageEvent();
+        }
+        return manageEventController.getParticipationsToEvent(id);
+    }
+
     public int loginUser(BUserData bean){
         if (loginController == null){
             loginController = new CLogin();
@@ -64,4 +71,6 @@ public class CFacade {
         }
         return regController.getCitiesList(province);
     }
+
+
 }

@@ -76,7 +76,7 @@ public class GCHomeUser extends GCHomeGeneral {
 
     private void onItemDoubleClick(MouseEvent event, BEvent selectedEventBean) {
             try {
-                URL loc = EssentialGUI.class.getResource("EventPage.fxml");
+                URL loc = EssentialGUI.class.getResource("EventPageUser.fxml");
                 FXMLLoader loader = new FXMLLoader(loc);
                 Parent root = null;
                 if(loc != null) {
@@ -85,8 +85,8 @@ public class GCHomeUser extends GCHomeGeneral {
                 scene = new Scene(root);
                 scene.getStylesheets().add(EssentialGUI.class.getResource("application.css").toExternalForm());
 
-                GCEventPage eventPageGC = loader.getController();
-                eventPageGC.initEventBean(selectedEventBean);
+                GCEventPageUser eventPageGC = loader.getController();
+                eventPageGC.initEventFromBean(selectedEventBean);
             } catch (IOException | NullPointerException e) {
                 logger.log(Level.SEVERE, "Cannot load scene\n", e);
             } catch (RuntimeException e){

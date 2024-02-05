@@ -103,7 +103,7 @@ public class GCYourEventsUser extends GCYourEventsGeneral {
 
     private void onItemDoubleClick(MouseEvent event, BEvent selectedEventBean) throws RuntimeException {
         try {
-            URL loc = EssentialGUI.class.getResource("EventPage.fxml");
+            URL loc = EssentialGUI.class.getResource("EventPageUser.fxml");
             FXMLLoader loader = new FXMLLoader(loc);
             Parent root = null;
             if(loc != null) {
@@ -112,8 +112,8 @@ public class GCYourEventsUser extends GCYourEventsGeneral {
             scene = new Scene(root);
             scene.getStylesheets().add(EssentialGUI.class.getResource("application.css").toExternalForm());
 
-            GCEventPage eventPageGC = loader.getController();
-            eventPageGC.initEventBean(selectedEventBean);
+            GCEventPageUser eventPageUserGC = loader.getController();
+            eventPageUserGC.initEventFromBean(selectedEventBean);
         } catch (IOException | NullPointerException e) {
             logger.log(Level.SEVERE, "Cannot load scene\n", e);
         } catch (RuntimeException e){

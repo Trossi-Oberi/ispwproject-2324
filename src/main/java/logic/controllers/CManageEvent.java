@@ -67,4 +67,8 @@ public class CManageEvent {
         eventDAO.joinUserToEvent(eventModel);
         return true;
     }
+    //DA IMPLEMENTARE NEL DAO, ASPETTARE CHE MATTEO FINISCE LE PARTECIPAZIONI
+    public int getParticipationsToEvent(int id){
+        return eventDAO.getParticipationsToEvent(id);
+    }
 }
