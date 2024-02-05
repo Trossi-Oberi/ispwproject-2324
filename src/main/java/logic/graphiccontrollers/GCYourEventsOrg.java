@@ -74,6 +74,7 @@ public class GCYourEventsOrg extends GCYourEventsGeneral{
     private void setupEventClickListener(){
         analyticsLV.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
+                //errore
                 int selectedEventIndex = analyticsLV.getSelectionModel().getSelectedIndex();
                 // Verifica se è stato effettuato un doppio clic
                 BEvent selectedEventBean = pastEventsBeanList.get(selectedEventIndex);
@@ -94,17 +95,22 @@ public class GCYourEventsOrg extends GCYourEventsGeneral{
 
     private void onItemDoubleClick(MouseEvent event, BEvent selectedEventBean) {
         try {
+
             URL loc = EssentialGUI.class.getResource("Analytics.fxml");
             FXMLLoader loader = new FXMLLoader(loc);
             Parent root = null;
             if(loc != null) {
                 root = loader.load();
             }
+            GCAnalytics analyticsGC = loader.getController();
+            analyticsGC.initAnalyticsByBean(selectedEventBean);
+
+            analyticsGC.initParticipantsInfo();
+
             scene = new Scene(root);
             scene.getStylesheets().add(EssentialGUI.class.getResource("application.css").toExternalForm());
 
-            GCAnalytics analyticsGC = loader.getController();
-            analyticsGC.initAnalyticsByBean(selectedEventBean);
+
         } catch (IOException | NullPointerException e) {
             logger.log(Level.SEVERE, "Cannot load scene\n", e);
         } catch (RuntimeException e){

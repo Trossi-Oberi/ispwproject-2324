@@ -50,27 +50,15 @@ public class GCAnalytics extends EssentialGUI {
     @FXML
     private ImageView eventImage;
 
-    int eventID;
-    int timesClicked = -1; //volte che l'evento e' stato clickato (Random)
-    int participations; //partecipazioni segnate (Query dal DB)
-    int nParticipants = -1; //partecipanti effettivi (Random tra 0 e participations)
+    private int eventID;
+    private static Integer timesClicked;    //volte che l'evento e' stato clickato (Random)
+    private static Integer nParticipants; //partecipanti effettivi (Random tra 0 e participations)
 
     CFacade facadeController;
 
     @FXML
     public void initialize() {
         facadeController = new CFacade();
-        Random rand = new Random();
-        //retrieve del numero delle participations
-        participations = facadeController.retrieveParticipationsToEvent(eventID);
-        if (timesClicked == -1){
-            timesClicked = rand.nextInt(5000-participations+1) + participations;
-            nParticipants = rand.nextInt(participations+1);
-        }
-        timesClickedL.setText(""+timesClicked);
-        plannedL.setText(""+participations);
-        participantsL.setText(""+nParticipants);
-
     }
 
     public void initAnalyticsByBean(BEvent eventBean){
@@ -86,6 +74,20 @@ public class GCAnalytics extends EssentialGUI {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public void initParticipantsInfo(){
+        //retrieve del numero delle participations
+        //partecipazioni segnate (Query dal DB UserEvent)
+        int participations = facadeController.retrieveParticipationsToEvent(eventID);
+        if (timesClicked == null){
+            Random rand = new Random();
+            timesClicked = rand.nextInt(5000- participations +1) + participations;
+            nParticipants = rand.nextInt(participations +1);
+        }
+        timesClickedL.setText(""+timesClicked);
+        plannedL.setText(""+ participations);
+        participantsL.setText(""+nParticipants);
     }
 
 
