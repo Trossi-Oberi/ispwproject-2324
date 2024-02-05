@@ -38,8 +38,8 @@ public class GCYourEventsOrg extends GCYourEventsGeneral{
     
     private ArrayList <BEvent> eventsBeanList = new ArrayList<>();
 
-    private ArrayList <BEvent> upcEventsBeanList = new ArrayList<>();
-    private ArrayList <BEvent> pastEventsBeanList = new ArrayList<>();
+    private ArrayList <BEvent> upComingEventsBeans = new ArrayList<>();
+    private ArrayList <BEvent> pastEventsBeans = new ArrayList<>();
 
     @FXML
     public void initialize() {
@@ -58,13 +58,13 @@ public class GCYourEventsOrg extends GCYourEventsGeneral{
 
             //problema: se evento ha stesso data di oggi viene considerato passato
             if(LocalDate.now().isBefore(date)){
-                upcEventsBeanList.add(bEvent);
+                upComingEventsBeans.add(bEvent);
                 this.upcEventsLV.getItems().add(bEvent.getEventName());
                 this.timeAndDateLV.getItems().add(formatTimeAndDate(bEvent.getEventDate(), bEvent.getEventTime()));
                 this.musicLV.getItems().add(bEvent.getEventMusicGenre());
                 
             }else{
-                pastEventsBeanList.add(bEvent);
+                pastEventsBeans.add(bEvent);
                 this.pastEventsLV.getItems().add(bEvent.getEventName());
                 this.analyticsLV.getItems().add(bEvent.getEventName()+" - Analytics");
             }
@@ -76,7 +76,7 @@ public class GCYourEventsOrg extends GCYourEventsGeneral{
             if (event.getClickCount() == 2) {
                 int selectedEventIndex = analyticsLV.getSelectionModel().getSelectedIndex();
                 // Verifica se è stato effettuato un doppio clic
-                BEvent selectedEventBean = pastEventsBeanList.get(selectedEventIndex);
+                BEvent selectedEventBean = pastEventsBeans.get(selectedEventIndex);
                 try {
                     onItemDoubleClick(event, selectedEventBean);
                 } catch (RuntimeException e){
@@ -112,9 +112,4 @@ public class GCYourEventsOrg extends GCYourEventsGeneral{
         }
         nextGuiOnClick(event);
     }
-
-
-
-
-
 }

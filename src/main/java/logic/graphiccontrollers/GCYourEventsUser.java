@@ -15,7 +15,6 @@ import logic.view.EssentialGUI;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -39,8 +38,8 @@ public class GCYourEventsUser extends GCYourEventsGeneral {
     private ListView<String> upcomingMusicLV;
 
     private ArrayList <BEvent> eventsParticipationList = new ArrayList<>();
-    private ArrayList <BEvent> upcEventsBeanList = new ArrayList<>();
-    private ArrayList <BEvent> pastEventsBeanList = new ArrayList<>();
+    private ArrayList <BEvent> upComingEventsBeans = new ArrayList<>();
+    private ArrayList <BEvent> pastEventsBeans = new ArrayList<>();
 
 
     @FXML
@@ -48,7 +47,7 @@ public class GCYourEventsUser extends GCYourEventsGeneral {
         this.eventsParticipationList = cfacade.retrieveEvents(LoggedUser.getUserType(), this.getClass().getSimpleName());
         if (eventsParticipationList !=null){
             populateLVs();
-            //setupEventClickListener();
+            setupEventClickListener();
         }
     }
 
@@ -60,19 +59,67 @@ public class GCYourEventsUser extends GCYourEventsGeneral {
 
             //problema: se evento ha stesso data di oggi viene considerato passato
             if(LocalDate.now().isBefore(date)){
-                upcEventsBeanList.add(bEvent);
+                upComingEventsBeans.add(bEvent);
                 this.upComingEventsLV.getItems().add(bEvent.getEventName());
                 this.upComingTimeLV.getItems().add(formatTimeAndDate(bEvent.getEventDate(), bEvent.getEventTime()));
                 this.upcomingMusicLV.getItems().add(bEvent.getEventMusicGenre());
 
             }else{
-                pastEventsBeanList.add(bEvent);
+                pastEventsBeans.add(bEvent);
                 this.pastEventsLV.getItems().add(bEvent.getEventName());
                 this.pastTimeLV.getItems().add(formatTimeAndDate(bEvent.getEventDate(), bEvent.getEventTime()));
                 this.pastMusicLV.getItems().add(bEvent.getEventMusicGenre());
             }
 
         }
+    }
+
+    private void setupEventClickListener(){
+        upComingEventsLV.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                int selectedEventIndex = upComingEventsLV.getSelectionModel().getSelectedIndex();
+                // Verifica se è stato effettuato un doppio clic
+                BEvent selectedEventBean = upComingEventsBeans.get(selectedEventIndex);
+                try {
+                    onItemDoubleClick(event, selectedEventBean);
+                } catch (RuntimeException e){
+                    alert.displayAlertPopup(Alerts.ERROR, "Runtime exception on double click");
+                }
+            }
+        });
+        pastEventsLV.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                int selectedEventIndex = pastEventsLV.getSelectionModel().getSelectedIndex();
+                // Verifica se è stato effettuato un doppio clic
+                BEvent selectedEventBean = pastEventsBeans.get(selectedEventIndex);
+                try {
+                    onItemDoubleClick(event, selectedEventBean);
+                } catch (RuntimeException e){
+                    alert.displayAlertPopup(Alerts.ERROR, "Runtime exception on double click");
+                }
+            }
+        });
+    }
+
+    private void onItemDoubleClick(MouseEvent event, BEvent selectedEventBean) throws RuntimeException {
+        try {
+            URL loc = EssentialGUI.class.getResource("EventPage.fxml");
+            FXMLLoader loader = new FXMLLoader(loc);
+            Parent root = null;
+            if(loc != null) {
+                root = loader.load();
+            }
+            scene = new Scene(root);
+            scene.getStylesheets().add(EssentialGUI.class.getResource("application.css").toExternalForm());
+
+            GCEventPage eventPageGC = loader.getController();
+            eventPageGC.initEventBean(selectedEventBean);
+        } catch (IOException | NullPointerException e) {
+            logger.log(Level.SEVERE, "Cannot load scene\n", e);
+        } catch (RuntimeException e){
+            throw new RuntimeException(e);
+        }
+        nextGuiOnClick(event);
     }
 
 }
