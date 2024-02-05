@@ -53,7 +53,8 @@ public class GCHomeUser extends GCHomeGeneral {
         }
     }
 
-    private void setupEventClickListener(){
+    @Override
+    public void setupEventClickListener(){
         eventsListView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 int selectedEventIndex = eventsListView.getSelectionModel().getSelectedIndex();
@@ -74,7 +75,8 @@ public class GCHomeUser extends GCHomeGeneral {
         });
     }
 
-    private void onItemDoubleClick(MouseEvent event, BEvent selectedEventBean) {
+    @Override
+    public void onItemDoubleClick(MouseEvent event, BEvent selectedEventBean) {
             try {
                 URL loc = EssentialGUI.class.getResource("EventPageUser.fxml");
                 FXMLLoader loader = new FXMLLoader(loc);
