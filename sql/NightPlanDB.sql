@@ -51,20 +51,17 @@ create table Cities
     province VARCHAR(50)                    NOT NULL
 );
 
-insert into Users (id, username, password, firstName, lastName, dateOfBirth, gender, city, userType, userStatus)
-values
+insert into Users (id, username, password, firstName, lastName, dateOfBirth, gender, city, userType, userStatus) values
     (NULL, 'Matteo', 'Matteo', 'Matteo', 'Trossi', '16/03/1998', 'Male', 'Anagni', 'User', 'Online'),
     (NULL, 'Nicolas', 'Nicolas', 'Nicolas', 'Oberi', '16/03/1998', 'Male', 'Cave', 'Organizer', 'Online'),
     (NULL, 'm', 'm', 'm', 'm', '16/03/1998', 'Male', 'Anagni', 'User', 'Online'),
     (NULL, 'n', 'n', 'n', 'n', '16/03/1998', 'Male', 'Anagni', 'User', 'Online'),
     (NULL, 'o', 'o', 'o', 'o', '16/03/1998', 'Male', 'Anagni', 'User', 'Online');
 
-
-insert into Events (event_id, organizer, organizer_id, name, city, address, music_genre, date, time, image)
-values
-    (NULL, 'Nicolas', 2, 'Uane', 'Anagni', 'Via Casilina', 'Pop', '03-03-2024', '18:40', NULL),
-    (NULL, 'Nicolas', 2, 'Eleo', 'Frosinone', 'Via Marittima', 'Rap', '03-04-2025', '01:30', NULL),
-    (NULL, 'Nicolas', 2, 'Uane passato', 'Anagni', 'Via Casilina passata', 'Techno', '03-04-2020', '22:30', 'C:\\Users\\niky2\\Pictures\\Acer\\Planet9_Wallpaper_5000x2813.jpg');
+insert into Events (event_id, organizer, organizer_id, name, city, address, music_genre, date, time, image) values
+    (NULL, 'Nicolas', 2, 'Uane', 'Anagni', 'Via Casilina', 'Pop', '03-03-2024', '18:40', LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerplanet.jpg')),
+    (NULL, 'Nicolas', 2, 'Eleo', 'Frosinone', 'Via Marittima', 'Rap', '03-04-2025', '01:30', LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp1.jpg')),
+    (NULL, 'Nicolas', 2, 'Uane passato', 'Anagni', 'Via Casilina passata', 'Techno', '03-04-2020', '22:30', LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp2.jpg'));
 
 insert into UserEvent(id, user_id, event_id) values
     (NULL, 1, 3),
@@ -72,8 +69,7 @@ insert into UserEvent(id, user_id, event_id) values
     (NULL, 4, 3),
     (NULL, 5, 3);
 
-insert into Provinces (id, name)
-values
+insert into Provinces (id, name) values
     (NULL, 'Agrigento'),
     (NULL, 'Alessandria'),
     (NULL, 'Ancona'),
