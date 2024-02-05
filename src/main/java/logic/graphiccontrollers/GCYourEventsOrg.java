@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+
 import logic.beans.BEvent;
 import logic.utils.Alerts;
 import logic.utils.LoggedUser;
@@ -14,7 +15,6 @@ import logic.view.EssentialGUI;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -40,16 +40,14 @@ public class GCYourEventsOrg extends GCYourEventsGeneral{
 
     private ArrayList <BEvent> upcEventsBeanList = new ArrayList<>();
     private ArrayList <BEvent> pastEventsBeanList = new ArrayList<>();
-    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     @FXML
     public void initialize() {
-        this.eventsBeanList = cfacade.retrieveEvents(LoggedUser.getUserType(), "YourEventsOrg.fxml");
+        this.eventsBeanList = cfacade.retrieveEvents(LoggedUser.getUserType(), this.getClass().getSimpleName());
         if (eventsBeanList!=null){
             populateLVs();
             setupEventClickListener();
         }
-
     }
 
     private void populateLVs(){

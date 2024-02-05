@@ -1,5 +1,6 @@
 flush binary logs;
 use nightplan;
+
 create table Events
 (
     event_id     INT AUTO_INCREMENT PRIMARY KEY,
@@ -28,6 +29,15 @@ create table Users
     userStatus  VARCHAR(15)
 );
 
+create table UserEvent
+(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    event_id INT,
+    FOREIGN KEY (user_id) REFERENCES Users(id),
+    FOREIGN KEY (event_id) REFERENCES Events(event_id)
+);
+
 create table Provinces
 (
     id   INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -42,10 +52,9 @@ create table Cities
 );
 
 insert into Users (id, username, password, firstName, lastName, dateOfBirth, gender, city, userType, userStatus)
-values (NULL, 'Matteo', 'Matteo', 'Matteo', 'Trossi', '16/03/1998', 'Male', 'Anagni', 'User', 'Online');
-
-insert into Users (id, username, password, firstName, lastName, dateOfBirth, gender, city, userType, userStatus)
-values (NULL, 'Nicolas', 'Nicolas', 'Nicolas', 'Oberi', '16/03/1998', 'Male', 'Cave', 'Organizer', 'Online');
+values
+    (NULL, 'Matteo', 'Matteo', 'Matteo', 'Trossi', '16/03/1998', 'Male', 'Anagni', 'User', 'Online'),
+    (NULL, 'Nicolas', 'Nicolas', 'Nicolas', 'Oberi', '16/03/1998', 'Male', 'Cave', 'Organizer', 'Online');
 
 insert into Events (event_id, organizer, organizer_id, name, city, address, music_genre, date, time, image)
 values

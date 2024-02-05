@@ -36,7 +36,7 @@ public class GCHomeUser extends GCHomeGeneral {
 
     public void initialize(){
         //inserire retrive eventi della tua città all'avvio della schermata
-        eventsList = cfacade.retrieveEvents(LoggedUser.getUserType(), "HomeUser.fxml");
+        eventsList = cfacade.retrieveEvents(LoggedUser.getUserType(), this.getClass().getSimpleName());
         populateEventsListView();
         setupEventClickListener();
     }

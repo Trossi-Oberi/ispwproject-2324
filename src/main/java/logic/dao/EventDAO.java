@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import logic.exceptions.DuplicateEventParticipation;
 import logic.utils.LoggedUser;
 import logic.utils.SingletonDBSession;
 import logic.model.MEvent;
+import logic.view.EssentialGUI;
 
 public class EventDAO {
 
@@ -28,7 +30,6 @@ public class EventDAO {
             statement.execute();
         }
         catch (SQLException e) {
-            //Logger.getLogger("NightPlan").log(Level.SEVERE, EXCEPTION);
             Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
         }
         finally {
@@ -44,24 +45,26 @@ public class EventDAO {
                 statement.setInt(1, userID);
                 myEvents = getEventsArrayList(statement);
             } catch (SQLException e) {
-                //Logger.getLogger(APPNAME).log(Level.SEVERE, EXCEPTION);
                 Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
             }
 
-        }else if(queryType == 1){   //USER && HomeUser
+        } else if(queryType == 1){   //USER && HomeUser
             UserDAO userDAO = new UserDAO();
             try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT event_id,organizer,organizer_id,name,city,address,music_genre,date,time,image FROM events WHERE (city = ?)")) {
                 statement.setString(1, userDAO.getUserCityByID(userID));
                 myEvents = getEventsArrayList(statement);
-            }catch (SQLException e) {
-                //Logger.getLogger(APPNAME).log(Level.SEVERE, EXCEPTION);
-                Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
-            }catch (RuntimeException e){
+            }catch (SQLException | RuntimeException e) {
                 Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
             }
 
-        }else{  //USER && YourEventsUser
-
+        } else {  //USER && YourEventsUser
+            UserDAO userDAO = new UserDAO();
+            try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT events.* FROM Events JOIN UserEvent ON Events.event_id = UserEvent.event_id WHERE (UserEvent.user_id = ?)")){
+                statement.setInt(1, LoggedUser.getUserID()); //prendo lo user id dalla sessione;
+                myEvents = getEventsArrayList(statement);
+            }catch (SQLException | RuntimeException e) {
+                Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
+            }
         }
 
         return myEvents;
@@ -92,4 +95,31 @@ public class EventDAO {
     }
 
 
+    public void joinUserToEvent(MEvent eventModel) throws DuplicateEventParticipation {
+        checkPreviousParticipation(eventModel.getEventID());
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO userevent (id, user_id, event_id) VALUES (NULL, ?, ?)")) {
+            statement.setInt(1, LoggedUser.getUserID()); //id_user preso dalla sessione di Login
+            statement.setInt(2, eventModel.getEventID());
+            statement.execute();
+        } catch (SQLException e) {
+            Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
+        } finally {
+            SingletonDBSession.getInstance().closeConn();
+        }
+    }
+
+    private void checkPreviousParticipation(int eventID) throws DuplicateEventParticipation {
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT * FROM userevent WHERE (user_id = ? AND event_id = ?)")){
+            statement.setInt(1, LoggedUser.getUserID()); //id_user preso dalla sessione di Login
+            statement.setInt(2, eventID);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                throw new DuplicateEventParticipation("Event already joined");
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
+        } finally {
+            SingletonDBSession.getInstance().closeConn();
+        }
+    }
 }

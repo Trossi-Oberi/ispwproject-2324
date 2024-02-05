@@ -2,6 +2,7 @@ package logic.controllers;
 
 import logic.beans.BEvent;
 import logic.dao.EventDAO;
+import logic.exceptions.DuplicateEventParticipation;
 import logic.model.MEvent;
 import logic.utils.LoggedUser;
 import logic.utils.UserTypes;
@@ -30,12 +31,12 @@ public class CManageEvent {
     3: user si trova su schermata YourEventsUser e gli vengono mostrati gli eventi passati e futuri a cui ha messo la partecipazione - query con relazione user_id e event_id
     */
 
-    public ArrayList<BEvent> retrieveMyEvents(UserTypes usertype, String fxmlpage) {
+    public ArrayList<BEvent> retrieveMyEvents(UserTypes usertype, String className) {
         ArrayList<MEvent> myEvents;
-        if (usertype == UserTypes.ORGANIZER && fxmlpage.equals("YourEventsOrg.fxml")) { //Caso 1:
+        if (usertype == UserTypes.ORGANIZER && className.equals("GCYourEventsOrg")) { //Caso 1:
             myEvents = eventDAO.retrieveMyEvents(LoggedUser.getUserID(), 0);
 
-        } else if (usertype == UserTypes.USER && fxmlpage.equals("HomeUser.fxml")) {    //Caso 2:
+        } else if (usertype == UserTypes.USER && className.equals("GCHomeUser")) {    //Caso 2:
             myEvents = eventDAO.retrieveMyEvents(LoggedUser.getUserID(), 1);
         } else {                                                                        //Caso 3:
             myEvents = eventDAO.retrieveMyEvents(LoggedUser.getUserID(), 2);
@@ -59,5 +60,11 @@ public class CManageEvent {
             myEventsBeans.add(tempEventBean);
         }
         return myEventsBeans;
+    }
+
+    public boolean participateToEvent(BEvent eventBean) throws DuplicateEventParticipation {
+        MEvent eventModel = new MEvent(eventBean);
+        eventDAO.joinUserToEvent(eventModel);
+        return true;
     }
 }

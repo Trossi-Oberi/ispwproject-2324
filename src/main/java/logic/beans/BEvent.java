@@ -1,6 +1,7 @@
 package logic.beans;
 
 public class BEvent {
+    private int eventID;
     private String eventName;
     private String eventCity;
     private String eventAddress;
@@ -9,10 +10,14 @@ public class BEvent {
     private String eventTime;
     private byte[] eventPicData;
     private String eventOrganizer;
+    private int eventOrganizerID;
 
     public BEvent() {
     }
 
+    public void setEventID(int eventID) {
+        this.eventID = eventID;
+    }
     public void setEventName(String eventName){ //throws LengthFieldException, NullValueException{
         this.eventName = eventName;
     }
@@ -42,10 +47,16 @@ public class BEvent {
     public void setEventPicData(byte[] picData){ //ALL = Data + File, rende disponibile sia la versione file che la versione binaria dell'immagine
         this.eventPicData = picData;
     }
+
     public void setEventOrganizer(String eventOrganizer){ //throws LengthFieldException {
         this.eventOrganizer = eventOrganizer;
     }
 
+    public void setEventOrganizerID(int eventOrgID){
+        this.eventOrganizerID = eventOrgID;
+    }
+
+    public int getEventID(){return this.eventID;}
     public String getEventName(){
         return this.eventName;
     }
@@ -70,8 +81,9 @@ public class BEvent {
         return this.eventTime;
     }
 
-    public String getEventOrganizer(){return this.eventOrganizer;}
-
     public byte[] getEventPicData(){return this.eventPicData;}
 
+    public String getEventOrganizer(){return this.eventOrganizer;}
+
+    public int getEventOrganizerID(){return this.eventOrganizerID;}
 }

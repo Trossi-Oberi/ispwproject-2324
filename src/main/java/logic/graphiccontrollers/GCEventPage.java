@@ -7,10 +7,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import logic.beans.BEvent;
+import logic.exceptions.DuplicateEventParticipation;
 import logic.utils.Alerts;
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class GCEventPage extends GCHomeUser {
 
@@ -41,6 +41,8 @@ public class GCEventPage extends GCHomeUser {
     @FXML
     private Button participateEventBtn;
 
+    private BEvent eventBean;
+
     @FXML
     public void initialize(){
 
@@ -60,6 +62,9 @@ public class GCEventPage extends GCHomeUser {
         } catch (NullPointerException e) {
             throw new RuntimeException(e);
         }
+
+        //salvo localmente il bean evento
+        this.eventBean = eventB;
     }
 
     @FXML
@@ -69,7 +74,17 @@ public class GCEventPage extends GCHomeUser {
 
     @FXML
     public void participateToEvent(MouseEvent event) {
-        alert.displayAlertPopup(Alerts.ERROR, "Not implemented :(");
+        try {
+            if(cfacade.participateToEvent(this.eventBean)){
+                alert.displayAlertPopup(Alerts.INFORMATION, "Event participation successfully added!\nYou can now view it on Your Events page");
+                goBack(event);
+            } else {
+                alert.displayAlertPopup(Alerts.ERROR, "Event participation failed :(");
+                goBack(event);
+            }
+        } catch (DuplicateEventParticipation e) {
+            alert.displayAlertPopup(Alerts.WARNING, "Event participation already planned");
+            goBack(event);
+        }
     }
-
 }

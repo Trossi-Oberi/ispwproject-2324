@@ -1,6 +1,7 @@
 package logic.controllers;
 
 import logic.beans.*;
+import logic.exceptions.DuplicateEventParticipation;
 import logic.utils.UserTypes;
 
 import java.util.ArrayList;
@@ -21,11 +22,19 @@ public class CFacade {
         return manageEventController.addEvent(bean); //chiamata al controller effettivo
     }
 
-    public ArrayList<BEvent> retrieveEvents(UserTypes userType, String fxmlpage){
+    public boolean participateToEvent(BEvent bean) throws DuplicateEventParticipation {
+        if(manageEventController == null){
+            manageEventController = new CManageEvent();
+        }
+
+        return manageEventController.participateToEvent(bean); //chiamata al controller effettivo
+    }
+
+    public ArrayList<BEvent> retrieveEvents(UserTypes userType, String className){
         if (manageEventController == null){
             manageEventController = new CManageEvent();
         }
-        return manageEventController.retrieveMyEvents(userType,fxmlpage);
+        return manageEventController.retrieveMyEvents(userType, className);
     }
 
     public int loginUser(BUserData bean){

@@ -42,7 +42,7 @@
             <Rectangle2D />
          </viewport>
       </ImageView>
-      <ListView layoutX="17.0" layoutY="139.0" prefHeight="189.0" prefWidth="407.0" />
+      <ListView fx:id="upComingEventsLV" layoutX="17.0" layoutY="139.0" prefHeight="189.0" prefWidth="407.0" />
       <Text layoutX="142.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Upcoming Events">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
@@ -63,11 +63,11 @@
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Text>
-      <ListView layoutX="439.0" layoutY="139.0" prefHeight="190.0" prefWidth="180.0" />
-      <ListView layoutX="635.0" layoutY="139.0" prefHeight="190.0" prefWidth="150.0" />
-      <ListView layoutX="439.0" layoutY="381.0" prefHeight="190.0" prefWidth="180.0" />
-      <ListView layoutX="634.0" layoutY="381.0" prefHeight="190.0" prefWidth="150.0" />
-      <ListView layoutX="17.0" layoutY="382.0" prefHeight="189.0" prefWidth="407.0" />
+      <ListView fx:id="upComingTimeLV" layoutX="439.0" layoutY="139.0" prefHeight="190.0" prefWidth="180.0" />
+      <ListView fx:id="upcomingMusicLV" layoutX="635.0" layoutY="139.0" prefHeight="190.0" prefWidth="150.0" />
+      <ListView fx:id="pastTimeLV" layoutX="439.0" layoutY="381.0" prefHeight="190.0" prefWidth="180.0" />
+      <ListView fx:id="pastMusicLV" layoutX="634.0" layoutY="381.0" prefHeight="190.0" prefWidth="150.0" />
+      <ListView fx:id="pastEventsLV" layoutX="17.0" layoutY="382.0" prefHeight="189.0" prefWidth="407.0" />
       <Text layoutX="477.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time &amp; Date">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
