@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 import javafx.stage.FileChooser;
@@ -32,13 +33,10 @@ import logic.controllers.CFacade;
 public class GCAddEvent extends EssentialGUI {
 
     ObservableList<String> musicGenresList = FXCollections.observableArrayList(MusicGenres.MUSIC_GENRES);
-    private CFacade facade = new CFacade();
     @FXML
     private DatePicker datePicker;
     @FXML
     private TextField eventAddressTF;
-    @FXML
-    private TextField eventCityTF;
     @FXML
     private TextField eventNameTF;
     @FXML
@@ -52,9 +50,17 @@ public class GCAddEvent extends EssentialGUI {
     private Label pickedFileLabel;
     @FXML
     private ChoiceBox<String> musicGenreBox;
+    @FXML
+    private ChoiceBox<String> cityChoiceBox;
+    @FXML
+    private ChoiceBox<String> provinceChoiceBox;
 
     private BEvent eventBean;
     private byte[] eventPicData;
+
+    private CFacade facade;
+    private ArrayList<String> provincesList = new ArrayList<>();
+    private ArrayList<String> citiesList = new ArrayList<>();
 
     public GCAddEvent() {
         eventBean = new BEvent();
@@ -62,6 +68,9 @@ public class GCAddEvent extends EssentialGUI {
 
     @FXML
     public void initialize() {
+
+        facade = new CFacade();
+
         //Disabilita le date precedenti a quella odierna per il datePicker
         datePicker.setDayCellFactory(picker -> new DateCell() {
             @Override
@@ -70,6 +79,11 @@ public class GCAddEvent extends EssentialGUI {
                 setDisable(date.isBefore(LocalDate.now()));
             }
         });
+
+        this.provincesList = facade.getProvincesList();
+        ObservableList<String> provincesList = FXCollections.observableArrayList(this.provincesList);
+        this.provinceChoiceBox.setItems(provincesList);
+        setupProvinceBoxListener();
 
         musicGenreBox.setValue(MusicGenres.MUSIC_GENRES[0]);
         musicGenreBox.setItems(musicGenresList);
@@ -102,7 +116,7 @@ public class GCAddEvent extends EssentialGUI {
     void addEventControl(MouseEvent event) {
         //try{
         eventBean.setEventName(eventNameTF.getText());
-        eventBean.setEventCity(eventCityTF.getText());
+        eventBean.setEventCity(cityChoiceBox.getValue());
         eventBean.setEventAddress(eventAddressTF.getText());
         /*}catch (LengthFieldException e) {
             this.popErr.displayErrorPopup(e.getMsg());
@@ -125,6 +139,19 @@ public class GCAddEvent extends EssentialGUI {
         }
 
 
+    }
+
+    private void setupProvinceBoxListener(){
+        this.provinceChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            this.citiesList.clear();
+            this.citiesList = facade.getCitiesList(String.valueOf(newValue));
+            updateCityListView();
+        });
+    }
+
+    private void updateCityListView(){
+        ObservableList<String> citiesList = FXCollections.observableArrayList(this.citiesList);
+        this.cityChoiceBox.setItems(citiesList);
     }
 
 }
