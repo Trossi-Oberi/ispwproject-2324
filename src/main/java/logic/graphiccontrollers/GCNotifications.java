@@ -41,7 +41,7 @@ public class GCNotifications extends EssentialGUI {
 
             hbox.getChildren().addAll(label, spacer, deleteButton);
             hbox.setAlignment(Pos.CENTER_LEFT);
-            hbox.setSpacing(10);
+            hbox.setSpacing(5);
         }
 
         @Override
