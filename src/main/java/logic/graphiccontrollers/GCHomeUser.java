@@ -99,6 +99,7 @@ public class GCHomeUser extends EssentialGUI implements DoubleClickListener {
             }
             nextGuiOnClick(event);
     }
+
 }
 
 

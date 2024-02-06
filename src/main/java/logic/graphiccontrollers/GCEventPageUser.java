@@ -15,7 +15,7 @@ public class GCEventPageUser extends GCEventPageGeneral {
 
     @FXML
     void goBack(MouseEvent event) {
-
+        goToYourEvents(event);
     }
 
     @FXML
@@ -33,6 +33,12 @@ public class GCEventPageUser extends GCEventPageGeneral {
             goBack(event);
         }
     }
+    @FXML
+    void openMap(MouseEvent event) {
+
+    }
+
+
 
 
 }

@@ -45,7 +45,7 @@
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Button>
-      <Button layoutX="35.0" layoutY="278.0" mnemonicParsing="false" prefHeight="126.0" prefWidth="334.0" style="-fx-background-radius: 0;" text="Select radius">
+      <Button fx:id="changeCityBtn" layoutX="35.0" layoutY="278.0" mnemonicParsing="false" onMouseClicked="#goToChangeCity" prefHeight="126.0" prefWidth="334.0" style="-fx-background-radius: 0;" text="Change city">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
@@ -55,7 +55,7 @@
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Button>
-      <Button layoutX="432.0" layoutY="122.0" mnemonicParsing="false" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;" text="Your groups">
+      <Button fx:id="yourGroupsBtn" layoutX="432.0" layoutY="122.0" mnemonicParsing="false" onMouseClicked="#goToYourGroups" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;" text="Your groups">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>

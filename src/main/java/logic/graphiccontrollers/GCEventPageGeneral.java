@@ -9,10 +9,11 @@ import javafx.scene.text.Text;
 import logic.beans.BEvent;
 import logic.exceptions.DuplicateEventParticipation;
 import logic.utils.Alerts;
+import logic.view.EssentialGUI;
 
 import java.io.*;
 
-public class GCEventPageGeneral extends GCHomeUser {
+public class GCEventPageGeneral extends EssentialGUI {
 
     @FXML
     private Text address;
