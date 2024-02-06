@@ -7,6 +7,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import logic.exceptions.DuplicateEventParticipation;
 import logic.utils.Alerts;
+import logic.utils.GoogleMapsAPI;
+
+import java.util.logging.Level;
 
 public class GCEventPageUser extends GCEventPageGeneral {
 
