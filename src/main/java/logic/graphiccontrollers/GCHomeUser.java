@@ -8,6 +8,7 @@ import javafx.scene.control.ListView;
 
 import javafx.scene.input.MouseEvent;
 import logic.beans.BEvent;
+import logic.interfaces.DoubleClickListener;
 import logic.utils.Alerts;
 import logic.utils.LoggedUser;
 import logic.view.EssentialGUI;
@@ -19,7 +20,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
-public class GCHomeUser extends GCHomeGeneral {
+public class GCHomeUser extends EssentialGUI implements DoubleClickListener {
+
+
 
     @FXML
     private ListView<String> eventsListView;
@@ -30,12 +33,12 @@ public class GCHomeUser extends GCHomeGeneral {
     @FXML
     private ListView<String> groupsListView;
 
+    private ArrayList<BEvent> eventsList = new ArrayList<>();
     private ArrayList<BEvent> upcomingEventsList = new ArrayList<>();
 
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     public void initialize(){
-        //inserire retrive eventi della tua città all'avvio della schermata
         eventsList = cfacade.retrieveEvents(LoggedUser.getUserType(), this.getClass().getSimpleName());
         populateEventsListView();
         setupEventClickListener();
@@ -61,7 +64,7 @@ public class GCHomeUser extends GCHomeGeneral {
                 // Verifica se è stato effettuato un doppio clic
                 BEvent selectedEventBean = upcomingEventsList.get(selectedEventIndex);
                 try {
-                    onItemDoubleClick(event, selectedEventBean);
+                    onItemDoubleClick(event, selectedEventBean, "EventPageUser.fxml");
                 } catch (RuntimeException e){
                     alert.displayAlertPopup(Alerts.ERROR, "FATAL ERROR, runtime exception on double click");
                 }
@@ -76,9 +79,9 @@ public class GCHomeUser extends GCHomeGeneral {
     }
 
     @Override
-    public void onItemDoubleClick(MouseEvent event, BEvent selectedEventBean) {
+    public void onItemDoubleClick(MouseEvent event, BEvent selectedEventBean, String fxmlpage) {
             try {
-                URL loc = EssentialGUI.class.getResource("EventPageUser.fxml");
+                URL loc = EssentialGUI.class.getResource(fxmlpage);
                 FXMLLoader loader = new FXMLLoader(loc);
                 Parent root = null;
                 if(loc != null) {
@@ -96,6 +99,7 @@ public class GCHomeUser extends GCHomeGeneral {
             }
             nextGuiOnClick(event);
     }
+
 }
 
 

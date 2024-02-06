@@ -19,6 +19,7 @@ public class GCContactUs extends EssentialGUI implements InfoPages {
     @FXML
     private Hyperlink nicoHyperlink;
 
+    @Override
     public void openLink(ActionEvent event) throws URISyntaxException, IOException {
         if (nicoHyperlink.isVisited()) {
             Desktop.getDesktop().browse(new URI(nicoHyperlink.getText()));

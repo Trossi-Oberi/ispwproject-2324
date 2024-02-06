@@ -71,15 +71,13 @@ public class GCYourEventsOrg extends GCYourEventsGeneral{
 
         }
     }
-    private void setupEventClickListener(){
+    @Override
+    public void setupEventClickListener(){
         analyticsLV.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
-                //errore
-                int selectedEventIndex = analyticsLV.getSelectionModel().getSelectedIndex();
-                // Verifica se è stato effettuato un doppio clic
-                BEvent selectedEventBean = pastEventsBeanList.get(selectedEventIndex);
+                BEvent selectedEventBean = getBeanFromListView(analyticsLV,pastEventsBeanList);
                 try {
-                    onItemDoubleClick(event, selectedEventBean);
+                    onItemDoubleClick(event, selectedEventBean, "Analytics.fxml");
                 } catch (RuntimeException e){
                     alert.displayAlertPopup(Alerts.ERROR, "FATAL ERROR, runtime exception on double click");
                 }
@@ -88,24 +86,36 @@ public class GCYourEventsOrg extends GCYourEventsGeneral{
         upcEventsLV.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 // Verifica se è stato effettuato un doppio clic
-                alert.displayAlertPopup(Alerts.ERROR, "Not implemented :(");
+                BEvent selectedEventBean = getBeanFromListView(upcEventsLV,upcEventsBeanList);
+                try {
+                    onItemDoubleClick(event, selectedEventBean, "EventPageOrg.fxml");
+                } catch (RuntimeException e){
+                    System.out.println("Errore "+e.getMessage());
+//                    alert.displayAlertPopup(Alerts.ERROR, "FATAL ERROR, runtime exception on double click");
+                }
             }
         });
     }
 
-    private void onItemDoubleClick(MouseEvent event, BEvent selectedEventBean) {
+    @Override
+    public void onItemDoubleClick(MouseEvent event, BEvent selectedEventBean, String fxmlpage) {
         try {
 
-            URL loc = EssentialGUI.class.getResource("Analytics.fxml");
+            URL loc = EssentialGUI.class.getResource(fxmlpage);
             FXMLLoader loader = new FXMLLoader(loc);
             Parent root = null;
             if(loc != null) {
                 root = loader.load();
             }
-            GCAnalytics analyticsGC = loader.getController();
-            analyticsGC.initAnalyticsByBean(selectedEventBean);
+            if (fxmlpage.equals("Analytics.fxml")){
+                GCAnalytics analyticsGC = loader.getController();
+                analyticsGC.initAnalyticsByBean(selectedEventBean);
+                analyticsGC.initParticipantsInfo();
+            }else{
+                GCEventPageOrg eventPageOrgGC = loader.getController();
+                eventPageOrgGC.initEventFromBean(selectedEventBean);
+            }
 
-            analyticsGC.initParticipantsInfo();
 
             scene = new Scene(root);
             scene.getStylesheets().add(EssentialGUI.class.getResource("application.css").toExternalForm());
@@ -117,6 +127,11 @@ public class GCYourEventsOrg extends GCYourEventsGeneral{
             throw new RuntimeException(e);
         }
         nextGuiOnClick(event);
+    }
+
+    private BEvent getBeanFromListView(ListView<String> lv, ArrayList<BEvent> beansArray){
+        int selectedEventIndex = lv.getSelectionModel().getSelectedIndex();
+        return beansArray.get(selectedEventIndex);
     }
 
 
