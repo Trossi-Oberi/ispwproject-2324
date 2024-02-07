@@ -1,5 +1,7 @@
 package logic.beans;
 
+import logic.utils.UserTypes;
+
 import java.time.LocalDate;
 
 public class BUserData {
@@ -8,7 +10,7 @@ public class BUserData {
     private LocalDate birthDate;
     private String gender;
     private String city;
-    private String userType;
+    private UserTypes userType;
     private String username;
     private String password;
 
@@ -57,7 +59,7 @@ public class BUserData {
         this.gender = gender;
     }
 
-    public void setType(String typeOfUsr) {
+    public void setType(UserTypes typeOfUsr) {
         this.userType = typeOfUsr;
     }
 
@@ -97,7 +99,7 @@ public class BUserData {
         return this.gender;
     }
 
-    public String getUserType() {
+    public UserTypes getUserType() {
         return this.userType;
     }
 

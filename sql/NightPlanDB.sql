@@ -52,11 +52,11 @@ create table Cities
 );
 
 insert into Users (id, username, password, firstName, lastName, dateOfBirth, gender, city, userType, userStatus) values
-    (NULL, 'Matteo', 'Matteo', 'Matteo', 'Trossi', '16/03/1998', 'Male', 'Anagni', 'User', 'Online'),
-    (NULL, 'Nicolas', 'Nicolas', 'Nicolas', 'Oberi', '16/03/1998', 'Male', 'Cave', 'Organizer', 'Online'),
-    (NULL, 'm', 'm', 'm', 'm', '16/03/1998', 'Male', 'Anagni', 'User', 'Online'),
-    (NULL, 'n', 'n', 'n', 'n', '16/03/1998', 'Male', 'Anagni', 'User', 'Online'),
-    (NULL, 'o', 'o', 'o', 'o', '16/03/1998', 'Male', 'Anagni', 'User', 'Online');
+    (NULL, 'Matteo', 'Matteo', 'Matteo', 'Trossi', '16/03/1998', 'Male', 'Anagni', 'USER', 'Online'),
+    (NULL, 'Nicolas', 'Nicolas', 'Nicolas', 'Oberi', '16/03/1998', 'Male', 'Cave', 'ORGANIZER', 'Online'),
+    (NULL, 'm', 'm', 'm', 'm', '16/03/1998', 'Male', 'Anagni', 'USER', 'Online'),
+    (NULL, 'n', 'n', 'n', 'n', '16/03/1998', 'Male', 'Anagni', 'USER', 'Online'),
+    (NULL, 'o', 'o', 'o', 'o', '16/03/1998', 'Male', 'Anagni', 'USER', 'Online');
 
 insert into Events (event_id, organizer, organizer_id, name, city, address, music_genre, date, time, image) values
     (NULL, 'Nicolas', 2, 'Uane', 'Anagni', 'Via Casilina', 'Pop', '03-03-2024', '18:40', LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerplanet.jpg')),

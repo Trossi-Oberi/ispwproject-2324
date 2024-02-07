@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import logic.beans.BUserData;
 import logic.controllers.CFacade;
 import logic.utils.Alerts;
+import logic.utils.UserTypes;
 import logic.view.AlertPopup;
 import logic.view.EssentialGUI;
 
@@ -126,9 +127,9 @@ public class GCRegistration {
     private void register(MouseEvent event) {
         try {
             if (userRadio.isSelected()) {
-                this.dataBean.setType(this.userRadio.getText());
+                this.dataBean.setType(UserTypes.USER);
             } else {
-                this.dataBean.setType(this.organizerRadio.getText());
+                this.dataBean.setType(UserTypes.ORGANIZER);
             }
             if (facadeController.registerUser(this.dataBean)) {
                 this.alert.displayAlertPopup(Alerts.INFORMATION, "Successfully registered to NightPlan");

@@ -20,12 +20,8 @@ public class LoggedUser {
         username = usrName;
     }
 
-    public static void setUserType(String type) {
-        if (type.equals("User")) {
-            userType = UserTypes.USER;
-        } else if (type.equals("Organizer")) {
-            userType = UserTypes.ORGANIZER;
-        }
+    public static void setUserType(UserTypes type) {
+        userType = type;
     }
 
     public static void setFirstName(String firstname) {

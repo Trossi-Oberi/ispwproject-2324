@@ -3,6 +3,7 @@ package logic.model;
 import java.time.LocalDate;
 
 import logic.beans.BUserData;
+import logic.utils.UserTypes;
 
 public class MUser {
     private String firstName;
@@ -12,7 +13,7 @@ public class MUser {
     private String city;
     private String username;
     private String password;
-    private String userType;
+    private UserTypes userType;
     private int userID;
 
     public void setCredentialsByBean(BUserData dataBean) {
@@ -31,7 +32,7 @@ public class MUser {
         this.password = dataBean.getPassword();
     }
 
-    public void setUserType(String userType) {
+    public void setUserType(UserTypes userType) {
         this.userType = userType;
     }
 
@@ -87,7 +88,7 @@ public class MUser {
         return this.password;
     }
 
-    public String getUserType() {
+    public UserTypes getUserType() {
         return this.userType;
     }
 

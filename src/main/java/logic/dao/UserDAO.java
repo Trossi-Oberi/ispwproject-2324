@@ -2,6 +2,7 @@ package logic.dao;
 
 import logic.utils.SingletonDBSession;
 import logic.model.MUser;
+import logic.utils.UserTypes;
 
 import java.sql.*;
 
@@ -37,7 +38,14 @@ public class UserDAO {
                 usrMod.setBirthDate(rs.getString(4));
                 usrMod.setGender(rs.getString(5));
                 usrMod.setCity(rs.getString(6));
-                usrMod.setUserType(rs.getString(7));
+
+                //conversione da stringa a UserType
+                String usrtypeString = rs.getString(7);
+                if (usrtypeString.equals(UserTypes.USER.toString())){
+                    usrMod.setUserType(UserTypes.USER);
+                }else{
+                    usrMod.setUserType(UserTypes.ORGANIZER);
+                }
                 return 1;
             }
         } catch (SQLException e) {
@@ -69,7 +77,7 @@ public class UserDAO {
             statement.setString(5, usrModel.getBirthDate());
             statement.setString(6, usrModel.getGender());
             statement.setString(7, usrModel.getCity());
-            statement.setString(8, usrModel.getUserType());
+            statement.setString(8, usrModel.getUserType().toString());
             statement.setString(9, "Offline");
             statement.execute();
         } catch (SQLException e) {
