@@ -34,8 +34,9 @@ public class CRegistration {
         else {
             this.userModel.setCredentialsByBean(usrBean);
             this.userDao.registerUser(this.userModel);
+            this.userModel.setId(userDao.getUserIDByUsername(this.userModel.getUserName()));
             if (this.userModel.getUserType() == UserTypes.USER){
-                updateServerAfterUserReg(); //reg == registration
+                updateServerAfterUserReg(this.userModel.getUserID()); //reg == registration
             }
         }
         return true;
@@ -62,7 +63,7 @@ public class CRegistration {
         return -1;
     }
 
-    private void updateServerAfterUserReg(){
+    private void updateServerAfterUserReg(int userID){
 
         try {
             // Crea una socket per la connessione al server
@@ -72,7 +73,7 @@ public class CRegistration {
             ObjectOutputStream objOutputStream = new ObjectOutputStream(socket.getOutputStream());
 
             //creazione messaggio
-            Message message = new Message(MessageTypes.UserRegistration, this.userModel.getUserID(), this.userModel.getCity());
+            Message message = new Message(MessageTypes.UserRegistration, userID, this.userModel.getCity());
 
             objOutputStream.writeObject(message);
 

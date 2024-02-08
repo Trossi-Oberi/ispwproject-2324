@@ -101,6 +101,22 @@ public class UserDAO {
         }
     }
 
+    public int getUserIDByUsername(String username){
+        int userID=0;
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id FROM users WHERE (username = ?)")){
+            statement.setString(1, username);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                userID=rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
+        } finally {
+            SingletonDBSession.getInstance().closeConn();
+        }
+        return userID;
+    }
+
     /*//SERVE??
     public ArrayList<Integer> getUserIDbyCity(String city){
         ArrayList <Integer> userIDs = new ArrayList<>();

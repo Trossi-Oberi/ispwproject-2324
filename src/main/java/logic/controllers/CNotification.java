@@ -12,62 +12,62 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class CNotification {
 
-    private Socket socket;
-    private ObjectInputStream objInputStream;
-    private ObjectOutputStream objOutputStream;
     private boolean running;
     private NotificationDAO notificationDAO;
 
-    public CNotification(){
+    public CNotification() {
         this.notificationDAO = new NotificationDAO();
     }
-    public void connectToNotificationServer(int clientID){
+
+    public void connectToNotificationServer(int clientID) {
+        Thread notificationReceiverThread = new Thread(()-> receiveNotifications(clientID));
+        notificationReceiverThread.start();
+    }
+
+    public void receiveNotifications(int clientID) {
+        Socket socket;
+        ObjectOutputStream oos;
+        ObjectInputStream ois;
+        running = true;
+
         try {
             // Crea una socket per la connessione al server
-            this.socket = new Socket(NotificationServer.SERVER_ADDRESS, NotificationServer.PORT);
+            socket = new Socket(NotificationServer.SERVER_ADDRESS, NotificationServer.PORT);
 
             // Ottiene il flusso di output della socket
-            objOutputStream = new ObjectOutputStream(socket.getOutputStream());
+            oos = new ObjectOutputStream(socket.getOutputStream());
             Message message;
 
             //creazione messaggio
-            if (LoggedUser.getUserType() == UserTypes.USER){
+            if (LoggedUser.getUserType() == UserTypes.USER) {
                 message = new Message(MessageTypes.UserLogin, clientID);
-            }else{
+            } else {
                 message = new Message(MessageTypes.OrganizerLogin, clientID);
             }
 
-            objOutputStream.writeObject(message);
-            objOutputStream.close();
-            running = true;
-            Thread notificationReceiverThread = new Thread(this::receiveNotifications);
-            notificationReceiverThread.start();
+            oos.writeObject(message);
+            oos.flush();
 
+            ois = new ObjectInputStream(socket.getInputStream());
 
-            //socket non va chiusa
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void receiveNotifications(){
-        try {
             while (running) {
-                objInputStream = new ObjectInputStream(socket.getInputStream());
-                Message receivedMessage = (Message) objInputStream.readObject();
-                switch (receivedMessage.getType()){
+//                ObjectInputStream objInputStream = new ObjectInputStream(socket.getInputStream());
+                Message receivedMessage = (Message) ois.readObject();
+                switch (receivedMessage.getType()) {
                     case EventAdded:
                         EssentialGUI.showNotification();
                         break;
                 }
             }
             // Chiudi il reader e il socket quando il thread termina
-            objInputStream.close();
-            this.socket.close();
-        } catch (IOException | ClassNotFoundException e) {
+            ois.close();
+            oos.close();
+            socket.close();
+        } catch (Exception e){
             e.printStackTrace();
         }
     }

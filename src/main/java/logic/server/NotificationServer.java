@@ -80,6 +80,7 @@ public class NotificationServer {
                 // Identifica il tipo di messaggio e agisce di conseguenza
                 switch(message.getType()){
                     case UserRegistration:
+                        System.out.println("User registration: user id="+message.getClientID()+", citta'="+message.getCity());
                         ObserverClass userObs = new ObserverClass(message.getClientID());
                         attachUserObserver(message.getCity(),userObs);
                         break;
