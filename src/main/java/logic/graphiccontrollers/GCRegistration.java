@@ -1,137 +1,80 @@
 package logic.graphiccontrollers;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import logic.beans.BUserData;
 import logic.controllers.CFacade;
 import logic.utils.Alerts;
-import logic.utils.UserTypes;
 import logic.view.AlertPopup;
 import logic.view.EssentialGUI;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class GCRegistration {
+public abstract class GCRegistration {
 
     @FXML
-    private DatePicker birthDate;
+    protected DatePicker birthDate;
 
     @FXML
-    private ChoiceBox<String> cityBox;
+    protected ChoiceBox<String> cityBox;
 
     @FXML
-    private TextField emailField;
+    protected TextField emailField;
 
     @FXML
-    private TextField firstNameField;
+    protected TextField firstNameField;
 
     @FXML
-    private ChoiceBox<String> gender;
+    protected ChoiceBox<String> gender;
 
     @FXML
-    private TextField lastNameField;
+    protected TextField lastNameField;
 
     @FXML
-    private RadioButton organizerRadio;
+    protected RadioButton organizerRadio;
 
     @FXML
-    private PasswordField passwordField;
+    protected PasswordField passwordField;
 
     @FXML
-    private ChoiceBox<String> provinceBox;
+    protected ChoiceBox<String> provinceBox;
 
     @FXML
-    private Button registerButton;
+    protected Button registerButton;
 
     @FXML
-    private Button returnLogin;
+    protected Button returnLogin;
 
     @FXML
-    private RadioButton userRadio;
+    protected RadioButton userRadio;
+    @FXML
+    protected final ToggleGroup group = new ToggleGroup();
+
+    protected ArrayList<String> provincesList = new ArrayList<>();
+    protected ArrayList<String> citiesList = new ArrayList<>();
+
+    protected AlertPopup alert;
+    protected EssentialGUI gui;
+    protected CFacade facadeController;
+    protected BUserData dataBean;
 
     @FXML
-    private final ToggleGroup group = new ToggleGroup();
-
-    private ArrayList<String> provincesList = new ArrayList<>();
-    private ArrayList<String> citiesList = new ArrayList<>();
-
-    private AlertPopup alert;
-    private EssentialGUI gui;
-    private CFacade facadeController;
-    private BUserData dataBean;
-    //da rimuovere
-    //private static final Logger logger = Logger.getLogger(GCRegistration.class.getName());
+    public abstract void initialize();
 
     @FXML
-    public void initialize() {
-
-        this.alert = new AlertPopup();
-        this.gui = new EssentialGUI();
-        this.facadeController = new CFacade();
-        this.gender.getItems().addAll("Male", "Female", "Other");
-        //this.group = new ToggleGroup();
-        this.dataBean = new BUserData();
-
-        //Disabilita le date successive a quella odierna per il datePicker
-        birthDate.setDayCellFactory(picker -> new DateCell() {
-            @Override
-            public void updateItem(LocalDate date, boolean empty) {
-                super.updateItem(date, empty);
-                setDisable(date.isAfter(LocalDate.now()));
-            }
-        });
-
-        this.provincesList = facadeController.getProvincesList();
-        ObservableList<String> provincesList = FXCollections.observableArrayList(this.provincesList);
-        this.provinceBox.setItems(provincesList);
-        setupProvinceBoxListener();
-
-        userRadio.setSelected(true);
-        userRadio.setToggleGroup(group);
-        organizerRadio.setToggleGroup(group);
-    }
-
-    @FXML
-    public void registerControl(MouseEvent event) {
-        try {
-            this.dataBean.setUsername(this.emailField.getText());
-            this.dataBean.setPassword(this.passwordField.getText());
-            this.dataBean.setFirstName(this.firstNameField.getText());
-            this.dataBean.setLastName(this.lastNameField.getText());
-            this.dataBean.setGender(this.gender.getValue());
-            this.dataBean.setBirthDate(this.birthDate.getValue());
-            this.dataBean.setCity(this.cityBox.getValue());
-            register(event);
-        } catch (
-                Exception e) { //vanno configurate tutte le eccezioni nel dataBean (nome troppo lungo, data non valida, etc...)
-            this.alert.displayAlertPopup(Alerts.ERROR, e.getMessage());
-        }
-    }
+    public abstract void registerControl(MouseEvent event);
 
     @FXML
     public void returnBack(MouseEvent event) {
         gui.changeGUI(event, "Login.fxml");
     }
 
-    @FXML
-    void loadProvinceBox(MouseEvent event) {
-
-
-    }
-
-    private void register(MouseEvent event) {
+    protected void register(MouseEvent event) {
         try {
-            if (userRadio.isSelected()) {
-                this.dataBean.setType(UserTypes.USER);
-            } else {
-                this.dataBean.setType(UserTypes.ORGANIZER);
-            }
-            if (facadeController.registerUser(this.dataBean)) {
+            if (this.facadeController.registerUser(this.dataBean)) {
                 this.alert.displayAlertPopup(Alerts.INFORMATION, "Successfully registered to NightPlan");
                 this.gui.changeGUI(event, "Login.fxml");
             } else {
@@ -142,16 +85,16 @@ public class GCRegistration {
         }
     }
 
-    private void setupProvinceBoxListener(){
+    protected void setupProvinceBoxListener() {
         this.provinceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             this.citiesList.clear();
-            this.citiesList = facadeController.getCitiesList(String.valueOf(newValue));
+            this.citiesList = this.facadeController.getCitiesList(String.valueOf(newValue));
             updateCityListView();
         });
     }
-    private void updateCityListView(){
+
+    protected void updateCityListView() {
         ObservableList<String> citiesList = FXCollections.observableArrayList(this.citiesList);
         this.cityBox.setItems(citiesList);
     }
-
 }

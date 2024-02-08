@@ -18,8 +18,12 @@ public class BUserData {
 
     }
 
-    public BUserData(String username, String password) {
+    public BUserData(String username) {
         this.username = username;
+    }
+
+    public BUserData(String username, String password) {
+        this(username);
         this.password = password;
     }
 

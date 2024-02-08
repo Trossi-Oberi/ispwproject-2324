@@ -1,5 +1,6 @@
 package logic.graphiccontrollers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -11,13 +12,18 @@ import javafx.stage.Stage;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import logic.exceptions.DuplicateEventParticipation;
+import logic.interfaces.InfoPages;
 import logic.utils.Alerts;
 
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.net.URLEncoder;
 
-public class GCEventPageUser extends GCEventPageGeneral {
+public class GCEventPageUser extends GCEventPageGeneral implements InfoPages {
 
     @FXML
     private Button participateEventBtn;
@@ -46,28 +52,10 @@ public class GCEventPageUser extends GCEventPageGeneral {
         }
     }
 
-    @FXML
-    public void openMap(MouseEvent event) {
-        Stage modalStage = new Stage();
-        modalStage.initModality(Modality.WINDOW_MODAL);
-        modalStage.setTitle("Google Maps");
-
-        WebView webView = new WebView();
-        WebEngine webEngine = webView.getEngine();
-
-        try {
-            String url = generateMapLink(eventBean.getEventAddress());
-            webEngine.load(url);
-        } catch (NullPointerException e){
-            logger.log(Level.SEVERE, "No link generated");
-        }
-
-        VBox modalLayout = new VBox(10);
-        modalLayout.getChildren().addAll(webView);
-        modalLayout.setPadding(new Insets(10));
-
-        modalStage.setScene(new Scene(modalLayout, 800, 600));
-        modalStage.showAndWait();
+    @Override
+    public void openLink(ActionEvent event) throws URISyntaxException, IOException {
+        String link = generateMapLink(eventBean.getEventAddress());
+        Desktop.getDesktop().browse(new URI(link));
     }
 
     private static String generateMapLink(String address){

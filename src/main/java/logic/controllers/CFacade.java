@@ -48,7 +48,21 @@ public class CFacade {
         if (loginController == null){
             loginController = new CLogin();
         }
-        return loginController.checkLogInControl(bean);
+        return loginController.checkLoginControl(bean);
+    }
+
+    public int initGoogleAuth() throws RuntimeException{
+        if (loginController == null){
+            loginController = new CLogin();
+        }
+        return loginController.initGoogleAuth();
+    }
+
+    public int googleLoginUser(BUserData bean, String code){
+        if (loginController == null){
+            loginController = new CLogin();
+        }
+        return loginController.checkGoogleLoginControl(bean, code);
     }
 
     public boolean registerUser(BUserData bean){
