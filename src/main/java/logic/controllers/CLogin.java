@@ -4,7 +4,6 @@ import logic.dao.UserDAO;
 import logic.model.MUser;
 import logic.beans.BUserData;
 import logic.utils.LoggedUser;
-
 import logic.utils.GoogleLogin;
 
 public class CLogin {
@@ -16,42 +15,27 @@ public class CLogin {
         this.userModel = new MUser();
     }
 
-    public int checkLoginControl(BUserData logBean) {
-        int ret;
-        this.userModel.setUsrAndPswByBean(logBean); //qui ancora non avviene il controllo della correttezza dei dati,
-        ret = this.userDao.checkLoginInfo(this.userModel, false); //qui effettivamente e' il DAO che va a controllare la correttezza delle credenziali
+    public int checkLoginControl(BUserData logBean, boolean isGoogleAuth, String authCode) throws RuntimeException{
+        int ret = 0;
+        if(!isGoogleAuth && authCode == null){
+            //classic login
+            this.userModel.setUsrAndPswByBean(logBean); //qui ancora non avviene il controllo della correttezza dei dati,
+            ret = this.userDao.checkLoginInfo(this.userModel, false); //qui effettivamente e' il DAO che va a controllare la correttezza delle credenziali
+        } else if (isGoogleAuth && authCode != null) {
+            String userGoogleEmail;
+            try {
+                userGoogleEmail = GoogleLogin.getGoogleAccountEmail(GoogleLogin.getGoogleAccountCredentials(GoogleLogin.getGoogleAuthFlow(), authCode));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            logBean.setUsername(userGoogleEmail);
+            this.userModel.setUsrAndPswByBean(logBean);
+            ret = this.userDao.checkLoginInfo(this.userModel, true);
+        }
         if (ret == 1) {
             createLoggedSession();
         }
-        return ret;
-    }
 
-    public int initGoogleAuth() throws RuntimeException{
-        int ret = 0;
-        try {
-            if(GoogleLogin.initGoogleLogin() == 1){
-                ret = 1;
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return ret;
-    }
-
-    public int checkGoogleLoginControl(BUserData googleLogBean, String authCode) {
-        int ret = 0;
-        String userGoogleEmail;
-        try {
-            userGoogleEmail = GoogleLogin.getGoogleAccountEmail(GoogleLogin.getGoogleAccountCredentials(GoogleLogin.getGoogleAuthFlow(), authCode));
-            googleLogBean.setUsername(userGoogleEmail);
-            this.userModel.setUsrAndPswByBean(googleLogBean);
-            ret = this.userDao.checkLoginInfo(this.userModel, true);
-            if (ret == 1) {
-                createLoggedSession();
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
         return ret;
     }
 
@@ -64,5 +48,18 @@ public class CLogin {
         LoggedUser.setGender(this.userModel.getGender());
         LoggedUser.setCity(this.userModel.getCity());
         LoggedUser.setBirthDate(this.userModel.getBirthDate());
+    }
+
+    public void closeLoginSession(){
+        LoggedUser.setUserID(0);
+        LoggedUser.setUserName(null);
+        LoggedUser.setUserType(null);
+        LoggedUser.setFirstName(null);
+        LoggedUser.setLastName(null);
+        LoggedUser.setGender(null);
+        LoggedUser.setCity(null);
+        LoggedUser.setBirthDate(null);
+
+        //x Nicolas, aggiungere messaggio di disconnessione da inviare al server e settare stato Offline
     }
 }

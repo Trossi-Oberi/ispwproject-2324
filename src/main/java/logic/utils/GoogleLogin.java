@@ -3,6 +3,7 @@ package logic.utils;
 import com.google.api.client.auth.oauth2.AuthorizationCodeRequestUrl;
 import com.google.api.client.auth.oauth2.AuthorizationCodeResponseUrl;
 import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.auth.oauth2.TokenResponseException;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
@@ -69,13 +70,13 @@ public class GoogleLogin {
 
     public static Credential getGoogleAccountCredentials(GoogleAuthorizationCodeFlow flow, String code) throws Exception{
         Credential cred = flow.loadCredential("user");
-        // Check if the cred is null or expired (credentials last about an hour I think)
-        if(cred == null || (cred.getExpiresInSeconds() < 100 && !cred.refreshToken())){
-            // If it is expired, you need to refresh it via UserAuthorization, again, if you
-            // want to I can provide an example code
+        try {
             GoogleTokenResponse resp = flow.newTokenRequest(code).setRedirectUri("urn:ietf:wg:oauth:2.0:oob").execute();
             cred = flow.createAndStoreCredential(resp, "user");
+        } catch (TokenResponseException e){
+            throw new RuntimeException(e.getDetails().getErrorDescription());
         }
+
         return cred;
     }
 

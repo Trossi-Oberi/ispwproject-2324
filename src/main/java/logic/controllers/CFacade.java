@@ -44,25 +44,11 @@ public class CFacade {
         return manageEventController.getParticipationsToEvent(id);
     }
 
-    public int loginUser(BUserData bean){
+    public int loginUser(BUserData bean, boolean isGoogleAuth, String authCode) throws RuntimeException{
         if (loginController == null){
             loginController = new CLogin();
         }
-        return loginController.checkLoginControl(bean);
-    }
-
-    public int initGoogleAuth() throws RuntimeException{
-        if (loginController == null){
-            loginController = new CLogin();
-        }
-        return loginController.initGoogleAuth();
-    }
-
-    public int googleLoginUser(BUserData bean, String code){
-        if (loginController == null){
-            loginController = new CLogin();
-        }
-        return loginController.checkGoogleLoginControl(bean, code);
+        return loginController.checkLoginControl(bean, isGoogleAuth, authCode);
     }
 
     public boolean registerUser(BUserData bean){
@@ -84,6 +70,13 @@ public class CFacade {
             regController = new CRegistration();
         }
         return regController.getCitiesList(province);
+    }
+
+    public void signOut(){
+        if (loginController == null) {
+            loginController = new CLogin();
+        }
+        loginController.closeLoginSession();
     }
 
 

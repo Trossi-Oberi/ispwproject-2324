@@ -36,7 +36,7 @@ public class GCSettingsGeneral extends EssentialGUI { //SettingsGeneral coincide
 
     @FXML
     void leaveApp(MouseEvent event) {
-        //LoggedUser.setStatus("Offline");
+        this.cfacade.signOut();
         changeGUI(event, "Login.fxml");
         this.alert.displayAlertPopup(Alerts.INFORMATION,"Logged out successfully. You have been returned to the login screen!");
     }
