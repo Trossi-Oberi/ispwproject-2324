@@ -19,9 +19,6 @@ import java.net.Socket;
 public class CLogin {
     private UserDAO userDao;
     private MUser userModel;
-    private Socket socket;
-    private ObjectInputStream objInputStream;
-    private ObjectOutputStream objOutputStream;
     private boolean running;
 
     public CLogin() {
@@ -48,7 +45,6 @@ public class CLogin {
         }
         if (ret == 1) {
             createLoggedSession();
-            connectToNotificationServer();
         }
 
         return ret;
@@ -77,51 +73,5 @@ public class CLogin {
 
         //x Nicolas, aggiungere messaggio di disconnessione da inviare al server e settare stato Offline
     }
-
-    private void connectToNotificationServer(){
-        try {
-            // Crea una socket per la connessione al server
-            socket = new Socket(NotificationServer.SERVER_ADDRESS, NotificationServer.PORT);
-
-            // Ottiene il flusso di output della socket
-            objOutputStream = new ObjectOutputStream(socket.getOutputStream());
-            Message message;
-
-            //creazione messaggio
-            if (LoggedUser.getUserType() == UserTypes.USER){
-                message = new Message(MessageTypes.UserLogin, this.userModel.getUserID());
-            }else{
-                message = new Message(MessageTypes.OrganizerLogin, this.userModel.getUserID());
-            }
-
-            objOutputStream.writeObject(message);
-            objOutputStream.close();
-            running = true;
-            Thread notificationReceiverThread = new Thread(this::receiveNotifications);
-            notificationReceiverThread.start();
-
-
-            //socket non va chiusa
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void receiveNotifications(){
-        try {
-            while (running) {
-                objInputStream = new ObjectInputStream(socket.getInputStream());
-                Message receivedMessage = (Message) objInputStream.readObject();
-            }
-            // Chiudi il reader e il socket quando il thread termina
-            objInputStream.close();
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 
 }
