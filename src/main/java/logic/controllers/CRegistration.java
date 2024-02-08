@@ -4,8 +4,14 @@ import logic.beans.BUserData;
 import logic.dao.UserDAO;
 import logic.model.MUser;
 import logic.dao.LocationDAO;
+import logic.model.Message;
+import logic.server.NotificationServer;
+import logic.utils.MessageTypes;
+import logic.utils.UserTypes;
 
-import java.lang.reflect.Array;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -28,6 +34,9 @@ public class CRegistration {
         else {
             this.userModel.setCredentialsByBean(usrBean);
             this.userDao.registerUser(this.userModel);
+            if (this.userModel.getUserType() == UserTypes.USER){
+                updateServerAfterUserReg(); //reg == registration
+            }
         }
         return true;
     }
@@ -51,6 +60,27 @@ public class CRegistration {
             return 0;
         }
         return -1;
+    }
+
+    private void updateServerAfterUserReg(){
+
+        try {
+            // Crea una socket per la connessione al server
+            Socket socket = new Socket(NotificationServer.SERVER_ADDRESS, NotificationServer.PORT);
+
+            // Ottiene il flusso di output della socket
+            ObjectOutputStream objOutputStream = new ObjectOutputStream(socket.getOutputStream());
+
+            //creazione messaggio
+            Message message = new Message(MessageTypes.UserRegistration, this.userModel.getUserID(), this.userModel.getCity());
+
+            objOutputStream.writeObject(message);
+
+            // Chiude la socket dopo l'invio della notifica
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import logic.utils.Alerts;
 import logic.utils.LoggedUser;
 import logic.controllers.CFacade;
 
@@ -130,6 +131,11 @@ public class EssentialGUI extends Application {
                 changeGUI(event, "SettingsOrg.fxml");
                 break;
         }
+    }
+
+    public static void showNotification(){
+        AlertPopup al = new AlertPopup();
+        al.displayAlertPopup(Alerts.INFORMATION, "Notifica");
     }
 
 

@@ -2,6 +2,7 @@ package logic.controllers;
 
 import logic.beans.*;
 import logic.exceptions.DuplicateEventParticipation;
+import logic.utils.LoggedUser;
 import logic.utils.UserTypes;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ public class CFacade {
     private CLogin loginController;
     private CRegistration regController;
     private CManageEvent manageEventController;
+    private CNotification notificationController;
 
     public CFacade() {
     }
@@ -48,7 +50,12 @@ public class CFacade {
         if (loginController == null){
             loginController = new CLogin();
         }
-        return loginController.checkLoginControl(bean, isGoogleAuth, authCode);
+        int loginRes = loginController.checkLoginControl(bean, isGoogleAuth, authCode);
+        if (notificationController == null){
+            notificationController = new CNotification();
+        }
+        notificationController.connectToNotificationServer(LoggedUser.getUserID());
+        return loginRes;
     }
 
     public boolean registerUser(BUserData bean){

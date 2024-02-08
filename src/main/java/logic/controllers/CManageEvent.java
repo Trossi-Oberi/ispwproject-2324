@@ -4,9 +4,15 @@ import logic.beans.BEvent;
 import logic.dao.EventDAO;
 import logic.exceptions.DuplicateEventParticipation;
 import logic.model.MEvent;
+import logic.model.Message;
+import logic.server.NotificationServer;
 import logic.utils.LoggedUser;
+import logic.utils.MessageTypes;
 import logic.utils.UserTypes;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.ArrayList;
 
 public class CManageEvent {
@@ -21,6 +27,8 @@ public class CManageEvent {
     public boolean addEvent(BEvent eventBean) {
         MEvent eventModel = new MEvent(eventBean);
         eventDAO.createEvent(eventModel);
+        //notify
+        updateServerAfterAddEvent(eventModel.getEventID(), eventModel.getEventCity());
         return true;
     }
 
@@ -62,12 +70,32 @@ public class CManageEvent {
         return myEventsBeans;
     }
 
+    private void updateServerAfterAddEvent(int eventID, String eventCity){
+        try {
+            // Crea una socket per la connessione al server
+            Socket socket = new Socket(NotificationServer.SERVER_ADDRESS, NotificationServer.PORT);
+
+            // Ottiene il flusso di output della socket
+            ObjectOutputStream objOutputStream = new ObjectOutputStream(socket.getOutputStream());
+
+            //creazione messaggio
+            Message message = new Message(MessageTypes.EventAdded, eventID, eventCity);
+
+            objOutputStream.writeObject(message);
+
+            // Chiude la socket dopo l'invio della notifica
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean participateToEvent(BEvent eventBean) throws DuplicateEventParticipation {
         MEvent eventModel = new MEvent(eventBean);
         eventDAO.joinUserToEvent(eventModel);
+        //notify the organizer of your participation
         return true;
     }
-    //DA IMPLEMENTARE NEL DAO, ASPETTARE CHE MATTEO FINISCE LE PARTECIPAZIONI
     public int getParticipationsToEvent(int id){
         return eventDAO.getParticipationsToEvent(id);
     }

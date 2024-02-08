@@ -6,11 +6,13 @@ import logic.utils.UserTypes;
 
 import java.sql.*;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UserDAO {
     private static final Logger logger = Logger.getLogger("NightPlan");
+    private static final String APPNAME = "NightPlan";
 
     private String userCity;
 
@@ -98,4 +100,21 @@ public class UserDAO {
             SingletonDBSession.getInstance().closeConn();
         }
     }
+
+    /*//SERVE??
+    public ArrayList<Integer> getUserIDbyCity(String city){
+        ArrayList <Integer> userIDs = new ArrayList<>();
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id FROM users WHERE (city = ?)")){
+            statement.setString(1, city);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                userIDs.add(rs.getInt(1));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
+        } finally {
+            SingletonDBSession.getInstance().closeConn();
+        }
+        return userIDs;
+    }*/
 }
