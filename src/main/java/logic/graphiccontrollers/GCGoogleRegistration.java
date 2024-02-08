@@ -10,6 +10,7 @@ import logic.beans.BUserData;
 import logic.controllers.CFacade;
 import logic.utils.Alerts;
 import logic.utils.LoggedUser;
+import logic.utils.UserTypes;
 import logic.view.AlertPopup;
 import logic.view.EssentialGUI;
 
@@ -56,9 +57,9 @@ public class GCGoogleRegistration extends GCRegistration {
             this.dataBean.setBirthDate(this.birthDate.getValue());
             this.dataBean.setCity(this.cityBox.getValue());
             if (this.userRadio.isSelected()) {
-                this.dataBean.setType(this.userRadio.getText());
+                this.dataBean.setType(UserTypes.USER);
             } else {
-                this.dataBean.setType(this.organizerRadio.getText());
+                this.dataBean.setType(UserTypes.ORGANIZER);
             }
             register(event);
         } catch (Exception e) { //vanno configurate tutte le eccezioni nel dataBean (nome troppo lungo, data non valida, etc...)

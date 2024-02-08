@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import logic.beans.BUserData;
 import logic.controllers.CFacade;
 import logic.utils.Alerts;
+import logic.utils.UserTypes;
 import logic.view.AlertPopup;
 import logic.view.EssentialGUI;
 
@@ -62,9 +63,9 @@ public class GCClassicRegistration extends GCRegistration{
             this.dataBean.setBirthDate(this.birthDate.getValue());
             this.dataBean.setCity(this.cityBox.getValue());
             if (this.userRadio.isSelected()) {
-                this.dataBean.setType(this.userRadio.getText());
+                this.dataBean.setType(UserTypes.USER);
             } else {
-                this.dataBean.setType(this.organizerRadio.getText());
+                this.dataBean.setType(UserTypes.ORGANIZER);
             }
             register(event);
         } catch (
