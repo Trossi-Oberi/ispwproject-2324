@@ -48,6 +48,8 @@
       </PasswordField>
       <ChoiceBox fx:id="gender" layoutX="414.0" layoutY="312.0" prefHeight="34.0" prefWidth="214.0" />
       <DatePicker fx:id="birthDate" layoutX="414.0" layoutY="354.0" prefHeight="34.0" prefWidth="214.0" promptText="dd/mm/yy" />
+      <ChoiceBox fx:id="provinceBox" layoutX="414.0" layoutY="396.0" prefHeight="34.0" prefWidth="214.0" />
+      <ChoiceBox fx:id="cityBox" layoutX="414.0" layoutY="438.0" prefHeight="34.0" prefWidth="214.0" />
       <Button fx:id="registerButton" layoutX="414.0" layoutY="480.0" mnemonicParsing="false" onMouseClicked="#registerControl" prefHeight="44.0" prefWidth="214.0" text="Register">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
@@ -67,14 +69,12 @@
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font></Text>
-      <Text layoutX="184.0" layoutY="459.0" strokeType="OUTSIDE" strokeWidth="0.0" text="City">
+      <Text layoutX="184.0" layoutY="417.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Province">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>
       </Text>
-      <ChoiceBox fx:id="cityBox" layoutX="414.0" layoutY="438.0" prefHeight="34.0" prefWidth="214.0" />
-      <ChoiceBox fx:id="provinceBox" layoutX="414.0" layoutY="396.0" prefHeight="34.0" prefWidth="214.0" />
-      <Text layoutX="184.0" layoutY="417.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Province">
+      <Text layoutX="184.0" layoutY="459.0" strokeType="OUTSIDE" strokeWidth="0.0" text="City">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>
