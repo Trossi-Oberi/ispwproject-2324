@@ -5,6 +5,8 @@ import logic.model.MUser;
 import logic.beans.BUserData;
 import logic.utils.LoggedUser;
 
+import logic.utils.GoogleLogin;
+
 public class CLogin {
     private UserDAO userDao;
     private MUser userModel;
@@ -14,12 +16,41 @@ public class CLogin {
         this.userModel = new MUser();
     }
 
-    public int checkLogInControl(BUserData logBean) {
+    public int checkLoginControl(BUserData logBean) {
         int ret;
         this.userModel.setUsrAndPswByBean(logBean); //qui ancora non avviene il controllo della correttezza dei dati,
-        ret = this.userDao.checkLoginInfo(this.userModel); //qui effettivamente e' il DAO che va a controllare la correttezza delle credenziali
+        ret = this.userDao.checkLoginInfo(this.userModel, false); //qui effettivamente e' il DAO che va a controllare la correttezza delle credenziali
         if (ret == 1) {
             createLoggedSession();
+        }
+        return ret;
+    }
+
+    public int initGoogleAuth() throws RuntimeException{
+        int ret = 0;
+        try {
+            if(GoogleLogin.initGoogleLogin() == 1){
+                ret = 1;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return ret;
+    }
+
+    public int checkGoogleLoginControl(BUserData googleLogBean, String authCode) {
+        int ret = 0;
+        String userGoogleEmail;
+        try {
+            userGoogleEmail = GoogleLogin.getGoogleAccountEmail(GoogleLogin.getGoogleAccountCredentials(GoogleLogin.getGoogleAuthFlow(), authCode));
+            googleLogBean.setUsername(userGoogleEmail);
+            this.userModel.setUsrAndPswByBean(googleLogBean);
+            ret = this.userDao.checkLoginInfo(this.userModel, true);
+            if (ret == 1) {
+                createLoggedSession();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         return ret;
     }

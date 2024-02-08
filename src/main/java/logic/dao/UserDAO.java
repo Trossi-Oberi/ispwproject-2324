@@ -13,16 +13,28 @@ public class UserDAO {
 
     private String userCity;
 
-    public int checkLoginInfo(MUser usrMod) {
+    public int checkLoginInfo(MUser usrMod, boolean isGoogleAccount) {
         int ret = 0;
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id, firstName, lastName, dateOfBirth, gender, city, userType FROM users WHERE (username=? and password=?)")) {
-            statement.setString(1, usrMod.getUserName());
-            statement.setString(2, usrMod.getPassword());
-            ret = getLoggedUser(statement, usrMod);
-        } catch (SQLException e) {
-            Logger.getLogger("NightPlan").log(Level.SEVERE, "SQLException occurred during the fetch of credentials");
-        } finally {
-            SingletonDBSession.getInstance().closeConn();
+        if (!isGoogleAccount) {
+            try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id, firstName, lastName, dateOfBirth, gender, city, userType FROM users WHERE (username=? and password=?)")) {
+                statement.setString(1, usrMod.getUserName());
+                statement.setString(2, usrMod.getPassword());
+                ret = getLoggedUser(statement, usrMod);
+            } catch (SQLException e) {
+                Logger.getLogger("NightPlan").log(Level.SEVERE, "SQLException occurred during the fetch of credentials");
+            } finally {
+                SingletonDBSession.getInstance().closeConn();
+            }
+        } else {
+            //Google Login, verifico la presenza nel db della email Google
+            try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id, firstName, lastName, dateOfBirth, gender, city, userType FROM users WHERE (username=?)")) {
+                statement.setString(1, usrMod.getUserName());
+                ret = getLoggedUser(statement, usrMod);
+            } catch (SQLException e) {
+                Logger.getLogger("NightPlan").log(Level.SEVERE, "SQLException occurred during the fetch of credentials");
+            } finally {
+                SingletonDBSession.getInstance().closeConn();
+            }
         }
         return ret;
     }
