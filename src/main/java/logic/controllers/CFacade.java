@@ -21,7 +21,12 @@ public class CFacade {
         if (manageEventController == null) {
             manageEventController = new CManageEvent();
         }
-        return manageEventController.addEvent(bean); //chiamata al controller effettivo
+        boolean res = manageEventController.addEvent(bean); //chiamata al controller effettivo
+        if (notificationController == null){
+            notificationController = new CNotification();
+        }
+        notificationController.sendAddEventMessage(bean.getEventOrganizerID(), bean.getEventID(), bean.getEventCity());
+        return res;
     }
 
     public boolean participateToEvent(BEvent bean) throws DuplicateEventParticipation {
@@ -62,7 +67,18 @@ public class CFacade {
         if (regController == null){
             regController = new CRegistration();
         }
-        return regController.registerUserControl(bean);
+        boolean res = regController.registerUserControl(bean);
+        if(res){
+            if (notificationController == null){
+                notificationController = new CNotification();
+            }
+            if (bean.getUserType()==UserTypes.USER){
+                notificationController.sendRegMessage(bean.getUserID(), bean.getCity());
+                notificationController.disconnectFromServer(bean.getUserID());
+            }
+        }
+        return res;
+
     }
 
     public ArrayList<String> getProvincesList(){
@@ -80,6 +96,11 @@ public class CFacade {
     }
 
     public void signOut(){
+        if (notificationController == null){
+            notificationController = new CNotification();
+        }
+        notificationController.disconnectFromServer(LoggedUser.getUserID());
+
         if (loginController == null) {
             loginController = new CLogin();
         }

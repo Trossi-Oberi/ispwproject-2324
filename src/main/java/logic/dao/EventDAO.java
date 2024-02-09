@@ -2,6 +2,7 @@ package logic.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,8 +17,8 @@ public class EventDAO {
 
     private static final String APPNAME = "NightPlan";
 
-    public void createEvent(MEvent eventModel) {
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Events(event_id,organizer,organizer_id,name,city,address,music_genre,date,time,image) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)")){
+    public void createEvent(MEvent eventModel) { //restituisce l'event id dell'evento appena aggiunto
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Events(event_id,organizer,organizer_id,name,city,address,music_genre,date,time,image) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)){
             statement.setString(1,eventModel.getEventOrganizer());
             statement.setInt(2, LoggedUser.getUserID()); //preso dalla sessione (classe LoggedUser)
             statement.setString(3,eventModel.getEventName());
@@ -27,7 +28,18 @@ public class EventDAO {
             statement.setString(7,eventModel.getEventDate());
             statement.setString(8,eventModel.getEventTime());
             statement.setBytes(9,eventModel.getEventPicData());
-            statement.execute();
+            int insertedRows = statement.executeUpdate();
+
+            //recupero id evento dopo l'aggiunta
+            if (insertedRows>0){
+                try (ResultSet rs = statement.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        int idGenerato = rs.getInt(1);
+                        eventModel.setEventID(idGenerato);
+                    }
+                }
+            }
+
         }
         catch (SQLException e) {
             Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());

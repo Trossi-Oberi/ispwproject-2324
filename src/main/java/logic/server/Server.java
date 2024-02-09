@@ -144,6 +144,7 @@ public class Server implements Runnable {
 
         private void attachUserObserver(String city, ObserverClass userObs) {
             observersByCity.computeIfAbsent(city, k -> new ArrayList<>()).add(userObs);
+            System.out.println("aggiunta corrispondenza "+city+" - "+userObs.getObsID());
         }
 
         private void attachOrganizerObserver(int eventID, ObserverClass orgObs) {

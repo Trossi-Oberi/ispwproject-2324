@@ -10,6 +10,8 @@ public class Message implements Serializable {
     private int clientID;
     private int eventID;
 
+    //implementare message factory
+
     public Message(MessageTypes type){
         messageType = type;
     }

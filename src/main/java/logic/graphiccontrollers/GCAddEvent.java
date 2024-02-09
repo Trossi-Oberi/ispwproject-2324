@@ -101,7 +101,7 @@ public class GCAddEvent extends EssentialGUI {
         }
 
         //conversione da file ad array di bytes
-        if (eventPicFile !=null){
+        if (eventPicFile != null) {
             try {
                 this.eventPicData = Files.readAllBytes(eventPicFile.toPath());
             } catch (IOException e) {
@@ -126,6 +126,7 @@ public class GCAddEvent extends EssentialGUI {
         eventBean.setEventTime(eventHourTF.getText(), eventMinutesTF.getText());
         eventBean.setEventPicData(eventPicData);
         eventBean.setEventOrganizer(LoggedUser.getUserName());
+        eventBean.setEventOrganizerID(LoggedUser.getUserID());
         try {
             if (facade.addEvent(eventBean)) {
                 //alerts
@@ -134,14 +135,14 @@ public class GCAddEvent extends EssentialGUI {
             } else {
                 alert.displayAlertPopup(Alerts.WARNING, "Event adding procedure failed. Please retry...");
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             alert.displayAlertPopup(Alerts.INFORMATION, "Cannot complete event adding procedure!");
         }
 
 
     }
 
-    private void setupProvinceBoxListener(){
+    private void setupProvinceBoxListener() {
         this.provinceChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             this.citiesList.clear();
             this.citiesList = facade.getCitiesList(String.valueOf(newValue));
@@ -149,7 +150,7 @@ public class GCAddEvent extends EssentialGUI {
         });
     }
 
-    private void updateCityListView(){
+    private void updateCityListView() {
         ObservableList<String> citiesList = FXCollections.observableArrayList(this.citiesList);
         this.cityChoiceBox.setItems(citiesList);
     }

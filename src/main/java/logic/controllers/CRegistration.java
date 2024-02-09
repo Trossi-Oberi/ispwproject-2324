@@ -5,7 +5,7 @@ import logic.dao.UserDAO;
 import logic.model.MUser;
 import logic.dao.LocationDAO;
 import logic.model.Message;
-import logic.server.NotificationServer;
+import logic.server.Server;
 import logic.utils.MessageTypes;
 import logic.utils.UserTypes;
 
@@ -35,9 +35,7 @@ public class CRegistration {
             this.userModel.setCredentialsByBean(usrBean);
             this.userDao.registerUser(this.userModel);
             this.userModel.setId(userDao.getUserIDByUsername(this.userModel.getUserName()));
-            if (this.userModel.getUserType() == UserTypes.USER){
-                updateServerAfterUserReg(this.userModel.getUserID()); //reg == registration
-            }
+            usrBean.setUserID(userDao.getUserIDByUsername(this.userModel.getUserName()));
         }
         return true;
     }
@@ -67,7 +65,7 @@ public class CRegistration {
 
         try {
             // Crea una socket per la connessione al server
-            Socket socket = new Socket(NotificationServer.SERVER_ADDRESS, NotificationServer.PORT);
+            Socket socket = new Socket(Server.SERVER_ADDRESS, Server.PORT);
 
             // Ottiene il flusso di output della socket
             ObjectOutputStream objOutputStream = new ObjectOutputStream(socket.getOutputStream());

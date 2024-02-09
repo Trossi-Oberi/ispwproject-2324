@@ -5,6 +5,7 @@ import logic.utils.UserTypes;
 import java.time.LocalDate;
 
 public class BUserData {
+    private int userID;
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
@@ -87,6 +88,10 @@ public class BUserData {
         this.password = passwd;
     }
 
+    public void setUserID(int id){
+        this.userID = id;
+    }
+
     public String getFirstName() {
         return this.firstName;
     }
@@ -118,4 +123,5 @@ public class BUserData {
     public String getCity() {
         return this.city;
     }
+    public int getUserID(){return this.userID;}
 }

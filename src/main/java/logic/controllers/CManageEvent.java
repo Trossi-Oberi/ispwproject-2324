@@ -5,7 +5,7 @@ import logic.dao.EventDAO;
 import logic.exceptions.DuplicateEventParticipation;
 import logic.model.MEvent;
 import logic.model.Message;
-import logic.server.NotificationServer;
+import logic.server.Server;
 import logic.utils.LoggedUser;
 import logic.utils.MessageTypes;
 import logic.utils.UserTypes;
@@ -27,8 +27,9 @@ public class CManageEvent {
     public boolean addEvent(BEvent eventBean) {
         MEvent eventModel = new MEvent(eventBean);
         eventDAO.createEvent(eventModel);
+        eventBean.setEventID(eventModel.getEventID());
         //notify
-        updateServerAfterAddEvent(eventModel.getEventID(), eventModel.getEventCity());
+        //updateServerAfterAddEvent(eventModel.getEventID(), eventModel.getEventCity());
         return true;
     }
 
@@ -70,25 +71,7 @@ public class CManageEvent {
         return myEventsBeans;
     }
 
-    private void updateServerAfterAddEvent(int eventID, String eventCity){
-        try {
-            // Crea una socket per la connessione al server
-            Socket socket = new Socket(NotificationServer.SERVER_ADDRESS, NotificationServer.PORT);
 
-            // Ottiene il flusso di output della socket
-            ObjectOutputStream objOutputStream = new ObjectOutputStream(socket.getOutputStream());
-
-            //creazione messaggio
-            Message message = new Message(MessageTypes.EventAdded, eventID, eventCity);
-
-            objOutputStream.writeObject(message);
-
-            // Chiude la socket dopo l'invio della notifica
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public boolean participateToEvent(BEvent eventBean) throws DuplicateEventParticipation {
         MEvent eventModel = new MEvent(eventBean);

@@ -2,73 +2,109 @@ package logic.controllers;
 
 import logic.dao.NotificationDAO;
 import logic.model.Message;
-import logic.server.NotificationServer;
-import logic.utils.LoggedUser;
+import logic.server.Server;
 import logic.utils.MessageTypes;
 import logic.utils.UserTypes;
 import logic.view.EssentialGUI;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class CNotification {
-
-    private boolean running;
     private NotificationDAO notificationDAO;
+    private ObjectOutputStream out;
+    private Socket client;
+    private ClientListenerThread t;
 
     public CNotification() {
         this.notificationDAO = new NotificationDAO();
-    }
-
-    public void connectToNotificationServer(int clientID) {
-        Thread notificationReceiverThread = new Thread(()-> receiveNotifications(clientID));
-        notificationReceiverThread.start();
-    }
-
-    public void receiveNotifications(int clientID) {
-        Socket socket;
-        ObjectOutputStream oos;
-        ObjectInputStream ois;
-        running = true;
-
         try {
-            // Crea una socket per la connessione al server
-            socket = new Socket(NotificationServer.SERVER_ADDRESS, NotificationServer.PORT);
+            client = new Socket(Server.SERVER_ADDRESS, Server.PORT);
+            out = new ObjectOutputStream(client.getOutputStream());
+        } catch (IOException e) {
+            //ignore
+        }
+    }
 
-            // Ottiene il flusso di output della socket
-            oos = new ObjectOutputStream(socket.getOutputStream());
-            Message message;
+    public void connectToNotificationServer(int id) {
+        sendLoginMessage(id);
+        NotiHandler notiHandler = new NotiHandler();
+        t = new ClientListenerThread(client, notiHandler);
+        //con l'inizializzazione del thread apro l'object input stream
+        t.start();
+        //ora lo starto e parte il metodo run
+    }
 
+    public void disconnectFromServer(int id) {
+        try {
+            Message msg = createMessage(MessageTypes.Disconnected, id, null, null);
+            out.writeObject(msg);
+            if (t != null && t.isAlive()) {
+                t.stopRunning();
+            }
+            out.close();
+            if (!client.isClosed()) {
+                client.close();
+            }
+        } catch (IOException e) {
+            //ignore
+        }
+    }
+
+    public class NotiHandler {
+        public void handleMessage(Message msg) {
+            switch (msg.getType()) {
+                case EventAdded:
+                    EssentialGUI.showNotification();
+                    break;
+            }
+        }
+    }
+
+    public void sendRegMessage(int id, String city) {
+        try {
+            Message msg = createMessage(MessageTypes.UserRegistration, id, null, city);
+            out.writeObject(msg);
+        } catch (IOException e) {
+            //ignore
+        }
+    }
+
+    public Message createMessage(MessageTypes type, int userID, Integer eventID, String city) {
+        Message msg = null;
+        switch (type) {
+            case UserRegistration:
+                msg = new Message(type, userID, city);
+                break;
+            case EventAdded:
+                msg = new Message(type, userID, eventID, city);
+                break;
+            case Disconnected:
+                msg = new Message(type, userID);
+                break;
+        }
+        return msg;
+    }
+
+    public void sendAddEventMessage(int orgID, int eventID, String eventCity){
+        try {
             //creazione messaggio
-            if (LoggedUser.getUserType() == UserTypes.USER) {
-                message = new Message(MessageTypes.UserLogin, clientID);
-            } else {
-                message = new Message(MessageTypes.OrganizerLogin, clientID);
-            }
+            Message message = createMessage(MessageTypes.EventAdded, orgID, eventID, eventCity);
+            out.writeObject(message);
 
-            oos.writeObject(message);
-            oos.flush();
-
-            ois = new ObjectInputStream(socket.getInputStream());
-
-            while (running) {
-//                ObjectInputStream objInputStream = new ObjectInputStream(socket.getInputStream());
-                Message receivedMessage = (Message) ois.readObject();
-                switch (receivedMessage.getType()) {
-                    case EventAdded:
-                        EssentialGUI.showNotification();
-                        break;
-                }
-            }
-            // Chiudi il reader e il socket quando il thread termina
-            ois.close();
-            oos.close();
-            socket.close();
-        } catch (Exception e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public void sendLoginMessage(int clientID){
+        try {
+            Message message = createMessage(MessageTypes.LoggedIn, clientID, null, null);
+            out.writeObject(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

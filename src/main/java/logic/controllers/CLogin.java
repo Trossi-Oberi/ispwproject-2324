@@ -3,18 +3,8 @@ package logic.controllers;
 import logic.dao.UserDAO;
 import logic.model.MUser;
 import logic.beans.BUserData;
-import logic.model.Message;
-import logic.server.NotificationServer;
 import logic.utils.LoggedUser;
 import logic.utils.GoogleLogin;
-import logic.utils.MessageTypes;
-import logic.utils.UserTypes;
-import logic.view.EssentialGUI;
-
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
 
 public class CLogin {
     private UserDAO userDao;
