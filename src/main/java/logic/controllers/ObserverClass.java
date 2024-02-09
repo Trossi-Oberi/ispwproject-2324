@@ -18,14 +18,15 @@ public class ObserverClass implements Observer {
     }
 
     @Override
-    public void update(MessageTypes type, Socket clientSocket){
+    public void update(MessageTypes type, ObjectOutputStream out){
         try {
-            ObjectOutputStream objOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
             Message message = new Message(type);
-            objOutputStream.writeObject(message);
-            objOutputStream.close();
+            out.writeObject(message);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("Errore nell'update function di observerclass "+e.getMessage());
         }
+    }
+    public int getObsID(){
+        return this.id;
     }
 }
