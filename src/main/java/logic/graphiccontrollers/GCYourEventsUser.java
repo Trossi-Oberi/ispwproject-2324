@@ -83,7 +83,7 @@ public class GCYourEventsUser extends GCYourEventsGeneral {
                 try {
                     onItemDoubleClick(event, selectedEventBean, "EventPageUser.fxml");
                 } catch (RuntimeException e){
-                    alert.displayAlertPopup(Alerts.ERROR, "Runtime exception on double click");
+                    alert.displayAlertPopup(Alerts.ERROR, "Fatal: " + e.getMessage());
                 }
             }
         });
@@ -95,7 +95,7 @@ public class GCYourEventsUser extends GCYourEventsGeneral {
                 try {
                     onItemDoubleClick(event, selectedEventBean, "EventPageUser.fxml");
                 } catch (RuntimeException e){
-                    alert.displayAlertPopup(Alerts.ERROR, "Runtime exception on double click");
+                    alert.displayAlertPopup(Alerts.ERROR, "Fatal: " + e.getMessage());
                 }
             }
         });
