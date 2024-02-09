@@ -79,19 +79,18 @@ public class GCYourEventsOrg extends GCYourEventsGeneral{
                 try {
                     onItemDoubleClick(event, selectedEventBean, "Analytics.fxml");
                 } catch (RuntimeException e){
-                    alert.displayAlertPopup(Alerts.ERROR, "FATAL ERROR, runtime exception on double click");
+                    alert.displayAlertPopup(Alerts.ERROR, "Fatal: " + e.getMessage());
                 }
             }
         });
         upcEventsLV.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 // Verifica se è stato effettuato un doppio clic
-                BEvent selectedEventBean = getBeanFromListView(upcEventsLV,upcEventsBeanList);
+                BEvent selectedEventBean = getBeanFromListView(upcEventsLV, upcEventsBeanList);
                 try {
                     onItemDoubleClick(event, selectedEventBean, "EventPageOrg.fxml");
                 } catch (RuntimeException e){
-                    System.out.println("Errore "+e.getMessage());
-//                    alert.displayAlertPopup(Alerts.ERROR, "FATAL ERROR, runtime exception on double click");
+                    alert.displayAlertPopup(Alerts.ERROR, "Fatal: " + e.getMessage());
                 }
             }
         });
@@ -115,12 +114,8 @@ public class GCYourEventsOrg extends GCYourEventsGeneral{
                 GCEventPageOrg eventPageOrgGC = loader.getController();
                 eventPageOrgGC.initEventFromBean(selectedEventBean);
             }
-
-
             scene = new Scene(root);
             scene.getStylesheets().add(EssentialGUI.class.getResource("application.css").toExternalForm());
-
-
         } catch (IOException | NullPointerException e) {
             logger.log(Level.SEVERE, "Cannot load scene\n", e);
         } catch (RuntimeException e){
