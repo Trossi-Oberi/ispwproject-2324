@@ -4,6 +4,11 @@
     -fx-text-fill: white;
 }
 
+.button:hover .hbox-nav .label-nav {
+    -fx-color-label-visible: white;
+    -fx-text-fill: white;
+}
+
 #signUpText:hover {
     -fx-underline: true;
 }
