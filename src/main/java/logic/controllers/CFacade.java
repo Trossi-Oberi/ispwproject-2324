@@ -14,6 +14,7 @@ public class CFacade {
     private CNotification notificationController;
 
     public CFacade() {
+
     }
 
     //AddEvent methods
@@ -22,9 +23,9 @@ public class CFacade {
             manageEventController = new CManageEvent();
         }
         boolean res = manageEventController.addEvent(bean); //chiamata al controller effettivo
-        if (notificationController == null){
-            notificationController = new CNotification();
-        }
+//        if (notificationController == null){
+//            notificationController = new CNotification();
+//        }
         notificationController.sendAddEventMessage(bean.getEventOrganizerID(), bean.getEventID(), bean.getEventCity());
         return res;
     }
@@ -52,11 +53,11 @@ public class CFacade {
     }
 
     public int loginUser(BUserData bean, boolean isGoogleAuth, String authCode) throws RuntimeException{
-        if (loginController == null){
+        if (loginController == null) {
             loginController = new CLogin();
         }
         int loginRes = loginController.checkLoginControl(bean, isGoogleAuth, authCode);
-        if (notificationController == null){
+        if (notificationController == null) {
             notificationController = new CNotification();
         }
         notificationController.connectToNotificationServer(LoggedUser.getUserID());
@@ -69,10 +70,10 @@ public class CFacade {
         }
         boolean res = regController.registerUserControl(bean);
         if(res){
-            if (notificationController == null){
-                notificationController = new CNotification();
-            }
             if (bean.getUserType()==UserTypes.USER){
+                if (notificationController == null){
+                    notificationController = new CNotification();
+                }
                 notificationController.sendRegMessage(bean.getUserID(), bean.getCity());
                 notificationController.disconnectFromServer(bean.getUserID());
             }

@@ -21,6 +21,7 @@ public class CNotification {
         this.notificationDAO = new NotificationDAO();
         try {
             client = new Socket(Server.SERVER_ADDRESS, Server.PORT);
+            System.out.printf("socket aperta (client)");
             out = new ObjectOutputStream(client.getOutputStream());
         } catch (IOException e) {
             //ignore
@@ -38,14 +39,16 @@ public class CNotification {
 
     public void disconnectFromServer(int id) {
         try {
-            Message msg = createMessage(MessageTypes.Disconnected, id, null, null);
+            Message msg = createMessage(MessageTypes.Disconnected, id, -1, null);
             out.writeObject(msg);
             if (t != null && t.isAlive()) {
                 t.stopRunning();
             }
             out.close();
             if (!client.isClosed()) {
+                //TODO: qui dentro non ci entra mai!!!!! anche se apparentemente non ho mai chiuso la socket
                 client.close();
+                System.out.printf("socket chiusa (client)");
             }
         } catch (IOException e) {
             //ignore
@@ -64,18 +67,21 @@ public class CNotification {
 
     public void sendRegMessage(int id, String city) {
         try {
-            Message msg = createMessage(MessageTypes.UserRegistration, id, null, city);
+            Message msg = createMessage(MessageTypes.UserRegistration, id, -1, city);
             out.writeObject(msg);
         } catch (IOException e) {
             //ignore
         }
     }
 
-    public Message createMessage(MessageTypes type, int userID, Integer eventID, String city) {
+    public Message createMessage(MessageTypes type, int userID, int eventID, String city) {
         Message msg = null;
         switch (type) {
             case UserRegistration:
                 msg = new Message(type, userID, city);
+                break;
+            case LoggedIn:
+                msg = new Message(type, userID, eventID, null); //prova temporanea
                 break;
             case EventAdded:
                 msg = new Message(type, userID, eventID, city);
@@ -100,10 +106,10 @@ public class CNotification {
 
     public void sendLoginMessage(int clientID){
         try {
-            Message message = createMessage(MessageTypes.LoggedIn, clientID, null, null);
+            Message message = createMessage(MessageTypes.LoggedIn, clientID, -1, null);
             out.writeObject(message);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.printf(e.getMessage());
         }
     }
 

@@ -94,7 +94,7 @@ public class Server implements Runnable {
                 out = new ObjectOutputStream(client.getOutputStream());
 
                 //Aperti questi canali mi metto in attesa di messaggi da parte del client
-                while ((receivedMsg = (Message) in.readObject())!= null) {
+                while ((!client.isClosed() && (receivedMsg = (Message) in.readObject())!= null)) {
                     connClientMap.put(receivedMsg.getClientID(),true); //se ricevo un messaggio dall'utente inizialmente do per scontato che l'utente e' connesso
                     //Gestione del tipo di messaggio
                     switch (receivedMsg.getType()) {
@@ -103,6 +103,10 @@ public class Server implements Runnable {
                             //implementare factory observer e factory messaggi
                             ObserverClass userObs = new ObserverClass(receivedMsg.getClientID());
                             attachUserObserver(receivedMsg.getCity(), userObs);
+                            break;
+
+                        case LoggedIn:
+                            System.out.println("User login: user id=" + receivedMsg.getClientID());
                             break;
 
                         case EventAdded:
@@ -136,6 +140,7 @@ public class Server implements Runnable {
                     in.close();
                     out.close();
                     client.close();
+                    System.out.println("Server socket disconnected");
                 } catch (IOException e) {
                     //ignore
                 }
