@@ -7,7 +7,6 @@ import logic.dao.LocationDAO;
 import logic.model.Message;
 import logic.server.Server;
 import logic.utils.MessageTypes;
-import logic.utils.UserTypes;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -65,7 +64,7 @@ public class CRegistration {
 
         try {
             // Crea una socket per la connessione al server
-            Socket socket = new Socket(Server.SERVER_ADDRESS, Server.PORT);
+            Socket socket = new Socket(Server.ADDRESS, Server.PORT);
 
             // Ottiene il flusso di output della socket
             ObjectOutputStream objOutputStream = new ObjectOutputStream(socket.getOutputStream());

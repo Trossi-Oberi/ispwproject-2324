@@ -4,15 +4,9 @@ import logic.beans.BEvent;
 import logic.dao.EventDAO;
 import logic.exceptions.DuplicateEventParticipation;
 import logic.model.MEvent;
-import logic.model.Message;
-import logic.server.Server;
 import logic.utils.LoggedUser;
-import logic.utils.MessageTypes;
 import logic.utils.UserTypes;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.util.ArrayList;
 
 public class CManageEvent {

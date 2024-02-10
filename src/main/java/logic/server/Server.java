@@ -13,79 +13,44 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Server implements Runnable {
-    //In architettura MVC il server si identifica come controller
+public class Server {
 
-    //ATTRIBUTI NECESSARI (BASE)
-    public static final String SERVER_ADDRESS = "localhost";
+    private Map<String, List<ObserverClass>> observersByCity = new HashMap<>();
+    private Map<Integer, ObserverClass> organizersByEventID = new HashMap<>();
+
+    private static Logger logger = Logger.getLogger("NightPlan");
+
+    public static final String ADDRESS = "localhost";
     public static final int PORT = 2521;
-    private ServerSocket server;
-    private Socket client;
-    //private ArrayList<ClientHandler> connectedClients;
-    Map<Integer, Boolean> connClientMap; //mappa intero (id utente) e booleano (se e' connesso)
-    private boolean serverRunning;
-    //private ExecutorService pool; //thread pool per non creare sempre nuovi threads
-    private int currConnections = 0;
-    private static final int MAX_CONNECTIONS = 500;
-    private Thread x;
-
-    //ATTRIBUTI SPECIFICI PER LE IMPLEMENTAZIONI DI OBSERVER ECC
-    protected static Logger logger = Logger.getLogger("NightPlan");
-    private Map<String, List<ObserverClass>> observersByCity; //mapping citta' e tutti gli utenti di quella citta'
-    private Map<Integer, ObserverClass> organizerByEventID; //mapping tra eventID e relativo organizer (sto imponendo unico organizzatore per l'evento)
+    private ServerSocket serverSocket;
 
 
-
-    public Server() {
-        //connectedClients = new ArrayList<>();
-        connClientMap = new HashMap<>();
-        serverRunning = true;
-        this.observersByCity = new HashMap<>();
-        this.organizerByEventID = new HashMap<>();
+    public static void main(String[] args) {
+        logger.info("Server running on port " + PORT);
+        Server server = new Server();
+        server.start();
     }
 
-    @Override
-    public void run() {
+    private void start() {
         try {
-            server = new ServerSocket(PORT);
-            //pool = Executors.newCachedThreadPool();
-            System.out.println("Server avviato sulla porta " + PORT);
-            while(serverRunning){
-                client = server.accept();
-                System.out.println("Nuovo client connesso " + client);
-                ClientHandler handler = new ClientHandler(client);
-                //connectedClients.add(handler);
-
-                //pool.execute(handler); //un thread della thread pool esegue il clienthandler
-                x = new Thread(handler);
-                x.start();
-                currConnections++;
-                if (currConnections == MAX_CONNECTIONS) {
-                    break;
-                }
-                Thread.sleep(5000);
-
+            serverSocket = new ServerSocket(PORT);
+            while (true) {
+                Socket client = serverSocket.accept();
+                ClientHandler ch = new ClientHandler(client);
+                Thread t = new Thread(ch);
+                t.start();
             }
-
-        } catch (IOException | InterruptedException e) {
-            //todo: handle
-            logger.log(Level.SEVERE, e.getMessage());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 
-    public class ClientHandler implements Runnable {
+    private class ClientHandler implements Runnable {
         private Socket client;
-        private ObjectInputStream in; //canale di input (legge dal client)
-        private ObjectOutputStream out; //canale di output (scrive verso il client)
-        private Message receivedMsg; //messaggio che riceviamo dal client
-        private Message sentMsg; //messaggio che inviamo al client
-        private String name;
-        private Logger logger = Logger.getLogger("NightPlan");
+        private ObjectInputStream in;
+        private ObjectOutputStream out;
 
         public ClientHandler(Socket client) {
             this.client = client;
@@ -93,110 +58,57 @@ public class Server implements Runnable {
 
         @Override
         public void run() {
-            System.out.println("thread avviato");
             try {
-                //Apro gli stream di input e output
                 out = new ObjectOutputStream(client.getOutputStream());
                 in = new ObjectInputStream(client.getInputStream());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
-
-                //PROVA
-                Message startMsg = new Message(MessageTypes.Start);
-                out.writeObject(startMsg);
-                out.reset();
-
-                //Aperti questi canali mi metto in attesa di messaggi da parte del client
-                while ((!client.isClosed() && (receivedMsg = (Message) in.readObject())!= null)) {
-                    connClientMap.put(receivedMsg.getClientID(),true); //se ricevo un messaggio dall'utente inizialmente do per scontato che l'utente e' connesso
-                    //Gestione del tipo di messaggio
-                    switch (receivedMsg.getType()) {
-                        case UserRegistration:
-                            System.out.println("User registration: user id=" + receivedMsg.getClientID() + ", citta'=" + receivedMsg.getCity());
-                            //implementare factory observer e factory messaggi
-                            ObserverClass userObs = new ObserverClass(receivedMsg.getClientID(), out);
-                            attachUserObserver(receivedMsg.getCity(), userObs);
-
-                            //CODICE DI TEST
-                            Message sndmsg = new Message(MessageTypes.UserRegistration);
-                            out.writeObject(sndmsg);
-                            out.reset();
-                            //FINE CODICE TEST
-
-                            break;
-
-                        /*case LoggedIn:
-                            System.out.println("User login: user id=" + receivedMsg.getClientID());
-                            break;
-
-                        case EventAdded:
-                            //EventObserver istanziazione e attach all'evento
-                            System.out.println("Event added: org id=" + receivedMsg.getClientID() + ", event id=" + receivedMsg.getEventID());
-                            ObserverClass orgObs = new ObserverClass(receivedMsg.getClientID(), out);
-                            attachOrganizerObserver(receivedMsg.getEventID(), orgObs);
-                            notifyUserObservers(receivedMsg.getCity());
-                            break;
-
-                        case UserEventParticipation:
-                            break;
-
-                        case Disconnected:
-                            System.out.println("Client with id "+receivedMsg.getClientID()+ " disconnected");
-                            connClientMap.put(receivedMsg.getClientID(),false);
-                            //clientShutdown();
-                            break;*/
+            try {
+                while (client.isConnected()) {
+                    Message msg = (Message) in.readObject();
+                    if (msg != null) {
+                        switch (msg.getType()) {
+                            case UserRegistration:
+                                System.out.println("Utente registrato, id=" + msg.getClientID() + ", city=" + msg.getCity());
+                                synchronized (observersByCity) {
+                                    //creo observer
+                                    ObserverClass usrObs = new ObserverClass(msg.getClientID(), out);
+                                    attachUserObserver(msg.getCity(), usrObs);
+                                }
+                                //notifica l'utente
+                                Message response = new Message(MessageTypes.UserRegistration);
+                                out.writeObject(response);
+                                break;
+                        }
                     }
-                }
 
+                }
             } catch (IOException | ClassNotFoundException e) {
-                System.out.println(e.getMessage());
-                //todo: handle
-            }finally{
+                throw new RuntimeException(e);
+            } finally {
                 clientShutdown();
             }
         }
 
         private void clientShutdown(){
-            if(!client.isClosed()){
-                try {
-                    out.close();
-                    in.close();
-                    client.close();
-                    System.out.println("Client socket disconnected from server");
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
-                }
+            try{
+                out.close();
+                in.close();
+                client.close();
+            }catch(IOException e){
+                System.out.println("Exception in clientShutdown "+e.getMessage());
             }
         }
 
-        private void attachUserObserver(String city, ObserverClass userObs) {
-            observersByCity.computeIfAbsent(city, k -> new ArrayList<>()).add(userObs);
-            System.out.println("aggiunta corrispondenza "+city+" - "+userObs.getObsID());
-        }
 
-        private void attachOrganizerObserver(int eventID, ObserverClass orgObs) {
-            organizerByEventID.put(eventID, orgObs);
-        }
-
-        private void notifyUserObservers(String city) {
-            List<ObserverClass> obsList = observersByCity.get(city);
-            if (obsList != null) {
-                for (ObserverClass obs : obsList) {
-                    if(observerIsOnline(obs)){  //se l'utente (id) corrispondente all'observer e' segnato come online nella hashmap allora aggiornalo inviando la notifica popup
-                        obs.update(MessageTypes.EventAdded);
-                    }else{
-                        //l'utente e' al momento offline -> aggiornamento database notifiche senza notifica popup
-                    }
-                }
-            }
-        }
-
-        private boolean observerIsOnline(ObserverClass obs){
-            return connClientMap.get(obs.getObsID());
-        }
     }
-    public static void main(String[] args) {
-        logger.info("The notification server is running.");
-        Server server = new Server();
-        server.run();
+
+    private void attachUserObserver(String city, ObserverClass obs) {
+        observersByCity.computeIfAbsent(city, k -> new ArrayList<>()).add(obs);
+        System.out.println("Aggiunta corrispondenza: " + city + " - " + obs.getObsID());
     }
+
 }
+

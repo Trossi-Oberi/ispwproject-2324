@@ -10,15 +10,16 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class ObserverClass implements Observer {
-    private String userCity;
     private int id; //generico, sia per User che per Organizer
+    private ObjectOutputStream out;
 
-    public ObserverClass(int id){
+    public ObserverClass(int id, ObjectOutputStream out){
         this.id = id;
+        this.out = out;
     }
 
     @Override
-    public void update(MessageTypes type, ObjectOutputStream out){
+    public void update(MessageTypes type){
         try {
             Message message = new Message(type);
             out.writeObject(message);
