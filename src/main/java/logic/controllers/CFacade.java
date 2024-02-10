@@ -75,6 +75,7 @@ public class CFacade {
                     notificationController = new CNotification();
                 }
                 notificationController.sendRegMessage(bean.getUserID(), bean.getCity());
+                notificationController.connectToNotificationServer(bean.getUserID());
                 notificationController.disconnectFromServer(bean.getUserID());
             }
         }
