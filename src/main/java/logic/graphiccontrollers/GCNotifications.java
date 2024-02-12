@@ -61,6 +61,8 @@ public class GCNotifications extends EssentialGUI {
     @FXML
     public void initialize() {
 
+        //TODO: fare la retrieve di tutte le notifiche dal db, caso user: eventAdded, caso organizer: userParticipation
+
         //IMPORTANTE: massima lunghezza di una notifica deve essere di 118 caratteri per evitare sbilanciamenti
 //        ObservableList<String> items = FXCollections.observableArrayList(
 //                "Notify 1",

@@ -54,6 +54,7 @@ public class AlertPopup {
         alert.setTitle("NightPlan");
         alert.setContentText(text);
         alert.setHeaderText(headerText);
-        alert.showAndWait();
+        //alert.showAndWait();
+        alert.show();
     }
 }

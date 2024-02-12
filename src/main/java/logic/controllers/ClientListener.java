@@ -1,6 +1,9 @@
 package logic.controllers;
 
 import logic.model.Message;
+import logic.utils.LoggedUser;
+import logic.utils.UserTypes;
+import logic.view.EssentialGUI;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -49,11 +52,14 @@ public class ClientListener extends Thread implements Runnable{
                             break;
 
                         case EventAdded:
-                            System.out.println("New event in your city");
-
-                            //nuova notifica (static)
-                            //TODO: notifica in FX thread
-                            semaphore.release(2);
+                            if(LoggedUser.getUserType() == UserTypes.ORGANIZER){
+                                //rilascia semaforo solo per organizer per non bloccare l'applicazione
+                                semaphore.release(2);
+                            } else{
+                                //nuova notifica (static)
+                                System.out.println("New event in your city");
+                                EssentialGUI.showNotification(incomingMsg.getType());
+                            }
                             break;
 
                         case Disconnected:

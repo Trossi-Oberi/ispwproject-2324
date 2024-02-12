@@ -38,6 +38,8 @@ public class Server {
     }
 
     private void start() {
+        //TODO: implementare un preload dal db di tutti gli utenti ed eventi. Utenti associati alla città, eventi associati all'organizerID
+
         try {
             //attivo la connessione del server tramite ServerSocket
             serverSocket = new ServerSocket(PORT);
@@ -130,6 +132,12 @@ public class Server {
                                 attachOrgObserver(msg.getEventID(), orgObs);
                             }
                             //TODO: fare stesso controllo del canale out anche per l'organizer, se l'organizer fa logout dopo aver aggiunto l'evento è un problema
+                            //notifica l'organizer
+                            response = new Message(MessageTypes.EventAdded, msg.getClientID());
+                            out.writeObject(response);
+                            out.flush();
+                            out.reset();
+
                             //notifica l'utente
                             updateUserObservers(msg.getCity());
                             break;

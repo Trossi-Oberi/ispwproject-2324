@@ -8,18 +8,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import logic.utils.Alerts;
 import logic.utils.LoggedUser;
 import logic.controllers.CFacade;
+import logic.utils.MessageTypes;
 
 public class EssentialGUI extends Application {
 
@@ -133,11 +136,18 @@ public class EssentialGUI extends Application {
         }
     }
 
-    public static void showNotification(){
-        AlertPopup al = new AlertPopup();
-        al.displayAlertPopup(Alerts.INFORMATION, "Notifica");
+
+    public static void showNotification(MessageTypes type) {
+        Platform.runLater(() -> {
+            AlertPopup alert = new AlertPopup();
+            switch (type) {
+                case EventAdded:
+                    alert.displayAlertPopup(Alerts.INFORMATION, "New event in your city!\nCheck your events page.");
+                    break;
+                case UserEventParticipation:
+                    alert.displayAlertPopup(Alerts.INFORMATION, "New user participating to your event."); //TODO: nel caso aggiungere anche il nome evento o l'id evento (NON IMPORTANTE)
+                    break;
+            }
+        });
     }
-
-
-
 }
