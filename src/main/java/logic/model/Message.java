@@ -52,7 +52,7 @@ public class Message implements Serializable {
     // in caso 2 id sara' id evento e city sara' eventcity
 
     public MessageTypes getType(){
-        return messageType;
+        return this.messageType;
     }
 
     public String getCity(){
@@ -63,5 +63,7 @@ public class Message implements Serializable {
         return this.clientID;
     }
 
-    public int getEventID(){return this.eventID;}
+    public int getEventID(){
+        return this.eventID;
+    }
 }

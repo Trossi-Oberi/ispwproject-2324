@@ -23,6 +23,7 @@ public class ObserverClass implements Observer {
         try {
             Message message = new Message(type);
             out.writeObject(message);
+            out.flush();
         } catch (IOException e) {
             System.out.println("Errore nell'update function di observerclass "+e.getMessage());
         }

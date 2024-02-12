@@ -2,7 +2,6 @@ package logic.controllers;
 
 import logic.beans.*;
 import logic.exceptions.DuplicateEventParticipation;
-import logic.utils.LoggedUser;
 import logic.utils.UserTypes;
 
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ public class CFacade {
 //        if (notificationController == null){
 //            notificationController = new CNotification();
 //        }
-        notificationController.sendAddEventMessage(bean.getEventOrganizerID(), bean.getEventID(), bean.getEventCity());
+//        notificationController.sendAddEventMessage(bean.getEventOrganizerID(), bean.getEventID(), bean.getEventCity());
         return res;
     }
 
@@ -57,28 +56,25 @@ public class CFacade {
             loginController = new CLogin();
         }
         int loginRes = loginController.checkLoginControl(bean, isGoogleAuth, authCode);
-        if (notificationController == null) {
-            notificationController = new CNotification();
-        }
-        notificationController.connectToNotificationServer(LoggedUser.getUserID());
+//        if (notificationController == null) {
+//            notificationController = new CNotification();
+//        }
+//        notificationController.connectToNotificationServer(LoggedUser.getUserID());
         return loginRes;
     }
 
-    public boolean registerUser(BUserData bean){
+    public boolean registerUser(BUserData bean) throws RuntimeException {
         if (regController == null){
             regController = new CRegistration();
         }
         boolean res = regController.registerUserControl(bean);
-        if(res){
-            if (bean.getUserType()==UserTypes.USER){
-                if (notificationController == null){
-                    notificationController = new CNotification();
-                }
-                notificationController.startListener(bean.getUserID());
-                notificationController.sendRegMessage(bean.getUserID(), bean.getCity());
-                notificationController.connectToNotificationServer(bean.getUserID());
-                notificationController.disconnectFromServer(bean.getUserID());
+
+        //se completo con successo la registrazione di un nuovo utente allora effettuo una connessione al server
+        if (res) {
+            if (notificationController == null) {
+                notificationController = new CNotification(); //inizializzo il controller delle notifiche
             }
+            notificationController.sendRegMessage(bean.getUserID(), bean.getCity());
         }
         return res;
 
@@ -99,11 +95,12 @@ public class CFacade {
     }
 
     public void signOut(){
-        if (notificationController == null){
-            notificationController = new CNotification();
-        }
-        notificationController.disconnectFromServer(LoggedUser.getUserID());
+//        if (notificationController == null){
+//            notificationController = new CNotification();
+//        }
+//        notificationController.disconnectFromServer(LoggedUser.getUserID());
 
+        //dopo la disconnessione dal server chiudo la sessione di Login
         if (loginController == null) {
             loginController = new CLogin();
         }

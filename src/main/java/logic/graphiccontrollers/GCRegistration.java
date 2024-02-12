@@ -80,8 +80,8 @@ public abstract class GCRegistration {
             } else {
                 this.alert.displayAlertPopup(Alerts.WARNING, "Registration procedure failed. Please retry...");
             }
-        } catch (Exception e) {
-            this.alert.displayAlertPopup(Alerts.INFORMATION, "Cannot complete registration!");
+        } catch (RuntimeException e) {
+            this.alert.displayAlertPopup(Alerts.INFORMATION, "Cannot complete registration! " + e.getMessage());
         }
     }
 
