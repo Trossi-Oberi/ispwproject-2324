@@ -60,6 +60,7 @@ public class CNotification {
             //avvio il listener del client
             startListener(userID);
 
+            //TODO: fare un sendMessage() generico che prenda i parametri messageType, etc...
             //mando il messaggio di registrazione al server
             if (listenerThread.isAlive()) {
                 Message registrationMsg = new Message(MessageTypes.UserRegistration, userID, city);
