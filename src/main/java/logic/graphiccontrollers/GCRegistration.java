@@ -74,6 +74,7 @@ public abstract class GCRegistration {
 
     protected void register(MouseEvent event) {
         try {
+            //TODO: gestire eccezioni registrazione campi da compilare
             if (this.facadeController.registerUser(this.dataBean)) {
                 this.alert.displayAlertPopup(Alerts.INFORMATION, "Successfully registered to NightPlan");
                 this.gui.changeGUI(event, "Login.fxml");
