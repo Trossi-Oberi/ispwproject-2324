@@ -2,6 +2,7 @@ package logic.controllers;
 
 import logic.beans.*;
 import logic.exceptions.DuplicateEventParticipation;
+import logic.utils.LoggedUser;
 import logic.utils.UserTypes;
 
 import java.util.ArrayList;
@@ -22,10 +23,12 @@ public class CFacade {
             manageEventController = new CManageEvent();
         }
         boolean res = manageEventController.addEvent(bean); //chiamata al controller effettivo
-//        if (notificationController == null){
-//            notificationController = new CNotification();
-//        }
-//        notificationController.sendAddEventMessage(bean.getEventOrganizerID(), bean.getEventID(), bean.getEventCity());
+        if(res) {
+            if (notificationController == null){
+                notificationController = new CNotification();
+            }
+            notificationController.sendAddEventMessage(bean.getEventOrganizerID(), bean.getEventID(), bean.getEventCity());
+        }
         return res;
     }
 
@@ -51,18 +54,6 @@ public class CFacade {
         return manageEventController.getParticipationsToEvent(id);
     }
 
-    public int loginUser(BUserData bean, boolean isGoogleAuth, String authCode) throws RuntimeException{
-        if (loginController == null) {
-            loginController = new CLogin();
-        }
-        int loginRes = loginController.checkLoginControl(bean, isGoogleAuth, authCode);
-//        if (notificationController == null) {
-//            notificationController = new CNotification();
-//        }
-//        notificationController.connectToNotificationServer(LoggedUser.getUserID());
-        return loginRes;
-    }
-
     public boolean registerUser(BUserData bean) throws RuntimeException {
         if (regController == null){
             regController = new CRegistration();
@@ -71,13 +62,42 @@ public class CFacade {
 
         //se completo con successo la registrazione di un nuovo utente allora effettuo una connessione al server
         if (res) {
-            if (notificationController == null) {
-                notificationController = new CNotification(); //inizializzo il controller delle notifiche
+            if(bean.getUserType().equals(UserTypes.USER)){
+                if (notificationController == null) {
+                    notificationController = new CNotification(); //inizializzo il controller delle notifiche
+                }
+                notificationController.sendRegMessage(bean.getUserID(), bean.getCity());
             }
-            notificationController.sendRegMessage(bean.getUserID(), bean.getCity());
         }
         return res;
+    }
 
+    public int loginUser(BUserData bean, boolean isGoogleAuth, String authCode) throws RuntimeException{
+        if (loginController == null) {
+            loginController = new CLogin();
+        }
+        int loginRes = loginController.checkLoginControl(bean, isGoogleAuth, authCode);
+        if(loginRes == 1) {
+            if (notificationController == null) {
+                notificationController = new CNotification();
+            }
+            notificationController.sendLoginMsg(LoggedUser.getUserID(), LoggedUser.getCity());
+        }
+        return loginRes;
+    }
+
+    public void signOut(){
+        //effettuo la disconnessione dal server
+        if (notificationController == null){
+            notificationController = new CNotification();
+        }
+        if(notificationController.sendLogoutMsg(LoggedUser.getUserID())){
+            //dopo la disconnessione dal server chiudo la sessione di Login
+            if (loginController == null) {
+                loginController = new CLogin();
+            }
+            loginController.closeLoginSession();
+        }
     }
 
     public ArrayList<String> getProvincesList(){
@@ -92,19 +112,6 @@ public class CFacade {
             regController = new CRegistration();
         }
         return regController.getCitiesList(province);
-    }
-
-    public void signOut(){
-//        if (notificationController == null){
-//            notificationController = new CNotification();
-//        }
-//        notificationController.disconnectFromServer(LoggedUser.getUserID());
-
-        //dopo la disconnessione dal server chiudo la sessione di Login
-        if (loginController == null) {
-            loginController = new CLogin();
-        }
-        loginController.closeLoginSession();
     }
 
 

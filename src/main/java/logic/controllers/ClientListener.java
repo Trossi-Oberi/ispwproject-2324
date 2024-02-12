@@ -4,10 +4,7 @@ import logic.model.Message;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.util.concurrent.Semaphore;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ClientListener extends Thread implements Runnable{
@@ -39,37 +36,39 @@ public class ClientListener extends Thread implements Runnable{
                 if(incomingMsg != null){
                     switch (incomingMsg.getType()){
                         case UserRegistration:
-                            System.out.println("New client " + incomingMsg.getClientID() + " successfully registered in observersByCity hashmap in Server istance.");
-                            System.out.println("Connection to server can be stopped right now.");
+                            System.out.println("New client " + incomingMsg.getClientID() + " successfully registered.");
                             //chiudo i canali di comunicazione del client con il server
                             semaphore.release(2);
-                            //clientListenerShutdown();
+                            listenerRunning = false;
+                            break;
+
+                        case LoggedIn:
+                            System.out.println("Client " + incomingMsg.getClientID() + " logged in successfully.");
+                            //chiudo i canali di comunicazione del client con il server
+                            semaphore.release(2);
+                            break;
+
+                        case EventAdded:
+                            System.out.println("New event in your city");
+
+                            //nuova notifica (static)
+                            //TODO: notifica in FX thread
+                            semaphore.release(2);
+                            break;
+
+                        case Disconnected:
+                            System.out.println("Client " + incomingMsg.getClientID() + " disconnected successfully.");
+                            //chiudo i canali di comunicazione del client con il server
+                            semaphore.release(2);
                             listenerRunning = false;
                             break;
                     }
                 }
             }
-
-            //rilascio il semaforo se il listener sta ancora funzionando
-//            if(listenerRunning){
-//
-//                //interrompo il client listener thread
-//                //notificationCtrl.stopListener();
-//            }
         } catch (InterruptedException | IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IllegalArgumentException e){
             logger.severe(e.getMessage());
         }
     }
-
-/*    private void clientListenerShutdown(){
-        try{
-            //chiudo canale input
-            in.close();
-        }catch(IOException e){
-            logger.log(Level.SEVERE, "IOException during clientShutdown: " + e.getMessage());
-        }
-    }*/
-
 }

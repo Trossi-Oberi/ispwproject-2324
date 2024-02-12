@@ -5,9 +5,7 @@ import logic.model.Message;
 import logic.utils.MessageTypes;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.Socket;
 
 public class ObserverClass implements Observer {
     private int id; //generico, sia per User che per Organizer
@@ -24,9 +22,14 @@ public class ObserverClass implements Observer {
             Message message = new Message(type);
             out.writeObject(message);
             out.flush();
+            out.reset();
         } catch (IOException e) {
-            System.out.println("Errore nell'update function di observerclass "+e.getMessage());
+            System.out.println("Update notify error in ObsClass: "+ e.getMessage());
         }
+    }
+
+    public void setOut(ObjectOutputStream out){
+        this.out = out;
     }
     public int getObsID(){
         return this.id;

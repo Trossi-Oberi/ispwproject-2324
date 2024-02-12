@@ -1,6 +1,7 @@
 package logic.model;
 
 import logic.utils.MessageTypes;
+import logic.utils.UserTypes;
 
 import java.io.Serializable;
 
@@ -9,6 +10,8 @@ public class Message implements Serializable {
     private String city;
     private int clientID;
     private int eventID;
+
+    private UserTypes userType;
 
     //implementare message factory
 
@@ -37,6 +40,11 @@ public class Message implements Serializable {
         this.city = city;
     }
 
+    public Message(MessageTypes type, int clientID, String city, UserTypes usrType) {
+        this(type, clientID, city);
+        this.userType = usrType;
+    }
+
     //caso 2: organizer aggiunge evento
     //type: EventAdded, eventID: id dell'evento che e' stato aggiunto. Verra' creato dal server un OrganizerObserver che viene aggiornato quando un utente clickera' su partecipa
     //Funzionamento notifica: utente clicka su partecipa evento, prendo event id, ricavo organizer_id, aggiorno l'observer relativo all'organizer inviandogli una notifica
@@ -44,6 +52,7 @@ public class Message implements Serializable {
         this(type, clientID, city);
         this.eventID = eventID;
     }
+
 
     //caso 3: utente clicka partecipa all'evento
 
@@ -65,5 +74,9 @@ public class Message implements Serializable {
 
     public int getEventID(){
         return this.eventID;
+    }
+
+    public UserTypes getUserType(){
+        return this.userType;
     }
 }

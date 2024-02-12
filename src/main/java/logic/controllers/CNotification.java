@@ -1,25 +1,23 @@
 package logic.controllers;
 
-import logic.beans.BUserData;
 import logic.dao.NotificationDAO;
 import logic.model.Message;
 import logic.server.Server;
+import logic.utils.LoggedUser;
 import logic.utils.MessageTypes;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.List;
 import java.util.concurrent.Semaphore;
+import java.util.logging.Logger;
 
 public class CNotification {
     //questo controller si occupa solo di rigirare notifiche ai graphic controller a seguito di interazioni con il listener
-    private boolean active = false;
-
-    private Socket client;
-
     private Semaphore semaphore;
+    private Socket client;
+    private boolean active = false;
     private ClientListener listener;
     private Thread listenerThread;
     private NotificationDAO notificationDAO;
@@ -28,33 +26,39 @@ public class CNotification {
 
     private ObjectOutputStream out;
 
+    private Logger logger = Logger.getLogger("NightPlan");
+
     public CNotification(){
         this.notificationDAO = new NotificationDAO();
     }
 
-//    public void startListener(int id){
-//
-//
-//    }
-//
-//    public void stopListener(){
-//
-//        //closeClient();
-//    }
-
-    public void sendRegMessage(int userID, String city) throws RuntimeException{
-        try (Socket regClient = new Socket(Server.ADDRESS, Server.PORT)){
+    private void startListener(int userID){
+        try {
+            client = new Socket(Server.ADDRESS, Server.PORT);
             setActive(true);
             this.semaphore = new Semaphore(1);
 
             //apriamo la socket e i canali in/out
-            this.out = new ObjectOutputStream(regClient.getOutputStream());
-            this.in = new ObjectInputStream(regClient.getInputStream());
+            this.out = new ObjectOutputStream(client.getOutputStream());
+            this.in = new ObjectInputStream(client.getInputStream());
 
             //avviamo il thread con il listener
             this.listener = new ClientListener(userID, this.semaphore, this, this.in);
             this.listenerThread = new Thread(listener);
+
+            //starto il thread
             this.listenerThread.start();
+
+            logger.info("Client " + userID + " listener started successfully");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void sendRegMessage(int userID, String city) throws RuntimeException{
+        try {
+            //avvio il listener del client
+            startListener(userID);
 
             //mando il messaggio di registrazione al server
             if (listenerThread.isAlive()) {
@@ -67,25 +71,86 @@ public class CNotification {
             //aspetto il rilascio del semaforo nel thread dopo aver ricevuto la response dal server
             semaphore.acquire(2);
 
-            //chiudo il thread listener del client
-            setActive(false);
-            listenerThread.interrupt();
+            //chiudo il client listener thread
+            stopListener(userID);
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void setActive(boolean val){
-        this.active = val;
+
+    public void sendLoginMsg(int userID, String city){
+        try{
+            //avvio il listener del client
+            startListener(userID);
+
+            if (listenerThread.isAlive()) {
+                Message registrationMsg = new Message(MessageTypes.LoggedIn, userID, city, LoggedUser.getUserType());
+                out.writeObject(registrationMsg);
+                out.flush();
+                out.reset();
+            }
+
+            //aspetto il rilascio del semaforo nel thread dopo aver ricevuto la response dal server
+            semaphore.acquire(2);
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-//    public void closeClient(){
-//        try {
-//            this.in.close();
-//            this.out.close();
-//            this.client.close();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    public void sendAddEventMessage(int orgID, int eventID, String city){
+        try{
+            if (listenerThread.isAlive()) {
+                Message newEventMsg = new Message(MessageTypes.EventAdded, orgID, eventID, city);
+                out.writeObject(newEventMsg);
+                out.flush();
+                out.reset();
+
+                //aspetto il rilascio del semaforo nel thread dopo aver ricevuto la response dal server
+                semaphore.acquire(2);
+            }
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean sendLogoutMsg(int userID){
+        try{
+            if (listenerThread.isAlive()) {
+                Message registrationMsg = new Message(MessageTypes.Disconnected, userID);
+                out.writeObject(registrationMsg);
+                out.flush();
+                out.reset();
+
+                //aspetto il rilascio del semaforo nel thread dopo aver ricevuto la response dal server
+                semaphore.acquire(2);
+                //chiudo il thread
+                stopListener(userID);
+            } else {
+                logger.severe("Listener thread already stopped");
+                return false;
+            }
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return true;
+    }
+
+    private void stopListener(int userID){
+        //chiudo il thread listener del client
+        try {
+            setActive(false);
+            listenerThread.interrupt();
+            if (!client.isClosed()) {
+                this.client.close();
+                logger.info("Client " + userID + " socket closed successfully");
+            }
+        } catch (IOException e){
+            logger.severe(e.getMessage());
+        }
+    }
+
+    private void setActive(boolean value){
+        this.active = value;
+    }
 }

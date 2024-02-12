@@ -3,13 +3,13 @@ package logic.server;
 import logic.controllers.ObserverClass;
 import logic.model.Message;
 import logic.utils.MessageTypes;
+import logic.utils.UserTypes;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +21,8 @@ public class Server {
 
     private Map<String, List<ObserverClass>> observersByCity = new HashMap<>();
     private Map<Integer, ObserverClass> organizersByEventID = new HashMap<>();
+
+    private Map<Integer, Boolean> connectedUsers = new HashMap<>();
 
     private static Logger logger = Logger.getLogger("NightPlan");
 
@@ -42,7 +44,7 @@ public class Server {
             while (true) {
                 //aspetto che un utente si connetta da client al server aprendo una Socket
                 Socket client = serverSocket.accept();
-                System.out.println("Nuovo client connesso: " + client.getInetAddress() + " on port " + client.getPort());
+                logger.info("Nuovo client connesso: " + client.getInetAddress() + " on port " + client.getPort());
                 //imposto un timeout della socket a 5 secondi
                 //client.setSoTimeout(5000);
                 ClientHandler ch = new ClientHandler(client);
@@ -81,52 +83,114 @@ public class Server {
                 while (clientRunning) { //questo ciclo while si interrompe non appena il Client chiude i suoi canali di comunicazione con il server
                     //blocco il thread in lettura di un messaggio in arrivo dal client
                     Message msg = (Message) in.readObject();
+                    Message response;
                     switch (msg.getType()) {
                         case UserRegistration:
                             System.out.println("User registered, id = " + msg.getClientID() + ", city = " + msg.getCity());
                             synchronized (observersByCity) {
                                 //un solo thread alla volta può read/write su observersByCity affinché i dati siano consistenti
                                 //creo observer con le informazioni del nuovo utente registrato (user_id, canali di comunicazione in uscita verso la Client socket)
-                                ObserverClass usrObs = new ObserverClass(msg.getClientID(), out);
+                                ObserverClass usrObs = new ObserverClass(msg.getClientID(), null);
                                 attachUserObserver(msg.getCity(), usrObs);
                             }
                             //notifica l'utente
-                            Message response = new Message(MessageTypes.UserRegistration, msg.getClientID());
+                            response = new Message(MessageTypes.UserRegistration, msg.getClientID());
                             out.writeObject(response);
                             out.flush();
                             out.reset();
 
                             clientRunning = false;
+                            break;
+                        case LoggedIn:
+                            System.out.println("User logged in, id = " + msg.getClientID());
 
-                            //clientShutdown();
+                            synchronized (connectedUsers){
+                                updateLoggedUsers(msg.getClientID(), true);
+                            }
+                            synchronized (observersByCity) {
+                                if(msg.getUserType() == UserTypes.USER) {
+                                    updateUserOut(msg.getCity(), msg.getClientID(), out);
+                                } else {
+                                    //TODO: fare updateOrgOut
+                                }
+                            }
+                            //notifica l'utente
+                            response = new Message(MessageTypes.LoggedIn, msg.getClientID());
+                            out.writeObject(response);
+                            out.flush();
+                            out.reset();
+                            break;
+
+                        case EventAdded:
+                            System.out.println("New event added by " + msg.getClientID() + ", eventID: " + msg.getEventID() + ", city: " + msg.getCity());
+                            synchronized (organizersByEventID) {
+                                //un solo thread alla volta può read/write su observersByCity affinché i dati siano consistenti
+                                //creo observer con le informazioni del nuovo utente registrato (user_id, canali di comunicazione in uscita verso la Client socket)
+                                ObserverClass orgObs = new ObserverClass(msg.getClientID(), out);
+                                attachOrgObserver(msg.getEventID(), orgObs);
+                            }
+                            //TODO: fare stesso controllo del canale out anche per l'organizer, se l'organizer fa logout dopo aver aggiunto l'evento è un problema
+                            //notifica l'utente
+                            updateUserObservers(msg.getCity());
+                            break;
+
+                        case UserEventParticipation:
+                            break;
+
+                        case Disconnected:
+                            System.out.println("User logged out, id = " + msg.getClientID());
+                            synchronized (connectedUsers) {
+                                updateLoggedUsers(msg.getClientID(), false);
+                            }
+                            //notifica l'utente
+                            response = new Message(MessageTypes.Disconnected, msg.getClientID());
+                            out.writeObject(response);
+                            out.flush();
+                            out.reset();
+
+                            clientRunning = false;
                             break;
                     }
                 }
             } catch (IOException | ClassNotFoundException e) {
                 logger.log(Level.SEVERE, e.getMessage());
-            } finally {
-                //quando il client ha chiuso la connessione con il server esso può chiudere le sue connessioni verso il client
-
             }
         }
+    }
 
-        private void clientShutdown(){
-            try{
-                //chiudo canali in/out e poi la socket
-                out.close();
-                in.close();
-                client.close();
-            }catch(IOException e){
-                logger.log(Level.SEVERE, "IOException during clientShutdown: " + e.getMessage());
+    private void updateUserOut(String city, int clientID, ObjectOutputStream out) {
+        List<ObserverClass> users = observersByCity.get(city);
+        for (ObserverClass user : users) {
+            if (user.getObsID() == clientID) {
+                user.setOut(out);
             }
         }
+    }
 
+    private void updateUserObservers(String city) {
+        List<ObserverClass> users = observersByCity.get(city);
+        for (ObserverClass user : users) {
+            if (connectedUsers.get(user.getObsID())) {
+                //se utente online notifica
+                user.update(MessageTypes.EventAdded);
+            }
+            //TODO: aggiunta al database
+        }
+    }
 
+    private void attachOrgObserver(int eventID, ObserverClass orgObs) {
+        organizersByEventID.put(eventID, orgObs);
+        System.out.println("Added eventID: " + eventID + " to orgID: " + orgObs.getObsID());
     }
 
     private void attachUserObserver(String city, ObserverClass obs) {
         observersByCity.computeIfAbsent(city, k -> new ArrayList<>()).add(obs);
-        System.out.println("Aggiunta corrispondenza: " + city + " - " + obs.getObsID());
+        System.out.println("Added city: " + city + " to userID: " + obs.getObsID());
+    }
+
+    private void updateLoggedUsers(int userID, boolean isConnected){
+        connectedUsers.put(userID, isConnected);
+        System.out.println("User id: " + userID + ", isConnected:" + connectedUsers.get(userID).toString());
     }
 
 }
