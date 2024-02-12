@@ -9,14 +9,12 @@ import logic.view.EssentialGUI;
 
 public class GCSettingsGeneral extends EssentialGUI { //SettingsGeneral coincide con SettingsOrg, SettingsUser ha le stesse funzionalita' di SettingsOrg + 2 pulsanti
 
-    protected AlertPopup alert;
-
     @FXML
     private Button signOutButton;
 
     @FXML
     public void initialize() {
-        alert = new AlertPopup();
+
     }
 
     @FXML
@@ -36,8 +34,8 @@ public class GCSettingsGeneral extends EssentialGUI { //SettingsGeneral coincide
 
     @FXML
     void leaveApp(MouseEvent event) {
-        this.cfacade.signOut();
+        cfacade.signOut();
         changeGUI(event, "Login.fxml");
-        this.alert.displayAlertPopup(Alerts.INFORMATION,"Logged out successfully. You have been returned to the login screen!");
+        alert.displayAlertPopup(Alerts.INFORMATION,"Logged out successfully. You have been returned to the login screen!");
     }
 }

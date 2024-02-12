@@ -57,8 +57,6 @@ public class GCAddEvent extends EssentialGUI {
 
     private BEvent eventBean;
     private byte[] eventPicData;
-
-    private CFacade facade;
     private ArrayList<String> provincesList = new ArrayList<>();
     private ArrayList<String> citiesList = new ArrayList<>();
 
@@ -68,9 +66,6 @@ public class GCAddEvent extends EssentialGUI {
 
     @FXML
     public void initialize() {
-
-        facade = new CFacade();
-
         //Disabilita le date precedenti a quella odierna per il datePicker
         datePicker.setDayCellFactory(picker -> new DateCell() {
             @Override
@@ -80,7 +75,7 @@ public class GCAddEvent extends EssentialGUI {
             }
         });
 
-        this.provincesList = facade.getProvincesList();
+        this.provincesList = cfacade.getProvincesList();
         ObservableList<String> provincesList = FXCollections.observableArrayList(this.provincesList);
         this.provinceChoiceBox.setItems(provincesList);
         setupProvinceBoxListener();
@@ -128,7 +123,7 @@ public class GCAddEvent extends EssentialGUI {
         eventBean.setEventOrganizer(LoggedUser.getUserName());
         eventBean.setEventOrganizerID(LoggedUser.getUserID());
         try {
-            if (facade.addEvent(eventBean)) {
+            if (cfacade.addEvent(eventBean)) {
                 //alerts
                 alert.displayAlertPopup(Alerts.INFORMATION, "Event added successfully");
                 changeGUI(event, "HomeOrg.fxml");
@@ -145,7 +140,7 @@ public class GCAddEvent extends EssentialGUI {
     private void setupProvinceBoxListener() {
         this.provinceChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             this.citiesList.clear();
-            this.citiesList = facade.getCitiesList(String.valueOf(newValue));
+            this.citiesList = cfacade.getCitiesList(String.valueOf(newValue));
             updateCityListView();
         });
     }
@@ -155,4 +150,6 @@ public class GCAddEvent extends EssentialGUI {
         this.cityChoiceBox.setItems(citiesList);
     }
 
+
+    //TODO: fare gestione eccezioni alla creazione evento
 }

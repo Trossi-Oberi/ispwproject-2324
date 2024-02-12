@@ -28,11 +28,11 @@ public class EssentialGUI extends Application {
 
     protected static Scene scene;
     protected static final Logger logger = Logger.getLogger(APP_NAME);
-    protected CFacade cfacade;
+
+    protected static CFacade cfacade = new CFacade();
     protected AlertPopup alert;
 
     public EssentialGUI(){
-        this.cfacade = new CFacade();
         this.alert = new AlertPopup();
     }
 

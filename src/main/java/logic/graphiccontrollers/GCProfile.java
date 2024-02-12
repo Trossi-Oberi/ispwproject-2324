@@ -39,7 +39,6 @@ public class GCProfile extends EssentialGUI{
 
     @FXML
     public void initialize() {
-        this.alert = new AlertPopup();
         switch(LoggedUser.getUserType()){
             case USER:
                 this.type = UserTypes.USER;

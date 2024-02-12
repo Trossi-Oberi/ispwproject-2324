@@ -129,8 +129,4 @@ public class GCYourEventsOrg extends GCYourEventsGeneral{
         return beansArray.get(selectedEventIndex);
     }
 
-
-
-
-
 }

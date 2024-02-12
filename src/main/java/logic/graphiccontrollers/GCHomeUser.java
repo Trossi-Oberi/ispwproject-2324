@@ -36,7 +36,7 @@ public class GCHomeUser extends EssentialGUI implements DoubleClickListener {
     private ArrayList<BEvent> eventsList = new ArrayList<>();
     private ArrayList<BEvent> upcomingEventsList = new ArrayList<>();
 
-    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     public void initialize(){
         eventsList = cfacade.retrieveEvents(LoggedUser.getUserType(), this.getClass().getSimpleName());

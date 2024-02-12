@@ -54,11 +54,9 @@ public class GCAnalytics extends EssentialGUI {
     private static Integer timesClicked;    //volte che l'evento e' stato clickato (Random)
     private static Integer nParticipants; //partecipanti effettivi (Random tra 0 e participations)
 
-    CFacade facadeController;
 
     @FXML
     public void initialize() {
-        facadeController = new CFacade();
     }
 
     public void initAnalyticsByBean(BEvent eventBean){
@@ -79,7 +77,7 @@ public class GCAnalytics extends EssentialGUI {
     public void initParticipantsInfo(){
         //retrieve del numero delle participations
         //partecipazioni segnate (Query dal DB UserEvent)
-        int participations = facadeController.retrieveParticipationsToEvent(eventID);
+        int participations = cfacade.retrieveParticipationsToEvent(eventID);
         if (timesClicked == null){
             Random rand = new Random();
             timesClicked = rand.nextInt(5000- participations +1) + participations;

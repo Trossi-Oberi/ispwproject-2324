@@ -22,10 +22,7 @@ import logic.view.AlertPopup;
 import logic.view.EssentialGUI;
 import logic.beans.BUserData;
 
-public class GCLogin {
-    private EssentialGUI gui;
-    private AlertPopup alert;
-    private CFacade facadeController;
+public class GCLogin extends EssentialGUI{
     @FXML
     private Button GoogleLoginButton;
     @FXML
@@ -45,16 +42,13 @@ public class GCLogin {
 
     @FXML
     public void initialize() {
-        this.alert = new AlertPopup();
-        this.gui = new EssentialGUI();
-        this.facadeController = new CFacade();
         this.authCode = null;
         this.isGoogleAuth = false;
     }
 
     @FXML
     public void registerControl(MouseEvent event){
-        gui.changeGUI(event, "ClassicRegistration.fxml");
+        changeGUI(event, "ClassicRegistration.fxml");
     }
 
     @FXML
@@ -74,15 +68,15 @@ public class GCLogin {
                 //classic login
                 userBean = new BUserData(this.usrname.getText(), this.passwd.getText());
             }
-            if (facadeController.loginUser(userBean, this.isGoogleAuth, authCode) == 1) {
+            if (cfacade.loginUser(userBean, this.isGoogleAuth, authCode) == 1) {
                 switch (LoggedUser.getUserType()) {
                     case USER:
                         this.alert.displayAlertPopup(Alerts.INFORMATION, "Logged in successfully as a user");
-                        gui.changeGUI(event, "HomeUser.fxml");
+                        changeGUI(event, "HomeUser.fxml");
                         break;
                     case ORGANIZER:
                         this.alert.displayAlertPopup(Alerts.INFORMATION, "Logged in successfully as an organizer");
-                        gui.changeGUI(event, "HomeOrg.fxml");
+                        changeGUI(event, "HomeOrg.fxml");
                         break;
                     default:
                         this.alert.displayAlertPopup(Alerts.ERROR, "FATAL: Cannot load HomePage from Login");
@@ -93,7 +87,7 @@ public class GCLogin {
                 } else {
                     this.alert.displayAlertPopup(Alerts.WARNING, "User not registered using Google Auth! \nYou will be redirected to Registration Page");
                     LoggedUser.setUserName(userBean.getUsername());
-                    gui.changeGUI(event, "GoogleRegistration.fxml");
+                    changeGUI(event, "GoogleRegistration.fxml");
                 }
             }
         } catch (RuntimeException e){ //se facciamo in tempo sostituire con un'eccezione personalizzata InvalidTokenValue
