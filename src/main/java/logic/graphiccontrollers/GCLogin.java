@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -14,11 +14,9 @@ import javafx.stage.WindowEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import logic.controllers.CFacade;
 import logic.utils.Alerts;
 import logic.utils.GoogleLogin;
 import logic.utils.LoggedUser;
-import logic.view.AlertPopup;
 import logic.view.EssentialGUI;
 import logic.beans.BUserData;
 
@@ -72,27 +70,27 @@ public class GCLogin extends EssentialGUI{
             if (cfacade.loginUser(userBean, this.isGoogleAuth, authCode) == 1) {
                 switch (LoggedUser.getUserType()) {
                     case USER:
-                        this.alert.displayAlertPopup(Alerts.INFORMATION, "Logged in successfully as a user");
+                        alert.displayAlertPopup(Alerts.INFORMATION, "Logged in successfully as a user");
                         changeGUI(event, "HomeUser.fxml");
                         break;
                     case ORGANIZER:
-                        this.alert.displayAlertPopup(Alerts.INFORMATION, "Logged in successfully as an organizer");
+                        alert.displayAlertPopup(Alerts.INFORMATION, "Logged in successfully as an organizer");
                         changeGUI(event, "HomeOrg.fxml");
                         break;
                     default:
-                        this.alert.displayAlertPopup(Alerts.ERROR, "FATAL: Cannot load HomePage from Login");
+                        alert.displayAlertPopup(Alerts.ERROR, "Cannot load home page from login");
                 }
             } else {
                 if (!isGoogleAuth) {
-                    this.alert.displayAlertPopup(Alerts.WARNING, "User not registered or wrong credentials. Please retry...");
+                    alert.displayAlertPopup(Alerts.WARNING, "User not registered or wrong credentials. Please retry...");
                 } else {
-                    this.alert.displayAlertPopup(Alerts.WARNING, "User not registered using Google Auth! \nYou will be redirected to Registration Page");
+                    alert.displayAlertPopup(Alerts.WARNING, "User not registered using Google Auth! \nYou will be redirected to Registration Page");
                     LoggedUser.setUserName(userBean.getUsername());
                     changeGUI(event, "GoogleRegistration.fxml");
                 }
             }
-        } catch (RuntimeException e){ //se facciamo in tempo sostituire con un'eccezione personalizzata InvalidTokenValue
-            this.alert.displayAlertPopup(Alerts.ERROR, "Invalid authorization code. Please retry...");
+        } catch (RuntimeException e){ //TODO:se facciamo in tempo sostituire con un'eccezione personalizzata InvalidTokenValue
+            alert.displayAlertPopup(Alerts.ERROR, "Invalid authorization code. Please retry...");
         }
     }
 
