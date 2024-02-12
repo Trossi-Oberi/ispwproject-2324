@@ -59,8 +59,9 @@ public class GCLogin extends EssentialGUI{
                 //google login
                 userBean = new BUserData();
                 try {
-                    GoogleLogin.initGoogleLogin();
-                    openAuthCodeWindow();
+                    if(GoogleLogin.initGoogleLogin() == 1){
+                        openAuthCodeWindow();
+                    }
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

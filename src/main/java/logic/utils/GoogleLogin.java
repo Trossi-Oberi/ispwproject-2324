@@ -1,7 +1,6 @@
 package logic.utils;
 
 import com.google.api.client.auth.oauth2.AuthorizationCodeRequestUrl;
-import com.google.api.client.auth.oauth2.AuthorizationCodeResponseUrl;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.auth.oauth2.TokenResponseException;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
@@ -14,7 +13,6 @@ import com.google.api.client.http.HttpResponse;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.gson.GsonFactory;
-//import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 
 import java.io.*;
@@ -26,7 +24,6 @@ import java.net.URI;
 import java.util.Map;
 
 public class GoogleLogin {
-//  private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
     private static final String CLIENT_SECRETS_FILE_PATH = "client_secrets.json";
@@ -43,7 +40,7 @@ public class GoogleLogin {
         }
 
         // Set up the OAuth flow
-        GoogleAuthorizationCodeFlow authflow = null;
+        GoogleAuthorizationCodeFlow authflow;
         if (clientSecrets != null) {
             authflow = new GoogleAuthorizationCodeFlow.Builder(
                     GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, clientSecrets, Collections.singletonList(SCOPES))
@@ -69,7 +66,8 @@ public class GoogleLogin {
     }
 
     public static Credential getGoogleAccountCredentials(GoogleAuthorizationCodeFlow flow, String code) throws Exception{
-        Credential cred = flow.loadCredential("user");
+        flow.loadCredential("user");
+        Credential cred;
         try {
             GoogleTokenResponse resp = flow.newTokenRequest(code).setRedirectUri("urn:ietf:wg:oauth:2.0:oob").execute();
             cred = flow.createAndStoreCredential(resp, "user");
@@ -103,7 +101,7 @@ public class GoogleLogin {
         // Parsa la risposta JSON per ottenere l'indirizzo email
         JsonObjectParser parser = new JsonObjectParser(jsonFactory);
         //Map<String, Object> userInfo = parser.parseAndClose(userInfoResponse.getContent(), Map.class);
-        Map<String, Object> userInfo = parser.parseAndClose(userInfoResponse.getContent(), Charset.defaultCharset(), Map.class);
+        Map userInfo = parser.parseAndClose(userInfoResponse.getContent(), Charset.defaultCharset(), Map.class);
 
         return (String) userInfo.get("email");
     }
