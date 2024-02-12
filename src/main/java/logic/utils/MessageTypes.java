@@ -5,6 +5,5 @@ public enum MessageTypes {
     EventAdded,
     UserEventParticipation,
     LoggedIn,
-    Disconnected;
-
+    Disconnected
 }
