@@ -39,7 +39,6 @@ public class EventDAO {
                     }
                 }
             }
-
         }
         catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
@@ -70,7 +69,6 @@ public class EventDAO {
             }
 
         } else {  //USER && YourEventsUser
-            UserDAO userDAO = new UserDAO();
             try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT events.* FROM Events JOIN UserEvent ON Events.event_id = UserEvent.event_id WHERE (UserEvent.user_id = ?)")){
                 statement.setInt(1, LoggedUser.getUserID()); //prendo lo user id dalla sessione;
                 myEvents = getEventsArrayList(statement);

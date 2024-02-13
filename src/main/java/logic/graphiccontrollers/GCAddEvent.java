@@ -121,6 +121,7 @@ public class GCAddEvent extends EssentialGUI {
         eventBean.setEventPicData(eventPicData);
         eventBean.setEventOrganizer(LoggedUser.getUserName());
         eventBean.setEventOrganizerID(LoggedUser.getUserID());
+        eventBean.setEventPicPath(pickedFileLabel.getText());
         try {
             if (cfacade.addEvent(eventBean)) {
                 //alerts
