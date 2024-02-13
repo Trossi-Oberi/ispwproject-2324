@@ -2,11 +2,11 @@ package logic.controllers;
 
 import logic.model.Message;
 import logic.utils.LoggedUser;
+import logic.utils.SecureObjectInputStream;
 import logic.utils.UserTypes;
 import logic.view.EssentialGUI;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.concurrent.Semaphore;
 
 import static logic.view.EssentialGUI.logger;
@@ -17,10 +17,10 @@ public class ClientListener extends Thread implements Runnable{
     private int clientID;
     private CNotification notificationCtrl;
     private Semaphore semaphore;
-    private ObjectInputStream in;
+    private SecureObjectInputStream in;
     private boolean listenerRunning = true;
 
-    public ClientListener(int id, Semaphore semaphore, CNotification notiController, ObjectInputStream in){
+    public ClientListener(int id, Semaphore semaphore, CNotification notiController, SecureObjectInputStream in){
         this.clientID = id;
         this.semaphore = semaphore;
         this.notificationCtrl = notiController;

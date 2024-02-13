@@ -3,10 +3,10 @@ package logic.server;
 import logic.controllers.ObserverClass;
 import logic.model.Message;
 import logic.utils.MessageTypes;
+import logic.utils.SecureObjectInputStream;
 import logic.utils.UserTypes;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -61,7 +61,7 @@ public class Server {
 
     private class ClientHandler implements Runnable {
         private Socket client;
-        private ObjectInputStream in;
+        private SecureObjectInputStream in;
         private ObjectOutputStream out;
 
         private boolean clientRunning = true;
@@ -76,7 +76,7 @@ public class Server {
                 //quando viene avviato il thread associato al client parte questa funzione run()
                 //apriamo i canali di input/output del client con il server.
                 out = new ObjectOutputStream(client.getOutputStream()); //da server a client
-                in = new ObjectInputStream(client.getInputStream()); //da client a server
+                in = new SecureObjectInputStream(client.getInputStream()); //da client a server
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

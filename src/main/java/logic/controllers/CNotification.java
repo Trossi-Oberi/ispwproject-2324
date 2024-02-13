@@ -5,9 +5,9 @@ import logic.model.Message;
 import logic.server.Server;
 import logic.utils.LoggedUser;
 import logic.utils.MessageTypes;
+import logic.utils.SecureObjectInputStream;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.concurrent.Semaphore;
@@ -23,7 +23,7 @@ public class CNotification {
     private Thread listenerThread;
     private NotificationDAO notificationDAO;
 
-    private ObjectInputStream in;
+    private SecureObjectInputStream in;
 
     private ObjectOutputStream out;
 
@@ -39,7 +39,7 @@ public class CNotification {
 
             //apriamo la socket e i canali in/out
             this.out = new ObjectOutputStream(client.getOutputStream());
-            this.in = new ObjectInputStream(client.getInputStream());
+            this.in = new SecureObjectInputStream(client.getInputStream());
 
             //avviamo il thread con il listener
             this.listener = new ClientListener(userID, this.semaphore, this, this.in);
