@@ -30,6 +30,8 @@ public class SecureObjectInputStream extends ObjectInputStream {
         approvedClasses.add(MessageTypes.class.getName());
         approvedClasses.add(Enum.class.getName());
         approvedClasses.add(UserTypes.class.getName());
+        approvedClasses.add(Integer.class.getName());
+        approvedClasses.add(Number.class.getName());
 
 
         if (!approvedClasses.contains(osc.getName())) {

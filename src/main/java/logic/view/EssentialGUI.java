@@ -2,6 +2,7 @@ package logic.view;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -75,7 +76,7 @@ public class EssentialGUI extends Application {
                 root = FXMLLoader.load(loc);
             }
             scene = new Scene(root);
-            scene.getStylesheets().add(EssentialGUI.class.getResource("application.css").toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(EssentialGUI.class.getResource("application.css")).toExternalForm());
         } catch (IOException | NullPointerException e) {
             logger.log(Level.SEVERE, "Cannot load scene\n", e);
         }
@@ -139,6 +140,9 @@ public class EssentialGUI extends Application {
             switch (type) {
                 case EventAdded:
                     alert.displayAlertPopup(Alerts.INFORMATION, "New event in your city!\nCheck your events page.");
+//                    if (loc.toExternalForm().contains("HomeUser.fxml")) {
+//                    //TODO: forse un giorno faremo l'aggiornamento dinamico
+//                    }
                     break;
                 case UserEventParticipation:
                     alert.displayAlertPopup(Alerts.INFORMATION, "New user participating to your event."); //TODO: nel caso aggiungere anche il nome evento o l'id evento (NON IMPORTANTE)

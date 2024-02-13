@@ -44,6 +44,15 @@ public class GCHomeUser extends EssentialGUI implements DoubleClickListener{
         setupEventClickListener();
     }
 
+/*    public void reload(){
+        Platform.runLater(() -> {
+            // Questo codice viene eseguito sul JavaFX Application Thread
+            eventsList = cfacade.retrieveEvents(LoggedUser.getUserType(), this.getClass().getSimpleName());
+            populateEventsListView();
+            setupEventClickListener();
+        });
+    }*/
+
     private void populateEventsListView() {
         for (BEvent bEvent : eventsList) {
             String eventDateString = bEvent.getEventDate();
