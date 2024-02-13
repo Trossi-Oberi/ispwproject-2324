@@ -43,12 +43,16 @@ public class GCEventPageGeneral extends EssentialGUI {
 
     protected BEvent eventBean;
 
+    protected String className;
+
     @FXML
     public void initialize(){
         //empty
     }
 
-    public void initEventFromBean(BEvent eventB){
+    public void initEventFromBean(BEvent eventB, String className){
+        this.className = className;
+
         this.eventName.setText(eventB.getEventName());
         this.city.setText(eventB.getEventCity());
         this.address.setText(eventB.getEventAddress());

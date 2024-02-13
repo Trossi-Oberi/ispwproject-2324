@@ -23,11 +23,14 @@ public class GCEventPageUser extends GCEventPageGeneral implements InfoPages {
     @FXML
     private Button viewMap;
 
-    //TODO: fixare goBack logic nella GCEventPageUser
-
     @FXML
     void goBack(MouseEvent event) {
-        goToYourEvents(event);
+        //torno nella pagina precedente
+        if(className.equals("GCHomeUser")){
+            goToHome(event);
+        } else if (className.equals("GCYourEventsUser")) {
+            goToYourEvents(event);
+        }
     }
 
     @FXML

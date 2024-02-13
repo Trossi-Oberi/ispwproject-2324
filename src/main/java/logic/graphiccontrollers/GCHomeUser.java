@@ -41,6 +41,7 @@ public class GCHomeUser extends EssentialGUI implements DoubleClickListener {
         populateEventsListView();
         setupEventClickListener();
     }
+
     private void populateEventsListView() {
         for (BEvent bEvent : eventsList) {
             String eventDateString = bEvent.getEventDate();
@@ -64,7 +65,7 @@ public class GCHomeUser extends EssentialGUI implements DoubleClickListener {
                 try {
                     onItemDoubleClick(event, selectedEventBean, "EventPageUser.fxml");
                 } catch (RuntimeException e){
-                    alert.displayAlertPopup(Alerts.ERROR, "FATAL ERROR, runtime exception on double click");
+                    alert.displayAlertPopup(Alerts.ERROR, "Fatal: " + e.getMessage());
                 }
             }
         });
@@ -89,7 +90,7 @@ public class GCHomeUser extends EssentialGUI implements DoubleClickListener {
                 scene.getStylesheets().add(Objects.requireNonNull(EssentialGUI.class.getResource("application.css")).toExternalForm());
 
                 GCEventPageUser eventPageGC = loader.getController();
-                eventPageGC.initEventFromBean(selectedEventBean);
+                eventPageGC.initEventFromBean(selectedEventBean, this.getClass().getSimpleName());
             } catch (IOException | NullPointerException e) {
                 logger.log(Level.SEVERE, "Cannot load scene\n", e);
             } catch (RuntimeException e){
