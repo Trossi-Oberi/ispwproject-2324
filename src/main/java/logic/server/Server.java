@@ -24,14 +24,15 @@ public class Server {
 
     private Map<String, List<ObserverClass>> observersByCity = new HashMap<>();
     private Map<Integer, ObserverClass> organizersByEventID = new HashMap<>();
-
     private Map<Integer, Boolean> connectedUsers = new HashMap<>();
 
     private static Logger logger = Logger.getLogger("NightPlan");
+    private static final int MAX_CONNECTIONS = 500;
+    private ServerSocket serverSocket;
+
 
     public static final String ADDRESS = "localhost";
     public static final int PORT = 2521;
-    private ServerSocket serverSocket;
     private MessageFactory msgFactory;
     private static final SituationType NOTIFICATION = SituationType.Notification;
     private static final SituationType GROUPCHAT = SituationType.GroupChat;
@@ -39,6 +40,7 @@ public class Server {
     public Server(){
         msgFactory = new MessageFactory();
     }
+
 
 
     public static void main(String[] args) {
@@ -49,16 +51,28 @@ public class Server {
 
     private void start() {
         //TODO: implementare un preload dal db di tutti gli utenti ed eventi. Utenti associati alla città, eventi associati all'organizerID
+        int connections = 0;
+        boolean serverRunning = true;
 
         try {
             //attivo la connessione del server tramite ServerSocket
             serverSocket = new ServerSocket(PORT);
-            while (true) {
+            while (serverRunning) {
+                //verifico che non si sia raggiunto il numero massimo di connessioni possibili al server
+                if(connections == MAX_CONNECTIONS){
+                    serverRunning = false;
+                    continue;
+                }
+
                 //aspetto che un utente si connetta da client al server aprendo una Socket
                 Socket client = serverSocket.accept();
+
+                //aggiungo nuovo utente al numero di connessioni
+                connections++;
+
                 logger.info("Nuovo client connesso: " + client.getInetAddress() + " on port " + client.getPort());
                 //imposto un timeout della socket a 5 secondi
-                //client.setSoTimeout(5000);
+                client.setSoTimeout(5000);
                 ClientHandler ch = new ClientHandler(client);
                 //avvio un thread apposito per ogni client che si connette che dovrà gestire tutti gli scambi di dati tra client-server
                 Thread t = new Thread(ch);
