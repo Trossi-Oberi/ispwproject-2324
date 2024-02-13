@@ -21,7 +21,7 @@ import logic.controllers.CFacade;
 import logic.utils.MessageTypes;
 
 public class EssentialGUI extends Application {
-
+    //TODO: inserire le icone in tutta l'applicazione
     private static final String APP_NAME = "NightPlan";
     protected static String sceneName;
     protected static Scene scene;

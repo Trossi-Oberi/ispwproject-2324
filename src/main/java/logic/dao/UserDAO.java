@@ -11,6 +11,9 @@ import static logic.view.EssentialGUI.logger;
 public class UserDAO {
     private String userCity;
 
+    //TODO: fare UserDAO in doppia versione FILESYSTEM (.csv) e JDBC
+    //TODO: applicare per ogni DAO la chiusura di connection, statement e result set ogni volta
+
     public int checkLoginInfo(MUser usrMod, boolean isGoogleAccount) {
         int ret = 0;
         if (!isGoogleAccount) {
