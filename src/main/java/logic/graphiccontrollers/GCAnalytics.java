@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
 import java.io.ByteArrayInputStream;
+import java.security.SecureRandom;
 import java.util.Random;
 
 import logic.beans.BEvent;
@@ -71,7 +72,7 @@ public class GCAnalytics extends EssentialGUI {
         //partecipazioni segnate (Query dal DB UserEvent)
         int participations = cfacade.retrieveParticipationsToEvent(eventID);
         if (timesClicked == null){
-            Random rand = new Random();
+            Random rand = new SecureRandom();
             timesClicked = rand.nextInt(5000- participations +1) + participations;
             nParticipants = rand.nextInt(participations +1);
         }
