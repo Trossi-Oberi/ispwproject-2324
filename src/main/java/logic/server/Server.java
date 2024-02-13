@@ -1,9 +1,12 @@
 package logic.server;
 
+import logic.controllers.MessageFactory;
 import logic.controllers.ObserverClass;
 import logic.model.Message;
+import logic.model.NotificationMessage;
 import logic.utils.MessageTypes;
 import logic.utils.SecureObjectInputStream;
+import logic.utils.SituationType;
 import logic.utils.UserTypes;
 
 import java.io.IOException;
@@ -30,6 +33,13 @@ public class Server {
 
     public static final String ADDRESS = "localhost";
     public static final int PORT = 2521;
+    private MessageFactory msgFactory;
+    private static final SituationType NOTIFICATION = SituationType.Notification;
+    private static final SituationType GROUPCHAT = SituationType.GroupChat;
+
+    public Server(){
+        msgFactory = new MessageFactory();
+    }
 
 
 
@@ -96,9 +106,9 @@ public class Server {
             try {
                 while (clientRunning) { //questo ciclo while si interrompe non appena il Client chiude i suoi canali di comunicazione con il server
                     //blocco il thread in lettura di un messaggio in arrivo dal client
-                    Message msg = (Message) in.readObject();
+                    NotificationMessage msg = (NotificationMessage) in.readObject();
                     Message response;
-                    switch (msg.getType()) {
+                    switch (msg.getMessageType()) {
                         case UserRegistration:
                             System.out.println("User registered, id = " + msg.getClientID() + ", city = " + msg.getCity());
                             synchronized (observersByCity) {
@@ -108,16 +118,13 @@ public class Server {
                                 attachUserObserver(msg.getCity(), usrObs);
                             }
                             //notifica l'utente
-                            response = new Message(MessageTypes.UserRegistration, msg.getClientID());
-                            out.writeObject(response);
-                            out.flush();
-                            out.reset();
-
+                            response = msgFactory.createMessage(NOTIFICATION, MessageTypes.UserRegistration, msg.getClientID(), null, null, null);
+                            sendMessageToClient(response, out);
                             clientRunning = false;
                             break;
+
                         case LoggedIn:
                             System.out.println("User logged in, id = " + msg.getClientID());
-
                             synchronized (connectedUsers){
                                 updateLoggedUsers(msg.getClientID(), true);
                             }
@@ -129,10 +136,8 @@ public class Server {
                                 }
                             }
                             //notifica l'utente
-                            response = new Message(MessageTypes.LoggedIn, msg.getClientID());
-                            out.writeObject(response);
-                            out.flush();
-                            out.reset();
+                            response = msgFactory.createMessage(NOTIFICATION, MessageTypes.LoggedIn, msg.getClientID(), null, null, null);
+                            sendMessageToClient(response, out);
                             break;
 
                         case EventAdded:
@@ -145,10 +150,8 @@ public class Server {
                             }
                             //TODO: fare stesso controllo del canale out anche per l'organizer, se l'organizer fa logout dopo aver aggiunto l'evento è un problema
                             //notifica l'organizer
-                            response = new Message(MessageTypes.EventAdded, msg.getClientID());
-                            out.writeObject(response);
-                            out.flush();
-                            out.reset();
+                            response = msgFactory.createMessage(NOTIFICATION, MessageTypes.EventAdded, msg.getClientID(), null, null, null);
+                            sendMessageToClient(response, out);
 
                             //notifica l'utente
                             updateUserObservers(msg.getCity());
@@ -163,11 +166,8 @@ public class Server {
                                 updateLoggedUsers(msg.getClientID(), false);
                             }
                             //notifica l'utente
-                            response = new Message(MessageTypes.Disconnected, msg.getClientID());
-                            out.writeObject(response);
-                            out.flush();
-                            out.reset();
-
+                            response = msgFactory.createMessage(NOTIFICATION, MessageTypes.Disconnected, msg.getClientID(), null, null, null);
+                            sendMessageToClient(response, out);
                             clientRunning = false;
                             break;
                     }
@@ -175,6 +175,16 @@ public class Server {
             } catch (IOException | ClassNotFoundException e) {
                 logger.log(Level.SEVERE, e.getMessage());
             }
+        }
+    }
+
+    private void sendMessageToClient(Message msg, ObjectOutputStream out){
+        try {
+            out.writeObject(msg);
+            out.flush();
+            out.reset();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

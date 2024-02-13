@@ -36,7 +36,7 @@ public class ClientListener extends Thread implements Runnable{
             while(listenerRunning){
                 Message incomingMsg = (Message) in.readObject();
                 if(incomingMsg != null){
-                    switch (incomingMsg.getType()){
+                    switch (incomingMsg.getMessageType()){
                         case UserRegistration:
                             System.out.println("New client " + incomingMsg.getClientID() + " successfully registered.");
                             //chiudo i canali di comunicazione del client con il server
@@ -57,7 +57,7 @@ public class ClientListener extends Thread implements Runnable{
                             } else{
                                 //nuova notifica (static)
                                 System.out.println("New event in your city");
-                                EssentialGUI.showNotification(incomingMsg.getType());
+                                EssentialGUI.showNotification(incomingMsg.getMessageType());
                             }
                             break;
 

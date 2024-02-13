@@ -5,17 +5,32 @@ import logic.utils.UserTypes;
 
 import java.io.Serializable;
 
-public class Message implements Serializable {
-    private MessageTypes messageType;
-    private String city;
-    private int clientID;
-    private int eventID;
+public interface Message extends Serializable {
 
-    private UserTypes userType;
+    void setMessageType(MessageTypes msgType);
 
-    //implementare message factory
+    void setCity(String city);
 
-    public Message(MessageTypes type){
+    void setClientID(Integer clientID);
+
+    void setEventID(Integer eventID);
+
+    void setUserType(UserTypes userType);
+
+
+    MessageTypes getMessageType();
+
+    String getCity();
+
+    Integer getClientID();
+
+    Integer getEventID();
+
+    UserTypes getUserType();
+}
+
+
+    /*public Message(MessageTypes type){
         messageType = type;
     }
 
@@ -53,30 +68,11 @@ public class Message implements Serializable {
         this.eventID = eventID;
     }
 
-
     //caso 3: utente clicka partecipa all'evento
 
     //id e city vanno bene sia per caso 1 che per caso 2:
     // in caso 1 id sara' id utente e city sara' usercity,
     // in caso 2 id sara' id evento e city sara' eventcity
+     */
 
-    public MessageTypes getType(){
-        return this.messageType;
-    }
 
-    public String getCity(){
-        return this.city;
-    }
-
-    public int getClientID(){
-        return this.clientID;
-    }
-
-    public int getEventID(){
-        return this.eventID;
-    }
-
-    public UserTypes getUserType(){
-        return this.userType;
-    }
-}

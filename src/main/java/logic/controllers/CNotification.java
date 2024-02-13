@@ -3,9 +3,7 @@ package logic.controllers;
 import logic.dao.NotificationDAO;
 import logic.model.Message;
 import logic.server.Server;
-import logic.utils.LoggedUser;
-import logic.utils.MessageTypes;
-import logic.utils.SecureObjectInputStream;
+import logic.utils.*;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -16,12 +14,13 @@ import static logic.view.EssentialGUI.logger;
 
 public class CNotification {
     //questo controller si occupa solo di rigirare notifiche ai graphic controller a seguito di interazioni con il listener
+    private static final SituationType NOTIFICATION = SituationType.Notification;
     private Semaphore semaphore;
     private Socket client;
-    private boolean active = false;
     private ClientListener listener;
     private Thread listenerThread;
     private NotificationDAO notificationDAO;
+    private MessageFactory msgFactory;
 
     private SecureObjectInputStream in;
 
@@ -29,12 +28,13 @@ public class CNotification {
 
     public CNotification(){
         this.notificationDAO = new NotificationDAO();
+        this.msgFactory = new MessageFactory();
     }
 
     private void startListener(int userID){
         try {
             client = new Socket(Server.ADDRESS, Server.PORT);
-            setActive(true);
+            //setActive(true);
             this.semaphore = new Semaphore(1);
 
             //apriamo la socket e i canali in/out
@@ -54,7 +54,34 @@ public class CNotification {
         }
     }
 
-    public void sendRegMessage(int userID, String city) throws RuntimeException{
+    public void sendMessage(MessageTypes msgType, Integer clientID, Integer eventID, String city, UserTypes usrType){
+        try {
+            //se ListenerThread non e' ancora stato inizializzato oppure e' stato inizializzato ma e' stato poi interrotto lo avvio
+            if (listenerThread == null || !listenerThread.isAlive()){
+                startListener(clientID);
+            }
+            //creo il messaggio e lo mando al server
+            if (listenerThread.isAlive()){
+                Message msg = msgFactory.createMessage(NOTIFICATION, msgType, clientID, eventID, city, usrType);
+                out.writeObject(msg);
+                out.flush();
+                out.reset();
+            }
+
+            //aspetto sempre risposta del server
+            semaphore.acquire(2);
+
+            //Vedo il tipo di messaggio per decidere se chiudere il listener oppure no
+            if (msgType == MessageTypes.UserRegistration || msgType==MessageTypes.Disconnected){
+                listenerThread.interrupt();
+            }
+
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /*public void sendRegMessage(int userID, String city){
         try {
             //avvio il listener del client
             startListener(userID);
@@ -76,10 +103,10 @@ public class CNotification {
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 
 
-    public void sendLoginMsg(int userID, String city){
+    /*public void sendLoginMsg(int userID, String city){
         try{
             //avvio il listener del client
             startListener(userID);
@@ -96,9 +123,9 @@ public class CNotification {
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 
-    public void sendAddEventMessage(int orgID, int eventID, String city){
+    /*public void sendAddEventMessage(int orgID, int eventID, String city){
         try{
             if (listenerThread.isAlive()) {
                 Message newEventMsg = new Message(MessageTypes.EventAdded, orgID, eventID, city);
@@ -112,9 +139,9 @@ public class CNotification {
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 
-    public boolean sendLogoutMsg(int userID){
+    /*public boolean sendLogoutMsg(int userID){
         try{
             if (listenerThread.isAlive()) {
                 Message registrationMsg = new Message(MessageTypes.Disconnected, userID);
@@ -134,12 +161,12 @@ public class CNotification {
             throw new RuntimeException(e);
         }
         return true;
-    }
+    }*/
 
     private void stopListener(int userID){
         //chiudo il thread listener del client
         try {
-            setActive(false);
+//            setActive(false);
             listenerThread.interrupt();
             if (!client.isClosed()) {
                 this.client.close();
@@ -150,7 +177,7 @@ public class CNotification {
         }
     }
 
-    private void setActive(boolean value){
+    /*private void setActive(boolean value){
         this.active = value;
-    }
+    }*/
 }
