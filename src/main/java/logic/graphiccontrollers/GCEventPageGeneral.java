@@ -70,8 +70,4 @@ public class GCEventPageGeneral extends EssentialGUI {
         //salvo localmente il bean evento
         this.eventBean = eventB;
     }
-
-
-
-
 }

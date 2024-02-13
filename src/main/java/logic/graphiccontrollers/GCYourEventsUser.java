@@ -8,6 +8,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 
 import logic.beans.BEvent;
+import logic.interfaces.DoubleClickListener;
 import logic.utils.Alerts;
 import logic.utils.LoggedUser;
 import logic.view.EssentialGUI;
@@ -16,9 +17,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.logging.Level;
 
-public class GCYourEventsUser extends GCYourEventsGeneral {
+public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClickListener {
     @FXML
     private ListView<String> pastEventsLV;
 
@@ -51,20 +53,20 @@ public class GCYourEventsUser extends GCYourEventsGeneral {
         }
     }
 
-    private void populateLVs(){
+    private void populateLVs() {
 
         for (BEvent bEvent : eventsParticipationList) {
             String eventDateString = bEvent.getEventDate();
-            LocalDate date = LocalDate.parse(eventDateString,dateTimeFormatter);
+            LocalDate date = LocalDate.parse(eventDateString, dateTimeFormatter);
 
             //problema: se evento ha stesso data di oggi viene considerato passato
-            if(LocalDate.now().isBefore(date)){
+            if (LocalDate.now().isBefore(date)) {
                 upComingEventsBeans.add(bEvent);
                 this.upComingEventsLV.getItems().add(bEvent.getEventName());
                 this.upComingTimeLV.getItems().add(formatTimeAndDate(bEvent.getEventDate(), bEvent.getEventTime()));
                 this.upcomingMusicLV.getItems().add(bEvent.getEventMusicGenre());
 
-            }else{
+            } else {
                 pastEventsBeans.add(bEvent);
                 this.pastEventsLV.getItems().add(bEvent.getEventName());
                 this.pastTimeLV.getItems().add(formatTimeAndDate(bEvent.getEventDate(), bEvent.getEventTime()));
@@ -73,50 +75,52 @@ public class GCYourEventsUser extends GCYourEventsGeneral {
 
         }
     }
+
     @Override
-    public void setupEventClickListener(){
+    public void setupEventClickListener() {
         upComingEventsLV.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
-                int selectedEventIndex = upComingEventsLV.getSelectionModel().getSelectedIndex();
-                // Verifica se è stato effettuato un doppio clic
-                BEvent selectedEventBean = upComingEventsBeans.get(selectedEventIndex);
+                BEvent selectedEventBean = getBeanFromListView(upComingEventsLV, upComingEventsBeans);
                 try {
-                    onItemDoubleClick(event, selectedEventBean, "EventPageUser.fxml");
-                } catch (RuntimeException e){
+                    if (selectedEventBean != null) {
+                        onItemDoubleClick(event, selectedEventBean, "EventPageUser.fxml");
+                    }
+                } catch (RuntimeException e) {
                     alert.displayAlertPopup(Alerts.ERROR, "Fatal: " + e.getMessage());
                 }
             }
         });
         pastEventsLV.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
-                int selectedEventIndex = pastEventsLV.getSelectionModel().getSelectedIndex();
-                // Verifica se è stato effettuato un doppio clic
-                BEvent selectedEventBean = pastEventsBeans.get(selectedEventIndex);
+                BEvent selectedEventBean = getBeanFromListView(pastEventsLV, pastEventsBeans);
                 try {
-                    onItemDoubleClick(event, selectedEventBean, "EventPageUser.fxml");
-                } catch (RuntimeException e){
+                    if (selectedEventBean != null) {
+                        onItemDoubleClick(event, selectedEventBean, "EventPageUser.fxml");
+                    }
+                } catch (RuntimeException e) {
                     alert.displayAlertPopup(Alerts.ERROR, "Fatal: " + e.getMessage());
                 }
             }
         });
     }
+
     @Override
     public void onItemDoubleClick(MouseEvent event, BEvent selectedEventBean, String fxmlpage) throws RuntimeException {
         try {
             URL loc = EssentialGUI.class.getResource(fxmlpage);
             FXMLLoader loader = new FXMLLoader(loc);
             Parent root = null;
-            if(loc != null) {
+            if (loc != null) {
                 root = loader.load();
             }
             scene = new Scene(root);
-            scene.getStylesheets().add(EssentialGUI.class.getResource("application.css").toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(EssentialGUI.class.getResource("application.css")).toExternalForm());
 
             GCEventPageUser eventPageUserGC = loader.getController();
-            eventPageUserGC.initEventFromBean(selectedEventBean);
+            eventPageUserGC.initEventFromBean(selectedEventBean, this.getClass().getSimpleName());
         } catch (IOException | NullPointerException e) {
             logger.log(Level.SEVERE, "Cannot load scene\n", e);
-        } catch (RuntimeException e){
+        } catch (RuntimeException e) {
             throw new RuntimeException(e);
         }
         nextGuiOnClick(event);

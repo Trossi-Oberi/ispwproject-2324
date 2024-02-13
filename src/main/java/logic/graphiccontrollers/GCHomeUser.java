@@ -21,7 +21,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.logging.Level;
 
-public class GCHomeUser extends EssentialGUI implements DoubleClickListener {
+import static logic.graphiccontrollers.GCYourEventsGeneral.getBeanFromListView;
+
+public class GCHomeUser extends EssentialGUI implements DoubleClickListener{
     @FXML
     private ListView<String> eventsListView;
 
@@ -46,7 +48,7 @@ public class GCHomeUser extends EssentialGUI implements DoubleClickListener {
         for (BEvent bEvent : eventsList) {
             String eventDateString = bEvent.getEventDate();
             LocalDate date = LocalDate.parse(eventDateString, dateTimeFormatter);
-            if(LocalDate.now().isBefore(date)) {
+            if (LocalDate.now().isBefore(date)) {
                 this.eventsListView.getItems().add(bEvent.getEventName());
                 this.musicListView.getItems().add(bEvent.getEventMusicGenre());
                 this.groupsListView.getItems().add("No group");
@@ -55,16 +57,15 @@ public class GCHomeUser extends EssentialGUI implements DoubleClickListener {
         }
     }
 
-    @Override
-    public void setupEventClickListener(){
+    public void setupEventClickListener() {
         eventsListView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
-                int selectedEventIndex = eventsListView.getSelectionModel().getSelectedIndex();
-                // Verifica se è stato effettuato un doppio clic
-                BEvent selectedEventBean = upcomingEventsList.get(selectedEventIndex);
+                BEvent selectedEventBean = getBeanFromListView(eventsListView, upcomingEventsList);
                 try {
-                    onItemDoubleClick(event, selectedEventBean, "EventPageUser.fxml");
-                } catch (RuntimeException e){
+                    if (selectedEventBean != null) {
+                        onItemDoubleClick(event, selectedEventBean, "EventPageUser.fxml");
+                    }
+                } catch (RuntimeException e) {
                     alert.displayAlertPopup(Alerts.ERROR, "Fatal: " + e.getMessage());
                 }
             }
@@ -79,24 +80,24 @@ public class GCHomeUser extends EssentialGUI implements DoubleClickListener {
 
     @Override
     public void onItemDoubleClick(MouseEvent event, BEvent selectedEventBean, String fxmlpage) {
-            try {
-                URL loc = EssentialGUI.class.getResource(fxmlpage);
-                FXMLLoader loader = new FXMLLoader(loc);
-                Parent root = null;
-                if(loc != null) {
-                    root = loader.load();
-                }
-                scene = new Scene(root);
-                scene.getStylesheets().add(Objects.requireNonNull(EssentialGUI.class.getResource("application.css")).toExternalForm());
-
-                GCEventPageUser eventPageGC = loader.getController();
-                eventPageGC.initEventFromBean(selectedEventBean, this.getClass().getSimpleName());
-            } catch (IOException | NullPointerException e) {
-                logger.log(Level.SEVERE, "Cannot load scene\n", e);
-            } catch (RuntimeException e){
-                throw new RuntimeException(e);
+        try {
+            URL loc = EssentialGUI.class.getResource(fxmlpage);
+            FXMLLoader loader = new FXMLLoader(loc);
+            Parent root = null;
+            if (loc != null) {
+                root = loader.load();
             }
-            nextGuiOnClick(event);
+            scene = new Scene(root);
+            scene.getStylesheets().add(Objects.requireNonNull(EssentialGUI.class.getResource("application.css")).toExternalForm());
+
+            GCEventPageUser eventPageGC = loader.getController();
+            eventPageGC.initEventFromBean(selectedEventBean, this.getClass().getSimpleName());
+        } catch (IOException | NullPointerException e) {
+            logger.log(Level.SEVERE, "Cannot load scene\n", e);
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
+        nextGuiOnClick(event);
     }
 
 }
