@@ -2,12 +2,14 @@ package logic.controllers;
 
 import logic.dao.NotificationDAO;
 import logic.model.Message;
+import logic.model.NotificationMessage;
 import logic.server.Server;
 import logic.utils.*;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
 import static logic.view.EssentialGUI.logger;
@@ -45,6 +47,8 @@ public class CNotification {
             this.listener = new ClientListener(userID, this.semaphore, this, this.in);
             this.listenerThread = new Thread(listener);
 
+            //setto il thread come demone affinché termini quando termina anche il thread principale
+            this.listenerThread.setDaemon(true);
             //starto il thread
             this.listenerThread.start();
 
@@ -56,7 +60,7 @@ public class CNotification {
 
     public void sendMessage(MessageTypes msgType, Integer clientID, Integer eventID, String city, UserTypes usrType){
         try {
-            //se ListenerThread non e' ancora stato inizializzato oppure e' stato inizializzato ma e' stato poi interrotto lo avvio
+            //se ListenerThread non è ancora stato inizializzato oppure è stato inizializzato ma è stato poi interrotto lo avvio
             if (listenerThread == null || !listenerThread.isAlive()){
                 startListener(clientID);
             }
@@ -92,5 +96,9 @@ public class CNotification {
         } catch (IOException e){
             logger.severe(e.getMessage());
         }
+    }
+
+    public ArrayList<NotificationMessage> retrieveNotifications(int userID) {
+        return this.notificationDAO.getNotificationsByUserID(userID);
     }
 }
