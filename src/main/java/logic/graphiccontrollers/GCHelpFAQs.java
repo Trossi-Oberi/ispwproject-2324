@@ -1,11 +1,11 @@
 package logic.graphiccontrollers;
 
-import logic.interfaces.InfoPages;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.input.MouseEvent;
+
 import logic.view.EssentialGUI;
+import logic.interfaces.InfoPages;
 
 import java.awt.*;
 import java.io.IOException;

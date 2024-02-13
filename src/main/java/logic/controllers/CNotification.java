@@ -11,7 +11,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.concurrent.Semaphore;
-import java.util.logging.Logger;
+
+import static logic.view.EssentialGUI.logger;
 
 public class CNotification {
     //questo controller si occupa solo di rigirare notifiche ai graphic controller a seguito di interazioni con il listener
@@ -25,8 +26,6 @@ public class CNotification {
     private ObjectInputStream in;
 
     private ObjectOutputStream out;
-
-    private Logger logger = Logger.getLogger("NightPlan");
 
     public CNotification(){
         this.notificationDAO = new NotificationDAO();

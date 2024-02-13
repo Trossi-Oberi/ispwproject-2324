@@ -5,15 +5,10 @@ import logic.model.MUser;
 import logic.utils.UserTypes;
 
 import java.sql.*;
-
-import java.util.ArrayList;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+import static logic.view.EssentialGUI.logger;
 
 public class UserDAO {
-    private static final Logger logger = Logger.getLogger("NightPlan");
-    private static final String APPNAME = "NightPlan";
-
     private String userCity;
 
     public int checkLoginInfo(MUser usrMod, boolean isGoogleAccount) {
@@ -24,7 +19,7 @@ public class UserDAO {
                 statement.setString(2, usrMod.getPassword());
                 ret = getLoggedUser(statement, usrMod);
             } catch (SQLException e) {
-                Logger.getLogger("NightPlan").log(Level.SEVERE, "SQLException occurred during the fetch of credentials");
+                logger.log(Level.SEVERE, "SQLException occurred during the fetch of credentials");
             } finally {
                 SingletonDBSession.getInstance().closeConn();
             }
@@ -34,7 +29,7 @@ public class UserDAO {
                 statement.setString(1, usrMod.getUserName());
                 ret = getLoggedUser(statement, usrMod);
             } catch (SQLException e) {
-                Logger.getLogger("NightPlan").log(Level.SEVERE, "SQLException occurred during the fetch of credentials");
+                logger.log(Level.SEVERE, "SQLException occurred during the fetch of credentials");
             } finally {
                 SingletonDBSession.getInstance().closeConn();
             }
@@ -63,7 +58,7 @@ public class UserDAO {
                 return 1;
             }
         } catch (SQLException e) {
-            Logger.getLogger("NightPlan").log(Level.SEVERE, "Cannot get logged user");
+            logger.log(Level.SEVERE, "Cannot get logged user");
         }
         return 0;
     }
@@ -95,22 +90,22 @@ public class UserDAO {
             statement.setString(9, "Offline");
             statement.execute();
         } catch (SQLException e) {
-            Logger.getLogger("NightPlan").log(Level.SEVERE, "Cannot add a new user");
+            logger.log(Level.SEVERE, "Cannot add a new user");
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
     }
 
     public int getUserIDByUsername(String username){
-        int userID=0;
+        int userID = 0;
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id FROM users WHERE (username = ?)")){
             statement.setString(1, username);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
-                userID=rs.getInt(1);
+                userID = rs.getInt(1);
             }
         } catch (SQLException e) {
-            Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, e.getMessage());
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
@@ -127,7 +122,7 @@ public class UserDAO {
                 userIDs.add(rs.getInt(1));
             }
         } catch (SQLException e) {
-            Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, e.getMessage());
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }

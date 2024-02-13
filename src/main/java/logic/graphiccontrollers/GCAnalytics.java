@@ -1,26 +1,17 @@
 package logic.graphiccontrollers;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import logic.beans.BEvent;
-import logic.controllers.CFacade;
-import logic.utils.LoggedUser;
-import logic.view.EssentialGUI;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Text;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.net.URL;
 import java.util.Random;
-import java.util.logging.Level;
+
+import logic.beans.BEvent;
+import logic.view.EssentialGUI;
 
 public class GCAnalytics extends EssentialGUI {
     @FXML
@@ -51,12 +42,13 @@ public class GCAnalytics extends EssentialGUI {
     private ImageView eventImage;
 
     private int eventID;
-    private static Integer timesClicked;    //volte che l'evento e' stato clickato (Random)
+    private static Integer timesClicked;
     private static Integer nParticipants; //partecipanti effettivi (Random tra 0 e participations)
 
 
     @FXML
     public void initialize() {
+        //empty
     }
 
     public void initAnalyticsByBean(BEvent eventBean){
@@ -87,8 +79,6 @@ public class GCAnalytics extends EssentialGUI {
         plannedL.setText(""+ participations);
         participantsL.setText(""+nParticipants);
     }
-
-
 
     @FXML
     void exportAnalyticsFile(MouseEvent event) {

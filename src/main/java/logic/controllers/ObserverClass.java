@@ -7,8 +7,10 @@ import logic.utils.MessageTypes;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import static logic.view.EssentialGUI.logger;
+
 public class ObserverClass implements Observer {
-    private int id; //generico, sia per User che per Organizer
+    private final int id; //generico, sia per User che per Organizer
     private ObjectOutputStream out;
 
     public ObserverClass(int id, ObjectOutputStream out){
@@ -24,7 +26,7 @@ public class ObserverClass implements Observer {
             out.flush();
             out.reset();
         } catch (IOException e) {
-            System.out.println("Update notify error in ObsClass: "+ e.getMessage());
+            logger.severe("Update notify error in ObsClass: "+ e.getMessage());
         }
     }
 

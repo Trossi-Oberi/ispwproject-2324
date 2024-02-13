@@ -1,10 +1,9 @@
 package logic.graphiccontrollers;
 
 import javafx.fxml.FXML;
-import logic.view.EssentialGUI;
-import javafx.event.ActionEvent;
-
 import javafx.scene.input.MouseEvent;
+
+import logic.view.EssentialGUI;
 
 public class GCHomeOrg extends EssentialGUI {
     @FXML

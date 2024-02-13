@@ -5,8 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
-
 import javafx.scene.input.MouseEvent;
+
 import logic.beans.BEvent;
 import logic.interfaces.DoubleClickListener;
 import logic.utils.Alerts;
@@ -18,12 +18,10 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.logging.Level;
 
 public class GCHomeUser extends EssentialGUI implements DoubleClickListener {
-
-
-
     @FXML
     private ListView<String> eventsListView;
 
@@ -88,7 +86,7 @@ public class GCHomeUser extends EssentialGUI implements DoubleClickListener {
                     root = loader.load();
                 }
                 scene = new Scene(root);
-                scene.getStylesheets().add(EssentialGUI.class.getResource("application.css").toExternalForm());
+                scene.getStylesheets().add(Objects.requireNonNull(EssentialGUI.class.getResource("application.css")).toExternalForm());
 
                 GCEventPageUser eventPageGC = loader.getController();
                 eventPageGC.initEventFromBean(selectedEventBean);

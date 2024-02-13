@@ -9,7 +9,6 @@ import logic.utils.GoogleLogin;
 public class CLogin {
     private UserDAO userDao;
     private MUser userModel;
-    private boolean running;
 
     public CLogin() {
         this.userDao = new UserDAO();
@@ -21,7 +20,7 @@ public class CLogin {
         if(!isGoogleAuth && authCode == null){
             //classic login
             this.userModel.setUsrAndPswByBean(logBean); //qui ancora non avviene il controllo della correttezza dei dati,
-            ret = this.userDao.checkLoginInfo(this.userModel, false); //qui effettivamente e' il DAO che va a controllare la correttezza delle credenziali
+            ret = this.userDao.checkLoginInfo(this.userModel, false); //qui effettivamente è il DAO che va a controllare la correttezza delle credenziali
         } else if (isGoogleAuth && authCode != null) {
             String userGoogleEmail;
             try {
@@ -61,7 +60,7 @@ public class CLogin {
         LoggedUser.setCity(null);
         LoggedUser.setBirthDate(null);
 
-        //x Nicolas, aggiungere messaggio di disconnessione da inviare al server e settare stato Offline
+        //TODO: settare dopo disconnessione stato offline
     }
 
 }

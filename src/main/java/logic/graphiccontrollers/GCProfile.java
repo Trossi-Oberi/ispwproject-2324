@@ -2,10 +2,8 @@ package logic.graphiccontrollers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
-import logic.view.AlertPopup;
 import logic.view.EssentialGUI;
 
 import logic.utils.LoggedUser;

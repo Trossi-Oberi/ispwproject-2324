@@ -2,15 +2,8 @@ package logic.graphiccontrollers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 import logic.exceptions.DuplicateEventParticipation;
 import logic.interfaces.InfoPages;
 import logic.utils.Alerts;
@@ -20,7 +13,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
-import java.util.logging.Level;
 import java.net.URLEncoder;
 
 public class GCEventPageUser extends GCEventPageGeneral implements InfoPages {

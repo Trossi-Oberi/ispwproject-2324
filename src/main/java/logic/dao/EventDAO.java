@@ -1,22 +1,20 @@
 package logic.dao;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import logic.exceptions.DuplicateEventParticipation;
 import logic.utils.LoggedUser;
 import logic.utils.SingletonDBSession;
 import logic.model.MEvent;
-import logic.view.EssentialGUI;
+
+import static logic.view.EssentialGUI.logger;
 
 public class EventDAO {
-
-    private static final String APPNAME = "NightPlan";
-
     public void createEvent(MEvent eventModel) { //restituisce l'event id dell'evento appena aggiunto
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Events(event_id,organizer,organizer_id,name,city,address,music_genre,date,time,image) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)){
             statement.setString(1,eventModel.getEventOrganizer());
@@ -42,7 +40,7 @@ public class EventDAO {
 
         }
         catch (SQLException e) {
-            Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, e.getMessage());
         }
         finally {
             SingletonDBSession.getInstance().closeConn();
@@ -57,7 +55,7 @@ public class EventDAO {
                 statement.setInt(1, userID);
                 myEvents = getEventsArrayList(statement);
             } catch (SQLException e) {
-                Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
+                logger.log(Level.SEVERE, e.getMessage());
             }
 
         } else if(queryType == 1){   //USER && HomeUser
@@ -66,7 +64,7 @@ public class EventDAO {
                 statement.setString(1, userDAO.getUserCityByID(userID));
                 myEvents = getEventsArrayList(statement);
             }catch (SQLException | RuntimeException e) {
-                Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
+                logger.log(Level.SEVERE, e.getMessage());
             }
 
         } else {  //USER && YourEventsUser
@@ -75,7 +73,7 @@ public class EventDAO {
                 statement.setInt(1, LoggedUser.getUserID()); //prendo lo user id dalla sessione;
                 myEvents = getEventsArrayList(statement);
             }catch (SQLException | RuntimeException e) {
-                Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
+                logger.log(Level.SEVERE, e.getMessage());
             }
         }
 
@@ -101,7 +99,7 @@ public class EventDAO {
                 events.add(eventModel);
             }
         } catch (SQLException e) {
-            Logger.getLogger(APPNAME).log(Level.SEVERE, "Cannot get logged user");
+            logger.log(Level.SEVERE, "Cannot get logged user");
         }
         return events;
     }
@@ -114,7 +112,7 @@ public class EventDAO {
             statement.setInt(2, eventModel.getEventID());
             statement.execute();
         } catch (SQLException e) {
-            Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, e.getMessage());
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
@@ -129,7 +127,7 @@ public class EventDAO {
                 throw new DuplicateEventParticipation("Event already joined");
             }
         } catch (SQLException e) {
-            Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, e.getMessage());
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
@@ -145,7 +143,7 @@ public class EventDAO {
                 res = resultSet.getInt(1);
             }
         } catch (SQLException e) {
-            Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, e.getMessage());
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
@@ -161,7 +159,7 @@ public class EventDAO {
                 res = rs.getInt(1);
             }
         } catch (SQLException e) {
-            Logger.getLogger(APPNAME).log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, e.getMessage());
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }

@@ -6,9 +6,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+
 import logic.beans.BEvent;
-import logic.exceptions.DuplicateEventParticipation;
-import logic.utils.Alerts;
 import logic.view.EssentialGUI;
 
 import java.io.*;
@@ -46,7 +45,7 @@ public class GCEventPageGeneral extends EssentialGUI {
 
     @FXML
     public void initialize(){
-
+        //empty
     }
 
     public void initEventFromBean(BEvent eventB){

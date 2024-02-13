@@ -4,10 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import logic.utils.Alerts;
-import logic.view.AlertPopup;
 import logic.view.EssentialGUI;
 
-public class GCSettingsGeneral extends EssentialGUI { //SettingsGeneral coincide con SettingsOrg, SettingsUser ha le stesse funzionalita' di SettingsOrg + 2 pulsanti
+public class GCSettingsGeneral extends EssentialGUI {
 
     @FXML
     private Button signOutButton;

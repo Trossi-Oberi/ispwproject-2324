@@ -7,7 +7,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+import static logic.view.EssentialGUI.logger;
 
 
 public class SingletonDBSession {
@@ -16,8 +16,6 @@ public class SingletonDBSession {
     private final String password;
     private final String url;
     private InputStream inputStream;
-    private static final String APPNAME = "NightPlan";
-    private static final Logger logger = Logger.getLogger(APPNAME);
     protected Connection connection = null;
 
 

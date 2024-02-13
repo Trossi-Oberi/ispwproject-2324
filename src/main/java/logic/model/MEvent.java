@@ -1,7 +1,6 @@
 package logic.model;
-import logic.beans.BEvent;
 
-import java.io.File;
+import logic.beans.BEvent;
 
 public class MEvent {
     private int eventID;

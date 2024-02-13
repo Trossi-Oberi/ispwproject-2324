@@ -1,9 +1,10 @@
 package logic.graphiccontrollers;
 
 import javafx.event.ActionEvent;
-import logic.interfaces.InfoPages;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
+
+import logic.interfaces.InfoPages;
 import logic.view.EssentialGUI;
 
 import java.awt.*;

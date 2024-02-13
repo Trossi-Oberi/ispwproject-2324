@@ -1,7 +1,5 @@
 package logic.model;
 
-import java.time.LocalDate;
-
 import logic.beans.BUserData;
 import logic.utils.UserTypes;
 

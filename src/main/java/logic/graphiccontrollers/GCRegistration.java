@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import logic.beans.BUserData;
 import logic.controllers.CFacade;
 import logic.utils.Alerts;

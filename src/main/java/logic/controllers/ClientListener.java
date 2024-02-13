@@ -8,7 +8,8 @@ import logic.view.EssentialGUI;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.concurrent.Semaphore;
-import java.util.logging.Logger;
+
+import static logic.view.EssentialGUI.logger;
 
 public class ClientListener extends Thread implements Runnable{
     //il client listener si occupa di gestire la comunicazione in input da server a client
@@ -18,8 +19,6 @@ public class ClientListener extends Thread implements Runnable{
     private Semaphore semaphore;
     private ObjectInputStream in;
     private boolean listenerRunning = true;
-
-    private static Logger logger = Logger.getLogger("NightPlan");
 
     public ClientListener(int id, Semaphore semaphore, CNotification notiController, ObjectInputStream in){
         this.clientID = id;

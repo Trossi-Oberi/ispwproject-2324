@@ -1,27 +1,21 @@
 package logic.view;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 import javafx.scene.control.Alert;
+
+import java.util.logging.Level;
+
 import logic.utils.Alerts;
 
+import static logic.view.EssentialGUI.logger;
 
-import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class AlertPopup {
-    private String imagePath;
-    private String absolutePath;
-    private Image image;
-    private Logger logger;
     private Alert.AlertType type;
 
     private String headerText = null;
 
     public AlertPopup() {
-        this.logger = Logger.getLogger("NightPlan");
+        //empty
     }
 
     public void displayAlertPopup(Alerts alertType, String text) {
@@ -46,15 +40,14 @@ public class AlertPopup {
                     logger.log(Level.SEVERE, "Alert type not found");
                     break;
             }
-        } catch (IllegalArgumentException e){
-            logger.log(Level.SEVERE, "Image path not found!", e);
-            return;
+
+            Alert alert = new Alert(type);
+            alert.setTitle("NightPlan");
+            alert.setContentText(text);
+            alert.setHeaderText(headerText);
+            alert.show();
+        } catch (IllegalStateException e){
+            logger.log(Level.SEVERE, e.getMessage());
         }
-        Alert alert = new Alert(type);
-        alert.setTitle("NightPlan");
-        alert.setContentText(text);
-        alert.setHeaderText(headerText);
-        //alert.showAndWait();
-        alert.show();
     }
 }

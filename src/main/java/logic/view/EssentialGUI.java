@@ -1,24 +1,20 @@
 package logic.view;
 
 import java.io.IOException;
-
 import java.net.URL;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
-import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+
 import logic.utils.Alerts;
 import logic.utils.LoggedUser;
 import logic.controllers.CFacade;
@@ -28,12 +24,12 @@ public class EssentialGUI extends Application {
 
     private static final String APP_NAME = "NightPlan";
     protected static String sceneName;
-
     protected static Scene scene;
-    protected static final Logger logger = Logger.getLogger(APP_NAME);
-
     protected static CFacade cfacade = new CFacade();
     protected AlertPopup alert;
+
+    //dichiaro logger pubblico, globale e costante
+    public static final Logger logger = Logger.getLogger(APP_NAME);
 
     public EssentialGUI(){
         this.alert = new AlertPopup();

@@ -7,7 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import static logic.view.EssentialGUI.logger;
 
 public class LocationDAO {
     public ArrayList<String> getProvincesList(){
@@ -18,10 +19,10 @@ public class LocationDAO {
                     provincesList.add(rs.getString(1));
                 }
             } catch (SQLException e){
-                Logger.getLogger("NightPlan").log(Level.SEVERE, "SQLException occurred while executing query to DB to fetch provinces");
-            };
+                logger.log(Level.SEVERE, "SQLException occurred while executing query to DB to fetch provinces");
+            }
         } catch (SQLException e) {
-            Logger.getLogger("NightPlan").log(Level.SEVERE, "SQLException occurred during the fetch provinces from DB");
+            logger.log(Level.SEVERE, "SQLException occurred during the fetch provinces from DB");
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
@@ -37,10 +38,10 @@ public class LocationDAO {
                    citiesList.add(rs.getString(1));
                 }
             } catch (SQLException e){
-                Logger.getLogger("NightPlan").log(Level.SEVERE, "SQLException occurred while executing query to DB to fetch provinces");
-            };
+                logger.log(Level.SEVERE, "SQLException occurred while executing query to DB to fetch provinces");
+            }
         } catch (SQLException e) {
-            Logger.getLogger("NightPlan").log(Level.SEVERE, "SQLException occurred during the fetch provinces from DB");
+            logger.log(Level.SEVERE, "SQLException occurred during the fetch provinces from DB");
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }

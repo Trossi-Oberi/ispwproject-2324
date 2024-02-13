@@ -16,7 +16,7 @@ public class BUserData {
     private String password;
 
     public BUserData() {
-
+        //empty
     }
 
     public BUserData(String username) {
@@ -28,6 +28,7 @@ public class BUserData {
         this.password = password;
     }
 
+    //TODO: completare la gestione dei campi
     public void setFirstName(String firstName) { //throws LengthFieldException, NullValueException {
 //        if(name == null || name.equalsIgnoreCase("")) {
 //            throw new NullValueException("Please insert a valid name");

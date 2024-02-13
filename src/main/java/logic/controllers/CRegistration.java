@@ -4,13 +4,7 @@ import logic.beans.BUserData;
 import logic.dao.UserDAO;
 import logic.model.MUser;
 import logic.dao.LocationDAO;
-import logic.model.Message;
-import logic.server.Server;
-import logic.utils.MessageTypes;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -59,26 +53,4 @@ public class CRegistration {
         }
         return -1;
     }
-
-    private void updateServerAfterUserReg(int userID){
-
-        try {
-            // Crea una socket per la connessione al server
-            Socket socket = new Socket(Server.ADDRESS, Server.PORT);
-
-            // Ottiene il flusso di output della socket
-            ObjectOutputStream objOutputStream = new ObjectOutputStream(socket.getOutputStream());
-
-            //creazione messaggio
-            Message message = new Message(MessageTypes.UserRegistration, userID, this.userModel.getCity());
-
-            objOutputStream.writeObject(message);
-
-            // Chiude la socket dopo l'invio della notifica
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

@@ -31,8 +31,6 @@ import logic.controllers.CFacade;
 
 
 public class GCAddEvent extends EssentialGUI {
-
-    ObservableList<String> musicGenresList = FXCollections.observableArrayList(MusicGenres.MUSIC_GENRES);
     @FXML
     private DatePicker datePicker;
     @FXML
@@ -59,6 +57,7 @@ public class GCAddEvent extends EssentialGUI {
     private byte[] eventPicData;
     private ArrayList<String> provincesList = new ArrayList<>();
     private ArrayList<String> citiesList = new ArrayList<>();
+    private final ObservableList<String> musicGenresList = FXCollections.observableArrayList(MusicGenres.MUSIC_GENRES);
 
     public GCAddEvent() {
         eventBean = new BEvent();
