@@ -51,11 +51,11 @@ public class Server {
     }
 
     private void start() {
-        //TODO: implementare un preload dal db di tutti gli utenti ed eventi. Utenti associati alla città, eventi associati all'organizerID
         /*preload all'avvio dal DB delle hashmap del server
         (il server è un controller a tutti gli effetti,
         facciamo questa operazione solo per semplicità
         perché il nostro server non rimane sempre accesso 24/7 */
+
         loadData();
 
         int connections = 0;
