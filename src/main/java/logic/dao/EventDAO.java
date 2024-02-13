@@ -5,8 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.logging.Level;
 
+import logic.controllers.ObserverClass;
 import logic.exceptions.DuplicateEventParticipation;
 import logic.utils.LoggedUser;
 import logic.utils.SingletonDBSession;
@@ -150,19 +152,18 @@ public class EventDAO {
         return res;
     }
 
-  /*  public int getOrganizerIDByEventID(int eventID){
-        int res=0;
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT organizer_id FROM events WHERE (event_id = ?)")){
-            statement.setInt(1, eventID);
+    //gestita dal server
+    public void populateOrgByEventID(Map<Integer, ObserverClass> orgByEventID){
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT event_id, organizer_id FROM events")){
             ResultSet rs = statement.executeQuery();
-            if (rs.next()) {
-                res = rs.getInt(1);
+            while (rs.next()) {
+                ObserverClass orgObs = new ObserverClass(rs.getInt(2), null);
+                orgByEventID.put(rs.getInt(1), orgObs);
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
-        return res;
-    }*/
+    }
 }

@@ -2,6 +2,8 @@ package logic.server;
 
 import logic.controllers.MessageFactory;
 import logic.controllers.ObserverClass;
+import logic.dao.EventDAO;
+import logic.dao.UserDAO;
 import logic.model.Message;
 import logic.model.NotificationMessage;
 import logic.utils.MessageTypes;
@@ -21,7 +23,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Server {
-
     private Map<String, List<ObserverClass>> observersByCity = new HashMap<>();
     private Map<Integer, ObserverClass> organizersByEventID = new HashMap<>();
     private Map<Integer, Boolean> connectedUsers = new HashMap<>();
@@ -51,6 +52,12 @@ public class Server {
 
     private void start() {
         //TODO: implementare un preload dal db di tutti gli utenti ed eventi. Utenti associati alla città, eventi associati all'organizerID
+        /*preload all'avvio dal DB delle hashmap del server
+        (il server è un controller a tutti gli effetti,
+        facciamo questa operazione solo per semplicità
+        perché il nostro server non rimane sempre accesso 24/7 */
+        loadData();
+
         int connections = 0;
         boolean serverRunning = true;
 
@@ -175,6 +182,17 @@ public class Server {
             } catch (IOException | ClassNotFoundException e) {
                 logger.log(Level.SEVERE, e.getMessage());
             }
+        }
+    }
+
+    private void loadData() {
+        try {
+            UserDAO userDAO = new UserDAO();
+            EventDAO eventDAO = new EventDAO();
+            userDAO.populateObsByCity(this.observersByCity);
+            eventDAO.populateOrgByEventID(this.organizersByEventID);
+        } finally {
+            logger.info("Finished to preload data from database");
         }
     }
 

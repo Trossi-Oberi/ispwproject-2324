@@ -73,7 +73,7 @@ public class CNotification {
 
             //Vedo il tipo di messaggio per decidere se chiudere il listener oppure no
             if (msgType == MessageTypes.UserRegistration || msgType==MessageTypes.Disconnected){
-                listenerThread.interrupt();
+                stopListener(clientID);
             }
 
         } catch (IOException | InterruptedException e) {
@@ -81,92 +81,9 @@ public class CNotification {
         }
     }
 
-    /*public void sendRegMessage(int userID, String city){
-        try {
-            //avvio il listener del client
-            startListener(userID);
-
-            //TODO: fare un sendMessage() generico che prenda i parametri messageType, etc...
-            //mando il messaggio di registrazione al server
-            if (listenerThread.isAlive()) {
-                Message registrationMsg = new Message(MessageTypes.UserRegistration, userID, city);
-                out.writeObject(registrationMsg);
-                out.flush();
-                out.reset();
-            }
-
-            //aspetto il rilascio del semaforo nel thread dopo aver ricevuto la response dal server
-            semaphore.acquire(2);
-
-            //chiudo il client listener thread
-            stopListener(userID);
-        } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }*/
-
-
-    /*public void sendLoginMsg(int userID, String city){
-        try{
-            //avvio il listener del client
-            startListener(userID);
-
-            if (listenerThread.isAlive()) {
-                Message registrationMsg = new Message(MessageTypes.LoggedIn, userID, city, LoggedUser.getUserType());
-                out.writeObject(registrationMsg);
-                out.flush();
-                out.reset();
-            }
-
-            //aspetto il rilascio del semaforo nel thread dopo aver ricevuto la response dal server
-            semaphore.acquire(2);
-        } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }*/
-
-    /*public void sendAddEventMessage(int orgID, int eventID, String city){
-        try{
-            if (listenerThread.isAlive()) {
-                Message newEventMsg = new Message(MessageTypes.EventAdded, orgID, eventID, city);
-                out.writeObject(newEventMsg);
-                out.flush();
-                out.reset();
-
-                //aspetto il rilascio del semaforo nel thread dopo aver ricevuto la response dal server
-                semaphore.acquire(2);
-            }
-        } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }*/
-
-    /*public boolean sendLogoutMsg(int userID){
-        try{
-            if (listenerThread.isAlive()) {
-                Message registrationMsg = new Message(MessageTypes.Disconnected, userID);
-                out.writeObject(registrationMsg);
-                out.flush();
-                out.reset();
-
-                //aspetto il rilascio del semaforo nel thread dopo aver ricevuto la response dal server
-                semaphore.acquire(2);
-                //chiudo il thread
-                stopListener(userID);
-            } else {
-                logger.severe("Listener thread already stopped");
-                return false;
-            }
-        } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        return true;
-    }*/
-
     private void stopListener(int userID){
         //chiudo il thread listener del client
         try {
-//            setActive(false);
             listenerThread.interrupt();
             if (!client.isClosed()) {
                 this.client.close();
@@ -176,8 +93,4 @@ public class CNotification {
             logger.severe(e.getMessage());
         }
     }
-
-    /*private void setActive(boolean value){
-        this.active = value;
-    }*/
 }

@@ -1,10 +1,14 @@
 package logic.dao;
 
+import logic.controllers.ObserverClass;
 import logic.utils.SingletonDBSession;
 import logic.model.MUser;
 import logic.utils.UserTypes;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import static logic.view.EssentialGUI.logger;
 
@@ -115,20 +119,18 @@ public class UserDAO {
         return userID;
     }
 
-    /*//SERVE??
-    public ArrayList<Integer> getUserIDbyCity(String city){
-        ArrayList <Integer> userIDs = new ArrayList<>();
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id FROM users WHERE (city = ?)")){
-            statement.setString(1, city);
+    //gestita dal server
+    public void populateObsByCity(Map<String, List<ObserverClass>> obsByCity){
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id, city FROM users WHERE (userType = 'USER')")){
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                userIDs.add(rs.getInt(1));
+                ObserverClass usrObs = new ObserverClass(rs.getInt(1), null);
+                obsByCity.computeIfAbsent(rs.getString(2), k -> new ArrayList<>()).add(usrObs);
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
-        return userIDs;
-    }*/
+    }
 }
