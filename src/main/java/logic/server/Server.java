@@ -61,8 +61,6 @@ public class Server {
                 connections++;
 
                 logger.info("Nuovo client connesso: " + client.getInetAddress() + " on port " + client.getPort());
-                //imposto un timeout della socket a 5 secondi
-                client.setSoTimeout(5000);
                 ClientHandler ch = new ClientHandler(client);
                 //avvio un thread apposito per ogni client che si connette che dovrà gestire tutti gli scambi di dati tra client-server
                 Thread t = new Thread(ch);
