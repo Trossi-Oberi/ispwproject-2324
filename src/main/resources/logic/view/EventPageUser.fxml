@@ -36,7 +36,7 @@
             </HBox>
          </graphic>
       </Button>
-      <Button alignment="CENTER" layoutX="335.0" mnemonicParsing="false" onMouseClicked="#goToYourEvents" prefHeight="88.0" prefWidth="143.0" style="-fx-background-color: transparent; -fx-background-insets: 0; -fx-background-radius: 0;">
+      <Button alignment="CENTER" layoutX="335.0" mnemonicParsing="false" onMouseClicked="#goToYourEvents" prefHeight="88.0" prefWidth="143.0" style="-fx-background-color: #1e90ff; -fx-background-insets: 0; -fx-background-radius: 0;">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>

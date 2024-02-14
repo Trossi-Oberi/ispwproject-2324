@@ -45,8 +45,10 @@ public class CManageEvent {
         return getEventBeansListFromModelsList(myEvents);
     }
 
-    public void updateEvent(BEvent eventBean) {
-
+    public boolean editEvent(BEvent eventBean) {
+        MEvent eventModel = new MEvent(eventBean);
+        eventDAO.editEvent(eventModel);
+        return true;
     }
 
     public void deleteEvent(int eventID) {

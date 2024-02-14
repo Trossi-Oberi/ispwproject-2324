@@ -94,6 +94,13 @@ public class CFacade {
         return manageEventController.retrieveMyEvents(userType, className);
     }
 
+    public boolean editEvent(BEvent eventBean){
+        if (manageEventController == null) {
+            manageEventController = new CManageEvent();
+        }
+        return manageEventController.editEvent(eventBean);
+    }
+
     public int retrieveParticipationsToEvent(int id) {
         if (manageEventController == null) {
             manageEventController = new CManageEvent();

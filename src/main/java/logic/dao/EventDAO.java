@@ -18,16 +18,18 @@ import static logic.view.EssentialGUI.logger;
 
 public class EventDAO {
     public void createEvent(MEvent eventModel) { //restituisce l'event id dell'evento appena aggiunto
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Events(event_id,organizer,organizer_id,name,city,address,music_genre,date,time,image) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)){
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Events(event_id,organizer,organizer_id,name,province, city,address,music_genre,date,time,image, pic_path) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)){
             statement.setString(1,eventModel.getEventOrganizer());
             statement.setInt(2, LoggedUser.getUserID()); //preso dalla sessione (classe LoggedUser)
             statement.setString(3,eventModel.getEventName());
-            statement.setString(4,eventModel.getEventCity());
-            statement.setString(5,eventModel.getEventAddress());
-            statement.setString(6,eventModel.getEventMusicGenre());
-            statement.setString(7,eventModel.getEventDate());
-            statement.setString(8,eventModel.getEventTime());
-            statement.setBytes(9,eventModel.getEventPicData());
+            statement.setString(4, eventModel.getEventProvince());
+            statement.setString(5,eventModel.getEventCity());
+            statement.setString(6,eventModel.getEventAddress());
+            statement.setString(7,eventModel.getEventMusicGenre());
+            statement.setString(8,eventModel.getEventDate());
+            statement.setString(9,eventModel.getEventTime());
+            statement.setBytes(10,eventModel.getEventPicData());
+            statement.setString(11,eventModel.getEventPicPath());
             int insertedRows = statement.executeUpdate();
 
             //recupero id evento dopo l'aggiunta
@@ -48,11 +50,33 @@ public class EventDAO {
         }
     }
 
+    public void editEvent(MEvent eventModel){
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("UPDATE Events SET name=?,province=?,city=?,address=?,music_genre=?,date=?,time=?,image=?,pic_path=? WHERE event_id=?")){
+            statement.setString(1,eventModel.getEventName());
+            statement.setString(2,eventModel.getEventProvince());
+            statement.setString(3,eventModel.getEventCity());
+            statement.setString(4,eventModel.getEventAddress());
+            statement.setString(5,eventModel.getEventMusicGenre());
+            statement.setString(6,eventModel.getEventDate());
+            statement.setString(7,eventModel.getEventTime());
+            statement.setBytes(8,eventModel.getEventPicData());
+            statement.setString(9,eventModel.getEventPicPath());
+            statement.setInt(10,eventModel.getEventID()); //ID Evento da aggiornare
+            statement.execute();
+        }
+        catch (SQLException e) {
+            logger.log(Level.SEVERE, e.getMessage());
+        }
+        finally {
+            SingletonDBSession.getInstance().closeConn();
+        }
+    }
+
     public ArrayList<MEvent> retrieveMyEvents(int userID, int queryType){
         ArrayList<MEvent> myEvents = new ArrayList<>();
 
         if(queryType == 0) { //ORGANIZER && YourEventsOrg
-            try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT event_id,organizer,organizer_id,name,city,address,music_genre,date,time,image FROM events WHERE (organizer_id = ?)")) {
+            try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT event_id,organizer,organizer_id,name,province,city,address,music_genre,date,time,image,pic_path FROM events WHERE (organizer_id = ?)")) {
                 statement.setInt(1, userID);
                 myEvents = getEventsArrayList(statement);
             } catch (SQLException e) {
@@ -61,7 +85,7 @@ public class EventDAO {
 
         } else if(queryType == 1){   //USER && HomeUser
             UserDAO userDAO = new UserDAO();
-            try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT event_id,organizer,organizer_id,name,city,address,music_genre,date,time,image FROM events WHERE (city = ?)")) {
+            try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT event_id,organizer,organizer_id,name,province,city,address,music_genre,date,time,image,pic_path FROM events WHERE (city = ?)")) {
                 statement.setString(1, userDAO.getUserCityByID(userID));
                 myEvents = getEventsArrayList(statement);
             }catch (SQLException | RuntimeException e) {
@@ -90,12 +114,14 @@ public class EventDAO {
                 eventModel.setEventOrganizer(rs.getString(2));
                 eventModel.setEventOrganizerID(rs.getInt(3));
                 eventModel.setEventName(rs.getString(4));
-                eventModel.setEventCity(rs.getString(5));
-                eventModel.setEventAddress(rs.getString(6));
-                eventModel.setEventMusicGenre(rs.getString(7));
-                eventModel.setEventDate(rs.getString(8));
-                eventModel.setEventTime(rs.getString(9));
-                eventModel.setEventPicDataFromDB(rs.getBytes(10));
+                eventModel.setEventProvince(rs.getString(5));
+                eventModel.setEventCity(rs.getString(6));
+                eventModel.setEventAddress(rs.getString(7));
+                eventModel.setEventMusicGenre(rs.getString(8));
+                eventModel.setEventDate(rs.getString(9));
+                eventModel.setEventTime(rs.getString(10));
+                eventModel.setEventPicDataFromDB(rs.getBytes(11));
+                eventModel.setEventPicPath(rs.getString(12));
                 events.add(eventModel);
             }
         } catch (SQLException e) {

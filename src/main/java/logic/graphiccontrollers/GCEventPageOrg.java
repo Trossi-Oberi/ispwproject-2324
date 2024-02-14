@@ -34,9 +34,7 @@ public class GCEventPageOrg extends GCEventPageGeneral {
 
     @FXML
     public void goBack(MouseEvent event) {
-        if (className.equals("GCYourEventsOrg")) {
-            goToYourEvents(event);
-        }
+        goToYourEvents(event);
     }
 
     private void preloadEditEvent(MouseEvent event) {

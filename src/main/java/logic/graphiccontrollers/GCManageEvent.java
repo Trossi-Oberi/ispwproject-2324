@@ -7,12 +7,14 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import logic.beans.BEvent;
+import logic.utils.LoggedUser;
 import logic.utils.MusicGenres;
 import logic.view.EssentialGUI;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -79,6 +81,26 @@ public class GCManageEvent extends EssentialGUI {
     protected void updateCityListView() {
         citiesObsList = FXCollections.observableArrayList(this.citiesList);
         this.cityChoiceBox.setItems(citiesObsList);
+    }
+
+    protected void setEventBean(BEvent bean) {
+        bean.setEventName(eventNameTF.getText());
+        bean.setEventProvince(provinceChoiceBox.getValue());
+        bean.setEventCity(cityChoiceBox.getValue());
+        bean.setEventAddress(eventAddressTF.getText());
+        /*}catch (LengthFieldException e) {
+            this.popErr.displayErrorPopup(e.getMsg());
+        }*/
+        bean.setEventMusicGenre(musicGenreBox.getValue());
+        bean.setEventDate(datePicker.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+        bean.setEventTime(eventHourTF.getText(), eventMinutesTF.getText());
+        if (eventPicData!=null){
+            bean.setEventPicData(eventPicData);
+        }
+
+        bean.setEventOrganizer(LoggedUser.getUserName());
+        bean.setEventOrganizerID(LoggedUser.getUserID());
+        bean.setEventPicPath(pickedFileLabel.getText());
     }
 
 

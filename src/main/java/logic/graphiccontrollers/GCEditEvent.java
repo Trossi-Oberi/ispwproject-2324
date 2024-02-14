@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import logic.beans.BEvent;
+import logic.utils.Alerts;
 import logic.view.EssentialGUI;
 
 import java.io.IOException;
@@ -34,7 +35,6 @@ public class GCEditEvent extends GCManageEvent {
 
 
     public void initPageFromBean(BEvent eventB) {
-        //TODO: Aggiungere nell'event dao una entry per il path dell'immagine dell'evento, aggiornare anche il model per farlo combaciare col bean e le retrieve del DAO per restituire gli eventi con tutte le informazioni
         this.oldBean = eventB;
         this.eventNameTF.setText(eventB.getEventName());
 
@@ -44,7 +44,7 @@ public class GCEditEvent extends GCManageEvent {
             provincesObsList = FXCollections.observableArrayList(provincesList);
         }
         this.provinceChoiceBox.setItems(provincesObsList);
-        this.provinceChoiceBox.setValue(eventB.getEventProvince()); //la provincia qui risulta null perche' nel bean non viene settata
+        this.provinceChoiceBox.setValue(eventB.getEventProvince());
         setupProvinceBoxListener();
         this.cityChoiceBox.setValue(eventB.getEventCity());
 
@@ -60,7 +60,18 @@ public class GCEditEvent extends GCManageEvent {
 
     @FXML
     void editEventControl(MouseEvent event) {
-        //dopo che clicko conferma voglio essere riportato alla pagina dell'evento ma con i dati aggiornati
+        setEventBean(this.eventBean);
+        try {
+            if (cfacade.editEvent(this.eventBean)) {
+                //alerts
+                alert.displayAlertPopup(Alerts.INFORMATION, "Event edited successfully");
+                goToPreviousEventPage(event, eventBean);
+            } else {
+                alert.displayAlertPopup(Alerts.WARNING, "Event adding procedure failed. Please retry...");
+            }
+        } catch (Exception e) {
+            alert.displayAlertPopup(Alerts.INFORMATION, "Cannot complete event adding procedure!");
+        }
     }
 
     @FXML
@@ -81,7 +92,7 @@ public class GCEditEvent extends GCManageEvent {
         this.datePicker.setValue(LocalDate.parse(date, formatter));
     }
 
-    private void goToPreviousEventPage(MouseEvent event, BEvent prevEventBean) {
+    private void goToPreviousEventPage(MouseEvent event, BEvent bean) {
         try {
             URL loc = EssentialGUI.class.getResource("EventPageOrg.fxml");
             FXMLLoader loader = new FXMLLoader(loc);
@@ -90,7 +101,7 @@ public class GCEditEvent extends GCManageEvent {
                 root = loader.load();
             }
             GCEventPageOrg eventPageOrgGC = loader.getController();
-            eventPageOrgGC.initEventFromBean(prevEventBean, this.getClass().getSimpleName());
+            eventPageOrgGC.initEventFromBean(bean, this.getClass().getSimpleName());
             scene = new Scene(root);
             scene.getStylesheets().add(Objects.requireNonNull(EssentialGUI.class.getResource("application.css")).toExternalForm());
         } catch (IOException |
