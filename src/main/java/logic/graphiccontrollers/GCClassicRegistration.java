@@ -61,6 +61,7 @@ public class GCClassicRegistration extends GCRegistration{
             this.dataBean.setLastName(this.lastNameField.getText());
             this.dataBean.setGender(this.gender.getValue());
             this.dataBean.setBirthDate(this.birthDate.getValue());
+            this.dataBean.setProvince(this.provinceBox.getValue());
             this.dataBean.setCity(this.cityBox.getValue());
             if (this.userRadio.isSelected()) {
                 this.dataBean.setType(UserTypes.USER);

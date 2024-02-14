@@ -46,8 +46,11 @@ public class CLogin {
         LoggedUser.setFirstName(this.userModel.getFirstName());
         LoggedUser.setLastName(this.userModel.getLastName());
         LoggedUser.setGender(this.userModel.getGender());
+        LoggedUser.setProvince(this.userModel.getProvince());
         LoggedUser.setCity(this.userModel.getCity());
         LoggedUser.setBirthDate(this.userModel.getBirthDate());
+        //set status gestita dal UserDAO
+        this.userDao.setStatus(this.userModel.getUserID());
     }
 
     public void closeLoginSession(){
@@ -57,10 +60,11 @@ public class CLogin {
         LoggedUser.setFirstName(null);
         LoggedUser.setLastName(null);
         LoggedUser.setGender(null);
+        LoggedUser.setProvince(null);
         LoggedUser.setCity(null);
         LoggedUser.setBirthDate(null);
-
-        //TODO: settare dopo disconnessione stato offline
+        //set status gestita dal UserDAO
+        this.userDao.setStatus(this.userModel.getUserID());
     }
 
 }

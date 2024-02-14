@@ -10,10 +10,12 @@ public class BUserData {
     private String lastName;
     private LocalDate birthDate;
     private String gender;
+    private String province;
     private String city;
     private UserTypes userType;
     private String username;
     private String password;
+
 
     public BUserData() {
         //empty
@@ -54,6 +56,10 @@ public class BUserData {
 //            throw new NullValueException("Please insert a valid date of birth");
 //        }
         this.birthDate = LocalDate.parse(birthDate.toString());
+    }
+
+    public void setProvince(String province){
+        this.province = province;
     }
 
     public void setCity(String city) {
@@ -121,8 +127,13 @@ public class BUserData {
         return this.password;
     }
 
+    public String getProvince(){
+        return this.province;
+    }
+
     public String getCity() {
         return this.city;
     }
+
     public int getUserID(){return this.userID;}
 }

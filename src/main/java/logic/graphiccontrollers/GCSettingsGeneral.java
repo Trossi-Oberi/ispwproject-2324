@@ -13,7 +13,7 @@ public class GCSettingsGeneral extends EssentialGUI {
 
     @FXML
     public void initialize() {
-
+        //empty
     }
 
     @FXML

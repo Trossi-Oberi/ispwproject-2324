@@ -9,11 +9,13 @@ public class LoggedUser {
     private static String birthDate;
     private static String gender;
     private static String city;
+    private static String province;
+    private static String status;
 
     private static int userID;
 
     private LoggedUser() {
-
+        //empty
     }
 
     public static void setUserName(String usrName) {
@@ -40,8 +42,16 @@ public class LoggedUser {
         gender = gen;
     }
 
+    public static void setProvince(String prov){
+        province = prov;
+    }
+
     public static void setCity(String cit) {
         city = cit;
+    }
+
+    public static void setStatus(String stat) {
+        status = stat;
     }
 
     public static void setUserID(int id) {
@@ -72,6 +82,10 @@ public class LoggedUser {
         return gender;
     }
 
+    public static String getProvince() {
+        return province;
+    }
+
     public static String getCity() {
         return city;
     }
@@ -79,4 +93,9 @@ public class LoggedUser {
     public static int getUserID() {
         return userID;
     }
+
+    public static String getStatus(){
+        return status;
+    }
+
 }

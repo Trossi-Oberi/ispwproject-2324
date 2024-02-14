@@ -26,6 +26,7 @@ create table Users
     lastName    VARCHAR(20)                    NOT NULL,
     dateOfBirth VARCHAR(10)                    NOT NULL,
     gender      VARCHAR(10)                    NOT NULL,
+    province    VARCHAR(40)                    NOT NULL,
     city        VARCHAR(40)                    NOT NULL,
     userType    VARCHAR(10),
     userStatus  VARCHAR(10)
@@ -61,12 +62,12 @@ create table Cities
     province VARCHAR(50)                    NOT NULL
 );
 
-insert into Users (id, username, password, firstName, lastName, dateOfBirth, gender, city, userType, userStatus)
-values (NULL, 'Matteo', 'Matteo', 'Matteo', 'Trossi', '16/03/1998', 'Male', 'Anagni', 'USER', 'Online'),
-       (NULL, 'Nicolas', 'Nicolas', 'Nicolas', 'Oberi', '16/03/1998', 'Male', 'Cave', 'ORGANIZER', 'Online'),
-       (NULL, 'm', 'm', 'm', 'm', '16/03/1998', 'Male', 'Anagni', 'USER', 'Online'),
-       (NULL, 'n', 'n', 'n', 'n', '16/03/1998', 'Male', 'Anagni', 'USER', 'Online'),
-       (NULL, 'o', 'o', 'o', 'o', '16/03/1998', 'Male', 'Anagni', 'USER', 'Online');
+insert into Users (id, username, password, firstName, lastName, dateOfBirth, gender, province, city, userType, userStatus)
+values (NULL, 'Matteo', 'Matteo', 'Matteo', 'Trossi', '16/03/1998', 'Male', 'Frosinone', 'Anagni', 'USER', 'Offline'),
+       (NULL, 'Nicolas', 'Nicolas', 'Nicolas', 'Oberi', '16/03/1998', 'Male', 'Roma', 'Cave', 'ORGANIZER', 'Offline'),
+       (NULL, 'm', 'm', 'm', 'm', '16/03/1998', 'Male', 'Frosinone', 'Anagni', 'USER', 'Offline'),
+       (NULL, 'n', 'n', 'n', 'n', '16/03/1998', 'Male', 'Frosinone', 'Anagni', 'USER', 'Offline'),
+       (NULL, 'o', 'o', 'o', 'o', '16/03/1998', 'Male', 'Frosinone', 'Anagni', 'USER', 'Offline');
 
 insert into Events (event_id, organizer, organizer_id, name, province, city, address, music_genre, date, time, image, pic_path)
 values (NULL, 'Nicolas', 2, 'Uane', 'Frosinone', 'Anagni', 'Via Casilina', 'Pop', '03-03-2024', '18:40',

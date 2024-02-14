@@ -8,17 +8,20 @@ public class MUser {
     private String lastName;
     private String birthDate;
     private String gender;
+    private String province;
     private String city;
     private String username;
     private String password;
     private UserTypes userType;
     private int userID;
 
+
     public void setCredentialsByBean(BUserData dataBean) {
         this.firstName = dataBean.getFirstName();
         this.lastName = dataBean.getLastName();
         this.birthDate = dataBean.getBirthDate().toString();
         this.gender = dataBean.getGender();
+        this.province = dataBean.getProvince();
         this.city = dataBean.getCity();
         this.username = dataBean.getUsername();
         this.password = dataBean.getPassword();
@@ -50,6 +53,10 @@ public class MUser {
         this.gender = gen;
     }
 
+    public void setProvince(String province){
+        this.province = province;
+    }
+
     public void setCity(String city) {
         this.city = city;
     }
@@ -72,6 +79,10 @@ public class MUser {
 
     public String getGender() {
         return this.gender;
+    }
+
+    public String getProvince(){
+        return this.province;
     }
 
     public String getCity() {
