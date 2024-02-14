@@ -97,7 +97,7 @@ public class UserDAO {
             statement.setString(9, "Offline");
             statement.execute();
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Cannot add a new user");
+            logger.log(Level.SEVERE, "Cannot add a new user", e);
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
