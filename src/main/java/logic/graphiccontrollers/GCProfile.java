@@ -2,7 +2,7 @@ package logic.graphiccontrollers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.text.Text;
+import javafx.scene.control.Label;
 
 import logic.view.EssentialGUI;
 
@@ -12,27 +12,32 @@ import logic.utils.UserTypes;
 public class GCProfile extends EssentialGUI{
 
     @FXML
-    private Text userName;
+    private Label birthDate;
 
     @FXML
-    private Text firstName;
+    private Label city;
 
     @FXML
-    private Text lastName;
+    private Label firstName;
 
     @FXML
-    private Text gender;
-    @FXML
-    private Text city;
-
-    @FXML
-    private Text birthDate;
-
-    @FXML
-    private Text userType;
+    private Label gender;
 
     @FXML
     private Button goBackBtn;
+
+    @FXML
+    private Label lastName;
+
+    @FXML
+    private Label province;
+
+    @FXML
+    private Label userName;
+
+    @FXML
+    private Label userType;
+
     private UserTypes type;
 
     @FXML
@@ -50,6 +55,7 @@ public class GCProfile extends EssentialGUI{
         this.lastName.setText(LoggedUser.getLastName());
         this.birthDate.setText(LoggedUser.getBirthDate());
         this.gender.setText(LoggedUser.getGender());
+        this.province.setText(LoggedUser.getProvince());
         this.city.setText(LoggedUser.getCity());
         this.userType.setText(type.toString());
     }
