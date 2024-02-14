@@ -173,7 +173,7 @@
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Button>
-      <Button layoutX="217.0" layoutY="483.0" mnemonicParsing="false" onMouseClicked="#goToEventPageOrg" prefHeight="88.0" prefWidth="168.0" text="Cancel" AnchorPane.leftAnchor="217.0">
+      <Button layoutX="217.0" layoutY="483.0" mnemonicParsing="false" onMouseClicked="#cancelButtonControl" prefHeight="88.0" prefWidth="168.0" text="Cancel" AnchorPane.leftAnchor="217.0">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
