@@ -54,6 +54,8 @@ public class CLogin {
     }
 
     public void closeLoginSession(){
+        //set status gestita dal UserDAO
+        this.userDao.setStatus(LoggedUser.getUserID());
         LoggedUser.setUserID(0);
         LoggedUser.setUserName(null);
         LoggedUser.setUserType(null);
@@ -63,8 +65,7 @@ public class CLogin {
         LoggedUser.setProvince(null);
         LoggedUser.setCity(null);
         LoggedUser.setBirthDate(null);
-        //set status gestita dal UserDAO
-        this.userDao.setStatus(this.userModel.getUserID());
+
     }
 
 }
