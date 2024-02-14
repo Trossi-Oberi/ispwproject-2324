@@ -94,6 +94,7 @@ public class GCYourEventsOrg extends GCYourEventsGeneral implements DoubleClickL
                 // Verifica se è stato effettuato un doppio clic
                 BEvent selectedEventBean = getBeanFromListView(upcEventsLV, upComingEventsBeans);
                 try {
+                    //TODO: Aggiungere al database degli eventi le voci picpath e province per future retrieve (esempio questo caso qui)
                     if (selectedEventBean != null) {
                         onItemDoubleClick(event, selectedEventBean, "EventPageOrg.fxml");
                     }
@@ -117,7 +118,7 @@ public class GCYourEventsOrg extends GCYourEventsGeneral implements DoubleClickL
                 GCAnalytics analyticsGC = loader.getController();
                 analyticsGC.initAnalyticsByBean(selectedEventBean);
                 analyticsGC.initParticipantsInfo();
-            } else {
+             } else {
                 GCEventPageOrg eventPageOrgGC = loader.getController();
                 eventPageOrgGC.initEventFromBean(selectedEventBean, this.getClass().getSimpleName());
             }
