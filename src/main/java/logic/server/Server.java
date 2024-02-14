@@ -3,6 +3,7 @@ package logic.server;
 import logic.controllers.MessageFactory;
 import logic.controllers.ObserverClass;
 import logic.dao.EventDAO;
+import logic.dao.NotificationDAO;
 import logic.dao.UserDAO;
 import logic.model.Message;
 import logic.model.NotificationMessage;
@@ -26,6 +27,7 @@ public class Server {
     private Map<String, List<ObserverClass>> observersByCity = new HashMap<>();
     private Map<Integer, ObserverClass> organizersByEventID = new HashMap<>();
     private Map<Integer, Boolean> connectedUsers = new HashMap<>();
+    private Map<Integer, Boolean> connectedOrganizers = new HashMap<>();
 
     private static Logger logger = Logger.getLogger("NightPlan");
     private static final int MAX_CONNECTIONS = 500;
@@ -131,17 +133,28 @@ public class Server {
                             break;
 
                         case LoggedIn:
-                            System.out.println("User logged in, id = " + msg.getClientID());
-                            synchronized (connectedUsers){
-                                updateLoggedUsers(msg.getClientID(), true);
+                            switch (msg.getUserType()){
+                                case USER:
+                                    System.out.println("User logged in, id = " + msg.getClientID());
+                                    synchronized (connectedUsers){
+                                        updateLoggedUsers(msg.getClientID(), true, msg.getUserType());
+                                    }
+                                    synchronized (observersByCity) {
+                                        updateUserOut(msg.getCity(), msg.getClientID(), out);
+                                    }
+                                    break;
+
+                                case ORGANIZER:
+                                    System.out.println("Organizer logged in, id = " + msg.getClientID());
+                                    synchronized (connectedOrganizers){
+                                        updateLoggedUsers(msg.getClientID(), true, msg.getUserType());
+                                    }
+                                    synchronized (organizersByEventID) {
+                                        updateOrgOut(msg.getClientID(), out);
+                                    }
+                                    break;
                             }
-                            synchronized (observersByCity) {
-                                if(msg.getUserType() == UserTypes.USER) {
-                                    updateUserOut(msg.getCity(), msg.getClientID(), out);
-                                } else {
-                                    //TODO: fare updateOrgOut
-                                }
-                            }
+
                             //notifica l'utente
                             response = msgFactory.createMessage(NOTIFICATION, MessageTypes.LoggedIn, msg.getClientID(), null, null, null);
                             sendMessageToClient(response, out);
@@ -161,17 +174,30 @@ public class Server {
                             sendMessageToClient(response, out);
 
                             //notifica l'utente
-                            updateUserObservers(msg.getCity());
+                            updateUserObservers(msg.getCity(), msg.getEventID());
                             break;
 
                         case UserEventParticipation:
+                            //TODO: usereventparticipation logic in server
                             break;
 
                         case Disconnected:
-                            System.out.println("User logged out, id = " + msg.getClientID());
-                            synchronized (connectedUsers) {
-                                updateLoggedUsers(msg.getClientID(), false);
+                            switch (msg.getUserType()){
+                                case USER:
+                                    System.out.println("User logged out, id = " + msg.getClientID());
+                                    synchronized (connectedUsers) {
+                                        updateLoggedUsers(msg.getClientID(), false, msg.getUserType());
+                                    }
+
+                                    break;
+                                case ORGANIZER:
+                                    System.out.println("Organizer logged out, id = " + msg.getClientID());
+                                    synchronized (connectedOrganizers) {
+                                        updateLoggedUsers(msg.getClientID(), false, msg.getUserType());
+                                    }
+                                    break;
                             }
+
                             //notifica l'utente
                             response = msgFactory.createMessage(NOTIFICATION, MessageTypes.Disconnected, msg.getClientID(), null, null, null);
                             sendMessageToClient(response, out);
@@ -215,14 +241,25 @@ public class Server {
         }
     }
 
-    private void updateUserObservers(String city) {
+    private void updateOrgOut(int orgID, ObjectOutputStream out) {
+        for (int i = 1; i <= organizersByEventID.size(); i++) {
+            if(organizersByEventID.get(i).getObsID() == orgID){
+                organizersByEventID.get(i).setOut(out);
+            }
+        }
+    }
+
+    private void updateUserObservers(String city, int eventID) {
         List<ObserverClass> users = observersByCity.get(city);
+        NotificationDAO notifyDAO = new NotificationDAO();
+
         for (ObserverClass user : users) {
             if (connectedUsers.get(user.getObsID())) {
                 //se utente online notifica
                 user.update(MessageTypes.EventAdded);
             }
-            //TODO: aggiunta al database
+            //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
+            notifyDAO.addNotificationsToUser(user.getObsID(), MessageTypes.EventAdded, eventID);
         }
     }
 
@@ -236,9 +273,17 @@ public class Server {
         System.out.println("Added city: " + city + " to userID: " + obs.getObsID());
     }
 
-    private void updateLoggedUsers(int userID, boolean isConnected){
-        connectedUsers.put(userID, isConnected);
-        System.out.println("User id: " + userID + ", isConnected:" + connectedUsers.get(userID).toString());
+    private void updateLoggedUsers(int userID, boolean isConnected, UserTypes type){
+        switch (type){
+            case USER:
+                connectedUsers.put(userID, isConnected);
+                System.out.println("User id: " + userID + ", isConnected:" + connectedUsers.get(userID).toString());
+                break;
+            case ORGANIZER:
+                connectedOrganizers.put(userID, isConnected);
+                System.out.println("Organizer id: " + userID + ", isConnected:" + connectedOrganizers.get(userID).toString());
+                break;
+        }
     }
 
 }
