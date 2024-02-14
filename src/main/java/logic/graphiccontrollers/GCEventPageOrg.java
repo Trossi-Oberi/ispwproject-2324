@@ -28,8 +28,8 @@ public class GCEventPageOrg extends GCEventPageGeneral {
 
     @FXML
     public void editEventAction(MouseEvent event) {
-        preloadEditEvent();
-        changeGUI(event, "EditEvent.fxml");
+        preloadEditEvent(event);
+
     }
 
     @FXML
@@ -39,7 +39,7 @@ public class GCEventPageOrg extends GCEventPageGeneral {
         }
     }
 
-    private void preloadEditEvent() {
+    private void preloadEditEvent(MouseEvent event) {
         try {
             URL loc = EssentialGUI.class.getResource("EditEvent.fxml");
             FXMLLoader loader = new FXMLLoader(loc);
@@ -56,6 +56,7 @@ public class GCEventPageOrg extends GCEventPageGeneral {
         } catch (RuntimeException e) {
             throw new RuntimeException(e);
         }
+        nextGuiOnClick(event);
     }
 
 
