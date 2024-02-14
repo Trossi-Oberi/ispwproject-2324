@@ -124,20 +124,31 @@ public class UserDAO {
 
     public void setStatus(int userID) {
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("UPDATE users SET userStatus = ? WHERE id = ?")) {
-            statement.setString(1, LoggedUser.getStatus().equals("Online") ? "Offline" : "Online");
+            statement.setString(1, LoggedUser.getStatus());
             statement.setInt(2, userID);
-            int res = statement.executeUpdate();
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            //throw new RuntimeException(e);
+            logger.log(Level.SEVERE, "SQLException in setOnline " + e + " -- MSG: " + e.getSQLState());
+        }
+    }
+
+    public int changeCity(int userID, String province, String city) {
+        int res = 0;
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("UPDATE users SET province = ?, city = ? WHERE id = ?")) {
+            statement.setString(1, province);
+            statement.setString(2, city);
+            statement.setInt(3, userID);
+            res = statement.executeUpdate();
             if(res == 1){
-                if(LoggedUser.getStatus().equals("Online")){
-                    LoggedUser.setStatus("Offline");
-                } else {
-                    LoggedUser.setStatus("Online");
-                }
+                LoggedUser.setProvince(province);
+                LoggedUser.setCity(city);
             }
         } catch (SQLException e) {
             //throw new RuntimeException(e);
             logger.log(Level.SEVERE, "SQLException in setOnline " + e + " -- MSG: " + e.getSQLState());
         }
+        return res;
     }
 
     //gestita dal server

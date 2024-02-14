@@ -39,6 +39,10 @@ public class CLogin {
         return ret;
     }
 
+    public int changeCity(int userID, String province, String city){
+        return this.userDao.changeCity(userID, province, city);
+    }
+
     private void createLoggedSession() {
         LoggedUser.setUserID(this.userModel.getUserID());
         LoggedUser.setUserName(this.userModel.getUserName());
@@ -49,13 +53,12 @@ public class CLogin {
         LoggedUser.setProvince(this.userModel.getProvince());
         LoggedUser.setCity(this.userModel.getCity());
         LoggedUser.setBirthDate(this.userModel.getBirthDate());
+        LoggedUser.setStatus("Online");
         //set status gestita dal UserDAO
         this.userDao.setStatus(this.userModel.getUserID());
     }
 
     public void closeLoginSession(){
-        //set status gestita dal UserDAO
-        this.userDao.setStatus(LoggedUser.getUserID());
         LoggedUser.setUserID(0);
         LoggedUser.setUserName(null);
         LoggedUser.setUserType(null);
@@ -65,6 +68,9 @@ public class CLogin {
         LoggedUser.setProvince(null);
         LoggedUser.setCity(null);
         LoggedUser.setBirthDate(null);
+        LoggedUser.setStatus("Offline");
+        //set status gestita dal UserDAO
+        this.userDao.setStatus(LoggedUser.getUserID());
 
     }
 

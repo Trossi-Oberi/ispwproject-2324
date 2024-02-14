@@ -89,7 +89,7 @@ public class GCLogin extends EssentialGUI{
                     changeGUI(event, "GoogleRegistration.fxml");
                 }
             }
-        } catch (RuntimeException e){ //TODO:se facciamo in tempo sostituire con un'eccezione personalizzata InvalidTokenValue
+        } catch (RuntimeException e){ //TODO: sostituire con un'eccezione personalizzata InvalidTokenValue
             alert.displayAlertPopup(Alerts.ERROR, "Invalid authorization code. Please retry...");
         }
     }
