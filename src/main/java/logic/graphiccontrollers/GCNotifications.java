@@ -71,7 +71,7 @@ public class GCNotifications extends EssentialGUI {
             }
         });
 
-        switch (LoggedUser.getUserType()){
+        switch (LoggedUser.getUserType()) {
             case USER:
                 ArrayList<NotificationMessage> notificationsList = cfacade.retrieveNotifications(LoggedUser.getUserID());
                 populateNotificationsLV(notificationsList);
@@ -91,29 +91,28 @@ public class GCNotifications extends EssentialGUI {
 
     }
 
-    private void populateNotificationsLV(ArrayList<NotificationMessage> notificationsList){
-        try{
+    private void populateNotificationsLV(ArrayList<NotificationMessage> notificationsList) {
+        try {
             for (int i = 0; i < notificationsList.size(); i++) {
-                if(notificationsList.get(i).getMessageType() == MessageTypes.EventAdded){
+                if (notificationsList.get(i).getMessageType() == MessageTypes.EventAdded) {
                     notificationsLV.getItems().add("New event called " + cfacade.getEventNameByEventID(notificationsList.get(i).getEventID()) + "in your city!");
                 }
             }
 
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             logger.log(Level.SEVERE, "Invalid notification string value");
         }
     }
 
-    public void addNewNotifications(){
+    public void addNewNotifications() {
         String notify = "null; not implemented";
 //        notify = DA IMPLEMENTARE, questo metodo verrà chiamato dal singolo observer (utente) chiamato a sua volta dal subject dell'organizer
-        try{
+        try {
             notificationsLV.getItems().add(notify);
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             logger.log(Level.SEVERE, "Invalid notification string value");
         }
     }
-
 
 
 }

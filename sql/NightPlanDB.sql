@@ -46,7 +46,8 @@ create table Notifications
     id       INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
     user_id  INT         NOT NULL,
     type     VARCHAR(50) NOT NULL,
-    event_id INT         NOT NULL
+    event_id INT,
+    FOREIGN KEY (event_id) REFERENCES Events (event_id) ON DELETE CASCADE
 );
 
 create table Provinces
@@ -62,20 +63,26 @@ create table Cities
     province VARCHAR(50)                    NOT NULL
 );
 
-insert into Users (id, username, password, firstName, lastName, dateOfBirth, gender, province, city, userType, userStatus)
+insert into Users (id, username, password, firstName, lastName, dateOfBirth, gender, province, city, userType,
+                   userStatus)
 values (NULL, 'Matteo', 'Matteo', 'Matteo', 'Trossi', '16/03/1998', 'Male', 'Frosinone', 'Anagni', 'USER', 'Offline'),
        (NULL, 'Nicolas', 'Nicolas', 'Nicolas', 'Oberi', '16/03/1998', 'Male', 'Roma', 'Cave', 'ORGANIZER', 'Offline'),
        (NULL, 'm', 'm', 'm', 'm', '16/03/1998', 'Male', 'Frosinone', 'Anagni', 'USER', 'Offline'),
        (NULL, 'n', 'n', 'n', 'n', '16/03/1998', 'Male', 'Frosinone', 'Anagni', 'USER', 'Offline'),
        (NULL, 'o', 'o', 'o', 'o', '16/03/1998', 'Male', 'Frosinone', 'Anagni', 'USER', 'Offline');
 
-insert into Events (event_id, organizer, organizer_id, name, province, city, address, music_genre, date, time, image, pic_path)
+insert into Events (event_id, organizer, organizer_id, name, province, city, address, music_genre, date, time, image,
+                    pic_path)
 values (NULL, 'Nicolas', 2, 'Uane', 'Frosinone', 'Anagni', 'Via Casilina', 'Pop', '03-03-2024', '18:40',
-        LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerplanet.jpg'), 'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerplanet.jpg'),
+        LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerplanet.jpg'),
+        'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerplanet.jpg'),
        (NULL, 'Nicolas', 2, 'Eleo', 'Frosinone', 'Frosinone', 'Via Marittima', 'Rap', '03-04-2025', '01:30',
-        LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp1.jpg'), 'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp1.jpg'),
-       (NULL, 'Nicolas', 2, 'Uane passato','Frosinone', 'Anagni', 'Via Casilina passata', 'Techno', '03-04-2020', '22:30',
-        LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp2.jpg'), 'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp2.jpg');
+        LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp1.jpg'),
+        'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp1.jpg'),
+       (NULL, 'Nicolas', 2, 'Uane passato', 'Frosinone', 'Anagni', 'Via Casilina passata', 'Techno', '03-04-2020',
+        '22:30',
+        LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp2.jpg'),
+        'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp2.jpg');
 
 insert into UserEvent(id, user_id, event_id)
 values (NULL, 1, 3),
