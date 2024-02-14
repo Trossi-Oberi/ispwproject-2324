@@ -4,6 +4,7 @@ import javafx.scene.control.Alert;
 
 import java.util.logging.Level;
 
+import javafx.scene.control.ButtonType;
 import logic.utils.Alerts;
 
 import static logic.view.EssentialGUI.logger;
@@ -49,5 +50,20 @@ public class AlertPopup {
         } catch (IllegalStateException e){
             logger.log(Level.SEVERE, e.getMessage());
         }
+    }
+
+    public boolean askDeleteConfirmation(){
+        type = Alert.AlertType.CONFIRMATION;
+        Alert alert = new Alert(type);
+        alert.setTitle("NightPlan");
+        alert.setHeaderText("Proceed with event cancellation?");
+
+        // Aggiungi i pulsanti personalizzati
+        ButtonType yesButton = new ButtonType("Yes");
+        ButtonType noButton = new ButtonType("No");
+        alert.getButtonTypes().setAll(yesButton, noButton);
+
+        // Mostra la finestra di dialogo e ottieni la risposta
+        return alert.showAndWait().filter(response -> response==yesButton).isPresent();
     }
 }

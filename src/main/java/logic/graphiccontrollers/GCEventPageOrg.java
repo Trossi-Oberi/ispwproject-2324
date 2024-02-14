@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import logic.utils.Alerts;
 import logic.view.EssentialGUI;
 
 import java.io.IOException;
@@ -23,6 +24,16 @@ public class GCEventPageOrg extends GCEventPageGeneral {
 
     @FXML
     public void deleteEventAction(MouseEvent event) {
+        boolean res = alert.askDeleteConfirmation();
+        if(res){
+            if(cfacade.deleteEvent(eventBean.getEventID())){
+                alert.displayAlertPopup(Alerts.INFORMATION, "Evento deleted succesfully");
+                changeGUI(event, "YourEventsOrg.fxml");
+            }else{
+                alert.displayAlertPopup(Alerts.ERROR, "Error during event cancellation");
+            }
+        }
+
 
     }
 

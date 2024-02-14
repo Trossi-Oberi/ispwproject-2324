@@ -37,8 +37,8 @@ create table UserEvent
     id       INT AUTO_INCREMENT PRIMARY KEY,
     user_id  INT,
     event_id INT,
-    FOREIGN KEY (user_id) REFERENCES Users (id),
-    FOREIGN KEY (event_id) REFERENCES Events (event_id)
+    FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE,
+    FOREIGN KEY (event_id) REFERENCES Events (event_id) ON DELETE CASCADE
 );
 
 create table Notifications

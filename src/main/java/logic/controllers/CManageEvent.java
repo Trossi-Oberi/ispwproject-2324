@@ -2,6 +2,7 @@ package logic.controllers;
 
 import logic.beans.BEvent;
 import logic.dao.EventDAO;
+import logic.dao.UserEventDAO;
 import logic.exceptions.DuplicateEventParticipation;
 import logic.model.MEvent;
 import logic.utils.LoggedUser;
@@ -12,10 +13,12 @@ import java.util.ArrayList;
 public class CManageEvent {
 
     private EventDAO eventDAO;
+    private UserEventDAO userEventDAO;
 
 
     public CManageEvent() {
         eventDAO = new EventDAO();
+        userEventDAO = new UserEventDAO();
     }
 
     public boolean addEvent(BEvent eventBean) {
@@ -51,8 +54,16 @@ public class CManageEvent {
         return true;
     }
 
-    public void deleteEvent(int eventID) {
+    public boolean deleteEvent(int eventID) {
+        eventDAO.deleteEvent(eventID);
+        return true;
+    }
 
+    public boolean participateToEvent(BEvent eventBean) throws DuplicateEventParticipation {
+        MEvent eventModel = new MEvent(eventBean);
+        userEventDAO.joinUserToEvent(eventModel);
+        //notify the organizer of your participation
+        return true;
     }
 
     private ArrayList<BEvent> getEventBeansListFromModelsList(ArrayList<MEvent> eventModelList){
@@ -65,16 +76,8 @@ public class CManageEvent {
         return myEventsBeans;
     }
 
-
-
-    public boolean participateToEvent(BEvent eventBean) throws DuplicateEventParticipation {
-        MEvent eventModel = new MEvent(eventBean);
-        eventDAO.joinUserToEvent(eventModel);
-        //notify the organizer of your participation
-        return true;
-    }
     public int getParticipationsToEvent(int id){
-        return eventDAO.getParticipationsToEvent(id);
+        return userEventDAO.getParticipationsToEvent(id);
     }
 
     public String getEventNameByEventID(int eventID) {
