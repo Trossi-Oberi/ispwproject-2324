@@ -33,6 +33,20 @@ public class CFacade {
         return res;
     }
 
+    public boolean deleteEvent(int eventID){
+        if (manageEventController == null) {
+            manageEventController = new CManageEvent();
+        }
+        boolean res = manageEventController.deleteEvent(eventID);
+        if (res){
+            if (notificationController == null) {
+                notificationController = new CNotification();
+            }
+            notificationController.sendMessage(MessageTypes.EventDeleted, null, eventID, null, null);
+        }
+        return res;
+    }
+
     public boolean participateToEvent(BEvent bean) throws DuplicateEventParticipation {
         if (manageEventController == null) {
             manageEventController = new CManageEvent();
@@ -86,6 +100,7 @@ public class CFacade {
         loginController.closeLoginSession();
     }
 
+
     //Metodi che non interagiscono col server
     public ArrayList<BEvent> retrieveEvents(UserTypes userType, String className) {
         if (manageEventController == null) {
@@ -101,12 +116,7 @@ public class CFacade {
         return manageEventController.editEvent(eventBean);
     }
 
-    public boolean deleteEvent(int eventID){
-        if (manageEventController == null) {
-            manageEventController = new CManageEvent();
-        }
-        return manageEventController.deleteEvent(eventID);
-    }
+
 
     public int retrieveParticipationsToEvent(int id) {
         if (manageEventController == null) {

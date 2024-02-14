@@ -61,12 +61,19 @@ public class ClientListener extends Thread implements Runnable{
                             }
                             break;
 
+                        case EventDeleted:
+                            System.out.println("SERVER: Evento "+incomingMsg.getEventID()+" cancellato con successo");
+                            semaphore.release(2);
+                            break;
+
                         case Disconnected:
                             System.out.println("Client " + incomingMsg.getClientID() + " disconnected successfully.");
                             //chiudo i canali di comunicazione del client con il server
                             semaphore.release(2);
                             listenerRunning = false;
                             break;
+
+
                     }
                 }
             }

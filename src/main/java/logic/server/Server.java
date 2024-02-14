@@ -177,6 +177,15 @@ public class Server {
                             updateUserObservers(msg.getCity(), msg.getEventID());
                             break;
 
+                        case EventDeleted:
+                            System.out.println("Event with id "+msg.getEventID()+" deleted");
+                            synchronized (organizersByEventID){
+                                //rimuove l'associazione tra event-id e organizer nella hashmap
+                                organizersByEventID.remove(msg.getEventID());
+                            }
+                            response = msgFactory.createMessage(NOTIFICATION, MessageTypes.EventDeleted, null, msg.getEventID(), null, null);
+                            sendMessageToClient(response, out);
+
                         case UserEventParticipation:
                             //TODO: usereventparticipation logic in server
                             break;
@@ -242,9 +251,9 @@ public class Server {
     }
 
     private void updateOrgOut(int orgID, ObjectOutputStream out) {
-        for (int i = 1; i <= organizersByEventID.size(); i++) {
-            if(organizersByEventID.get(i).getObsID() == orgID){
-                organizersByEventID.get(i).setOut(out);
+        for (Map.Entry<Integer, ObserverClass> entry : organizersByEventID.entrySet()) {
+            if(entry.getValue().getObsID() == orgID){
+                entry.getValue().setOut(out);
             }
         }
     }
