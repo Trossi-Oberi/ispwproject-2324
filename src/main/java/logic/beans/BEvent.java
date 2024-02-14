@@ -3,6 +3,7 @@ package logic.beans;
 public class BEvent {
     private int eventID;
     private String eventName;
+    private String eventProvince;
     private String eventCity;
     private String eventAddress;
     private String eventMusicGenre;
@@ -11,6 +12,7 @@ public class BEvent {
     private byte[] eventPicData;
     private String eventOrganizer;
     private int eventOrganizerID;
+    private String eventPicPath;
 
     public BEvent() {
     }
@@ -55,6 +57,12 @@ public class BEvent {
     public void setEventOrganizerID(int eventOrgID){
         this.eventOrganizerID = eventOrgID;
     }
+    public void setEventProvince(String province){
+        this.eventProvince = province;
+    }
+    public void setEventPicPath(String path){
+        this.eventPicPath = path;
+    }
 
     public int getEventID(){return this.eventID;}
     public String getEventName(){
@@ -86,4 +94,7 @@ public class BEvent {
     public String getEventOrganizer(){return this.eventOrganizer;}
 
     public int getEventOrganizerID(){return this.eventOrganizerID;}
+    public String getEventProvince(){return this.eventProvince;}
+
+    public String getEventPicPath(){return this.eventPicPath;}
 }

@@ -16,31 +16,20 @@ public class GCEventPageGeneral extends EssentialGUI {
 
     @FXML
     private Text address;
-
     @FXML
     private Text city;
-
     @FXML
     private Text dateTime;
-
     @FXML
     private ImageView eventImage;
-
     @FXML
     private Text eventName;
-
     @FXML
     private Button goBackBtn;
-
     @FXML
     private Text musicGenre;
-
     @FXML
     private Text organizerName;
-
-    @FXML
-    private Button participateEventBtn;
-
     protected BEvent eventBean;
 
     protected String className;
