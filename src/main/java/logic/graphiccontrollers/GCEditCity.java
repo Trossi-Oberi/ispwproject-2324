@@ -7,9 +7,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import logic.utils.Alerts;
 import logic.utils.LoggedUser;
 import logic.view.EssentialGUI;
 
+import javax.xml.validation.SchemaFactoryConfigurationError;
 import java.util.ArrayList;
 
 public class GCEditCity extends EssentialGUI {
@@ -37,23 +39,43 @@ public class GCEditCity extends EssentialGUI {
 
     @FXML
     void initialize(){
+        //TODO: sistemare dimensione delle choicebox
+
+
         //province e citta' choicebox
         if (provincesList.isEmpty()) {
             provincesList = cfacade.getProvincesList();
             provincesObsList = FXCollections.observableArrayList(provincesList);
         }
         this.provinceChoiceBox.setItems(provincesObsList);
+        setupProvinceBoxListener();
         this.provinceChoiceBox.setValue(LoggedUser.getProvince());
         this.cityChoiceBox.setValue(LoggedUser.getCity());
-        setupProvinceBoxListener();
     }
 
     @FXML
     void changeCityControl(MouseEvent event) {
-
+        boolean res = alert.askChangeCityConfirmation();
+        try{
+            if (res){
+                //conferma il cambiamento
+                try {
+                    if (cfacade.changeUserCity(LoggedUser.getUserID(), this.provinceChoiceBox.getValue(), this.cityChoiceBox.getValue()) == 1) {
+                        alert.displayAlertPopup(Alerts.INFORMATION, "City updated successfully. Now you will fetch events in " + LoggedUser.getCity());
+                    }
+                } catch (Exception e){
+                    alert.displayAlertPopup(Alerts.ERROR, "City update failed.");
+                } finally {
+                    goToSettings(event);
+                }
+            } else {
+                //annulla il cambiamento
+                alert.displayAlertPopup(Alerts.WARNING, "City update cancelled.");
+            }
+        } catch (RuntimeException e) {
+            alert.displayAlertPopup(Alerts.ERROR, e.getMessage());
+        }
     }
-
-
     private void setupProvinceBoxListener() {
         provinceChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             citiesList.clear();

@@ -66,4 +66,19 @@ public class AlertPopup {
         // Mostra la finestra di dialogo e ottieni la risposta
         return alert.showAndWait().filter(response -> response==yesButton).isPresent();
     }
+
+    public boolean askChangeCityConfirmation(){
+        type = Alert.AlertType.CONFIRMATION;
+        Alert alert = new Alert(type);
+        alert.setTitle("NightPlan");
+        alert.setHeaderText("Do you want to proceed updating your city?");
+
+        // Aggiungi i pulsanti personalizzati
+        ButtonType yesButton = new ButtonType("Yes");
+        ButtonType noButton = new ButtonType("No");
+        alert.getButtonTypes().setAll(yesButton, noButton);
+
+        // Mostra la finestra di dialogo e ottieni la risposta
+        return alert.showAndWait().filter(response -> response == yesButton).isPresent();
+    }
 }

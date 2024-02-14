@@ -152,14 +152,46 @@
             <Font name="Baloo 2 Regular" size="30.0" />
          </font>
       </Text>
-      <Label fx:id="userName" layoutX="263.0" layoutY="113.0" prefHeight="48.0" prefWidth="501.0" />
-      <Label fx:id="province" layoutX="263.0" layoutY="400.0" prefHeight="48.0" prefWidth="501.0" />
-      <Label fx:id="city" layoutX="263.0" layoutY="448.0" prefHeight="48.0" prefWidth="501.0" />
-      <Label fx:id="userType" layoutX="263.0" layoutY="500.0" prefHeight="48.0" prefWidth="323.0" />
-      <Label fx:id="firstName" layoutX="263.0" layoutY="200.0" prefHeight="48.0" prefWidth="501.0" />
-      <Label fx:id="lastName" layoutX="263.0" layoutY="250.0" prefHeight="48.0" prefWidth="501.0" />
-      <Label fx:id="gender" layoutX="263.0" layoutY="300.0" prefHeight="48.0" prefWidth="501.0" />
-      <Label fx:id="birthDate" layoutX="263.0" layoutY="350.0" prefHeight="48.0" prefWidth="501.0" />
+      <Label fx:id="userName" layoutX="263.0" layoutY="113.0" prefHeight="48.0" prefWidth="501.0">
+         <font>
+            <Font name="Baloo 2 Regular" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="province" layoutX="263.0" layoutY="400.0" prefHeight="48.0" prefWidth="501.0">
+         <font>
+            <Font name="Baloo 2 Regular" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="city" layoutX="263.0" layoutY="448.0" prefHeight="48.0" prefWidth="501.0">
+         <font>
+            <Font name="Baloo 2 Regular" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="userType" layoutX="263.0" layoutY="500.0" prefHeight="48.0" prefWidth="323.0">
+         <font>
+            <Font name="Baloo 2 Regular" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="firstName" layoutX="263.0" layoutY="200.0" prefHeight="48.0" prefWidth="501.0">
+         <font>
+            <Font name="Baloo 2 Regular" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="lastName" layoutX="263.0" layoutY="250.0" prefHeight="48.0" prefWidth="501.0">
+         <font>
+            <Font name="Baloo 2 Regular" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="gender" layoutX="263.0" layoutY="300.0" prefHeight="48.0" prefWidth="501.0">
+         <font>
+            <Font name="Baloo 2 Regular" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="birthDate" layoutX="263.0" layoutY="350.0" prefHeight="48.0" prefWidth="501.0">
+         <font>
+            <Font name="Baloo 2 Regular" size="24.0" />
+         </font>
+      </Label>
     </children>
     <rotationAxis>
         <Point3D />

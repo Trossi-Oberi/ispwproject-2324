@@ -154,4 +154,11 @@ public class CFacade {
         }
         return manageEventController.getEventNameByEventID(eventID);
     }
+
+    public int changeUserCity(int userID, String province, String city) {
+        if(loginController == null){
+            loginController = new CLogin();
+        }
+        return loginController.changeCity(userID, province, city);
+    }
 }
