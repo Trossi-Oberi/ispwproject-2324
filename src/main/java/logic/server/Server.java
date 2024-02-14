@@ -29,6 +29,8 @@ public class Server {
     private Map<Integer, Boolean> connectedUsers = new HashMap<>();
     private Map<Integer, Boolean> connectedOrganizers = new HashMap<>();
 
+    //TODO: hash map group con key = groupID e lista di ClientHandler (come da video YT :S)
+
     private static Logger logger = Logger.getLogger("NightPlan");
     private static final int MAX_CONNECTIONS = 500;
     private ServerSocket serverSocket;
