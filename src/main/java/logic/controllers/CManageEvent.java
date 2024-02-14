@@ -51,8 +51,9 @@ public class CManageEvent {
         return true;
     }
 
-    public void deleteEvent(int eventID) {
-
+    public boolean deleteEvent(int eventID) {
+        eventDAO.deleteEvent(eventID);
+        return true;
     }
 
     private ArrayList<BEvent> getEventBeansListFromModelsList(ArrayList<MEvent> eventModelList){

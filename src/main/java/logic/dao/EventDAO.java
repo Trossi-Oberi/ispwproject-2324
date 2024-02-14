@@ -72,6 +72,19 @@ public class EventDAO {
         }
     }
 
+    public void deleteEvent(int eventID){
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("DELETE FROM Events WHERE event_id=?")){
+            statement.setInt(1,eventID); //ID Evento da aggiornare
+            statement.execute();
+        }
+        catch (SQLException e) {
+            logger.log(Level.SEVERE, e.getMessage());
+        }
+        finally {
+            SingletonDBSession.getInstance().closeConn();
+        }
+    }
+
     public ArrayList<MEvent> retrieveMyEvents(int userID, int queryType){
         ArrayList<MEvent> myEvents = new ArrayList<>();
 

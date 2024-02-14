@@ -101,6 +101,13 @@ public class CFacade {
         return manageEventController.editEvent(eventBean);
     }
 
+    public boolean deleteEvent(int eventID){
+        if (manageEventController == null) {
+            manageEventController = new CManageEvent();
+        }
+        return manageEventController.deleteEvent(eventID);
+    }
+
     public int retrieveParticipationsToEvent(int id) {
         if (manageEventController == null) {
             manageEventController = new CManageEvent();
