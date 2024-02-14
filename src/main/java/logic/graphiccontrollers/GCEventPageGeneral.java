@@ -41,7 +41,6 @@ public class GCEventPageGeneral extends EssentialGUI {
 
     public void initEventFromBean(BEvent eventB, String className){
         this.className = className;
-
         this.eventName.setText(eventB.getEventName());
         this.city.setText(eventB.getEventCity());
         this.address.setText(eventB.getEventAddress());
