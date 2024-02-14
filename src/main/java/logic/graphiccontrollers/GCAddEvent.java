@@ -54,20 +54,6 @@ public class GCAddEvent extends GCManageEvent {
     @FXML
         //azioni da eseguire quando clicko pulsante "CONFIRM"
     void addEventControl(MouseEvent event) {
-        /*//try{
-        eventBean.setEventName(eventNameTF.getText());
-        eventBean.setEventCity(cityChoiceBox.getValue());
-        eventBean.setEventAddress(eventAddressTF.getText());
-        *//*}catch (LengthFieldException e) {
-            this.popErr.displayErrorPopup(e.getMsg());
-        }*//*
-        eventBean.setEventMusicGenre(musicGenreBox.getValue());
-        eventBean.setEventDate(datePicker.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-        eventBean.setEventTime(eventHourTF.getText(), eventMinutesTF.getText());
-        eventBean.setEventPicData(eventPicData);
-        eventBean.setEventOrganizer(LoggedUser.getUserName());
-        eventBean.setEventOrganizerID(LoggedUser.getUserID());
-        eventBean.setEventPicPath(pickedFileLabel.getText());*/
         setEventBean(this.eventBean);
         try {
             if (cfacade.addEvent(eventBean)) {
