@@ -39,15 +39,18 @@ public class GCEditCity extends EssentialGUI {
 
     @FXML
     void initialize(){
+        //TODO: sistemare dimensione delle choicebox
+
+
         //province e citta' choicebox
         if (provincesList.isEmpty()) {
             provincesList = cfacade.getProvincesList();
             provincesObsList = FXCollections.observableArrayList(provincesList);
         }
         this.provinceChoiceBox.setItems(provincesObsList);
+        setupProvinceBoxListener();
         this.provinceChoiceBox.setValue(LoggedUser.getProvince());
         this.cityChoiceBox.setValue(LoggedUser.getCity());
-        setupProvinceBoxListener();
     }
 
     @FXML
