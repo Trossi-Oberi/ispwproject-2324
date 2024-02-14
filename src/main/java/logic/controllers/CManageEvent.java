@@ -74,4 +74,8 @@ public class CManageEvent {
     public int getParticipationsToEvent(int id){
         return eventDAO.getParticipationsToEvent(id);
     }
+
+    public String getEventNameByEventID(int eventID) {
+        return eventDAO.getEventNameByEventID(eventID);
+    }
 }

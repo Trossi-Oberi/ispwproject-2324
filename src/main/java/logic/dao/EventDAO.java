@@ -166,4 +166,20 @@ public class EventDAO {
             SingletonDBSession.getInstance().closeConn();
         }
     }
+
+    public String getEventNameByEventID(int eventID) {
+        String name = null;
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT name FROM events WHERE (event_id = ?)")) {
+            statement.setInt(1, eventID); //id_evento preso come parametro
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                name = resultSet.getString(1);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, e.getMessage());
+        } finally {
+            SingletonDBSession.getInstance().closeConn();
+        }
+        return name;
+    }
 }

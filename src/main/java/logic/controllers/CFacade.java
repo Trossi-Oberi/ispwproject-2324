@@ -2,6 +2,7 @@ package logic.controllers;
 
 import logic.beans.*;
 import logic.exceptions.DuplicateEventParticipation;
+import logic.model.NotificationMessage;
 import logic.utils.LoggedUser;
 import logic.utils.MessageTypes;
 import logic.utils.UserTypes;
@@ -77,7 +78,7 @@ public class CFacade {
         if (notificationController == null) {
             notificationController = new CNotification();
         }
-        notificationController.sendMessage(MessageTypes.Disconnected, LoggedUser.getUserID(), null, null, null);
+        notificationController.sendMessage(MessageTypes.Disconnected, LoggedUser.getUserID(), null, null, LoggedUser.getUserType());
         //dopo la disconnessione dal server chiudo la sessione di Login
         if (loginController == null) {
             loginController = new CLogin();
@@ -116,4 +117,17 @@ public class CFacade {
     }
 
 
+    public ArrayList<NotificationMessage> retrieveNotifications(int userID) {
+        if(notificationController == null){
+            notificationController = new CNotification();
+        }
+        return notificationController.retrieveNotifications(userID);
+    }
+
+    public String getEventNameByEventID(int eventID) {
+        if(manageEventController == null){
+            manageEventController = new CManageEvent();
+        }
+        return manageEventController.getEventNameByEventID(eventID);
+    }
 }
