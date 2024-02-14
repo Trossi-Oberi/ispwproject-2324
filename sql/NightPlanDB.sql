@@ -38,6 +38,14 @@ create table UserEvent
     FOREIGN KEY (event_id) REFERENCES Events(event_id)
 );
 
+create table Notifications
+(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    type VARCHAR(50) NOT NULL,
+    event_id INT NOT NULL
+);
+
 create table Provinces
 (
     id   INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
