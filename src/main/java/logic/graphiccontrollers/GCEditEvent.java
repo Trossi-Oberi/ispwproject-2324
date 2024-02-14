@@ -33,7 +33,7 @@ public class GCEditEvent extends GCManageEvent {
         });
     }
 
-
+    //TODO: Fixare province choice box su editEvent
     public void initPageFromBean(BEvent eventB) {
         this.oldBean = eventB;
         this.eventNameTF.setText(eventB.getEventName());
