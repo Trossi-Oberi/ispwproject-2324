@@ -20,7 +20,7 @@ import java.util.logging.Level;
 
 public class GCEditEvent extends GCManageEvent {
 
-    BEvent oldBean;
+    private BEvent oldBean;
 
     @FXML
     public void initialize() {
@@ -44,13 +44,14 @@ public class GCEditEvent extends GCManageEvent {
             provincesObsList = FXCollections.observableArrayList(provincesList);
         }
         this.provinceChoiceBox.setItems(provincesObsList);
-        this.provinceChoiceBox.setValue(eventB.getEventProvince());
         setupProvinceBoxListener();
+        this.provinceChoiceBox.setValue(eventB.getEventProvince());
         this.cityChoiceBox.setValue(eventB.getEventCity());
 
         this.eventAddressTF.setText(eventB.getEventAddress());
         setDate(eventB.getEventDate());
         setTime(eventB.getEventTime());
+        this.musicGenreBox.setItems(musicGenresList);
         this.musicGenreBox.setValue(eventB.getEventMusicGenre());
         this.pickedFileLabel.setText(eventB.getEventPicPath());
 

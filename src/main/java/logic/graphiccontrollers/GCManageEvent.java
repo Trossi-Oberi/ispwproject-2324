@@ -71,16 +71,16 @@ public class GCManageEvent extends EssentialGUI {
     }
 
     protected void setupProvinceBoxListener() {
-        this.provinceChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            this.citiesList.clear();
-            this.citiesList = cfacade.getCitiesList(String.valueOf(newValue));
+        provinceChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            citiesList.clear();
+            citiesList = cfacade.getCitiesList(String.valueOf(newValue));
             updateCityListView();
         });
     }
 
     protected void updateCityListView() {
-        citiesObsList = FXCollections.observableArrayList(this.citiesList);
-        this.cityChoiceBox.setItems(citiesObsList);
+        citiesObsList = FXCollections.observableArrayList(citiesList);
+        cityChoiceBox.setItems(citiesObsList);
     }
 
     protected void setEventBean(BEvent bean) {

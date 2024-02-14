@@ -252,14 +252,15 @@ public class Server {
     private void updateUserObservers(String city, int eventID) {
         List<ObserverClass> users = observersByCity.get(city);
         NotificationDAO notifyDAO = new NotificationDAO();
-
-        for (ObserverClass user : users) {
-            if (connectedUsers.get(user.getObsID())) {
-                //se utente online notifica
-                user.update(MessageTypes.EventAdded);
+        if(users != null) {
+            for (ObserverClass user : users) {
+                if (connectedUsers.get(user.getObsID())) {
+                    //se utente online notifica
+                    user.update(MessageTypes.EventAdded);
+                }
+                //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
+                notifyDAO.addNotificationsToUser(user.getObsID(), MessageTypes.EventAdded, eventID);
             }
-            //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
-            notifyDAO.addNotificationsToUser(user.getObsID(), MessageTypes.EventAdded, eventID);
         }
     }
 
