@@ -124,7 +124,7 @@
                 <Font name="Baloo 2 Regular" size="20.0" />
             </font>
         </Button>
-        <Button fx:id="goBackBtn" layoutX="152.0" layoutY="483.0" mnemonicParsing="false" onMouseClicked="#goToSettingsUser" prefHeight="88.0" prefWidth="168.0" text="Go back" AnchorPane.leftAnchor="152.0">
+        <Button fx:id="goBackBtn" layoutX="152.0" layoutY="483.0" mnemonicParsing="false" onMouseClicked="#goToSettings" prefHeight="88.0" prefWidth="168.0" text="Go back" AnchorPane.leftAnchor="152.0">
             <font>
                 <Font name="Baloo 2 Regular" size="20.0" />
             </font>
