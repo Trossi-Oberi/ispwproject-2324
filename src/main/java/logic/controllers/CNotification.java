@@ -23,9 +23,7 @@ public class CNotification {
     private Thread listenerThread;
     private NotificationDAO notificationDAO;
     private MessageFactory msgFactory;
-
     private SecureObjectInputStream in;
-
     private ObjectOutputStream out;
 
     public CNotification(){

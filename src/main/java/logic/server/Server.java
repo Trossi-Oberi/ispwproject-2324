@@ -168,7 +168,6 @@ public class Server {
                                 ObserverClass orgObs = new ObserverClass(msg.getClientID(), out);
                                 attachOrgObserver(msg.getEventID(), orgObs);
                             }
-                            //TODO: fare stesso controllo del canale out anche per l'organizer, se l'organizer fa logout dopo aver aggiunto l'evento è un problema
                             //notifica l'organizer
                             response = msgFactory.createMessage(NOTIFICATION, MessageTypes.EventAdded, msg.getClientID(), null, null, null);
                             sendMessageToClient(response, out);
