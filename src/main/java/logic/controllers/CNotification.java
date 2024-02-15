@@ -96,7 +96,7 @@ public class CNotification {
         }
     }
 
-    public ArrayList<NotificationMessage> retrieveNotifications(int userID) {
+    public ArrayList<Message> retrieveNotifications(int userID) {
         return this.notificationDAO.getNotificationsByUserID(userID);
     }
 }

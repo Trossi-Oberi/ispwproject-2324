@@ -2,7 +2,7 @@ package logic.controllers;
 
 import logic.beans.*;
 import logic.exceptions.DuplicateEventParticipation;
-import logic.model.NotificationMessage;
+import logic.model.Message;
 import logic.utils.LoggedUser;
 import logic.utils.MessageTypes;
 import logic.utils.UserTypes;
@@ -141,7 +141,7 @@ public class CFacade {
     }
 
 
-    public ArrayList<NotificationMessage> retrieveNotifications(int userID) {
+    public ArrayList<Message> retrieveNotifications(int userID) {
         if(notificationController == null){
             notificationController = new CNotification();
         }

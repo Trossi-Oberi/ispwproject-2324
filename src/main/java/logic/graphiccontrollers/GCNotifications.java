@@ -9,7 +9,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.util.Callback;
 
-import logic.model.NotificationMessage;
+import logic.model.Message;
 import logic.utils.Alerts;
 import logic.utils.LoggedUser;
 import logic.utils.MessageTypes;
@@ -74,7 +74,7 @@ public class GCNotifications extends EssentialGUI {
         switch (LoggedUser.getUserType()) {
             case USER:
                 //TODO: Questi NotificationMessage sono di fatto un Model, per passarli alla view dovremmo usare dei bean
-                ArrayList<NotificationMessage> notificationsList = cfacade.retrieveNotifications(LoggedUser.getUserID());
+                ArrayList<Message> notificationsList = cfacade.retrieveNotifications(LoggedUser.getUserID());
                 populateNotificationsLV(notificationsList);
                 break;
             case ORGANIZER:
@@ -92,7 +92,7 @@ public class GCNotifications extends EssentialGUI {
 
     }
 
-    private void populateNotificationsLV(ArrayList<NotificationMessage> notificationsList) {
+    private void populateNotificationsLV(ArrayList<Message> notificationsList) {
         try {
             for (int i = 0; i < notificationsList.size(); i++) {
                 if (notificationsList.get(i).getMessageType() == MessageTypes.EventAdded) {

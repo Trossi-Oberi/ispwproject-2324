@@ -6,5 +6,6 @@ public enum MessageTypes {
     EventDeleted,
     UserEventParticipation,
     LoggedIn,
-    Disconnected
+    Disconnected,
+    NewMessageInGroup
 }

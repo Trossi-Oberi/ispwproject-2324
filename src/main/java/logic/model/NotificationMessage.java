@@ -12,15 +12,6 @@ public class NotificationMessage implements Message{
     private Integer eventID;
     private UserTypes userType;
 
-    public NotificationMessage(){
-        //empty
-    }
-
-    public NotificationMessage(String type, Integer eventID){
-        this.eventID = eventID;
-        this.messageType = type.equals("EventAdded") ? MessageTypes.EventAdded : MessageTypes.UserEventParticipation;
-    }
-
     @Override
     public void setMessageType(MessageTypes msgType) {
         this.messageType = msgType;
