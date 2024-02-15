@@ -115,4 +115,9 @@ public class CNotification {
         }
         return notiBeanList;
     }
+
+    public void deleteNotification(Integer notificationID, ArrayList<BNotification> notificationsList, int index) {
+        this.notificationDAO.deleteNotification(notificationID);
+        notificationsList.remove(index);
+    }
 }

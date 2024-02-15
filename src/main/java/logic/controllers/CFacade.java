@@ -173,4 +173,11 @@ public class CFacade {
         }
         return loginController.getUsernameByID(userID);
     }
+
+    public void deleteNotification(Integer notificationID, ArrayList<BNotification> notificationsList, int index) {
+        if(notificationController == null){
+            notificationController = new CNotification();
+        }
+        notificationController.deleteNotification(notificationID, notificationsList, index);
+    }
 }

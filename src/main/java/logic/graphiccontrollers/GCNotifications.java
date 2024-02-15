@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -21,6 +22,7 @@ import java.util.logging.Level;
 public class GCNotifications extends EssentialGUI {
     @FXML
     private ListView<String> notificationsLV;
+    ArrayList<BNotification> notificationsList;
 
     private class DeleteButtonCell extends ListCell<String> {
         private HBox hbox;
@@ -35,10 +37,10 @@ public class GCNotifications extends EssentialGUI {
             spacer = new Region();
             HBox.setHgrow(spacer, Priority.ALWAYS);
             deleteButton = new Button("Delete");
-            deleteButton.setOnAction(event -> {
+            deleteButton.setOnMouseClicked(event -> {
                 getListView().getItems().remove(getItem());
-                //TODO: Implementare cancellazione notifiche
-                //cfacade.deleteNotification();
+                //TODO: Cancellazione notifiche ok, errore nel ricaricare la pagina, testare cosa succede se elimino due notifiche
+                cfacade.deleteNotification(notificationsList.get(getIndex()).getNotificationID(),notificationsList,getIndex()); //ID notifica, lista (per rimuovere notifica) e indice di item della listview
                 alert.displayAlertPopup(Alerts.INFORMATION, "Removed notification successfully");
             });
 
@@ -72,7 +74,7 @@ public class GCNotifications extends EssentialGUI {
                 return new DeleteButtonCell(param);
             }
         });
-        ArrayList<BNotification> notificationsList = cfacade.retrieveNotifications(LoggedUser.getUserID());
+        notificationsList = cfacade.retrieveNotifications(LoggedUser.getUserID());
         populateNotificationsLV(notificationsList);
 
     }
@@ -83,7 +85,7 @@ public class GCNotifications extends EssentialGUI {
                 if (notificationsList.get(i).getMessageType() == NotificationTypes.EventAdded) {
                     notificationsLV.getItems().add("New event called " + cfacade.getEventNameByEventID(notificationsList.get(i).getEventID()) + " in your city!");
                 } else if (notificationsList.get(i).getMessageType() == NotificationTypes.UserEventParticipation) {
-                    notificationsLV.getItems().add("New user " + cfacade.getUsernameByID(notificationsList.get(i).getClientID()) + " participating to your event " + cfacade.getEventNameByEventID(notificationsList.get(i).getEventID()));
+                    notificationsLV.getItems().add("New user " + cfacade.getUsernameByID(notificationsList.get(i).getNotifierID()) + " participating to your event " + cfacade.getEventNameByEventID(notificationsList.get(i).getEventID()));
                 }
             }
 

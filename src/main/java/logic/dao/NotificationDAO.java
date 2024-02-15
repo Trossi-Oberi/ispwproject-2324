@@ -40,17 +40,16 @@ public class NotificationDAO {
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id, type, event_id, notifier_id FROM notifications WHERE (notified_id = ?)")) {
             statement.setInt(1, usrID);
             ResultSet rs = statement.executeQuery();
-            if (rs != null) {
-                Notification msg;
-                while (rs.next()) {
-                    if (rs.getString(2).equals(NotificationTypes.EventAdded.toString())) {
-                        msg = notiFactory.createNotification(SituationType.Local, NotificationTypes.EventAdded, usrID, rs.getInt(4), rs.getInt(3), rs.getInt(1), null,null);
-                    } else  {
-                        msg = notiFactory.createNotification(SituationType.Local, NotificationTypes.UserEventParticipation, usrID, rs.getInt(4),rs.getInt(3) , rs.getInt(1), null, null);
-                    }
-                    notifications.add(msg);
+            Notification msg;
+            while (rs.next()) {
+                if (rs.getString(2).equals(NotificationTypes.EventAdded.toString())) {
+                    msg = notiFactory.createNotification(SituationType.Local, NotificationTypes.EventAdded, usrID, rs.getInt(4), rs.getInt(3), rs.getInt(1), null, null);
+                } else {
+                    msg = notiFactory.createNotification(SituationType.Local, NotificationTypes.UserEventParticipation, usrID, rs.getInt(4), rs.getInt(3), rs.getInt(1), null, null);
                 }
+                notifications.add(msg);
             }
+
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Cannot get notifications from db", e);
         } finally {
@@ -59,15 +58,15 @@ public class NotificationDAO {
         return notifications;
     }
 
-    public boolean deleteNotification(int obsID) {
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("DELETE FROM Notifications WHERE ")) {
-            statement.executeQuery();
+    public void deleteNotification(int notificationID) {
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("DELETE FROM Notifications WHERE id=?")) {
+            statement.setInt(1, notificationID);
+            statement.execute();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Cannot remove notification from database", e);
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
-        return true;
     }
 
 

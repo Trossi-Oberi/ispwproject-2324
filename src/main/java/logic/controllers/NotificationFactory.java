@@ -1,5 +1,6 @@
 package logic.controllers;
 
+import logic.model.LocalNotification;
 import logic.model.Notification;
 import logic.model.ServerNotification;
 import logic.utils.NotificationTypes;
@@ -14,16 +15,13 @@ public class NotificationFactory {
         if (sitType == SituationType.ServerClient) {
             noti = new ServerNotification();
         } else {
-            noti = null; //SOSTITUIRE null CON GroupChatMessage
-            //Implementazione in caso di groupchat
-
-            //RAGIONAMENTO
-            //SituationType sitType, NotificationTypes msgType, Integer clientID, Integer notifierID, String text, Integer eventID, Integer notificationID, String city, UserTypes usrType
-            //clientID -> notifiedID nel Database, eventID -> groupID in caso di groupMessage
+            noti = new LocalNotification();
         }
         noti.setNotificationType(notiType);
         noti.setClientID(clientOrNotifiedID);
+        noti.setNotifierID(notifierID);
         noti.setEventID(eventID);
+        noti.setNotificationID(notificationID);
         noti.setCity(city);
         noti.setUserType(usrType);
         return noti;

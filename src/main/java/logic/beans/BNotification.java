@@ -13,7 +13,6 @@ public class BNotification {
     private Integer notificationID;
     private String city;
     private UserTypes userType;
-    private String text; //Attributo usato soltanto dai GroupMessage
 
     //SETTERS
     public void setMessageType(NotificationTypes messageType) {
@@ -43,10 +42,6 @@ public class BNotification {
 
     public void setUserType(UserTypes userType) {
         this.userType = userType;
-    }
-
-    public void setText(String text) {
-        this.text = text;
     }
 
 
@@ -80,7 +75,4 @@ public class BNotification {
         return userType;
     }
 
-    public String getText() {
-        return text;
-    }
 }
