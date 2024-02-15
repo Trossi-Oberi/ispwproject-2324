@@ -1,10 +1,11 @@
 package logic.utils;
 
-public enum MessageTypes {
+public enum NotificationTypes {
     UserRegistration,
     EventAdded,
     EventDeleted,
     UserEventParticipation,
     LoggedIn,
-    Disconnected
+    Disconnected,
+    NewMessageInGroup
 }

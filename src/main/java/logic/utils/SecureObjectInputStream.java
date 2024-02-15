@@ -27,7 +27,7 @@ public class SecureObjectInputStream extends ObjectInputStream {
         approvedClasses.add(ClientListener.class.getName());
         approvedClasses.add(NotificationMessage.class.getName());
         approvedClasses.add(Message.class.getName());
-        approvedClasses.add(MessageTypes.class.getName());
+        approvedClasses.add(NotificationTypes.class.getName());
         approvedClasses.add(Enum.class.getName());
         approvedClasses.add(UserTypes.class.getName());
         approvedClasses.add(Integer.class.getName());

@@ -1,10 +1,7 @@
 package logic.interfaces;
 
-import logic.utils.MessageTypes;
-
-import java.io.ObjectOutputStream;
-import java.net.Socket;
+import logic.utils.NotificationTypes;
 
 public interface Observer {
-    void update(MessageTypes type);
+    void update(NotificationTypes type);
 }

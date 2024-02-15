@@ -166,5 +166,31 @@ public class UserDAO {
         }
     }
 
+    public void populateConnUsers(Map<Integer, Boolean> connUsers){
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id FROM users WHERE (userType = 'USER')")){
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                connUsers.put(rs.getInt(1), false);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, e.getMessage());
+        } finally {
+            SingletonDBSession.getInstance().closeConn();
+        }
+    }
+
+    public void populateConnOrganizers(Map<Integer, Boolean> connOrganizers){
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id FROM users WHERE (userType = 'ORGANIZER')")){
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                connOrganizers.put(rs.getInt(1), false);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, e.getMessage());
+        } finally {
+            SingletonDBSession.getInstance().closeConn();
+        }
+    }
+
 
 }

@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 import logic.utils.Alerts;
 import logic.utils.LoggedUser;
 import logic.controllers.CFacade;
-import logic.utils.MessageTypes;
+import logic.utils.NotificationTypes;
 
 public class EssentialGUI extends Application {
     //TODO: inserire le icone in tutta l'applicazione
@@ -134,7 +134,7 @@ public class EssentialGUI extends Application {
     }
 
 
-    public static void showNotification(MessageTypes type) {
+    public static void showNotification(NotificationTypes type) {
         Platform.runLater(() -> {
             AlertPopup alert = new AlertPopup();
             switch (type) {

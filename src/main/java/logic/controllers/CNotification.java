@@ -1,8 +1,8 @@
 package logic.controllers;
 
+import logic.beans.BMessage;
 import logic.dao.NotificationDAO;
 import logic.model.Message;
-import logic.model.NotificationMessage;
 import logic.server.Server;
 import logic.utils.*;
 
@@ -56,7 +56,7 @@ public class CNotification {
         }
     }
 
-    public void sendMessage(MessageTypes msgType, Integer clientID, Integer eventID, String city, UserTypes usrType){
+    public void sendMessage(NotificationTypes msgType, Integer clientID, Integer eventID, String city, UserTypes usrType){
         try {
             //se ListenerThread non è ancora stato inizializzato oppure è stato inizializzato ma è stato poi interrotto lo avvio
             if (listenerThread == null || !listenerThread.isAlive()){
@@ -74,7 +74,7 @@ public class CNotification {
             semaphore.acquire(2);
 
             //Vedo il tipo di messaggio per decidere se chiudere il listener oppure no
-            if (msgType == MessageTypes.UserRegistration || msgType==MessageTypes.Disconnected){
+            if (msgType == NotificationTypes.UserRegistration || msgType== NotificationTypes.Disconnected){
                 stopListener(clientID);
             }
 
@@ -96,7 +96,20 @@ public class CNotification {
         }
     }
 
-    public ArrayList<NotificationMessage> retrieveNotifications(int userID) {
-        return this.notificationDAO.getNotificationsByUserID(userID);
+    public ArrayList<BMessage> retrieveNotifications(int userID) {
+        ArrayList<Message> messages = new ArrayList<>(this.notificationDAO.getNotificationsByUserID(userID));
+        return makeBeanFromModel(messages);
+    }
+
+    private ArrayList<BMessage> makeBeanFromModel(ArrayList<Message> msgs){
+        BMessage msgBean;
+        ArrayList <BMessage> msgBeanList = new ArrayList<>();
+        for (Message msg : msgs){
+            msgBean = new BMessage();
+            msgBean.setMessageType(msg.getMessageType());
+            msgBean.setEventID(msg.getEventID());
+            msgBeanList.add(msgBean);
+        }
+        return msgBeanList;
     }
 }
