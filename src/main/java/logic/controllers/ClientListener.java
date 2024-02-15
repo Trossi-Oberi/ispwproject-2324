@@ -57,6 +57,7 @@ public class ClientListener extends Thread implements Runnable{
                             } else{
                                 //nuova notifica (static)
                                 System.out.println("New event in your city");
+                                //TODO: non va bene, perché con la CLI da errore
                                 EssentialGUI.showNotification(incomingMsg.getMessageType());
                             }
                             break;

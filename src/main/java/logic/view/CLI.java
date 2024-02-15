@@ -16,9 +16,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +32,7 @@ public class CLI {
     private static CFacade cFacade;
     private static BUserData bUserData;
     private static ArrayList<String> commands = new ArrayList<>();
-    private static String[] commandsList= {"/home", "/events", "/notifications", "/settings", "/quit"};
+    private static String[] commandsList= {"/commands", "/home", "/events", "/notifications", "/settings", "/quit"};
     private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private static String filePath;
 
@@ -69,6 +72,14 @@ public class CLI {
 
     private static void handleCommand(String command){
         switch (command) {
+            case "/commands":
+                spacer(1);
+                System.out.println("Command list:");
+                for (String s : commandsList) {
+                    System.out.println(s);
+                }
+                spacer(1);
+                break;
             case "/home":
                 loadHome();
                 break;
@@ -87,7 +98,7 @@ public class CLI {
             default:
                 break;
         }
-        spacer(3);
+        spacer(1);
     }
 
     private static void loadSettings() {
@@ -104,6 +115,7 @@ public class CLI {
                             "e. Help & FAQs\n" +
                             "f. Sign Out");
                     try {
+                        spacer(1);
                         String value = reader.readLine();
 
                         //verifico comandi generali
@@ -240,7 +252,7 @@ public class CLI {
         String newProvince = null;
         String newCity = null;
         ArrayList<String> provinces = cFacade.getProvincesList();
-        ArrayList<String> cities = cFacade.getCitiesList(bUserData.getProvince());
+        ArrayList<String> cities = null;
         boolean valid = false;
 
         spacer(1);
@@ -259,7 +271,10 @@ public class CLI {
             } while (!valid);
             valid = false;
 
-            System.out.println("New city: ");
+            //faccio la retrieve delle città della nuova provincia scelta1
+            cities = cFacade.getCitiesList(newProvince);
+
+            System.out.print("New city: ");
             do {
                 String tempVal = reader.readLine();
                 if (cities.contains(tempVal)) {
@@ -289,13 +304,24 @@ public class CLI {
 
         System.out.println("Welcome to NightPlan!");
         spacer(1);
+        System.out.println("Use /commands to view a list of commands which you can use to navigate into application pages");
+        spacer(1);
 
         if(LoggedUser.getUserType().equals(UserTypes.USER)){
-            eventList = cFacade.retrieveEvents(LoggedUser.getUserType(), "Home");
+            eventList = cFacade.retrieveEvents(LoggedUser.getUserType(), "GCHomeUser");
+            ArrayList<BEvent> futureEvents = new ArrayList<>();
+            for (BEvent event : eventList) {
+                String eventDateString = event.getEventDate();
+                LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                if (LocalDate.now().isBefore(date)) {
+                    futureEvents.add(event);
+                }
+            }
+
             if(!eventList.isEmpty()){
                 System.out.println("Events in your city. \nWrite event name to show event info!");
-                for (int i = 0; i < eventList.size(); i++) {
-                    System.out.println(i+1 + ". " + eventList.get(i).getEventName());
+                for (int i = 0; i < futureEvents.size(); i++) {
+                    System.out.println(i+1 + ". " + futureEvents.get(i).getEventName());
                 }
 
                 boolean valid = false;
@@ -319,6 +345,21 @@ public class CLI {
                 } while (!valid);
             } else {
                 System.out.println("No events in your city");
+                System.out.println("Please wait new events to be added in your city. Use /commands to navigate!");
+                spacer(1);
+
+                boolean waiting = true;
+                try {
+                    while (waiting) {
+                        String value = reader.readLine();
+                        if (commands.contains(value)) {
+                            waiting = false;
+                            handleCommand(value);
+                        }
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
             spacer(3);
         } else if (LoggedUser.getUserType().equals(UserTypes.ORGANIZER)){
@@ -364,7 +405,7 @@ public class CLI {
 
         boolean valid = false;
         ArrayList<String> provinces = cFacade.getProvincesList();
-        ArrayList<String> cities = cFacade.getCitiesList(bUserData.getProvince());
+        ArrayList<String> cities = null;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         try {
@@ -382,6 +423,7 @@ public class CLI {
             } while (!valid);
             valid = false;
 
+            cities = cFacade.getCitiesList(eventBean.getEventProvince());
             System.out.println("Event city: ");
             do {
                 String val = reader.readLine();
@@ -398,7 +440,7 @@ public class CLI {
                 try {
                     // Convertire la stringa in un oggetto LocalDate utilizzando il formatter
                     LocalDate eventDate = LocalDate.parse(val, formatter);
-                    eventBean.setEventDate(String.valueOf(eventDate));
+                    eventBean.setEventDate(eventDate.format(formatter));
                     valid = true;
                 } catch (Exception e) {
                     // Gestire il caso in cui l'input non sia nel formato corretto
@@ -424,15 +466,31 @@ public class CLI {
                     }
                 }
             } while (!valid);
+            valid = false;
 
-            String hour;
-            String minutes;
+            System.out.println("Event time: HH:mm");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            do {
+                String val = reader.readLine();
+                try {
+                    timeFormat.parse(val);
+                } catch (ParseException e) {
+                    logger.severe("Invalid time format.");
+                    continue;
+                }
 
-            System.out.println("Event time: hh:mm");
-            System.out.println("Hour -> " + (hour = reader.readLine()));
-            System.out.println("Minutes -> " + (minutes = reader.readLine()));
-            eventBean.setEventTime(hour, minutes);
+                //qua ci arriva solo se il time viene parsato correttamente
+                String[] parts = val.split(":");
 
+                if (parts.length == 2) {
+                    String hours = parts[0];
+                    String minutes = parts[1];
+                    eventBean.setEventTime(hours, minutes);
+                    valid = true;
+                }
+            } while(!valid);
+
+            //prendi file immagine
             byte[] fileData = pickFileData();
             if (fileData != null && filePath != null) {
                 eventBean.setEventPicData(fileData);
@@ -447,7 +505,7 @@ public class CLI {
 
     private static byte[] pickFileData(){
         JFileChooser fileChooser = new JFileChooser();
-        byte[] fileData = new byte[0];
+        byte[] fileData = null;
 
         // Mostrare la finestra di dialogo per la selezione del file
         int result = fileChooser.showOpenDialog(null);
@@ -466,7 +524,7 @@ public class CLI {
                 System.out.println("Dati del file in byte: " + fileData.length + " byte");
             } catch (IOException e) {
                 // Gestire eventuali eccezioni durante la lettura del file
-                e.printStackTrace();
+                logger.severe(e.getMessage());
             }
         } else {
             System.out.println("Nessun file selezionato");
@@ -504,24 +562,27 @@ public class CLI {
                         valid = true;
                         break;
                     case "2":
-                        if(cFacade.participateToEvent(bEvent)){
-                            valid = true;
-                        } else {
-                            logger.severe("Event participation failed!");
-                            valid = false;
+                        try {
+                            if (cFacade.participateToEvent(bEvent)) {
+                                System.out.println("Event participation successful!");
+                                valid = true;
+                            } else {
+                                logger.severe("Event participation failed!");
+                            }
+                        } catch (DuplicateEventParticipation e){
+                            logger.log(Level.INFO, "Event participation already planned. Choose another event...");
                         }
+
+                        //torno nella home
+                        loadHome();
                         break;
                     default:
                         break;
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
-            } catch (DuplicateEventParticipation e){
-                logger.log(Level.INFO, "Event participation already planned. Choose another event...");
             }
-
         } while (!valid);
-
     }
 
     private static void loadNotifications() {
@@ -631,9 +692,9 @@ public class CLI {
                     case "3":
                         try {
                             if (registerUser(false) == 1) {
-                                spacer(3);
+                                spacer(1);
                                 System.out.println("Loading home page...");
-                                spacer(3);
+                                spacer(1);
                                 loadHome();
                             }
                         } catch (RuntimeException e) { //TODO: sostituire anche qui InvalidTokenValue exception
