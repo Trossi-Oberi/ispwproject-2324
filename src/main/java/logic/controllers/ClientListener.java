@@ -1,6 +1,6 @@
 package logic.controllers;
 
-import logic.model.Message;
+import logic.model.Notification;
 import logic.utils.LoggedUser;
 import logic.utils.SecureObjectInputStream;
 import logic.utils.UserTypes;
@@ -34,9 +34,9 @@ public class ClientListener extends Thread implements Runnable{
 
             //una volta aperta socket e canali di comunicazione aspetto l'arrivo di un qualunque messaggio dal server
             while(listenerRunning){
-                Message incomingMsg = (Message) in.readObject();
+                Notification incomingMsg = (Notification) in.readObject();
                 if(incomingMsg != null){
-                    switch (incomingMsg.getMessageType()){
+                    switch (incomingMsg.getNotificationType()){
                         case UserRegistration:
                             System.out.println("New client " + incomingMsg.getClientID() + " successfully registered.");
                             //chiudo i canali di comunicazione del client con il server
@@ -57,7 +57,7 @@ public class ClientListener extends Thread implements Runnable{
                             } else{
                                 //nuova notifica (static)
                                 System.out.println("New event in your city");
-                                EssentialGUI.showNotification(incomingMsg.getMessageType());
+                                EssentialGUI.showNotification(incomingMsg.getNotificationType());
                             }
                             break;
 
@@ -67,7 +67,7 @@ public class ClientListener extends Thread implements Runnable{
                             }else{
                                 //notifica popup per l'organizer
                                 System.out.println("New user participation to your event");
-                                EssentialGUI.showNotification(incomingMsg.getMessageType());
+                                EssentialGUI.showNotification(incomingMsg.getNotificationType());
                             }
                             break;
 

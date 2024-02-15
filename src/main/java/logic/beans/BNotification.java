@@ -3,7 +3,7 @@ package logic.beans;
 import logic.utils.NotificationTypes;
 import logic.utils.UserTypes;
 
-public class BMessage {
+public class BNotification {
 
     //TODO: Fare Bean messaggi per gestire correttamente la visualizzazione delle notifiche in GCNotification
     private NotificationTypes messageType;

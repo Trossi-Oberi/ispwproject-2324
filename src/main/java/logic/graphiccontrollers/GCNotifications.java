@@ -9,7 +9,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.util.Callback;
 
-import logic.beans.BMessage;
+import logic.beans.BNotification;
 import logic.utils.Alerts;
 import logic.utils.LoggedUser;
 import logic.utils.NotificationTypes;
@@ -63,7 +63,7 @@ public class GCNotifications extends EssentialGUI {
     @FXML
     public void initialize() {
 
-        BMessage notiBean = new BMessage();
+        BNotification notiBean = new BNotification();
         //Imposta la cell factory personalizzata
         notificationsLV.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
             @Override
@@ -73,12 +73,12 @@ public class GCNotifications extends EssentialGUI {
         });
 
         //TODO: Mi devo far dare il notification_id altrimenti non posso implementare la cancellazione delle notifiche
-        ArrayList<BMessage> notificationsList = cfacade.retrieveNotifications(LoggedUser.getUserID());
+        ArrayList<BNotification> notificationsList = cfacade.retrieveNotifications(LoggedUser.getUserID());
         populateNotificationsLV(notificationsList);
 
     }
 
-    private void populateNotificationsLV(ArrayList<BMessage> notificationsList) {
+    private void populateNotificationsLV(ArrayList<BNotification> notificationsList) {
         try {
             for (int i = 0; i < notificationsList.size(); i++) {
                 if (notificationsList.get(i).getMessageType() == NotificationTypes.EventAdded) {

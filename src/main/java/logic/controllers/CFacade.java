@@ -2,7 +2,6 @@ package logic.controllers;
 
 import logic.beans.*;
 import logic.exceptions.DuplicateEventParticipation;
-import logic.model.Message;
 import logic.utils.LoggedUser;
 import logic.utils.NotificationTypes;
 import logic.utils.UserTypes;
@@ -28,7 +27,7 @@ public class CFacade {
             if (notificationController == null) {
                 notificationController = new CNotification();
             }
-            notificationController.sendMessage(NotificationTypes.EventAdded, bean.getEventOrganizerID(), bean.getEventID(), bean.getEventCity(), null);
+            notificationController.sendNotification(NotificationTypes.EventAdded, bean.getEventOrganizerID(), bean.getEventID(), bean.getEventCity(), null);
         }
         return res;
     }
@@ -42,7 +41,7 @@ public class CFacade {
             if (notificationController == null) {
                 notificationController = new CNotification();
             }
-            notificationController.sendMessage(NotificationTypes.EventDeleted, null, eventID, null, null);
+            notificationController.sendNotification(NotificationTypes.EventDeleted, null, eventID, null, null);
         }
         return res;
     }
@@ -56,7 +55,7 @@ public class CFacade {
             if(notificationController == null){
                 notificationController = new CNotification();
             }
-            notificationController.sendMessage(NotificationTypes.UserEventParticipation, LoggedUser.getUserID(), bean.getEventID(), null, null);
+            notificationController.sendNotification(NotificationTypes.UserEventParticipation, LoggedUser.getUserID(), bean.getEventID(), null, null);
         }
         return res;
     }
@@ -73,7 +72,7 @@ public class CFacade {
                 if (notificationController == null) {
                     notificationController = new CNotification(); //inizializzo il controller delle notifiche
                 }
-                notificationController.sendMessage(NotificationTypes.UserRegistration, bean.getUserID(), null, bean.getCity(), null); //null perche' e' ovvio sia UserType user
+                notificationController.sendNotification(NotificationTypes.UserRegistration, bean.getUserID(), null, bean.getCity(), null); //null perche' e' ovvio sia UserType user
             }
         }
         return res;
@@ -88,7 +87,7 @@ public class CFacade {
             if (notificationController == null) {
                 notificationController = new CNotification();
             }
-            notificationController.sendMessage(NotificationTypes.LoggedIn, LoggedUser.getUserID(), null, LoggedUser.getCity(), LoggedUser.getUserType());
+            notificationController.sendNotification(NotificationTypes.LoggedIn, LoggedUser.getUserID(), null, LoggedUser.getCity(), LoggedUser.getUserType());
         }
         return loginRes;
     }
@@ -98,7 +97,7 @@ public class CFacade {
         if (notificationController == null) {
             notificationController = new CNotification();
         }
-        notificationController.sendMessage(NotificationTypes.Disconnected, LoggedUser.getUserID(), null, null, LoggedUser.getUserType());
+        notificationController.sendNotification(NotificationTypes.Disconnected, LoggedUser.getUserID(), null, null, LoggedUser.getUserType());
         //dopo la disconnessione dal server chiudo la sessione di Login
         if (loginController == null) {
             loginController = new CLogin();
@@ -147,7 +146,7 @@ public class CFacade {
     }
 
 
-    public ArrayList<BMessage> retrieveNotifications(int userID) {
+    public ArrayList<BNotification> retrieveNotifications(int userID) {
         if(notificationController == null){
             notificationController = new CNotification();
         }
