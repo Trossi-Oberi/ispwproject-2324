@@ -19,10 +19,10 @@ public class NotificationDAO {
         notiFactory = new MessageFactory();
     }
 
-    public void addNotificationsToUser(int usrID, MessageTypes messageTypes, int eventID) {
+    public void addNotificationsToUser(int usrID, NotificationTypes notificationTypes, int eventID) {
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Notifications VALUES (NULL, ?, ?, ?)")) {
             statement.setInt(1, usrID);
-            statement.setString(2, messageTypes.toString());
+            statement.setString(2, notificationTypes.toString());
             statement.setInt(3, eventID);
             statement.execute();
         } catch (SQLException e) {
@@ -40,12 +40,12 @@ public class NotificationDAO {
             if (rs != null) {
                 Message msg;
                 while (rs.next()) {
-                    if (rs.getString(1).equals(MessageTypes.EventAdded.toString())) {
-                        msg = notiFactory.createMessage(SituationType.Notification, MessageTypes.EventAdded, null, rs.getInt(2), null, null);
+                    if (rs.getString(1).equals(NotificationTypes.EventAdded.toString())) {
+                        msg = notiFactory.createMessage(SituationType.Notification, NotificationTypes.EventAdded, null, rs.getInt(2), null, null);
 
-                    } else if (rs.getString(1).equals(MessageTypes.UserEventParticipation.toString())) {
+                    } else if (rs.getString(1).equals(NotificationTypes.UserEventParticipation.toString())) {
                         //implementazione UserParticipation
-                        msg = notiFactory.createMessage(SituationType.Notification, MessageTypes.UserEventParticipation, null, rs.getInt(2), null, null);
+                        msg = notiFactory.createMessage(SituationType.Notification, NotificationTypes.UserEventParticipation, null, rs.getInt(2), null, null);
                     } else {
                         //TODO: implementazione NewMessageInGroupChat
                         msg = null; //DA CAMBIARE

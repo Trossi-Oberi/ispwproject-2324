@@ -2,7 +2,7 @@ package logic.controllers;
 
 import logic.interfaces.Observer;
 import logic.model.Message;
-import logic.utils.MessageTypes;
+import logic.utils.NotificationTypes;
 import logic.utils.SituationType;
 
 import java.io.IOException;
@@ -21,7 +21,7 @@ public class ObserverClass implements Observer {
     }
 
     @Override
-    public void update(MessageTypes type){
+    public void update(NotificationTypes type){
         try {
             Message message = msgFactory.createMessage(SituationType.Notification, type, null, null, null, null);
             out.writeObject(message);

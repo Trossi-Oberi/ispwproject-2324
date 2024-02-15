@@ -7,7 +7,7 @@ import logic.dao.NotificationDAO;
 import logic.dao.UserDAO;
 import logic.model.Message;
 import logic.model.NotificationMessage;
-import logic.utils.MessageTypes;
+import logic.utils.NotificationTypes;
 import logic.utils.SecureObjectInputStream;
 import logic.utils.SituationType;
 import logic.utils.UserTypes;
@@ -129,7 +129,7 @@ public class Server {
                                 attachUserObserver(msg.getCity(), usrObs);
                             }
                             //notifica l'utente
-                            response = msgFactory.createMessage(NOTIFICATION, MessageTypes.UserRegistration, msg.getClientID(), null, null, null);
+                            response = msgFactory.createMessage(NOTIFICATION, NotificationTypes.UserRegistration, msg.getClientID(), null, null, null);
                             sendMessageToClient(response, out);
                             clientRunning = false;
                             break;
@@ -158,7 +158,7 @@ public class Server {
                             }
 
                             //notifica l'utente
-                            response = msgFactory.createMessage(NOTIFICATION, MessageTypes.LoggedIn, msg.getClientID(), null, null, null);
+                            response = msgFactory.createMessage(NOTIFICATION, NotificationTypes.LoggedIn, msg.getClientID(), null, null, null);
                             sendMessageToClient(response, out);
                             break;
 
@@ -171,7 +171,7 @@ public class Server {
                                 attachOrgObserver(msg.getEventID(), orgObs);
                             }
                             //notifica l'organizer
-                            response = msgFactory.createMessage(NOTIFICATION, MessageTypes.EventAdded, msg.getClientID(), null, null, null);
+                            response = msgFactory.createMessage(NOTIFICATION, NotificationTypes.EventAdded, msg.getClientID(), null, null, null);
                             sendMessageToClient(response, out);
 
                             //notifica l'utente
@@ -184,7 +184,7 @@ public class Server {
                                 //rimuove l'associazione tra event-id e organizer nella hashmap
                                 organizersByEventID.remove(msg.getEventID());
                             }
-                            response = msgFactory.createMessage(NOTIFICATION, MessageTypes.EventDeleted, null, msg.getEventID(), null, null);
+                            response = msgFactory.createMessage(NOTIFICATION, NotificationTypes.EventDeleted, null, msg.getEventID(), null, null);
                             sendMessageToClient(response, out);
 
                         case UserEventParticipation:
@@ -209,7 +209,7 @@ public class Server {
                             }
 
                             //notifica l'utente
-                            response = msgFactory.createMessage(NOTIFICATION, MessageTypes.Disconnected, msg.getClientID(), null, null, null);
+                            response = msgFactory.createMessage(NOTIFICATION, NotificationTypes.Disconnected, msg.getClientID(), null, null, null);
                             sendMessageToClient(response, out);
                             clientRunning = false;
                             break;
@@ -268,10 +268,10 @@ public class Server {
             for (ObserverClass user : users) {
                 if (connectedUsers.get(user.getObsID())) {
                     //se utente online notifica
-                    user.update(MessageTypes.EventAdded);
+                    user.update(NotificationTypes.EventAdded);
                 }
                 //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
-                notifyDAO.addNotificationsToUser(user.getObsID(), MessageTypes.EventAdded, eventID);
+                notifyDAO.addNotificationsToUser(user.getObsID(), NotificationTypes.EventAdded, eventID);
             }
         }
     }

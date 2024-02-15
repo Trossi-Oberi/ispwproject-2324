@@ -1,13 +1,13 @@
 package logic.model;
 
-import logic.utils.MessageTypes;
+import logic.utils.NotificationTypes;
 import logic.utils.UserTypes;
 
 import java.io.Serializable;
 
 public interface Message extends Serializable {
 
-    void setMessageType(MessageTypes msgType);
+    void setMessageType(NotificationTypes msgType);
 
     void setCity(String city);
 
@@ -18,7 +18,7 @@ public interface Message extends Serializable {
     void setUserType(UserTypes userType);
 
 
-    MessageTypes getMessageType();
+    NotificationTypes getMessageType();
 
     String getCity();
 

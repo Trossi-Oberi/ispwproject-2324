@@ -1,6 +1,6 @@
 package logic.utils;
 
-public enum MessageTypes {
+public enum NotificationTypes {
     UserRegistration,
     EventAdded,
     EventDeleted,
