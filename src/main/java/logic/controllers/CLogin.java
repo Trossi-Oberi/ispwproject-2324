@@ -43,6 +43,10 @@ public class CLogin {
         return this.userDao.changeCity(userID, province, city);
     }
 
+    public String getUsernameByID(int userID){
+        return this.userDao.getUsernameByID(userID);
+    }
+
     private void createLoggedSession() {
         LoggedUser.setUserID(this.userModel.getUserID());
         LoggedUser.setUserName(this.userModel.getUserName());

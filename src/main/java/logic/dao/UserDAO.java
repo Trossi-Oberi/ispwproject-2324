@@ -192,5 +192,21 @@ public class UserDAO {
         }
     }
 
+    public String getUsernameByID(int userID){
+        String username="";
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT username FROM users WHERE (id = ?)")){
+            statement.setInt(1, userID);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                username = rs.getString(1);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, e.getMessage());
+        } finally {
+            SingletonDBSession.getInstance().closeConn();
+        }
+        return username;
+    }
+
 
 }
