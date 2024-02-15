@@ -130,7 +130,7 @@ public class Server {
                                 attachUserObserver(noti.getCity(), usrObs);
                             }
                             //notifica l'utente
-                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.UserRegistration, noti.getClientID(), null, null, null);
+                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.UserRegistration, noti.getClientID(), null, null,null , null, null);
                             sendNotificationToClient(response, out);
                             clientRunning = false;
                             break;
@@ -159,7 +159,7 @@ public class Server {
                             }
 
                             //notifica l'utente
-                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.LoggedIn, noti.getClientID(), null, null, null);
+                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.LoggedIn, noti.getClientID(), null, null, null, null, null);
                             sendNotificationToClient(response, out);
                             break;
 
@@ -172,7 +172,7 @@ public class Server {
                                 attachOrgObserver(noti.getEventID(), orgObs);
                             }
                             //notifica l'organizer
-                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.EventAdded, noti.getClientID(), null, null, null);
+                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.EventAdded, noti.getClientID(),null , null,null , null, null);
                             sendNotificationToClient(response, out);
 
                             //notifica l'utente
@@ -185,7 +185,7 @@ public class Server {
                                 //rimuove l'associazione tra event-id e organizer nella hashmap
                                 organizersByEventID.remove(noti.getEventID());
                             }
-                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.EventDeleted, null, noti.getEventID(), null, null);
+                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.EventDeleted, null,null , noti.getEventID(),null , null, null);
                             sendNotificationToClient(response, out);
                             break;
 
@@ -194,7 +194,7 @@ public class Server {
                             System.out.println("User with id " + noti.getClientID() + "participating to event with id = " + noti.getEventID());
 
                             //mandare messaggio di ritorno all'utente
-                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.UserEventParticipation, null, null, null, null);
+                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.UserEventParticipation, null, null, null, null, null, null);
                             sendNotificationToClient(response, out);
 
                             //mandare notifica all'organizzatore
@@ -220,7 +220,7 @@ public class Server {
                             }
 
                             //notifica l'utente
-                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.Disconnected, noti.getClientID(), null, null, null);
+                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.Disconnected, noti.getClientID(), null, null,null , null, null);
                             sendNotificationToClient(response, out);
                             clientRunning = false;
                             break;

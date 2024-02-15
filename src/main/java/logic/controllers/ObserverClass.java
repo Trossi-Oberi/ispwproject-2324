@@ -15,27 +15,28 @@ public class ObserverClass implements Observer {
     private ObjectOutputStream out;
     private NotificationFactory notiFactory = new NotificationFactory();
 
-    public ObserverClass(int id, ObjectOutputStream out){
+    public ObserverClass(int id, ObjectOutputStream out) {
         this.id = id;
         this.out = out;
     }
 
     @Override
-    public void update(NotificationTypes type){
+    public void update(NotificationTypes type) {
         try {
-            Notification notification = notiFactory.createNotification(SituationType.ServerClient, type, null, null, null, null);
+            Notification notification = notiFactory.createNotification(SituationType.ServerClient, type, null, null, null, null, null, null);
             out.writeObject(notification);
             out.flush();
             out.reset();
         } catch (IOException e) {
-            logger.severe("Update notify error in ObsClass: "+ e.getMessage());
+            logger.severe("Update notify error in ObsClass: " + e.getMessage());
         }
     }
 
-    public void setOut(ObjectOutputStream out){
+    public void setOut(ObjectOutputStream out) {
         this.out = out;
     }
-    public int getObsID(){
+
+    public int getObsID() {
         return this.id;
     }
 }

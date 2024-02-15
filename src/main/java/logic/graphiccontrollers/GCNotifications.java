@@ -37,6 +37,7 @@ public class GCNotifications extends EssentialGUI {
             deleteButton = new Button("Delete");
             deleteButton.setOnAction(event -> {
                 getListView().getItems().remove(getItem());
+                //TODO: Implementare cancellazione notifiche
                 //cfacade.deleteNotification();
                 alert.displayAlertPopup(Alerts.INFORMATION, "Removed notification successfully");
             });
@@ -71,8 +72,6 @@ public class GCNotifications extends EssentialGUI {
                 return new DeleteButtonCell(param);
             }
         });
-
-        //TODO: Mi devo far dare il notification_id altrimenti non posso implementare la cancellazione delle notifiche
         ArrayList<BNotification> notificationsList = cfacade.retrieveNotifications(LoggedUser.getUserID());
         populateNotificationsLV(notificationsList);
 

@@ -4,34 +4,52 @@ import logic.utils.NotificationTypes;
 import logic.utils.UserTypes;
 
 public class LocalNotification implements Notification{
+    private static final long serialVersionUID = 1L;
+    private NotificationTypes messageType;
+    private Integer notifiedID;
+    private Integer eventID;
+    private Integer notifierID;
+    private Integer notificationID;
+
+
     @Override
     public void setNotificationType(NotificationTypes msgType) {
-
+        this.messageType = msgType;
     }
 
     @Override
     public void setCity(String city) {
-
+        //
     }
 
     @Override
-    public void setClientID(Integer clientID) {
-
+    public void setClientID(Integer notifiedID) {
+        this.notifiedID = notifiedID;
     }
 
     @Override
     public void setEventID(Integer eventID) {
-
+        this.eventID = eventID;
     }
 
     @Override
     public void setUserType(UserTypes userType) {
+       //
+    }
 
+    @Override
+    public void setNotifierID(Integer notifierID) {
+        this.notifierID = notifierID;
+    }
+
+    @Override
+    public void setNotificationID(Integer notificationID){
+        this.notificationID = notificationID;
     }
 
     @Override
     public NotificationTypes getNotificationType() {
-        return null;
+        return this.messageType;
     }
 
     @Override
@@ -41,16 +59,28 @@ public class LocalNotification implements Notification{
 
     @Override
     public Integer getClientID() {
-        return null;
+        return this.notifiedID;
     }
 
     @Override
     public Integer getEventID() {
-        return null;
+        return this.eventID;
     }
+
 
     @Override
     public UserTypes getUserType() {
         return null;
+    }
+
+
+    @Override
+    public Integer getNotifierID() {
+        return this.notifierID;
+    }
+
+    @Override
+    public Integer getNotificationID(){
+        return this.notificationID;
     }
 }

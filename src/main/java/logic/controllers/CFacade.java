@@ -27,7 +27,7 @@ public class CFacade {
             if (notificationController == null) {
                 notificationController = new CNotification();
             }
-            notificationController.sendNotification(NotificationTypes.EventAdded, bean.getEventOrganizerID(), bean.getEventID(), bean.getEventCity(), null);
+            notificationController.sendNotification(NotificationTypes.EventAdded, bean.getEventOrganizerID(), null, bean.getEventID(), null, bean.getEventCity(), null);
         }
         return res;
     }
@@ -41,7 +41,7 @@ public class CFacade {
             if (notificationController == null) {
                 notificationController = new CNotification();
             }
-            notificationController.sendNotification(NotificationTypes.EventDeleted, null, eventID, null, null);
+            notificationController.sendNotification(NotificationTypes.EventDeleted, null, null, eventID, null, null, null);
         }
         return res;
     }
@@ -55,7 +55,7 @@ public class CFacade {
             if(notificationController == null){
                 notificationController = new CNotification();
             }
-            notificationController.sendNotification(NotificationTypes.UserEventParticipation, LoggedUser.getUserID(), bean.getEventID(), null, null);
+            notificationController.sendNotification(NotificationTypes.UserEventParticipation, LoggedUser.getUserID(), null, bean.getEventID(), null, null, null);
         }
         return res;
     }
@@ -72,7 +72,7 @@ public class CFacade {
                 if (notificationController == null) {
                     notificationController = new CNotification(); //inizializzo il controller delle notifiche
                 }
-                notificationController.sendNotification(NotificationTypes.UserRegistration, bean.getUserID(), null, bean.getCity(), null); //null perche' e' ovvio sia UserType user
+                notificationController.sendNotification(NotificationTypes.UserRegistration, bean.getUserID(), null,null, null, bean.getCity(), null); //null perche' e' ovvio sia UserType user
             }
         }
         return res;
@@ -87,7 +87,7 @@ public class CFacade {
             if (notificationController == null) {
                 notificationController = new CNotification();
             }
-            notificationController.sendNotification(NotificationTypes.LoggedIn, LoggedUser.getUserID(), null, LoggedUser.getCity(), LoggedUser.getUserType());
+            notificationController.sendNotification(NotificationTypes.LoggedIn, LoggedUser.getUserID(), null, null, null, LoggedUser.getCity(), LoggedUser.getUserType());
         }
         return loginRes;
     }
@@ -97,7 +97,7 @@ public class CFacade {
         if (notificationController == null) {
             notificationController = new CNotification();
         }
-        notificationController.sendNotification(NotificationTypes.Disconnected, LoggedUser.getUserID(), null, null, LoggedUser.getUserType());
+        notificationController.sendNotification(NotificationTypes.Disconnected, LoggedUser.getUserID(), null, null, null, null, LoggedUser.getUserType());
         //dopo la disconnessione dal server chiudo la sessione di Login
         if (loginController == null) {
             loginController = new CLogin();

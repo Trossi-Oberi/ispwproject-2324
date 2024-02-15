@@ -56,7 +56,7 @@ public class CNotification {
         }
     }
 
-    public void sendNotification(NotificationTypes notiType, Integer clientID, Integer eventID, String city, UserTypes usrType){
+    public void sendNotification(NotificationTypes notiType, Integer clientID, Integer notifierID, Integer eventID, Integer notificationID, String city, UserTypes usrType){
         try {
             //se ListenerThread non è ancora stato inizializzato oppure è stato inizializzato ma è stato poi interrotto lo avvio
             if (listenerThread == null || !listenerThread.isAlive()){
@@ -64,7 +64,7 @@ public class CNotification {
             }
             //creo il messaggio e lo mando al server
             if (listenerThread.isAlive()){
-                Notification noti = notiFactory.createNotification(NOTIFICATION, notiType, clientID, eventID, city, usrType);
+                Notification noti = notiFactory.createNotification(NOTIFICATION, notiType, clientID, notifierID, eventID, notificationID, city, usrType);
                 out.writeObject(noti);
                 out.flush();
                 out.reset();
@@ -104,11 +104,13 @@ public class CNotification {
     private ArrayList<BNotification> makeBeanFromModel(ArrayList<Notification> notifications){
         BNotification notiBean;
         ArrayList <BNotification> notiBeanList = new ArrayList<>();
-        for (Notification msg : notifications){
+        for (Notification noti : notifications){
             notiBean = new BNotification();
-            notiBean.setMessageType(msg.getNotificationType());
-            notiBean.setClientID(msg.getClientID());
-            notiBean.setEventID(msg.getEventID());
+            notiBean.setMessageType(noti.getNotificationType());
+            notiBean.setClientID(noti.getClientID());
+            notiBean.setNotifierID(noti.getNotifierID());
+            notiBean.setEventID(noti.getEventID());
+            notiBean.setNotificationID(noti.getNotificationID());
             notiBeanList.add(notiBean);
         }
         return notiBeanList;

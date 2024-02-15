@@ -10,7 +10,6 @@ public class ServerNotification implements Notification {
     private Integer clientID;
     private Integer eventID;
     private UserTypes userType;
-    private Integer notifierID;
 
 
     @Override
@@ -24,8 +23,8 @@ public class ServerNotification implements Notification {
     }
 
     @Override
-    public void setClientID(Integer clientID) {
-        this.clientID = clientID;
+    public void setClientID(Integer notifiedID) {
+        this.clientID = notifiedID;
     }
 
     @Override
@@ -38,8 +37,14 @@ public class ServerNotification implements Notification {
         this.userType = userType;
     }
 
+    @Override
     public void setNotifierID(Integer notifierID) {
-        this.notifierID = notifierID;
+        //empty
+    }
+
+    @Override
+    public void setNotificationID(Integer notificationID){
+        //empty
     }
 
     @Override
@@ -68,7 +73,14 @@ public class ServerNotification implements Notification {
         return this.userType;
     }
 
+
+    @Override
     public Integer getNotifierID() {
-        return notifierID;
+        return -1;
+    }
+
+    @Override
+    public Integer getNotificationID(){
+        return -1;
     }
 }

@@ -7,8 +7,10 @@ public class BNotification {
 
     //TODO: Fare Bean messaggi per gestire correttamente la visualizzazione delle notifiche in GCNotification
     private NotificationTypes messageType;
-    private Integer clientID;
+    private Integer clientID; //notifiedID
+    private Integer notifierID;
     private Integer eventID;
+    private Integer notificationID;
     private String city;
     private UserTypes userType;
     private String text; //Attributo usato soltanto dai GroupMessage
@@ -20,6 +22,14 @@ public class BNotification {
 
     public void setClientID(Integer clientID) {
         this.clientID = clientID;
+    }
+
+    public void setNotifierID(Integer notifierID) {
+        this.notifierID = notifierID;
+    }
+
+    public void setNotificationID(Integer notificationID) {
+        this.notificationID = notificationID;
     }
 
     public void setEventID(Integer eventID) {
@@ -39,6 +49,7 @@ public class BNotification {
         this.text = text;
     }
 
+
     //GETTERS
 
     public NotificationTypes getMessageType() {
@@ -49,8 +60,16 @@ public class BNotification {
         return clientID;
     }
 
+    public Integer getNotifierID() {
+        return notifierID;
+    }
+
     public Integer getEventID() {
         return eventID;
+    }
+
+    public Integer getNotificationID() {
+        return notificationID;
     }
 
     public String getCity() {

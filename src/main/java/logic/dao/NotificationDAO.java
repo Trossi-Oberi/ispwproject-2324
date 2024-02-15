@@ -37,24 +37,18 @@ public class NotificationDAO {
 
     public ArrayList<Notification> getNotificationsByUserID(int usrID) {
         ArrayList<Notification> notifications = new ArrayList<>();
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT type, event_id, notifier_id FROM notifications WHERE (notified_id = ?)")) {
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id, type, event_id, notifier_id FROM notifications WHERE (notified_id = ?)")) {
             statement.setInt(1, usrID);
             ResultSet rs = statement.executeQuery();
             if (rs != null) {
                 Notification msg;
                 while (rs.next()) {
-                    if (rs.getString(1).equals(NotificationTypes.EventAdded.toString())) {
-                        msg = notiFactory.createNotification(SituationType.ServerClient, NotificationTypes.EventAdded, rs.getInt(3), rs.getInt(2), null, null);
-
-                    } else if (rs.getString(1).equals(NotificationTypes.UserEventParticipation.toString())) {
-                        //implementazione UserParticipation
-                        msg = notiFactory.createNotification(SituationType.ServerClient, NotificationTypes.UserEventParticipation, rs.getInt(3), rs.getInt(2), null, null);
-                    } else {
-                        //TODO: implementazione NewMessageInGroupChat
-                        msg = null; //DA CAMBIARE
+                    if (rs.getString(2).equals(NotificationTypes.EventAdded.toString())) {
+                        msg = notiFactory.createNotification(SituationType.Local, NotificationTypes.EventAdded, usrID, rs.getInt(4), rs.getInt(3), rs.getInt(1), null,null);
+                    } else  {
+                        msg = notiFactory.createNotification(SituationType.Local, NotificationTypes.UserEventParticipation, usrID, rs.getInt(4),rs.getInt(3) , rs.getInt(1), null, null);
                     }
                     notifications.add(msg);
-
                 }
             }
         } catch (SQLException e) {

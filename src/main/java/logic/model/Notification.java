@@ -7,13 +7,18 @@ import java.io.Serializable;
 
 public interface Notification extends Serializable {
 
+
     void setNotificationType(NotificationTypes msgType);
 
     void setCity(String city);
 
-    void setClientID(Integer clientID);
+    void setClientID(Integer notifiedID);
+
+    void setNotifierID(Integer notifierID);
 
     void setEventID(Integer eventID);
+
+    void setNotificationID(Integer notificationID);
 
     void setUserType(UserTypes userType);
 
@@ -24,9 +29,15 @@ public interface Notification extends Serializable {
 
     Integer getClientID();
 
+    Integer getNotifierID();
+
     Integer getEventID();
 
+    Integer getNotificationID();
+
     UserTypes getUserType();
+
+    //NotificationTypes notiType, Integer clientID/notifiedID, Integer notifierID, Integer notificationID, Integer eventID, String city, UserTypes usrType
 }
 
 
