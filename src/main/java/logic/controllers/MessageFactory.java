@@ -1,27 +1,6 @@
 package logic.controllers;
 
-import logic.model.Message;
-import logic.model.NotificationMessage;
-import logic.utils.NotificationTypes;
-import logic.utils.SituationType;
-import logic.utils.UserTypes;
-
 public class MessageFactory {
-    //questa factory si occupa della creazione dei messaggi che vengono scambiati tra client e server (non chat)
-
-    public Message createMessage(SituationType sitType, NotificationTypes msgType, Integer clientID, Integer eventID, String city, UserTypes usrType){
-        Message msg;
-        if (sitType == SituationType.Notification){
-            msg = new NotificationMessage();
-        }else{
-            msg = null; //SOSTITUIRE null CON GroupChatMessage
-            //Implementazione in caso di groupchat
-        }
-        msg.setMessageType(msgType);
-        msg.setClientID(clientID);
-        msg.setEventID(eventID);
-        msg.setCity(city);
-        msg.setUserType(usrType);
-        return msg;
-    }
+    //implementiamo solo il GroupMessage ma facciamo una factory in caso in futuro volessimo implementare ad esempio una chat privata tra utenti o tra organizer e user,
+    //in questo modo potremo riusare questa factory aggiungendo un nuovo ConcreteObject ovvero il PrivateMessage.
 }

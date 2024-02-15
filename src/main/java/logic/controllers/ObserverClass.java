@@ -1,7 +1,7 @@
 package logic.controllers;
 
 import logic.interfaces.Observer;
-import logic.model.Message;
+import logic.model.Notification;
 import logic.utils.NotificationTypes;
 import logic.utils.SituationType;
 
@@ -13,29 +13,30 @@ import static logic.view.EssentialGUI.logger;
 public class ObserverClass implements Observer {
     private final int id; //generico, sia per User che per Organizer
     private ObjectOutputStream out;
-    private MessageFactory msgFactory = new MessageFactory();
+    private NotificationFactory notiFactory = new NotificationFactory();
 
-    public ObserverClass(int id, ObjectOutputStream out){
+    public ObserverClass(int id, ObjectOutputStream out) {
         this.id = id;
         this.out = out;
     }
 
     @Override
-    public void update(NotificationTypes type){
+    public void update(NotificationTypes type) {
         try {
-            Message message = msgFactory.createMessage(SituationType.Notification, type, null, null, null, null);
-            out.writeObject(message);
+            Notification notification = notiFactory.createNotification(SituationType.ServerClient, type, null, null, null, null, null, null);
+            out.writeObject(notification);
             out.flush();
             out.reset();
         } catch (IOException e) {
-            logger.severe("Update notify error in ObsClass: "+ e.getMessage());
+            logger.severe("Update notify error in ObsClass: " + e.getMessage());
         }
     }
 
-    public void setOut(ObjectOutputStream out){
+    public void setOut(ObjectOutputStream out) {
         this.out = out;
     }
-    public int getObsID(){
+
+    public int getObsID() {
         return this.id;
     }
 }

@@ -1,8 +1,8 @@
 package logic.controllers;
 
-import logic.beans.BMessage;
+import logic.beans.BNotification;
 import logic.dao.NotificationDAO;
-import logic.model.Message;
+import logic.model.Notification;
 import logic.server.Server;
 import logic.utils.*;
 
@@ -16,19 +16,19 @@ import static logic.view.EssentialGUI.logger;
 
 public class CNotification {
     //questo controller si occupa solo di rigirare notifiche ai graphic controller a seguito di interazioni con il listener
-    private static final SituationType NOTIFICATION = SituationType.Notification;
+    private static final SituationType NOTIFICATION = SituationType.ServerClient;
     private Semaphore semaphore;
     private Socket client;
     private ClientListener listener;
     private Thread listenerThread;
     private NotificationDAO notificationDAO;
-    private MessageFactory msgFactory;
+    private NotificationFactory notiFactory;
     private SecureObjectInputStream in;
     private ObjectOutputStream out;
 
     public CNotification(){
         this.notificationDAO = new NotificationDAO();
-        this.msgFactory = new MessageFactory();
+        this.notiFactory = new NotificationFactory();
     }
 
     private void startListener(int userID){
@@ -56,7 +56,7 @@ public class CNotification {
         }
     }
 
-    public void sendMessage(NotificationTypes msgType, Integer clientID, Integer eventID, String city, UserTypes usrType){
+    public void sendNotification(NotificationTypes notiType, Integer clientID, Integer notifierID, Integer eventID, Integer notificationID, String city, UserTypes usrType){
         try {
             //se ListenerThread non è ancora stato inizializzato oppure è stato inizializzato ma è stato poi interrotto lo avvio
             if (listenerThread == null || !listenerThread.isAlive()){
@@ -64,8 +64,8 @@ public class CNotification {
             }
             //creo il messaggio e lo mando al server
             if (listenerThread.isAlive()){
-                Message msg = msgFactory.createMessage(NOTIFICATION, msgType, clientID, eventID, city, usrType);
-                out.writeObject(msg);
+                Notification noti = notiFactory.createNotification(NOTIFICATION, notiType, clientID, notifierID, eventID, notificationID, city, usrType);
+                out.writeObject(noti);
                 out.flush();
                 out.reset();
             }
@@ -74,7 +74,7 @@ public class CNotification {
             semaphore.acquire(2);
 
             //Vedo il tipo di messaggio per decidere se chiudere il listener oppure no
-            if (msgType == NotificationTypes.UserRegistration || msgType== NotificationTypes.Disconnected){
+            if (notiType == NotificationTypes.UserRegistration || notiType== NotificationTypes.Disconnected){
                 stopListener(clientID);
             }
 
@@ -96,21 +96,23 @@ public class CNotification {
         }
     }
 
-    public ArrayList<BMessage> retrieveNotifications(int userID) {
-        ArrayList<Message> messages = new ArrayList<>(this.notificationDAO.getNotificationsByUserID(userID));
-        return makeBeanFromModel(messages);
+    public ArrayList<BNotification> retrieveNotifications(int userID) {
+        ArrayList<Notification> notifications = new ArrayList<>(this.notificationDAO.getNotificationsByUserID(userID));
+        return makeBeanFromModel(notifications);
     }
 
-    private ArrayList<BMessage> makeBeanFromModel(ArrayList<Message> msgs){
-        BMessage msgBean;
-        ArrayList <BMessage> msgBeanList = new ArrayList<>();
-        for (Message msg : msgs){
-            msgBean = new BMessage();
-            msgBean.setMessageType(msg.getMessageType());
-            msgBean.setClientID(msg.getClientID());
-            msgBean.setEventID(msg.getEventID());
-            msgBeanList.add(msgBean);
+    private ArrayList<BNotification> makeBeanFromModel(ArrayList<Notification> notifications){
+        BNotification notiBean;
+        ArrayList <BNotification> notiBeanList = new ArrayList<>();
+        for (Notification noti : notifications){
+            notiBean = new BNotification();
+            notiBean.setMessageType(noti.getNotificationType());
+            notiBean.setClientID(noti.getClientID());
+            notiBean.setNotifierID(noti.getNotifierID());
+            notiBean.setEventID(noti.getEventID());
+            notiBean.setNotificationID(noti.getNotificationID());
+            notiBeanList.add(notiBean);
         }
-        return msgBeanList;
+        return notiBeanList;
     }
 }

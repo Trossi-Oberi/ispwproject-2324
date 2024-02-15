@@ -1,12 +1,12 @@
 package logic.server;
 
-import logic.controllers.MessageFactory;
+import logic.controllers.NotificationFactory;
 import logic.controllers.ObserverClass;
 import logic.dao.EventDAO;
 import logic.dao.NotificationDAO;
 import logic.dao.UserDAO;
-import logic.model.Message;
-import logic.model.NotificationMessage;
+import logic.model.Notification;
+import logic.model.ServerNotification;
 import logic.utils.NotificationTypes;
 import logic.utils.SecureObjectInputStream;
 import logic.utils.SituationType;
@@ -38,13 +38,13 @@ public class Server {
 
     public static final String ADDRESS = "localhost";
     public static final int PORT = 2521;
-    private MessageFactory msgFactory;
+    private NotificationFactory notiFactory;
     private NotificationDAO notifyDAO;
-    private static final SituationType NOTIFICATION = SituationType.Notification;
-    private static final SituationType GROUPCHAT = SituationType.GroupChat;
+    private static final SituationType SERVER_CLIENT = SituationType.ServerClient;
+    private static final SituationType LOCAL = SituationType.Local;
 
     public Server() {
-        msgFactory = new MessageFactory();
+        notiFactory = new NotificationFactory();
         notifyDAO = new NotificationDAO();
     }
 
@@ -118,110 +118,110 @@ public class Server {
             try {
                 while (clientRunning) { //questo ciclo while si interrompe non appena il Client chiude i suoi canali di comunicazione con il server
                     //blocco il thread in lettura di un messaggio in arrivo dal client
-                    NotificationMessage msg = (NotificationMessage) in.readObject();
-                    Message response;
-                    switch (msg.getMessageType()) {
+                    Notification noti = (ServerNotification) in.readObject();
+                    Notification response;
+                    switch (noti.getNotificationType()) {
                         case UserRegistration:
-                            System.out.println("User registered, id = " + msg.getClientID() + ", city = " + msg.getCity());
+                            System.out.println("User registered, id = " + noti.getClientID() + ", city = " + noti.getCity());
                             synchronized (observersByCity) {
                                 //un solo thread alla volta può read/write su observersByCity affinché i dati siano consistenti
                                 //creo observer con le informazioni del nuovo utente registrato (user_id, canali di comunicazione in uscita verso la Client socket)
-                                ObserverClass usrObs = new ObserverClass(msg.getClientID(), null);
-                                attachUserObserver(msg.getCity(), usrObs);
+                                ObserverClass usrObs = new ObserverClass(noti.getClientID(), null);
+                                attachUserObserver(noti.getCity(), usrObs);
                             }
                             //notifica l'utente
-                            response = msgFactory.createMessage(NOTIFICATION, NotificationTypes.UserRegistration, msg.getClientID(), null, null, null);
-                            sendMessageToClient(response, out);
+                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.UserRegistration, noti.getClientID(), null, null,null , null, null);
+                            sendNotificationToClient(response, out);
                             clientRunning = false;
                             break;
 
                         case LoggedIn:
-                            switch (msg.getUserType()) {
+                            switch (noti.getUserType()) {
                                 case USER:
-                                    System.out.println("User logged in, id = " + msg.getClientID());
+                                    System.out.println("User logged in, id = " + noti.getClientID());
                                     synchronized (connectedUsers) {
-                                        updateLoggedUsers(msg.getClientID(), true, msg.getUserType());
+                                        updateLoggedUsers(noti.getClientID(), true, noti.getUserType());
                                     }
                                     synchronized (observersByCity) {
-                                        updateUserOut(msg.getCity(), msg.getClientID(), out);
+                                        updateUserOut(noti.getCity(), noti.getClientID(), out);
                                     }
                                     break;
 
                                 case ORGANIZER:
-                                    System.out.println("Organizer logged in, id = " + msg.getClientID());
+                                    System.out.println("Organizer logged in, id = " + noti.getClientID());
                                     synchronized (connectedOrganizers) {
-                                        updateLoggedUsers(msg.getClientID(), true, msg.getUserType());
+                                        updateLoggedUsers(noti.getClientID(), true, noti.getUserType());
                                     }
                                     synchronized (organizersByEventID) {
-                                        updateOrgOut(msg.getClientID(), out);
+                                        updateOrgOut(noti.getClientID(), out);
                                     }
                                     break;
                             }
 
                             //notifica l'utente
-                            response = msgFactory.createMessage(NOTIFICATION, NotificationTypes.LoggedIn, msg.getClientID(), null, null, null);
-                            sendMessageToClient(response, out);
+                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.LoggedIn, noti.getClientID(), null, null, null, null, null);
+                            sendNotificationToClient(response, out);
                             break;
 
                         case EventAdded:
-                            System.out.println("New event added by " + msg.getClientID() + ", eventID: " + msg.getEventID() + ", city: " + msg.getCity());
+                            System.out.println("New event added by " + noti.getClientID() + ", eventID: " + noti.getEventID() + ", city: " + noti.getCity());
                             synchronized (organizersByEventID) {
                                 //un solo thread alla volta può read/write su observersByCity affinché i dati siano consistenti
                                 //creo observer con le informazioni del nuovo utente registrato (user_id, canali di comunicazione in uscita verso la Client socket)
-                                ObserverClass orgObs = new ObserverClass(msg.getClientID(), out);
-                                attachOrgObserver(msg.getEventID(), orgObs);
+                                ObserverClass orgObs = new ObserverClass(noti.getClientID(), out);
+                                attachOrgObserver(noti.getEventID(), orgObs);
                             }
                             //notifica l'organizer
-                            response = msgFactory.createMessage(NOTIFICATION, NotificationTypes.EventAdded, msg.getClientID(), null, null, null);
-                            sendMessageToClient(response, out);
+                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.EventAdded, noti.getClientID(),null , null,null , null, null);
+                            sendNotificationToClient(response, out);
 
                             //notifica l'utente
-                            updateUserObservers(msg.getCity(), msg.getEventID(), msg.getClientID());
+                            updateUserObservers(noti.getCity(), noti.getEventID(), noti.getClientID());
                             break;
 
                         case EventDeleted:
-                            System.out.println("Event with id " + msg.getEventID() + " deleted");
+                            System.out.println("Event with id " + noti.getEventID() + " deleted");
                             synchronized (organizersByEventID) {
                                 //rimuove l'associazione tra event-id e organizer nella hashmap
-                                organizersByEventID.remove(msg.getEventID());
+                                organizersByEventID.remove(noti.getEventID());
                             }
-                            response = msgFactory.createMessage(NOTIFICATION, NotificationTypes.EventDeleted, null, msg.getEventID(), null, null);
-                            sendMessageToClient(response, out);
+                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.EventDeleted, null,null , noti.getEventID(),null , null, null);
+                            sendNotificationToClient(response, out);
                             break;
 
                         case UserEventParticipation:
                             //TODO: usereventparticipation logic in server
-                            System.out.println("User with id " + msg.getClientID() + "participating to event with id = " + msg.getEventID());
+                            System.out.println("User with id " + noti.getClientID() + "participating to event with id = " + noti.getEventID());
 
                             //mandare messaggio di ritorno all'utente
-                            response = msgFactory.createMessage(NOTIFICATION, NotificationTypes.UserEventParticipation, null, null, null, null);
-                            sendMessageToClient(response, out);
+                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.UserEventParticipation, null, null, null, null, null, null);
+                            sendNotificationToClient(response, out);
 
                             //mandare notifica all'organizzatore
-                            updateOrgObserver(msg.getClientID(), msg.getEventID());
+                            updateOrgObserver(noti.getClientID(), noti.getEventID());
 
                             break;
 
                         case Disconnected:
-                            switch (msg.getUserType()) {
+                            switch (noti.getUserType()) {
                                 case USER:
-                                    System.out.println("User logged out, id = " + msg.getClientID());
+                                    System.out.println("User logged out, id = " + noti.getClientID());
                                     synchronized (connectedUsers) {
-                                        updateLoggedUsers(msg.getClientID(), false, msg.getUserType());
+                                        updateLoggedUsers(noti.getClientID(), false, noti.getUserType());
                                     }
 
                                     break;
                                 case ORGANIZER:
-                                    System.out.println("Organizer logged out, id = " + msg.getClientID());
+                                    System.out.println("Organizer logged out, id = " + noti.getClientID());
                                     synchronized (connectedOrganizers) {
-                                        updateLoggedUsers(msg.getClientID(), false, msg.getUserType());
+                                        updateLoggedUsers(noti.getClientID(), false, noti.getUserType());
                                     }
                                     break;
                             }
 
                             //notifica l'utente
-                            response = msgFactory.createMessage(NOTIFICATION, NotificationTypes.Disconnected, msg.getClientID(), null, null, null);
-                            sendMessageToClient(response, out);
+                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.Disconnected, noti.getClientID(), null, null,null , null, null);
+                            sendNotificationToClient(response, out);
                             clientRunning = false;
                             break;
                     }
@@ -245,7 +245,7 @@ public class Server {
         }
     }
 
-    private void sendMessageToClient(Message msg, ObjectOutputStream out) {
+    private void sendNotificationToClient(Notification msg, ObjectOutputStream out) {
         try {
             out.writeObject(msg);
             out.flush();
@@ -281,7 +281,7 @@ public class Server {
                     user.update(NotificationTypes.EventAdded);
                 }
                 //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
-                notifyDAO.addNotificationsToUser(user.getObsID(), NotificationTypes.EventAdded, eventID, userID);
+                notifyDAO.addNotification(user.getObsID(), NotificationTypes.EventAdded, eventID, userID);
             }
         }
     }
@@ -294,7 +294,7 @@ public class Server {
                 org.update(NotificationTypes.UserEventParticipation);
             }
             //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
-            notifyDAO.addNotificationsToUser(org.getObsID(), NotificationTypes.UserEventParticipation, eventID, userID);
+            notifyDAO.addNotification(org.getObsID(), NotificationTypes.UserEventParticipation, eventID, userID);
         } else {
             logger.severe("Org id got from observer is null - can't update observers");
             throw new RuntimeException();

@@ -2,8 +2,8 @@ package logic.utils;
 
 import logic.controllers.CNotification;
 import logic.controllers.ClientListener;
-import logic.model.Message;
-import logic.model.NotificationMessage;
+import logic.model.Notification;
+import logic.model.ServerNotification;
 import logic.server.Server;
 
 import java.io.*;
@@ -25,8 +25,8 @@ public class SecureObjectInputStream extends ObjectInputStream {
         approvedClasses.add(Server.class.getName());
         approvedClasses.add(CNotification.class.getName());
         approvedClasses.add(ClientListener.class.getName());
-        approvedClasses.add(NotificationMessage.class.getName());
-        approvedClasses.add(Message.class.getName());
+        approvedClasses.add(ServerNotification.class.getName());
+        approvedClasses.add(Notification.class.getName());
         approvedClasses.add(NotificationTypes.class.getName());
         approvedClasses.add(Enum.class.getName());
         approvedClasses.add(UserTypes.class.getName());

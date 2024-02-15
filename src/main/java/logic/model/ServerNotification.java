@@ -3,17 +3,17 @@ package logic.model;
 import logic.utils.NotificationTypes;
 import logic.utils.UserTypes;
 
-public class NotificationMessage implements Message{
+public class ServerNotification implements Notification {
     private static final long serialVersionUID = 1L;
-
     private NotificationTypes messageType;
     private String city;
     private Integer clientID;
     private Integer eventID;
     private UserTypes userType;
 
+
     @Override
-    public void setMessageType(NotificationTypes msgType) {
+    public void setNotificationType(NotificationTypes msgType) {
         this.messageType = msgType;
     }
 
@@ -23,8 +23,8 @@ public class NotificationMessage implements Message{
     }
 
     @Override
-    public void setClientID(Integer clientID) {
-        this.clientID = clientID;
+    public void setClientID(Integer notifiedID) {
+        this.clientID = notifiedID;
     }
 
     @Override
@@ -38,23 +38,49 @@ public class NotificationMessage implements Message{
     }
 
     @Override
-    public NotificationTypes getMessageType() {
+    public void setNotifierID(Integer notifierID) {
+        //empty
+    }
+
+    @Override
+    public void setNotificationID(Integer notificationID){
+        //empty
+    }
+
+    @Override
+    public NotificationTypes getNotificationType() {
         return this.messageType;
     }
 
-    public String getCity(){
+    @Override
+    public String getCity() {
         return this.city;
     }
 
-    public Integer getClientID(){
+    @Override
+    public Integer getClientID() {
         return this.clientID;
     }
 
-    public Integer getEventID(){
+    @Override
+    public Integer getEventID() {
         return this.eventID;
     }
 
-    public UserTypes getUserType(){
+
+    @Override
+    public UserTypes getUserType() {
         return this.userType;
+    }
+
+
+    @Override
+    public Integer getNotifierID() {
+        return -1;
+    }
+
+    @Override
+    public Integer getNotificationID(){
+        return -1;
     }
 }
