@@ -141,7 +141,7 @@ public class CFacade {
     }
 
 
-    public ArrayList<Message> retrieveNotifications(int userID) {
+    public ArrayList<BMessage> retrieveNotifications(int userID) {
         if(notificationController == null){
             notificationController = new CNotification();
         }

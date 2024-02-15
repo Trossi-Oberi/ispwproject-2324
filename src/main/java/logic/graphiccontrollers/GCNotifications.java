@@ -9,10 +9,10 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.util.Callback;
 
-import logic.model.Message;
+import logic.beans.BMessage;
 import logic.utils.Alerts;
 import logic.utils.LoggedUser;
-import logic.utils.MessageTypes;
+import logic.utils.NotificationTypes;
 import logic.view.EssentialGUI;
 
 import java.util.ArrayList;
@@ -62,6 +62,8 @@ public class GCNotifications extends EssentialGUI {
     @FXML
     public void initialize() {
 
+        BMessage notiBean = new BMessage();
+
         //TODO: fare la retrieve di tutte le notifiche dal db, caso user: eventAdded, caso organizer: userParticipation
         //Imposta la cell factory personalizzata
         notificationsLV.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
@@ -74,7 +76,7 @@ public class GCNotifications extends EssentialGUI {
         switch (LoggedUser.getUserType()) {
             case USER:
                 //TODO: Questi NotificationMessage sono di fatto un Model, per passarli alla view dovremmo usare dei bean
-                ArrayList<Message> notificationsList = cfacade.retrieveNotifications(LoggedUser.getUserID());
+                ArrayList<BMessage> notificationsList = cfacade.retrieveNotifications(LoggedUser.getUserID());
                 populateNotificationsLV(notificationsList);
                 break;
             case ORGANIZER:
@@ -92,10 +94,10 @@ public class GCNotifications extends EssentialGUI {
 
     }
 
-    private void populateNotificationsLV(ArrayList<Message> notificationsList) {
+    private void populateNotificationsLV(ArrayList<BMessage> notificationsList) {
         try {
             for (int i = 0; i < notificationsList.size(); i++) {
-                if (notificationsList.get(i).getMessageType() == MessageTypes.EventAdded) {
+                if (notificationsList.get(i).getMessageType() == NotificationTypes.EventAdded) {
                     notificationsLV.getItems().add("New event called " + cfacade.getEventNameByEventID(notificationsList.get(i).getEventID()) + " in your city!");
                 }
             }
@@ -105,7 +107,9 @@ public class GCNotifications extends EssentialGUI {
         }
     }
 
-    public void addNewNotifications() {
+
+    //AGGIORNAMENTO DINAMICO NOTIFICHE (DA FARE?)
+   /* public void addNewNotifications() {
         String notify = "null; not implemented";
 //        notify = DA IMPLEMENTARE, questo metodo verrà chiamato dal singolo observer (utente) chiamato a sua volta dal subject dell'organizer
         try {
@@ -113,7 +117,7 @@ public class GCNotifications extends EssentialGUI {
         } catch (NullPointerException e) {
             logger.log(Level.SEVERE, "Invalid notification string value");
         }
-    }
+    }*/
 
 
 }

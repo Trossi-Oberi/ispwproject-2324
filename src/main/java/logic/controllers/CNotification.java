@@ -1,5 +1,6 @@
 package logic.controllers;
 
+import logic.beans.BMessage;
 import logic.dao.NotificationDAO;
 import logic.model.Message;
 import logic.server.Server;
@@ -95,7 +96,20 @@ public class CNotification {
         }
     }
 
-    public ArrayList<Message> retrieveNotifications(int userID) {
-        return this.notificationDAO.getNotificationsByUserID(userID);
+    public ArrayList<BMessage> retrieveNotifications(int userID) {
+        ArrayList<Message> messages = new ArrayList<>(this.notificationDAO.getNotificationsByUserID(userID));
+        return makeBeanFromModel(messages);
+    }
+
+    private ArrayList<BMessage> makeBeanFromModel(ArrayList<Message> msgs){
+        BMessage msgBean;
+        ArrayList <BMessage> msgBeanList = new ArrayList<>();
+        for (Message msg : msgs){
+            msgBean = new BMessage();
+            msgBean.setMessageType(msg.getMessageType());
+            msgBean.setEventID(msg.getEventID());
+            msgBeanList.add(msgBean);
+        }
+        return msgBeanList;
     }
 }
