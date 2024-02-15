@@ -226,6 +226,8 @@ public class Server {
             UserDAO userDAO = new UserDAO();
             EventDAO eventDAO = new EventDAO();
             userDAO.populateObsByCity(this.observersByCity);
+            userDAO.populateConnUsers(this.connectedUsers);
+            userDAO.populateConnOrganizers(this.connectedOrganizers);
             eventDAO.populateOrgByEventID(this.organizersByEventID);
         } finally {
             logger.info("Finished to preload data from database");

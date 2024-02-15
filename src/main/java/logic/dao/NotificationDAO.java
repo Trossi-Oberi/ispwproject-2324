@@ -20,10 +20,10 @@ public class NotificationDAO {
             statement.setInt(1, usrID);
             statement.setString(2, messageTypes.toString());
             statement.setInt(3, eventID);
-            statement.executeQuery();
+            statement.execute();
         }
         catch (SQLException e) {
-            logger.log(Level.SEVERE, "Cannot add notification to user", e);
+            logger.log(Level.SEVERE, "Cannot add notification to user" + e.getMessage(), e);
         }
         finally {
             SingletonDBSession.getInstance().closeConn();

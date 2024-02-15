@@ -73,6 +73,7 @@ public class GCNotifications extends EssentialGUI {
 
         switch (LoggedUser.getUserType()) {
             case USER:
+                //TODO: Questi NotificationMessage sono di fatto un Model, per passarli alla view dovremmo usare dei bean
                 ArrayList<NotificationMessage> notificationsList = cfacade.retrieveNotifications(LoggedUser.getUserID());
                 populateNotificationsLV(notificationsList);
                 break;
@@ -95,7 +96,7 @@ public class GCNotifications extends EssentialGUI {
         try {
             for (int i = 0; i < notificationsList.size(); i++) {
                 if (notificationsList.get(i).getMessageType() == MessageTypes.EventAdded) {
-                    notificationsLV.getItems().add("New event called " + cfacade.getEventNameByEventID(notificationsList.get(i).getEventID()) + "in your city!");
+                    notificationsLV.getItems().add("New event called " + cfacade.getEventNameByEventID(notificationsList.get(i).getEventID()) + " in your city!");
                 }
             }
 
