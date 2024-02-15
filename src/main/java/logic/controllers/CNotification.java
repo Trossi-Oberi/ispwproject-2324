@@ -107,6 +107,7 @@ public class CNotification {
         for (Message msg : msgs){
             msgBean = new BMessage();
             msgBean.setMessageType(msg.getMessageType());
+            msgBean.setClientID(msg.getClientID());
             msgBean.setEventID(msg.getEventID());
             msgBeanList.add(msgBean);
         }

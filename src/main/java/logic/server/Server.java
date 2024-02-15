@@ -39,13 +39,14 @@ public class Server {
     public static final String ADDRESS = "localhost";
     public static final int PORT = 2521;
     private MessageFactory msgFactory;
+    private NotificationDAO notifyDAO;
     private static final SituationType NOTIFICATION = SituationType.Notification;
     private static final SituationType GROUPCHAT = SituationType.GroupChat;
 
-    public Server(){
+    public Server() {
         msgFactory = new MessageFactory();
+        notifyDAO = new NotificationDAO();
     }
-
 
 
     public static void main(String[] args) {
@@ -70,7 +71,7 @@ public class Server {
             serverSocket = new ServerSocket(PORT);
             while (serverRunning) {
                 //verifico che non si sia raggiunto il numero massimo di connessioni possibili al server
-                if(connections == MAX_CONNECTIONS){
+                if (connections == MAX_CONNECTIONS) {
                     serverRunning = false;
                     continue;
                 }
@@ -104,7 +105,7 @@ public class Server {
         }
 
         @Override
-        public void run(){
+        public void run() {
             try {
                 //quando viene avviato il thread associato al client parte questa funzione run()
                 //apriamo i canali di input/output del client con il server.
@@ -135,10 +136,10 @@ public class Server {
                             break;
 
                         case LoggedIn:
-                            switch (msg.getUserType()){
+                            switch (msg.getUserType()) {
                                 case USER:
                                     System.out.println("User logged in, id = " + msg.getClientID());
-                                    synchronized (connectedUsers){
+                                    synchronized (connectedUsers) {
                                         updateLoggedUsers(msg.getClientID(), true, msg.getUserType());
                                     }
                                     synchronized (observersByCity) {
@@ -148,7 +149,7 @@ public class Server {
 
                                 case ORGANIZER:
                                     System.out.println("Organizer logged in, id = " + msg.getClientID());
-                                    synchronized (connectedOrganizers){
+                                    synchronized (connectedOrganizers) {
                                         updateLoggedUsers(msg.getClientID(), true, msg.getUserType());
                                     }
                                     synchronized (organizersByEventID) {
@@ -175,24 +176,34 @@ public class Server {
                             sendMessageToClient(response, out);
 
                             //notifica l'utente
-                            updateUserObservers(msg.getCity(), msg.getEventID());
+                            updateUserObservers(msg.getCity(), msg.getEventID(), msg.getClientID());
                             break;
 
                         case EventDeleted:
-                            System.out.println("Event with id "+msg.getEventID()+" deleted");
-                            synchronized (organizersByEventID){
+                            System.out.println("Event with id " + msg.getEventID() + " deleted");
+                            synchronized (organizersByEventID) {
                                 //rimuove l'associazione tra event-id e organizer nella hashmap
                                 organizersByEventID.remove(msg.getEventID());
                             }
                             response = msgFactory.createMessage(NOTIFICATION, NotificationTypes.EventDeleted, null, msg.getEventID(), null, null);
                             sendMessageToClient(response, out);
+                            break;
 
                         case UserEventParticipation:
                             //TODO: usereventparticipation logic in server
+                            System.out.println("User with id " + msg.getClientID() + "participating to event with id = " + msg.getEventID());
+
+                            //mandare messaggio di ritorno all'utente
+                            response = msgFactory.createMessage(NOTIFICATION, NotificationTypes.UserEventParticipation, null, null, null, null);
+                            sendMessageToClient(response, out);
+
+                            //mandare notifica all'organizzatore
+                            updateOrgObserver(msg.getClientID(), msg.getEventID());
+
                             break;
 
                         case Disconnected:
-                            switch (msg.getUserType()){
+                            switch (msg.getUserType()) {
                                 case USER:
                                     System.out.println("User logged out, id = " + msg.getClientID());
                                     synchronized (connectedUsers) {
@@ -234,7 +245,7 @@ public class Server {
         }
     }
 
-    private void sendMessageToClient(Message msg, ObjectOutputStream out){
+    private void sendMessageToClient(Message msg, ObjectOutputStream out) {
         try {
             out.writeObject(msg);
             out.flush();
@@ -255,26 +266,41 @@ public class Server {
 
     private void updateOrgOut(int orgID, ObjectOutputStream out) {
         for (Map.Entry<Integer, ObserverClass> entry : organizersByEventID.entrySet()) {
-            if(entry.getValue().getObsID() == orgID){
+            if (entry.getValue().getObsID() == orgID) {
                 entry.getValue().setOut(out);
             }
         }
     }
 
-    private void updateUserObservers(String city, int eventID) {
+    private void updateUserObservers(String city, int eventID, int userID) {
         List<ObserverClass> users = observersByCity.get(city);
-        NotificationDAO notifyDAO = new NotificationDAO();
-        if(users != null) {
+        if (users != null) {
             for (ObserverClass user : users) {
                 if (connectedUsers.get(user.getObsID())) {
                     //se utente online notifica
                     user.update(NotificationTypes.EventAdded);
                 }
                 //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
-                notifyDAO.addNotificationsToUser(user.getObsID(), NotificationTypes.EventAdded, eventID);
+                notifyDAO.addNotificationsToUser(user.getObsID(), NotificationTypes.EventAdded, eventID, userID);
             }
         }
     }
+
+    private void updateOrgObserver(int userID, int eventID) {
+        ObserverClass org = organizersByEventID.get(eventID);
+        if (org != null) {
+            if (connectedOrganizers.get(org.getObsID())) {
+                //se org online notifica
+                org.update(NotificationTypes.UserEventParticipation);
+            }
+            //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
+            notifyDAO.addNotificationsToUser(org.getObsID(), NotificationTypes.UserEventParticipation, eventID, userID);
+        } else {
+            logger.severe("Org id got from observer is null - can't update observers");
+            throw new RuntimeException();
+        }
+    }
+
 
     private void attachOrgObserver(int eventID, ObserverClass orgObs) {
         organizersByEventID.put(eventID, orgObs);
@@ -286,8 +312,8 @@ public class Server {
         System.out.println("Added city: " + city + " to userID: " + obs.getObsID());
     }
 
-    private void updateLoggedUsers(int userID, boolean isConnected, UserTypes type){
-        switch (type){
+    private void updateLoggedUsers(int userID, boolean isConnected, UserTypes type) {
+        switch (type) {
             case USER:
                 connectedUsers.put(userID, isConnected);
                 System.out.println("User id: " + userID + ", isConnected:" + connectedUsers.get(userID).toString());

@@ -44,9 +44,10 @@ create table UserEvent
 create table Notifications
 (
     id       INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    user_id  INT         NOT NULL,
+    notified_id  INT         NOT NULL,
     type     VARCHAR(50) NOT NULL,
-    event_id INT,
+    event_id INT NOT NULL,
+    notifier_id INT NOT NULL,
     FOREIGN KEY (event_id) REFERENCES Events (event_id) ON DELETE CASCADE
 );
 

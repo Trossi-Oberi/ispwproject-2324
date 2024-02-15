@@ -37,6 +37,7 @@ public class GCNotifications extends EssentialGUI {
             deleteButton = new Button("Delete");
             deleteButton.setOnAction(event -> {
                 getListView().getItems().remove(getItem());
+                //cfacade.deleteNotification();
                 alert.displayAlertPopup(Alerts.INFORMATION, "Removed notification successfully");
             });
 
@@ -63,8 +64,6 @@ public class GCNotifications extends EssentialGUI {
     public void initialize() {
 
         BMessage notiBean = new BMessage();
-
-        //TODO: fare la retrieve di tutte le notifiche dal db, caso user: eventAdded, caso organizer: userParticipation
         //Imposta la cell factory personalizzata
         notificationsLV.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
             @Override
@@ -73,24 +72,9 @@ public class GCNotifications extends EssentialGUI {
             }
         });
 
-        switch (LoggedUser.getUserType()) {
-            case USER:
-                //TODO: Questi NotificationMessage sono di fatto un Model, per passarli alla view dovremmo usare dei bean
-                ArrayList<BMessage> notificationsList = cfacade.retrieveNotifications(LoggedUser.getUserID());
-                populateNotificationsLV(notificationsList);
-                break;
-            case ORGANIZER:
-                //TODO: retrieve notifiche per gli organizer
-                break;
-        }
-
-/*        IMPORTANTE: massima lunghezza di una notifica deve essere di 118 caratteri per evitare sbilanciamenti
-        ObservableList<String> items = FXCollections.observableArrayList(
-                "Notify 1",
-                "Notify 2",
-                "Notify 3"
-        );
-        notificationsLV.setItems(items);*/
+        //TODO: Mi devo far dare il notification_id altrimenti non posso implementare la cancellazione delle notifiche
+        ArrayList<BMessage> notificationsList = cfacade.retrieveNotifications(LoggedUser.getUserID());
+        populateNotificationsLV(notificationsList);
 
     }
 
@@ -99,6 +83,8 @@ public class GCNotifications extends EssentialGUI {
             for (int i = 0; i < notificationsList.size(); i++) {
                 if (notificationsList.get(i).getMessageType() == NotificationTypes.EventAdded) {
                     notificationsLV.getItems().add("New event called " + cfacade.getEventNameByEventID(notificationsList.get(i).getEventID()) + " in your city!");
+                } else if (notificationsList.get(i).getMessageType() == NotificationTypes.UserEventParticipation) {
+                    notificationsLV.getItems().add("New user " + cfacade.getUsernameByID(notificationsList.get(i).getClientID()) + " participating to your event " + cfacade.getEventNameByEventID(notificationsList.get(i).getEventID()));
                 }
             }
 

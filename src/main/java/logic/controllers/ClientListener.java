@@ -61,6 +61,16 @@ public class ClientListener extends Thread implements Runnable{
                             }
                             break;
 
+                        case UserEventParticipation:
+                            if (LoggedUser.getUserType() == UserTypes.USER){
+                                semaphore.release(2);
+                            }else{
+                                //notifica popup per l'organizer
+                                System.out.println("New user participation to your event");
+                                EssentialGUI.showNotification(incomingMsg.getMessageType());
+                            }
+                            break;
+
                         case EventDeleted:
                             System.out.println("SERVER: Evento "+incomingMsg.getEventID()+" cancellato con successo");
                             semaphore.release(2);

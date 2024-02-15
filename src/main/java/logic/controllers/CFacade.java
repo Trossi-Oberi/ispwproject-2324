@@ -51,8 +51,14 @@ public class CFacade {
         if (manageEventController == null) {
             manageEventController = new CManageEvent();
         }
-
-        return manageEventController.participateToEvent(bean); //chiamata al controller effettivo
+        boolean res = manageEventController.participateToEvent(bean);
+        if(res){
+            if(notificationController == null){
+                notificationController = new CNotification();
+            }
+            notificationController.sendMessage(NotificationTypes.UserEventParticipation, LoggedUser.getUserID(), bean.getEventID(), null, null);
+        }
+        return res;
     }
 
     public boolean registerUser(BUserData bean) throws RuntimeException {
@@ -160,5 +166,12 @@ public class CFacade {
             loginController = new CLogin();
         }
         return loginController.changeCity(userID, province, city);
+    }
+
+    public String getUsernameByID(int userID){
+        if(loginController == null){
+            loginController = new CLogin();
+        }
+        return loginController.getUsernameByID(userID);
     }
 }

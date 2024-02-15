@@ -19,11 +19,12 @@ public class NotificationDAO {
         notiFactory = new MessageFactory();
     }
 
-    public void addNotificationsToUser(int usrID, NotificationTypes notificationTypes, int eventID) {
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Notifications VALUES (NULL, ?, ?, ?)")) {
-            statement.setInt(1, usrID);
+    public void addNotificationsToUser(int notifiedID, NotificationTypes notificationTypes, int eventID, int notifierID) {
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Notifications VALUES (NULL, ?, ?, ?, ?)")) {
+            statement.setInt(1, notifiedID);
             statement.setString(2, notificationTypes.toString());
             statement.setInt(3, eventID);
+            statement.setInt(4, notifierID);
             statement.execute();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Cannot add notification to user" + e.getMessage(), e);
@@ -34,18 +35,18 @@ public class NotificationDAO {
 
     public ArrayList<Message> getNotificationsByUserID(int usrID) {
         ArrayList<Message> notifications = new ArrayList<>();
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT type, event_id FROM notifications WHERE (user_id = ?)")) {
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT type, event_id, notifier_id FROM notifications WHERE (notified_id = ?)")) {
             statement.setInt(1, usrID);
             ResultSet rs = statement.executeQuery();
             if (rs != null) {
                 Message msg;
                 while (rs.next()) {
                     if (rs.getString(1).equals(NotificationTypes.EventAdded.toString())) {
-                        msg = notiFactory.createMessage(SituationType.Notification, NotificationTypes.EventAdded, null, rs.getInt(2), null, null);
+                        msg = notiFactory.createMessage(SituationType.Notification, NotificationTypes.EventAdded, rs.getInt(3), rs.getInt(2), null, null);
 
                     } else if (rs.getString(1).equals(NotificationTypes.UserEventParticipation.toString())) {
                         //implementazione UserParticipation
-                        msg = notiFactory.createMessage(SituationType.Notification, NotificationTypes.UserEventParticipation, null, rs.getInt(2), null, null);
+                        msg = notiFactory.createMessage(SituationType.Notification, NotificationTypes.UserEventParticipation, rs.getInt(3), rs.getInt(2), null, null);
                     } else {
                         //TODO: implementazione NewMessageInGroupChat
                         msg = null; //DA CAMBIARE
