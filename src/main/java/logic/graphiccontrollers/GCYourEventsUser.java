@@ -2,12 +2,17 @@ package logic.graphiccontrollers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import logic.beans.BEvent;
+import logic.beans.BGroup;
 import logic.interfaces.DoubleClickListener;
 import logic.utils.Alerts;
 import logic.utils.LoggedUser;
@@ -23,31 +28,79 @@ import java.util.logging.Level;
 public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClickListener {
     @FXML
     private ListView<String> pastEventsLV;
-
     @FXML
     private ListView<String> pastMusicLV;
-
     @FXML
     private ListView<String> pastTimeLV;
-
     @FXML
     private ListView<String> upComingEventsLV;
-
     @FXML
     private ListView<String> upComingTimeLV;
-
     @FXML
     private ListView<String> upcomingMusicLV;
+    @FXML
+    private ListView<BGroup> groupsLV;
 
-    private ArrayList <BEvent> eventsParticipationList = new ArrayList<>();
-    private ArrayList <BEvent> upComingEventsBeans = new ArrayList<>();
-    private ArrayList <BEvent> pastEventsBeans = new ArrayList<>();
+    private ArrayList<BEvent> eventsParticipationList = new ArrayList<>();
+    private ArrayList<BEvent> upComingEventsBeans = new ArrayList<>();
+    private ArrayList<BEvent> pastEventsBeans = new ArrayList<>();
+
+    // Classe per personalizzare la visualizzazione delle celle nella ListView
+    private class GroupListCell extends ListCell<BGroup> {
+        private Label groupName = new Label();
+        private Region spacer;
+
+        @Override
+        protected void updateItem(BGroup item, boolean empty) {
+            super.updateItem(item, empty);
+
+            if (empty || item == null) {
+                setGraphic(null);
+            } else {
+
+                // Personalizzazione del pulsante in base allo stato del gruppo e dell'appartenenza
+                boolean res = cfacade.userInGroup(LoggedUser.getUserID(), item.getGroupID());
+                Button groupButton = new Button();
+                if (item.getGroupID() != null && res) {
+                    groupName.setText(item.getGroupName());
+                    groupButton.setText("Group chat");
+                    groupButton.setOnMouseClicked(event -> {
+                        //OPEN GROUP CHAT
+                        //TODO: NOT IMPLENTED
+                    });
+                } else if (item.getGroupID() != null && !res) {
+                    groupName.setText(item.getGroupName());
+                    groupButton.setText("Join group");
+                    groupButton.setOnMouseClicked(event -> {
+                        //JOIN GROUP
+                        //TODO: NOT IMPLENTED
+                    });
+                } else {
+                    groupName.setText("No group");
+                    groupButton.setText("Create group");
+                    groupButton.setOnMouseClicked(event -> {
+                        //CREATE GROUP
+                        //TODO: NOT IMPLENTED
+                    });
+                }
+
+                HBox hbox = new HBox();
+                HBox.setHgrow(groupName, Priority.ALWAYS);
+                spacer = new Region();
+                HBox.setHgrow(spacer, Priority.ALWAYS);
+                hbox.setAlignment(Pos.CENTER_LEFT);
+                hbox.setSpacing(5);
+                hbox.getChildren().addAll(groupName, spacer, groupButton);
+                setGraphic(hbox);
+            }
+        }
+    }
 
 
     @FXML
     public void initialize() {
         this.eventsParticipationList = cfacade.retrieveEvents(LoggedUser.getUserType(), this.getClass().getSimpleName());
-        if (eventsParticipationList !=null){
+        if (eventsParticipationList != null) {
             populateLVs();
             setupEventClickListener();
         }
@@ -63,6 +116,11 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
             if (LocalDate.now().isBefore(date)) {
                 upComingEventsBeans.add(bEvent);
                 this.upComingEventsLV.getItems().add(bEvent.getEventName());
+
+                //GROUP
+                groupsLV.setCellFactory(param -> new GroupListCell());
+                groupsLV.getItems().add(cfacade.getGroupByEventID(bEvent.getEventID()));
+
                 this.upComingTimeLV.getItems().add(formatTimeAndDate(bEvent.getEventDate(), bEvent.getEventTime()));
                 this.upcomingMusicLV.getItems().add(bEvent.getEventMusicGenre());
 

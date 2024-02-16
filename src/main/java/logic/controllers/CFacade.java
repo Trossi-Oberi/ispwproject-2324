@@ -183,9 +183,30 @@ public class CFacade {
     }
 
     public ArrayList<BGroup> retrieveGroups(ArrayList<BEvent> upcomingEventsList) {
-        if (groupController == null){
+        if (groupController == null) {
             groupController = new CGroup();
         }
         return groupController.retrieveGroups(upcomingEventsList);
+    }
+
+    public BGroup getGroupByEventID(int eventID) {
+        if (groupController == null) {
+            groupController = new CGroup();
+        }
+        return groupController.getGroupByEventID(eventID);
+    }
+
+    public boolean userInGroup(int userID, Integer groupID) {
+        if (groupController == null) {
+            groupController = new CGroup();
+        }
+        return groupController.userInGroup(userID, groupID);
+    }
+
+    public String getGroupNameByGroupID(Integer groupID) {
+        if (groupController == null) {
+            groupController = new CGroup();
+        }
+        return groupController.getGroupNameByGroupID(groupID);
     }
 }

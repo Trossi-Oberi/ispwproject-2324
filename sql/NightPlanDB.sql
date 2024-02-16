@@ -56,11 +56,20 @@ create table EventGroups
     group_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     group_name VARCHAR(50) NOT NULL,
     event_id INT NOT NULL,
-    user_id INT NOT NULL,
     owner_id INT NOT NULL,
-    FOREIGN KEY (event_id) REFERENCES Events (event_id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE
+    FOREIGN KEY (event_id) REFERENCES Events (event_id) ON DELETE CASCADE
 );
+
+create table UserGroup
+(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    group_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE,
+    FOREIGN KEY (group_id) REFERENCES EventGroups (group_id) ON DELETE CASCADE
+);
+
+
 
 create table Provinces
 (
@@ -83,6 +92,8 @@ values (NULL, 'Matteo', 'Matteo', 'Matteo', 'Trossi', '16/03/1998', 'Male', 'Fro
        (NULL, 'n', 'n', 'n', 'n', '16/03/1998', 'Male', 'Frosinone', 'Anagni', 'USER', 'Offline'),
        (NULL, 'o', 'o', 'o', 'o', '16/03/1998', 'Male', 'Frosinone', 'Anagni', 'USER', 'Offline');
 
+
+
 insert into Events (event_id, organizer, organizer_id, name, province, city, address, music_genre, date, time, image,
                     pic_path)
 values (NULL, 'Nicolas', 2, 'Uane', 'Frosinone', 'Anagni', 'Via Casilina', 'Pop', '03-03-2024', '18:40',
@@ -96,8 +107,11 @@ values (NULL, 'Nicolas', 2, 'Uane', 'Frosinone', 'Anagni', 'Via Casilina', 'Pop'
         LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp2.jpg'),
         'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp2.jpg');
 
-insert into EventGroups(group_id, group_name, event_id, user_id, owner_id)
-values (1, 'prova1', 1, 3, 3);
+insert into EventGroups(group_id, group_name, event_id, owner_id)
+values (1, 'prova1', 1, 3);
+
+insert into UserGroup(id,user_id,group_id) values
+    (NULL,3,1);
 
 insert into UserEvent(id, user_id, event_id)
 values (NULL, 1, 3),
