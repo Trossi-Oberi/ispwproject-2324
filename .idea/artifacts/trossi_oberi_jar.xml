@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="trossi-oberi:jar">
+  <artifact type="jar" name="trossi-oberi:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/trossi_oberi_jar</output-path>
     <root id="archive" name="trossi-oberi.jar">
       <element id="module-output" name="trossi-oberi" />
