@@ -5,6 +5,7 @@ import logic.exceptions.DuplicateEventParticipation;
 import logic.utils.LoggedUser;
 import logic.utils.NotificationTypes;
 import logic.utils.UserTypes;
+import logic.view.NotificationView;
 
 import java.util.ArrayList;
 
@@ -27,21 +28,21 @@ public class CFacade {
             if (notificationController == null) {
                 notificationController = new CNotification();
             }
-            notificationController.sendNotification(NotificationTypes.EventAdded, bean.getEventOrganizerID(), null, bean.getEventID(), null, bean.getEventCity(), null);
+            notificationController.sendNotification(null, NotificationTypes.EventAdded, bean.getEventOrganizerID(), null, bean.getEventID(), null, bean.getEventCity(), null);
         }
         return res;
     }
 
-    public boolean deleteEvent(int eventID){
+    public boolean deleteEvent(int eventID) {
         if (manageEventController == null) {
             manageEventController = new CManageEvent();
         }
         boolean res = manageEventController.deleteEvent(eventID);
-        if (res){
+        if (res) {
             if (notificationController == null) {
                 notificationController = new CNotification();
             }
-            notificationController.sendNotification(NotificationTypes.EventDeleted, null, null, eventID, null, null, null);
+            notificationController.sendNotification(null, NotificationTypes.EventDeleted, null, null, eventID, null, null, null);
         }
         return res;
     }
@@ -51,11 +52,11 @@ public class CFacade {
             manageEventController = new CManageEvent();
         }
         boolean res = manageEventController.participateToEvent(bean);
-        if(res){
-            if(notificationController == null){
+        if (res) {
+            if (notificationController == null) {
                 notificationController = new CNotification();
             }
-            notificationController.sendNotification(NotificationTypes.UserEventParticipation, LoggedUser.getUserID(), null, bean.getEventID(), null, null, null);
+            notificationController.sendNotification(null, NotificationTypes.UserEventParticipation, LoggedUser.getUserID(), null, bean.getEventID(), null, null, null);
         }
         return res;
     }
@@ -72,13 +73,13 @@ public class CFacade {
                 if (notificationController == null) {
                     notificationController = new CNotification(); //inizializzo il controller delle notifiche
                 }
-                notificationController.sendNotification(NotificationTypes.UserRegistration, bean.getUserID(), null,null, null, bean.getCity(), null); //null perche' e' ovvio sia UserType user
+                notificationController.sendNotification(null, NotificationTypes.UserRegistration, bean.getUserID(), null, null, null, bean.getCity(), null); //null perche' e' ovvio sia UserType user
             }
         }
         return res;
     }
 
-    public int loginUser(BUserData bean, boolean isGoogleAuth, String authCode) throws RuntimeException {
+    public int loginUser(BUserData bean, boolean isGoogleAuth, String authCode, NotificationView notiView) throws RuntimeException {
         if (loginController == null) {
             loginController = new CLogin();
         }
@@ -87,7 +88,7 @@ public class CFacade {
             if (notificationController == null) {
                 notificationController = new CNotification();
             }
-            notificationController.sendNotification(NotificationTypes.LoggedIn, LoggedUser.getUserID(), null, null, null, LoggedUser.getCity(), LoggedUser.getUserType());
+            notificationController.sendNotification(notiView, NotificationTypes.LoggedIn, LoggedUser.getUserID(), null, null, null, LoggedUser.getCity(), LoggedUser.getUserType());
         }
         return loginRes;
     }
@@ -97,7 +98,7 @@ public class CFacade {
         if (notificationController == null) {
             notificationController = new CNotification();
         }
-        notificationController.sendNotification(NotificationTypes.Disconnected, LoggedUser.getUserID(), null, null, null, null, LoggedUser.getUserType());
+        notificationController.sendNotification(null, NotificationTypes.Disconnected, LoggedUser.getUserID(), null, null, null, null, LoggedUser.getUserType());
         //dopo la disconnessione dal server chiudo la sessione di Login
         if (loginController == null) {
             loginController = new CLogin();
@@ -114,13 +115,12 @@ public class CFacade {
         return manageEventController.retrieveMyEvents(userType, className);
     }
 
-    public boolean editEvent(BEvent eventBean){
+    public boolean editEvent(BEvent eventBean) {
         if (manageEventController == null) {
             manageEventController = new CManageEvent();
         }
         return manageEventController.editEvent(eventBean);
     }
-
 
 
     public int retrieveParticipationsToEvent(int id) {
@@ -147,35 +147,35 @@ public class CFacade {
 
 
     public ArrayList<BNotification> retrieveNotifications(int userID) {
-        if(notificationController == null){
+        if (notificationController == null) {
             notificationController = new CNotification();
         }
         return notificationController.retrieveNotifications(userID);
     }
 
     public String getEventNameByEventID(int eventID) {
-        if(manageEventController == null){
+        if (manageEventController == null) {
             manageEventController = new CManageEvent();
         }
         return manageEventController.getEventNameByEventID(eventID);
     }
 
     public int changeUserCity(int userID, String province, String city) {
-        if(loginController == null){
+        if (loginController == null) {
             loginController = new CLogin();
         }
         return loginController.changeCity(userID, province, city);
     }
 
-    public String getUsernameByID(int userID){
-        if(loginController == null){
+    public String getUsernameByID(int userID) {
+        if (loginController == null) {
             loginController = new CLogin();
         }
         return loginController.getUsernameByID(userID);
     }
 
     public void deleteNotification(Integer notificationID, ArrayList<BNotification> notificationsList, int index) {
-        if(notificationController == null){
+        if (notificationController == null) {
             notificationController = new CNotification();
         }
         notificationController.deleteNotification(notificationID, notificationsList, index);

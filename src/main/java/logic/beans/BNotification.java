@@ -4,8 +4,6 @@ import logic.utils.NotificationTypes;
 import logic.utils.UserTypes;
 
 public class BNotification {
-
-    //TODO: Fare Bean messaggi per gestire correttamente la visualizzazione delle notifiche in GCNotification
     private NotificationTypes messageType;
     private Integer clientID; //notifiedID
     private Integer notifierID;
@@ -48,31 +46,31 @@ public class BNotification {
     //GETTERS
 
     public NotificationTypes getMessageType() {
-        return messageType;
+        return this.messageType;
     }
 
     public Integer getClientID() {
-        return clientID;
+        return this.clientID;
     }
 
     public Integer getNotifierID() {
-        return notifierID;
+        return this.notifierID;
     }
 
     public Integer getEventID() {
-        return eventID;
+        return this.eventID;
     }
 
     public Integer getNotificationID() {
-        return notificationID;
+        return this.notificationID;
     }
 
     public String getCity() {
-        return city;
+        return this.city;
     }
 
     public UserTypes getUserType() {
-        return userType;
+        return this.userType;
     }
 
 }

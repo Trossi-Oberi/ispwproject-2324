@@ -19,6 +19,7 @@ import logic.utils.GoogleLogin;
 import logic.utils.LoggedUser;
 import logic.view.EssentialGUI;
 import logic.beans.BUserData;
+import logic.view.NotificationView;
 
 public class GCLogin extends EssentialGUI{
     @FXML
@@ -52,6 +53,7 @@ public class GCLogin extends EssentialGUI{
     @FXML
     public void loginControl(MouseEvent event){
         BUserData userBean;
+        NotificationView notiView = new EssentialGUI();
         try {
             if (isGoogleAuth) {
                 //google login
@@ -67,7 +69,7 @@ public class GCLogin extends EssentialGUI{
                 //classic login
                 userBean = new BUserData(this.usrname.getText(), this.passwd.getText());
             }
-            if (cfacade.loginUser(userBean, this.isGoogleAuth, authCode) == 1) {
+            if (cfacade.loginUser(userBean, this.isGoogleAuth, authCode, notiView) == 1) {
                 switch (LoggedUser.getUserType()) {
                     case USER:
                         alert.displayAlertPopup(Alerts.INFORMATION, "Logged in successfully as a user");

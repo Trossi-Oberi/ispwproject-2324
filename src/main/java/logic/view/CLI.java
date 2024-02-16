@@ -1,14 +1,11 @@
 package logic.view;
 
 import logic.beans.BEvent;
+import logic.beans.BNotification;
 import logic.beans.BUserData;
 import logic.controllers.CFacade;
 import logic.exceptions.DuplicateEventParticipation;
-import logic.exceptions.InvalidTokenValue;
-import logic.utils.GoogleLogin;
-import logic.utils.LoggedUser;
-import logic.utils.MusicGenres;
-import logic.utils.UserTypes;
+import logic.utils.*;
 
 import javax.swing.*;
 import java.io.BufferedReader;
@@ -21,25 +18,26 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class CLI {
+public class CLI implements NotificationView {
     private static final Logger logger = Logger.getLogger("NightPlan");
     private static boolean isAuthenticated = false;
     private static CFacade cFacade;
     private static BUserData bUserData;
     private static ArrayList<String> commands = new ArrayList<>();
-    private static String[] commandsList= {"/commands", "/home", "/events", "/notifications", "/settings", "/quit"};
+    private static String[] commandsList = {"/commands", "/home", "/events", "/notifications", "/settings", "/quit"};
     private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private static String filePath;
+    private static NotificationView notiView;
 
-    private static void initializeController(){
+    private static void initializeControllers() {
         cFacade = new CFacade();
         bUserData = new BUserData();
         commands.addAll(List.of(commandsList));
+        notiView = new CLI();
     }
 
 
@@ -64,13 +62,13 @@ public class CLI {
 
     }
 
-    public static void spacer(int times){
+    public static void spacer(int times) {
         for (int i = 0; i < times; i++) {
             System.out.println();
         }
     }
 
-    private static void handleCommand(String command){
+    private static void handleCommand(String command) {
         switch (command) {
             case "/commands":
                 spacer(1);
@@ -104,7 +102,7 @@ public class CLI {
     private static void loadSettings() {
         boolean valid = false;
 
-        switch (LoggedUser.getUserType()){
+        switch (LoggedUser.getUserType()) {
             case USER:
                 do {
                     System.out.println("Settings:   \n" +
@@ -119,7 +117,7 @@ public class CLI {
                         String value = reader.readLine();
 
                         //verifico comandi generali
-                        if(commands.contains(value)){
+                        if (commands.contains(value)) {
                             handleCommand(value);
                         }
 
@@ -154,7 +152,7 @@ public class CLI {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                } while(!valid);
+                } while (!valid);
 
                 break;
             case ORGANIZER:
@@ -168,7 +166,7 @@ public class CLI {
                         String value = reader.readLine();
 
                         //verifico comandi generali
-                        if(commands.contains(value)){
+                        if (commands.contains(value)) {
                             handleCommand(value);
                         }
 
@@ -195,7 +193,7 @@ public class CLI {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                } while(!valid);
+                } while (!valid);
                 break;
         }
 
@@ -290,7 +288,7 @@ public class CLI {
             } else {
                 System.out.println("City update failed. Retry...");
             }
-        } catch(IOException e){
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
@@ -298,7 +296,7 @@ public class CLI {
         loadSettings();
     }
 
-    private static void loadHome(){
+    private static void loadHome() {
         clearScreen();
         ArrayList<BEvent> eventList;
 
@@ -307,7 +305,7 @@ public class CLI {
         System.out.println("Use /commands to view a list of commands which you can use to navigate into application pages");
         spacer(1);
 
-        if(LoggedUser.getUserType().equals(UserTypes.USER)){
+        if (LoggedUser.getUserType().equals(UserTypes.USER)) {
             eventList = cFacade.retrieveEvents(LoggedUser.getUserType(), "GCHomeUser");
             ArrayList<BEvent> futureEvents = new ArrayList<>();
             for (BEvent event : eventList) {
@@ -318,20 +316,21 @@ public class CLI {
                 }
             }
 
-            if(!eventList.isEmpty()){
+            if (!eventList.isEmpty()) {
                 System.out.println("Events in your city. \nWrite event name to show event info!");
                 for (int i = 0; i < futureEvents.size(); i++) {
-                    System.out.println(i+1 + ". " + futureEvents.get(i).getEventName());
+                    System.out.println(i + 1 + ". " + futureEvents.get(i).getEventName());
                 }
 
                 boolean valid = false;
-                do{
+                do {
                     try {
                         String value = reader.readLine();
 
-                        if(commands.contains(value)){
+                        if (commands.contains(value)) {
                             handleCommand(value);
                         }
+
 
                         for (BEvent bEvent : eventList) {
                             if (bEvent.getEventName().equals(value)) {
@@ -362,16 +361,16 @@ public class CLI {
                 }
             }
             spacer(3);
-        } else if (LoggedUser.getUserType().equals(UserTypes.ORGANIZER)){
+        } else if (LoggedUser.getUserType().equals(UserTypes.ORGANIZER)) {
             System.out.println("You can add a new event or navigate in other menus:");
             System.out.println("1. Add new event");
 
             boolean valid = false;
-            do{
+            do {
                 try {
                     String value = reader.readLine();
 
-                    if(commands.contains(value)){
+                    if (commands.contains(value)) {
                         handleCommand(value);
                     }
 
@@ -392,7 +391,7 @@ public class CLI {
         BEvent bEventBean = new BEvent();
         setEventBean(bEventBean);
 
-        if(cFacade.addEvent(bEventBean)){
+        if (cFacade.addEvent(bEventBean)) {
             System.out.println("Event added successfully");
         } else {
             System.out.println("Event adding failed. Returning home...");
@@ -400,7 +399,7 @@ public class CLI {
         loadHome();
     }
 
-    private static void setEventBean(BEvent eventBean){
+    private static void setEventBean(BEvent eventBean) {
         System.out.println("New event\n");
 
         boolean valid = false;
@@ -454,7 +453,7 @@ public class CLI {
 
             System.out.println("Choose music genre from list:");
             for (int i = 0; i < MusicGenres.MUSIC_GENRES.length; i++) {
-                System.out.println(i+1 + ". " + MusicGenres.MUSIC_GENRES[i]);
+                System.out.println(i + 1 + ". " + MusicGenres.MUSIC_GENRES[i]);
             }
             do {
                 String val = reader.readLine();
@@ -488,7 +487,7 @@ public class CLI {
                     eventBean.setEventTime(hours, minutes);
                     valid = true;
                 }
-            } while(!valid);
+            } while (!valid);
 
             //prendi file immagine
             byte[] fileData = pickFileData();
@@ -503,7 +502,7 @@ public class CLI {
         }
     }
 
-    private static byte[] pickFileData(){
+    private static byte[] pickFileData() {
         JFileChooser fileChooser = new JFileChooser();
         byte[] fileData = null;
 
@@ -547,16 +546,16 @@ public class CLI {
                 "2. Plan event participation");
 
         boolean valid = false;
-        do{
+        do {
             try {
                 String value = reader.readLine();
 
                 //verifico comandi generali
-                if(commands.contains(value)){
+                if (commands.contains(value)) {
                     handleCommand(value);
                 }
 
-                switch (value){
+                switch (value) {
                     case "1":
                         loadHome();
                         valid = true;
@@ -569,7 +568,7 @@ public class CLI {
                             } else {
                                 logger.severe("Event participation failed!");
                             }
-                        } catch (DuplicateEventParticipation e){
+                        } catch (DuplicateEventParticipation e) {
                             logger.log(Level.INFO, "Event participation already planned. Choose another event...");
                         }
 
@@ -586,14 +585,27 @@ public class CLI {
     }
 
     private static void loadNotifications() {
-        //TODO
+        spacer(1);
+        System.out.println("Notifications");
+
+
+        ArrayList<BNotification> notifications = cFacade.retrieveNotifications(LoggedUser.getUserID());
+        for (int i = 0; i < notifications.size(); i++) {
+            if (notifications.get(i).getMessageType() == NotificationTypes.EventAdded) {
+                System.out.println(i+1 + ". New event called " + cFacade.getEventNameByEventID(notifications.get(i).getEventID()) + " in your city!");
+            } else if (notifications.get(i).getMessageType() == NotificationTypes.UserEventParticipation) {
+                System.out.println(i+1 + ". New user " + cFacade.getUsernameByID(notifications.get(i).getNotifierID()) + " participating to your event " + cFacade.getEventNameByEventID(notifications.get(i).getEventID()));
+            }
+        }
+
+        //TODO: delete notifications
     }
 
     private static void loadEvents() {
         //TODO
     }
 
-    public static void loadApp(){
+    public static void loadApp() {
         String asciiLogo = "                                                                                                     \n" +
                 "                                                                                                     \n" +
                 "                                                                                                     \n" +
@@ -621,8 +633,6 @@ public class CLI {
                 "                                                                                                     ";
 
         try {
-            initializeController();
-
             boolean valid = false;
             while (!valid) {
                 clearScreen();
@@ -642,7 +652,7 @@ public class CLI {
                             bUserData.setPassword(reader.readLine());
 
                             //login user
-                            int res = cFacade.loginUser(bUserData, false, null);
+                            int res = cFacade.loginUser(bUserData, false, null, notiView);
 
                             System.out.println();
                             if (res == 1) {
@@ -668,7 +678,7 @@ public class CLI {
                                 String authCode = reader.readLine();
 
                                 //login user
-                                int res = cFacade.loginUser(bUserData, true, authCode);
+                                int res = cFacade.loginUser(bUserData, true, authCode, notiView);
 
                                 System.out.println();
                                 if (res == 1) {
@@ -718,6 +728,7 @@ public class CLI {
     }
 
     public static void main(String[] args) {
+        initializeControllers();
         loadApp();
     }
 
@@ -748,7 +759,7 @@ public class CLI {
             do {
                 String val = reader.readLine();
                 bUserData.setGender(val);
-                if(val.equals("a") || val.equals("b") || val.equals("c")){
+                if (val.equals("a") || val.equals("b") || val.equals("c")) {
                     valid = true;
                 }
             } while (!valid);
@@ -758,7 +769,7 @@ public class CLI {
             ArrayList<String> provinces = cFacade.getProvincesList();
             do {
                 String val = reader.readLine();
-                if(provinces.contains(val)){
+                if (provinces.contains(val)) {
                     bUserData.setProvince(val);
                     valid = true;
                 }
@@ -769,7 +780,7 @@ public class CLI {
             ArrayList<String> cities = cFacade.getCitiesList(bUserData.getProvince());
             do {
                 String val = reader.readLine();
-                if(cities.contains(val)){
+                if (cities.contains(val)) {
                     bUserData.setCity(val);
                     valid = true;
                 }
@@ -798,13 +809,13 @@ public class CLI {
             do {
                 String val = reader.readLine();
                 val = val.toUpperCase();
-                if(val.equals(UserTypes.USER.toString()) || val.equals(UserTypes.ORGANIZER.toString())){
+                if (val.equals(UserTypes.USER.toString()) || val.equals(UserTypes.ORGANIZER.toString())) {
                     bUserData.setType(UserTypes.valueOf(val));
                     valid = true;
                 }
             } while (!valid);
 
-            if(cFacade.registerUser(bUserData)){
+            if (cFacade.registerUser(bUserData)) {
                 System.out.println("User registration completed successfully! Return to login page.");
             } else {
                 System.out.println("Error in registration procedure. Retry...");
@@ -814,5 +825,20 @@ public class CLI {
             throw new RuntimeException(e);
         }
         return 1;
+    }
+
+    @Override
+    public void showNotification(NotificationTypes notificationType) {
+        String value = null;
+        switch (notificationType) {
+            case EventAdded:
+                value = "new event in your city!";
+                break;
+            case UserEventParticipation:
+                value = "new user participation to your event!";
+                break;
+        }
+        logger.info("New notification: " + value);
+
     }
 }

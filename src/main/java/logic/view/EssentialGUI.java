@@ -21,7 +21,7 @@ import logic.utils.LoggedUser;
 import logic.controllers.CFacade;
 import logic.utils.NotificationTypes;
 
-public class EssentialGUI extends Application {
+public class EssentialGUI extends Application implements NotificationView{
     //TODO: inserire le icone in tutta l'applicazione
     private static final String APP_NAME = "NightPlan";
     protected static String sceneName;
@@ -133,8 +133,8 @@ public class EssentialGUI extends Application {
         }
     }
 
-
-    public static void showNotification(NotificationTypes type) {
+    @Override
+    public void showNotification(NotificationTypes type) {
         Platform.runLater(() -> {
             AlertPopup alert = new AlertPopup();
             switch (type) {

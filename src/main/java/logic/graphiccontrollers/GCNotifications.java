@@ -22,7 +22,7 @@ import java.util.logging.Level;
 public class GCNotifications extends EssentialGUI {
     @FXML
     private ListView<String> notificationsLV;
-    ArrayList<BNotification> notificationsList;
+    private ArrayList<BNotification> notificationsList;
 
     private class DeleteButtonCell extends ListCell<String> {
         private HBox hbox;
@@ -39,8 +39,7 @@ public class GCNotifications extends EssentialGUI {
             deleteButton = new Button("Delete");
             deleteButton.setOnMouseClicked(event -> {
                 getListView().getItems().remove(getItem());
-                //TODO: Cancellazione notifiche ok, errore nel ricaricare la pagina, testare cosa succede se elimino due notifiche
-                cfacade.deleteNotification(notificationsList.get(getIndex()).getNotificationID(),notificationsList,getIndex()); //ID notifica, lista (per rimuovere notifica) e indice di item della listview
+                cfacade.deleteNotification(notificationsList.get(getIndex()).getNotificationID(), notificationsList, getIndex()); //ID notifica, lista (per rimuovere notifica) e indice di item della listview
                 alert.displayAlertPopup(Alerts.INFORMATION, "Removed notification successfully");
             });
 

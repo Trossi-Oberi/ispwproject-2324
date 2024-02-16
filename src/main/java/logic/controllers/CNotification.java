@@ -5,6 +5,7 @@ import logic.dao.NotificationDAO;
 import logic.model.Notification;
 import logic.server.Server;
 import logic.utils.*;
+import logic.view.NotificationView;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -31,7 +32,7 @@ public class CNotification {
         this.notiFactory = new NotificationFactory();
     }
 
-    private void startListener(int userID){
+    private void startListener(int userID, NotificationView notiView){
         try {
             client = new Socket(Server.ADDRESS, Server.PORT);
             //setActive(true);
@@ -42,7 +43,7 @@ public class CNotification {
             this.in = new SecureObjectInputStream(client.getInputStream());
 
             //avviamo il thread con il listener
-            this.listener = new ClientListener(userID, this.semaphore, this, this.in);
+            this.listener = new ClientListener(notiView, userID, this.semaphore, this, this.in);
             this.listenerThread = new Thread(listener);
 
             //setto il thread come demone affinché termini quando termina anche il thread principale
@@ -56,11 +57,11 @@ public class CNotification {
         }
     }
 
-    public void sendNotification(NotificationTypes notiType, Integer clientID, Integer notifierID, Integer eventID, Integer notificationID, String city, UserTypes usrType){
+    public void sendNotification(NotificationView notiView, NotificationTypes notiType, Integer clientID, Integer notifierID, Integer eventID, Integer notificationID, String city, UserTypes usrType){
         try {
             //se ListenerThread non è ancora stato inizializzato oppure è stato inizializzato ma è stato poi interrotto lo avvio
-            if (listenerThread == null || !listenerThread.isAlive()){
-                startListener(clientID);
+            if (listenerThread == null || listenerThread.isInterrupted()){
+                startListener(clientID, notiView);
             }
             //creo il messaggio e lo mando al server
             if (listenerThread.isAlive()){
@@ -87,6 +88,7 @@ public class CNotification {
         //chiudo il thread listener del client
         try {
             listenerThread.interrupt();
+
             if (!client.isClosed()) {
                 this.client.close();
                 logger.info("Client " + userID + " socket closed successfully");
@@ -117,7 +119,9 @@ public class CNotification {
     }
 
     public void deleteNotification(Integer notificationID, ArrayList<BNotification> notificationsList, int index) {
+        //cancellazione nel DB
         this.notificationDAO.deleteNotification(notificationID);
+        //rimozione dalla lista
         notificationsList.remove(index);
     }
 }

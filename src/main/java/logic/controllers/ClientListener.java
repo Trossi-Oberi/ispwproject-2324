@@ -5,6 +5,7 @@ import logic.utils.LoggedUser;
 import logic.utils.SecureObjectInputStream;
 import logic.utils.UserTypes;
 import logic.view.EssentialGUI;
+import logic.view.NotificationView;
 
 import java.io.IOException;
 import java.util.concurrent.Semaphore;
@@ -19,8 +20,10 @@ public class ClientListener extends Thread implements Runnable{
     private Semaphore semaphore;
     private SecureObjectInputStream in;
     private boolean listenerRunning = true;
+    private NotificationView notificationView;
 
-    public ClientListener(int id, Semaphore semaphore, CNotification notiController, SecureObjectInputStream in){
+    public ClientListener(NotificationView notiView, int id, Semaphore semaphore, CNotification notiController, SecureObjectInputStream in){
+        this.notificationView = notiView;
         this.clientID = id;
         this.semaphore = semaphore;
         this.notificationCtrl = notiController;
@@ -56,9 +59,11 @@ public class ClientListener extends Thread implements Runnable{
                                 semaphore.release(2);
                             } else{
                                 //nuova notifica (static)
-                                System.out.println("New event in your city");
-                                //TODO: non va bene, perché con la CLI da errore
-                                EssentialGUI.showNotification(incomingMsg.getNotificationType());
+                                //System.out.println("New event in your city");
+
+                                //chiama la giusta funzione in base alla GUI
+                                notificationView.showNotification(incomingMsg.getNotificationType());
+
                             }
                             break;
 
@@ -67,9 +72,10 @@ public class ClientListener extends Thread implements Runnable{
                                 semaphore.release(2);
                             }else{
                                 //notifica popup per l'organizer
-                                System.out.println("New user participation to your event");
-                                //TODO: stesso di sopra
-                                EssentialGUI.showNotification(incomingMsg.getNotificationType());
+                                //System.out.println("New user participation to your event");
+
+                                //chiama la giusta funzione in base alla GUI
+                                notificationView.showNotification(incomingMsg.getNotificationType());
                             }
                             break;
 
