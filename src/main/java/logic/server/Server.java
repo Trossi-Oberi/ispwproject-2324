@@ -191,7 +191,7 @@ public class Server {
 
                         case UserEventParticipation:
                             //TODO: usereventparticipation logic in server
-                            System.out.println("User with id " + noti.getClientID() + "participating to event with id = " + noti.getEventID());
+                            System.out.println("User with id " + noti.getClientID() + " participating to event with id = " + noti.getEventID());
 
                             //mandare messaggio di ritorno all'utente
                             response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.UserEventParticipation, null, null, null, null, null, null);
