@@ -7,5 +7,7 @@ public enum NotificationTypes {
     UserEventParticipation,
     LoggedIn,
     Disconnected,
-    NewMessageInGroup
+    GroupJoin,
+    GroupLeave,
+    GroupDelete
 }

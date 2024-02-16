@@ -28,13 +28,14 @@ public class Server {
     private Map<Integer, ObserverClass> organizersByEventID = new HashMap<>();
     private Map<Integer, Boolean> connectedUsers = new HashMap<>();
     private Map<Integer, Boolean> connectedOrganizers = new HashMap<>();
+    private Map<Integer, List<ObserverClass>> usersInGroup = new HashMap<>();
 
-    //TODO: hash map group con key = groupID e lista di ClientHandler (come da video YT :S)
+    //TODO: hash map group con key = groupID e lista di client id associati al gruppo (come da video YT :S)
+    //voglio piangere
 
     private static Logger logger = Logger.getLogger("NightPlan");
     private static final int MAX_CONNECTIONS = 500;
     private ServerSocket serverSocket;
-
 
     public static final String ADDRESS = "localhost";
     public static final int PORT = 2521;
@@ -224,13 +225,25 @@ public class Server {
                             sendNotificationToClient(response, out);
                             clientRunning = false;
                             break;
+
+                        case GroupJoin:
+                            System.out.println("User with id = "+noti.getClientID()+", joined group with id = "+noti.getEventID()); //event viene usato come group
+                            //AGGIORNO HASHMAP
+                            ObserverClass groupObs = new ObserverClass(noti.getClientID(),out);
+                            attachObsToGroup(noti.getEventID(), groupObs);
+                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.GroupJoin, null,null,noti.getEventID(),null,null,null);
+                            sendNotificationToClient(response,out);
+                            break;
                     }
+
                 }
             } catch (IOException | ClassNotFoundException e) {
                 logger.log(Level.SEVERE, e.getMessage());
             }
         }
     }
+
+
 
     private void loadData() {
         try {
@@ -310,6 +323,11 @@ public class Server {
     private void attachUserObserver(String city, ObserverClass obs) {
         observersByCity.computeIfAbsent(city, k -> new ArrayList<>()).add(obs);
         System.out.println("Added city: " + city + " to userID: " + obs.getObsID());
+    }
+
+    private void attachObsToGroup(Integer groupID, ObserverClass groupObs) {
+        usersInGroup.computeIfAbsent(groupID, k-> new ArrayList<>()).add(groupObs);
+        System.out.println("Added userID: "+groupObs.getObsID()+" to groupID: "+groupID);
     }
 
     private void updateLoggedUsers(int userID, boolean isConnected, UserTypes type) {

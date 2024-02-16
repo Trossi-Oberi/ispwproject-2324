@@ -107,6 +107,31 @@ public class CFacade {
         loginController.closeLoginSession();
     }
 
+    public int createGroup(String groupName, int eventID) {
+        if (groupController == null) {
+            groupController = new CGroup();
+        }
+        int res = groupController.createGroup(groupName,eventID); //res == new groupID
+        //messaggio al server
+        if (notificationController == null){
+            notificationController = new CNotification();
+        }
+        //passo res come parametro notifierID, res e' l'id del gruppo creato
+        //notificationController.sendNotification(null,NotificationTypes.GroupCreated,LoggedUser.getUserID(),res,null,null,null,null);
+        return res;
+    }
+
+    public void joinGroup(Integer groupID) {
+        if (groupController == null) {
+            groupController = new CGroup();
+        }
+        groupController.joinGroup(groupID);
+        if (notificationController == null){
+            notificationController = new CNotification();
+        }
+        notificationController.sendNotification(null,NotificationTypes.GroupJoin,LoggedUser.getUserID(),null,groupID,null,null,null);
+    }
+
 
     //Metodi che non interagiscono col server
     public ArrayList<BEvent> retrieveEvents(UserTypes userType, String className) {
@@ -209,4 +234,6 @@ public class CFacade {
         }
         return groupController.getGroupNameByGroupID(groupID);
     }
+
+
 }

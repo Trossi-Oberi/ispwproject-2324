@@ -23,6 +23,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.logging.Level;
 
 public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClickListener {
@@ -66,6 +67,7 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
                     groupButton.setText("Group chat");
                     groupButton.setOnMouseClicked(event -> {
                         //OPEN GROUP CHAT
+                        //cfacade.openGroupChat(item.getGroupID());
                         //TODO: NOT IMPLENTED
                     });
                 } else if (item.getGroupID() != null && !res) {
@@ -73,13 +75,24 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
                     groupButton.setText("Join group");
                     groupButton.setOnMouseClicked(event -> {
                         //JOIN GROUP
+                        //cfacade.joinGroup(LoggedUser.getUserID(), item.getGroupID());
+
                         //TODO: NOT IMPLENTED
                     });
                 } else {
                     groupName.setText("No group");
                     groupButton.setText("Create group");
                     groupButton.setOnMouseClicked(event -> {
-                        //CREATE GROUP
+                        //CREATE GROUP (AND JOIN)
+                        String groupName = askUserForGroupName();
+                        int createdGroupID = cfacade.createGroup(groupName, upComingEventsBeans.get(getIndex()).getEventID());
+                        if (createdGroupID>0){
+                            System.out.println("nuovo gruppo creato con successo");
+                            cfacade.joinGroup(createdGroupID);
+                            System.out.println("gruppo joinato con successo");
+                            changeGUI(event,"YourEventsUser.fxml");
+                        }
+
                         //TODO: NOT IMPLENTED
                     });
                 }
@@ -93,6 +106,19 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
                 hbox.getChildren().addAll(groupName, spacer, groupButton);
                 setGraphic(hbox);
             }
+        }
+        private String askUserForGroupName(){
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("Insert group name");
+            dialog.setHeaderText("Group name");
+            dialog.setContentText("Group name:");
+
+            // Visualizzazione del dialogo e attesa della chiusura
+            Optional<String> result = dialog.showAndWait();
+
+            // Salvataggio del testo inserito dall'utente in una variabile Stringa
+            String userInput = result.orElse("");
+            return userInput;
         }
     }
 

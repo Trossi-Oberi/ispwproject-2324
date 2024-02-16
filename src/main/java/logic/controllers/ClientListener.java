@@ -91,7 +91,10 @@ public class ClientListener extends Thread implements Runnable{
                             listenerRunning = false;
                             break;
 
-
+                        case GroupJoin:
+                            System.out.println("SERVER: group with id "+incomingMsg.getEventID()+" joined succesfully");
+                            semaphore.release(2);
+                            break;
                     }
                 }
             }

@@ -43,30 +43,40 @@ create table UserEvent
 
 create table Notifications
 (
-    id       INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    notified_id  INT         NOT NULL,
-    type     VARCHAR(50) NOT NULL,
-    event_id INT NOT NULL,
-    notifier_id INT NOT NULL,
+    id          INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    notified_id INT         NOT NULL,
+    type        VARCHAR(50) NOT NULL,
+    event_id    INT         NOT NULL,
+    notifier_id INT         NOT NULL,
     FOREIGN KEY (event_id) REFERENCES Events (event_id) ON DELETE CASCADE
 );
 
 create table EventGroups
 (
-    group_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    group_id   INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
     group_name VARCHAR(50) NOT NULL,
-    event_id INT NOT NULL,
-    owner_id INT NOT NULL,
+    event_id   INT         NOT NULL,
+    owner_id   INT         NOT NULL,
     FOREIGN KEY (event_id) REFERENCES Events (event_id) ON DELETE CASCADE
 );
 
 create table UserGroup
 (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
+    id       INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id  INT NOT NULL,
     group_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE,
     FOREIGN KEY (group_id) REFERENCES EventGroups (group_id) ON DELETE CASCADE
+);
+
+create table ChatGroup
+(
+    id       INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    sender_id  INT NOT NULL,
+    message  VARCHAR(50),
+    group_id INT NOT NULL,
+    FOREIGN KEY (sender_id) REFERENCES Users (id) ON DELETE CASCADE ,
+    FOREIGN KEY (group_id) REFERENCES  EventGroups (group_id) ON DELETE CASCADE
 );
 
 
@@ -107,11 +117,11 @@ values (NULL, 'Nicolas', 2, 'Uane', 'Frosinone', 'Anagni', 'Via Casilina', 'Pop'
         LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp2.jpg'),
         'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp2.jpg');
 
-insert into EventGroups(group_id, group_name, event_id, owner_id)
+/*insert into EventGroups(group_id, group_name, event_id, owner_id)
 values (1, 'prova1', 1, 3);
 
-insert into UserGroup(id,user_id,group_id) values
-    (NULL,3,1);
+insert into UserGroup(id, user_id, group_id)
+values (NULL, 3, 1);*/
 
 insert into UserEvent(id, user_id, event_id)
 values (NULL, 1, 3),

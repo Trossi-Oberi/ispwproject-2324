@@ -11,14 +11,19 @@ public class CGroup {
     private GroupDAO groupDAO;
 
 
-    public CGroup(){
+    public CGroup() {
         groupDAO = new GroupDAO();
     }
 
-    public ArrayList<BGroup> retrieveGroups(ArrayList <BEvent> upcEventsList){
+    //METODI CHE INTERAGISCONO COL SERVER
+    /*joinGroup();    //associa al group id l'arraylist di user id
+    leaveGroup();   //rimuove l'associazione
+    deleteGroup();   //cancella la entry dalla hashmap*/
+
+    public ArrayList<BGroup> retrieveGroups(ArrayList<BEvent> upcEventsList) {
         MGroup groupModel;
-        ArrayList <MGroup> groupsModels = new ArrayList<>();
-        for (BEvent event : upcEventsList){
+        ArrayList<MGroup> groupsModels = new ArrayList<>();
+        for (BEvent event : upcEventsList) {
             groupModel = groupDAO.retrieveGroupByEventID(event.getEventID());
             groupsModels.add(groupModel);
         }
@@ -29,7 +34,7 @@ public class CGroup {
     public BGroup getGroupByEventID(int eventID) {
         MGroup model = groupDAO.retrieveGroupByEventID(eventID);
         BGroup bean = new BGroup();
-        if (model.getGroupID()!=null){
+        if (model.getGroupID() != null) {
             bean.setGroupID(model.getGroupID());
             bean.setGroupName(model.getGroupName());
             bean.setEventID(model.getEventID());
@@ -39,10 +44,10 @@ public class CGroup {
     }
 
     private ArrayList<BGroup> makeBeanListFromModelList(ArrayList<MGroup> groupsModels) {
-        ArrayList <BGroup> groupBeans = new ArrayList<>();
-        for (MGroup model : groupsModels){
+        ArrayList<BGroup> groupBeans = new ArrayList<>();
+        for (MGroup model : groupsModels) {
             BGroup bean = new BGroup();
-            if (model.getGroupID()!=null){
+            if (model.getGroupID() != null) {
                 bean.setGroupID(model.getGroupID());
                 bean.setGroupName(model.getGroupName());
                 bean.setEventID(model.getEventID());
@@ -60,5 +65,13 @@ public class CGroup {
 
     public String getGroupNameByGroupID(Integer groupID) {
         return groupDAO.getGroupName(groupID);
+    }
+
+    public int createGroup(String groupName, int eventID) {
+        return groupDAO.createGroup(groupName, eventID);
+    }
+
+    public void joinGroup(Integer groupID) {
+        groupDAO.joinGroup(groupID);
     }
 }
