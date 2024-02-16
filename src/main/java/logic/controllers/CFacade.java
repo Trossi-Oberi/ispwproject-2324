@@ -14,6 +14,7 @@ public class CFacade {
     private CRegistration regController;
     private CManageEvent manageEventController;
     private CNotification notificationController;
+    private CGroup groupController;
 
     public CFacade() {
     }
@@ -179,5 +180,12 @@ public class CFacade {
             notificationController = new CNotification();
         }
         notificationController.deleteNotification(notificationID, notificationsList, index);
+    }
+
+    public ArrayList<BGroup> retrieveGroups(ArrayList<BEvent> upcomingEventsList) {
+        if (groupController == null){
+            groupController = new CGroup();
+        }
+        return groupController.retrieveGroups(upcomingEventsList);
     }
 }

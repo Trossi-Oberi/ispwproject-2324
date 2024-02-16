@@ -51,6 +51,17 @@ create table Notifications
     FOREIGN KEY (event_id) REFERENCES Events (event_id) ON DELETE CASCADE
 );
 
+create table EventGroups
+(
+    group_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    group_name VARCHAR(50) NOT NULL,
+    event_id INT NOT NULL,
+    user_id INT NOT NULL,
+    owner_id INT NOT NULL,
+    FOREIGN KEY (event_id) REFERENCES Events (event_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE
+);
+
 create table Provinces
 (
     id   INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -84,6 +95,9 @@ values (NULL, 'Nicolas', 2, 'Uane', 'Frosinone', 'Anagni', 'Via Casilina', 'Pop'
         '22:30',
         LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp2.jpg'),
         'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp2.jpg');
+
+insert into EventGroups(group_id, group_name, event_id, user_id, owner_id)
+values (1, 'prova1', 1, 3, 3);
 
 insert into UserEvent(id, user_id, event_id)
 values (NULL, 1, 3),

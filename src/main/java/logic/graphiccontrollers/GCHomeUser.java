@@ -8,6 +8,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 
 import logic.beans.BEvent;
+import logic.beans.BGroup;
 import logic.interfaces.DoubleClickListener;
 import logic.utils.Alerts;
 import logic.utils.LoggedUser;
@@ -34,14 +35,20 @@ public class GCHomeUser extends EssentialGUI implements DoubleClickListener{
     private ListView<String> groupsListView;
 
     private ArrayList<BEvent> eventsList = new ArrayList<>();
+    private ArrayList<BGroup> groupsList = new ArrayList<>();
     private ArrayList<BEvent> upcomingEventsList = new ArrayList<>();
 
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     public void initialize(){
+        //Retrieve eventi
         eventsList = cfacade.retrieveEvents(LoggedUser.getUserType(), this.getClass().getSimpleName());
         populateEventsListView();
         setupEventClickListener();
+
+        //Retrieve gruppi
+        groupsList = cfacade.retrieveGroups(upcomingEventsList);
+        populateGroupsListView();
     }
 
 /*    public void reload(){
@@ -60,8 +67,17 @@ public class GCHomeUser extends EssentialGUI implements DoubleClickListener{
             if (LocalDate.now().isBefore(date)) {
                 this.eventsListView.getItems().add(bEvent.getEventName());
                 this.musicListView.getItems().add(bEvent.getEventMusicGenre());
-                this.groupsListView.getItems().add("No group");
                 this.upcomingEventsList.add(bEvent);
+            }
+        }
+    }
+
+    private void populateGroupsListView() {
+        for (BGroup bGroup : groupsList){
+            if (bGroup.getGroupID()!=null){
+                this.groupsListView.getItems().add(bGroup.getGroupName());
+            }else{
+                this.groupsListView.getItems().add("No group");
             }
         }
     }
