@@ -1,7 +1,6 @@
 package logic.controllers;
 
 import logic.beans.*;
-import logic.chat.CGroupChat;
 import logic.exceptions.DuplicateEventParticipation;
 import logic.utils.LoggedUser;
 import logic.utils.NotificationTypes;

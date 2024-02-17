@@ -1,4 +1,4 @@
-package logic.chat;
+package logic.controllers;
 
 import logic.beans.BGroupMessage;
 import logic.dao.ChatDAO;
