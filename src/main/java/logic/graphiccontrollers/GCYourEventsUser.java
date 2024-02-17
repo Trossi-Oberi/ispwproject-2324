@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Font;
 import logic.beans.BEvent;
 import logic.beans.BGroup;
 import logic.interfaces.DoubleClickListener;
@@ -63,34 +64,19 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
                 // Personalizzazione del pulsante in base allo stato del gruppo e dell'appartenenza
                 boolean res = cfacade.userInGroup(LoggedUser.getUserID(), item.getGroupID());
                 Button groupButton = new Button();
+                groupName.setFont(new Font("System", 12));
+                groupButton.setFont(new Font("System", 9));
                 if (item.getGroupID() != null && res) {
                     groupName.setText(item.getGroupName());
+
                     groupButton.setText("Group chat");
                     groupButton.setOnMouseClicked(event -> {
                         //OPEN GROUP CHAT
-                        //cfacade.openGroupChat(groupsBeans.get(getIndex()).getGroupID());
+                        setupGroupChat(groupsBeans.get(getIndex()).getGroupID());
+                        changeGUI(event, "GroupChat.fxml");
                         //TODO: NOT IMPLENTED
                         //
                         //TODO: NOT IMPLEMENTED
-
-                        try {
-                            URL loc = EssentialGUI.class.getResource("GroupChat.fxml");
-                            FXMLLoader loader = new FXMLLoader(loc);
-                            Parent root = null;
-                            if (loc != null) {
-                                root = loader.load();
-                            }
-                            scene = new Scene(root);
-                            scene.getStylesheets().add(Objects.requireNonNull(EssentialGUI.class.getResource("application.css")).toExternalForm());
-
-                            GCGroupChat groupChatGC = loader.getController();
-                            groupChatGC.initGroupChat(item.getGroupID());
-                        } catch (IOException | NullPointerException e) {
-                            logger.log(Level.SEVERE, "Cannot load scene\n", e);
-                        } catch (RuntimeException e) {
-                            throw new RuntimeException(e);
-                        }
-                        nextGuiOnClick(event);
 
                     });
                 } else if (item.getGroupID() != null && !res) {
@@ -99,7 +85,7 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
                     groupButton.setOnMouseClicked(event -> {
                         //JOIN GROUP
                         cfacade.joinGroup(groupsBeans.get(getIndex()).getGroupID());
-
+                        changeGUI(event, "YourEventsUser.fxml");
                         //TODO: NOT IMPLEMENTED
                     });
                 } else {
@@ -149,9 +135,34 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
     public void initialize() {
         this.eventsParticipationList = cfacade.retrieveEvents(LoggedUser.getUserType(), this.getClass().getSimpleName());
         if (eventsParticipationList != null) {
+            setCellFactory(upComingEventsLV);
+            setCellFactory(upComingTimeLV);
+            setCellFactory(upcomingMusicLV);
+            setCellFactory(pastEventsLV);
+            setCellFactory(pastTimeLV);
+            setCellFactory(pastMusicLV);
             populateLVs();
             setupEventClickListener();
         }
+    }
+
+    private void setCellFactory(ListView<String> lv) {
+        lv.setCellFactory(param -> new ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    setText(item);
+
+                    // Imposta la dimensione del testo della cella
+                    setAlignment(Pos.CENTER);
+                    setFont(new Font("System", 13));
+                }
+            }
+        });
     }
 
     private void populateLVs() {
@@ -232,6 +243,27 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
             throw new RuntimeException(e);
         }
         nextGuiOnClick(event);
+    }
+
+    private void setupGroupChat(int groupID){
+        try {
+            URL loc = EssentialGUI.class.getResource("GroupChat.fxml");
+            FXMLLoader loader = new FXMLLoader(loc);
+            Parent root = null;
+            if (loc != null) {
+                root = loader.load();
+            }
+            scene = new Scene(root);
+            scene.getStylesheets().add(Objects.requireNonNull(EssentialGUI.class.getResource("application.css")).toExternalForm());
+
+            GCGroupChat groupChatGC = loader.getController();
+            groupChatGC.initGroupChat(groupID);
+        } catch (IOException | NullPointerException e) {
+            logger.log(Level.SEVERE, "Cannot load scene\n", e);
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 }

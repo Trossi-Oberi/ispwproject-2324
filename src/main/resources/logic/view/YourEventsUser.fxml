@@ -108,8 +108,8 @@
             <Rectangle2D />
          </viewport>
       </ImageView>
-      <ListView fx:id="upComingEventsLV" layoutX="17.0" layoutY="139.0" prefHeight="190.0" prefWidth="278.0" />
-      <Text layoutX="81.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Upcoming Events">
+      <ListView fx:id="upComingEventsLV" layoutX="17.0" layoutY="139.0" prefHeight="190.0" prefWidth="257.0" />
+      <Text layoutX="71.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Upcoming Events">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
@@ -119,7 +119,7 @@
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Text>
-      <Text layoutX="544.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time &amp; Date">
+      <Text layoutX="530.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time &amp; Date">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
@@ -129,8 +129,8 @@
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Text>
-      <ListView fx:id="upComingTimeLV" layoutX="537.0" layoutY="139.0" prefHeight="190.0" prefWidth="118.0" />
-      <ListView fx:id="upcomingMusicLV" layoutX="667.0" layoutY="139.0" prefHeight="190.0" prefWidth="118.0" />
+      <ListView fx:id="upComingTimeLV" layoutX="514.0" layoutY="139.0" prefHeight="190.0" prefWidth="135.0" />
+      <ListView fx:id="upcomingMusicLV" layoutX="661.0" layoutY="139.0" prefHeight="190.0" prefWidth="124.0" />
       <ListView fx:id="pastTimeLV" layoutX="439.0" layoutY="381.0" prefHeight="190.0" prefWidth="180.0" />
       <ListView fx:id="pastMusicLV" layoutX="634.0" layoutY="381.0" prefHeight="190.0" prefWidth="150.0" />
       <ListView fx:id="pastEventsLV" layoutX="17.0" layoutY="382.0" prefHeight="189.0" prefWidth="407.0" />
@@ -144,8 +144,8 @@
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Text>
-      <ListView fx:id="groupsLV" layoutX="309.0" layoutY="139.0" prefHeight="190.0" prefWidth="216.0" />
-      <Text layoutX="385.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Groups">
+      <ListView fx:id="groupsLV" layoutX="286.0" layoutY="139.0" prefHeight="190.0" prefWidth="216.0" />
+      <Text layoutX="368.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Groups">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>

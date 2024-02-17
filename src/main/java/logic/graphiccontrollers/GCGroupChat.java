@@ -39,6 +39,6 @@ public class GCGroupChat extends EssentialGUI {
     }
 
     public void initGroupChat(Integer groupID) {
-        cfacade.openGroupChat(groupID);
+        //cfacade.retrieveGroupChat(groupID);
     }
 }
