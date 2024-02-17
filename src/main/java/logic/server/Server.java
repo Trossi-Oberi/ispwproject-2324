@@ -28,7 +28,7 @@ public class Server {
     private Map<Integer, ObserverClass> organizersByEventID = new HashMap<>();
     private Map<Integer, Boolean> connectedUsers = new HashMap<>();
     private Map<Integer, Boolean> connectedOrganizers = new HashMap<>();
-    private Map<Integer, List<ObserverClass>> usersInGroup = new HashMap<>();
+    private Map<Integer, List<ObserverClass>> usersInGroups = new HashMap<>();
 
     //TODO: hash map group con key = groupID e lista di client id associati al gruppo (come da video YT :S)
     //private Map<Integer, List<Integer>> activeUsersInGroup = new HashMap<>();
@@ -275,11 +275,13 @@ public class Server {
                 user.setOut(out);
             }
         }
-        //aggiorna canale di output nell'hashmap dei gruppi
-        for (Map.Entry<Integer, List<ObserverClass>> entry : usersInGroup.entrySet()) {
-            for (ObserverClass user : entry.getValue()) {   //entry.getValue() mi restituisce una lista di observers
-                if (user.getObsID() == clientID) {
-                    user.setOut(out);
+        synchronized (usersInGroups){
+            //aggiorna canale di output nell'hashmap dei gruppi
+            for (Map.Entry<Integer, List<ObserverClass>> entry : usersInGroups.entrySet()) {
+                for (ObserverClass user : entry.getValue()) {   //entry.getValue() mi restituisce una lista di observers
+                    if (user.getObsID() == clientID) {
+                        user.setOut(out);
+                    }
                 }
             }
         }
@@ -334,7 +336,7 @@ public class Server {
     }
 
     private void attachObsToGroup(Integer groupID, ObserverClass groupObs) {
-        usersInGroup.computeIfAbsent(groupID, k -> new ArrayList<>()).add(groupObs);
+        usersInGroups.computeIfAbsent(groupID, k -> new ArrayList<>()).add(groupObs);
         System.out.println("Added userID: " + groupObs.getObsID() + " to groupID: " + groupID);
     }
 
