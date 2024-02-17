@@ -131,7 +131,7 @@ public class Server {
                                 attachUserObserver(noti.getCity(), usrObs);
                             }
                             //notifica l'utente
-                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.UserRegistration, noti.getClientID(), null, null,null , null, null);
+                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.UserRegistration, noti.getClientID(), null, null, null, null, null);
                             sendNotificationToClient(response, out);
                             clientRunning = false;
                             break;
@@ -173,7 +173,7 @@ public class Server {
                                 attachOrgObserver(noti.getEventID(), orgObs);
                             }
                             //notifica l'organizer
-                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.EventAdded, noti.getClientID(),null , null,null , null, null);
+                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.EventAdded, noti.getClientID(), null, null, null, null, null);
                             sendNotificationToClient(response, out);
 
                             //notifica l'utente
@@ -186,7 +186,7 @@ public class Server {
                                 //rimuove l'associazione tra event-id e organizer nella hashmap
                                 organizersByEventID.remove(noti.getEventID());
                             }
-                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.EventDeleted, null,null , noti.getEventID(),null , null, null);
+                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.EventDeleted, null, null, noti.getEventID(), null, null, null);
                             sendNotificationToClient(response, out);
                             break;
 
@@ -221,18 +221,18 @@ public class Server {
                             }
 
                             //notifica l'utente
-                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.Disconnected, noti.getClientID(), null, null,null , null, null);
+                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.Disconnected, noti.getClientID(), null, null, null, null, null);
                             sendNotificationToClient(response, out);
                             clientRunning = false;
                             break;
 
                         case GroupJoin:
-                            System.out.println("User with id = "+noti.getClientID()+", joined group with id = "+noti.getEventID()); //event viene usato come group
+                            System.out.println("User with id = " + noti.getClientID() + ", joined group with id = " + noti.getEventID()); //event viene usato come group
                             //AGGIORNO HASHMAP
-                            ObserverClass groupObs = new ObserverClass(noti.getClientID(),out);
+                            ObserverClass groupObs = new ObserverClass(noti.getClientID(), out);
                             attachObsToGroup(noti.getEventID(), groupObs);
-                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.GroupJoin, null,null,noti.getEventID(),null,null,null);
-                            sendNotificationToClient(response,out);
+                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.GroupJoin, null, null, noti.getEventID(), null, null, null);
+                            sendNotificationToClient(response, out);
                             break;
                     }
 
@@ -242,7 +242,6 @@ public class Server {
             }
         }
     }
-
 
 
     private void loadData() {
@@ -269,10 +268,19 @@ public class Server {
     }
 
     private void updateUserOut(String city, int clientID, ObjectOutputStream out) {
+        //aggiorna canale di output nell'hashmap delle citta'
         List<ObserverClass> users = observersByCity.get(city);
         for (ObserverClass user : users) {
             if (user.getObsID() == clientID) {
                 user.setOut(out);
+            }
+        }
+        //aggiorna canale di output nell'hashmap dei gruppi
+        for (Map.Entry<Integer, List<ObserverClass>> entry : usersInGroup.entrySet()) {
+            for (ObserverClass user : entry.getValue()) {   //entry.getValue() mi restituisce una lista di observers
+                if (user.getObsID() == clientID) {
+                    user.setOut(out);
+                }
             }
         }
     }
@@ -326,8 +334,8 @@ public class Server {
     }
 
     private void attachObsToGroup(Integer groupID, ObserverClass groupObs) {
-        usersInGroup.computeIfAbsent(groupID, k-> new ArrayList<>()).add(groupObs);
-        System.out.println("Added userID: "+groupObs.getObsID()+" to groupID: "+groupID);
+        usersInGroup.computeIfAbsent(groupID, k -> new ArrayList<>()).add(groupObs);
+        System.out.println("Added userID: " + groupObs.getObsID() + " to groupID: " + groupID);
     }
 
     private void updateLoggedUsers(int userID, boolean isConnected, UserTypes type) {

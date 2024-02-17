@@ -45,6 +45,7 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
     private ArrayList<BEvent> eventsParticipationList = new ArrayList<>();
     private ArrayList<BEvent> upComingEventsBeans = new ArrayList<>();
     private ArrayList<BEvent> pastEventsBeans = new ArrayList<>();
+    private ArrayList<BGroup> groupsBeans = new ArrayList<>();
 
     // Classe per personalizzare la visualizzazione delle celle nella ListView
     private class GroupListCell extends ListCell<BGroup> {
@@ -67,6 +68,8 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
                     groupButton.setText("Group chat");
                     groupButton.setOnMouseClicked(event -> {
                         //OPEN GROUP CHAT
+                        //cfacade.openGroupChat(groupsBeans.get(getIndex()).getGroupID());
+                        //TODO: NOT IMPLENTED
                         //
                         //TODO: NOT IMPLEMENTED
 
@@ -95,7 +98,7 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
                     groupButton.setText("Join group");
                     groupButton.setOnMouseClicked(event -> {
                         //JOIN GROUP
-                        //cfacade.joinGroup(LoggedUser.getUserID(), item.getGroupID());
+                        cfacade.joinGroup(groupsBeans.get(getIndex()).getGroupID());
 
                         //TODO: NOT IMPLEMENTED
                     });
@@ -137,8 +140,7 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
             Optional<String> result = dialog.showAndWait();
 
             // Salvataggio del testo inserito dall'utente in una variabile Stringa
-            String userInput = result.orElse("");
-            return userInput;
+            return result.orElse("");
         }
     }
 
@@ -161,11 +163,13 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
             //problema: se evento ha stesso data di oggi viene considerato passato
             if (LocalDate.now().isBefore(date)) {
                 upComingEventsBeans.add(bEvent);
+                BGroup group = cfacade.getGroupByEventID(bEvent.getEventID());
+                groupsBeans.add(group);
                 this.upComingEventsLV.getItems().add(bEvent.getEventName());
 
                 //GROUP
                 groupsLV.setCellFactory(param -> new GroupListCell());
-                groupsLV.getItems().add(cfacade.getGroupByEventID(bEvent.getEventID()));
+                groupsLV.getItems().add(group);
 
                 this.upComingTimeLV.getItems().add(formatTimeAndDate(bEvent.getEventDate(), bEvent.getEventTime()));
                 this.upcomingMusicLV.getItems().add(bEvent.getEventMusicGenre());
