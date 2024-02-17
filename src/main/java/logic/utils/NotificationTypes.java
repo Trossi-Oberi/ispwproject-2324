@@ -5,6 +5,7 @@ public enum NotificationTypes {
     EventAdded,
     EventDeleted,
     UserEventParticipation,
+    UserEventRemoval,
     LoggedIn,
     Disconnected,
     GroupJoin,

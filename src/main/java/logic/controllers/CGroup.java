@@ -74,4 +74,12 @@ public class CGroup {
     public boolean joinGroup(Integer groupID) {
         return groupDAO.joinGroup(groupID);
     }
+
+    public boolean leaveGroup(Integer groupID){
+        return groupDAO.leaveGroup(groupID);
+    }
+
+    public boolean checkUserInGroup(Integer groupID) {
+        return groupDAO.checkUserInGroup(groupID);
+    }
 }

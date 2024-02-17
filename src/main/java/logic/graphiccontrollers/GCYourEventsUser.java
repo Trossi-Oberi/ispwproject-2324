@@ -92,15 +92,11 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
                     groupButton.setOnMouseClicked(event -> {
                         //CREATE GROUP (AND JOIN)
                         String groupName = askUserForGroupName();
-                        int createdGroupID = cfacade.createGroup(groupName, upComingEventsBeans.get(getIndex()).getEventID());
-                        if (createdGroupID>0){
-                            System.out.println("Successfully created new group");
-                            if(cfacade.joinGroup(createdGroupID)){
-                                System.out.println("Successfully joined group");
-                                changeGUI(event,"YourEventsUser.fxml");
-                            } else {
-                                alert.displayAlertPopup(Alerts.ERROR, "Error while joining group");
-                            }
+                        if(cfacade.createGroup(groupName, upComingEventsBeans.get(getIndex()).getEventID())){
+                            System.out.println("Successfully created and joined new group");
+                            changeGUI(event,"YourEventsUser.fxml");
+                        } else {
+                            alert.displayAlertPopup(Alerts.ERROR, "Error while joining group");
                         }
                     });
                 }

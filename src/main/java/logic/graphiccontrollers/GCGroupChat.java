@@ -34,6 +34,7 @@ public class GCGroupChat extends EssentialGUI {
 
     @FXML
     private Button sendBtn;
+
     private Integer groupID;
 
     private ArrayList<BGroupMessage> messages = new ArrayList<>();
@@ -42,6 +43,12 @@ public class GCGroupChat extends EssentialGUI {
     void leaveGroup(MouseEvent event) {
         //query al database per uscire dal gruppo
         //anche notifica al server che sono uscito (rimuovere observer da hashmap)
+        if(cfacade.leaveGroup(groupID)){
+            alert.displayAlertPopup(Alerts.INFORMATION, "Group left successfully!");
+            goToYourEvents(event);
+        } else {
+            alert.displayAlertPopup(Alerts.INFORMATION, "Group leaving failed :(");
+        }
     }
 
     @FXML

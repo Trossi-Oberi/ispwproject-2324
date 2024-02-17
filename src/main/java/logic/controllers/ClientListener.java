@@ -58,29 +58,39 @@ public class ClientListener extends Thread implements Runnable{
                                 //rilascia semaforo solo per organizer per non bloccare l'applicazione
                                 semaphore.release(2);
                             } else{
-                                //nuova notifica (static)
-                                //System.out.println("New event in your city");
 
-                                //chiama la giusta funzione in base alla GUI
+                                //chiama la giusta funzione in base alla GUI per lo user
                                 notificationView.showNotification(incomingMsg.getNotificationType());
-
                             }
+                            break;
+
+                        case EventDeleted:
+                            //rilascia semaforo solo per organizer per non bloccare l'applicazione
+                            semaphore.release(2);
+                            System.out.println("SERVER: Event " + incomingMsg.getEventID() + " deleted successfully!");
                             break;
 
                         case UserEventParticipation:
                             if (LoggedUser.getUserType() == UserTypes.USER){
                                 semaphore.release(2);
                             }else{
-                                //notifica popup per l'organizer
-                                //System.out.println("New user participation to your event");
-
-                                //chiama la giusta funzione in base alla GUI
+                                //chiama la giusta funzione in base alla GUI per notificare l'organizer
                                 notificationView.showNotification(incomingMsg.getNotificationType());
                             }
                             break;
 
-                        case EventDeleted:
-                            System.out.println("SERVER: Evento "+incomingMsg.getEventID()+" cancellato con successo");
+                        case UserEventRemoval:
+                            semaphore.release(2);
+                            System.out.println("SERVER: user " + incomingMsg.getClientID() + " removed participation to event " + incomingMsg.getEventID() + " successfully!");
+                            break;
+
+                        case GroupJoin:
+                            System.out.println("SERVER: group with id "+incomingMsg.getEventID()+" joined successfully");
+                            semaphore.release(2);
+                            break;
+
+                        case GroupLeave:
+                            System.out.println("SERVER: user " + LoggedUser.getUserID() + " left group " + incomingMsg.getEventID());
                             semaphore.release(2);
                             break;
 
@@ -89,11 +99,6 @@ public class ClientListener extends Thread implements Runnable{
                             //chiudo i canali di comunicazione del client con il server
                             semaphore.release(2);
                             listenerRunning = false;
-                            break;
-
-                        case GroupJoin:
-                            System.out.println("SERVER: group with id "+incomingMsg.getEventID()+" joined succesfully");
-                            semaphore.release(2);
                             break;
                     }
                 }

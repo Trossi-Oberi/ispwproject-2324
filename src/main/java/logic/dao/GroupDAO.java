@@ -1,5 +1,6 @@
 package logic.dao;
 
+import logic.controllers.ObserverClass;
 import logic.model.MGroup;
 import logic.utils.LoggedUser;
 import logic.utils.SingletonDBSession;
@@ -8,6 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 
 import static logic.view.EssentialGUI.logger;
@@ -103,6 +107,50 @@ public class GroupDAO {
             return false;
         }
         finally {
+            SingletonDBSession.getInstance().closeConn();
+        }
+    }
+
+    public boolean leaveGroup(Integer groupID) {
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("DELETE FROM usergroup WHERE (user_id = ? AND group_id = ?)")){
+            statement.setInt(1, LoggedUser.getUserID());
+            statement.setInt(2, groupID);
+            statement.execute();
+            return true;
+        }
+        catch (SQLException e) {
+            logger.log(Level.SEVERE, "SQLException occurred while leaving group");
+            return false;
+        }
+        finally {
+            SingletonDBSession.getInstance().closeConn();
+        }
+    }
+
+    public void populateUsersInGroups(Map<Integer, List<ObserverClass>> usersInGroups) {
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT user_id, group_id FROM usergroup")){
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                ObserverClass obs = new ObserverClass(rs.getInt(1), null);
+                usersInGroups.computeIfAbsent(rs.getInt(2), k -> new ArrayList<>()).add(obs);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "SQLException occurred while populating UsersInGroups hashmap");
+        } finally {
+            SingletonDBSession.getInstance().closeConn();
+        }
+    }
+
+    public boolean checkUserInGroup(Integer groupID) {
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT 1 FROM usergroup WHERE (user_id = ? AND group_id = ?)")){
+            statement.setInt(1, LoggedUser.getUserID());
+            statement.setInt(2, groupID);
+            ResultSet rs = statement.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "SQLException occurred while checking user in group");
+            return false;
+        } finally {
             SingletonDBSession.getInstance().closeConn();
         }
     }

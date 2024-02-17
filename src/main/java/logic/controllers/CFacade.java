@@ -18,6 +18,7 @@ public class CFacade {
     private CGroupChat chatController;
 
     public CFacade() {
+        //empty
     }
 
     //Metodi che interagiscono col server inviando notifiche
@@ -49,18 +50,57 @@ public class CFacade {
         return res;
     }
 
-    public boolean participateToEvent(BEvent bean) {
+    public boolean participateToEvent(BEvent eventBean) {
         if (manageEventController == null) {
             manageEventController = new CManageEvent();
         }
-        boolean res = manageEventController.participateToEvent(bean);
+        boolean res = manageEventController.participateToEvent(eventBean);
         if (res) {
             if (notificationController == null) {
                 notificationController = new CNotification();
             }
-            notificationController.sendNotification(null, NotificationTypes.UserEventParticipation, LoggedUser.getUserID(), null, bean.getEventID(), null, null, null);
+            notificationController.sendNotification(null, NotificationTypes.UserEventParticipation, LoggedUser.getUserID(), null, eventBean.getEventID(), null, null, null);
         }
         return res;
+    }
+
+    public boolean removeEventParticipation(BEvent eventBean) {
+        boolean result = false;
+
+        if (manageEventController == null) {
+            manageEventController = new CManageEvent();
+        }
+        boolean res = manageEventController.removeEventParticipation(eventBean);
+        if (res) {
+            notificationController.sendNotification(null, NotificationTypes.UserEventRemoval, LoggedUser.getUserID(), null, eventBean.getEventID(), null, null, null);
+            Integer groupID = getGroupByEventID(eventBean.getEventID()).getGroupID();
+            //se il gruppo non esiste salto il leaveGroup
+            if(groupID == null || !checkUserInGroup(groupID)){
+                //gruppo non esistente o utente non nel gruppo
+                return true;
+            }
+
+            //eseguo questo se gruppo esiste e l'utente ne fa parte
+            if(groupController == null){
+                groupController = new CGroup();
+            }
+            result = groupController.leaveGroup(groupID);
+            if(result) {
+                if (notificationController == null) {
+                    notificationController = new CNotification();
+                }
+                notificationController.sendNotification(null, NotificationTypes.GroupLeave, LoggedUser.getUserID(), null, groupID, null, null, null);
+            }
+        }
+        return result;
+    }
+
+    private boolean checkUserInGroup(Integer groupID) {
+        if(groupController == null){
+            groupController = new CGroup();
+        }
+
+        return groupController.checkUserInGroup(groupID);
     }
 
     public boolean checkPreviousEventParticipation(BEvent eventBean) {
@@ -70,12 +110,7 @@ public class CFacade {
         return manageEventController.checkPreviousEventParticipation(eventBean);
     }
 
-    public boolean removeEventParticipation(BEvent eventBean) {
-        if (manageEventController == null) {
-            manageEventController = new CManageEvent();
-        }
-        return manageEventController.removeEventParticipation(eventBean);
-    }
+
 
     public boolean registerUser(BUserData bean) throws RuntimeException {
         if (regController == null) {
@@ -122,11 +157,17 @@ public class CFacade {
         loginController.closeLoginSession();
     }
 
-    public int createGroup(String groupName, int eventID) {
+    public boolean createGroup(String groupName, int eventID) {
+        boolean res = false;
+
         if (groupController == null) {
             groupController = new CGroup();
         }
-        return groupController.createGroup(groupName,eventID); //res == new groupID
+        int newGroupID = groupController.createGroup(groupName,eventID); //res == new groupID
+        if(newGroupID > 0){
+            res = groupController.joinGroup(newGroupID);
+        }
+        return res;
     }
 
     public boolean joinGroup(Integer groupID) {
@@ -134,7 +175,7 @@ public class CFacade {
             groupController = new CGroup();
         }
         boolean res = groupController.joinGroup(groupID);
-        if(res) {
+        if (res) {
             if (notificationController == null) {
                 notificationController = new CNotification();
             }
@@ -142,6 +183,21 @@ public class CFacade {
             notificationController.sendNotification(null, NotificationTypes.GroupJoin, LoggedUser.getUserID(), null, groupID, null, null, null);
         }
         return res;
+    }
+
+    public boolean leaveGroup(Integer groupID) {
+        if(groupController == null){
+            groupController = new CGroup();
+        }
+
+        boolean result = groupController.leaveGroup(groupID);
+        if (result) {
+            if (notificationController == null) {
+                notificationController = new CNotification();
+            }
+            notificationController.sendNotification(null, NotificationTypes.GroupLeave, LoggedUser.getUserID(), null, groupID, null, null, null);
+        }
+        return result;
     }
 
     public boolean sendMessageToGroup(Integer groupID, String text) {
@@ -268,5 +324,6 @@ public class CFacade {
         }
         return chatController.retrieveGroupChat(groupID);
     }
+
 
 }

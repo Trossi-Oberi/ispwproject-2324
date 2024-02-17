@@ -101,12 +101,6 @@ public class GCHomeUser extends EssentialGUI implements DoubleClickListener{
                 }
             }
         });
-        groupsListView.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 2) {
-                // Verifica se è stato effettuato un doppio clic
-                alert.displayAlertPopup(Alerts.ERROR, "Not implemented :(");
-            }
-        });
     }
 
     @Override

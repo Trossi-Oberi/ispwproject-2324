@@ -3,6 +3,7 @@ package logic.server;
 import logic.controllers.NotificationFactory;
 import logic.controllers.ObserverClass;
 import logic.dao.EventDAO;
+import logic.dao.GroupDAO;
 import logic.dao.NotificationDAO;
 import logic.dao.UserDAO;
 import logic.model.Notification;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,9 +31,6 @@ public class Server {
     private Map<Integer, Boolean> connectedUsers = new HashMap<>();
     private Map<Integer, Boolean> connectedOrganizers = new HashMap<>();
     private Map<Integer, List<ObserverClass>> usersInGroups = new HashMap<>();
-
-    //TODO: hash map group con key = groupID e lista di client id associati al gruppo (come da video YT :S)
-    //private Map<Integer, List<Integer>> activeUsersInGroup = new HashMap<>();
 
     private static Logger logger = Logger.getLogger("NightPlan");
     private static final int MAX_CONNECTIONS = 500;
@@ -177,7 +176,7 @@ public class Server {
                             sendNotificationToClient(response, out);
 
                             //notifica l'utente
-                            updateUserObservers(noti.getCity(), noti.getEventID(), noti.getClientID());
+                            updateUserObservers(noti.getCity(), noti.getEventID(), noti.getClientID(), noti.getNotificationType());
                             break;
 
                         case EventDeleted:
@@ -185,13 +184,17 @@ public class Server {
                             synchronized (organizersByEventID) {
                                 //rimuove l'associazione tra event-id e organizer nella hashmap
                                 organizersByEventID.remove(noti.getEventID());
+                                detachOrgObserver(noti.getEventID());
                             }
                             response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.EventDeleted, null, null, noti.getEventID(), null, null, null);
                             sendNotificationToClient(response, out);
+
+                            //notifica l'utente
+                            updateUserObservers(noti.getCity(), noti.getEventID(), noti.getClientID(), noti.getNotificationType());
+
                             break;
 
                         case UserEventParticipation:
-                            //TODO: usereventparticipation logic in server
                             System.out.println("User with id " + noti.getClientID() + " participating to event with id = " + noti.getEventID());
 
                             //mandare messaggio di ritorno all'utente
@@ -199,8 +202,31 @@ public class Server {
                             sendNotificationToClient(response, out);
 
                             //mandare notifica all'organizzatore
-                            updateOrgObserver(noti.getClientID(), noti.getEventID());
+                            updateOrgObserver(noti.getClientID(), noti.getEventID(), noti.getNotificationType());
 
+                            break;
+
+                        case UserEventRemoval:
+                            System.out.println("User with id " + noti.getClientID() + " removed participation to event with id = " + noti.getEventID());
+
+                            //mandare messaggio di ritorno all'utente
+                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.UserEventRemoval, noti.getClientID(), null, noti.getEventID(), null, null, null);
+                            sendNotificationToClient(response, out);
+                            break;
+
+                        case GroupJoin:
+                            System.out.println("User with id = " + noti.getClientID() + ", joined group with id = " + noti.getEventID()); //event viene usato come group
+                            //AGGIORNO HASHMAP
+                            ObserverClass groupObs = new ObserverClass(noti.getClientID(), out);
+                            attachObsToGroup(noti.getEventID(), groupObs);
+                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.GroupJoin, null, null, noti.getEventID(), null, null, null);
+                            sendNotificationToClient(response, out);
+                            break;
+
+                        case GroupLeave:
+                            System.out.println("User with id = " + noti.getClientID() + ", left group with id = " + noti.getEventID());
+                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.GroupLeave, null, null, noti.getEventID(), null, null, null);
+                            sendNotificationToClient(response, out);
                             break;
 
                         case Disconnected:
@@ -225,15 +251,6 @@ public class Server {
                             sendNotificationToClient(response, out);
                             clientRunning = false;
                             break;
-
-                        case GroupJoin:
-                            System.out.println("User with id = " + noti.getClientID() + ", joined group with id = " + noti.getEventID()); //event viene usato come group
-                            //AGGIORNO HASHMAP
-                            ObserverClass groupObs = new ObserverClass(noti.getClientID(), out);
-                            attachObsToGroup(noti.getEventID(), groupObs);
-                            response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.GroupJoin, null, null, noti.getEventID(), null, null, null);
-                            sendNotificationToClient(response, out);
-                            break;
                     }
 
                 }
@@ -243,15 +260,16 @@ public class Server {
         }
     }
 
-
     private void loadData() {
         try {
             UserDAO userDAO = new UserDAO();
             EventDAO eventDAO = new EventDAO();
+            GroupDAO groupDAO = new GroupDAO();
             userDAO.populateObsByCity(this.observersByCity);
             userDAO.populateConnUsers(this.connectedUsers);
             userDAO.populateConnOrganizers(this.connectedOrganizers);
             eventDAO.populateOrgByEventID(this.organizersByEventID);
+            groupDAO.populateUsersInGroups(this.usersInGroups);
         } finally {
             logger.info("Finished to preload data from database");
         }
@@ -295,29 +313,30 @@ public class Server {
         }
     }
 
-    private void updateUserObservers(String city, int eventID, int userID) {
+    private void updateUserObservers(String city, int eventID, int userID, NotificationTypes type) {
         List<ObserverClass> users = observersByCity.get(city);
         if (users != null) {
             for (ObserverClass user : users) {
                 if (connectedUsers.get(user.getObsID())) {
                     //se utente online notifica
-                    user.update(NotificationTypes.EventAdded);
+                    user.update(type);
                 }
                 //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
-                notifyDAO.addNotification(user.getObsID(), NotificationTypes.EventAdded, eventID, userID);
+                notifyDAO.addNotification(user.getObsID(), type, eventID, userID);
             }
         }
     }
 
-    private void updateOrgObserver(int userID, int eventID) {
+    private void updateOrgObserver(int userID, int eventID, NotificationTypes type) {
         ObserverClass org = organizersByEventID.get(eventID);
         if (org != null) {
             if (connectedOrganizers.get(org.getObsID())) {
                 //se org online notifica
-                org.update(NotificationTypes.UserEventParticipation);
+                org.update(type);
             }
             //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
-            notifyDAO.addNotification(org.getObsID(), NotificationTypes.UserEventParticipation, eventID, userID);
+            notifyDAO.addNotification(org.getObsID(), type, eventID, userID);
+
         } else {
             logger.severe("Org id got from observer is null - can't update observers");
             throw new RuntimeException();
@@ -339,6 +358,22 @@ public class Server {
         usersInGroups.computeIfAbsent(groupID, k -> new ArrayList<>()).add(groupObs);
         System.out.println("Added userID: " + groupObs.getObsID() + " to groupID: " + groupID);
     }
+
+    private void detachOrgObserver(Integer eventID) {
+        ObserverClass tempObs =  organizersByEventID.remove(eventID);
+        System.out.println("Removed eventID: " + eventID + " to orgID: " + tempObs.getObsID());
+    }
+    private boolean detachObsToGroup(Integer clientID, Integer eventID) {
+        List<ObserverClass> tempList = usersInGroups.get(eventID);
+        if (tempList != null) {
+            tempList.removeIf(obs -> obs.getObsID() == clientID);
+            System.out.println("Removed userID: " + clientID + " to groupID: " + eventID);
+            return true;
+        }
+        return false;
+    }
+
+
 
     private void updateLoggedUsers(int userID, boolean isConnected, UserTypes type) {
         switch (type) {
