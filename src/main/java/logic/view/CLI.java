@@ -897,13 +897,13 @@ public class CLI implements NotificationView {
 
                 // Verifica se l'indice è valido
                 if (index >= 1 && index <= notifications.size()) {
-                    cFacade.deleteNotification(notifications.get(index).getNotificationID(), notifications, index);
+                    cFacade.deleteNotification(notifications.get(index-1).getNotificationID(), notifications, index-1);
                     valid = true;
 
                     //ricarica notifications
                     loadNotifications();
                 } else {
-                    logger.severe("Index range non valid. If must be between 0 and " + (notifications.size()-1));
+                    logger.severe("Index range non valid. If must be between 1 and " + (notifications.size()));
                 }
             } while (!valid);
         } catch (IOException e){
