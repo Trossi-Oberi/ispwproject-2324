@@ -1,10 +1,8 @@
 package logic.graphiccontrollers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 import logic.beans.BEvent;
@@ -25,13 +23,12 @@ public class GCEventPageGeneral extends EssentialGUI {
     @FXML
     private Text eventName;
     @FXML
-    private Button goBackBtn;
-    @FXML
     private Text musicGenre;
     @FXML
     private Text organizerName;
-    protected BEvent eventBean;
 
+
+    protected BEvent eventBean;
     protected String className;
 
     @FXML

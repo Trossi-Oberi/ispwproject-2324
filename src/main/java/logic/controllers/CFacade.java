@@ -50,7 +50,7 @@ public class CFacade {
         return res;
     }
 
-    public boolean participateToEvent(BEvent bean) throws DuplicateEventParticipation {
+    public boolean participateToEvent(BEvent bean) {
         if (manageEventController == null) {
             manageEventController = new CManageEvent();
         }
@@ -62,6 +62,20 @@ public class CFacade {
             notificationController.sendNotification(null, NotificationTypes.UserEventParticipation, LoggedUser.getUserID(), null, bean.getEventID(), null, null, null);
         }
         return res;
+    }
+
+    public boolean checkPreviousEventParticipation(BEvent eventBean) {
+        if (manageEventController == null) {
+            manageEventController = new CManageEvent();
+        }
+        return manageEventController.checkPreviousEventParticipation(eventBean);
+    }
+
+    public boolean removeEventParticipation(BEvent eventBean) {
+        if (manageEventController == null) {
+            manageEventController = new CManageEvent();
+        }
+        return manageEventController.removeEventParticipation(eventBean);
     }
 
     public boolean registerUser(BUserData bean) throws RuntimeException {
@@ -123,16 +137,19 @@ public class CFacade {
         return res;
     }
 
-    public void joinGroup(Integer groupID) {
+    public boolean joinGroup(Integer groupID) {
         if (groupController == null) {
             groupController = new CGroup();
         }
-        groupController.joinGroup(groupID);
-        if (notificationController == null){
-            notificationController = new CNotification();
+        boolean res = groupController.joinGroup(groupID);
+        if(res) {
+            if (notificationController == null) {
+                notificationController = new CNotification();
+            }
+            //anche qui groupID passato al posto di eventID
+            notificationController.sendNotification(null, NotificationTypes.GroupJoin, LoggedUser.getUserID(), null, groupID, null, null, null);
         }
-        //anche qui groupID passato al posto di eventID
-        notificationController.sendNotification(null,NotificationTypes.GroupJoin,LoggedUser.getUserID(),null,groupID,null,null,null);
+        return res;
     }
 
 
@@ -203,11 +220,12 @@ public class CFacade {
         return loginController.getUsernameByID(userID);
     }
 
-    public void deleteNotification(Integer notificationID, ArrayList<BNotification> notificationsList, int index) {
+    public boolean deleteNotification(Integer notificationID, ArrayList<BNotification> notificationsList, int index) {
         if (notificationController == null) {
             notificationController = new CNotification();
         }
-        notificationController.deleteNotification(notificationID, notificationsList, index);
+
+        return notificationController.deleteNotification(notificationID, notificationsList, index);
     }
 
     public ArrayList<BGroup> retrieveGroups(ArrayList<BEvent> upcomingEventsList) {

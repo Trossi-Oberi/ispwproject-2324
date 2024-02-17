@@ -1,6 +1,5 @@
 package logic.dao;
 
-import logic.beans.BGroup;
 import logic.model.MGroup;
 import logic.utils.LoggedUser;
 import logic.utils.SingletonDBSession;
@@ -26,7 +25,7 @@ public class GroupDAO {
                 group.setOwnerID(rs.getInt(3));
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, "SQLException occurred while retrieving group by event ID");
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
@@ -44,7 +43,7 @@ public class GroupDAO {
             ResultSet rs = statement.executeQuery();
             return rs.next();
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, "SQLException occurred while checking user in group");
             return false;
         } finally {
             SingletonDBSession.getInstance().closeConn();
@@ -59,7 +58,7 @@ public class GroupDAO {
                 return rs.getString(1);
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, "SQLException occurred while getting group name");
 
         } finally {
             SingletonDBSession.getInstance().closeConn();
@@ -84,7 +83,7 @@ public class GroupDAO {
             }
         }
         catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, "SQLException occurred while creating group");
         }
         finally {
             SingletonDBSession.getInstance().closeConn();
@@ -92,14 +91,16 @@ public class GroupDAO {
         return -1;
     }
 
-    public void joinGroup(Integer groupID) {
+    public boolean joinGroup(Integer groupID) {
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO usergroup(id, user_id,group_id) VALUES (NULL, ?, ?)")){
             statement.setInt(1,LoggedUser.getUserID());
             statement.setInt(2,groupID);
             statement.execute();
+            return true;
         }
         catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, "SQLException occurred while joining group");
+            return false;
         }
         finally {
             SingletonDBSession.getInstance().closeConn();

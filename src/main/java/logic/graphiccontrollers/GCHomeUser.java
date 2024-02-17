@@ -121,8 +121,9 @@ public class GCHomeUser extends EssentialGUI implements DoubleClickListener{
             scene = new Scene(root);
             scene.getStylesheets().add(Objects.requireNonNull(EssentialGUI.class.getResource("application.css")).toExternalForm());
 
-            GCEventPageUser eventPageGC = loader.getController();
-            eventPageGC.initEventFromBean(selectedEventBean, this.getClass().getSimpleName());
+            GCEventPageUser eventPageUserGC = loader.getController();
+            eventPageUserGC.initEventFromBean(selectedEventBean, this.getClass().getSimpleName());
+            eventPageUserGC.initEventPageButton();
         } catch (IOException | NullPointerException e) {
             logger.log(Level.SEVERE, "Cannot load scene\n", e);
         } catch (RuntimeException e) {

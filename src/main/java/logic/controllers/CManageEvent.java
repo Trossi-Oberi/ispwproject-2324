@@ -23,9 +23,12 @@ public class CManageEvent {
 
     public boolean addEvent(BEvent eventBean) {
         MEvent eventModel = new MEvent(eventBean);
-        eventDAO.createEvent(eventModel);
-        eventBean.setEventID(eventModel.getEventID());
-        return true;
+        if(eventDAO.createEvent(eventModel)){
+            eventBean.setEventID(eventModel.getEventID());
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /*
@@ -50,20 +53,30 @@ public class CManageEvent {
 
     public boolean editEvent(BEvent eventBean) {
         MEvent eventModel = new MEvent(eventBean);
-        eventDAO.editEvent(eventModel);
-        return true;
+        return eventDAO.editEvent(eventModel);
     }
 
     public boolean deleteEvent(int eventID) {
-        eventDAO.deleteEvent(eventID);
-        return true;
+        return eventDAO.deleteEvent(eventID);
     }
 
-    public boolean participateToEvent(BEvent eventBean) throws DuplicateEventParticipation {
+    public boolean participateToEvent(BEvent eventBean) {
         MEvent eventModel = new MEvent(eventBean);
-        userEventDAO.joinUserToEvent(eventModel);
-        //notify the organizer of your participation
-        return true;
+        return userEventDAO.joinUserToEvent(eventModel);
+    }
+
+    public boolean removeEventParticipation(BEvent eventBean) {
+        MEvent eventModel = new MEvent(eventBean);
+        return userEventDAO.removeUserToEvent(eventModel);
+    }
+
+    public boolean checkPreviousEventParticipation(BEvent eventBean){
+        try {
+            userEventDAO.checkPreviousParticipation(eventBean.getEventID());
+            return false;
+        } catch (DuplicateEventParticipation e) {
+            return true;
+        }
     }
 
     private ArrayList<BEvent> getEventBeansListFromModelsList(ArrayList<MEvent> eventModelList){
@@ -83,4 +96,6 @@ public class CManageEvent {
     public String getEventNameByEventID(int eventID) {
         return eventDAO.getEventNameByEventID(eventID);
     }
+
+
 }

@@ -118,10 +118,14 @@ public class CNotification {
         return notiBeanList;
     }
 
-    public void deleteNotification(Integer notificationID, ArrayList<BNotification> notificationsList, int index) {
+    public boolean deleteNotification(Integer notificationID, ArrayList<BNotification> notificationsList, int index) {
         //cancellazione nel DB
-        this.notificationDAO.deleteNotification(notificationID);
-        //rimozione dalla lista
-        notificationsList.remove(index);
+        if(this.notificationDAO.deleteNotification(notificationID)){
+            //rimozione dalla lista
+            notificationsList.remove(index);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

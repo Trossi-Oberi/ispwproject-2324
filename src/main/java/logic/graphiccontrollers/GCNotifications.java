@@ -39,8 +39,13 @@ public class GCNotifications extends EssentialGUI {
             deleteButton = new Button("Delete");
             deleteButton.setOnMouseClicked(event -> {
                 getListView().getItems().remove(getItem());
-                cfacade.deleteNotification(notificationsList.get(getIndex()).getNotificationID(), notificationsList, getIndex()); //ID notifica, lista (per rimuovere notifica) e indice di item della listview
-                alert.displayAlertPopup(Alerts.INFORMATION, "Removed notification successfully");
+                if(cfacade.deleteNotification(notificationsList.get(getIndex()).getNotificationID(), notificationsList, getIndex())){
+                    //ID notifica, lista (per rimuovere notifica) e indice di item della listview
+                    alert.displayAlertPopup(Alerts.INFORMATION, "Removed notification successfully");
+                } else {
+                    alert.displayAlertPopup(Alerts.ERROR, "Failed to remove notification!");
+                }
+
             });
 
             hbox.getChildren().addAll(label, spacer, deleteButton);

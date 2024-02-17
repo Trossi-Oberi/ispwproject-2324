@@ -74,9 +74,6 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
                         //OPEN GROUP CHAT
                         setupGroupChat(groupsBeans.get(getIndex()).getGroupID());
                         changeGUI(event, "GroupChat.fxml");
-                        //TODO: NOT IMPLENTED
-                        //
-                        //TODO: NOT IMPLEMENTED
 
                     });
                 } else if (item.getGroupID() != null && !res) {
@@ -84,9 +81,11 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
                     groupButton.setText("Join group");
                     groupButton.setOnMouseClicked(event -> {
                         //JOIN GROUP
-                        cfacade.joinGroup(groupsBeans.get(getIndex()).getGroupID());
-                        changeGUI(event, "YourEventsUser.fxml");
-                        //TODO: NOT IMPLEMENTED
+                        if(cfacade.joinGroup(groupsBeans.get(getIndex()).getGroupID())) {
+                            changeGUI(event, "YourEventsUser.fxml");
+                        } else {
+                            alert.displayAlertPopup(Alerts.ERROR, "Error while joining group");
+                        }
                     });
                 } else {
                     groupName.setText("No group");
@@ -96,13 +95,14 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
                         String groupName = askUserForGroupName();
                         int createdGroupID = cfacade.createGroup(groupName, upComingEventsBeans.get(getIndex()).getEventID());
                         if (createdGroupID>0){
-                            System.out.println("nuovo gruppo creato con successo");
-                            cfacade.joinGroup(createdGroupID);
-                            System.out.println("gruppo joinato con successo");
-                            changeGUI(event,"YourEventsUser.fxml");
+                            System.out.println("Successfully created new group");
+                            if(cfacade.joinGroup(createdGroupID)){
+                                System.out.println("Successfully joined group");
+                                changeGUI(event,"YourEventsUser.fxml");
+                            } else {
+                                alert.displayAlertPopup(Alerts.ERROR, "Error while joining group");
+                            }
                         }
-
-                        //TODO: NOT IMPLENTED
                     });
                 }
 
@@ -237,6 +237,7 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
 
             GCEventPageUser eventPageUserGC = loader.getController();
             eventPageUserGC.initEventFromBean(selectedEventBean, this.getClass().getSimpleName());
+            eventPageUserGC.initEventPageButton();
         } catch (IOException | NullPointerException e) {
             logger.log(Level.SEVERE, "Cannot load scene\n", e);
         } catch (RuntimeException e) {

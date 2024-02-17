@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import logic.controllers.ObserverClass;
-import logic.exceptions.DuplicateEventParticipation;
 import logic.utils.LoggedUser;
 import logic.utils.SingletonDBSession;
 import logic.model.MEvent;
@@ -17,7 +16,7 @@ import logic.model.MEvent;
 import static logic.view.EssentialGUI.logger;
 
 public class EventDAO {
-    public void createEvent(MEvent eventModel) { //restituisce l'event id dell'evento appena aggiunto
+    public boolean createEvent(MEvent eventModel) { //restituisce l'event id dell'evento appena aggiunto
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Events(event_id,organizer,organizer_id,name,province, city,address,music_genre,date,time,image, pic_path) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)){
             statement.setString(1,eventModel.getEventOrganizer());
             statement.setInt(2, LoggedUser.getUserID()); //preso dalla sessione (classe LoggedUser)
@@ -41,16 +40,18 @@ public class EventDAO {
                     }
                 }
             }
+            return true;
         }
         catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, "SQLException occurred while creating new event");
+            return false;
         }
         finally {
             SingletonDBSession.getInstance().closeConn();
         }
     }
 
-    public void editEvent(MEvent eventModel){
+    public boolean editEvent(MEvent eventModel){
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("UPDATE Events SET name=?,province=?,city=?,address=?,music_genre=?,date=?,time=?,image=?,pic_path=? WHERE event_id=?")){
             statement.setString(1,eventModel.getEventName());
             statement.setString(2,eventModel.getEventProvince());
@@ -63,26 +64,32 @@ public class EventDAO {
             statement.setString(9,eventModel.getEventPicPath());
             statement.setInt(10,eventModel.getEventID()); //ID Evento da aggiornare
             statement.execute();
+            return true;
         }
         catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, "SQLException occurred while editing event");
+            return false;
         }
         finally {
             SingletonDBSession.getInstance().closeConn();
         }
+
     }
 
-    public void deleteEvent(int eventID){
+    public boolean deleteEvent(int eventID){
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("DELETE FROM Events WHERE event_id=?")){
             statement.setInt(1,eventID); //ID Evento da aggiornare
             statement.execute();
+            return true;
         }
         catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, "SQLException occurred while deleting event");
+            return false;
         }
         finally {
             SingletonDBSession.getInstance().closeConn();
         }
+
     }
 
     public ArrayList<MEvent> retrieveMyEvents(int userID, int queryType){
@@ -93,7 +100,7 @@ public class EventDAO {
                 statement.setInt(1, userID);
                 myEvents = getEventsArrayList(statement);
             } catch (SQLException e) {
-                logger.log(Level.SEVERE, e.getMessage());
+                logger.log(Level.SEVERE, "SQLException occurred while retrieving events");
             }
 
         } else if(queryType == 1){   //USER && HomeUser
@@ -102,7 +109,7 @@ public class EventDAO {
                 statement.setString(1, userDAO.getUserCityByID(userID));
                 myEvents = getEventsArrayList(statement);
             }catch (SQLException | RuntimeException e) {
-                logger.log(Level.SEVERE, e.getMessage());
+                logger.log(Level.SEVERE, "SQLException occurred while retrieving events");
             }
 
         } else {  //USER && YourEventsUser
@@ -110,7 +117,7 @@ public class EventDAO {
                 statement.setInt(1, LoggedUser.getUserID()); //prendo lo user id dalla sessione;
                 myEvents = getEventsArrayList(statement);
             }catch (SQLException | RuntimeException e) {
-                logger.log(Level.SEVERE, e.getMessage());
+                logger.log(Level.SEVERE, "SQLException occurred while retrieving events");
             }
         }
 
@@ -141,10 +148,9 @@ public class EventDAO {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Cannot retrieve events");
             return null;
-        }finally{
+        } finally{
             SingletonDBSession.getInstance().closeConn();
         }
-
     }
 
 
@@ -157,7 +163,7 @@ public class EventDAO {
                 orgByEventID.put(rs.getInt(1), orgObs);
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, "SQLException occurred while populating orgByEventID hashmap");
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
@@ -172,7 +178,7 @@ public class EventDAO {
                 name = resultSet.getString(1);
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, "SQLException occurred while getting event name by event ID");
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }

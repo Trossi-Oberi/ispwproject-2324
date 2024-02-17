@@ -29,7 +29,7 @@ public class NotificationDAO {
             statement.execute();
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Cannot add notification to user" + e.getMessage(), e);
+            logger.log(Level.SEVERE, "SQLException occurred while adding notification to user");
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
@@ -51,23 +51,23 @@ public class NotificationDAO {
             }
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Cannot get notifications from db", e);
+            logger.log(Level.SEVERE, "SQLException occurred while fetching notifications by userID from db");
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
         return notifications;
     }
 
-    public void deleteNotification(int notificationID) {
+    public boolean deleteNotification(int notificationID) {
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("DELETE FROM Notifications WHERE id=?")) {
             statement.setInt(1, notificationID);
             statement.execute();
+            return true;
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Cannot remove notification from database", e);
+            logger.log(Level.SEVERE, "SQLException occurred while removing notification from db");
+            return false;
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
     }
-
-
 }

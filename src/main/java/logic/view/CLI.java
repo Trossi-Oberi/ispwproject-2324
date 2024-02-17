@@ -708,8 +708,14 @@ public class CLI implements NotificationView {
 
         if(LoggedUser.getUserType().equals(UserTypes.USER)){
             spacer(1);
-            System.out.println("1. Go back\n" +
-                    "2. Plan event participation");
+            boolean isEventParticipated = cFacade.checkPreviousEventParticipation(bEvent);
+            if(isEventParticipated){
+                System.out.println("1. Go back\n" +
+                        "2. Remove event participation");
+            } else {
+                System.out.println("1. Go back\n" +
+                        "2. Plan event participation");
+            }
 
             boolean valid = false;
             do {
@@ -732,16 +738,19 @@ public class CLI implements NotificationView {
                             }
                             break;
                         case "2":
-                            try {
+                            if(isEventParticipated){
+                                if(cFacade.removeEventParticipation(bEvent)){
+                                    System.out.println("Event participation remove successfully!");
+                                } else {
+                                    logger.severe("Event participation removal failed!");
+                                }
+                            } else {
                                 if (cFacade.participateToEvent(bEvent)) {
                                     System.out.println("Event participation successful!");
                                 } else {
                                     logger.severe("Event participation failed!");
                                 }
                                 System.out.println("Press 1 to go back");
-                            } catch (DuplicateEventParticipation e) {
-                                logger.log(Level.INFO, "Event participation already planned. Choose another event...");
-                                logger.log(Level.INFO, "Press 1 to go back!");
                             }
                             break;
                         default:

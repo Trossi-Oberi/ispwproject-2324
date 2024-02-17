@@ -2,9 +2,12 @@ package logic.graphiccontrollers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import logic.exceptions.DuplicateEventParticipation;
+import javafx.scene.image.ImageView;
+
 import logic.interfaces.InfoPages;
 import logic.utils.Alerts;
 
@@ -17,11 +20,52 @@ import java.net.URLEncoder;
 
 public class GCEventPageUser extends GCEventPageGeneral implements InfoPages {
 
+
     @FXML
-    private Button participateEventBtn;
+    private Button eventBtn;
+
+    @FXML
+    private Label eventBtnLabel;
+
+    @FXML
+    private ImageView iconEventBtn;
 
     @FXML
     private Button viewMap;
+
+    boolean isEventJoined = false;
+
+    public void initEventPageButton(){
+        //verifico una partecipazione precedente all'evento e poi setto il pulsante
+        isEventJoined = cfacade.checkPreviousEventParticipation(this.eventBean);
+
+        String loc;
+        Image image = null;
+        if(isEventJoined){
+            try {
+                loc = getClass().getResource("/icons/remove_event_part.png").toExternalForm();
+            } catch (NullPointerException e){
+                throw new NullPointerException();
+            }
+            if (loc != null) {
+                image = new Image(loc);
+            }
+            eventBtn.setOnMouseClicked(this::removeParticipationToEvent);
+            eventBtnLabel.setText("Remove participation");
+        } else {
+            try {
+                loc = getClass().getResource("/icons/plan_event_part.png").toExternalForm();
+            } catch (NullPointerException e){
+                throw new NullPointerException();
+            }
+            if (loc != null) {
+                image = new Image(loc);
+            }
+            eventBtn.setOnMouseClicked(this::participateToEvent);
+            eventBtnLabel.setText("Participate to event");
+        }
+        iconEventBtn.setImage(image);
+    }
 
     @FXML
     void goBack(MouseEvent event) {
@@ -35,19 +79,23 @@ public class GCEventPageUser extends GCEventPageGeneral implements InfoPages {
 
     @FXML
     public void participateToEvent(MouseEvent event) {
-        try {
-            if(cfacade.participateToEvent(this.eventBean)){
-                alert.displayAlertPopup(Alerts.INFORMATION, "Event participation successfully added!\nYou can now view it on Your Events page");
-                goBack(event);
-            } else {
-                alert.displayAlertPopup(Alerts.ERROR, "Event participation failed :(");
-                goBack(event);
-            }
-        } catch (DuplicateEventParticipation e) {
-            alert.displayAlertPopup(Alerts.WARNING, "Event participation already planned");
-            goBack(event);
+        if (cfacade.participateToEvent(this.eventBean)) {
+            alert.displayAlertPopup(Alerts.INFORMATION, "Event participation added successfully!\nYou can now view it on Your Events page");
+        } else {
+            alert.displayAlertPopup(Alerts.ERROR, "Event participation failed :(");
         }
+        goBack(event);
     }
+
+    private void removeParticipationToEvent(MouseEvent event){
+        if(cfacade.removeEventParticipation(this.eventBean)){
+            alert.displayAlertPopup(Alerts.INFORMATION, "Event participation removed successfully!");
+        } else {
+            alert.displayAlertPopup(Alerts.ERROR, "Event participation removal failed :(");
+        }
+        goBack(event);
+    }
+
 
     @Override
     public void openLink(ActionEvent event) throws URISyntaxException, IOException {

@@ -33,19 +33,12 @@ public class GCEventPageOrg extends GCEventPageGeneral {
                 alert.displayAlertPopup(Alerts.ERROR, "Error during event cancellation");
             }
         }
-
-
     }
 
     @FXML
     public void editEventAction(MouseEvent event) {
         preloadEditEvent(event);
 
-    }
-
-    @FXML
-    public void goBack(MouseEvent event) {
-        goToYourEvents(event);
     }
 
     private void preloadEditEvent(MouseEvent event) {

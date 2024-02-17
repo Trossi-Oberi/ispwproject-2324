@@ -27,7 +27,7 @@ public class UserDAO {
                 statement.setString(2, usrMod.getPassword());
                 ret = getLoggedUser(statement, usrMod);
             } catch (SQLException e) {
-                logger.log(Level.SEVERE, "SQLException occurred during the fetch of credentials");
+                logger.log(Level.SEVERE, "SQLException occurred while fetching user credentials");
             } finally {
                 SingletonDBSession.getInstance().closeConn();
             }
@@ -37,7 +37,7 @@ public class UserDAO {
                 statement.setString(1, usrMod.getUserName());
                 ret = getLoggedUser(statement, usrMod);
             } catch (SQLException e) {
-                logger.log(Level.SEVERE, "SQLException occurred during the fetch of credentials");
+                logger.log(Level.SEVERE, "SQLException occurred while fetching user credentials");
             } finally {
                 SingletonDBSession.getInstance().closeConn();
             }
@@ -67,7 +67,7 @@ public class UserDAO {
                 return 1;
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Cannot get logged user");
+            logger.log(Level.SEVERE, "SQLException occurred while getting logged user");
         }
         return 0;
     }
@@ -81,7 +81,7 @@ public class UserDAO {
             }
         } catch (SQLException e) {
             //throw new RuntimeException(e);
-            logger.log(Level.SEVERE, "SQLException in getUserCityByID " + e + " -- MSG: " + e.getSQLState());
+            logger.log(Level.SEVERE, "SQLException occurred while getting user city by userID");
         }
         return userCity;
     }
@@ -100,7 +100,7 @@ public class UserDAO {
             statement.setString(10, "Offline");
             statement.execute();
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Cannot add a new user", e);
+            logger.log(Level.SEVERE, "SQLException occurred while adding new user in db");
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
@@ -115,7 +115,7 @@ public class UserDAO {
                 userID = rs.getInt(1);
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, "SQLException occurred while getting userID by username");
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
@@ -129,7 +129,7 @@ public class UserDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             //throw new RuntimeException(e);
-            logger.log(Level.SEVERE, "SQLException in setOnline " + e + " -- MSG: " + e.getSQLState());
+            logger.log(Level.SEVERE, "SQLException occurred while setting user status");
         }
     }
 
@@ -146,7 +146,7 @@ public class UserDAO {
             }
         } catch (SQLException e) {
             //throw new RuntimeException(e);
-            logger.log(Level.SEVERE, "SQLException in setOnline " + e + " -- MSG: " + e.getSQLState());
+            logger.log(Level.SEVERE, "SQLException occurred while changing user city");
         }
         return res;
     }
@@ -160,7 +160,7 @@ public class UserDAO {
                 obsByCity.computeIfAbsent(rs.getString(2), k -> new ArrayList<>()).add(usrObs);
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, "SQLException occurred while populating obsByCity hashmap");
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
@@ -173,7 +173,7 @@ public class UserDAO {
                 connUsers.put(rs.getInt(1), false);
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, "SQLException occurred while populating connectedUsers hashmap");
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
@@ -186,7 +186,7 @@ public class UserDAO {
                 connOrganizers.put(rs.getInt(1), false);
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, "SQLException occurred while populating connectedOrganizers hashmap");
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
@@ -201,7 +201,7 @@ public class UserDAO {
                 username = rs.getString(1);
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, "SQLException occurred while getting username by userID");
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }

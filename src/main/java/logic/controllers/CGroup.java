@@ -71,7 +71,7 @@ public class CGroup {
         return groupDAO.createGroup(groupName, eventID);
     }
 
-    public void joinGroup(Integer groupID) {
-        groupDAO.joinGroup(groupID);
+    public boolean joinGroup(Integer groupID) {
+        return groupDAO.joinGroup(groupID);
     }
 }
