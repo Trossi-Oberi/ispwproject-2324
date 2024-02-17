@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.graphiccontrollers.GCHomeUser">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.graphiccontrollers.GCGroupChat">
     <children>
         <Rectangle fill="#6c89c4a1" height="88.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" />
         <Button alignment="CENTER" contentDisplay="CENTER" layoutX="211.0" mnemonicParsing="false" onMouseClicked="#goToHome" prefHeight="88.0" prefWidth="124.0" style="-fx-border-width: 0; -fx-background-color: transparent; -fx-background-insets: 0; -fx-background-radius: 0;">
@@ -120,22 +120,22 @@
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Label>
-      <TextField layoutX="239.0" layoutY="526.0" prefHeight="43.0" prefWidth="415.0">
+      <TextField fx:id="messageTextField" layoutX="127.0" layoutY="526.0" prefHeight="43.0" prefWidth="527.0">
          <font>
             <Font name="Baloo 2 Regular" size="14.0" />
          </font>
       </TextField>
-      <Button layoutX="669.0" layoutY="526.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="116.0" text="Send Message">
+      <Button fx:id="sendBtn" layoutX="669.0" layoutY="526.0" mnemonicParsing="false" onMouseClicked="#sendMessage" prefHeight="43.0" prefWidth="116.0" text="Send Message">
          <font>
             <Font name="Baloo 2 Regular" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="12.0" layoutY="526.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="99.0" text="Go Back">
+      <Button fx:id="goBackBtn" layoutX="12.0" layoutY="526.0" mnemonicParsing="false" onMouseClicked="#goToYourEvents" prefHeight="43.0" prefWidth="99.0" text="Go Back">
          <font>
             <Font name="Baloo 2 Regular" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="125.0" layoutY="526.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="99.0" text="Leave group">
+      <Button fx:id="leaveGroupBtn" layoutX="686.0" layoutY="95.0" mnemonicParsing="false" onMouseClicked="#leaveGroup" prefHeight="43.0" prefWidth="99.0" text="Leave group">
          <font>
             <Font name="Baloo 2 Regular" size="14.0" />
          </font>
