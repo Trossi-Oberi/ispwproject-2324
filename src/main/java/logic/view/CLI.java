@@ -62,6 +62,8 @@ public class CLI implements NotificationView {
     private static Integer timesClicked;
     private static Integer nParticipants;
 
+    //TODO: DA RICONTROLLARE DA CIMA A FONDO, RENDERE CONSISTENTE CON LA GUI
+
     private static void initializeControllers() {
         cFacade = new CFacade();
         bUserData = new BUserData();

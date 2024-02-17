@@ -315,6 +315,8 @@ public class Server {
         }
     }
 
+    //TODO: sistemare interfaccia Subject con attach, detach e notify
+
     private void updateOrgOut(int orgID, ObjectOutputStream out) {
         for (Map.Entry<Integer, ObserverClass> entry : organizersByEventID.entrySet()) {
             if (entry.getValue().getObsID() == orgID) {

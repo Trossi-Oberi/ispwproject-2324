@@ -40,6 +40,8 @@ public class GCGroupChat extends EssentialGUI {
 
     private ArrayList<BGroupMessage> messages = new ArrayList<>();
 
+    //TODO: fare in modo che la chat si aggiorni dinamicamente
+
     @FXML
     void leaveGroup(MouseEvent event) {
         //query al database per uscire dal gruppo

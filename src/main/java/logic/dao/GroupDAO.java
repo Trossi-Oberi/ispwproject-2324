@@ -156,7 +156,7 @@ public class GroupDAO {
     }
 
 
-//TODO: gestione gruppo già esistente per un evento, gestione nome gruppo già preso, uscita utente dal gruppo, creazione gruppo, eliminazione gruppo (isOwner booleano)
+//TODO: eliminazione gruppo (isOwner booleano) SE AVANZA TEMPO, Non credo ma vabbè
 
 
 }
