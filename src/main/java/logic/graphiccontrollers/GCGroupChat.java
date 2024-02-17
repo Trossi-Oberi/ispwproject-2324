@@ -1,13 +1,16 @@
 package logic.graphiccontrollers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import logic.beans.BGroupMessage;
 import logic.utils.Alerts;
+import logic.utils.LoggedUser;
 import logic.view.EssentialGUI;
 
 import java.util.ArrayList;
@@ -15,7 +18,7 @@ import java.util.ArrayList;
 public class GCGroupChat extends EssentialGUI {
 
     @FXML
-    private ListView<String> chatMessagesLV;
+    private ListView<BGroupMessage> chatMessagesLV;
 
     @FXML
     private Button goBackBtn;
@@ -34,7 +37,7 @@ public class GCGroupChat extends EssentialGUI {
     private Integer groupID;
 
     private ArrayList<BGroupMessage> messages = new ArrayList<>();
-    
+
     @FXML
     void leaveGroup(MouseEvent event) {
         //query al database per uscire dal gruppo
@@ -55,6 +58,57 @@ public class GCGroupChat extends EssentialGUI {
     public void initGroupChat(Integer groupID) {
         this.groupID = groupID;
         messages = cfacade.retrieveGroupChat(groupID);
-        //populateChatLV(messages);
+        setupChatLV(chatMessagesLV);
+        populateChatLV(messages);
+    }
+
+    private void setupChatLV(ListView<BGroupMessage> chatMessagesLV) {
+//        chatMessagesLV.setMouseTransparent(true); // Imposta la ListView non cliccabile
+        chatMessagesLV.setFocusTraversable(false); // Disabilita la selezione degli elementi
+        chatMessagesLV.setOrientation(Orientation.VERTICAL);
+        chatMessagesLV.setCellFactory(param -> new ListCell<BGroupMessage>() {
+            @Override
+            protected void updateItem(BGroupMessage item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    setText(null);
+                    setGraphic(createMessageNode(item));
+                }
+            }
+        });
+    }
+
+    private void populateChatLV(ArrayList<BGroupMessage> messages) {
+        for (BGroupMessage message : messages){
+            chatMessagesLV.getItems().add(message);
+        }
+        chatMessagesLV.scrollTo(chatMessagesLV.getItems().size() - 1);
+    }
+
+    // Metodo per allineare a destra o sinistra
+    private HBox createMessageNode(BGroupMessage message) {
+        HBox hbox = new HBox();
+        Label messageLabel = new Label();
+        boolean sentByMe = LoggedUser.getUserID() == message.getSenderID();
+        String senderName;
+        if (sentByMe){
+            senderName = "Me";
+            messageLabel.setStyle("-fx-background-color: lightblue; -fx-background-radius: 8px;");
+            hbox.setAlignment(Pos.CENTER_RIGHT);
+        }else{
+            senderName = cfacade.getUsernameByID(message.getSenderID());
+            messageLabel.setStyle("-fx-background-color: lavender; -fx-background-radius: 8px;");
+            hbox.setAlignment(Pos.CENTER_LEFT);
+        }
+        messageLabel.setText(senderName+": "+message.getMessage());
+        messageLabel.setPadding(new Insets(5));
+
+        hbox.getChildren().add(messageLabel);
+        hbox.setPadding(new Insets(5));
+
+        return hbox;
     }
 }
