@@ -67,8 +67,28 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
                     groupButton.setText("Group chat");
                     groupButton.setOnMouseClicked(event -> {
                         //OPEN GROUP CHAT
-                        //cfacade.openGroupChat(item.getGroupID());
-                        //TODO: NOT IMPLENTED
+                        //
+                        //TODO: NOT IMPLEMENTED
+
+                        try {
+                            URL loc = EssentialGUI.class.getResource("GroupChat.fxml");
+                            FXMLLoader loader = new FXMLLoader(loc);
+                            Parent root = null;
+                            if (loc != null) {
+                                root = loader.load();
+                            }
+                            scene = new Scene(root);
+                            scene.getStylesheets().add(Objects.requireNonNull(EssentialGUI.class.getResource("application.css")).toExternalForm());
+
+                            GCGroupChat groupChatGC = loader.getController();
+                            groupChatGC.initGroupChat(item.getGroupID());
+                        } catch (IOException | NullPointerException e) {
+                            logger.log(Level.SEVERE, "Cannot load scene\n", e);
+                        } catch (RuntimeException e) {
+                            throw new RuntimeException(e);
+                        }
+                        nextGuiOnClick(event);
+
                     });
                 } else if (item.getGroupID() != null && !res) {
                     groupName.setText(item.getGroupName());
@@ -77,7 +97,7 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
                         //JOIN GROUP
                         //cfacade.joinGroup(LoggedUser.getUserID(), item.getGroupID());
 
-                        //TODO: NOT IMPLENTED
+                        //TODO: NOT IMPLEMENTED
                     });
                 } else {
                     groupName.setText("No group");
