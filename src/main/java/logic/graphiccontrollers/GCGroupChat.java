@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
@@ -47,7 +48,7 @@ public class GCGroupChat extends EssentialGUI {
     @FXML
     void sendMessage(MouseEvent event) {
         //scrive messaggio sul database e lo gira al server
-        if(cfacade.sendMessageToGroup(this.groupID, messageTextField.getText())){
+        if(!messageTextField.getText().isEmpty() && cfacade.sendMessageToGroup(this.groupID, messageTextField.getText())){
             messageTextField.clear();
         }else{
             alert.displayAlertPopup(Alerts.ERROR, "Error while sending message");
@@ -58,8 +59,17 @@ public class GCGroupChat extends EssentialGUI {
     public void initGroupChat(Integer groupID) {
         this.groupID = groupID;
         messages = cfacade.retrieveGroupChat(groupID);
+        setupChatTextField(messageTextField);
         setupChatLV(chatMessagesLV);
         populateChatLV(messages);
+    }
+
+    private void setupChatTextField(TextField field){
+        messageTextField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER && !field.getText().isEmpty()) {
+                sendMessage(null);
+            }
+        });
     }
 
     private void setupChatLV(ListView<BGroupMessage> chatMessagesLV) {
@@ -111,4 +121,7 @@ public class GCGroupChat extends EssentialGUI {
 
         return hbox;
     }
+
+
+
 }
