@@ -210,7 +210,7 @@
             </HBox>
          </graphic>
       </Button>
-      <Button fx:id="goBackBtn" layoutX="29.0" layoutY="522.0" mnemonicParsing="false" onMouseClicked="#goBack" prefHeight="51.0" prefWidth="137.0" style="-fx-background-radius: 3;">
+      <Button fx:id="goBackBtn" layoutX="29.0" layoutY="522.0" mnemonicParsing="false" onMouseClicked="#goToYourEvents" prefHeight="51.0" prefWidth="137.0" style="-fx-background-radius: 3;">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>

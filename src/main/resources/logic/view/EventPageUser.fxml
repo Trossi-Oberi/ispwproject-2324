@@ -180,19 +180,19 @@
             </font>
         </Text>
       <ImageView fx:id="eventImage" fitHeight="158.0" fitWidth="421.0" layoutX="193.0" layoutY="110.0" pickOnBounds="true" />
-      <Button fx:id="participateEventBtn" layoutX="536.0" layoutY="524.0" mnemonicParsing="false" onMouseClicked="#participateToEvent" prefHeight="51.0" prefWidth="238.0" style="-fx-background-radius: 3;">
+      <Button fx:id="eventBtn" layoutX="536.0" layoutY="524.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="238.0" style="-fx-background-radius: 3;">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
          <graphic>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <Label text="Participate to event">
+                  <Label fx:id="eventBtnLabel" text="Participate to event">
                      <font>
                         <Font name="Baloo 2 Regular" size="18.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="31.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="iconEventBtn" fitHeight="31.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../icons/heart.png" />
                      </image>
