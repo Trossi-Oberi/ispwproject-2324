@@ -127,14 +127,7 @@ public class CFacade {
         if (groupController == null) {
             groupController = new CGroup();
         }
-        int res = groupController.createGroup(groupName,eventID); //res == new groupID
-        //messaggio al server
-        if (notificationController == null){
-            notificationController = new CNotification();
-        }
-        //passo res come parametro notifierID, res e' l'id del gruppo creato
-        //notificationController.sendNotification(null,NotificationTypes.GroupCreated,LoggedUser.getUserID(),res,null,null,null,null);
-        return res;
+        return groupController.createGroup(groupName,eventID); //res == new groupID
     }
 
     public boolean joinGroup(Integer groupID) {
@@ -148,6 +141,20 @@ public class CFacade {
             }
             //anche qui groupID passato al posto di eventID
             notificationController.sendNotification(null, NotificationTypes.GroupJoin, LoggedUser.getUserID(), null, groupID, null, null, null);
+        }
+        return res;
+    }
+
+    public boolean sendMessageToGroup(Integer groupID, String text) {
+        if (chatController == null){
+            chatController = new CGroupChat();
+        }
+        boolean res = chatController.writeMessage(groupID, text);
+        if(res){
+            if (notificationController == null){
+                notificationController = new CNotification();
+            }
+            //notificationController.sendMessage();
         }
         return res;
     }
@@ -262,4 +269,5 @@ public class CFacade {
         }
         return chatController.retrieveGroupChat(groupID);
     }
+
 }

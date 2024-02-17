@@ -7,6 +7,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import logic.beans.BGroupMessage;
+import logic.utils.Alerts;
 import logic.view.EssentialGUI;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 public class GCGroupChat extends EssentialGUI {
 
     @FXML
-    private ListView<?> chatMessagesLV;
+    private ListView<String> chatMessagesLV;
 
     @FXML
     private Button goBackBtn;
@@ -30,20 +31,30 @@ public class GCGroupChat extends EssentialGUI {
 
     @FXML
     private Button sendBtn;
+    private Integer groupID;
 
     private ArrayList<BGroupMessage> messages = new ArrayList<>();
     
     @FXML
     void leaveGroup(MouseEvent event) {
         //query al database per uscire dal gruppo
+        //anche notifica al server che sono uscito (rimuovere observer da hashmap)
     }
 
     @FXML
     void sendMessage(MouseEvent event) {
         //scrive messaggio sul database e lo gira al server
+        if(cfacade.sendMessageToGroup(this.groupID, messageTextField.getText())){
+            messageTextField.clear();
+        }else{
+            alert.displayAlertPopup(Alerts.ERROR, "Error while sending message");
+        }
+
     }
 
     public void initGroupChat(Integer groupID) {
+        this.groupID = groupID;
         messages = cfacade.retrieveGroupChat(groupID);
+        //populateChatLV(messages);
     }
 }
