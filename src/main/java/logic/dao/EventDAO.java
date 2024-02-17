@@ -137,10 +137,14 @@ public class EventDAO {
                 eventModel.setEventPicPath(rs.getString(12));
                 events.add(eventModel);
             }
+            return events;
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Cannot get logged user");
+            logger.log(Level.SEVERE, "Cannot retrieve events");
+            return null;
+        }finally{
+            SingletonDBSession.getInstance().closeConn();
         }
-        return events;
+
     }
 
 

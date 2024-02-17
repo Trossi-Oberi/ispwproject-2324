@@ -1,6 +1,7 @@
 package logic.controllers;
 
 import logic.beans.*;
+import logic.chat.CGroupChat;
 import logic.exceptions.DuplicateEventParticipation;
 import logic.utils.LoggedUser;
 import logic.utils.NotificationTypes;
@@ -15,6 +16,7 @@ public class CFacade {
     private CManageEvent manageEventController;
     private CNotification notificationController;
     private CGroup groupController;
+    private CGroupChat chatController;
 
     public CFacade() {
     }
@@ -236,8 +238,10 @@ public class CFacade {
         return groupController.getGroupNameByGroupID(groupID);
     }
 
-
-    public void openGroupChat(Integer groupID) {
-        //TODO: to be implemented
+    public ArrayList<BGroupMessage> retrieveGroupChat(Integer groupID) {
+        if (chatController == null){
+            chatController = new CGroupChat();
+        }
+        return chatController.retrieveGroupChat(groupID);
     }
 }
