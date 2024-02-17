@@ -117,11 +117,11 @@ values (NULL, 'Nicolas', 2, 'Uane', 'Frosinone', 'Anagni', 'Via Casilina', 'Pop'
         LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp2.jpg'),
         'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp2.jpg');
 
-/*insert into EventGroups(group_id, group_name, event_id, owner_id)
+insert into EventGroups(group_id, group_name, event_id, owner_id)
 values (1, 'prova1', 1, 3);
 
-insert into UserGroup(id, user_id, group_id)
-values (NULL, 3, 1);*/
+# insert into UserGroup(id, user_id, group_id)
+# values (NULL, 3, 1);
 
 insert into UserEvent(id, user_id, event_id)
 values (NULL, 1, 3),
