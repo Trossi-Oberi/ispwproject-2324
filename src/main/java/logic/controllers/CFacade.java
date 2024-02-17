@@ -129,6 +129,7 @@ public class CFacade {
         if (notificationController == null){
             notificationController = new CNotification();
         }
+        //anche qui groupID passato al posto di eventID
         notificationController.sendNotification(null,NotificationTypes.GroupJoin,LoggedUser.getUserID(),null,groupID,null,null,null);
     }
 
