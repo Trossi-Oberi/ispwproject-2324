@@ -236,4 +236,7 @@ public class CFacade {
     }
 
 
+    public void openGroupChat(Integer groupID) {
+        //TODO: to be implemented
+    }
 }
