@@ -31,7 +31,7 @@ public class Server {
     private Map<Integer, List<ObserverClass>> usersInGroup = new HashMap<>();
 
     //TODO: hash map group con key = groupID e lista di client id associati al gruppo (come da video YT :S)
-    //voglio piangere
+    //private Map<Integer, List<Integer>> activeUsersInGroup = new HashMap<>();
 
     private static Logger logger = Logger.getLogger("NightPlan");
     private static final int MAX_CONNECTIONS = 500;
