@@ -72,8 +72,8 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
                     groupButton.setText("Group chat");
                     groupButton.setOnMouseClicked(event -> {
                         //OPEN GROUP CHAT
-                        setupGroupChat(groupsBeans.get(getIndex()).getGroupID());
-                        changeGUI(event, "GroupChat.fxml");
+                        setupGroupChat(event, groupsBeans.get(getIndex()).getGroupID());
+                        //changeGUI(event, "GroupChat.fxml");
                         //TODO: NOT IMPLENTED
                         //
                         //TODO: NOT IMPLEMENTED
@@ -245,7 +245,7 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
         nextGuiOnClick(event);
     }
 
-    private void setupGroupChat(int groupID){
+    private void setupGroupChat(MouseEvent event, int groupID){
         try {
             URL loc = EssentialGUI.class.getResource("GroupChat.fxml");
             FXMLLoader loader = new FXMLLoader(loc);
@@ -263,7 +263,7 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
         } catch (RuntimeException e) {
             throw new RuntimeException(e);
         }
-
+        nextGuiOnClick(event);
     }
 
 }

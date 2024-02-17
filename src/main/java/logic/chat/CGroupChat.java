@@ -27,4 +27,7 @@ public class CGroupChat {
         return beans;
     }
 
+    public boolean writeMessage(Integer groupID, String text) {
+        return chatDAO.writeMessage(groupID,text);
+    }
 }
