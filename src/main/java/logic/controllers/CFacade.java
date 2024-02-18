@@ -339,7 +339,7 @@ public class CFacade {
     }
 
     public void showNotification(NotificationTypes notiType){
-        this.notiView.showNotification(notiType);
+        notiView.showNotification(notiType);
     }
 
     public void addMessageToChat(Message msg){
