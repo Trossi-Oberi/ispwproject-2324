@@ -148,7 +148,6 @@ public class Server {
         }
 
         private void handleMessage(Message mex) {
-            //TODO: handle message
             //implementato solo il caso di group message quindi il message type verra' ignorato
             //rigiro il messaggio cosi' come e' arrivato al server
             System.out.println("Ricevuto messaggio da id: "+mex.getSenderID()+", verso group id: "+mex.getReceiverID()+", testo: "+mex.getMessage());

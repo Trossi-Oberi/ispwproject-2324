@@ -78,7 +78,6 @@ public class CFacade {
         }
         boolean res = manageEventController.removeEventParticipation(eventBean);
         if (res) {
-            //TODO: rimovibile
             notificationController.sendNotification(NotificationTypes.UserEventRemoval, LoggedUser.getUserID(), null, eventBean.getEventID(), null, null, null);
             Integer groupID = getGroupByEventID(eventBean.getEventID()).getGroupID();
             //se il gruppo non esiste salto il leaveGroup

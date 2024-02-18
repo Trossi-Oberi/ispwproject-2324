@@ -5,4 +5,6 @@ public interface Subject {
     void attachObserver(String city, NotiObserver observer);
     void detachObserver(String city, NotiObserver observer);
     void notifyObservers(String city);
+
+    //TODO: Fare 3 subject separati da implementare nel server: User-City, Org-Event, User-Group
 }

@@ -125,7 +125,7 @@ public class CLogin {
             LoggedUser.getOutputStream().close();
             LoggedUser.getInputStream().close();
         }catch (IOException e){
-            //TODO: ignore
+            //TODO: gestire exception
         }
     }
 

@@ -43,9 +43,6 @@ public class GCGroupChat extends EssentialGUI implements ChatView {
 
     private ArrayList<BMessage> messages = new ArrayList<>();
     ObservableList<BMessage> mexs;
-
-    //TODO: fare in modo che la chat si aggiorni dinamicamente
-
     @FXML
     public void initialize() {
         cfacade.setChatGraphic(this);

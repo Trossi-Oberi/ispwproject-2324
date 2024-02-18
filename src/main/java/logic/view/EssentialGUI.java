@@ -154,7 +154,7 @@ public class EssentialGUI extends Application implements NotificationView {
                 case EventAdded:
                     alert.displayAlertPopup(Alerts.INFORMATION, "New event in your city!\nCheck your events page.");
 //                    if (loc.toExternalForm().contains("HomeUser.fxml")) {
-//                    //TODO: forse un giorno faremo l'aggiornamento dinamico
+//                    //TODO: forse un giorno faremo l'aggiornamento dinamico (fattibile)
 //                    }
                     break;
                 case UserEventParticipation:
