@@ -129,7 +129,9 @@ public class CFacade {
                 if (notificationController == null) {
                     notificationController = new CNotification(this); //inizializzo il controller delle notifiche
                 }
+                //TODO: Setup socket solo per registrazione, altrimenti utilizzando la sessione non trova canali in input e output
                 notificationController.sendNotification(NotificationTypes.UserRegistration, bean.getUserID(), null, null, null, bean.getCity(), null); //null perche' e' ovvio sia UserType user
+                //TODO: Chiusura socket post registrazione automatica nel metodo stopListener di CNotification
             }
         }
         return res;

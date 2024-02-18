@@ -297,7 +297,7 @@ public class UserDAOCSV implements UserDAO {
 
             while ((record = csvReader.readNext()) != null) {
                 if (record[UserAttributesOrder.getIndex_UserType()].equals("USER")) {
-                    NotiObserverClass usrObs = new NotiObserverClass(Integer.parseInt(record[UserAttributesOrder.getIndex_UserType()]), null);
+                    NotiObserverClass usrObs = new NotiObserverClass(Integer.parseInt(record[UserAttributesOrder.getIndex_UserID()]), null);
                     obsByCity.computeIfAbsent(record[UserAttributesOrder.getIndex_City()], k -> new ArrayList<>()).add(usrObs);
                 }
             }
