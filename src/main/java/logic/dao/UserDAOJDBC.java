@@ -15,10 +15,6 @@ import java.util.logging.Level;
 import static logic.view.EssentialGUI.logger;
 
 public class UserDAOJDBC implements UserDAO{
-    //TODO: fare UserDAO in doppia versione FILESYSTEM (.csv) e JDBC
-    //TODO: applicare per ogni DAO la chiusura di connection, statement e result set ogni volta
-    //TODO: gestire eccezione: file che si vuole accedere protetto in lettura/scrittura
-
     @Override
     public int checkLoginInfo(MUser usrMod, boolean isGoogleAccount) {
         int ret = 0;
