@@ -4,14 +4,18 @@ import logic.beans.*;
 import logic.exceptions.DuplicateRecordException;
 import logic.exceptions.InvalidTokenValue;
 import logic.model.Message;
-import logic.utils.LoggedUser;
-import logic.utils.MessageTypes;
-import logic.utils.NotificationTypes;
-import logic.utils.UserTypes;
+import logic.server.Server;
+import logic.utils.*;
 import logic.view.ChatView;
 import logic.view.NotificationView;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
+
+import static logic.view.EssentialGUI.logger;
 
 public class CFacade {
     private CLogin loginController;
@@ -129,12 +133,28 @@ public class CFacade {
                 if (notificationController == null) {
                     notificationController = new CNotification(this); //inizializzo il controller delle notifiche
                 }
-                //TODO: Setup socket solo per registrazione, altrimenti utilizzando la sessione non trova canali in input e output
+                //setup temp socket per la registrazione (viene automaticamente chiusa dopo l'invio della notifica UserRegistration response dal server
+                setupTempSocket();
                 notificationController.sendNotification(NotificationTypes.UserRegistration, bean.getUserID(), null, null, null, bean.getCity(), null); //null perche' e' ovvio sia UserType user
-                //TODO: Chiusura socket post registrazione automatica nel metodo stopListener di CNotification
             }
         }
         return res;
+    }
+
+    private void setupTempSocket() {
+        ObjectOutputStream out = null;
+        SecureObjectInputStream in = null;
+        Socket client = null;
+        try {
+            client = new Socket(Server.ADDRESS, Server.PORT);
+            out = new ObjectOutputStream(client.getOutputStream());
+            in = new SecureObjectInputStream(client.getInputStream());
+        } catch (IOException e) {
+            logger.severe(e.getMessage());
+        }
+        LoggedUser.setSocket(client);
+        LoggedUser.setOutputStream(out);
+        LoggedUser.setInputStream(in);
     }
 
     public int loginUser(BUserData bean, boolean isGoogleAuth, String authCode, NotificationView notiView) throws InvalidTokenValue, RuntimeException {
@@ -277,7 +297,7 @@ public class CFacade {
             loginController = new CLogin();
         }
         return loginController.changeCity(userID, province, city);
-        //TODO: Implementare cambio nel server
+        //TODO: Implementare cambio città nel server (detach della city vecchia e attach della city nuova negli obsByCity)
     }
 
     public String getUsernameByID(int userID) {
