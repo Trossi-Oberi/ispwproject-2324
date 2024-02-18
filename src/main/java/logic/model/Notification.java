@@ -6,7 +6,7 @@ import logic.utils.UserTypes;
 import java.io.Serializable;
 
 public interface Notification extends Serializable {
-
+    long serialVersionUID = 1L;
 
     void setNotificationType(NotificationTypes msgType);
 
