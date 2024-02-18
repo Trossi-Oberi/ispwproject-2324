@@ -6,6 +6,7 @@ import logic.utils.NotificationTypes;
 import logic.utils.SituationType;
 
 import java.io.IOException;
+import java.io.InvalidClassException;
 import java.io.ObjectOutputStream;
 
 import static logic.view.EssentialGUI.logger;
@@ -27,7 +28,11 @@ public class ObserverClass implements Observer {
             out.writeObject(notification);
             out.flush();
             out.reset();
+        } catch (InvalidClassException e){
+            //gestione errore di serializzazione (writeObject)
+            logger.severe("Cannot deserialize object");
         } catch (IOException e) {
+            //gestione eccezioni IO
             logger.severe("Update notify error in ObsClass: " + e.getMessage());
         }
     }

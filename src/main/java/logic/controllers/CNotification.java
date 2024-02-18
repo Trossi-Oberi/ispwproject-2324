@@ -8,6 +8,7 @@ import logic.utils.*;
 import logic.view.NotificationView;
 
 import java.io.IOException;
+import java.io.InvalidClassException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class CNotification {
             this.in = new SecureObjectInputStream(client.getInputStream());
 
             //avviamo il thread con il listener
-            this.listener = new ClientListener(notiView, userID, this.semaphore, this, this.in);
+            this.listener = new ClientListener(notiView, this.semaphore, this.in);
             this.listenerThread = new Thread(listener);
 
             //setto il thread come demone affinché termini quando termina anche il thread principale
@@ -79,7 +80,11 @@ public class CNotification {
                 stopListener(clientID);
             }
 
+        } catch (InvalidClassException e){
+            //gestione errore di serializzazione (writeObject)
+            logger.severe("Cannot deserialize object");
         } catch (IOException | InterruptedException e) {
+            //gestione eccezioni IO o interruzione thread
             throw new RuntimeException(e);
         }
     }

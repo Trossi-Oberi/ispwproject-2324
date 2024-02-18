@@ -15,14 +15,13 @@ import logic.utils.SituationType;
 import logic.utils.UserTypes;
 
 import java.io.IOException;
+import java.io.InvalidClassException;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.SQLOutput;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.logging.MemoryHandler;
 
 public class Server {
     private Map<String, List<ObserverClass>> observersByCity = new HashMap<>();
@@ -103,6 +102,8 @@ public class Server {
             this.client = client;
         }
 
+
+
         @Override
         public void run() {
             try {
@@ -124,13 +125,16 @@ public class Server {
                         handleMessage((Message) object);
                     }
                 }
-            } catch (IOException | ClassNotFoundException e) {
-                logger.log(Level.SEVERE, e.getMessage());
+            } catch (ClassNotFoundException | IOException e) {
+                //gestione eccezioni di deserializzazione (readObject)
+                logger.severe(e.getMessage());
             }
         }
 
         private void handleMessage(Message mex) {
             //TODO: handle message
+            Message response;
+
         }
 
         private void handleNotification(ServerNotification noti) {
@@ -290,13 +294,17 @@ public class Server {
             out.writeObject(msg);
             out.flush();
             out.reset();
+        } catch (InvalidClassException e){
+            //gestione errore di serializzazione (writeObject)
+            logger.severe("Cannot deserialize object");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            //gestione eccezioni IO
+            logger.severe(e.getMessage());
         }
     }
 
     private void updateUserOut(String city, int clientID, ObjectOutputStream out) {
-        //aggiorna canale di output nell'hashmap delle citta'
+        //aggiorna canale di output nella hashmap delle citta'
         List<ObserverClass> users = observersByCity.get(city);
         for (ObserverClass user : users) {
             if (user.getObsID() == clientID) {
