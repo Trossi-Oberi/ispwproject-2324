@@ -39,6 +39,7 @@ public class EssentialGUI extends Application implements NotificationView{
     @Override
     public void start(Stage stage){
         try{
+            cfacade.setNotiGraphic(this);
             stage.setTitle(APP_NAME);
             String logoPath = "/icons/cuore.png";
             String absolutePath;
