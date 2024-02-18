@@ -25,7 +25,7 @@ public interface UserDAO {
 
     String getUsernameByID(int userID);
 
-    void populateObsByCity(Map<String, List<ObserverClass>> obsByCity);
+    void populateObsByCity(Map<String, List<NotiObserverClass>> obsByCity);
 
     void populateConnUsers(Map<Integer, Boolean> connUsers);
 

@@ -3,6 +3,7 @@ package logic.dao;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 
+import logic.controllers.NotiObserverClass;
 import logic.controllers.ObserverClass;
 import logic.exceptions.DuplicateRecordException;
 import logic.model.MUser;
@@ -289,14 +290,14 @@ public class UserDAOCSV implements UserDAO {
     //gestiti dal server
 
     @Override
-    public void populateObsByCity(Map<String, List<ObserverClass>> obsByCity) {
+    public void populateObsByCity(Map<String, List<NotiObserverClass>> obsByCity) {
         try {
             CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
             String[] record;
 
             while ((record = csvReader.readNext()) != null) {
                 if (record[UserAttributesOrder.getIndex_UserType()].equals("USER")) {
-                    ObserverClass usrObs = new ObserverClass(Integer.parseInt(record[UserAttributesOrder.getIndex_UserType()]), null);
+                    NotiObserverClass usrObs = new NotiObserverClass(Integer.parseInt(record[UserAttributesOrder.getIndex_UserType()]), null);
                     obsByCity.computeIfAbsent(record[UserAttributesOrder.getIndex_City()], k -> new ArrayList<>()).add(usrObs);
                 }
             }
