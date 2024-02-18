@@ -1,5 +1,8 @@
 package logic.dao;
 
+import logic.controllers.NotiObserverClass;
+import logic.utils.LoggedUser;
+import logic.utils.SingletonDBSession;
 import logic.controllers.ObserverClass;
 import logic.exceptions.DuplicateRecordException;
 import logic.model.MUser;

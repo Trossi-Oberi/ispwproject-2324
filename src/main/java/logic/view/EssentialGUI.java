@@ -35,14 +35,15 @@ public class EssentialGUI extends Application implements NotificationView {
     }
 
     @Override
-    public void start(Stage stage) {
-        try {
+    public void start(Stage stage){
+        try{
+            cfacade.setNotiGraphic(this);
             stage.setTitle(APP_NAME);
             String logoPath = "/icons/cuore.png";
             String absolutePath;
             try {
                 absolutePath = getClass().getResource(logoPath).toExternalForm();
-            } catch (NullPointerException e) {
+            } catch (NullPointerException e){
                 throw new NullPointerException();
             }
             Image logoImage = new Image(absolutePath);
@@ -50,14 +51,14 @@ public class EssentialGUI extends Application implements NotificationView {
             stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
-        } catch (NullPointerException e) {
+        } catch(NullPointerException e){
             logger.log(Level.SEVERE, "Cannot load absolute path of app icon\n", e);
-        } catch (IllegalArgumentException e) {
+        } catch(IllegalArgumentException e){
             logger.log(Level.SEVERE, "Cannot load EssentialGUI due to illegal argument into logo image\n", e);
         }
     }
 
-    public static void setScene(String newScene) {
+    public static void setScene(String newScene){
         sceneName = newScene;
     }
 
@@ -107,8 +108,8 @@ public class EssentialGUI extends Application implements NotificationView {
         launch(args);
     }
 
-    public void goToHome(MouseEvent event) {
-        switch (LoggedUser.getUserType()) {
+    public void goToHome(MouseEvent event){
+        switch(LoggedUser.getUserType()){
             case USER:
                 changeGUI(event, "HomeUser.fxml");
                 break;
@@ -119,12 +120,12 @@ public class EssentialGUI extends Application implements NotificationView {
 
     }
 
-    public void goToNotifications(MouseEvent event) {
+    public void goToNotifications(MouseEvent event){
         changeGUI(event, "Notifications.fxml");
     }
 
-    public void goToYourEvents(MouseEvent event) {
-        switch (LoggedUser.getUserType()) {
+    public void goToYourEvents(MouseEvent event){
+        switch(LoggedUser.getUserType()){
             case USER:
                 changeGUI(event, "YourEventsUser.fxml");
                 break;
@@ -134,8 +135,8 @@ public class EssentialGUI extends Application implements NotificationView {
         }
     }
 
-    public void goToSettings(MouseEvent event) {
-        switch (LoggedUser.getUserType()) {
+    public void goToSettings(MouseEvent event){
+        switch(LoggedUser.getUserType()){
             case USER:
                 changeGUI(event, "SettingsUser.fxml");
                 break;

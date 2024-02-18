@@ -1,6 +1,9 @@
 package logic.utils;
 
 
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+
 public class LoggedUser {
     private static String username;
     private static UserTypes userType;
@@ -11,13 +14,16 @@ public class LoggedUser {
     private static String city;
     private static String province;
     private static String status;
-
     private static int userID;
+    private static SecureObjectInputStream in;
+    private static ObjectOutputStream out;
+    private static Socket client;
 
     private LoggedUser() {
         //empty
     }
 
+    //SETTERS
     public static void setUserName(String usrName) {
         username = usrName;
     }
@@ -42,7 +48,7 @@ public class LoggedUser {
         gender = gen;
     }
 
-    public static void setProvince(String prov){
+    public static void setProvince(String prov) {
         province = prov;
     }
 
@@ -57,6 +63,19 @@ public class LoggedUser {
     public static void setUserID(int id) {
         userID = id;
     }
+
+    public static void setOutputStream(ObjectOutputStream output) {
+        out = output;
+    }
+
+    public static void setInputStream(SecureObjectInputStream input) {
+        in = input;
+    }
+    public static void setSocket(Socket clientSocket) {
+        client = clientSocket;
+    }
+
+    //GETTERS
 
     public static String getUserName() {
         return username;
@@ -94,8 +113,19 @@ public class LoggedUser {
         return userID;
     }
 
-    public static String getStatus(){
+    public static String getStatus() {
         return status;
     }
 
+    public static ObjectOutputStream getOutputStream() {
+        return out;
+    }
+
+    public static SecureObjectInputStream getInputStream() {
+        return in;
+    }
+
+    public static Socket getSocket() {
+        return client;
+    }
 }

@@ -2,7 +2,7 @@ package logic.utils;
 
 import logic.controllers.CNotification;
 import logic.controllers.ClientListener;
-import logic.model.Notification;
+import logic.model.MGroupMessage;
 import logic.model.ServerNotification;
 import logic.server.Server;
 
@@ -26,12 +26,12 @@ public class SecureObjectInputStream extends ObjectInputStream {
         approvedClasses.add(CNotification.class.getName());
         approvedClasses.add(ClientListener.class.getName());
         approvedClasses.add(ServerNotification.class.getName());
-        approvedClasses.add(Notification.class.getName());
         approvedClasses.add(NotificationTypes.class.getName());
         approvedClasses.add(Enum.class.getName());
         approvedClasses.add(UserTypes.class.getName());
         approvedClasses.add(Integer.class.getName());
         approvedClasses.add(Number.class.getName());
+        approvedClasses.add(MGroupMessage.class.getName());
 
 
         if (!approvedClasses.contains(osc.getName())) {

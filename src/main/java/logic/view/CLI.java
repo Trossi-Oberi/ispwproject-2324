@@ -1,12 +1,14 @@
 package logic.view;
 
 import logic.beans.BEvent;
+import logic.beans.BMessage;
 import logic.beans.BNotification;
 import logic.beans.BUserData;
 import logic.controllers.CFacade;
 import logic.exceptions.DuplicateEventParticipation;
 import logic.exceptions.DuplicateRecordException;
 import logic.exceptions.InvalidTokenValue;
+import logic.model.Message;
 import logic.utils.*;
 
 import javax.swing.*;
@@ -26,7 +28,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class CLI implements NotificationView {
+public class CLI implements NotificationView, ChatView {
     private static final Logger logger = Logger.getLogger("NightPlan");
     private static CFacade cFacade;
     private static BUserData bUserData;
@@ -66,7 +68,9 @@ public class CLI implements NotificationView {
     //TODO: DA RICONTROLLARE DA CIMA A FONDO, RENDERE CONSISTENTE CON LA GUI
 
     private static void initializeControllers() {
+        CLI view = new CLI();
         cFacade = new CFacade();
+        cFacade.setNotiGraphic(view);
         bUserData = new BUserData();
         commands.addAll(List.of(commandsList));
         notiView = new CLI();
@@ -1475,5 +1479,10 @@ public class CLI implements NotificationView {
         }
         logger.info("New notification: " + value);
 
+    }
+
+    @Override
+    public void addMessageToChat(BMessage messageBean){
+        //
     }
 }

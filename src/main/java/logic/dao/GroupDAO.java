@@ -1,5 +1,7 @@
 package logic.dao;
 
+import logic.controllers.MessageObserverClass;
+import logic.controllers.NotiObserverClass;
 import logic.controllers.ObserverClass;
 import logic.model.MGroup;
 import logic.utils.LoggedUser;
@@ -65,6 +67,7 @@ public class GroupDAO {
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQLException occurred while getting group name");
+
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
@@ -76,6 +79,7 @@ public class GroupDAO {
             statement.setString(1,groupName);
             statement.setInt(2,eventID);
             statement.setInt(3,LoggedUser.getUserID());
+
             int insertedRows = statement.executeUpdate();
             //recupero id evento dopo l'aggiunta
             if (insertedRows>0){
@@ -127,13 +131,12 @@ public class GroupDAO {
         }
     }
 
-    public void populateUsersInGroups(Map<Integer, List<ObserverClass>> usersInGroups) {
+    public void populateUsersInGroups(Map<Integer, List<MessageObserverClass>> usersInGroups) {
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT user_id, group_id FROM usergroup")){
-            try(ResultSet rs = statement.executeQuery()) {
-                while (rs.next()) {
-                    ObserverClass obs = new ObserverClass(rs.getInt(1), null);
-                    usersInGroups.computeIfAbsent(rs.getInt(2), k -> new ArrayList<>()).add(obs);
-                }
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                MessageObserverClass obs = new MessageObserverClass(rs.getInt(1), null);
+                usersInGroups.computeIfAbsent(rs.getInt(2), k -> new ArrayList<>()).add(obs);
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQLException occurred while populating UsersInGroups hashmap");

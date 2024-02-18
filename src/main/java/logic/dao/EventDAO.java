@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.logging.Level;
 
-import logic.controllers.ObserverClass;
+import logic.controllers.NotiObserverClass;
 import logic.utils.LoggedUser;
 import logic.utils.PersistenceClass;
 import logic.utils.SingletonDBSession;
@@ -168,13 +168,12 @@ public class EventDAO {
 
 
     //gestita dal server
-    public void populateOrgByEventID(Map<Integer, ObserverClass> orgByEventID){
+    public void populateOrgByEventID(Map<Integer, NotiObserverClass> orgByEventID){
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT event_id, organizer_id FROM events")){
-            try(ResultSet rs = statement.executeQuery()) {
-                while (rs.next()) {
-                    ObserverClass orgObs = new ObserverClass(rs.getInt(2), null);
-                    orgByEventID.put(rs.getInt(1), orgObs);
-                }
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                NotiObserverClass orgObs = new NotiObserverClass(rs.getInt(2), null);
+                orgByEventID.put(rs.getInt(1), orgObs);
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQLException occurred while populating orgByEventID hashmap");
