@@ -16,12 +16,10 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import logic.utils.Alerts;
-import logic.utils.LoggedUser;
+import logic.utils.*;
 import logic.controllers.CFacade;
-import logic.utils.NotificationTypes;
 
-public class EssentialGUI extends Application implements NotificationView{
+public class EssentialGUI extends Application implements NotificationView {
     //TODO: inserire le icone in tutta l'applicazione
     private static final String APP_NAME = "NightPlan";
     protected static String sceneName;
@@ -32,19 +30,19 @@ public class EssentialGUI extends Application implements NotificationView{
     //dichiaro logger pubblico, globale e costante
     public static final Logger logger = Logger.getLogger(APP_NAME);
 
-    public EssentialGUI(){
+    public EssentialGUI() {
         this.alert = new AlertPopup();
     }
 
     @Override
-    public void start(Stage stage){
-        try{
+    public void start(Stage stage) {
+        try {
             stage.setTitle(APP_NAME);
             String logoPath = "/icons/cuore.png";
             String absolutePath;
             try {
                 absolutePath = getClass().getResource(logoPath).toExternalForm();
-            } catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 throw new NullPointerException();
             }
             Image logoImage = new Image(absolutePath);
@@ -52,27 +50,27 @@ public class EssentialGUI extends Application implements NotificationView{
             stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
-        } catch(NullPointerException e){
+        } catch (NullPointerException e) {
             logger.log(Level.SEVERE, "Cannot load absolute path of app icon\n", e);
-        } catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             logger.log(Level.SEVERE, "Cannot load EssentialGUI due to illegal argument into logo image\n", e);
         }
     }
 
-    public static void setScene(String newScene){
+    public static void setScene(String newScene) {
         sceneName = newScene;
     }
 
-    public void nextGuiOnClick(MouseEvent event){
-        Stage next = (Stage)((Node)event.getSource()).getScene().getWindow();
+    public void nextGuiOnClick(MouseEvent event) {
+        Stage next = (Stage) ((Node) event.getSource()).getScene().getWindow();
         start(next);
     }
 
-    public static void loadApp(){
+    public static void loadApp() {
         try {
             URL loc = EssentialGUI.class.getResource(sceneName);
             Parent root = null;
-            if(loc != null) {
+            if (loc != null) {
                 root = FXMLLoader.load(loc);
             }
             scene = new Scene(root);
@@ -83,7 +81,7 @@ public class EssentialGUI extends Application implements NotificationView{
     }
 
 
-    public void changeGUI(MouseEvent event, String newScene){
+    public void changeGUI(MouseEvent event, String newScene) {
         setScene(newScene);
         loadApp();
         nextGuiOnClick(event);
@@ -92,11 +90,25 @@ public class EssentialGUI extends Application implements NotificationView{
     public static void main(String[] args) {
         setScene("Login.fxml");
         loadApp();
+
+        if (args.length > 0) {
+            if ("JDBC".equals(args[0])) {
+                logger.info("NightPlan started with JDBC persistence logic");
+                PersistenceClass.setPersistenceType(PersistenceTypes.JDBC);
+            } else if ("FileSystem".equals(args[0])) {
+                logger.info("NightPlan started with FileSystem persistence logic");
+                PersistenceClass.setPersistenceType(PersistenceTypes.FileSystem);
+            }
+        } else {
+            logger.info("NightPlan started with default persistence logic (JDBC)");
+            PersistenceClass.setPersistenceType(PersistenceTypes.JDBC);
+        }
+
         launch(args);
     }
 
-    public void goToHome(MouseEvent event){
-        switch(LoggedUser.getUserType()){
+    public void goToHome(MouseEvent event) {
+        switch (LoggedUser.getUserType()) {
             case USER:
                 changeGUI(event, "HomeUser.fxml");
                 break;
@@ -107,12 +119,12 @@ public class EssentialGUI extends Application implements NotificationView{
 
     }
 
-    public void goToNotifications(MouseEvent event){
+    public void goToNotifications(MouseEvent event) {
         changeGUI(event, "Notifications.fxml");
     }
 
-    public void goToYourEvents(MouseEvent event){
-        switch(LoggedUser.getUserType()){
+    public void goToYourEvents(MouseEvent event) {
+        switch (LoggedUser.getUserType()) {
             case USER:
                 changeGUI(event, "YourEventsUser.fxml");
                 break;
@@ -122,8 +134,8 @@ public class EssentialGUI extends Application implements NotificationView{
         }
     }
 
-    public void goToSettings(MouseEvent event){
-        switch(LoggedUser.getUserType()){
+    public void goToSettings(MouseEvent event) {
+        switch (LoggedUser.getUserType()) {
             case USER:
                 changeGUI(event, "SettingsUser.fxml");
                 break;

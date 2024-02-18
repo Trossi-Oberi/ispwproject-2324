@@ -27,15 +27,14 @@ import java.util.logging.Logger;
 
 public class CLI implements NotificationView {
     private static final Logger logger = Logger.getLogger("NightPlan");
-    private static boolean isAuthenticated = false;
     private static CFacade cFacade;
     private static BUserData bUserData;
     private static ArrayList<String> commands = new ArrayList<>();
-    private static String[] commandsList = {"/commands", "/home", "/events", "/notifications", "/settings", "/quit"};
+    private static final String[] commandsList = {"/commands", "/home", "/events", "/notifications", "/settings", "/quit"};
     private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private static String filePath;
     private static NotificationView notiView;
-    private static String asciiLogo = "                                                                                                     \n" +
+    private static final String asciiLogo = "                                                                                                     \n" +
             "                                                                                                     \n" +
             "                                                                                                     \n" +
             "                                                                                                     \n" +
@@ -547,14 +546,14 @@ public class CLI implements NotificationView {
         try {
 
             System.out.println("Event name: (previous: " + eventBean.getEventName() + ")");
-            if(!(newVal = reader.readLine()).isEmpty()) {
+            if (!(newVal = reader.readLine()).isEmpty()) {
                 eventBean.setEventName(newVal);
             }
 
             System.out.println("Event province: (previous: " + eventBean.getEventProvince() + ")");
             do {
-                if(!(newVal = reader.readLine()).isEmpty()) {
-                    if(provinces.contains(newVal)) {
+                if (!(newVal = reader.readLine()).isEmpty()) {
+                    if (provinces.contains(newVal)) {
                         eventBean.setEventProvince(newVal);
                         valid = true;
                     }
@@ -567,8 +566,8 @@ public class CLI implements NotificationView {
             cities = cFacade.getCitiesList(eventBean.getEventProvince());
             System.out.println("Event city: (previous: " + eventBean.getEventCity() + ")");
             do {
-                if(!(newVal = reader.readLine()).isEmpty()) {
-                    if(cities.contains(newVal)) {
+                if (!(newVal = reader.readLine()).isEmpty()) {
+                    if (cities.contains(newVal)) {
                         eventBean.setEventCity(newVal);
                         valid = true;
                     }
@@ -581,7 +580,7 @@ public class CLI implements NotificationView {
             System.out.println("Event date: (previous: " + eventBean.getEventDate() + ")");
             do {
                 String val = reader.readLine();
-                if(!val.isEmpty()) {
+                if (!val.isEmpty()) {
                     try {
                         // Convertire la stringa in un oggetto LocalDate utilizzando il formatter
                         LocalDate eventDate = LocalDate.parse(val, formatter);
@@ -599,7 +598,7 @@ public class CLI implements NotificationView {
             valid = false;
 
             System.out.println("Event address: (previous: " + eventBean.getEventAddress() + ")");
-            if(!(newVal = reader.readLine()).isEmpty()) {
+            if (!(newVal = reader.readLine()).isEmpty()) {
                 eventBean.setEventAddress(newVal);
             }
 
@@ -609,7 +608,7 @@ public class CLI implements NotificationView {
             }
             do {
                 String val = reader.readLine();
-                if(!val.isEmpty()) {
+                if (!val.isEmpty()) {
                     for (int i = 0; i < MusicGenres.MUSIC_GENRES.length; i++) {
 
                         if (MusicGenres.MUSIC_GENRES[i].contains(val)) {
@@ -629,7 +628,7 @@ public class CLI implements NotificationView {
             do {
                 String val = reader.readLine();
 
-                if(!val.isEmpty()) {
+                if (!val.isEmpty()) {
                     try {
                         timeFormat.parse(val);
                     } catch (ParseException e) {
@@ -655,7 +654,7 @@ public class CLI implements NotificationView {
             spacer(1);
             System.out.print("Do you want to change event image? Write 'y' or 'Y if you want to update event image");
             String decision = reader.readLine();
-            if(decision.equalsIgnoreCase("y")){
+            if (decision.equalsIgnoreCase("y")) {
                 //prendi file immagine
                 byte[] fileData = pickFileData();
                 if (fileData != null && filePath != null) {
@@ -709,10 +708,10 @@ public class CLI implements NotificationView {
         System.out.println("Date: " + bEvent.getEventDate());
         System.out.println("Address: " + bEvent.getEventAddress());
 
-        if(LoggedUser.getUserType().equals(UserTypes.USER)){
+        if (LoggedUser.getUserType().equals(UserTypes.USER)) {
             spacer(1);
             boolean isEventParticipated = cFacade.checkPreviousEventParticipation(bEvent);
-            if(isEventParticipated){
+            if (isEventParticipated) {
                 System.out.println("1. Go back\n" +
                         "2. Remove event participation");
             } else {
@@ -733,16 +732,16 @@ public class CLI implements NotificationView {
                     switch (value) {
                         case "1":
                             valid = true;
-                            if(lastPage.equals("Home")) {
+                            if (lastPage.equals("Home")) {
                                 //torno nella home
                                 loadHome();
-                            } else if(lastPage.equals("YourEventsUser")){
+                            } else if (lastPage.equals("YourEventsUser")) {
                                 loadEvents();
                             }
                             break;
                         case "2":
-                            if(isEventParticipated){
-                                if(cFacade.removeEventParticipation(bEvent)){
+                            if (isEventParticipated) {
+                                if (cFacade.removeEventParticipation(bEvent)) {
                                     System.out.println("Event participation remove successfully!");
                                 } else {
                                     logger.severe("Event participation removal failed!");
@@ -763,7 +762,7 @@ public class CLI implements NotificationView {
                     throw new RuntimeException(e);
                 }
             } while (!valid);
-        } else if(LoggedUser.getUserType().equals(UserTypes.ORGANIZER)){
+        } else if (LoggedUser.getUserType().equals(UserTypes.ORGANIZER)) {
             spacer(1);
             System.out.println("1. Go back\n" +
                     "2. Edit event\n" +
@@ -827,7 +826,7 @@ public class CLI implements NotificationView {
         spacer(1);
         try {
             String val = reader.readLine();
-            if(val.equalsIgnoreCase("y")){
+            if (val.equalsIgnoreCase("y")) {
                 if (!cFacade.deleteEvent(eventID)) {
                     logger.severe("Failed to delete event. Retry...");
                     return false;
@@ -835,7 +834,7 @@ public class CLI implements NotificationView {
             } else {
                 return false;
             }
-        } catch (IOException e){
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return true;
@@ -847,7 +846,7 @@ public class CLI implements NotificationView {
 
 
         ArrayList<BNotification> notifications = cFacade.retrieveNotifications(LoggedUser.getUserID());
-        if(!notifications.isEmpty()) {
+        if (!notifications.isEmpty()) {
             for (int i = 0; i < notifications.size(); i++) {
                 if (notifications.get(i).getMessageType() == NotificationTypes.EventAdded) {
                     System.out.println(i + 1 + ". New event called " + cFacade.getEventNameByEventID(notifications.get(i).getEventID()) + " in your city!");
@@ -875,7 +874,7 @@ public class CLI implements NotificationView {
                 }
 
                 //cancello la notifica
-                if(value.equals("1")){
+                if (value.equals("1")) {
                     valid = true;
                     deleteNotification(notifications);
 
@@ -888,7 +887,7 @@ public class CLI implements NotificationView {
         } while (!valid);
     }
 
-    private static void deleteNotification(ArrayList<BNotification> notifications){
+    private static void deleteNotification(ArrayList<BNotification> notifications) {
         boolean valid = false;
 
         spacer(1);
@@ -902,14 +901,14 @@ public class CLI implements NotificationView {
                 int index;
                 try {
                     index = Integer.parseInt(value);
-                } catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     logger.severe("Index format not valid...");
                     continue;
                 }
 
                 // Verifica se l'indice è valido
                 if (index >= 1 && index <= notifications.size()) {
-                    cFacade.deleteNotification(notifications.get(index-1).getNotificationID(), notifications, index-1);
+                    cFacade.deleteNotification(notifications.get(index - 1).getNotificationID(), notifications, index - 1);
                     valid = true;
 
                     //ricarica notifications
@@ -918,18 +917,18 @@ public class CLI implements NotificationView {
                     logger.severe("Index range non valid. If must be between 1 and " + (notifications.size()));
                 }
             } while (!valid);
-        } catch (IOException e){
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private static void loadEvents(){
+    private static void loadEvents() {
         clearScreen();
         ArrayList<BEvent> eventList;
         spacer(1);
 
         System.out.println("Your events");
-        if(LoggedUser.getUserType().equals(UserTypes.USER)){
+        if (LoggedUser.getUserType().equals(UserTypes.USER)) {
             System.out.println("1. Events with planned participation\n" + "2. Past events");
 
             boolean valid = false;
@@ -942,10 +941,10 @@ public class CLI implements NotificationView {
                         handleCommand(value);
                     }
 
-                    if(value.equals("1")){
+                    if (value.equals("1")) {
                         valid = true;
                         showEvents(false);
-                    } else if(value.equals("2")){
+                    } else if (value.equals("2")) {
                         valid = true;
                         showEvents(true);
                     }
@@ -954,7 +953,7 @@ public class CLI implements NotificationView {
                 }
             } while (!valid);
 
-        } else if(LoggedUser.getUserType().equals(UserTypes.ORGANIZER)){
+        } else if (LoggedUser.getUserType().equals(UserTypes.ORGANIZER)) {
             System.out.println("1. Events created by you\n" + "2. Past events\n" + "3. Analytics");
 
             boolean valid = false;
@@ -967,7 +966,7 @@ public class CLI implements NotificationView {
                         handleCommand(value);
                     }
 
-                    switch (value){
+                    switch (value) {
                         case "1":
                             valid = true;
                             showEvents(false);
@@ -1034,10 +1033,10 @@ public class CLI implements NotificationView {
         System.out.println("Address: " + bEvent.getEventAddress());
 
         int participations = cFacade.retrieveParticipationsToEvent(bEvent.getEventID());
-        if (timesClicked == null){
+        if (timesClicked == null) {
             Random rand = new SecureRandom();
-            timesClicked = rand.nextInt(5000- participations +1) + participations;
-            nParticipants = rand.nextInt(participations +1);
+            timesClicked = rand.nextInt(5000 - participations + 1) + participations;
+            nParticipants = rand.nextInt(participations + 1);
         }
 
         System.out.println("Participants: " + participations);
@@ -1057,7 +1056,7 @@ public class CLI implements NotificationView {
                     handleCommand(value);
                 }
 
-                if(value.equals("1")){
+                if (value.equals("1")) {
                     loadEvents();
                     valid = true;
                 }
@@ -1076,7 +1075,7 @@ public class CLI implements NotificationView {
 
             ArrayList<BEvent> tempList = cFacade.retrieveEvents(LoggedUser.getUserType(), "GCYourEventsUser");
 
-            if(!isPassed) {
+            if (!isPassed) {
                 for (BEvent bEvent : tempList) {
                     String eventDateString = bEvent.getEventDate();
                     LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
@@ -1099,7 +1098,7 @@ public class CLI implements NotificationView {
             }
 
             if (!eventList.isEmpty()) {
-                if(!isPassed) {
+                if (!isPassed) {
                     System.out.println("Your events. \nWrite event name to show event info!");
                 } else {
                     System.out.println("Your past events. \nWrite event name to show event info!");
@@ -1141,7 +1140,7 @@ public class CLI implements NotificationView {
         } else if (LoggedUser.getUserType().equals(UserTypes.ORGANIZER)) {
             ArrayList<BEvent> tempList = cFacade.retrieveEvents(LoggedUser.getUserType(), "GCYourEventsOrg");
 
-            if(!isPassed) {
+            if (!isPassed) {
                 for (BEvent bEvent : tempList) {
                     String eventDateString = bEvent.getEventDate();
                     LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
@@ -1298,7 +1297,7 @@ public class CLI implements NotificationView {
                                         //ricarico tutta l'interfaccia
                                         loadApp();
                                     }
-                                } catch (InvalidTokenValue e){
+                                } catch (InvalidTokenValue e) {
                                     logger.info("Invalid token value...");
 
                                     //ricarico l'interfaccia
@@ -1338,6 +1337,29 @@ public class CLI implements NotificationView {
 
     public static void main(String[] args) {
         initializeControllers();
+
+        System.out.print("Choose the persistence logic!\n Write 'JDBC' or 'FileSystem' -> ");
+        try {
+            boolean valid = false;
+
+            do {
+                String val = reader.readLine();
+
+                if (val.equalsIgnoreCase("jdbc") || val.equalsIgnoreCase("filesystem")) {
+                    valid = true;
+                    if (val.equalsIgnoreCase("jdbc")) {
+                        PersistenceClass.setPersistenceType(PersistenceTypes.JDBC);
+                    } else {
+                        PersistenceClass.setPersistenceType(PersistenceTypes.FileSystem);
+                    }
+                } else {
+                    System.out.println("Invalid option. Please enter 'JDBC' or 'FileSystem'.");
+                }
+            } while (!valid);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         loadApp();
     }
 

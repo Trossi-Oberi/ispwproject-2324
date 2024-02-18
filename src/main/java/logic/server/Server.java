@@ -2,26 +2,24 @@ package logic.server;
 
 import logic.controllers.NotificationFactory;
 import logic.controllers.ObserverClass;
-import logic.dao.EventDAO;
-import logic.dao.GroupDAO;
-import logic.dao.NotificationDAO;
-import logic.dao.UserDAO;
+import logic.dao.*;
 import logic.model.Message;
 import logic.model.Notification;
 import logic.model.ServerNotification;
-import logic.utils.NotificationTypes;
-import logic.utils.SecureObjectInputStream;
-import logic.utils.SituationType;
-import logic.utils.UserTypes;
+import logic.utils.*;
 
 import java.io.IOException;
 import java.io.InvalidClassException;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 public class Server {
     private Map<String, List<ObserverClass>> observersByCity = new HashMap<>();
@@ -276,7 +274,17 @@ public class Server {
 
     private void loadData() {
         try {
-            UserDAO userDAO = new UserDAO();
+            UserDAO userDAO;
+            switch (PersistenceClass.getPersistenceType()){
+                case FileSystem:
+                    userDAO = new UserDAOCSV();
+                    break;
+                case JDBC:
+                default:
+                    userDAO = new UserDAOJDBC();
+                    break;
+            }
+
             EventDAO eventDAO = new EventDAO();
             GroupDAO groupDAO = new GroupDAO();
             userDAO.populateObsByCity(this.observersByCity);

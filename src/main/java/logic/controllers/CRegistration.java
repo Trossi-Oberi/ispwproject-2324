@@ -2,8 +2,11 @@ package logic.controllers;
 
 import logic.beans.BUserData;
 import logic.dao.UserDAO;
+import logic.dao.UserDAOCSV;
+import logic.dao.UserDAOJDBC;
 import logic.model.MUser;
 import logic.dao.LocationDAO;
+import logic.utils.PersistenceClass;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,7 +18,15 @@ public class CRegistration {
     private MUser userModel;
 
     public CRegistration(){
-        this.userDao = new UserDAO();
+        switch (PersistenceClass.getPersistenceType()){
+            case FileSystem:
+                this.userDao = new UserDAOCSV();
+                break;
+            case JDBC:
+            default:
+                this.userDao = new UserDAOJDBC();
+                break;
+        }
         this.userModel = new MUser();
         this.locationDao = new LocationDAO();
     }

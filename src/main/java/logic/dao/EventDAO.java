@@ -10,6 +10,7 @@ import java.util.logging.Level;
 
 import logic.controllers.ObserverClass;
 import logic.utils.LoggedUser;
+import logic.utils.PersistenceClass;
 import logic.utils.SingletonDBSession;
 import logic.model.MEvent;
 
@@ -103,7 +104,16 @@ public class EventDAO {
                 logger.log(Level.SEVERE, "SQLException occurred while retrieving events");
             }
         } else if(queryType == 1){   //USER && HomeUser
-            UserDAO userDAO = new UserDAO();
+            UserDAO userDAO;
+            switch (PersistenceClass.getPersistenceType()){
+                case FileSystem:
+                    userDAO = new UserDAOCSV();
+                    break;
+                case JDBC:
+                default:
+                    userDAO = new UserDAOJDBC();
+                    break;
+            }
             try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT event_id,organizer,organizer_id,name,province,city,address,music_genre,date,time,image,pic_path FROM events WHERE (city = ?)")) {
                 statement.setString(1, userDAO.getUserCityByID(userID));
                 myEvents = getEventsArrayList(statement);

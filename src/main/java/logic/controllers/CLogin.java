@@ -1,18 +1,30 @@
 package logic.controllers;
 
 import logic.dao.UserDAO;
+import logic.dao.UserDAOJDBC;
+import logic.dao.UserDAOCSV;
 import logic.exceptions.InvalidTokenValue;
 import logic.model.MUser;
 import logic.beans.BUserData;
 import logic.utils.LoggedUser;
 import logic.utils.GoogleLogin;
+import logic.utils.PersistenceClass;
 
 public class CLogin {
     private UserDAO userDao;
     private MUser userModel;
 
     public CLogin() {
-        this.userDao = new UserDAO();
+        switch (PersistenceClass.getPersistenceType()){
+            case FileSystem:
+                this.userDao = new UserDAOCSV();
+                break;
+            case JDBC:
+            default:
+                this.userDao = new UserDAOJDBC();
+                break;
+        }
+
         this.userModel = new MUser();
     }
 
