@@ -2,9 +2,12 @@ package logic.controllers;
 
 import logic.beans.*;
 import logic.exceptions.InvalidTokenValue;
+import logic.model.Message;
 import logic.utils.LoggedUser;
+import logic.utils.MessageTypes;
 import logic.utils.NotificationTypes;
 import logic.utils.UserTypes;
+import logic.view.ChatView;
 import logic.view.NotificationView;
 
 import java.util.ArrayList;
@@ -16,6 +19,8 @@ public class CFacade {
     private CNotification notificationController;
     private CGroup groupController;
     private CGroupChat chatController;
+    private ChatView chatView;
+    private static NotificationView notiView;
 
     public CFacade() {
         //empty
@@ -29,9 +34,9 @@ public class CFacade {
         boolean res = manageEventController.addEvent(bean); //chiamata al controller effettivo
         if (res) {
             if (notificationController == null) {
-                notificationController = new CNotification();
+                notificationController = new CNotification(this);
             }
-            notificationController.sendNotification(null, NotificationTypes.EventAdded, bean.getEventOrganizerID(), null, bean.getEventID(), null, bean.getEventCity(), null);
+            notificationController.sendNotification(NotificationTypes.EventAdded, bean.getEventOrganizerID(), null, bean.getEventID(), null, bean.getEventCity(), null);
         }
         return res;
     }
@@ -43,9 +48,9 @@ public class CFacade {
         boolean res = manageEventController.deleteEvent(eventID);
         if (res) {
             if (notificationController == null) {
-                notificationController = new CNotification();
+                notificationController = new CNotification(this);
             }
-            notificationController.sendNotification(null, NotificationTypes.EventDeleted, null, null, eventID, null, null, null);
+            notificationController.sendNotification(NotificationTypes.EventDeleted, null, null, eventID, null, null, null);
         }
         return res;
     }
@@ -57,9 +62,9 @@ public class CFacade {
         boolean res = manageEventController.participateToEvent(eventBean);
         if (res) {
             if (notificationController == null) {
-                notificationController = new CNotification();
+                notificationController = new CNotification(this);
             }
-            notificationController.sendNotification(null, NotificationTypes.UserEventParticipation, LoggedUser.getUserID(), null, eventBean.getEventID(), null, null, null);
+            notificationController.sendNotification(NotificationTypes.UserEventParticipation, LoggedUser.getUserID(), null, eventBean.getEventID(), null, null, null);
         }
         return res;
     }
@@ -72,7 +77,8 @@ public class CFacade {
         }
         boolean res = manageEventController.removeEventParticipation(eventBean);
         if (res) {
-            notificationController.sendNotification(null, NotificationTypes.UserEventRemoval, LoggedUser.getUserID(), null, eventBean.getEventID(), null, null, null);
+            //TODO: rimovibile
+            notificationController.sendNotification(NotificationTypes.UserEventRemoval, LoggedUser.getUserID(), null, eventBean.getEventID(), null, null, null);
             Integer groupID = getGroupByEventID(eventBean.getEventID()).getGroupID();
             //se il gruppo non esiste salto il leaveGroup
             if (groupID == null || !checkUserInGroup(groupID)) {
@@ -87,9 +93,9 @@ public class CFacade {
             result = groupController.leaveGroup(groupID);
             if (result) {
                 if (notificationController == null) {
-                    notificationController = new CNotification();
+                    notificationController = new CNotification(this);
                 }
-                notificationController.sendNotification(null, NotificationTypes.GroupLeave, LoggedUser.getUserID(), null, groupID, null, null, null);
+                notificationController.sendNotification(NotificationTypes.GroupLeave, LoggedUser.getUserID(), null, groupID, null, null, null);
             }
         }
         return result;
@@ -121,9 +127,9 @@ public class CFacade {
         if (res) {
             if (bean.getUserType().equals(UserTypes.USER)) {
                 if (notificationController == null) {
-                    notificationController = new CNotification(); //inizializzo il controller delle notifiche
+                    notificationController = new CNotification(this); //inizializzo il controller delle notifiche
                 }
-                notificationController.sendNotification(null, NotificationTypes.UserRegistration, bean.getUserID(), null, null, null, bean.getCity(), null); //null perche' e' ovvio sia UserType user
+                notificationController.sendNotification(NotificationTypes.UserRegistration, bean.getUserID(), null, null, null, bean.getCity(), null); //null perche' e' ovvio sia UserType user
             }
         }
         return res;
@@ -136,9 +142,9 @@ public class CFacade {
         int loginRes = loginController.checkLoginControl(bean, isGoogleAuth, authCode);
         if (loginRes == 1) {
             if (notificationController == null) {
-                notificationController = new CNotification();
+                notificationController = new CNotification(this);
             }
-            notificationController.sendNotification(notiView, NotificationTypes.LoggedIn, LoggedUser.getUserID(), null, null, null, LoggedUser.getCity(), LoggedUser.getUserType());
+            notificationController.sendNotification(NotificationTypes.LoggedIn, LoggedUser.getUserID(), null, null, null, LoggedUser.getCity(), LoggedUser.getUserType());
         }
         return loginRes;
     }
@@ -146,9 +152,9 @@ public class CFacade {
     public void signOut() {
         //effettuo la disconnessione dal server
         if (notificationController == null) {
-            notificationController = new CNotification();
+            notificationController = new CNotification(this);
         }
-        notificationController.sendNotification(null, NotificationTypes.Disconnected, LoggedUser.getUserID(), null, null, null, null, LoggedUser.getUserType());
+        notificationController.sendNotification(NotificationTypes.Disconnected, LoggedUser.getUserID(), null, null, null, null, LoggedUser.getUserType());
         //dopo la disconnessione dal server chiudo la sessione di Login
         if (loginController == null) {
             loginController = new CLogin();
@@ -176,10 +182,10 @@ public class CFacade {
         boolean res = groupController.joinGroup(groupID);
         if (res) {
             if (notificationController == null) {
-                notificationController = new CNotification();
+                notificationController = new CNotification(this);
             }
             //anche qui groupID passato al posto di eventID
-            notificationController.sendNotification(null, NotificationTypes.GroupJoin, LoggedUser.getUserID(), null, groupID, null, null, null);
+            notificationController.sendNotification(NotificationTypes.GroupJoin, LoggedUser.getUserID(), null, groupID, null, null, null);
         }
         return res;
     }
@@ -192,9 +198,9 @@ public class CFacade {
         boolean result = groupController.leaveGroup(groupID);
         if (result) {
             if (notificationController == null) {
-                notificationController = new CNotification();
+                notificationController = new CNotification(this);
             }
-            notificationController.sendNotification(null, NotificationTypes.GroupLeave, LoggedUser.getUserID(), null, groupID, null, null, null);
+            notificationController.sendNotification(NotificationTypes.GroupLeave, LoggedUser.getUserID(), null, groupID, null, null, null);
         }
         return result;
     }
@@ -205,10 +211,7 @@ public class CFacade {
         }
         boolean res = chatController.writeMessage(groupID, text);
         if (res) {
-            if (notificationController == null) {
-                notificationController = new CNotification();
-            }
-            //notificationController.sendMessage();
+            chatController.sendMessage(MessageTypes.GROUP, LoggedUser.getUserID(), groupID, text);
         }
         return res;
     }
@@ -255,7 +258,7 @@ public class CFacade {
 
     public ArrayList<BNotification> retrieveNotifications(int userID) {
         if (notificationController == null) {
-            notificationController = new CNotification();
+            notificationController = new CNotification(this);
         }
         return notificationController.retrieveNotifications(userID);
     }
@@ -272,6 +275,7 @@ public class CFacade {
             loginController = new CLogin();
         }
         return loginController.changeCity(userID, province, city);
+        //TODO: Implementare cambio nel server
     }
 
     public String getUsernameByID(int userID) {
@@ -283,7 +287,7 @@ public class CFacade {
 
     public boolean deleteNotification(Integer notificationID, ArrayList<BNotification> notificationsList, int index) {
         if (notificationController == null) {
-            notificationController = new CNotification();
+            notificationController = new CNotification(this);
         }
 
         return notificationController.deleteNotification(notificationID, notificationsList, index);
@@ -317,12 +321,33 @@ public class CFacade {
         return groupController.getGroupNameByGroupID(groupID);
     }
 
-    public ArrayList<BGroupMessage> retrieveGroupChat(Integer groupID) {
+    public ArrayList<BMessage> retrieveGroupChat(Integer groupID) {
         if (chatController == null) {
             chatController = new CGroupChat();
         }
         return chatController.retrieveGroupChat(groupID);
     }
 
+    public void setNotiGraphic(NotificationView notificationView) {
+        notiView = notificationView;
+    }
 
+    public void setChatGraphic(ChatView chatView) {
+        this.chatView = chatView;
+    }
+
+    public void showNotification(NotificationTypes notiType){
+        this.notiView.showNotification(notiType);
+    }
+
+    public void addMessageToChat(Message msg){
+        //anche qui l'unico caso e' quello della group chat quindi non faccio controlli aggiuntivi
+        BMessage beanMsg = new BMessage(msg);
+        this.chatView.addMessageToChat(beanMsg);
+    }
+
+
+    public ChatView getChatGraphic() {
+        return this.chatView;
+    }
 }
