@@ -79,7 +79,7 @@ public class CLogin {
     private void createLoggedSession() {
         ObjectOutputStream out = null;
         SecureObjectInputStream in = null;
-        Socket client=null;
+        Socket client = null;
         try {
             client = new Socket(Server.ADDRESS, Server.PORT);
             out = new ObjectOutputStream(client.getOutputStream());

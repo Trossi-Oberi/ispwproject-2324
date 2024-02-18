@@ -242,8 +242,16 @@ public class UserDAOCSV implements UserDAO {
             while ((record = csvReader.readNext()) != null) {
                 if (Integer.parseInt(record[UserAttributesOrder.getIndex_UserID()]) == userID) {
                     record[UserAttributesOrder.getIndex_UserStatus()] = LoggedUser.getStatus();
+                    break;
                 }
             }
+
+            CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, false)));
+
+            //chiudo il csvWrites e flusho
+            csvWriter.writeNext(record);
+            csvWriter.flush();
+            csvWriter.close();
         } catch (CsvValidationException | IOException e) {
             throw new RuntimeException(e);
         }
@@ -261,8 +269,18 @@ public class UserDAOCSV implements UserDAO {
                     record[UserAttributesOrder.getIndex_Province()] = province;
                     record[UserAttributesOrder.getIndex_City()] = city;
                     res = 1;
+                    break;
                 }
             }
+
+            CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, false)));
+
+            //chiudo il csvWrites e flusho
+            csvWriter.writeNext(record);
+            csvWriter.flush();
+            csvWriter.close();
+
+
         } catch (CsvValidationException | IOException e) {
             throw new RuntimeException(e);
         }
@@ -279,6 +297,7 @@ public class UserDAOCSV implements UserDAO {
             while ((record = csvReader.readNext()) != null) {
                 if (Integer.parseInt(record[UserAttributesOrder.getIndex_UserID()]) == userID) {
                     userName = record[UserAttributesOrder.getIndex_UserName()];
+                    break;
                 }
             }
         } catch (CsvValidationException | IOException e) {
