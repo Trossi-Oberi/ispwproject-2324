@@ -10,6 +10,8 @@ import logic.utils.LoggedUser;
 import logic.utils.GoogleLogin;
 import logic.utils.PersistenceClass;
 
+import java.io.IOException;
+
 public class CLogin {
     private UserDAO userDao;
     private MUser userModel;
@@ -17,7 +19,11 @@ public class CLogin {
     public CLogin() {
         switch (PersistenceClass.getPersistenceType()){
             case FileSystem:
-                this.userDao = new UserDAOCSV();
+                try {
+                    this.userDao = new UserDAOCSV();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
             case JDBC:
             default:

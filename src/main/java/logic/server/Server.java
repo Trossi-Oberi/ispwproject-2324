@@ -277,7 +277,11 @@ public class Server {
             UserDAO userDAO;
             switch (PersistenceClass.getPersistenceType()){
                 case FileSystem:
-                    userDAO = new UserDAOCSV();
+                    try {
+                        userDAO = new UserDAOCSV();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case JDBC:
                 default:

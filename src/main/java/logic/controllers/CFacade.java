@@ -1,6 +1,7 @@
 package logic.controllers;
 
 import logic.beans.*;
+import logic.exceptions.DuplicateRecordException;
 import logic.exceptions.InvalidTokenValue;
 import logic.utils.LoggedUser;
 import logic.utils.NotificationTypes;
@@ -111,7 +112,7 @@ public class CFacade {
     }
 
 
-    public boolean registerUser(BUserData bean) throws RuntimeException {
+    public boolean registerUser(BUserData bean) throws RuntimeException, DuplicateRecordException {
         if (regController == null) {
             regController = new CRegistration();
         }

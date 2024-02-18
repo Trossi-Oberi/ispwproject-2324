@@ -5,6 +5,7 @@ import logic.beans.BNotification;
 import logic.beans.BUserData;
 import logic.controllers.CFacade;
 import logic.exceptions.DuplicateEventParticipation;
+import logic.exceptions.DuplicateRecordException;
 import logic.exceptions.InvalidTokenValue;
 import logic.utils.*;
 
@@ -1338,7 +1339,7 @@ public class CLI implements NotificationView {
     public static void main(String[] args) {
         initializeControllers();
 
-        System.out.print("Choose the persistence logic!\n Write 'JDBC' or 'FileSystem' -> ");
+        System.out.print("Choose the persistence logic!\n Type 'JDBC' or 'FileSystem' -> ");
         try {
             boolean valid = false;
 
@@ -1454,6 +1455,9 @@ public class CLI implements NotificationView {
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (DuplicateRecordException e) {
+            logger.warning("Username already taken by another user!");
+            return 0;
         }
         return 1;
     }

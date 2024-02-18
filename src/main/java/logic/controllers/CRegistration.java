@@ -4,10 +4,12 @@ import logic.beans.BUserData;
 import logic.dao.UserDAO;
 import logic.dao.UserDAOCSV;
 import logic.dao.UserDAOJDBC;
+import logic.exceptions.DuplicateRecordException;
 import logic.model.MUser;
 import logic.dao.LocationDAO;
 import logic.utils.PersistenceClass;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -20,7 +22,11 @@ public class CRegistration {
     public CRegistration(){
         switch (PersistenceClass.getPersistenceType()){
             case FileSystem:
-                this.userDao = new UserDAOCSV();
+                try {
+                    this.userDao = new UserDAOCSV();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
             case JDBC:
             default:
@@ -31,13 +37,17 @@ public class CRegistration {
         this.locationDao = new LocationDAO();
     }
 
-    public boolean registerUserControl(BUserData usrBean) {
+    public boolean registerUserControl(BUserData usrBean) throws DuplicateRecordException {
         if(checkBirthDate(usrBean.getBirthDate()) == -1) {
             return false;
         }
         else {
             this.userModel.setCredentialsByBean(usrBean);
-            this.userDao.registerUser(this.userModel);
+            try {
+                this.userDao.registerUser(this.userModel);
+            } catch (DuplicateRecordException e) {
+                throw e;
+            }
             this.userModel.setId(userDao.getUserIDByUsername(this.userModel.getUserName()));
             usrBean.setUserID(userDao.getUserIDByUsername(this.userModel.getUserName()));
         }

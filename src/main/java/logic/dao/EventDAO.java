@@ -1,5 +1,6 @@
 package logic.dao;
 
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -107,7 +108,11 @@ public class EventDAO {
             UserDAO userDAO;
             switch (PersistenceClass.getPersistenceType()){
                 case FileSystem:
-                    userDAO = new UserDAOCSV();
+                    try {
+                        userDAO = new UserDAOCSV();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case JDBC:
                 default:

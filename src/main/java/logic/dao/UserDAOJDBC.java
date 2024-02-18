@@ -175,7 +175,6 @@ public class UserDAOJDBC implements UserDAO{
     }
 
     //gestita dal server
-    @Override
     public void populateObsByCity(Map<String, List<ObserverClass>> obsByCity){
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id, city FROM users WHERE (userType = 'USER')")){
             try(ResultSet rs = statement.executeQuery()) {
@@ -190,7 +189,7 @@ public class UserDAOJDBC implements UserDAO{
             SingletonDBSession.getInstance().closeConn();
         }
     }
-    @Override
+
     public void populateConnUsers(Map<Integer, Boolean> connUsers){
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id FROM users WHERE (userType = 'USER')")){
             try(ResultSet rs = statement.executeQuery()) {
@@ -204,7 +203,7 @@ public class UserDAOJDBC implements UserDAO{
             SingletonDBSession.getInstance().closeConn();
         }
     }
-    @Override
+
     public void populateConnOrganizers(Map<Integer, Boolean> connOrganizers){
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id FROM users WHERE (userType = 'ORGANIZER')")){
             try(ResultSet rs = statement.executeQuery()) {
