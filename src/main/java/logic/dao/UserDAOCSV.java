@@ -151,7 +151,7 @@ public class UserDAOCSV implements UserDAO {
             String[] record;
 
             while ((record = csvReader.readNext()) != null) {
-                if (Integer.parseInt(record[UserAttributesOrder.getIndex_UserType()]) == usrId) {
+                if (Integer.parseInt(record[UserAttributesOrder.getIndex_UserID()]) == usrId) {
                     return record[UserAttributesOrder.getIndex_City()];
                 }
             }
@@ -314,7 +314,7 @@ public class UserDAOCSV implements UserDAO {
 
             while ((record = csvReader.readNext()) != null) {
                 if (record[UserAttributesOrder.getIndex_UserType()].equals("USER")) {
-                    connUsers.put(Integer.parseInt(record[UserAttributesOrder.getIndex_UserType()]), false);
+                    connUsers.put(Integer.parseInt(record[UserAttributesOrder.getIndex_UserID()]), false);
                 }
             }
         } catch (CsvValidationException | IOException e) {
@@ -330,7 +330,7 @@ public class UserDAOCSV implements UserDAO {
 
             while ((record = csvReader.readNext()) != null) {
                 if (record[UserAttributesOrder.getIndex_UserType()].equals("ORGANIZER")) {
-                    connOrganizers.put(Integer.parseInt(record[UserAttributesOrder.getIndex_UserType()]), false);
+                    connOrganizers.put(Integer.parseInt(record[UserAttributesOrder.getIndex_UserID()]), false);
                 }
             }
         } catch (CsvValidationException | IOException e) {
