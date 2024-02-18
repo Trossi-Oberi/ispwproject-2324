@@ -21,12 +21,13 @@ public class GroupDAO {
         MGroup group = new MGroup();
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT group_id, group_name, owner_id FROM EventGroups WHERE (event_id = ?)")) {
             statement.setInt(1, eventID); //id_evento preso come parametro
-            ResultSet rs = statement.executeQuery();
-            if (rs.next()) {
-                group.setGroupID(rs.getInt(1));
-                group.setGroupName(rs.getString(2));
-                group.setEventID(eventID);
-                group.setOwnerID(rs.getInt(3));
+            try(ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    group.setGroupID(rs.getInt(1));
+                    group.setGroupName(rs.getString(2));
+                    group.setEventID(eventID);
+                    group.setOwnerID(rs.getInt(3));
+                }
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQLException occurred while retrieving group by event ID");
@@ -34,7 +35,6 @@ public class GroupDAO {
             SingletonDBSession.getInstance().closeConn();
         }
         return group;
-        //ATTENZIONE A FARE LE VERIFICHE SUCCESSIVAMENTE SE E' NULL
     }
 
     public boolean userInGroup(int userID, Integer groupID) {
@@ -44,8 +44,9 @@ public class GroupDAO {
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT * FROM UserGroup WHERE (user_id=? AND group_id=?)")) {
             statement.setInt(1, userID);
             statement.setInt(2, groupID);
-            ResultSet rs = statement.executeQuery();
-            return rs.next();
+            try(ResultSet rs = statement.executeQuery()) {
+                return rs.next();
+            }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQLException occurred while checking user in group");
             return false;
@@ -57,13 +58,13 @@ public class GroupDAO {
     public String getGroupName(Integer groupID) {
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT group_name FROM eventgroups WHERE (group_id=?)")) {
             statement.setInt(1, groupID);
-            ResultSet rs = statement.executeQuery();
-            if (rs.next()){
-                return rs.getString(1);
+            try(ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString(1);
+                }
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQLException occurred while getting group name");
-
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
@@ -75,7 +76,6 @@ public class GroupDAO {
             statement.setString(1,groupName);
             statement.setInt(2,eventID);
             statement.setInt(3,LoggedUser.getUserID());
-
             int insertedRows = statement.executeUpdate();
             //recupero id evento dopo l'aggiunta
             if (insertedRows>0){
@@ -129,10 +129,11 @@ public class GroupDAO {
 
     public void populateUsersInGroups(Map<Integer, List<ObserverClass>> usersInGroups) {
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT user_id, group_id FROM usergroup")){
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                ObserverClass obs = new ObserverClass(rs.getInt(1), null);
-                usersInGroups.computeIfAbsent(rs.getInt(2), k -> new ArrayList<>()).add(obs);
+            try(ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    ObserverClass obs = new ObserverClass(rs.getInt(1), null);
+                    usersInGroups.computeIfAbsent(rs.getInt(2), k -> new ArrayList<>()).add(obs);
+                }
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQLException occurred while populating UsersInGroups hashmap");
@@ -145,8 +146,9 @@ public class GroupDAO {
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT 1 FROM usergroup WHERE (user_id = ? AND group_id = ?)")){
             statement.setInt(1, LoggedUser.getUserID());
             statement.setInt(2, groupID);
-            ResultSet rs = statement.executeQuery();
-            return rs.next();
+            try(ResultSet rs = statement.executeQuery()) {
+                return rs.next();
+            }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQLException occurred while checking user in group");
             return false;
@@ -154,9 +156,4 @@ public class GroupDAO {
             SingletonDBSession.getInstance().closeConn();
         }
     }
-
-
-//TODO: eliminazione gruppo (isOwner booleano) SE AVANZA TEMPO, Non credo ma vabbè
-
-
 }

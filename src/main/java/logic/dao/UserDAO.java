@@ -18,6 +18,7 @@ public class UserDAO {
 
     //TODO: fare UserDAO in doppia versione FILESYSTEM (.csv) e JDBC
     //TODO: applicare per ogni DAO la chiusura di connection, statement e result set ogni volta
+    //TODO: gestire eccezione: file che si vuole accedere protetto in lettura/scrittura
 
     public int checkLoginInfo(MUser usrMod, boolean isGoogleAccount) {
         int ret = 0;
@@ -82,6 +83,8 @@ public class UserDAO {
         } catch (SQLException e) {
             //throw new RuntimeException(e);
             logger.log(Level.SEVERE, "SQLException occurred while getting user city by userID");
+        } finally {
+            SingletonDBSession.getInstance().closeConn();
         }
         return userCity;
     }
@@ -110,9 +113,10 @@ public class UserDAO {
         int userID = 0;
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id FROM users WHERE (username = ?)")){
             statement.setString(1, username);
-            ResultSet rs = statement.executeQuery();
-            if (rs.next()) {
-                userID = rs.getInt(1);
+            try(ResultSet rs = statement.executeQuery()){
+                if (rs.next()) {
+                    userID = rs.getInt(1);
+                }
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQLException occurred while getting userID by username");
@@ -130,6 +134,8 @@ public class UserDAO {
         } catch (SQLException e) {
             //throw new RuntimeException(e);
             logger.log(Level.SEVERE, "SQLException occurred while setting user status");
+        } finally{
+            SingletonDBSession.getInstance().closeConn();
         }
     }
 
@@ -147,6 +153,8 @@ public class UserDAO {
         } catch (SQLException e) {
             //throw new RuntimeException(e);
             logger.log(Level.SEVERE, "SQLException occurred while changing user city");
+        } finally {
+            SingletonDBSession.getInstance().closeConn();
         }
         return res;
     }
@@ -154,10 +162,11 @@ public class UserDAO {
     //gestita dal server
     public void populateObsByCity(Map<String, List<ObserverClass>> obsByCity){
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id, city FROM users WHERE (userType = 'USER')")){
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                ObserverClass usrObs = new ObserverClass(rs.getInt(1), null);
-                obsByCity.computeIfAbsent(rs.getString(2), k -> new ArrayList<>()).add(usrObs);
+            try(ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    ObserverClass usrObs = new ObserverClass(rs.getInt(1), null);
+                    obsByCity.computeIfAbsent(rs.getString(2), k -> new ArrayList<>()).add(usrObs);
+                }
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQLException occurred while populating obsByCity hashmap");
@@ -168,9 +177,10 @@ public class UserDAO {
 
     public void populateConnUsers(Map<Integer, Boolean> connUsers){
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id FROM users WHERE (userType = 'USER')")){
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                connUsers.put(rs.getInt(1), false);
+            try(ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    connUsers.put(rs.getInt(1), false);
+                }
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQLException occurred while populating connectedUsers hashmap");
@@ -181,9 +191,10 @@ public class UserDAO {
 
     public void populateConnOrganizers(Map<Integer, Boolean> connOrganizers){
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id FROM users WHERE (userType = 'ORGANIZER')")){
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                connOrganizers.put(rs.getInt(1), false);
+            try(ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    connOrganizers.put(rs.getInt(1), false);
+                }
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQLException occurred while populating connectedOrganizers hashmap");
@@ -196,9 +207,10 @@ public class UserDAO {
         String username="";
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT username FROM users WHERE (id = ?)")){
             statement.setInt(1, userID);
-            ResultSet rs = statement.executeQuery();
-            if (rs.next()) {
-                username = rs.getString(1);
+            try(ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    username = rs.getString(1);
+                }
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQLException occurred while getting username by userID");

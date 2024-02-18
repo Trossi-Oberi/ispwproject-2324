@@ -102,7 +102,6 @@ public class EventDAO {
             } catch (SQLException e) {
                 logger.log(Level.SEVERE, "SQLException occurred while retrieving events");
             }
-
         } else if(queryType == 1){   //USER && HomeUser
             UserDAO userDAO = new UserDAO();
             try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT event_id,organizer,organizer_id,name,province,city,address,music_genre,date,time,image,pic_path FROM events WHERE (city = ?)")) {
@@ -126,7 +125,6 @@ public class EventDAO {
 
     public ArrayList<MEvent> getEventsArrayList(PreparedStatement statement){
         ArrayList<MEvent> events = new ArrayList<>();
-        //event_id,organizer,name,city,address,music_genre,date,time,image
         try (ResultSet rs = statement.executeQuery()) {
             while (rs.next()) {
                 MEvent eventModel = new MEvent();
@@ -157,10 +155,11 @@ public class EventDAO {
     //gestita dal server
     public void populateOrgByEventID(Map<Integer, ObserverClass> orgByEventID){
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT event_id, organizer_id FROM events")){
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                ObserverClass orgObs = new ObserverClass(rs.getInt(2), null);
-                orgByEventID.put(rs.getInt(1), orgObs);
+            try(ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    ObserverClass orgObs = new ObserverClass(rs.getInt(2), null);
+                    orgByEventID.put(rs.getInt(1), orgObs);
+                }
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQLException occurred while populating orgByEventID hashmap");
@@ -173,9 +172,10 @@ public class EventDAO {
         String name = null;
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT name FROM events WHERE (event_id = ?)")) {
             statement.setInt(1, eventID); //id_evento preso come parametro
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                name = resultSet.getString(1);
+            try(ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    name = resultSet.getString(1);
+                }
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQLException occurred while getting event name by event ID");
