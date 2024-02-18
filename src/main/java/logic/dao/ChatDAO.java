@@ -1,6 +1,5 @@
 package logic.dao;
 
-import logic.model.MEvent;
 import logic.model.MGroupMessage;
 import logic.utils.LoggedUser;
 import logic.utils.SingletonDBSession;
@@ -8,7 +7,6 @@ import logic.utils.SingletonDBSession;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -16,7 +14,6 @@ import static logic.view.EssentialGUI.logger;
 
 public class ChatDAO {
     public ArrayList<MGroupMessage> retrieveGroupChat(Integer groupID) {
-        ArrayList<MGroupMessage> chatMessages = new ArrayList<>();
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT sender_id,message FROM ChatGroup WHERE (group_id = ?)")) {
             statement.setInt(1, groupID);
             return getMessagesArrayList(statement);

@@ -27,7 +27,6 @@ public class NotificationDAO {
             statement.setInt(3, eventID);
             statement.setInt(4, notifierID);
             statement.execute();
-
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQLException occurred while adding notification to user");
         } finally {
@@ -39,17 +38,17 @@ public class NotificationDAO {
         ArrayList<Notification> notifications = new ArrayList<>();
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id, type, event_id, notifier_id FROM notifications WHERE (notified_id = ?)")) {
             statement.setInt(1, usrID);
-            ResultSet rs = statement.executeQuery();
-            Notification msg;
-            while (rs.next()) {
-                if (rs.getString(2).equals(NotificationTypes.EventAdded.toString())) {
-                    msg = notiFactory.createNotification(SituationType.Local, NotificationTypes.EventAdded, usrID, rs.getInt(4), rs.getInt(3), rs.getInt(1), null, null);
-                } else {
-                    msg = notiFactory.createNotification(SituationType.Local, NotificationTypes.UserEventParticipation, usrID, rs.getInt(4), rs.getInt(3), rs.getInt(1), null, null);
+            try(ResultSet rs = statement.executeQuery()) {
+                Notification msg;
+                while (rs.next()) {
+                    if (rs.getString(2).equals(NotificationTypes.EventAdded.toString())) {
+                        msg = notiFactory.createNotification(SituationType.Local, NotificationTypes.EventAdded, usrID, rs.getInt(4), rs.getInt(3), rs.getInt(1), null, null);
+                    } else {
+                        msg = notiFactory.createNotification(SituationType.Local, NotificationTypes.UserEventParticipation, usrID, rs.getInt(4), rs.getInt(3), rs.getInt(1), null, null);
+                    }
+                    notifications.add(msg);
                 }
-                notifications.add(msg);
             }
-
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQLException occurred while fetching notifications by userID from db");
         } finally {

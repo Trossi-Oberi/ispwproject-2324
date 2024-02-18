@@ -1,4 +1,5 @@
 package logic.exceptions;
 
-public class EventAlreadyDeleted {
+public class EventAlreadyDeleted extends Exception{
+
 }

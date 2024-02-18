@@ -46,9 +46,10 @@ public class UserEventDAO {
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT * FROM userevent WHERE (user_id = ? AND event_id = ?)")) {
             statement.setInt(1, LoggedUser.getUserID()); //id_user preso dalla sessione di Login
             statement.setInt(2, eventID);
-            ResultSet rs = statement.executeQuery();
-            if (rs.next()) {
-                throw new DuplicateEventParticipation("Event already joined by user. Choose another event from list if available!");
+            try(ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    throw new DuplicateEventParticipation("Event already joined by user. Choose another event from list if available!");
+                }
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQLException occurred while checking previous event participation");
@@ -61,9 +62,10 @@ public class UserEventDAO {
         int res = 0;
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT COUNT(user_id) FROM userevent WHERE (event_id = ?)")) {
             statement.setInt(1, id); //id_evento preso come parametro
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                res = resultSet.getInt(1);
+            try(ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    res = resultSet.getInt(1);
+                }
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQLException occurred while getting participations to event");
@@ -72,6 +74,4 @@ public class UserEventDAO {
         }
         return res;
     }
-
-
 }

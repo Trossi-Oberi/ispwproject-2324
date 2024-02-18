@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 
 import logic.beans.BUserData;
 import logic.controllers.CFacade;
+import logic.exceptions.DuplicateRecordException;
 import logic.utils.Alerts;
 import logic.view.AlertPopup;
 import logic.view.EssentialGUI;
@@ -84,6 +85,8 @@ public abstract class GCRegistration {
             }
         } catch (RuntimeException e) {
             this.alert.displayAlertPopup(Alerts.INFORMATION, "Cannot complete registration! " + e.getMessage());
+        } catch (DuplicateRecordException e) {
+            alert.displayAlertPopup(Alerts.WARNING, "Username already taken by another user.");
         }
     }
 

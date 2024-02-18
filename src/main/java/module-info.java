@@ -24,6 +24,7 @@ module trossi.oberi {
     requires com.google.api.client.extensions.jetty.auth;
     requires com.google.api.client.json.gson;
     requires com.google.api.client.json.jackson2;
+    requires com.opencsv;
 
     exports logic.view;
     exports logic.graphiccontrollers;

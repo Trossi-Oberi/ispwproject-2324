@@ -88,6 +88,13 @@
             <version>1.43.1</version>
         </dependency>
 
+        <!-- CSV logic for UserDAOCSV-->
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>5.9</version>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -16,12 +16,10 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import logic.utils.Alerts;
-import logic.utils.LoggedUser;
+import logic.utils.*;
 import logic.controllers.CFacade;
-import logic.utils.NotificationTypes;
 
-public class EssentialGUI extends Application implements NotificationView{
+public class EssentialGUI extends Application implements NotificationView {
     //TODO: inserire le icone in tutta l'applicazione
     private static final String APP_NAME = "NightPlan";
     protected static String sceneName;
@@ -32,7 +30,7 @@ public class EssentialGUI extends Application implements NotificationView{
     //dichiaro logger pubblico, globale e costante
     public static final Logger logger = Logger.getLogger(APP_NAME);
 
-    public EssentialGUI(){
+    public EssentialGUI() {
         this.alert = new AlertPopup();
     }
 
@@ -64,16 +62,16 @@ public class EssentialGUI extends Application implements NotificationView{
         sceneName = newScene;
     }
 
-    public void nextGuiOnClick(MouseEvent event){
-        Stage next = (Stage)((Node)event.getSource()).getScene().getWindow();
+    public void nextGuiOnClick(MouseEvent event) {
+        Stage next = (Stage) ((Node) event.getSource()).getScene().getWindow();
         start(next);
     }
 
-    public static void loadApp(){
+    public static void loadApp() {
         try {
             URL loc = EssentialGUI.class.getResource(sceneName);
             Parent root = null;
-            if(loc != null) {
+            if (loc != null) {
                 root = FXMLLoader.load(loc);
             }
             scene = new Scene(root);
@@ -84,7 +82,7 @@ public class EssentialGUI extends Application implements NotificationView{
     }
 
 
-    public void changeGUI(MouseEvent event, String newScene){
+    public void changeGUI(MouseEvent event, String newScene) {
         setScene(newScene);
         loadApp();
         nextGuiOnClick(event);
@@ -93,6 +91,20 @@ public class EssentialGUI extends Application implements NotificationView{
     public static void main(String[] args) {
         setScene("Login.fxml");
         loadApp();
+
+        if (args.length > 0) {
+            if ("JDBC".equals(args[0])) {
+                logger.info("NightPlan started with JDBC persistence logic");
+                PersistenceClass.setPersistenceType(PersistenceTypes.JDBC);
+            } else if ("FileSystem".equals(args[0])) {
+                logger.info("NightPlan started with FileSystem persistence logic");
+                PersistenceClass.setPersistenceType(PersistenceTypes.FileSystem);
+            }
+        } else {
+            logger.info("NightPlan started with default persistence logic (JDBC)");
+            PersistenceClass.setPersistenceType(PersistenceTypes.JDBC);
+        }
+
         launch(args);
     }
 

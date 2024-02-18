@@ -2,9 +2,14 @@ package logic.controllers;
 
 import logic.beans.BUserData;
 import logic.dao.UserDAO;
+import logic.dao.UserDAOCSV;
+import logic.dao.UserDAOJDBC;
+import logic.exceptions.DuplicateRecordException;
 import logic.model.MUser;
 import logic.dao.LocationDAO;
+import logic.utils.PersistenceClass;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -15,18 +20,34 @@ public class CRegistration {
     private MUser userModel;
 
     public CRegistration(){
-        this.userDao = new UserDAO();
+        switch (PersistenceClass.getPersistenceType()){
+            case FileSystem:
+                try {
+                    this.userDao = new UserDAOCSV();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            case JDBC:
+            default:
+                this.userDao = new UserDAOJDBC();
+                break;
+        }
         this.userModel = new MUser();
         this.locationDao = new LocationDAO();
     }
 
-    public boolean registerUserControl(BUserData usrBean) {
+    public boolean registerUserControl(BUserData usrBean) throws DuplicateRecordException {
         if(checkBirthDate(usrBean.getBirthDate()) == -1) {
             return false;
         }
         else {
             this.userModel.setCredentialsByBean(usrBean);
-            this.userDao.registerUser(this.userModel);
+            try {
+                this.userDao.registerUser(this.userModel);
+            } catch (DuplicateRecordException e) {
+                throw e;
+            }
             this.userModel.setId(userDao.getUserIDByUsername(this.userModel.getUserName()));
             usrBean.setUserID(userDao.getUserIDByUsername(this.userModel.getUserName()));
         }

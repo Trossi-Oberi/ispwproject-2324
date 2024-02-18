@@ -1,5 +1,6 @@
 package logic.dao;
 
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,6 +11,7 @@ import java.util.logging.Level;
 
 import logic.controllers.NotiObserverClass;
 import logic.utils.LoggedUser;
+import logic.utils.PersistenceClass;
 import logic.utils.SingletonDBSession;
 import logic.model.MEvent;
 
@@ -102,9 +104,21 @@ public class EventDAO {
             } catch (SQLException e) {
                 logger.log(Level.SEVERE, "SQLException occurred while retrieving events");
             }
-
         } else if(queryType == 1){   //USER && HomeUser
-            UserDAO userDAO = new UserDAO();
+            UserDAO userDAO;
+            switch (PersistenceClass.getPersistenceType()){
+                case FileSystem:
+                    try {
+                        userDAO = new UserDAOCSV();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+                case JDBC:
+                default:
+                    userDAO = new UserDAOJDBC();
+                    break;
+            }
             try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT event_id,organizer,organizer_id,name,province,city,address,music_genre,date,time,image,pic_path FROM events WHERE (city = ?)")) {
                 statement.setString(1, userDAO.getUserCityByID(userID));
                 myEvents = getEventsArrayList(statement);
@@ -126,7 +140,6 @@ public class EventDAO {
 
     public ArrayList<MEvent> getEventsArrayList(PreparedStatement statement){
         ArrayList<MEvent> events = new ArrayList<>();
-        //event_id,organizer,name,city,address,music_genre,date,time,image
         try (ResultSet rs = statement.executeQuery()) {
             while (rs.next()) {
                 MEvent eventModel = new MEvent();
@@ -173,9 +186,10 @@ public class EventDAO {
         String name = null;
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT name FROM events WHERE (event_id = ?)")) {
             statement.setInt(1, eventID); //id_evento preso come parametro
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                name = resultSet.getString(1);
+            try(ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    name = resultSet.getString(1);
+                }
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQLException occurred while getting event name by event ID");

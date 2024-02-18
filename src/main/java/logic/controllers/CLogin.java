@@ -1,6 +1,8 @@
 package logic.controllers;
 
 import logic.dao.UserDAO;
+import logic.dao.UserDAOJDBC;
+import logic.dao.UserDAOCSV;
 import logic.exceptions.InvalidTokenValue;
 import logic.model.MUser;
 import logic.beans.BUserData;
@@ -13,13 +15,29 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import logic.utils.PersistenceClass;
+
+import java.io.IOException;
 
 public class CLogin {
     private UserDAO userDao;
     private MUser userModel;
 
     public CLogin() {
-        this.userDao = new UserDAO();
+        switch (PersistenceClass.getPersistenceType()){
+            case FileSystem:
+                try {
+                    this.userDao = new UserDAOCSV();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            case JDBC:
+            default:
+                this.userDao = new UserDAOJDBC();
+                break;
+        }
+
         this.userModel = new MUser();
     }
 
