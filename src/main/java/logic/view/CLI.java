@@ -71,9 +71,10 @@ public class CLI implements NotificationView, ChatView {
         CLI view = new CLI();
         cFacade = new CFacade();
         cFacade.setNotiGraphic(view);
+        cFacade.setChatGraphic(view);
         bUserData = new BUserData();
         commands.addAll(List.of(commandsList));
-        notiView = new CLI();
+        //notiView = new CLI();
     }
 
 
