@@ -14,6 +14,7 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
+import logic.exceptions.InvalidTokenValue;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -40,9 +41,9 @@ public class GoogleLogin {
         }
 
         // Set up the OAuth flow
-        GoogleAuthorizationCodeFlow authflow;
+        //GoogleAuthorizationCodeFlow authflow;
         if (clientSecrets != null) {
-            authflow = new GoogleAuthorizationCodeFlow.Builder(
+            flow = new GoogleAuthorizationCodeFlow.Builder(
                     GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, clientSecrets, Collections.singletonList(SCOPES))
                     .setDataStoreFactory(new FileDataStoreFactory(new File(TOKENS_DIRECTORY_PATH)))
                     .setAccessType("offline")
@@ -52,12 +53,12 @@ public class GoogleLogin {
         }
 
         // Get authorization URL
-        AuthorizationCodeRequestUrl authorizationUrl = authflow.newAuthorizationUrl();
+        AuthorizationCodeRequestUrl authorizationUrl = flow.newAuthorizationUrl();
         authorizationUrl.setRedirectUri("urn:ietf:wg:oauth:2.0:oob");
 
         // Open the authorization URL in the default browser
         openBrowser(authorizationUrl.toString());
-        flow = authflow;
+        //flow = authflow;
         return 1;
     }
 
@@ -72,7 +73,8 @@ public class GoogleLogin {
             GoogleTokenResponse resp = flow.newTokenRequest(code).setRedirectUri("urn:ietf:wg:oauth:2.0:oob").execute();
             cred = flow.createAndStoreCredential(resp, "user");
         } catch (TokenResponseException e){
-            throw new RuntimeException(e.getDetails().getErrorDescription());
+            //gestione token non valido
+            throw new InvalidTokenValue("Invalid credentials token: ", e);
         }
 
         return cred;

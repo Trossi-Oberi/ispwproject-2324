@@ -1,7 +1,7 @@
 package logic.controllers;
 
 import logic.beans.*;
-import logic.exceptions.DuplicateEventParticipation;
+import logic.exceptions.InvalidTokenValue;
 import logic.utils.LoggedUser;
 import logic.utils.NotificationTypes;
 import logic.utils.UserTypes;
@@ -75,17 +75,17 @@ public class CFacade {
             notificationController.sendNotification(null, NotificationTypes.UserEventRemoval, LoggedUser.getUserID(), null, eventBean.getEventID(), null, null, null);
             Integer groupID = getGroupByEventID(eventBean.getEventID()).getGroupID();
             //se il gruppo non esiste salto il leaveGroup
-            if(groupID == null || !checkUserInGroup(groupID)){
+            if (groupID == null || !checkUserInGroup(groupID)) {
                 //gruppo non esistente o utente non nel gruppo
                 return true;
             }
 
             //eseguo questo se gruppo esiste e l'utente ne fa parte
-            if(groupController == null){
+            if (groupController == null) {
                 groupController = new CGroup();
             }
             result = groupController.leaveGroup(groupID);
-            if(result) {
+            if (result) {
                 if (notificationController == null) {
                     notificationController = new CNotification();
                 }
@@ -96,7 +96,7 @@ public class CFacade {
     }
 
     private boolean checkUserInGroup(Integer groupID) {
-        if(groupController == null){
+        if (groupController == null) {
             groupController = new CGroup();
         }
 
@@ -109,7 +109,6 @@ public class CFacade {
         }
         return manageEventController.checkPreviousEventParticipation(eventBean);
     }
-
 
 
     public boolean registerUser(BUserData bean) throws RuntimeException {
@@ -130,7 +129,7 @@ public class CFacade {
         return res;
     }
 
-    public int loginUser(BUserData bean, boolean isGoogleAuth, String authCode, NotificationView notiView) throws RuntimeException {
+    public int loginUser(BUserData bean, boolean isGoogleAuth, String authCode, NotificationView notiView) throws InvalidTokenValue, RuntimeException {
         if (loginController == null) {
             loginController = new CLogin();
         }
@@ -163,8 +162,8 @@ public class CFacade {
         if (groupController == null) {
             groupController = new CGroup();
         }
-        int newGroupID = groupController.createGroup(groupName,eventID); //res == new groupID
-        if(newGroupID > 0){
+        int newGroupID = groupController.createGroup(groupName, eventID); //res == new groupID
+        if (newGroupID > 0) {
             res = groupController.joinGroup(newGroupID);
         }
         return res;
@@ -186,7 +185,7 @@ public class CFacade {
     }
 
     public boolean leaveGroup(Integer groupID) {
-        if(groupController == null){
+        if (groupController == null) {
             groupController = new CGroup();
         }
 
@@ -201,12 +200,12 @@ public class CFacade {
     }
 
     public boolean sendMessageToGroup(Integer groupID, String text) {
-        if (chatController == null){
+        if (chatController == null) {
             chatController = new CGroupChat();
         }
         boolean res = chatController.writeMessage(groupID, text);
-        if(res){
-            if (notificationController == null){
+        if (res) {
+            if (notificationController == null) {
                 notificationController = new CNotification();
             }
             //notificationController.sendMessage();
@@ -319,7 +318,7 @@ public class CFacade {
     }
 
     public ArrayList<BGroupMessage> retrieveGroupChat(Integer groupID) {
-        if (chatController == null){
+        if (chatController == null) {
             chatController = new CGroupChat();
         }
         return chatController.retrieveGroupChat(groupID);

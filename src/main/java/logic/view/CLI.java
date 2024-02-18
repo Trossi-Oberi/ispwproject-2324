@@ -5,6 +5,7 @@ import logic.beans.BNotification;
 import logic.beans.BUserData;
 import logic.controllers.CFacade;
 import logic.exceptions.DuplicateEventParticipation;
+import logic.exceptions.InvalidTokenValue;
 import logic.utils.*;
 
 import javax.swing.*;
@@ -1243,16 +1244,25 @@ public class CLI implements NotificationView {
                             System.out.println("Insert password: ");
                             bUserData.setPassword(reader.readLine());
 
-                            //login user
-                            int res = cFacade.loginUser(bUserData, false, null, notiView);
 
-                            System.out.println();
-                            if (res == 1) {
-                                System.out.println("Logged in successfully as " + LoggedUser.getUserType());
-                                valid = true;
+                            //login user
+                            int res = 0;
+                            try {
+                                res = cFacade.loginUser(bUserData, false, null, notiView);
+
+                                System.out.println();
+                                if (res == 1) {
+                                    System.out.println("Logged in successfully as " + LoggedUser.getUserType());
+                                    valid = true;
+                                    break;
+                                } else {
+                                    System.out.println("Wrong credentials. Retry...");
+                                }
+                            } catch (RuntimeException e) {
+                                logger.severe("Runtime exception: " + e.getMessage());
                                 break;
-                            } else {
-                                System.out.println("Wrong credentials. Retry...");
+                            } catch (InvalidTokenValue e) {
+                                throw new RuntimeException(e);
                             }
                         }
                         loadHome();
@@ -1269,27 +1279,36 @@ public class CLI implements NotificationView {
 
                                 String authCode = reader.readLine();
 
-                                //login user
-                                int res = cFacade.loginUser(bUserData, true, authCode, notiView);
+                                try {
 
-                                System.out.println();
-                                if (res == 1) {
-                                    System.out.println("Logged in successfully as " + LoggedUser.getUserType());
-                                    valid = true;
-                                    loadHome();
-                                } else {
-                                    System.out.println("User not registered with Google. \nYou will be redirected to registration page.");
-                                    if (registerUser(true) == 1) {
-                                        System.out.println("Successfully registered with Google");
+                                    //login user
+                                    int res = cFacade.loginUser(bUserData, true, authCode, notiView);
+
+                                    System.out.println();
+                                    if (res == 1) {
+                                        System.out.println("Logged in successfully as " + LoggedUser.getUserType());
+                                        valid = true;
+                                        break;
+                                    } else {
+                                        System.out.println("User not registered with Google. \nYou will be redirected to registration page.");
+                                        if (registerUser(true) == 1) {
+                                            System.out.println("Successfully registered with Google");
+                                        }
+
+                                        //ricarico tutta l'interfaccia
+                                        loadApp();
                                     }
+                                } catch (InvalidTokenValue e){
+                                    logger.info("Invalid token value...");
+
+                                    //ricarico l'interfaccia
+                                    loadApp();
                                 }
-                                break;
                             }
-                        } catch (RuntimeException e) { //TODO: sostituire anche qui InvalidTokenValue exception
-                            logger.severe("Invalid token value");
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
+                        loadHome();
                         break;
                     case "3":
                         try {
@@ -1299,8 +1318,6 @@ public class CLI implements NotificationView {
                                 spacer(1);
                                 loadHome();
                             }
-                        } catch (RuntimeException e) { //TODO: sostituire anche qui InvalidTokenValue exception
-                            logger.severe("Invalid token value");
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }

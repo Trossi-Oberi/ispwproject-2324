@@ -1,6 +1,7 @@
 package logic.controllers;
 
 import logic.dao.UserDAO;
+import logic.exceptions.InvalidTokenValue;
 import logic.model.MUser;
 import logic.beans.BUserData;
 import logic.utils.LoggedUser;
@@ -15,7 +16,7 @@ public class CLogin {
         this.userModel = new MUser();
     }
 
-    public int checkLoginControl(BUserData logBean, boolean isGoogleAuth, String authCode) throws RuntimeException{
+    public int checkLoginControl(BUserData logBean, boolean isGoogleAuth, String authCode) throws InvalidTokenValue, RuntimeException {
         int ret = 0;
         if(!isGoogleAuth && authCode == null){
             //classic login
@@ -25,6 +26,9 @@ public class CLogin {
             String userGoogleEmail;
             try {
                 userGoogleEmail = GoogleLogin.getGoogleAccountEmail(GoogleLogin.getGoogleAccountCredentials(GoogleLogin.getGoogleAuthFlow(), authCode));
+            } catch (InvalidTokenValue e){
+                //gestione token invalido
+                throw e;
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
