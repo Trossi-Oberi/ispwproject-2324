@@ -47,6 +47,20 @@ public class Server {
 
     public static void main(String[] args) {
         logger.info("Server running on port " + PORT);
+
+        if (args.length > 0) {
+            if ("JDBC".equals(args[0])) {
+                logger.info("Server started with JDBC persistence logic");
+                PersistenceClass.setPersistenceType(PersistenceTypes.JDBC);
+            } else if ("FileSystem".equals(args[0])) {
+                logger.info("Server started with FileSystem persistence logic");
+                PersistenceClass.setPersistenceType(PersistenceTypes.FileSystem);
+            }
+        } else {
+            logger.info("Server started with default persistence logic (JDBC)");
+            PersistenceClass.setPersistenceType(PersistenceTypes.JDBC);
+        }
+
         Server server = new Server();
         server.start();
     }
@@ -279,6 +293,7 @@ public class Server {
                 case FileSystem:
                     try {
                         userDAO = new UserDAOCSV();
+                        logger.info("Server working on filesystem");
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -286,6 +301,7 @@ public class Server {
                 case JDBC:
                 default:
                     userDAO = new UserDAOJDBC();
+                    logger.info("Server working on database");
                     break;
             }
 
