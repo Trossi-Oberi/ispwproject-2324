@@ -2,6 +2,6 @@ package logic.interfaces;
 
 import logic.utils.NotificationTypes;
 
-public interface Observer {
+public interface NotiObserver {
     void update(NotificationTypes type);
 }

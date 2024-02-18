@@ -1,6 +1,6 @@
 package logic.dao;
 
-import logic.controllers.ObserverClass;
+import logic.controllers.NotiObserverClass;
 import logic.utils.LoggedUser;
 import logic.utils.SingletonDBSession;
 import logic.model.MUser;
@@ -152,11 +152,11 @@ public class UserDAO {
     }
 
     //gestita dal server
-    public void populateObsByCity(Map<String, List<ObserverClass>> obsByCity){
+    public void populateObsByCity(Map<String, List<NotiObserverClass>> obsByCity){
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id, city FROM users WHERE (userType = 'USER')")){
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                ObserverClass usrObs = new ObserverClass(rs.getInt(1), null);
+                NotiObserverClass usrObs = new NotiObserverClass(rs.getInt(1), null);
                 obsByCity.computeIfAbsent(rs.getString(2), k -> new ArrayList<>()).add(usrObs);
             }
         } catch (SQLException e) {
