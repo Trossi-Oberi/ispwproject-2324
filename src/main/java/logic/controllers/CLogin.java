@@ -19,6 +19,8 @@ import logic.utils.PersistenceClass;
 
 import java.io.IOException;
 
+import static logic.view.EssentialGUI.logger;
+
 public class CLogin {
     private UserDAO userDao;
     private MUser userModel;
@@ -121,11 +123,11 @@ public class CLogin {
         this.userDao.setStatus(LoggedUser.getUserID());
 
         //Chiusura socket
-        try{
+        try {
             LoggedUser.getOutputStream().close();
             LoggedUser.getInputStream().close();
-        }catch (IOException e){
-            //TODO: gestire exception
+        } catch (IOException e){
+            logger.severe("Error while closing logged user socket streams: " + e.getMessage());
         }
     }
 
