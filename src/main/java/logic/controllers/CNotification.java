@@ -3,69 +3,52 @@ package logic.controllers;
 import logic.beans.BNotification;
 import logic.dao.NotificationDAO;
 import logic.model.Notification;
-import logic.server.Server;
 import logic.utils.*;
-import logic.view.NotificationView;
 
 import java.io.IOException;
 import java.io.InvalidClassException;
 import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
 import static logic.view.EssentialGUI.logger;
 
-public class CNotification {
+public class CNotification extends CServerInteraction {
     //questo controller si occupa solo di rigirare notifiche ai graphic controller a seguito di interazioni con il listener
     private static final SituationType NOTIFICATION = SituationType.ServerClient;
-    private Semaphore semaphore;
-    private Socket client;
-    private ClientListener listener;
-    private Thread listenerThread;
     private NotificationDAO notificationDAO;
     private NotificationFactory notiFactory;
-    private SecureObjectInputStream in;
-    private ObjectOutputStream out;
 
-    public CNotification(){
+
+    public CNotification(CFacade facadeRef) {
         this.notificationDAO = new NotificationDAO();
         this.notiFactory = new NotificationFactory();
+        facade = facadeRef;
     }
 
-    private void startListener(int userID, NotificationView notiView){
-        try {
-            client = new Socket(Server.ADDRESS, Server.PORT);
-            //setActive(true);
-            this.semaphore = new Semaphore(1);
+    private void startListener(int userID, CFacade facade) {
+        semaphore = new Semaphore(1);
+        //avviamo il thread con il listener
+        listener = new ClientListener(facade, semaphore, LoggedUser.getInputStream());
+        listenerThread = new Thread(listener);
 
-            //apriamo la socket e i canali in/out
-            this.out = new ObjectOutputStream(client.getOutputStream());
-            this.in = new SecureObjectInputStream(client.getInputStream());
+        //setto il thread come demone affinché termini quando termina anche il thread principale
+        listenerThread.setDaemon(true);
+        //starto il thread
+        listenerThread.start();
 
-            //avviamo il thread con il listener
-            this.listener = new ClientListener(notiView, this.semaphore, this.in);
-            this.listenerThread = new Thread(listener);
-
-            //setto il thread come demone affinché termini quando termina anche il thread principale
-            this.listenerThread.setDaemon(true);
-            //starto il thread
-            this.listenerThread.start();
-
-            logger.info("Client " + userID + " listener started successfully");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        logger.info("Client " + userID + " listener started successfully");
     }
 
-    public void sendNotification(NotificationView notiView, NotificationTypes notiType, Integer clientID, Integer notifierID, Integer eventID, Integer notificationID, String city, UserTypes usrType){
+    public void sendNotification(NotificationTypes notiType, Integer clientID, Integer notifierID, Integer eventID, Integer notificationID, String city, UserTypes usrType) {
         try {
             //se ListenerThread non è ancora stato inizializzato oppure è stato inizializzato ma è stato poi interrotto lo avvio
-            if (listenerThread == null || listenerThread.isInterrupted()){
-                startListener(clientID, notiView);
+            if (listenerThread == null || listenerThread.isInterrupted()) {
+                startListener(clientID, this.facade);
             }
             //creo il messaggio e lo mando al server
-            if (listenerThread.isAlive()){
+            if (listenerThread.isAlive()) {
+                ObjectOutputStream out = LoggedUser.getOutputStream();
                 Notification noti = notiFactory.createNotification(NOTIFICATION, notiType, clientID, notifierID, eventID, notificationID, city, usrType);
                 out.writeObject(noti);
                 out.flush();
@@ -76,11 +59,11 @@ public class CNotification {
             semaphore.acquire(2);
 
             //Vedo il tipo di messaggio per decidere se chiudere il listener oppure no
-            if (notiType == NotificationTypes.UserRegistration || notiType== NotificationTypes.Disconnected){
+            if (notiType == NotificationTypes.UserRegistration || notiType == NotificationTypes.Disconnected) {
                 stopListener(clientID);
             }
 
-        } catch (InvalidClassException e){
+        } catch (InvalidClassException e) {
             //gestione errore di serializzazione (writeObject)
             logger.severe("Cannot deserialize object");
         } catch (IOException | InterruptedException e) {
@@ -89,16 +72,15 @@ public class CNotification {
         }
     }
 
-    private void stopListener(int userID){
+    private void stopListener(int userID) {
         //chiudo il thread listener del client
         try {
             listenerThread.interrupt();
-
-            if (!client.isClosed()) {
-                this.client.close();
+            if (!LoggedUser.getSocket().isClosed()){
+                LoggedUser.getSocket().close();
                 logger.info("Client " + userID + " socket closed successfully");
             }
-        } catch (IOException e){
+        } catch (IOException e) {
             logger.severe(e.getMessage());
         }
     }
@@ -108,10 +90,10 @@ public class CNotification {
         return makeBeanFromModel(notifications);
     }
 
-    private ArrayList<BNotification> makeBeanFromModel(ArrayList<Notification> notifications){
+    private ArrayList<BNotification> makeBeanFromModel(ArrayList<Notification> notifications) {
         BNotification notiBean;
-        ArrayList <BNotification> notiBeanList = new ArrayList<>();
-        for (Notification noti : notifications){
+        ArrayList<BNotification> notiBeanList = new ArrayList<>();
+        for (Notification noti : notifications) {
             notiBean = new BNotification();
             notiBean.setMessageType(noti.getNotificationType());
             notiBean.setClientID(noti.getClientID());
@@ -125,7 +107,7 @@ public class CNotification {
 
     public boolean deleteNotification(Integer notificationID, ArrayList<BNotification> notificationsList, int index) {
         //cancellazione nel DB
-        if(this.notificationDAO.deleteNotification(notificationID)){
+        if (this.notificationDAO.deleteNotification(notificationID)) {
             //rimozione dalla lista
             notificationsList.remove(index);
             return true;
