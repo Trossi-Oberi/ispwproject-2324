@@ -1,5 +1,8 @@
 package logic.graphiccontrollers;
 
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -8,18 +11,18 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
-import logic.beans.BGroupMessage;
+import logic.beans.BMessage;
 import logic.utils.Alerts;
 import logic.utils.LoggedUser;
+import logic.view.ChatView;
 import logic.view.EssentialGUI;
 
 import java.util.ArrayList;
 
-public class GCGroupChat extends EssentialGUI {
+public class GCGroupChat extends EssentialGUI implements ChatView {
 
     @FXML
-    private ListView<BGroupMessage> chatMessagesLV;
+    private ListView<BMessage> chatMessagesLV;
 
     @FXML
     private Button goBackBtn;
@@ -38,9 +41,15 @@ public class GCGroupChat extends EssentialGUI {
 
     private Integer groupID;
 
-    private ArrayList<BGroupMessage> messages = new ArrayList<>();
+    private ArrayList<BMessage> messages = new ArrayList<>();
+    ObservableList<BMessage> mexs;
 
     //TODO: fare in modo che la chat si aggiorni dinamicamente
+
+    @FXML
+    public void initialize() {
+        cfacade.setChatGraphic(this);
+    }
 
     @FXML
     void leaveGroup(MouseEvent event) {
@@ -48,7 +57,7 @@ public class GCGroupChat extends EssentialGUI {
         //anche notifica al server che sono uscito (rimuovere observer da hashmap)
         if(cfacade.leaveGroup(groupID)){
             alert.displayAlertPopup(Alerts.INFORMATION, "Group left successfully!");
-            goToYourEvents(event);
+            this.goToYourEvents(event);
         } else {
             alert.displayAlertPopup(Alerts.INFORMATION, "Group leaving failed :(");
         }
@@ -63,6 +72,12 @@ public class GCGroupChat extends EssentialGUI {
             alert.displayAlertPopup(Alerts.ERROR, "Error while sending message");
         }
 
+    }
+
+    @Override
+    public void goToYourEvents(MouseEvent event){
+        cfacade.setChatGraphic(null);
+        super.goToYourEvents(event);
     }
 
     public void initGroupChat(Integer groupID) {
@@ -81,13 +96,12 @@ public class GCGroupChat extends EssentialGUI {
         });
     }
 
-    private void setupChatLV(ListView<BGroupMessage> chatMessagesLV) {
-//        chatMessagesLV.setMouseTransparent(true); // Imposta la ListView non cliccabile
+    private void setupChatLV(ListView<BMessage> chatMessagesLV) {
         chatMessagesLV.setFocusTraversable(false); // Disabilita la selezione degli elementi
         chatMessagesLV.setOrientation(Orientation.VERTICAL);
-        chatMessagesLV.setCellFactory(param -> new ListCell<BGroupMessage>() {
+        chatMessagesLV.setCellFactory(param -> new ListCell<BMessage>() {
             @Override
-            protected void updateItem(BGroupMessage item, boolean empty) {
+            protected void updateItem(BMessage item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
                     setText(null);
@@ -100,15 +114,17 @@ public class GCGroupChat extends EssentialGUI {
         });
     }
 
-    private void populateChatLV(ArrayList<BGroupMessage> messages) {
-        for (BGroupMessage message : messages){
+    private void populateChatLV(ArrayList<BMessage> messages) {
+        mexs = FXCollections.observableArrayList(messages);
+        /*for (BGroupMessage message : messages){
             chatMessagesLV.getItems().add(message);
-        }
+        }*/
+        chatMessagesLV.setItems(mexs);
         chatMessagesLV.scrollTo(chatMessagesLV.getItems().size() - 1);
     }
 
-    // Metodo per allineare a destra o sinistra
-    private HBox createMessageNode(BGroupMessage message) {
+    // Metodo per allineare a destra o sinistra i messaggi
+    private HBox createMessageNode(BMessage message) {
         HBox hbox = new HBox();
         Label messageLabel = new Label();
         boolean sentByMe = LoggedUser.getUserID() == message.getSenderID();
@@ -129,6 +145,14 @@ public class GCGroupChat extends EssentialGUI {
         hbox.setPadding(new Insets(5));
 
         return hbox;
+    }
+
+    @Override
+    public synchronized void addMessageToChat(BMessage messageBean){//sempre generico, riusabile per private chat
+        Platform.runLater(() -> {
+            mexs.add(messageBean);
+        });
+
     }
 
 
