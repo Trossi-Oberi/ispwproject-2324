@@ -26,8 +26,6 @@ public class UserDAOCSV implements UserDAO {
     //file descriptor
     private File fd;
 
-    //local cache
-    private HashMap<String, MUser> localCache;
 
     private static class UserAttributesOrder {
         public static int getIndex_UserID() {
