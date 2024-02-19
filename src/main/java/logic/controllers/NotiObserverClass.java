@@ -21,7 +21,7 @@ public class NotiObserverClass extends ObserverClass implements NotiObserver {
     @Override
     public void update(NotificationTypes type) {
         try {
-            Notification notification = notiFactory.createNotification(SituationType.ServerClient, type, null, null, null, null, null, null);
+            Notification notification = notiFactory.createNotification(SituationType.ServerClient, type, null, null, null, null, null, null, null);
             out.writeObject(notification);
             out.flush();
             out.reset();

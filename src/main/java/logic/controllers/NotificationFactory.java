@@ -10,7 +10,7 @@ import logic.utils.UserTypes;
 public class NotificationFactory {
     //questa factory crea i 2 tipi di notifiche: ServerClient e Local
 
-    public Notification createNotification(SituationType sitType, NotificationTypes notiType, Integer clientOrNotifiedID, Integer notifierID, Integer eventID, Integer notificationID, String city, UserTypes usrType) {
+    public Notification createNotification(SituationType sitType, NotificationTypes notiType, Integer clientOrNotifiedID, Integer notifierID, Integer eventID, Integer notificationID, String city, String newCity, UserTypes usrType) {
         Notification noti;
         if (sitType == SituationType.ServerClient) {
             noti = new ServerNotification();
@@ -23,6 +23,7 @@ public class NotificationFactory {
         noti.setEventID(eventID);
         noti.setNotificationID(notificationID);
         noti.setCity(city);
+        noti.setNewCity(newCity);
         noti.setUserType(usrType);
         return noti;
     }

@@ -42,9 +42,9 @@ public class NotificationDAO {
                 Notification msg;
                 while (rs.next()) {
                     if (rs.getString(2).equals(NotificationTypes.EventAdded.toString())) {
-                        msg = notiFactory.createNotification(SituationType.Local, NotificationTypes.EventAdded, usrID, rs.getInt(4), rs.getInt(3), rs.getInt(1), null, null);
+                        msg = notiFactory.createNotification(SituationType.Local, NotificationTypes.EventAdded, usrID, rs.getInt(4), rs.getInt(3), rs.getInt(1), null, null, null);
                     } else {
-                        msg = notiFactory.createNotification(SituationType.Local, NotificationTypes.UserEventParticipation, usrID, rs.getInt(4), rs.getInt(3), rs.getInt(1), null, null);
+                        msg = notiFactory.createNotification(SituationType.Local, NotificationTypes.UserEventParticipation, usrID, rs.getInt(4), rs.getInt(3), rs.getInt(1), null, null, null);
                     }
                     notifications.add(msg);
                 }
