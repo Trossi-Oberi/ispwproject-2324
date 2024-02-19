@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import static logic.view.EssentialGUI.logger;
 
 public class UserDAO {
-    
+
     public int checkLoginInfo(MUser usrMod, boolean isGoogleAccount) {
         int ret = 0;
         if (!isGoogleAccount) {
@@ -56,9 +56,9 @@ public class UserDAO {
 
                 //conversione da stringa a UserType
                 String usrtypeString = rs.getString(8);
-                if (usrtypeString.equals(UserTypes.USER.toString())){
+                if (usrtypeString.equals(UserTypes.USER.toString())) {
                     usrMod.setUserType(UserTypes.USER);
-                }else{
+                } else {
                     usrMod.setUserType(UserTypes.ORGANIZER);
                 }
                 return 1;
@@ -68,13 +68,13 @@ public class UserDAO {
         }
         return 0;
     }
-    
+
     public String getUserCityByID(int usrId) {
         String userCity = null;
 
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT city FROM users WHERE (id=?)")) {
             statement.setInt(1, usrId);
-            try (ResultSet rs = statement.executeQuery()){
+            try (ResultSet rs = statement.executeQuery()) {
                 rs.next();
                 userCity = rs.getString(1);
             }
@@ -86,7 +86,7 @@ public class UserDAO {
         }
         return userCity;
     }
-    
+
     public void registerUser(MUser usrModel) {
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Users (id, username, password, firstName, lastName, dateOfBirth, gender, province, city, userType,  userStatus) VALUES(NULL,?,?,?,?,?,?,?,?,?,?)")) {
             statement.setString(1, usrModel.getUserName());
@@ -106,12 +106,12 @@ public class UserDAO {
             SingletonDBSession.getInstance().closeConn();
         }
     }
-    
-    public int getUserIDByUsername(String username){
+
+    public int getUserIDByUsername(String username) {
         int userID = 0;
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id FROM users WHERE (username = ?)")){
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id FROM users WHERE (username = ?)")) {
             statement.setString(1, username);
-            try(ResultSet rs = statement.executeQuery()){
+            try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
                     userID = rs.getInt(1);
                 }
@@ -123,7 +123,7 @@ public class UserDAO {
         }
         return userID;
     }
-    
+
     public void setStatus(int userID) {
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("UPDATE users SET userStatus = ? WHERE id = ?")) {
             statement.setString(1, LoggedUser.getStatus());
@@ -132,11 +132,11 @@ public class UserDAO {
         } catch (SQLException e) {
             //throw new RuntimeException(e);
             logger.log(Level.SEVERE, "SQLException occurred while setting user status");
-        } finally{
+        } finally {
             SingletonDBSession.getInstance().closeConn();
         }
     }
-    
+
     public int changeCity(int userID, String province, String city) {
         int res = 0;
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("UPDATE users SET province = ?, city = ? WHERE id = ?")) {
@@ -144,7 +144,7 @@ public class UserDAO {
             statement.setString(2, city);
             statement.setInt(3, userID);
             res = statement.executeUpdate();
-            if(res == 1){
+            if (res == 1) {
                 LoggedUser.setProvince(province);
                 LoggedUser.setCity(city);
             }
@@ -156,12 +156,12 @@ public class UserDAO {
         }
         return res;
     }
-    
-    public String getUsernameByID(int userID){
+
+    public String getUsernameByID(int userID) {
         String username = null;
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT username FROM users WHERE (id = ?)")){
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT username FROM users WHERE (id = ?)")) {
             statement.setInt(1, userID);
-            try(ResultSet rs = statement.executeQuery()) {
+            try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
                     username = rs.getString(1);
                 }
@@ -176,7 +176,7 @@ public class UserDAO {
 
     public ArrayList<Integer> getUsersInCity(String city) {
         ArrayList<Integer> usersIDs = new ArrayList<>();
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id FROM users WHERE (city = ? AND userType = ?)")){
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id FROM users WHERE (city = ? AND userType = ?)")) {
             statement.setString(1, city);
             statement.setString(2, "USER");
             try(ResultSet rs = statement.executeQuery()) {
@@ -193,9 +193,9 @@ public class UserDAO {
     }
 
     //gestita dal server
-    public void populateObsByCity(Map<String, List<NotiObserverClass>> obsByCity){
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id, city FROM users WHERE (userType = 'USER')")){
-            try(ResultSet rs = statement.executeQuery()) {
+    public void populateObsByCity(Map<String, List<NotiObserverClass>> obsByCity) {
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id, city FROM users WHERE (userType = 'USER')")) {
+            try (ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {
                     NotiObserverClass usrObs = new NotiObserverClass(rs.getInt(1), null);
                     obsByCity.computeIfAbsent(rs.getString(2), k -> new ArrayList<>()).add(usrObs);
@@ -208,9 +208,9 @@ public class UserDAO {
         }
     }
 
-    public void populateConnUsers(Map<Integer, Boolean> connUsers){
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id FROM users WHERE (userType = 'USER')")){
-            try(ResultSet rs = statement.executeQuery()) {
+    public void populateConnUsers(Map<Integer, Boolean> connUsers) {
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id FROM users WHERE (userType = 'USER')")) {
+            try (ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {
                     connUsers.put(rs.getInt(1), false);
                 }
@@ -222,9 +222,9 @@ public class UserDAO {
         }
     }
 
-    public void populateConnOrganizers(Map<Integer, Boolean> connOrganizers){
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id FROM users WHERE (userType = 'ORGANIZER')")){
-            try(ResultSet rs = statement.executeQuery()) {
+    public void populateConnOrganizers(Map<Integer, Boolean> connOrganizers) {
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id FROM users WHERE (userType = 'ORGANIZER')")) {
+            try (ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {
                     connOrganizers.put(rs.getInt(1), false);
                 }
