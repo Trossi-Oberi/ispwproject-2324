@@ -1,6 +1,5 @@
 package logic.server;
 
-import logic.controllers.MessageFactory;
 import logic.controllers.MessageObserverClass;
 import logic.controllers.NotificationFactory;
 import logic.controllers.NotiObserverClass;
@@ -33,37 +32,17 @@ public class Server {
     private static Logger logger = Logger.getLogger("NightPlan");
     private static final int MAX_CONNECTIONS = 500;
     private ServerSocket serverSocket;
-
     public static final String ADDRESS = "localhost";
     public static final int PORT = 2521;
     private NotificationFactory notiFactory;
-    private MessageFactory msgFactory;
-    private NotificationDAO notifyDAO;
     private static final SituationType SERVER_CLIENT = SituationType.ServerClient;
-    private static final SituationType LOCAL = SituationType.Local;
 
     public Server() {
         notiFactory = new NotificationFactory();
-        msgFactory = new MessageFactory();
-        notifyDAO = new NotificationDAO();
     }
-
 
     public static void main(String[] args) {
         logger.info("Server running on port " + PORT);
-
-        if (args.length > 0) {
-            if ("JDBC".equals(args[0])) {
-                logger.info("Server started with JDBC persistence logic");
-                PersistenceClass.setPersistenceType(PersistenceTypes.JDBC);
-            } else if ("FileSystem".equals(args[0])) {
-                logger.info("Server started with FileSystem persistence logic");
-                PersistenceClass.setPersistenceType(PersistenceTypes.FileSystem);
-            }
-        } else {
-            logger.info("Server started with default persistence logic (JDBC)");
-            PersistenceClass.setPersistenceType(PersistenceTypes.JDBC);
-        }
 
         Server server = new Server();
         server.start();
@@ -339,23 +318,7 @@ public class Server {
 
     private void loadData() {
         try {
-            UserDAO userDAO;
-            switch (PersistenceClass.getPersistenceType()){
-                case FileSystem:
-                    try {
-                        userDAO = new UserDAOCSV();
-                        logger.info("Server working on filesystem");
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    break;
-                case JDBC:
-                default:
-                    userDAO = new UserDAOJDBC();
-                    logger.info("Server working on database");
-                    break;
-            }
-
+            UserDAO userDAO = new UserDAO();
             EventDAO eventDAO = new EventDAO();
             GroupDAO groupDAO = new GroupDAO();
             userDAO.populateObsByCity(this.observersByCity);
@@ -420,8 +383,6 @@ public class Server {
                     //se utente online notifica
                     user.update(type);
                 }
-                //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
-                notifyDAO.addNotification(user.getObsID(), type, eventID, userID);
             }
         }
     }
@@ -433,9 +394,6 @@ public class Server {
                 //se org online notifica
                 org.update(type);
             }
-            //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
-            notifyDAO.addNotification(org.getObsID(), type, eventID, userID);
-
         } else {
             logger.severe("Org id got from observer is null - can't update observers");
             throw new RuntimeException();
