@@ -19,7 +19,12 @@ public class LocalNotification implements Notification{
 
     @Override
     public void setCity(String city) {
-        //
+        //not used
+    }
+
+    @Override
+    public void setNewCity(String newCity){
+        //not used
     }
 
     @Override
@@ -34,7 +39,7 @@ public class LocalNotification implements Notification{
 
     @Override
     public void setUserType(UserTypes userType) {
-       //
+       //not used
     }
 
     @Override
@@ -54,6 +59,11 @@ public class LocalNotification implements Notification{
 
     @Override
     public String getCity() {
+        return null;
+    }
+
+    @Override
+    public String getNewCity(){
         return null;
     }
 

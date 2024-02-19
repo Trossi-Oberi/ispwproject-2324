@@ -7,6 +7,7 @@ public class ServerNotification implements Notification {
     private static final long serialVersionUID = 1L;
     private NotificationTypes messageType;
     private String city;
+    private String newCity;
     private Integer clientID;
     private Integer eventID;
     private UserTypes userType;
@@ -20,6 +21,11 @@ public class ServerNotification implements Notification {
     @Override
     public void setCity(String city) {
         this.city = city;
+    }
+
+    @Override
+    public void setNewCity(String newCity){
+        this.newCity = newCity;
     }
 
     @Override
@@ -55,6 +61,11 @@ public class ServerNotification implements Notification {
     @Override
     public String getCity() {
         return this.city;
+    }
+
+    @Override
+    public String getNewCity(){
+        return this.newCity;
     }
 
     @Override

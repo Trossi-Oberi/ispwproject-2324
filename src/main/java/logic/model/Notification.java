@@ -12,6 +12,8 @@ public interface Notification extends Serializable {
 
     void setCity(String city);
 
+    void setNewCity(String newCity);
+
     void setClientID(Integer notifiedID);
 
     void setNotifierID(Integer notifierID);
@@ -26,6 +28,8 @@ public interface Notification extends Serializable {
     NotificationTypes getNotificationType();
 
     String getCity();
+
+    String getNewCity();
 
     Integer getClientID();
 
