@@ -10,7 +10,10 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import logic.controllers.NotiObserverClass;
+import logic.controllers.ObserverClass;
+import logic.controllers.ObserverFactory;
 import logic.utils.LoggedUser;
+import logic.utils.ObserverType;
 import logic.utils.PersistenceClass;
 import logic.utils.SingletonDBSession;
 import logic.model.MEvent;
@@ -168,11 +171,12 @@ public class EventDAO {
 
 
     //gestita dal server
-    public void populateOrgByEventID(Map<Integer, NotiObserverClass> orgByEventID){
+    public void populateOrgByEventID(Map<Integer, ObserverClass> orgByEventID){
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT event_id, organizer_id FROM events")){
             ResultSet rs = statement.executeQuery();
+            ObserverFactory obsFactory = new ObserverFactory();
             while (rs.next()) {
-                NotiObserverClass orgObs = new NotiObserverClass(rs.getInt(2), null);
+                ObserverClass orgObs = obsFactory.createObserver(ObserverType.NotiObserver,rs.getInt(2), null);
                 orgByEventID.put(rs.getInt(1), orgObs);
             }
         } catch (SQLException e) {

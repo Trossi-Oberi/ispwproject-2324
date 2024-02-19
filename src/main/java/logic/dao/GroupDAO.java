@@ -3,8 +3,10 @@ package logic.dao;
 import logic.controllers.MessageObserverClass;
 import logic.controllers.NotiObserverClass;
 import logic.controllers.ObserverClass;
+import logic.controllers.ObserverFactory;
 import logic.model.MGroup;
 import logic.utils.LoggedUser;
+import logic.utils.ObserverType;
 import logic.utils.SingletonDBSession;
 
 import java.sql.PreparedStatement;
@@ -131,11 +133,14 @@ public class GroupDAO {
         }
     }
 
-    public void populateUsersInGroups(Map<Integer, List<MessageObserverClass>> usersInGroups) {
+    public void populateUsersInGroups(Map<Integer, List<ObserverClass>> usersInGroups) {
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT user_id, group_id FROM usergroup")){
             ResultSet rs = statement.executeQuery();
+            ObserverFactory obsFactory = new ObserverFactory();
             while (rs.next()) {
-                MessageObserverClass obs = new MessageObserverClass(rs.getInt(1), null);
+                //TODO: Sistemare con observer factory
+                ObserverClass obs = obsFactory.createObserver(ObserverType.MessageObserver, rs.getInt(1), null);
+                //MessageObserverClass obs = new MessageObserverClass(rs.getInt(1), null);
                 usersInGroups.computeIfAbsent(rs.getInt(2), k -> new ArrayList<>()).add(obs);
             }
         } catch (SQLException e) {
