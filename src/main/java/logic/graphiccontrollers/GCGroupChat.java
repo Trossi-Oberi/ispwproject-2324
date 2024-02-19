@@ -151,6 +151,7 @@ public class GCGroupChat extends EssentialGUI implements ChatView {
     public synchronized void addMessageToChat(BMessage messageBean){//sempre generico, riusabile per private chat
         Platform.runLater(() -> {
             mexs.add(messageBean);
+            chatMessagesLV.scrollTo(chatMessagesLV.getItems().size() - 1);
         });
 
     }
