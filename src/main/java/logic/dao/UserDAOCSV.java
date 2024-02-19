@@ -266,8 +266,14 @@ public class UserDAOCSV implements UserDAO {
 
             while ((record = csvReader.readNext()) != null) {
                 if (Integer.parseInt(record[UserAttributesOrder.getIndex_UserID()]) == userID) {
+
+                    //aggiorno il record CSV
                     record[UserAttributesOrder.getIndex_Province()] = province;
                     record[UserAttributesOrder.getIndex_City()] = city;
+
+                    //aggiorno la sessione utente corrente
+                    LoggedUser.setProvince(province);
+                    LoggedUser.setCity(city);
                     res = 1;
                     break;
                 }
