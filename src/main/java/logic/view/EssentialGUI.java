@@ -158,7 +158,7 @@ public class EssentialGUI extends Application implements NotificationView {
 //                    }
                     break;
                 case UserEventParticipation:
-                    alert.displayAlertPopup(Alerts.INFORMATION, "New user participating to your event."); //TODO: nel caso aggiungere anche il nome evento o l'id evento (NON IMPORTANTE)
+                    alert.displayAlertPopup(Alerts.INFORMATION, "New user participating to your event.");
                     break;
             }
         });

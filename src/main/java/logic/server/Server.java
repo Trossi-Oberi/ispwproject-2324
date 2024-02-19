@@ -195,7 +195,6 @@ public class Server {
                     sendNotificationToClient(response, out);
 
                     //notifica l'utente
-                    //notifyUserObservers(noti.getCity(), noti.getEventID(), noti.getClientID());
                     notifyUserObservers(noti);
                     break;
 
@@ -203,14 +202,10 @@ public class Server {
                     System.out.println("Event with id " + noti.getEventID() + " deleted");
                     synchronized (organizersByEventID) {
                         //rimuove l'associazione tra event-id e organizer nella hashmap
-                        //organizersByEventID.remove(noti.getEventID());
                         detachOrgObserver(noti);
                     }
                     response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.EventDeleted, null, null, noti.getEventID(), null, null, null, null);
                     sendNotificationToClient(response, out);
-
-                    /*//notifica l'organizer
-                    notifyUserObservers(noti.getCity(), noti.getEventID(), noti.getClientID(), noti.getNotificationType());*/
                     break;
 
                 case UserEventParticipation:
@@ -431,9 +426,6 @@ public class Server {
                     //se utente online notifica
                     user.update(noti);
                 }
-                //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
-                /*//TODO: Farlo in locale
-                notifyDAO.addNotification(user.getObsID(), NotificationTypes.EventAdded, eventID, userID);*/
             }
         }
     }
@@ -449,9 +441,6 @@ public class Server {
             //se org online notifica
             org.update(noti);
         }
-        //in ogni caso scrivi sul database delle notifiche la notifica per l'organizzatore
-            /*//TODO: Fare scrittura notifica su database in locale
-            notifyDAO.addNotification(org.getObsID(), NotificationTypes.UserEventParticipation, eventID, userID);*/
     }
 
     private void notifyGroupUsers(Message mex) {

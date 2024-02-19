@@ -1,12 +1,6 @@
 package logic.controllers;
 
-import logic.model.LocalNotification;
-import logic.model.Notification;
-import logic.model.ServerNotification;
-import logic.utils.NotificationTypes;
 import logic.utils.ObserverType;
-import logic.utils.SituationType;
-import logic.utils.UserTypes;
 
 import java.io.ObjectOutputStream;
 
