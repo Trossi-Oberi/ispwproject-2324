@@ -1,9 +1,6 @@
 package logic.server;
 
-import logic.controllers.MessageFactory;
-import logic.controllers.MessageObserverClass;
-import logic.controllers.NotificationFactory;
-import logic.controllers.NotiObserverClass;
+import logic.controllers.*;
 import logic.dao.*;
 import logic.model.Message;
 import logic.model.Notification;
@@ -45,7 +42,6 @@ public class Server {
         notiFactory = new NotificationFactory();
         msgFactory = new MessageFactory();
         obsFactory = new ObserverFactory();
-        notifyDAO = new NotificationDAO();
     }
 
     public static void main(String[] args) {
