@@ -296,13 +296,14 @@ public class CFacade {
             loginController = new CLogin();
         }
 
+        String oldCity = LoggedUser.getCity();
         int res = loginController.changeCity(userID, newProvince, newCity);
 
         if(res == 1){
             if (notificationController == null) {
                 notificationController = new CNotification(this);
             }
-            notificationController.sendNotification(NotificationTypes.ChangeCity, LoggedUser.getUserID(), null, null, null, LoggedUser.getCity(), newCity, null);
+            notificationController.sendNotification(NotificationTypes.ChangeCity, LoggedUser.getUserID(), null, null, null, oldCity, newCity, null);
         }
         return res;
     }
