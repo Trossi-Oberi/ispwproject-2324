@@ -22,10 +22,14 @@ public class CNotification extends CServerInteraction {
     private NotificationFactory notiFactory;
 
 
-    public CNotification(CFacade facadeRef) throws IOException {
+    public CNotification(CFacade facadeRef){
         switch (PersistenceClass.getPersistenceType()) {
             case FileSystem:
-                this.notificationDAO = new NotificationDAOCSV();
+                try {
+                    this.notificationDAO = new NotificationDAOCSV();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
             case JDBC:
             default:
