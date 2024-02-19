@@ -244,10 +244,7 @@ public class Server {
                             System.out.println("error in user detach");
                         }
                         //ATTACH SU CITY NUOVA
-                        attachUserObserver(noti, null);
-
-                        //UPDATE CANALE DI OUTPUT
-                        updateUserOut(noti.getNewCity(), noti.getClientID(), out);
+                        attachUserObserver(noti, out);
                     }
 
                     response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.ChangeCity, noti.getClientID(), null, null, null, noti.getCity(), noti.getNewCity(), null);
@@ -352,7 +349,7 @@ public class Server {
         }
     }
 
-    //TODO: sistemare interfaccia Subject con attach, detach e notify
+    //TODO: sistemare interfaccia Subject con attach, detach e notify da fixare
 
     private void updateOrgOut(int orgID, ObjectOutputStream out) {
         for (Map.Entry<Integer, ObserverClass> entry : organizersByEventID.entrySet()) {
@@ -394,6 +391,8 @@ public class Server {
         usersInGroups.computeIfAbsent(groupID, k -> new ArrayList<>()).add(groupObs);
         System.out.println("Added userID: " + groupObs.getObsID() + " to groupID: " + groupID);
     }
+
+    //TODO: fix changeCity attach detach (riattacha sulla stessa città)
 
     //DETACH
     private boolean detachUserObs(ServerNotification noti) {

@@ -68,7 +68,8 @@ public class GCGroupChat extends EssentialGUI implements ChatView {
         //scrive messaggio sul database e lo gira al server
         if(!messageTextField.getText().isEmpty() && cfacade.sendMessageToGroup(this.groupID, messageTextField.getText())){
             messageTextField.clear();
-        }else{
+        } else{
+            //TODO: fare controllo prima di mostrare errore.
             alert.displayAlertPopup(Alerts.ERROR, "Error while sending message");
         }
 

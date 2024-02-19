@@ -75,6 +75,8 @@ public class CGroup {
         return groupDAO.joinGroup(groupID);
     }
 
+    //TODO: fare controllo su gruppo già creato.
+
     public boolean leaveGroup(Integer groupID){
         return groupDAO.leaveGroup(groupID);
     }
