@@ -66,10 +66,12 @@ public class GCGroupChat extends EssentialGUI implements ChatView {
     @FXML
     void sendMessage(MouseEvent event) {
         //scrive messaggio sul database e lo gira al server
-        if(!messageTextField.getText().isEmpty() && cfacade.sendMessageToGroup(this.groupID, messageTextField.getText())){
+        if (messageTextField.getText().isEmpty()){
+            return;
+        }
+        if(cfacade.sendMessageToGroup(this.groupID, messageTextField.getText())){
             messageTextField.clear();
         } else{
-            //TODO: fare controllo prima di mostrare errore.
             alert.displayAlertPopup(Alerts.ERROR, "Error while sending message");
         }
 
@@ -90,8 +92,8 @@ public class GCGroupChat extends EssentialGUI implements ChatView {
     }
 
     private void setupChatTextField(TextField field){
-        messageTextField.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER && !field.getText().isEmpty()) {
+        field.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
                 sendMessage(null);
             }
         });
