@@ -191,7 +191,7 @@ public class CFacade {
         }
         int newGroupID = groupController.createGroup(groupName, eventID); //res == new groupID
         if (newGroupID > 0) {
-            res = groupController.joinGroup(newGroupID);
+            res = this.joinGroup(newGroupID);
         }
         return res;
     }
