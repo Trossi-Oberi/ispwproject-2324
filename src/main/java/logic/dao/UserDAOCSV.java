@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.opencsv.CSVReader;
+
 import static logic.view.EssentialGUI.logger;
 
 public class UserDAOCSV implements UserDAO {
@@ -103,20 +104,35 @@ public class UserDAOCSV implements UserDAO {
                 } else {
                     logger.finest("Creation of CSV file failed.");
                 }
-            } catch (IOException e){
+            } catch (IOException e) {
                 logger.severe("Error while creating new file: " + e.getMessage());
             }
         } else {
             logger.finest("File CSV already exists in path: " + folderName + "/" + CSV_DB_NAME);
         }
+
+        //aggiorno l'indice del file all'ultima entry aggiunta
+        updateLastIndex();
+    }
+
+    private void updateLastIndex() {
+        int count = 0;
+        try (CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)))){
+            //cerco le credenziali username e password nel file CSV
+            while (csvReader.readNext() != null) {
+                count++;
+            }
+        } catch (CsvValidationException | IOException e) {
+            throw new RuntimeException(e);
+        }
+        entriesNumber = count;
     }
 
     @Override
     public int checkLoginInfo(MUser usrMod, boolean isGoogleAccount) {
         int ret = 0;
 
-        try {
-            CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+        try (CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)))){
             String[] record;
 
             if (!isGoogleAccount) {
@@ -169,8 +185,7 @@ public class UserDAOCSV implements UserDAO {
 
     @Override
     public String getUserCityByID(int usrId) {
-        try {
-            CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+        try (CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)))){
             String[] record;
 
             while ((record = csvReader.readNext()) != null) {
@@ -199,7 +214,7 @@ public class UserDAOCSV implements UserDAO {
 
                 String[] record = new String[11];
 
-                record[UserAttributesOrder.getIndex_UserID()] = String.valueOf(entriesNumber++);
+                record[UserAttributesOrder.getIndex_UserID()] = String.valueOf(++entriesNumber);
                 record[UserAttributesOrder.getIndex_UserName()] = usrModel.getUserName();
                 record[UserAttributesOrder.getIndex_Password()] = usrModel.getPassword();
                 record[UserAttributesOrder.getIndex_FirstName()] = usrModel.getFirstName();
@@ -224,8 +239,7 @@ public class UserDAOCSV implements UserDAO {
     }
 
     private boolean checkDuplicatedUserName(String userName) {
-        try {
-            CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+        try (CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)))){
             String[] record;
 
             while ((record = csvReader.readNext()) != null) {
@@ -241,8 +255,7 @@ public class UserDAOCSV implements UserDAO {
 
     @Override
     public int getUserIDByUsername(String username) {
-        try {
-            CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+        try (CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)))){
             String[] record;
 
             while ((record = csvReader.readNext()) != null) {
@@ -258,8 +271,7 @@ public class UserDAOCSV implements UserDAO {
 
     @Override
     public void setStatus(int userID) {
-        try {
-            CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+        try (CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)))){
             String[] record;
 
             while ((record = csvReader.readNext()) != null) {
@@ -283,8 +295,7 @@ public class UserDAOCSV implements UserDAO {
     @Override
     public int changeCity(int userID, String province, String city) {
         int res = 0;
-        try {
-            CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+        try (CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)))){
             String[] record;
 
             while ((record = csvReader.readNext()) != null) {
@@ -319,8 +330,7 @@ public class UserDAOCSV implements UserDAO {
     @Override
     public String getUsernameByID(int userID) {
         String userName = null;
-        try {
-            CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+        try (CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)))){
             String[] record;
 
             while ((record = csvReader.readNext()) != null) {
@@ -339,8 +349,7 @@ public class UserDAOCSV implements UserDAO {
 
     @Override
     public void populateObsByCity(Map<String, List<NotiObserverClass>> obsByCity) {
-        try {
-            CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+        try (CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)))){
             String[] record;
 
             while ((record = csvReader.readNext()) != null) {
@@ -356,8 +365,7 @@ public class UserDAOCSV implements UserDAO {
 
     @Override
     public void populateConnUsers(Map<Integer, Boolean> connUsers) {
-        try {
-            CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+        try (CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)))){
             String[] record;
 
             while ((record = csvReader.readNext()) != null) {
@@ -372,8 +380,7 @@ public class UserDAOCSV implements UserDAO {
 
     @Override
     public void populateConnOrganizers(Map<Integer, Boolean> connOrganizers) {
-        try {
-            CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+        try (CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)))){
             String[] record;
 
             while ((record = csvReader.readNext()) != null) {
