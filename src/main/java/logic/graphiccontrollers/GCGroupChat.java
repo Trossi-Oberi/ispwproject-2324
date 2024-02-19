@@ -42,7 +42,10 @@ public class GCGroupChat extends EssentialGUI implements ChatView {
     private Integer groupID;
 
     private ArrayList<BMessage> messages = new ArrayList<>();
-    ObservableList<BMessage> mexs;
+
+    private ObservableList<BMessage> mexs;
+
+
     @FXML
     public void initialize() {
         cfacade.setChatGraphic(this);
