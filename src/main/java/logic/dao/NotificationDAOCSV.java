@@ -157,8 +157,9 @@ public class NotificationDAOCSV implements NotificationDAO {
 
     @Override
     public boolean deleteNotification(int notificationID) {
-        try (CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
-             CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter("csvData/temp.csv", false)))) {
+        try {
+            CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+            CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter("csvData/temp.csv", false)));
 
             String[] record;
             while ((record = csvReader.readNext()) != null) {
@@ -168,13 +169,14 @@ public class NotificationDAOCSV implements NotificationDAO {
                 }
             }
 
-            // Rinomina il file temporaneo al file originale
-            Files.move(Paths.get("csvData/temp.csv"), Paths.get(fd.toURI()), StandardCopyOption.REPLACE_EXISTING);
+            csvReader.close();
+            csvWriter.close();
 
-            return true;
+            Files.move(Paths.get("csvData/temp.csv"), Paths.get(fd.toURI()), StandardCopyOption.REPLACE_EXISTING);
         } catch (CsvValidationException | IOException e) {
             logger.log(Level.SEVERE, "IOException occurred while removing notification from db (csv)");
+            return false;
         }
-        return false;
+        return true;
     }
 }
