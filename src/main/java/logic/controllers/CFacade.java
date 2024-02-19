@@ -298,7 +298,7 @@ public class CFacade {
         String oldCity = LoggedUser.getCity();
         int res = loginController.changeCity(userID, newProvince, newCity);
 
-        if(res == 1){
+        if (res == 1) {
             if (notificationController == null) {
                 notificationController = new CNotification(this);
             }
@@ -365,11 +365,11 @@ public class CFacade {
         this.chatView = chatView;
     }
 
-    public void showNotification(NotificationTypes notiType){
+    public void showNotification(NotificationTypes notiType) {
         notiView.showNotification(notiType);
     }
 
-    public void addMessageToChat(Message msg){
+    public void addMessageToChat(Message msg) {
         //anche qui l'unico caso e' quello della group chat quindi non faccio controlli aggiuntivi
         BMessage beanMsg = new BMessage(msg);
         this.chatView.addMessageToChat(beanMsg);
