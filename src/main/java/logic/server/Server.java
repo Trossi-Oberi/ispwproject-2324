@@ -169,7 +169,7 @@ public class Server {
                         attachUserObserver(noti.getCity(), usrObs);
                     }
                     //notifica l'utente
-                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.UserRegistration, noti.getClientID(), null, null, null, null, null);
+                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.UserRegistration, noti.getClientID(), null, null, null, null, null, null);
                     sendNotificationToClient(response, out);
                     clientRunning = false;
                     break;
@@ -198,7 +198,7 @@ public class Server {
                     }
 
                     //notifica l'utente
-                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.LoggedIn, noti.getClientID(), null, null, null, null, null);
+                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.LoggedIn, noti.getClientID(), null, null, null, null, null, null);
                     sendNotificationToClient(response, out);
                     break;
 
@@ -211,7 +211,7 @@ public class Server {
                         attachOrgObserver(noti.getEventID(), orgObs);
                     }
                     //notifica l'organizer
-                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.EventAdded, noti.getClientID(), null, null, null, null, null);
+                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.EventAdded, noti.getClientID(), null, null, null, null, null, null);
                     sendNotificationToClient(response, out);
 
                     //notifica l'utente
@@ -225,7 +225,7 @@ public class Server {
                         organizersByEventID.remove(noti.getEventID());
                         detachOrgObserver(noti.getEventID());
                     }
-                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.EventDeleted, null, null, noti.getEventID(), null, null, null);
+                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.EventDeleted, null, null, noti.getEventID(), null, null, null, null);
                     sendNotificationToClient(response, out);
 
                     //notifica l'utente
@@ -237,7 +237,7 @@ public class Server {
                     System.out.println("User with id " + noti.getClientID() + " participating to event with id = " + noti.getEventID());
 
                     //mandare messaggio di ritorno all'utente
-                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.UserEventParticipation, null, null, null, null, null, null);
+                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.UserEventParticipation, null, null, null, null, null, null, null);
                     sendNotificationToClient(response, out);
 
                     //mandare notifica all'organizzatore
@@ -249,27 +249,51 @@ public class Server {
                     System.out.println("User with id " + noti.getClientID() + " removed participation to event with id = " + noti.getEventID());
 
                     //mandare messaggio di ritorno all'utente
-                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.UserEventRemoval, noti.getClientID(), null, noti.getEventID(), null, null, null);
+                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.UserEventRemoval, noti.getClientID(), null, noti.getEventID(), null, null,null, null);
                     sendNotificationToClient(response, out);
                     break;
 
                 case ChangeCity:
-                    //TODO: Implementare con detach dalla city vecchia e attach su city nuova
+                    System.out.println("User with id = " + noti.getClientID() + ", changed city from " + noti.getCity() + " to " +  noti.getNewCity());
+
+                    synchronized (observersByCity) {
+                        //DETACH CITY VECCHIA
+                        detachUserObs(noti.getCity(), noti.getClientID());
+
+                        //ATTACH SU CITY NUOVA
+                        NotiObserverClass usrObs = new NotiObserverClass(noti.getClientID(), null);
+                        attachUserObserver(noti.getNewCity(), usrObs);
+
+                        //UPDATE CANALE DI OUTPUT
+                        updateUserOut(noti.getNewCity(), noti.getClientID(), out);
+                    }
+
+                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.ChangeCity, noti.getClientID(), null, null, null, noti.getCity(), noti.getNewCity(), null);
+                    sendNotificationToClient(response, out);
+                    break;
 
                 case GroupJoin:
                     System.out.println("User with id = " + noti.getClientID() + ", joined group with id = " + noti.getEventID()); //event viene usato come group
+
                     //AGGIORNO HASHMAP
-                    MessageObserverClass groupObs = new MessageObserverClass(noti.getClientID(), out);
-                    attachObsToGroup(noti.getEventID(), groupObs);
-                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.GroupJoin, null, null, noti.getEventID(), null, null, null);
+                    synchronized (usersInGroups) {
+                        MessageObserverClass groupObs = new MessageObserverClass(noti.getClientID(), out);
+                        attachObsToGroup(noti.getEventID(), groupObs);
+                    }
+
+                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.GroupJoin, null, null, noti.getEventID(), null, null, null, null);
                     sendNotificationToClient(response, out);
                     break;
 
                 case GroupLeave:
-                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.GroupLeave, null, null, noti.getEventID(), null, null, null);
-                    if (detachObsFromGroup(noti.getClientID(),noti.getEventID())){
-                        System.out.println("User with id = " + noti.getClientID() + ", left group with id = " + noti.getEventID());
+                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.GroupLeave, null, null, noti.getEventID(), null, null, null, null);
+
+                    synchronized (usersInGroups) {
+                        if (detachObsFromGroup(noti.getClientID(), noti.getEventID())) {
+                            System.out.println("User with id = " + noti.getClientID() + ", left group with id = " + noti.getEventID());
+                        }
                     }
+
                     sendNotificationToClient(response, out);
                     break;
 
@@ -289,7 +313,7 @@ public class Server {
                             break;
                     }
                     //notifica l'utente
-                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.Disconnected, noti.getClientID(), null, null, null, null, null);
+                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.Disconnected, noti.getClientID(), null, null, null, null, null, null);
                     sendNotificationToClient(response, out);
                     clientRunning = false;
                     break;
@@ -443,7 +467,7 @@ public class Server {
         List<NotiObserverClass> list = observersByCity.get(city);
         if (list!=null){
             list.removeIf(obs -> obs.getObsID() == userID);
-            System.out.println("Detached user id "+userID+" from city "+city);
+            System.out.println("Detached user id " + userID + " from city "+city);
             return true;
         }
         return false;
