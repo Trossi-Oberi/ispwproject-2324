@@ -83,6 +83,7 @@ public class GCGroupChat extends EssentialGUI implements ChatView {
 
     public void initGroupChat(Integer groupID) {
         this.groupID = groupID;
+        this.groupName.setText(cfacade.getGroupNameByGroupID(groupID));
         messages = cfacade.retrieveGroupChat(groupID);
         setupChatTextField(messageTextField);
         setupChatLV(chatMessagesLV);
