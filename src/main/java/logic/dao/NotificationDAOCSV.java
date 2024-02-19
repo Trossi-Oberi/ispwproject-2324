@@ -29,7 +29,7 @@ public class NotificationDAOCSV implements NotificationDAO {
 
     private NotificationFactory notiFactory;
 
-
+    //TODO: Fixare rimozione notifica dal DAO CSV
     private static class NotificationAttributesOrder {
         public static int getIndex_NotificationID() {
             return 0;
