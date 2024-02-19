@@ -2,6 +2,8 @@ package logic.controllers;
 
 import logic.beans.BNotification;
 import logic.dao.NotificationDAO;
+import logic.dao.NotificationDAOCSV;
+import logic.dao.NotificationDAOJDBC;
 import logic.model.Notification;
 import logic.utils.*;
 
@@ -20,8 +22,17 @@ public class CNotification extends CServerInteraction {
     private NotificationFactory notiFactory;
 
 
-    public CNotification(CFacade facadeRef) {
-        this.notificationDAO = new NotificationDAO();
+    public CNotification(CFacade facadeRef) throws IOException {
+        switch (PersistenceClass.getPersistenceType()) {
+            case FileSystem:
+                this.notificationDAO = new NotificationDAOCSV();
+                break;
+            case JDBC:
+            default:
+                this.notificationDAO = new NotificationDAOJDBC();
+                break;
+
+        }
         this.notiFactory = new NotificationFactory();
         facade = facadeRef;
     }
