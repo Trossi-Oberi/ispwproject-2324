@@ -176,15 +176,16 @@ public class UserDAO {
 
     public ArrayList<Integer> getUsersInCity(String city) {
         ArrayList<Integer> usersIDs = new ArrayList<>();
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id FROM users WHERE (city = ?)")){
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id FROM users WHERE (city = ? AND userType = ?)")){
             statement.setString(1, city);
+            statement.setString(2, "USER");
             try(ResultSet rs = statement.executeQuery()) {
-                if (rs.next()) {
+                while (rs.next()) {
                     usersIDs.add(rs.getInt(1));
                 }
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "SQLException occurred while getting usersIDs by city");
+            logger.log(Level.SEVERE, "SQLException occurred while getting userIDs by city name");
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
