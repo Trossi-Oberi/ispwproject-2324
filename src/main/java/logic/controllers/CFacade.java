@@ -1,7 +1,6 @@
 package logic.controllers;
 
 import logic.beans.*;
-import logic.exceptions.DuplicateRecordException;
 import logic.exceptions.InvalidTokenValue;
 import logic.model.Message;
 import logic.server.Server;
@@ -120,7 +119,7 @@ public class CFacade {
     }
 
 
-    public boolean registerUser(BUserData bean) throws RuntimeException, DuplicateRecordException {
+    public boolean registerUser(BUserData bean) throws RuntimeException {
         if (regController == null) {
             regController = new CRegistration();
         }
