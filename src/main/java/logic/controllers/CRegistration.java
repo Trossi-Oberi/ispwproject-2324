@@ -2,14 +2,9 @@ package logic.controllers;
 
 import logic.beans.BUserData;
 import logic.dao.UserDAO;
-import logic.dao.UserDAOCSV;
-import logic.dao.UserDAOJDBC;
-import logic.exceptions.DuplicateRecordException;
 import logic.model.MUser;
 import logic.dao.LocationDAO;
-import logic.utils.PersistenceClass;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -19,48 +14,31 @@ public class CRegistration {
     private UserDAO userDao;
     private MUser userModel;
 
-    public CRegistration(){
-        switch (PersistenceClass.getPersistenceType()){
-            case FileSystem:
-                try {
-                    this.userDao = new UserDAOCSV();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                break;
-            case JDBC:
-            default:
-                this.userDao = new UserDAOJDBC();
-                break;
-        }
+    public CRegistration() {
+        this.userDao = new UserDAO();
         this.userModel = new MUser();
         this.locationDao = new LocationDAO();
     }
 
-    public boolean registerUserControl(BUserData usrBean) throws DuplicateRecordException {
-        if(checkBirthDate(usrBean.getBirthDate()) == -1) {
+    public boolean registerUserControl(BUserData usrBean) {
+        if (checkBirthDate(usrBean.getBirthDate()) == -1) {
             return false;
-        }
-        else {
+        } else {
             this.userModel.setCredentialsByBean(usrBean);
-            try {
-                this.userDao.registerUser(this.userModel);
-            } catch (DuplicateRecordException e) {
-                throw e;
-            }
+            this.userDao.registerUser(this.userModel);
             this.userModel.setId(userDao.getUserIDByUsername(this.userModel.getUserName()));
             usrBean.setUserID(userDao.getUserIDByUsername(this.userModel.getUserName()));
         }
         return true;
     }
 
-    public ArrayList<String> getProvincesList(){
+    public ArrayList<String> getProvincesList() {
         ArrayList<String> provincesList;
         provincesList = this.locationDao.getProvincesList();
         return provincesList;
     }
 
-    public ArrayList<String> getCitiesList(String selectedProvince){
+    public ArrayList<String> getCitiesList(String selectedProvince) {
         ArrayList<String> citiesList;
         citiesList = this.locationDao.getCitiesList(selectedProvince);
         return citiesList;
@@ -69,7 +47,7 @@ public class CRegistration {
     private int checkBirthDate(LocalDate birthDate) {
         LocalDate today = LocalDate.now();
         // the user is for sure adult
-        if(((today.getYear() - birthDate.getYear()) > 18) || ((today.getYear() - birthDate.getYear()) == 18 && birthDate.getDayOfMonth() <= today.getDayOfMonth() && birthDate.getMonthValue() <= today.getMonthValue())) {
+        if (((today.getYear() - birthDate.getYear()) > 18) || ((today.getYear() - birthDate.getYear()) == 18 && birthDate.getDayOfMonth() <= today.getDayOfMonth() && birthDate.getMonthValue() <= today.getMonthValue())) {
             return 0;
         }
         return -1;

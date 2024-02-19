@@ -5,10 +5,7 @@ import logic.beans.BMessage;
 import logic.beans.BNotification;
 import logic.beans.BUserData;
 import logic.controllers.CFacade;
-import logic.exceptions.DuplicateEventParticipation;
-import logic.exceptions.DuplicateRecordException;
 import logic.exceptions.InvalidTokenValue;
-import logic.model.Message;
 import logic.utils.*;
 
 import javax.swing.*;
@@ -1460,9 +1457,6 @@ public class CLI implements NotificationView, ChatView {
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } catch (DuplicateRecordException e) {
-            logger.warning("Username already taken by another user!");
-            return 0;
         }
         return 1;
     }

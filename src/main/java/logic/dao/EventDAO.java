@@ -108,20 +108,7 @@ public class EventDAO {
                 logger.log(Level.SEVERE, "SQLException occurred while retrieving events");
             }
         } else if(queryType == 1){   //USER && HomeUser
-            UserDAO userDAO;
-            switch (PersistenceClass.getPersistenceType()){
-                case FileSystem:
-                    try {
-                        userDAO = new UserDAOCSV();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    break;
-                case JDBC:
-                default:
-                    userDAO = new UserDAOJDBC();
-                    break;
-            }
+            UserDAO userDAO = new UserDAO();
             try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT event_id,organizer,organizer_id,name,province,city,address,music_genre,date,time,image,pic_path FROM events WHERE (city = ?)")) {
                 statement.setString(1, userDAO.getUserCityByID(userID));
                 myEvents = getEventsArrayList(statement);
