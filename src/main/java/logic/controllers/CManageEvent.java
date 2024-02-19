@@ -2,6 +2,7 @@ package logic.controllers;
 
 import logic.beans.BEvent;
 import logic.dao.EventDAO;
+import logic.dao.NotificationDAO;
 import logic.dao.UserEventDAO;
 import logic.exceptions.DuplicateEventParticipation;
 import logic.model.MEvent;
@@ -14,17 +15,20 @@ public class CManageEvent {
 
     private EventDAO eventDAO;
     private UserEventDAO userEventDAO;
+    private NotificationDAO notiDAO;
 
 
     public CManageEvent() {
         eventDAO = new EventDAO();
         userEventDAO = new UserEventDAO();
+        notiDAO = new NotificationDAO();
     }
 
     public boolean addEvent(BEvent eventBean) {
         MEvent eventModel = new MEvent(eventBean);
         if(eventDAO.createEvent(eventModel)){
             eventBean.setEventID(eventModel.getEventID());
+            //TODO: Scrivere notifica per tutti gli utenti nella citta' con notiDAO
             return true;
         } else {
             return false;
@@ -62,7 +66,12 @@ public class CManageEvent {
 
     public boolean participateToEvent(BEvent eventBean) {
         MEvent eventModel = new MEvent(eventBean);
-        return userEventDAO.joinUserToEvent(eventModel);
+        if (userEventDAO.joinUserToEvent(eventModel)){
+            //TODO: Scrivere notifica su DB con notiDAO all'organizer
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public boolean removeEventParticipation(BEvent eventBean) {
