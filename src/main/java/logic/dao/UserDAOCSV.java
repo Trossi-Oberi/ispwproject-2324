@@ -74,17 +74,40 @@ public class UserDAOCSV implements UserDAO {
     }
 
     public UserDAOCSV() throws IOException {
+        //creo la cartella che conterrà il CSV DB
+        String folderName = "csvData";
+        File folder = new File(folderName);
+
+        if (!folder.exists()) {
+            boolean success = folder.mkdirs();
+            if (success) {
+                logger.finest("New folder created successfully.");
+            } else {
+                logger.finest("Folder creation failed.");
+            }
+        } else {
+            logger.finest("Folder already exists: " + folderName);
+        }
+
+        String filePath = folderName + File.separator + CSV_DB_NAME;
+
         //inizializzo il file descriptor
-        this.fd = new File(CSV_DB_NAME);
+        this.fd = new File(filePath);
 
         //creo il file se non esiste
-        if (!fd.exists()) {
-            boolean res = fd.createNewFile();
-            if (res) {
-                logger.finest("Created new file");
-            } else {
-                logger.finest("File already exists");
+        if (!this.fd.exists()) {
+            try {
+                boolean res = this.fd.createNewFile();
+                if (res) {
+                    logger.finest("Created new file.");
+                } else {
+                    logger.finest("Creation of CSV file failed.");
+                }
+            } catch (IOException e){
+                logger.severe("Error while creating new file: " + e.getMessage());
             }
+        } else {
+            logger.finest("File CSV already exists in path: " + folderName + "/" + CSV_DB_NAME);
         }
     }
 
