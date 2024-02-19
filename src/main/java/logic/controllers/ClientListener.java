@@ -100,6 +100,10 @@ public class ClientListener extends Thread implements Runnable {
                     System.out.println("SERVER: user " + incomingNoti.getClientID() + " removed participation to event " + incomingNoti.getEventID() + " successfully!");
                     break;
 
+                case ChangeCity:
+                    semaphore.release(2);
+                    System.out.println("SERVER: user " + incomingNoti.getClientID() + " changed city from " + incomingNoti.getCity() + " to " + incomingNoti.getNewCity() + " successfully!");
+                    break;
                 case GroupJoin:
                     System.out.println("SERVER: group with id " + incomingNoti.getEventID() + " joined successfully");
                     semaphore.release(2);
