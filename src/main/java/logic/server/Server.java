@@ -117,7 +117,7 @@ public class Server {
                     //blocco il thread in lettura di un messaggio in arrivo dal client
                     Object object = in.readObject();
                     if (object instanceof Notification) {
-                        handleNotification((ServerNotification) object);
+                        handleNotification((Notification) object);
                     } else if (object instanceof Message) {
                         handleMessage((Message) object);
                     }
@@ -139,7 +139,7 @@ public class Server {
 
         }
 
-        private void handleNotification(ServerNotification noti) {
+        private void handleNotification(Notification noti) {
             Notification response;
             switch (noti.getNotificationType()) {
                 case UserRegistration:
@@ -239,7 +239,8 @@ public class Server {
                             System.out.println("error in user detach");
                         }
                         //ATTACH SU CITY NUOVA
-                        attachUserObserver(noti, out);
+                        Notification newNoti = notiFactory.createNotification(SERVER_CLIENT,null,noti.getClientID(),null,null,null,noti.getNewCity(),null,null);
+                        attachUserObserver(newNoti, out);
                     }
 
                     response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.ChangeCity, noti.getClientID(), null, null, null, noti.getCity(), noti.getNewCity(), null);
@@ -368,19 +369,19 @@ public class Server {
     }
 
     //ATTACH
-    private void attachOrgObserver(ServerNotification noti, ObjectOutputStream out) {
+    private void attachOrgObserver(Notification noti, ObjectOutputStream out) {
         ObserverClass orgObs = obsFactory.createObserver(ObserverType.NotiObserver, noti.getClientID(), out);
         organizersByEventID.put(noti.getEventID(), orgObs);
         System.out.println("Added eventID: " + noti.getEventID() + " to orgID: " + orgObs.getObsID());
     }
 
-    private void attachUserObserver(ServerNotification noti, ObjectOutputStream out) {
+    private void attachUserObserver(Notification noti, ObjectOutputStream out) {
         ObserverClass notiObs = obsFactory.createObserver(ObserverType.NotiObserver, noti.getClientID(), out);
         observersByCity.computeIfAbsent(noti.getCity(), k -> new ArrayList<>()).add(notiObs);
         System.out.println("Added userID " + notiObs.getObsID() + " to city: " + noti.getCity());
     }
 
-    private void attachObsToGroup(ServerNotification noti, ObjectOutputStream out) {
+    private void attachObsToGroup(Notification noti, ObjectOutputStream out) {
         Integer groupID = noti.getEventID();
         ObserverClass groupObs = obsFactory.createObserver(ObserverType.MessageObserver, noti.getClientID(), out);
         usersInGroups.computeIfAbsent(groupID, k -> new ArrayList<>()).add(groupObs);
@@ -390,7 +391,7 @@ public class Server {
     //TODO: fix changeCity attach detach (riattacha sulla stessa città)
 
     //DETACH
-    private boolean detachUserObs(ServerNotification noti) {
+    private boolean detachUserObs(Notification noti) {
         Integer userID = noti.getClientID();
         String city = noti.getCity();
         List<ObserverClass> list = observersByCity.get(city);
@@ -402,12 +403,12 @@ public class Server {
         return false;
     }
 
-    private void detachOrgObserver(ServerNotification noti) {
+    private void detachOrgObserver(Notification noti) {
         ObserverClass tempObs = organizersByEventID.remove(noti.getEventID());
         System.out.println("Removed eventID: " + noti.getEventID() + " to orgID: " + tempObs.getObsID());
     }
 
-    private boolean detachObsFromGroup(ServerNotification noti) {
+    private boolean detachObsFromGroup(Notification noti) {
         Integer groupID = noti.getEventID();
         List<ObserverClass> tempList = usersInGroups.get(groupID);
         if (tempList != null) {
@@ -418,7 +419,7 @@ public class Server {
         return false;
     }
 
-    private void notifyUserObservers(ServerNotification noti) {
+    private void notifyUserObservers(Notification noti) {
         List<ObserverClass> users = observersByCity.get(noti.getCity());
         if (users != null) {
             for (ObserverClass user : users) {
@@ -431,7 +432,7 @@ public class Server {
     }
 
     //private void notifyOrgObserver(int userID, int eventID) {
-    private void notifyOrgObserver(ServerNotification noti) {
+    private void notifyOrgObserver(Notification noti) {
         ObserverClass org = organizersByEventID.get(noti.getEventID());
         if (org == null){
             logger.severe("Org id got from observer is null - can't update observers");
