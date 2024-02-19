@@ -1,34 +1,58 @@
 package logic.controllers;
 
 import logic.beans.BEvent;
-import logic.dao.EventDAO;
-import logic.dao.NotificationDAO;
-import logic.dao.UserEventDAO;
+import logic.dao.*;
 import logic.exceptions.DuplicateEventParticipation;
 import logic.model.MEvent;
 import logic.utils.LoggedUser;
+import logic.utils.NotificationTypes;
+import logic.utils.PersistenceClass;
 import logic.utils.UserTypes;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import static logic.view.EssentialGUI.logger;
 
 public class CManageEvent {
 
+    private UserDAO userDAO;
     private EventDAO eventDAO;
     private UserEventDAO userEventDAO;
     private NotificationDAO notiDAO;
 
 
     public CManageEvent() {
+        userDAO = new UserDAO();
         eventDAO = new EventDAO();
         userEventDAO = new UserEventDAO();
-        notiDAO = new NotificationDAO();
+        switch (PersistenceClass.getPersistenceType()){
+            case FileSystem:
+                try {
+                    notiDAO = new NotificationDAOCSV();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                logger.info("Server running with FileSystem persistence logic");
+                break;
+            case JDBC:
+            default:
+                notiDAO = new NotificationDAOJDBC();
+                logger.info("Server running with JDBC persistence logic");
+                break;
+        }
     }
 
     public boolean addEvent(BEvent eventBean) {
         MEvent eventModel = new MEvent(eventBean);
         if(eventDAO.createEvent(eventModel)){
             eventBean.setEventID(eventModel.getEventID());
-            //TODO: Scrivere notifica per tutti gli utenti nella citta' con notiDAO
+
+            ArrayList<Integer> usersIDs;
+            usersIDs = userDAO.getUsersInCity(eventBean.getEventCity());
+
+            //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
+            notiDAO.addNotification(usersIDs, NotificationTypes.EventAdded, eventBean.getEventID());
             return true;
         } else {
             return false;
@@ -67,7 +91,13 @@ public class CManageEvent {
     public boolean participateToEvent(BEvent eventBean) {
         MEvent eventModel = new MEvent(eventBean);
         if (userEventDAO.joinUserToEvent(eventModel)){
-            //TODO: Scrivere notifica su DB con notiDAO all'organizer
+            //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
+
+            //notifico l'organizerID della partecipazione all'evento da parte dell'utente
+            ArrayList<Integer> organizerID = new ArrayList<>();
+            organizerID.add(eventBean.getEventOrganizerID());
+
+            notiDAO.addNotification(organizerID, NotificationTypes.UserEventParticipation, eventBean.getEventID());
             return true;
         }else{
             return false;
