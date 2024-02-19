@@ -33,12 +33,10 @@ public class CManageEvent {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                logger.info("Server running with FileSystem persistence logic");
                 break;
             case JDBC:
             default:
                 notiDAO = new NotificationDAOJDBC();
-                logger.info("Server running with JDBC persistence logic");
                 break;
         }
     }
