@@ -94,7 +94,7 @@ public class GCLogin extends EssentialGUI{
                 openAuthCodeWindow();
             }
         } catch (Exception e) {
-            logger.severe(() -> "Error during google login setup "+e.getMessage());
+            logger.severe("Error during google login setup " + e.getMessage());
         }
     }
 

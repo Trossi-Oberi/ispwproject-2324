@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Objects;
 
 import static logic.view.EssentialGUI.logger;
 
@@ -34,7 +35,7 @@ public class CLogin {
         } else if (isGoogleAuth && authCode != null) {
             String userGoogleEmail;
             try {
-                userGoogleEmail = GoogleLogin.getGoogleAccountEmail(GoogleLogin.getGoogleAccountCredentials(GoogleLogin.getGoogleAuthFlow(), authCode));
+                userGoogleEmail = GoogleLogin.getGoogleAccountEmail(Objects.requireNonNull(GoogleLogin.getGoogleAccountCredentials(GoogleLogin.getGoogleAuthFlow(), authCode)));
                 logBean.setUsername(userGoogleEmail);
             } catch (InvalidTokenValue e) {
                 //gestione token invalido

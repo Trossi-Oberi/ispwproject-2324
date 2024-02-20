@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Map;
 
+import static logic.view.EssentialGUI.logger;
+
 public class GoogleLogin {
     private GoogleLogin(){
         //empty
@@ -37,33 +39,38 @@ public class GoogleLogin {
 
     private static GoogleAuthorizationCodeFlow flow;
 
-    public static int initGoogleLogin() throws Exception{
-        // Load client secrets
-        InputStream in = GoogleLogin.class.getClassLoader().getResourceAsStream(CLIENT_SECRETS_FILE_PATH);
-        GoogleClientSecrets clientSecrets = null;
-        if (in != null) {
-            clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+    public static int initGoogleLogin(){
+        try {
+            // Load client secrets
+            InputStream in = GoogleLogin.class.getClassLoader().getResourceAsStream(CLIENT_SECRETS_FILE_PATH);
+            GoogleClientSecrets clientSecrets = null;
+            if (in != null) {
+                clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+            }
+
+            // Set up the OAuth flow
+            //GoogleAuthorizationCodeFlow authflow;
+            if (clientSecrets != null) {
+                flow = new GoogleAuthorizationCodeFlow.Builder(
+                        GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, clientSecrets, Collections.singletonList(SCOPES))
+                        .setDataStoreFactory(new FileDataStoreFactory(new File(TOKENS_DIRECTORY_PATH)))
+                        .setAccessType("offline")
+                        .build();
+            } else {
+                logger.severe("ClientSecrets is null!");
+                return 0;
+            }
+
+            // Get authorization URL
+            AuthorizationCodeRequestUrl authorizationUrl = flow.newAuthorizationUrl();
+            authorizationUrl.setRedirectUri("urn:ietf:wg:oauth:2.0:oob");
+
+            // Open the authorization URL in the default browser
+            openBrowser(authorizationUrl.toString());
+        } catch (Exception e) {
+            logger.severe(e.getMessage());
+            return 0;
         }
-
-        // Set up the OAuth flow
-        //GoogleAuthorizationCodeFlow authflow;
-        if (clientSecrets != null) {
-            flow = new GoogleAuthorizationCodeFlow.Builder(
-                    GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, clientSecrets, Collections.singletonList(SCOPES))
-                    .setDataStoreFactory(new FileDataStoreFactory(new File(TOKENS_DIRECTORY_PATH)))
-                    .setAccessType("offline")
-                    .build();
-        } else {
-            throw new Exception();
-        }
-
-        // Get authorization URL
-        AuthorizationCodeRequestUrl authorizationUrl = flow.newAuthorizationUrl();
-        authorizationUrl.setRedirectUri("urn:ietf:wg:oauth:2.0:oob");
-
-        // Open the authorization URL in the default browser
-        openBrowser(authorizationUrl.toString());
-        //flow = authflow;
         return 1;
     }
 
@@ -71,46 +78,51 @@ public class GoogleLogin {
         return flow;
     }
 
-    public static Credential getGoogleAccountCredentials(GoogleAuthorizationCodeFlow flow, String code) throws Exception{
-        flow.loadCredential("user");
-        Credential cred;
+    public static Credential getGoogleAccountCredentials(GoogleAuthorizationCodeFlow flow, String code) throws InvalidTokenValue{
         try {
+            flow.loadCredential("user");
             GoogleTokenResponse resp = flow.newTokenRequest(code).setRedirectUri("urn:ietf:wg:oauth:2.0:oob").execute();
-            cred = flow.createAndStoreCredential(resp, "user");
+            return flow.createAndStoreCredential(resp, "user");
         } catch (TokenResponseException e){
             //gestione token non valido
             throw new InvalidTokenValue("Invalid credentials token: ", e);
+        } catch (Exception e){
+            logger.severe(e.getMessage());
+            return null;
         }
-
-        return cred;
     }
 
-    public static String getGoogleAccountEmail(Credential cred) throws Exception {
+    public static String getGoogleAccountEmail(Credential cred){
         JsonFactory jsonFactory = cred.getJsonFactory();
 
         return getEmailFromGoogle(cred, jsonFactory);
     }
 
-    private static String getEmailFromGoogle(Credential credential, JsonFactory jsonFactory) throws IOException {
-        //Make a request to Google's UserInfo API to get the user's email
-        String userInfoEndpoint = "https://www.googleapis.com/oauth2/v3/userinfo";
+    private static String getEmailFromGoogle(Credential credential, JsonFactory jsonFactory){
+        try {
+            //Make a request to Google's UserInfo API to get the user's email
+            String userInfoEndpoint = "https://www.googleapis.com/oauth2/v3/userinfo";
 
-        // Crea una richiesta GET all'endpoint UserInfo
-        HttpRequest userInfoRequest = credential.getTransport().createRequestFactory()
-                .buildGetRequest(new GenericUrl(userInfoEndpoint));
+            // Crea una richiesta GET all'endpoint UserInfo
+            HttpRequest userInfoRequest = credential.getTransport().createRequestFactory()
+                    .buildGetRequest(new GenericUrl(userInfoEndpoint));
 
-        // Aggiunge l'intestazione di autorizzazione alle richieste
-        credential.initialize(userInfoRequest);
+            // Aggiunge l'intestazione di autorizzazione alle richieste
+            credential.initialize(userInfoRequest);
 
-        // Esegui la richiesta e ottieni la risposta
-        HttpResponse userInfoResponse = userInfoRequest.execute();
+            // Esegui la richiesta e ottieni la risposta
+            HttpResponse userInfoResponse = userInfoRequest.execute();
 
-        // Parsa la risposta JSON per ottenere l'indirizzo email
-        JsonObjectParser parser = new JsonObjectParser(jsonFactory);
-        //Map<String, Object> userInfo = parser.parseAndClose(userInfoResponse.getContent(), Map.class);
-        Map userInfo = parser.parseAndClose(userInfoResponse.getContent(), Charset.defaultCharset(), Map.class);
+            // Parsa la risposta JSON per ottenere l'indirizzo email
+            JsonObjectParser parser = new JsonObjectParser(jsonFactory);
+            Map<String, Object> userInfo = parser.parseAndClose(userInfoResponse.getContent(), Charset.defaultCharset(), Map.class);
 
-        return (String) userInfo.get("email");
+            return (String) userInfo.get("email");
+        } catch (IOException e){
+            //getEmailFromGoogle failed
+            logger.severe(e.getMessage());
+            return null;
+        }
     }
 
     private static void openBrowser(String url) throws IOException {
