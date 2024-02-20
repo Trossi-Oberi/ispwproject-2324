@@ -3,7 +3,6 @@ package logic.beans;
 import logic.exceptions.InvalidValueException;
 import logic.exceptions.TextTooLongException;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 

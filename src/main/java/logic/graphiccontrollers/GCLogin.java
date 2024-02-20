@@ -89,8 +89,6 @@ public class GCLogin extends EssentialGUI{
             }
         } catch (InvalidTokenValue e) {
             alert.displayAlertPopup(Alerts.WARNING, "Invalid authorization code. Please retry...");
-        } catch (InvalidValueException | TextTooLongException e) {
-            alert.displayAlertPopup(Alerts.WARNING, e.getMessage());
         } catch (RuntimeException e){
             alert.displayAlertPopup(Alerts.ERROR, "Runtime exception: " + e.getMessage());
         }

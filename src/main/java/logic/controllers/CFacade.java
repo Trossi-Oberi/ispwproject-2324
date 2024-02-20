@@ -153,7 +153,7 @@ public class CFacade {
         LoggedUser.setInputStream(in);
     }
 
-    public int loginUser(BUserData bean, boolean isGoogleAuth, String authCode) throws InvalidTokenValue, TextTooLongException, RuntimeException, InvalidValueException {
+    public int loginUser(BUserData bean, boolean isGoogleAuth, String authCode) throws InvalidTokenValue, RuntimeException{
         if (loginController == null) {
             loginController = new CLogin();
         }
