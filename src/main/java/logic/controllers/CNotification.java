@@ -41,11 +41,13 @@ public class CNotification extends CServerInteraction {
         facade = facadeRef;
     }
 
-    private void startListener(int userID, CFacade facade) {
+    private static void startListener(int userID, CFacade facade) {
         semaphore = new Semaphore(1);
         //avviamo il thread con il listener
         listener = new ClientListener(facade, semaphore, LoggedUser.getInputStream());
-        listenerThread = new Thread(listener);
+        listenerThread = new Thread(listener){
+
+        };
 
         //setto il thread come demone affinché termini quando termina anche il thread principale
         listenerThread.setDaemon(true);
@@ -59,7 +61,7 @@ public class CNotification extends CServerInteraction {
         try {
             //se ListenerThread non è ancora stato inizializzato oppure è stato inizializzato ma è stato poi interrotto lo avvio
             if (listenerThread == null || listenerThread.isInterrupted()) {
-                startListener(clientID, this.facade);
+                startListener(clientID, facade);
             }
             //creo il messaggio e lo mando al server
             if (listenerThread.isAlive()) {

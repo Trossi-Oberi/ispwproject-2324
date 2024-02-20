@@ -4,7 +4,7 @@ import java.util.concurrent.Semaphore;
 
 public class CServerInteraction {
     protected static Semaphore semaphore;
-    protected ClientListener listener;
+    protected static ClientListener listener;
     protected static Thread listenerThread;
-    protected CFacade facade;
+    protected static CFacade facade;
 }

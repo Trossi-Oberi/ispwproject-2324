@@ -14,7 +14,7 @@ import java.util.concurrent.Semaphore;
 
 import static logic.view.EssentialGUI.logger;
 
-public class ClientListener extends Thread implements Runnable {
+public class ClientListener implements Runnable {
     //il client listener si occupa di gestire la comunicazione in input da server a client
     private Semaphore semaphore;
     private SecureObjectInputStream in;
