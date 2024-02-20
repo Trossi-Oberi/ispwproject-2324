@@ -29,7 +29,7 @@ public class CLI implements NotificationView, ChatView {
     private static final Logger logger = Logger.getLogger("NightPlan");
     private static CFacade cFacade;
     private static BUserData bUserData;
-    private static List<String> commands = new ArrayList<>();
+    private static final List<String> commands = new ArrayList<>();
     private static final String[] COMMANDS_LIST = {"/commands", "/home", "/events", "/notifications", "/settings", "/quit"};
     private static final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
     private static String filePath;
@@ -73,27 +73,6 @@ public class CLI implements NotificationView, ChatView {
         commands.addAll(List.of(COMMANDS_LIST));
     }
 
-
-    public static void clearScreen() {
-
-        String os = System.getProperty("os.name").toLowerCase();
-
-        if (os.contains("win")) {
-            try {
-                new ProcessBuilder("pwsh", "/c", "cls").inheritIO().start().waitFor();
-                Process process = Runtime.getRuntime().exec("color 01");
-                process.waitFor();
-            } catch (Exception e) {
-                logger.log(Level.SEVERE, "Clear screen failed");
-            }
-        } else if (os.contains("nix") || os.contains("nux") || os.contains("mac")) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
-        } else {
-            System.out.println("Sistema operativo non riconosciuto");
-        }
-
-    }
 
     public static void spacer(int times) {
         for (int i = 0; i < times; i++) {
@@ -234,7 +213,6 @@ public class CLI implements NotificationView, ChatView {
 
     private static void signOut() {
         spacer(3);
-        clearScreen();
         System.out.println(ASCII_LOGO);
         spacer(2);
         System.out.println("Logging out from NightPlan. Goodbye! ;)");
@@ -335,7 +313,7 @@ public class CLI implements NotificationView, ChatView {
     }
 
     private static void loadHome() {
-        clearScreen();
+        spacer(3);
         List<BEvent> eventList;
 
         System.out.println("Welcome to NightPlan!");
@@ -932,7 +910,7 @@ public class CLI implements NotificationView, ChatView {
     }
 
     private static void loadEvents() {
-        clearScreen();
+        spacer(3);
         ArrayList<BEvent> eventList;
         spacer(1);
 
@@ -999,7 +977,7 @@ public class CLI implements NotificationView, ChatView {
     }
 
     private static void showAnalytics(ArrayList<BEvent> pastEvents) {
-        clearScreen();
+        spacer(3);
         System.out.println("Analytics");
         spacer(1);
         printEventsList(pastEvents);
@@ -1076,7 +1054,7 @@ public class CLI implements NotificationView, ChatView {
     }
 
     private static ArrayList<BEvent> showEvents(boolean isPassed) {
-        clearScreen();
+        spacer(3);
         ArrayList<BEvent> eventList = new ArrayList<>();
         spacer(1);
 
@@ -1236,7 +1214,7 @@ public class CLI implements NotificationView, ChatView {
         try {
             boolean valid = false;
             while (!valid) {
-                clearScreen();
+                spacer(3);
                 System.out.println(ASCII_LOGO);
                 System.out.println("Login or register");
                 System.out.println("1. Login");
