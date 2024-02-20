@@ -15,18 +15,15 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import logic.exceptions.InvalidTokenValue;
-import logic.exceptions.InvalidValueException;
-import logic.exceptions.TextTooLongException;
 import logic.utils.Alerts;
 import logic.utils.GoogleLogin;
 import logic.utils.LoggedUser;
 import logic.view.EssentialGUI;
 import logic.beans.BUserData;
-import logic.view.NotificationView;
 
 public class GCLogin extends EssentialGUI{
     @FXML
-    private Button GoogleLoginButton;
+    private Button googleLoginButton;
     @FXML
     private Button loginButton;
     @FXML
@@ -35,9 +32,6 @@ public class GCLogin extends EssentialGUI{
     private Text signUpText;
     @FXML
     private TextField usrname;
-
-    private static final String IDLE_TEXT_STYLE = "-fx-background-color: transparent;";
-    private static final String HOVERED_TEXT_STYLE = "-fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;";
 
     private String authCode;
     private boolean isGoogleAuth;
@@ -100,7 +94,7 @@ public class GCLogin extends EssentialGUI{
                 openAuthCodeWindow();
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            logger.severe(() -> "Error during google login setup "+e.getMessage());
         }
     }
 
@@ -116,7 +110,7 @@ public class GCLogin extends EssentialGUI{
         try {
             Thread.sleep(1000);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            logger.severe("Error during auth code window opening");
         }
         Stage modalStage = new Stage();
         modalStage.initModality(Modality.APPLICATION_MODAL);

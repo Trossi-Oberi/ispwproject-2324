@@ -5,14 +5,14 @@ package logic.exceptions;
 public class UsernameAlreadyTaken extends Exception {
     private static final long serialVersionUID = 1L;
 
-    private String username;
+    private final String username;
 
-    public UsernameAlreadyTaken(String message){
+    /*public UsernameAlreadyTaken(String message){
         super(message);
-    }
+    }*/
 
     public UsernameAlreadyTaken(String message, String username){
-        this(message);
+        super(message);
         this.username = username;
     }
 

@@ -82,7 +82,6 @@ public class UserDAO {
                 userCity = rs.getString(1);
             }
         } catch (SQLException e) {
-            //throw new RuntimeException(e);
             logger.log(Level.SEVERE, "SQLException occurred while getting user city by userID");
         } finally {
             SingletonDBSession.getInstance().closeConn();
@@ -136,7 +135,6 @@ public class UserDAO {
             statement.setInt(2, userID);
             statement.executeUpdate();
         } catch (SQLException e) {
-            //throw new RuntimeException(e);
             logger.log(Level.SEVERE, "SQLException occurred while setting user status");
         } finally {
             SingletonDBSession.getInstance().closeConn();
@@ -155,7 +153,6 @@ public class UserDAO {
                 LoggedUser.setCity(city);
             }
         } catch (SQLException e) {
-            //throw new RuntimeException(e);
             logger.log(Level.SEVERE, "SQLException occurred while changing user city");
         } finally {
             SingletonDBSession.getInstance().closeConn();

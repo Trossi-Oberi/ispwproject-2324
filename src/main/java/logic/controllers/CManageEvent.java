@@ -10,8 +10,6 @@ import logic.utils.LoggedUser;
 import logic.utils.NotificationTypes;
 import logic.utils.PersistenceClass;
 import logic.utils.UserTypes;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

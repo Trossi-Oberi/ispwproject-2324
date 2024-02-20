@@ -24,7 +24,6 @@ public class NotiObserverClass extends ObserverClass{
             }
         } else{
             logger.severe("Object noti (parameter) must be Notification (ServerNotification)");
-            throw new RuntimeException();
         }
     }
 }

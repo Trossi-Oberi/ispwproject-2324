@@ -26,7 +26,6 @@ public class MessageObserverClass extends ObserverClass {
             }
         } else {
             logger.severe("Object message (parameter) must be Message");
-            throw new RuntimeException();
         }
 
     }

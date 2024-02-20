@@ -107,7 +107,7 @@ public class GCHomeUser extends EssentialGUI implements DoubleClickListener {
         } catch (IOException | NullPointerException e) {
             logger.log(Level.SEVERE, "Cannot load scene\n", e);
         } catch (RuntimeException e) {
-            throw new RuntimeException(e);
+            logger.severe("Error during next event page preload");
         }
         nextGuiOnClick(event);
     }

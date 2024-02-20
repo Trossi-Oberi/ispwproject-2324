@@ -62,7 +62,7 @@ public class GCAnalytics extends EssentialGUI {
             Image eventImage = new Image(new ByteArrayInputStream(eventBean.getEventPicData()));
             this.eventImageView.setImage(eventImage);
         } catch (NullPointerException e) {
-            throw new RuntimeException(e);
+            logger.severe("Error during imageView setup");
         }
 
         //inizializzo l'event bean
@@ -87,17 +87,20 @@ public class GCAnalytics extends EssentialGUI {
     @FXML
     void exportAnalyticsFile() {
         //popolo il bean con i dati dell'analisi presi dal bean Event che è superclass di bean Analysis
-        BAnalytics analysis;
+        BAnalytics analytics=null;
         try {
-            analysis = new BAnalytics(this.eventBean);
+            analytics = new BAnalytics(this.eventBean);
         } catch (InvalidValueException | TextTooLongException e) {
-            throw new RuntimeException(e);
+            logger.severe("Error during analytics bean setup");
         }
-        analysis.setTimesClicked(Integer.parseInt(this.timesClickedL.getText()));
-        analysis.setParticipants(Integer.parseInt(this.participantsL.getText()));
-        analysis.setPlannedParticipations(Integer.parseInt(this.plannedL.getText()));
+        if (analytics!=null){
+            analytics.setTimesClicked(Integer.parseInt(this.timesClickedL.getText()));
+            analytics.setParticipants(Integer.parseInt(this.participantsL.getText()));
+            analytics.setPlannedParticipations(Integer.parseInt(this.plannedL.getText()));
+        }
 
-        if(cfacade.exportAnalyticsFile(analysis)){
+
+        if(cfacade.exportAnalyticsFile(analytics)){
             alert.displayAlertPopup(Alerts.INFORMATION, "Analytics file exported as a .txt successfully!\nYou can find it into exportedAnalytics folder.");
         } else {
             alert.displayAlertPopup(Alerts.ERROR, "Analytics file export failed!\n Retry...");
