@@ -157,7 +157,7 @@ public class CFacade {
         LoggedUser.setInputStream(in);
     }
 
-    public int loginUser(BUserData bean, boolean isGoogleAuth, String authCode, NotificationView notiView) throws InvalidTokenValue, RuntimeException {
+    public int loginUser(BUserData bean, boolean isGoogleAuth, String authCode) throws InvalidTokenValue, RuntimeException {
         if (loginController == null) {
             loginController = new CLogin();
         }

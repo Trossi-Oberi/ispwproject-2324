@@ -67,7 +67,7 @@ public class CLI implements NotificationView, ChatView {
     private static void initializeControllers() {
         CLI view = new CLI();
         cFacade = new CFacade();
-        cFacade.setNotiGraphic(view);
+        CFacade.setNotiGraphic(view);
         cFacade.setChatGraphic(view);
         bUserData = new BUserData();
         commands.addAll(List.of(commandsList));
@@ -1250,7 +1250,7 @@ public class CLI implements NotificationView, ChatView {
                             //login user
                             int res = 0;
                             try {
-                                res = cFacade.loginUser(bUserData, false, null, notiView);
+                                res = cFacade.loginUser(bUserData, false, null);
 
                                 System.out.println();
                                 if (res == 1) {
@@ -1284,7 +1284,7 @@ public class CLI implements NotificationView, ChatView {
                                 try {
 
                                     //login user
-                                    int res = cFacade.loginUser(bUserData, true, authCode, notiView);
+                                    int res = cFacade.loginUser(bUserData, true, authCode);
 
                                     System.out.println();
                                     if (res == 1) {

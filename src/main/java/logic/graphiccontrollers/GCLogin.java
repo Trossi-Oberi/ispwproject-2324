@@ -70,7 +70,7 @@ public class GCLogin extends EssentialGUI{
                 //classic login
                 userBean = new BUserData(this.usrname.getText(), this.passwd.getText());
             }
-            if (cfacade.loginUser(userBean, this.isGoogleAuth, authCode, notiView) == 1) {
+            if (cfacade.loginUser(userBean, this.isGoogleAuth, authCode) == 1) {
                 switch (LoggedUser.getUserType()) {
                     case USER:
                         alert.displayAlertPopup(Alerts.INFORMATION, "Logged in successfully as a user");
