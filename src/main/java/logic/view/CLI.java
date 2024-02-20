@@ -587,8 +587,7 @@ public class CLI implements NotificationView, ChatView {
         try {
             eventBean.setEventCity(val);
         } catch (InvalidValueException e) {
-            logger.severe("Invalid city");
-            //throw new InvalidValueException(e.getMessage(), );
+            logger.severe(e.getMessage());
         }
     }
 
@@ -607,8 +606,7 @@ public class CLI implements NotificationView, ChatView {
         try {
             eventBean.setEventProvince(val);
         } catch (InvalidValueException e) {
-            logger.severe("Invalid province");
-            //throw new InvalidValueException(e.getMessage(), );
+            logger.severe(e.getMessage());
         }
     }
 
@@ -624,7 +622,8 @@ public class CLI implements NotificationView, ChatView {
         try {
 
             System.out.println("Event name: (previous: " + eventBean.getEventName() + ")");
-            if (!(newVal = READER.readLine()).isEmpty()) {
+            newVal = acquireInput();
+            if (newVal != null && !newVal.isEmpty()){
                 eventBean.setEventName(newVal);
             }
 
@@ -639,7 +638,8 @@ public class CLI implements NotificationView, ChatView {
             acquireDateAndEditBean(eventBean);
 
             System.out.println("Event address: (previous: " + eventBean.getEventAddress() + ")");
-            if (!(newVal = READER.readLine()).isEmpty()) {
+            newVal = acquireInput();
+            if (newVal != null && !newVal.isEmpty()){
                 eventBean.setEventAddress(newVal);
             }
 
