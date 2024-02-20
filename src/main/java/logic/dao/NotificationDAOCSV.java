@@ -191,11 +191,19 @@ public class NotificationDAOCSV implements NotificationDAO {
                     csvWriter.writeNext(retrievedRecord);
                 }
             }
-            csvReader.close();
-            csvWriter.close();
-            Files.move(Paths.get("csvData/temp.csv"), Paths.get(fd.toURI()), StandardCopyOption.REPLACE_EXISTING);
         } catch (CsvValidationException | IOException e) {
             logger.log(Level.SEVERE, "IOException occurred while removing notification from db (csv)");
+            return false;
+        }
+
+        return moveTempIntoCSV();
+    }
+
+    private boolean moveTempIntoCSV(){
+        try {
+            Files.move(Paths.get("csvData/temp.csv"), Paths.get(fd.toURI()), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "IOException occurred while moving temp file into CSV database");
             return false;
         }
         return true;
