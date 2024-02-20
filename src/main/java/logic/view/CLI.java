@@ -29,12 +29,11 @@ public class CLI implements NotificationView, ChatView {
     private static final Logger logger = Logger.getLogger("NightPlan");
     private static CFacade cFacade;
     private static BUserData bUserData;
-    private static ArrayList<String> commands = new ArrayList<>();
-    private static final String[] commandsList = {"/commands", "/home", "/events", "/notifications", "/settings", "/quit"};
-    private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private static List<String> commands = new ArrayList<>();
+    private static final String[] COMMANDS_LIST = {"/commands", "/home", "/events", "/notifications", "/settings", "/quit"};
+    private static final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
     private static String filePath;
-    private static NotificationView notiView;
-    private static final String asciiLogo = "                                                                                                     \n" +
+    private static final String ASCII_LOGO = "                                                                                                     \n" +
             "                                                                                                     \n" +
             "                                                                                                     \n" +
             "                                                                                                     \n" +
@@ -70,8 +69,7 @@ public class CLI implements NotificationView, ChatView {
         CFacade.setNotiGraphic(view);
         cFacade.setChatGraphic(view);
         bUserData = new BUserData();
-        commands.addAll(List.of(commandsList));
-        //notiView = new CLI();
+        commands.addAll(List.of(COMMANDS_LIST));
     }
 
 
@@ -107,7 +105,7 @@ public class CLI implements NotificationView, ChatView {
             case "/commands":
                 spacer(1);
                 System.out.println("Command list:");
-                for (String s : commandsList) {
+                for (String s : COMMANDS_LIST) {
                     System.out.println(s);
                 }
                 spacer(1);
@@ -135,113 +133,108 @@ public class CLI implements NotificationView, ChatView {
 
     private static void loadSettings() {
         boolean valid = false;
+        if (LoggedUser.getUserType().equals(UserTypes.USER)) {
+            do {
+                System.out.println("Settings:   \n" +
+                        "a. Your profile\n" +
+                        "b. Your groups\n" +
+                        "c. Change city\n" +
+                        "d. Contact us\n" +
+                        "e. Help & FAQs\n" +
+                        "f. Sign Out");
 
-        switch (LoggedUser.getUserType()) {
-            case USER:
-                do {
-                    System.out.println("Settings:   \n" +
-                            "a. Your profile\n" +
-                            "b. Your groups\n" +
-                            "c. Change city\n" +
-                            "d. Contact us\n" +
-                            "e. Help & FAQs\n" +
-                            "f. Sign Out");
+                spacer(1);
+                System.out.println("Use /commands to view a list of commands which you can use to navigate into application pages");
 
+                try {
                     spacer(1);
-                    System.out.println("Use /commands to view a list of commands which you can use to navigate into application pages");
+                    String value = READER.readLine();
 
-                    try {
-                        spacer(1);
-                        String value = reader.readLine();
-
-                        //verifico comandi generali
-                        if (commands.contains(value)) {
-                            handleCommand(value);
-                        }
-
-                        switch (value) {
-                            case "a":
-                                valid = true;
-                                showProfileInfo();
-                                break;
-                            case "b":
-                                valid = true;
-                                System.out.println("Not implemented :S");
-                                break;
-                            case "c":
-                                valid = true;
-                                changeCity();
-                                break;
-                            case "d":
-                                valid = true;
-                                showContacts();
-                                break;
-                            case "e":
-                                valid = true;
-                                showHelp();
-                                break;
-                            case "f":
-                                valid = true;
-                                signOut();
-                                break;
-                            default:
-                                break;
-                        }
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                    //verifico comandi generali
+                    if (commands.contains(value)) {
+                        handleCommand(value);
                     }
-                } while (!valid);
 
-                break;
-            case ORGANIZER:
-                do {
-                    System.out.println("Settings:   \n" +
-                            "a. Your profile\n" +
-                            "b. Contact us\n" +
-                            "c. Help & FAQs\n" +
-                            "d. Sign Out");
-                    try {
-                        String value = reader.readLine();
+                    switch (value) {
+                        case "a":
+                            valid = true;
+                            showProfileInfo();
 
-                        //verifico comandi generali
-                        if (commands.contains(value)) {
-                            handleCommand(value);
-                        }
+                        case "b":
+                            valid = true;
+                            System.out.println("Not implemented :S");
 
-                        switch (value) {
-                            case "a":
-                                valid = true;
-                                showProfileInfo();
-                                break;
-                            case "b":
-                                valid = true;
-                                showContacts();
-                                break;
-                            case "c":
-                                valid = true;
-                                showHelp();
-                                break;
-                            case "d":
-                                valid = true;
-                                signOut();
-                                break;
-                            default:
-                                break;
-                        }
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                        case "c":
+                            valid = true;
+                            changeCity();
+
+                        case "d":
+                            valid = true;
+                            showContacts();
+
+                        case "e":
+                            valid = true;
+                            showHelp();
+
+                        case "f":
+                            valid = true;
+                            signOut();
+
+                        default:
+
                     }
-                } while (!valid);
-                break;
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } while (!valid);
+        } else { //UserType == ORGANIZER
+            do {
+                System.out.println("Settings:   \n" +
+                        "a. Your profile\n" +
+                        "b. Contact us\n" +
+                        "c. Help & FAQs\n" +
+                        "d. Sign Out");
+                try {
+                    String value = READER.readLine();
+
+                    //verifico comandi generali
+                    if (commands.contains(value)) {
+                        handleCommand(value);
+                    }
+
+                    switch (value) {
+                        case "a":
+                            valid = true;
+                            showProfileInfo();
+                            break;
+                        case "b":
+                            valid = true;
+                            showContacts();
+                            break;
+                        case "c":
+                            valid = true;
+                            showHelp();
+                            break;
+                        case "d":
+                            valid = true;
+                            signOut();
+                            break;
+                        default:
+                            break;
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } while (!valid);
         }
-
         spacer(2);
     }
+
 
     private static void signOut() {
         spacer(3);
         clearScreen();
-        System.out.println(asciiLogo);
+        System.out.println(ASCII_LOGO);
         spacer(2);
         System.out.println("Logging out from NightPlan. Goodbye! ;)");
         spacer(3);
@@ -305,7 +298,7 @@ public class CLI implements NotificationView, ChatView {
 
             System.out.print("New province: ");
             do {
-                String tempVal = reader.readLine();
+                String tempVal = READER.readLine();
                 if (provinces.contains(tempVal)) {
                     newProvince = tempVal;
                     valid = true;
@@ -318,7 +311,7 @@ public class CLI implements NotificationView, ChatView {
 
             System.out.print("New city: ");
             do {
-                String tempVal = reader.readLine();
+                String tempVal = READER.readLine();
                 if (cities.contains(tempVal)) {
                     newCity = tempVal;
                     valid = true;
@@ -369,7 +362,7 @@ public class CLI implements NotificationView, ChatView {
                 boolean valid = false;
                 do {
                     try {
-                        String value = reader.readLine();
+                        String value = READER.readLine();
 
                         if (commands.contains(value)) {
                             handleCommand(value);
@@ -401,7 +394,7 @@ public class CLI implements NotificationView, ChatView {
             boolean valid = false;
             do {
                 try {
-                    String value = reader.readLine();
+                    String value = READER.readLine();
 
                     if (commands.contains(value)) {
                         handleCommand(value);
@@ -443,11 +436,11 @@ public class CLI implements NotificationView, ChatView {
         try {
 
             System.out.println("Event name:");
-            eventBean.setEventName(reader.readLine());
+            eventBean.setEventName(READER.readLine());
 
             System.out.println("Event province:");
             do {
-                String val = reader.readLine();
+                String val = READER.readLine();
                 if (provinces.contains(val)) {
                     eventBean.setEventProvince(val);
                     valid = true;
@@ -458,7 +451,7 @@ public class CLI implements NotificationView, ChatView {
             cities = cFacade.getCitiesList(eventBean.getEventProvince());
             System.out.println("Event city: ");
             do {
-                String val = reader.readLine();
+                String val = READER.readLine();
                 if (cities.contains(val)) {
                     eventBean.setEventCity(val);
                     valid = true;
@@ -468,7 +461,7 @@ public class CLI implements NotificationView, ChatView {
 
             System.out.println("Event date:");
             do {
-                String val = reader.readLine();
+                String val = READER.readLine();
                 try {
                     // Convertire la stringa in un oggetto LocalDate utilizzando il formatter
                     LocalDate eventDate = LocalDate.parse(val, formatter);
@@ -482,14 +475,14 @@ public class CLI implements NotificationView, ChatView {
             valid = false;
 
             System.out.println("Event address:");
-            eventBean.setEventAddress(reader.readLine());
+            eventBean.setEventAddress(READER.readLine());
 
             System.out.println("Choose music genre from list:");
             for (int i = 0; i < MusicGenres.MUSIC_GENRES.length; i++) {
                 System.out.println(i + 1 + ". " + MusicGenres.MUSIC_GENRES[i]);
             }
             do {
-                String val = reader.readLine();
+                String val = READER.readLine();
                 for (int i = 0; i < MusicGenres.MUSIC_GENRES.length; i++) {
 
                     if (MusicGenres.MUSIC_GENRES[i].contains(val)) {
@@ -503,7 +496,7 @@ public class CLI implements NotificationView, ChatView {
             System.out.println("Event time: HH:mm");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
             do {
-                String val = reader.readLine();
+                String val = READER.readLine();
                 try {
                     timeFormat.parse(val);
                 } catch (ParseException e) {
@@ -549,13 +542,13 @@ public class CLI implements NotificationView, ChatView {
         try {
 
             System.out.println("Event name: (previous: " + eventBean.getEventName() + ")");
-            if (!(newVal = reader.readLine()).isEmpty()) {
+            if (!(newVal = READER.readLine()).isEmpty()) {
                 eventBean.setEventName(newVal);
             }
 
             System.out.println("Event province: (previous: " + eventBean.getEventProvince() + ")");
             do {
-                if (!(newVal = reader.readLine()).isEmpty()) {
+                if (!(newVal = READER.readLine()).isEmpty()) {
                     if (provinces.contains(newVal)) {
                         eventBean.setEventProvince(newVal);
                         valid = true;
@@ -569,7 +562,7 @@ public class CLI implements NotificationView, ChatView {
             cities = cFacade.getCitiesList(eventBean.getEventProvince());
             System.out.println("Event city: (previous: " + eventBean.getEventCity() + ")");
             do {
-                if (!(newVal = reader.readLine()).isEmpty()) {
+                if (!(newVal = READER.readLine()).isEmpty()) {
                     if (cities.contains(newVal)) {
                         eventBean.setEventCity(newVal);
                         valid = true;
@@ -582,7 +575,7 @@ public class CLI implements NotificationView, ChatView {
 
             System.out.println("Event date: (previous: " + eventBean.getEventDate() + ")");
             do {
-                String val = reader.readLine();
+                String val = READER.readLine();
                 if (!val.isEmpty()) {
                     try {
                         // Convertire la stringa in un oggetto LocalDate utilizzando il formatter
@@ -601,7 +594,7 @@ public class CLI implements NotificationView, ChatView {
             valid = false;
 
             System.out.println("Event address: (previous: " + eventBean.getEventAddress() + ")");
-            if (!(newVal = reader.readLine()).isEmpty()) {
+            if (!(newVal = READER.readLine()).isEmpty()) {
                 eventBean.setEventAddress(newVal);
             }
 
@@ -610,7 +603,7 @@ public class CLI implements NotificationView, ChatView {
                 System.out.println(i + 1 + ". " + MusicGenres.MUSIC_GENRES[i]);
             }
             do {
-                String val = reader.readLine();
+                String val = READER.readLine();
                 if (!val.isEmpty()) {
                     for (int i = 0; i < MusicGenres.MUSIC_GENRES.length; i++) {
 
@@ -629,7 +622,7 @@ public class CLI implements NotificationView, ChatView {
             System.out.println("Event time: HH:mm (previous: " + eventBean.getEventTime() + ")");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
             do {
-                String val = reader.readLine();
+                String val = READER.readLine();
 
                 if (!val.isEmpty()) {
                     try {
@@ -656,7 +649,7 @@ public class CLI implements NotificationView, ChatView {
 
             spacer(1);
             System.out.print("Do you want to change event image? Write 'y' or 'Y if you want to update event image");
-            String decision = reader.readLine();
+            String decision = READER.readLine();
             if (decision.equalsIgnoreCase("y")) {
                 //prendi file immagine
                 byte[] fileData = pickFileData();
@@ -725,7 +718,7 @@ public class CLI implements NotificationView, ChatView {
             boolean valid = false;
             do {
                 try {
-                    String value = reader.readLine();
+                    String value = READER.readLine();
 
                     //verifico comandi generali
                     if (commands.contains(value)) {
@@ -774,7 +767,7 @@ public class CLI implements NotificationView, ChatView {
             boolean valid = false;
             do {
                 try {
-                    String value = reader.readLine();
+                    String value = READER.readLine();
 
                     //verifico comandi generali
                     if (commands.contains(value)) {
@@ -828,7 +821,7 @@ public class CLI implements NotificationView, ChatView {
         System.out.println("Are you sure to delete this event? Write 'y' to confirm or anything else to cancel.");
         spacer(1);
         try {
-            String val = reader.readLine();
+            String val = READER.readLine();
             if (val.equalsIgnoreCase("y")) {
                 if (!cFacade.deleteEvent(eventID)) {
                     logger.severe("Failed to delete event. Retry...");
@@ -869,7 +862,7 @@ public class CLI implements NotificationView, ChatView {
         boolean valid = false;
         do {
             try {
-                String value = reader.readLine();
+                String value = READER.readLine();
 
                 //verifico comandi generali
                 if (commands.contains(value)) {
@@ -898,7 +891,7 @@ public class CLI implements NotificationView, ChatView {
 
         try {
             do {
-                String value = reader.readLine();
+                String value = READER.readLine();
 
                 // Converte la stringa in un numero intero
                 int index;
@@ -937,7 +930,7 @@ public class CLI implements NotificationView, ChatView {
             boolean valid = false;
             do {
                 try {
-                    String value = reader.readLine();
+                    String value = READER.readLine();
 
                     //verifico comandi generali
                     if (commands.contains(value)) {
@@ -962,7 +955,7 @@ public class CLI implements NotificationView, ChatView {
             boolean valid = false;
             do {
                 try {
-                    String value = reader.readLine();
+                    String value = READER.readLine();
 
                     //verifico comandi generali
                     if (commands.contains(value)) {
@@ -1004,7 +997,7 @@ public class CLI implements NotificationView, ChatView {
         boolean valid = false;
         do {
             try {
-                String value = reader.readLine();
+                String value = READER.readLine();
 
                 //vedo eventuali comandi generali
                 if (commands.contains(value)) {
@@ -1052,7 +1045,7 @@ public class CLI implements NotificationView, ChatView {
         boolean valid = false;
         do {
             try {
-                String value = reader.readLine();
+                String value = READER.readLine();
 
                 //verifico comandi generali
                 if (commands.contains(value)) {
@@ -1115,7 +1108,7 @@ public class CLI implements NotificationView, ChatView {
                 boolean valid = false;
                 do {
                     try {
-                        String value = reader.readLine();
+                        String value = READER.readLine();
 
                         //vedo eventuali comandi generali
                         if (commands.contains(value)) {
@@ -1176,7 +1169,7 @@ public class CLI implements NotificationView, ChatView {
                 boolean valid = false;
                 do {
                     try {
-                        String value = reader.readLine();
+                        String value = READER.readLine();
 
                         //vedo eventuali comandi generali
                         if (commands.contains(value)) {
@@ -1215,7 +1208,7 @@ public class CLI implements NotificationView, ChatView {
         boolean waiting = true;
         try {
             while (waiting) {
-                String value = reader.readLine();
+                String value = READER.readLine();
                 if (commands.contains(value)) {
                     waiting = false;
                     handleCommand(value);
@@ -1231,20 +1224,20 @@ public class CLI implements NotificationView, ChatView {
             boolean valid = false;
             while (!valid) {
                 clearScreen();
-                System.out.println(asciiLogo);
+                System.out.println(ASCII_LOGO);
                 System.out.println("Login or register");
                 System.out.println("1. Login");
                 System.out.println("2. Login with Google");
                 System.out.println("3. Register new account");
 
-                String inputLine = reader.readLine();
+                String inputLine = READER.readLine();
                 switch (inputLine) {
                     case "1":
                         while (true) {
                             System.out.println("Insert username: ");
-                            bUserData.setUsername(reader.readLine());
+                            bUserData.setUsername(READER.readLine());
                             System.out.println("Insert password: ");
-                            bUserData.setPassword(reader.readLine());
+                            bUserData.setPassword(READER.readLine());
 
 
                             //login user
@@ -1279,7 +1272,7 @@ public class CLI implements NotificationView, ChatView {
                                 //avvio la schermata di login
                                 GoogleLogin.initGoogleLogin();
 
-                                String authCode = reader.readLine();
+                                String authCode = READER.readLine();
 
                                 try {
 
@@ -1331,7 +1324,7 @@ public class CLI implements NotificationView, ChatView {
         } finally {
             try {
                 // Chiudi il BufferedReader
-                reader.close();
+                READER.close();
             } catch (IOException e) {
                 logger.severe(e.getMessage());
             }
@@ -1346,7 +1339,7 @@ public class CLI implements NotificationView, ChatView {
             boolean valid = false;
 
             do {
-                String val = reader.readLine();
+                String val = READER.readLine();
 
                 if (val.equalsIgnoreCase("jdbc") || val.equalsIgnoreCase("filesystem")) {
                     valid = true;
@@ -1377,21 +1370,21 @@ public class CLI implements NotificationView, ChatView {
             if (!isGoogleAuth) {
                 //classic registration
                 System.out.println("Username: ");
-                bUserData.setUsername(reader.readLine());
+                bUserData.setUsername(READER.readLine());
                 System.out.println("Password: ");
-                bUserData.setPassword(reader.readLine());
+                bUserData.setPassword(READER.readLine());
             } else {
                 bUserData.setPassword("google_account_hidden_psw");
             }
 
             System.out.println("First name: ");
-            bUserData.setFirstName(reader.readLine());
+            bUserData.setFirstName(READER.readLine());
             System.out.println("Last name: ");
-            bUserData.setLastName(reader.readLine());
+            bUserData.setLastName(READER.readLine());
             System.out.println("Gender: ");
             System.out.println("a. Male\n" + "b. Female\n" + "c. Other");
             do {
-                String val = reader.readLine();
+                String val = READER.readLine();
                 bUserData.setGender(val);
                 if (val.equals("a") || val.equals("b") || val.equals("c")) {
                     valid = true;
@@ -1402,7 +1395,7 @@ public class CLI implements NotificationView, ChatView {
             System.out.println("Province: ");
             List<String> provinces = cFacade.getProvincesList();
             do {
-                String val = reader.readLine();
+                String val = READER.readLine();
                 if (provinces.contains(val)) {
                     bUserData.setProvince(val);
                     valid = true;
@@ -1413,7 +1406,7 @@ public class CLI implements NotificationView, ChatView {
             System.out.println("City: ");
             List<String> cities = cFacade.getCitiesList(bUserData.getProvince());
             do {
-                String val = reader.readLine();
+                String val = READER.readLine();
                 if (cities.contains(val)) {
                     bUserData.setCity(val);
                     valid = true;
@@ -1425,7 +1418,7 @@ public class CLI implements NotificationView, ChatView {
             System.out.println("Birth date: dd-MM-yyyy");
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             do {
-                String val = reader.readLine();
+                String val = READER.readLine();
                 try {
                     // Convertire la stringa in un oggetto LocalDate utilizzando il formatter
                     LocalDate birthDate = LocalDate.parse(val, formatter);
@@ -1441,7 +1434,7 @@ public class CLI implements NotificationView, ChatView {
             System.out.println("User type: ");
             System.out.println("a. USER\n" + "b. ORGANIZER");
             do {
-                String val = reader.readLine();
+                String val = READER.readLine();
                 val = val.toUpperCase();
                 if (val.equals(UserTypes.USER.toString()) || val.equals(UserTypes.ORGANIZER.toString())) {
                     bUserData.setType(UserTypes.valueOf(val));
@@ -1477,7 +1470,7 @@ public class CLI implements NotificationView, ChatView {
     }
 
     @Override
-    public void addMessageToChat(BMessage messageBean){
+    public void addMessageToChat(BMessage messageBean) {
         //
     }
 }

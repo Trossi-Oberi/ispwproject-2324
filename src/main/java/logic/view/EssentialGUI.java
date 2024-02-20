@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import logic.model.Notification;
 import logic.utils.*;
 import logic.controllers.CFacade;
 
@@ -35,8 +36,8 @@ public class EssentialGUI extends Application implements NotificationView {
     }
 
     @Override
-    public void start(Stage stage){
-        try{
+    public void start(Stage stage) {
+        try {
             CFacade.setNotiGraphic(this);
             stage.setTitle(APP_NAME);
             String absolutePath = setAbsolutePath();
@@ -45,9 +46,9 @@ public class EssentialGUI extends Application implements NotificationView {
             stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
-        } catch(NullPointerException e){
+        } catch (NullPointerException e) {
             logger.log(Level.SEVERE, "Cannot load absolute path of app icon\n", e);
-        } catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             logger.log(Level.SEVERE, "Cannot load EssentialGUI due to illegal argument into logo image\n", e);
         }
     }
@@ -55,12 +56,12 @@ public class EssentialGUI extends Application implements NotificationView {
     private String setAbsolutePath() {
         try {
             return getClass().getResource(LOGO_PATH).toExternalForm();
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             throw new NullPointerException();
         }
     }
 
-    public static void setScene(String newScene){
+    public static void setScene(String newScene) {
         sceneName = newScene;
     }
 
@@ -110,30 +111,30 @@ public class EssentialGUI extends Application implements NotificationView {
         launch(args);
     }
 
-    public void goToHome(MouseEvent event){
-        if (LoggedUser.getUserType().equals(UserTypes.USER)){
+    public void goToHome(MouseEvent event) {
+        if (LoggedUser.getUserType().equals(UserTypes.USER)) {
             changeGUI(event, "HomeUser.fxml");
-        }else{
+        } else {
             changeGUI(event, "HomeOrg.fxml");
         }
     }
 
-    public void goToNotifications(MouseEvent event){
+    public void goToNotifications(MouseEvent event) {
         changeGUI(event, "Notifications.fxml");
     }
 
-    public void goToYourEvents(MouseEvent event){
-        if (LoggedUser.getUserType().equals(UserTypes.USER)){
+    public void goToYourEvents(MouseEvent event) {
+        if (LoggedUser.getUserType().equals(UserTypes.USER)) {
             changeGUI(event, "YourEventsUser.fxml");
-        }else{
+        } else {
             changeGUI(event, "YourEventsOrg.fxml");
         }
     }
 
-    public void goToSettings(MouseEvent event){
-        if (LoggedUser.getUserType().equals(UserTypes.USER)){
+    public void goToSettings(MouseEvent event) {
+        if (LoggedUser.getUserType().equals(UserTypes.USER)) {
             changeGUI(event, "SettingsUser.fxml");
-        }else{
+        } else {
             changeGUI(event, "SettingsOrg.fxml");
         }
     }
@@ -141,17 +142,11 @@ public class EssentialGUI extends Application implements NotificationView {
     @Override
     public void showNotification(NotificationTypes type) {
         Platform.runLater(() -> {
-            //AlertPopup popup = new AlertPopup();
-            switch (type) {
-                case EventAdded:
-                    alert.displayAlertPopup(Alerts.INFORMATION, "New event in your city!\nCheck your events page.");
-//                    if (loc.toExternalForm().contains("HomeUser.fxml")) {
-//                    //TODO: forse un giorno faremo l'aggiornamento dinamico (fattibile)
-//                    }
-                    break;
-                case UserEventParticipation:
-                    alert.displayAlertPopup(Alerts.INFORMATION, "New user participating to your event.");
-                    break;
+            if (type.equals(NotificationTypes.EventAdded)) {
+                alert.displayAlertPopup(Alerts.INFORMATION, "New event in your city!\nCheck your events page.");
+                //TODO: forse un giorno faremo l'aggiornamento dinamico (fattibile)
+            } else if (type.equals(NotificationTypes.UserEventParticipation)) {
+                alert.displayAlertPopup(Alerts.INFORMATION, "New user participating to your event.");
             }
         });
     }
