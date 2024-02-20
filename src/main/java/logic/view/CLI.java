@@ -114,7 +114,7 @@ public class CLI implements NotificationView, ChatView {
         do {
             showSettings(UserTypes.ORGANIZER);
             String value = acquireInput();
-            if (value!=null){
+            if (value != null) {
                 //verifico comandi generali
                 if (commands.contains(value)) {
                     handleCommand(value);
@@ -130,7 +130,7 @@ public class CLI implements NotificationView, ChatView {
             showSettings(UserTypes.USER);
             spacer(1);
             String value = acquireInput();
-            if (value!=null){
+            if (value != null) {
                 //verifico comandi generali
                 if (commands.contains(value)) {
                     handleCommand(value);
@@ -355,7 +355,7 @@ public class CLI implements NotificationView, ChatView {
         boolean valid = false;
         do {
             String value = acquireInput();
-            if (value!=null){
+            if (value != null) {
                 if (commands.contains(value)) {
                     handleCommand(value);
                 }
@@ -371,7 +371,7 @@ public class CLI implements NotificationView, ChatView {
         boolean valid = false;
         do {
             String value = acquireInput();
-            if (value!=null){
+            if (value != null) {
                 if (commands.contains(value)) {
                     handleCommand(value);
                 }
@@ -426,93 +426,36 @@ public class CLI implements NotificationView, ChatView {
 
     private static void setEventBean(BEvent eventBean) {
         System.out.println("New event\n");
-
-        boolean valid = false;
         List<String> provinces = cFacade.getProvincesList();
         List<String> cities = null;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         try {
 
             System.out.println("Event name:");
-            eventBean.setEventName(READER.readLine());
+            eventBean.setEventName(acquireInput());
 
             System.out.println("Event province:");
-            do {
-                String val = READER.readLine();
-                if (provinces.contains(val)) {
-                    eventBean.setEventProvince(val);
-                    valid = true;
-                }
-            } while (!valid);
-            valid = false;
+            acquireProvinceInputAndSetBean(provinces, eventBean);
 
             cities = cFacade.getCitiesList(eventBean.getEventProvince());
             System.out.println("Event city: ");
-            do {
-                String val = READER.readLine();
-                if (cities.contains(val)) {
-                    eventBean.setEventCity(val);
-                    valid = true;
-                }
-            } while (!valid);
-            valid = false;
+            acquireCityInputAndSetBean(cities, eventBean);
 
             System.out.println("Event date:");
-            do {
-                String val = READER.readLine();
-                try {
-                    // Convertire la stringa in un oggetto LocalDate utilizzando il formatter
-                    LocalDate eventDate = LocalDate.parse(val, formatter);
-                    eventBean.setEventDate(eventDate.format(formatter));
-                    valid = true;
-                } catch (Exception e) {
-                    // Gestire il caso in cui l'input non sia nel formato corretto
-                    logger.severe("Invalid date format.");
-                }
-            } while (!valid);
-            valid = false;
+            acquireDateAndSetBean(eventBean);
 
             System.out.println("Event address:");
-            eventBean.setEventAddress(READER.readLine());
+            acquireAddressAndSetBean(eventBean);
 
             System.out.println("Choose music genre from list:");
-            for (int i = 0; i < MUSIC_GENRES.length; i++) {
-                System.out.println(i + 1 + ". " + MUSIC_GENRES[i]);
-            }
-            do {
-                String val = READER.readLine();
-                for (int i = 0; i < MUSIC_GENRES.length; i++) {
+            printMusicGenres();
+            acquireMusicGenreAndSetBean(eventBean);
 
-                    if (MUSIC_GENRES[i].contains(val)) {
-                        valid = true;
-                        eventBean.setEventMusicGenre(val);
-                    }
-                }
-            } while (!valid);
-            valid = false;
 
             System.out.println("Event time: HH:mm");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-            do {
-                String val = READER.readLine();
-                try {
-                    timeFormat.parse(val);
-                } catch (ParseException e) {
-                    logger.severe("Invalid time format.");
-                    continue;
-                }
+            acquireTimeAndSetBean(eventBean,timeFormat);
 
-                //qua ci arriva solo se il time viene parsato correttamente
-                String[] parts = val.split(":");
-
-                if (parts.length == 2) {
-                    String hours = parts[0];
-                    String minutes = parts[1];
-                    eventBean.setEventTime(hours, minutes);
-                    valid = true;
-                }
-            } while (!valid);
 
             //prendi file immagine
             byte[] fileData = pickFileData();
@@ -522,10 +465,151 @@ public class CLI implements NotificationView, ChatView {
             eventBean.setEventOrganizer(LoggedUser.getUserName());
             eventBean.setEventOrganizerID(LoggedUser.getUserID());
             eventBean.setEventPicPath(filePath);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         } catch (InvalidValueException | TextTooLongException e) {
             logger.warning(e.getMessage());
+        }
+    }
+
+    private static void acquireTimeAndSetBean(BEvent eventBean, SimpleDateFormat timeFormat) {
+        boolean valid = false;
+        while(!valid){
+            String val = acquireInput();
+            try {
+                timeFormat.parse(val);
+            } catch (ParseException e) {
+                logger.severe("Invalid time format.");
+                continue;
+            }
+            //qua ci arriva solo se il time viene parsato correttamente
+            if (val!=null){
+                String[] parts = val.split(":");
+                String hours = parts[0];
+                String minutes = parts[1];
+                valid = setTimeToBean(eventBean,hours,minutes);
+            }
+        }
+
+
+
+    }
+
+    private static boolean setTimeToBean(BEvent eventBean, String hours, String minutes) {
+        try {
+            eventBean.setEventTime(hours, minutes);
+            return true;
+        } catch (InvalidValueException e) {
+            logger.severe(e.getMessage());
+            return false;
+        }
+    }
+
+    private static void acquireMusicGenreAndSetBean(BEvent eventBean) {
+        boolean valid = false;
+        boolean found = false;
+        while (!valid) {
+            String val = acquireInput();
+            if (val != null) {
+                found = checkIfGenreIsValid(val);
+            }
+            if (found) {
+                valid = setGenreToBean(val, eventBean);
+            }
+        }
+    }
+
+    private static boolean setGenreToBean(String val, BEvent eventBean) {
+        try {
+            eventBean.setEventMusicGenre(val);
+            return true;
+        } catch (InvalidValueException e) {
+            logger.info(e.getMessage());
+            return false;
+        }
+    }
+
+    private static boolean checkIfGenreIsValid(String val) {
+        for (String musicGenre : MUSIC_GENRES) {
+            if (musicGenre.equals(val)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static void printMusicGenres() {
+        for (int i = 0; i < MUSIC_GENRES.length; i++) {
+            System.out.println(i + 1 + ". " + MUSIC_GENRES[i]);
+        }
+    }
+
+    private static void acquireAddressAndSetBean(BEvent eventBean) {
+        try {
+            eventBean.setEventAddress(acquireInput());
+        } catch (InvalidValueException | TextTooLongException e) {
+            logger.severe(e.getMessage());
+        }
+    }
+
+    private static void acquireDateAndSetBean(BEvent eventBean) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        boolean valid = false;
+        do {
+            String val = acquireInput();
+            valid = convertDateAndSetBean(val, formatter, eventBean);
+
+        } while (!valid);
+    }
+
+    private static boolean convertDateAndSetBean(String val, DateTimeFormatter formatter, BEvent eventBean) {
+        try {
+            // Convertire la stringa in un oggetto LocalDate utilizzando il formatter
+            LocalDate eventDate = LocalDate.parse(val, formatter);
+            eventBean.setEventDate(eventDate.format(formatter));
+            return true;
+        } catch (Exception e) {
+            // Gestire il caso in cui l'input non sia nel formato corretto
+            logger.severe("Invalid date format.");
+            return false;
+        }
+    }
+
+    private static void acquireCityInputAndSetBean(List<String> cities, BEvent eventBean) {
+        boolean valid = false;
+        do {
+            String val = acquireInput();
+            if (cities.contains(val)) {
+                setCityInBean(val, eventBean);
+                valid = true;
+            }
+        } while (!valid);
+    }
+
+    private static void setCityInBean(String val, BEvent eventBean) {
+        try {
+            eventBean.setEventCity(val);
+        } catch (InvalidValueException e) {
+            logger.severe("Invalid city");
+            //throw new InvalidValueException(e.getMessage(), );
+        }
+    }
+
+    private static void acquireProvinceInputAndSetBean(List<String> provinces, BEvent eventBean) {
+        boolean valid = false;
+        do {
+            String val = acquireInput();
+            if (provinces.contains(val)) {
+                setProvinceInBean(val, eventBean);
+                valid = true;
+            }
+        } while (!valid);
+    }
+
+    private static void setProvinceInBean(String val, BEvent eventBean) {
+        try {
+            eventBean.setEventProvince(val);
+        } catch (InvalidValueException e) {
+            logger.severe("Invalid province");
+            //throw new InvalidValueException(e.getMessage(), );
         }
     }
 
@@ -1473,16 +1557,12 @@ public class CLI implements NotificationView, ChatView {
     @Override
     public void showNotification(NotificationTypes notificationType) {
         String value = null;
-        switch (notificationType) {
-            case EVENT_ADDED:
-                value = "new event in your city!";
-                break;
-            case USER_EVENT_PARTICIPATION:
-                value = "new user participation to your event!";
-                break;
+        if (notificationType.equals(NotificationTypes.EVENT_ADDED)) {
+            value = "new event in your city!";
+        } else if (notificationType.equals(NotificationTypes.USER_EVENT_PARTICIPATION)) {
+            value = "new user participation to your event!";
         }
         logger.info("New notification: " + value);
-
     }
 
     @Override
