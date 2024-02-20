@@ -674,8 +674,13 @@ public class CLI implements NotificationView, ChatView {
 
     private static void acquireTimeAndEditBean(BEvent eventBean, SimpleDateFormat timeFormat) {
         boolean valid = false;
+        boolean toEdit = true;
         while(!valid){
             String val = acquireInput();
+            if (val!=null && val.isEmpty()){
+                toEdit = false;
+                valid = true;
+            }
             try {
                 timeFormat.parse(val);
             } catch (ParseException e) {
@@ -683,10 +688,7 @@ public class CLI implements NotificationView, ChatView {
                 continue;
             }
             //qua ci arriva solo se il time viene parsato correttamente
-            if (val!=null && val.isEmpty()){
-                break;
-
-            }else if (val!=null){
+            if (val!=null && toEdit){
                 String[] parts = val.split(":");
                 String hours = parts[0];
                 String minutes = parts[1];
@@ -712,45 +714,46 @@ public class CLI implements NotificationView, ChatView {
 
     private static void acquireDateAndEditBean(BEvent eventBean) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        while(true){
+        boolean toEdit = true;
+        boolean valid = false;
+        while(!valid){
             String val = acquireInput();
             if (val!=null && val.isEmpty()){
-                break;
+                valid=true;
+                toEdit=false;
             }
-            if (convertDateAndSetBean(val,formatter,eventBean)){
-                break;
+            if (toEdit && convertDateAndSetBean(val,formatter,eventBean)){
+                valid=true;
             }
         }
     }
 
     private static void acquireCityInputAndEditBean(List<String> cities, BEvent eventBean) {
-        while(true){
+        boolean valid = false;
+        while(!valid){
             String val = acquireInput();
             if (val!=null && val.isEmpty()){
                 break;
             }
             if (cities.contains(val)) {
                 setCityInBean(val, eventBean);
-                break;
+                valid=true;
             }
         }
     }
 
     private static void acquireProvinceInputAndEditBean(List<String> provinces, BEvent eventBean) {
-        while(true){
+        boolean valid = false;
+        while(!valid){
             String val = acquireInput();
             if (val!=null && val.isEmpty()){
                 break;
             }
             if (provinces.contains(val)) {
                 setProvinceInBean(val, eventBean);
-                break;
+                valid=true;
             }
         }
-    }
-
-    private static boolean isInputEmpty(String val) {
-        return val.isEmpty();
     }
 
     private static byte[] pickFileData() {
