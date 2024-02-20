@@ -107,11 +107,6 @@ public class GCLogin extends EssentialGUI{
 
     private void openAuthCodeWindow(){
         // Creazione di una nuova finestra per la modalità
-        try {
-            Thread.sleep(1000);
-        } catch (Exception e) {
-            logger.severe("Error during auth code window opening");
-        }
         Stage modalStage = new Stage();
         modalStage.initModality(Modality.APPLICATION_MODAL);
         modalStage.setTitle("Google Authentication Token");
