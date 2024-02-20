@@ -123,8 +123,8 @@ public class GCYourEventsOrg extends GCYourEventsGeneral implements DoubleClickL
             }
             if (fxmlpage.equals("Analytics.fxml")) {
                 GCAnalytics analyticsGC = loader.getController();
+                GCAnalytics.initParticipantsInfo(selectedEventBean);
                 analyticsGC.initAnalyticsByBean(selectedEventBean);
-                analyticsGC.initParticipantsInfo();
              } else {
                 GCEventPageOrg eventPageOrgGC = loader.getController();
                 eventPageOrgGC.initEventFromBean(selectedEventBean, this.getClass().getSimpleName());
