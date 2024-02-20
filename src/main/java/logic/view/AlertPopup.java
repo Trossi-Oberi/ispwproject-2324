@@ -12,8 +12,8 @@ import static logic.view.EssentialGUI.logger;
 
 public class AlertPopup {
     private Alert.AlertType type;
-
     private String headerText = null;
+    private static final String APPNAME = "NightPlan";
 
     public AlertPopup() {
         //empty
@@ -43,7 +43,7 @@ public class AlertPopup {
             }
 
             Alert alert = new Alert(type);
-            alert.setTitle("NightPlan");
+            alert.setTitle(APPNAME);
             alert.setContentText(text);
             alert.setHeaderText(headerText);
             alert.show();
@@ -55,7 +55,7 @@ public class AlertPopup {
     public boolean askDeleteConfirmation(){
         type = Alert.AlertType.CONFIRMATION;
         Alert alert = new Alert(type);
-        alert.setTitle("NightPlan");
+        alert.setTitle(APPNAME);
         alert.setHeaderText("Proceed with event cancellation?");
 
         // Aggiungi i pulsanti personalizzati
@@ -70,7 +70,7 @@ public class AlertPopup {
     public boolean askChangeCityConfirmation(){
         type = Alert.AlertType.CONFIRMATION;
         Alert alert = new Alert(type);
-        alert.setTitle("NightPlan");
+        alert.setTitle(APPNAME);
         alert.setHeaderText("Do you want to proceed updating your city?");
 
         // Aggiungi i pulsanti personalizzati

@@ -99,32 +99,11 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
                 } else if (item.getGroupID() != null && !res) {
                     groupName.setText(item.getGroupName());
                     groupButton.setText("Join group");
-                    groupButton.setOnMouseClicked(event -> {
-                        //JOIN GROUP
-                        if(cfacade.joinGroup(groupsBeans.get(getIndex()).getGroupID())) {
-                            changeGUI(event, CURRENT_PAGE);
-                        } else {
-                            alert.displayAlertPopup(Alerts.ERROR, "Error while joining group");
-                        }
-                    });
+                    groupButton.setOnMouseClicked(this::joinGroup);
                 } else {
                     groupName.setText("No group");
                     groupButton.setText("Create group");
-                    groupButton.setOnMouseClicked(event -> {
-                        //CREATE GROUP (AND JOIN)
-                        String value = askUserForGroupName();
-                        try {
-                            if(cfacade.createGroup(value, upComingEventsBeans.get(getIndex()).getEventID())){
-                                logger.info("Successfully created and joined new group");
-                                changeGUI(event,CURRENT_PAGE);
-                            } else {
-                                alert.displayAlertPopup(Alerts.ERROR, "Error while joining group");
-                            }
-                        } catch (GroupAlreadyCreated e) {
-                            alert.displayAlertPopup(Alerts.ERROR, e.getMessage());
-                            changeGUI(event,CURRENT_PAGE);
-                        }
-                    });
+                    groupButton.setOnMouseClicked(this::createGroup);
                 }
 
                 HBox hbox = new HBox();
@@ -137,6 +116,32 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
                 setGraphic(hbox);
             }
         }
+
+        private void createGroup(MouseEvent event) {
+            //CREATE GROUP (AND JOIN)
+            String value = askUserForGroupName();
+            try {
+                if(cfacade.createGroup(value, upComingEventsBeans.get(getIndex()).getEventID())){
+                    logger.info("Successfully created and joined new group");
+                    changeGUI(event,CURRENT_PAGE);
+                } else {
+                    alert.displayAlertPopup(Alerts.ERROR, "Error while joining group");
+                }
+            } catch (GroupAlreadyCreated e) {
+                alert.displayAlertPopup(Alerts.ERROR, e.getMessage());
+                changeGUI(event,CURRENT_PAGE);
+            }
+        }
+
+        private void joinGroup(MouseEvent event) {
+            //JOIN GROUP
+            if(cfacade.joinGroup(groupsBeans.get(getIndex()).getGroupID())) {
+                changeGUI(event, CURRENT_PAGE);
+            } else {
+                alert.displayAlertPopup(Alerts.ERROR, "Error while joining group");
+            }
+        }
+
         private String askUserForGroupName(){
             TextInputDialog dialog = new TextInputDialog();
             dialog.setTitle("Insert group name");
