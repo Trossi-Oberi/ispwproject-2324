@@ -1,7 +1,5 @@
 package logic.dao;
 
-import logic.controllers.MessageObserverClass;
-import logic.controllers.NotiObserverClass;
 import logic.controllers.ObserverClass;
 import logic.controllers.ObserverFactory;
 import logic.model.MGroup;

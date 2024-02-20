@@ -1,6 +1,5 @@
 package logic.dao;
 
-import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,12 +9,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
-import logic.controllers.NotiObserverClass;
 import logic.controllers.ObserverClass;
 import logic.controllers.ObserverFactory;
 import logic.utils.LoggedUser;
 import logic.utils.ObserverType;
-import logic.utils.PersistenceClass;
 import logic.utils.SingletonDBSession;
 import logic.model.MEvent;
 
@@ -95,12 +92,13 @@ public class EventDAO {
     public List<MEvent> retrieveMyEvents(int userID, int queryType) {
         List<MEvent> myEvents = new ArrayList<>();
 
+        String RETRIEVE_ERROR = "SQLException occurred while retrieving events";
         if (queryType == 0) { //ORGANIZER && YourEventsOrg
             try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT event_id,organizer,organizer_id,name,province,city,address,music_genre,date,time,image,pic_path FROM events WHERE (organizer_id = ?)")) {
                 statement.setInt(1, userID);
                 myEvents = getEventsArrayList(statement);
             } catch (SQLException e) {
-                logger.log(Level.SEVERE, "SQLException occurred while retrieving events");
+                logger.log(Level.SEVERE, RETRIEVE_ERROR);
             }
         } else if (queryType == 1) {   //USER && HomeUser
             UserDAO userDAO = new UserDAO();
@@ -108,7 +106,7 @@ public class EventDAO {
                 statement.setString(1, userDAO.getUserCityByID(userID));
                 myEvents = getEventsArrayList(statement);
             } catch (SQLException | RuntimeException e) {
-                logger.log(Level.SEVERE, "SQLException occurred while retrieving events");
+                logger.log(Level.SEVERE, RETRIEVE_ERROR);
             }
 
         } else {  //USER && YourEventsUser
@@ -116,7 +114,7 @@ public class EventDAO {
                 statement.setInt(1, LoggedUser.getUserID()); //prendo lo user id dalla sessione;
                 myEvents = getEventsArrayList(statement);
             } catch (SQLException | RuntimeException e) {
-                logger.log(Level.SEVERE, "SQLException occurred while retrieving events");
+                logger.log(Level.SEVERE, RETRIEVE_ERROR);
             }
         }
 
