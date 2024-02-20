@@ -52,7 +52,7 @@ public class NotificationDAOCSV implements NotificationDAO {
         }
     }
 
-    public NotificationDAOCSV() throws IOException {
+    public NotificationDAOCSV() {
         //creo la cartella che conterrà il CSV DB
         String folderName = "csvData";
         File folder = new File(folderName);
@@ -104,6 +104,7 @@ public class NotificationDAOCSV implements NotificationDAO {
 
         //inizializzo una notificationFactory
         this.notiFactory = new NotificationFactory();
+
     }
 
     private void updateLastIndex() {

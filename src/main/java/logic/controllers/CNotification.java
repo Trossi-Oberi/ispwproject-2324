@@ -27,11 +27,7 @@ public class CNotification extends CServerInteraction {
         super();
         switch (PersistenceClass.getPersistenceType()) {
             case FILE_SYSTEM:
-                try {
-                    this.notificationDAO = new NotificationDAOCSV();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                this.notificationDAO = new NotificationDAOCSV();
                 break;
             case JDBC:
             default:
