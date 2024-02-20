@@ -20,7 +20,6 @@ import logic.utils.*;
 import logic.controllers.CFacade;
 
 public class EssentialGUI extends Application implements NotificationView {
-    //TODO: inserire le icone in tutta l'applicazione
     private static final String APP_NAME = "NightPlan";
     protected static String sceneName;
     protected static Scene scene;
@@ -39,7 +38,7 @@ public class EssentialGUI extends Application implements NotificationView {
         try{
             cfacade.setNotiGraphic(this);
             stage.setTitle(APP_NAME);
-            String logoPath = "/icons/cuore.png";
+            String logoPath = "/icons/favicon.png";
             String absolutePath;
             try {
                 absolutePath = getClass().getResource(logoPath).toExternalForm();
