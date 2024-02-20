@@ -8,12 +8,12 @@ import logic.exceptions.EventAlreadyAdded;
 import logic.exceptions.InvalidValueException;
 import logic.exceptions.TextTooLongException;
 import logic.utils.Alerts;
-import logic.utils.MusicGenres;
 import java.time.LocalDate;
 import logic.beans.BEvent;
 
 
 public class GCAddEvent extends GCManageEvent {
+    private final String[] MUSIC_GENRES = {"Pop","Rock","Dance","Electronic","Techno","Reggaeton", "Metal", "Disco", "Tech house", "House", "Rap", "Trap"};
 
     public GCAddEvent() {
         eventBean = new BEvent();
@@ -41,7 +41,7 @@ public class GCAddEvent extends GCManageEvent {
         this.provinceChoiceBox.setItems(provincesObsList);
         setupProvinceBoxListener();
 
-        musicGenreBox.setValue(MusicGenres.MUSIC_GENRES[0]);
+        musicGenreBox.setValue(MUSIC_GENRES[0]);
         musicGenreBox.setItems(musicGenresList);
     }
 

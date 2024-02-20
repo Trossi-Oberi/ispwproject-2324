@@ -47,9 +47,6 @@ public class GoogleLogin {
             if (in != null) {
                 clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
             }
-
-            // Set up the OAuth flow
-            //GoogleAuthorizationCodeFlow authflow;
             if (clientSecrets != null) {
                 flow = new GoogleAuthorizationCodeFlow.Builder(
                         GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, clientSecrets, Collections.singletonList(SCOPES))

@@ -10,9 +10,7 @@ import logic.beans.BEvent;
 import logic.exceptions.InvalidValueException;
 import logic.exceptions.TextTooLongException;
 import logic.utils.LoggedUser;
-import logic.utils.MusicGenres;
 import logic.view.EssentialGUI;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -50,7 +48,8 @@ public class GCManageEvent extends EssentialGUI {
     protected ObservableList<String> provincesObsList;
     protected List<String> citiesList = new ArrayList<>();
     protected ObservableList<String> citiesObsList;
-    protected final ObservableList<String> musicGenresList = FXCollections.observableArrayList(MusicGenres.MUSIC_GENRES);
+    private final String[] MUSIC_GENRES = {"Pop","Rock","Dance","Electronic","Techno","Reggaeton", "Metal", "Disco", "Tech house", "House", "Rap", "Trap"};
+    protected final ObservableList<String> musicGenresList = FXCollections.observableArrayList(MUSIC_GENRES);
 
     @FXML
     void pickImage(MouseEvent event) {
