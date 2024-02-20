@@ -15,13 +15,7 @@ public class LocationDAO {
     public List<String> getProvincesList(){
         List<String> provincesList = new ArrayList<>();
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT name FROM provinces")) {
-            try (ResultSet rs = statement.executeQuery()){
-                while (rs.next()){
-                    provincesList.add(rs.getString(1));
-                }
-            } catch (SQLException e){
-                logger.log(Level.SEVERE, "SQLException occurred while executing query to DB to fetch provinces");
-            }
+            buildProvincesArray(statement, provincesList);
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQLException occurred during the fetch provinces from DB");
         } finally {
@@ -30,22 +24,36 @@ public class LocationDAO {
         return provincesList;
     }
 
+    private void buildProvincesArray(PreparedStatement statement, List<String>provs) {
+        try (ResultSet rs = statement.executeQuery()){
+            while (rs.next()){
+                provs.add(rs.getString(1));
+            }
+        } catch (SQLException e){
+            logger.log(Level.SEVERE, "SQLException occurred while executing query to DB to fetch provinces");
+        }
+    }
+
     public List<String> getCitiesList(String selectedProvince){
         List<String> citiesList = new ArrayList<>();
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT name FROM cities WHERE province = ?")) {
             statement.setString(1, selectedProvince);
-            try (ResultSet rs = statement.executeQuery()){
-                while (rs.next()){
-                   citiesList.add(rs.getString(1));
-                }
-            } catch (SQLException e){
-                logger.log(Level.SEVERE, "SQLException occurred while executing query to DB to fetch provinces");
-            }
+            buildCitiesArray(statement,citiesList);
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQLException occurred during the fetch provinces from DB");
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }
         return citiesList;
+    }
+
+    private void buildCitiesArray(PreparedStatement statement, List<String> cities) {
+        try (ResultSet rs = statement.executeQuery()){
+            while (rs.next()){
+                cities.add(rs.getString(1));
+            }
+        } catch (SQLException e){
+            logger.log(Level.SEVERE, "SQLException occurred while executing query to DB to fetch provinces");
+        }
     }
 }
