@@ -42,10 +42,7 @@ public class GCGroupChat extends EssentialGUI implements ChatView {
 
     private Integer groupID;
 
-    private List<BMessage> messages = new ArrayList<>();
-
     private ObservableList<BMessage> mexs;
-
 
     @FXML
     public void initialize() {
@@ -87,7 +84,7 @@ public class GCGroupChat extends EssentialGUI implements ChatView {
     public void initGroupChat(Integer groupID) {
         this.groupID = groupID;
         this.groupName.setText(cfacade.getGroupNameByGroupID(groupID));
-        messages = cfacade.retrieveGroupChat(groupID);
+        List<BMessage> messages = cfacade.retrieveGroupChat(groupID);
         setupChatTextField(messageTextField);
         setupChatLV(chatMessagesLV);
         populateChatLV(messages);
@@ -121,9 +118,6 @@ public class GCGroupChat extends EssentialGUI implements ChatView {
 
     private void populateChatLV(List<BMessage> messages) {
         mexs = FXCollections.observableArrayList(messages);
-        /*for (BGroupMessage message : messages){
-            chatMessagesLV.getItems().add(message);
-        }*/
         chatMessagesLV.setItems(mexs);
         chatMessagesLV.scrollTo(chatMessagesLV.getItems().size() - 1);
     }
@@ -160,7 +154,5 @@ public class GCGroupChat extends EssentialGUI implements ChatView {
         });
 
     }
-
-
 
 }
