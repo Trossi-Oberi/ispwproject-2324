@@ -33,6 +33,7 @@ public class CLI implements NotificationView, ChatView {
     private static final String[] COMMANDS_LIST = {"/commands", "/home", "/events", "/notifications", "/settings", "/quit"};
     private static final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
     private static String filePath;
+    private static final String CITY = "City: ";
     private static final String COMMANDS_HELP = "Use /commands to view a list of commands which you can use to navigate into application pages";
     private static final String ASCII_LOGO =
             "           -#####   #####                                ##########                                  \n" +
@@ -247,7 +248,7 @@ public class CLI implements NotificationView, ChatView {
         System.out.println("First name: " + LoggedUser.getFirstName());
         System.out.println("Last name: " + LoggedUser.getLastName());
         System.out.println("Province: " + LoggedUser.getProvince());
-        System.out.println("City: " + LoggedUser.getCity());
+        System.out.println(CITY + LoggedUser.getCity());
         System.out.println("Birth date: " + LoggedUser.getBirthDate());
         System.out.println("Gender: " + LoggedUser.getGender());
         System.out.println("User type: " + LoggedUser.getUserType());
@@ -301,7 +302,7 @@ public class CLI implements NotificationView, ChatView {
                 System.out.println("City update failed. Retry...");
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            logger.severe("IOException in ChangeCity");
         }
 
         //go back
@@ -310,7 +311,6 @@ public class CLI implements NotificationView, ChatView {
 
     private static void loadHome() {
         spacer(3);
-        List<BEvent> eventList;
 
         System.out.println("Welcome to NightPlan!");
         spacer(1);
@@ -318,41 +318,20 @@ public class CLI implements NotificationView, ChatView {
         spacer(1);
 
         if (LoggedUser.getUserType().equals(UserTypes.USER)) {
-            eventList = cFacade.retrieveEvents(LoggedUser.getUserType(), "GCHomeUser");
-            ArrayList<BEvent> futureEvents = new ArrayList<>();
-            for (BEvent event : eventList) {
-                String eventDateString = event.getEventDate();
-                LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                if (LocalDate.now().isBefore(date)) {
-                    futureEvents.add(event);
-                }
-            }
+            List<BEvent> eventList = cFacade.retrieveEvents(LoggedUser.getUserType(), "GCHomeUser");
+            List<BEvent> futureEvents = fetchFutureEvents(eventList);
 
             if (!eventList.isEmpty()) {
                 System.out.println("Events in your city. \nWrite event name to show event info!");
-                for (int i = 0; i < futureEvents.size(); i++) {
-                    System.out.println(i + 1 + ". " + futureEvents.get(i).getEventName());
-                }
-
+                printFutureEvents(futureEvents);
                 boolean valid = false;
                 do {
-                    try {
-                        String value = READER.readLine();
-
-                        if (commands.contains(value)) {
-                            handleCommand(value);
-                        }
-
-
-                        for (BEvent bEvent : eventList) {
-                            if (bEvent.getEventName().equals(value)) {
-                                valid = true;
-                                showEventInfo(bEvent, "Home");
-                            }
-                        }
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                    String value = acquireInput();
+                    if (commands.contains(value)) {
+                        handleCommand(value);
                     }
+                    valid = handleEventNameInput(value, futureEvents);
+
                 } while (!valid);
             } else {
                 System.out.println("No events in your city");
@@ -368,24 +347,45 @@ public class CLI implements NotificationView, ChatView {
 
             boolean valid = false;
             do {
-                try {
-                    String value = READER.readLine();
-
-                    if (commands.contains(value)) {
-                        handleCommand(value);
-                    }
-
-                    if (value.equals("1")) {
-                        addEventPage();
-                        valid = true;
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                String value = acquireInput();
+                if (commands.contains(value)) {
+                    handleCommand(value);
                 }
-
+                if (value.equals("1")) {
+                    addEventPage();
+                    valid = true;
+                }
             } while (!valid);
             spacer(3);
         }
+    }
+
+    private static boolean handleEventNameInput(String value, List<BEvent> futureEvents) {
+        for (BEvent bEvent : futureEvents) {
+            if (bEvent.getEventName().equals(value)) {
+                showEventInfo(bEvent, "Home");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static void printFutureEvents(List<BEvent> futureEvents) {
+        for (int i = 0; i < futureEvents.size(); i++) {
+            System.out.println(i + 1 + ". " + futureEvents.get(i).getEventName());
+        }
+    }
+
+    private static List<BEvent> fetchFutureEvents(List<BEvent> eventList) {
+        List<BEvent> futureEvents = new ArrayList<>();
+        for (BEvent event : eventList) {
+            String eventDateString = event.getEventDate();
+            LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            if (LocalDate.now().isBefore(date)) {
+                futureEvents.add(event);
+            }
+        }
+        return futureEvents;
     }
 
     private static void addEventPage() {
@@ -680,7 +680,7 @@ public class CLI implements NotificationView, ChatView {
     private static void showEventInfo(BEvent bEvent, String lastPage) {
         System.out.println("Event info:");
         System.out.println("Name: " + bEvent.getEventName());
-        System.out.println("City: " + bEvent.getEventCity());
+        System.out.println(CITY + bEvent.getEventCity());
         System.out.println("Music genre: " + bEvent.getEventMusicGenre());
         System.out.println("Organizer: " + bEvent.getEventOrganizer());
         System.out.println("Time: " + bEvent.getEventTime());
@@ -1008,7 +1008,7 @@ public class CLI implements NotificationView, ChatView {
     private static void printEventAnalytics(BEvent bEvent) {
         System.out.println("Event analytics:");
         System.out.println("Name: " + bEvent.getEventName());
-        System.out.println("City: " + bEvent.getEventCity());
+        System.out.println(CITY + bEvent.getEventCity());
         System.out.println("Music genre: " + bEvent.getEventMusicGenre());
         System.out.println("Organizer: " + bEvent.getEventOrganizer());
         System.out.println("Time: " + bEvent.getEventTime());
@@ -1394,7 +1394,7 @@ public class CLI implements NotificationView, ChatView {
             } while (!valid);
             valid = false;
 
-            System.out.println("City: ");
+            System.out.println(CITY);
             List<String> cities = cFacade.getCitiesList(bUserData.getProvince());
             do {
                 String val = READER.readLine();
