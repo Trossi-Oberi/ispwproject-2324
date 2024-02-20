@@ -19,7 +19,7 @@ public class ClientListener implements Runnable {
     private SecureObjectInputStream in;
     private boolean listenerRunning = true;
     private CFacade facade;
-    private final String SERVER_USER = "SERVER: user ";
+    private static final String SERVER_USER = "SERVER: user ";
 
     public ClientListener(CFacade facade, Semaphore semaphore, SecureObjectInputStream in) {
         this.facade = facade;

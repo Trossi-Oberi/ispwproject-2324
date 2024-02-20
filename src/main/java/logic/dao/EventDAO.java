@@ -19,6 +19,7 @@ import logic.model.MEvent;
 import static logic.view.EssentialGUI.logger;
 
 public class EventDAO {
+    private static final String RETRIEVE_ERROR = "SQLException occurred while retrieving events";
     public boolean createEvent(MEvent eventModel) { //restituisce l'event id dell'evento appena aggiunto
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Events(event_id,organizer,organizer_id,name,province, city,address,music_genre,date,time,image, pic_path) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, eventModel.getEventOrganizer());
@@ -91,8 +92,6 @@ public class EventDAO {
 
     public List<MEvent> retrieveMyEvents(int userID, int queryType) {
         List<MEvent> myEvents = new ArrayList<>();
-
-        String RETRIEVE_ERROR = "SQLException occurred while retrieving events";
         if (queryType == 0) { //ORGANIZER && YourEventsOrg
             try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT event_id,organizer,organizer_id,name,province,city,address,music_genre,date,time,image,pic_path FROM events WHERE (organizer_id = ?)")) {
                 statement.setInt(1, userID);
@@ -111,7 +110,7 @@ public class EventDAO {
 
         } else {  //USER && YourEventsUser
             try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT events.* FROM Events JOIN UserEvent ON Events.event_id = UserEvent.event_id WHERE (UserEvent.user_id = ?)")) {
-                statement.setInt(1, LoggedUser.getUserID()); //prendo lo user id dalla sessione;
+                statement.setInt(1, LoggedUser.getUserID());
                 myEvents = getEventsArrayList(statement);
             } catch (SQLException | RuntimeException e) {
                 logger.log(Level.SEVERE, RETRIEVE_ERROR);
