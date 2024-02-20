@@ -12,9 +12,6 @@ import logic.utils.UserTypes;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static logic.view.EssentialGUI.logger;
-
 public class CManageEvent {
 
     private UserDAO userDAO;

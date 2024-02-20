@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InvalidClassException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import static logic.view.EssentialGUI.logger;
 
@@ -23,11 +24,11 @@ public class CGroupChat extends CServerInteraction{
         this.msgFactory = new MessageFactory();
     }
 
-    public ArrayList<BMessage> retrieveGroupChat(Integer groupID) {
+    public List<BMessage> retrieveGroupChat(Integer groupID) {
         return makeBeansFromModels(chatDAO.retrieveGroupChat(groupID));
     }
 
-    private ArrayList<BMessage> makeBeansFromModels (ArrayList<MGroupMessage> models){
+    private List<BMessage> makeBeansFromModels (ArrayList<MGroupMessage> models){
         ArrayList<BMessage> beans = new ArrayList<>();
         for (MGroupMessage model : models){
             BMessage bean = new BMessage(model);

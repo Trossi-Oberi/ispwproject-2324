@@ -352,7 +352,7 @@ public class CFacade {
         return groupController.getGroupNameByGroupID(groupID);
     }
 
-    public ArrayList<BMessage> retrieveGroupChat(Integer groupID) {
+    public List<BMessage> retrieveGroupChat(Integer groupID) {
         if (chatController == null) {
             chatController = new CGroupChat();
         }

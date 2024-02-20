@@ -18,6 +18,7 @@ import logic.view.ChatView;
 import logic.view.EssentialGUI;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GCGroupChat extends EssentialGUI implements ChatView {
 
@@ -41,7 +42,7 @@ public class GCGroupChat extends EssentialGUI implements ChatView {
 
     private Integer groupID;
 
-    private ArrayList<BMessage> messages = new ArrayList<>();
+    private List<BMessage> messages = new ArrayList<>();
 
     private ObservableList<BMessage> mexs;
 
@@ -118,7 +119,7 @@ public class GCGroupChat extends EssentialGUI implements ChatView {
         });
     }
 
-    private void populateChatLV(ArrayList<BMessage> messages) {
+    private void populateChatLV(List<BMessage> messages) {
         mexs = FXCollections.observableArrayList(messages);
         /*for (BGroupMessage message : messages){
             chatMessagesLV.getItems().add(message);
