@@ -71,7 +71,7 @@ public class CLogin {
         } catch (UnknownHostException e) {
             logger.severe(e.getMessage());
         } catch (IOException e) {
-            logger.severe(e.getMessage());
+            logger.severe("Logger"+e.getMessage());
         }
         LoggedUser.setSocket(client);
         LoggedUser.setOutputStream(out);
