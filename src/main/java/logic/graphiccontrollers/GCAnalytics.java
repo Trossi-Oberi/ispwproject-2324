@@ -41,7 +41,6 @@ public class GCAnalytics extends EssentialGUI {
     @FXML
     private ImageView eventImageView;
 
-    private static int eventID;
     private BEvent eventBean;
 
     private static Integer timesClicked;
@@ -74,7 +73,7 @@ public class GCAnalytics extends EssentialGUI {
     }
 
     public static void initParticipantsInfo(BEvent eventBean){
-        eventID = eventBean.getEventID();
+        int eventID = eventBean.getEventID();
         //retrieve del numero delle participations
         //partecipazioni segnate (Query dal DB UserEvent)
         participations = cfacade.retrieveParticipationsToEvent(eventID);
