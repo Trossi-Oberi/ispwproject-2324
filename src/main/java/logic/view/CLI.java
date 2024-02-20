@@ -33,6 +33,7 @@ public class CLI implements NotificationView, ChatView {
     private static final String[] COMMANDS_LIST = {"/commands", "/home", "/events", "/notifications", "/settings", "/quit"};
     private static final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
     private static String filePath;
+    private static final String COMMANDS_HELP = "Use /commands to view a list of commands which you can use to navigate into application pages";
     private static final String ASCII_LOGO = "                                                                                                     \n" +
             "                                                                                                     \n" +
             "                                                                                                     \n" +
@@ -144,7 +145,7 @@ public class CLI implements NotificationView, ChatView {
                         "f. Sign Out");
 
                 spacer(1);
-                System.out.println("Use /commands to view a list of commands which you can use to navigate into application pages");
+                System.out.println(COMMANDS_HELP);
 
                 try {
                     spacer(1);
@@ -339,7 +340,7 @@ public class CLI implements NotificationView, ChatView {
 
         System.out.println("Welcome to NightPlan!");
         spacer(1);
-        System.out.println("Use /commands to view a list of commands which you can use to navigate into application pages");
+        System.out.println(COMMANDS_HELP);
         spacer(1);
 
         if (LoggedUser.getUserType().equals(UserTypes.USER)) {
@@ -992,7 +993,7 @@ public class CLI implements NotificationView, ChatView {
         printEventsList(pastEvents);
         spacer(1);
         System.out.print("Write event name to view its analytics:");
-        System.out.print("Use /commands to view a list of commands which you can use to navigate into application pages");
+        System.out.print(COMMANDS_HELP);
 
         boolean valid = false;
         do {
@@ -1102,7 +1103,7 @@ public class CLI implements NotificationView, ChatView {
                 printEventsList(eventList);
 
                 spacer(1);
-                System.out.println("Use /commands to view a list of commands which you can use to navigate into application pages");
+                System.out.println(COMMANDS_HELP);
                 spacer(1);
 
                 boolean valid = false;
@@ -1163,7 +1164,7 @@ public class CLI implements NotificationView, ChatView {
                 printEventsList(eventList);
 
                 spacer(1);
-                System.out.println("Use /commands to view a list of commands which you can use to navigate into application pages");
+                System.out.println(COMMANDS_HELP);
                 spacer(1);
 
                 boolean valid = false;
