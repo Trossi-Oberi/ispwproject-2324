@@ -122,7 +122,7 @@ public class EventDAO {
     }
 
     public List<MEvent> getEventsArrayList(PreparedStatement statement) {
-        ArrayList<MEvent> events = new ArrayList<>();
+        List<MEvent> events = new ArrayList<>();
         try (ResultSet rs = statement.executeQuery()) {
             while (rs.next()) {
                 MEvent eventModel = new MEvent();
@@ -143,7 +143,8 @@ public class EventDAO {
             return events;
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Cannot retrieve events");
-            return null;
+            events=null;
+            return events;
         } finally {
             SingletonDBSession.getInstance().closeConn();
         }

@@ -1,13 +1,12 @@
 package logic.controllers;
 
-import logic.model.MGroupMessage;
 import logic.model.Message;
 import logic.model.Notification;
-import logic.model.ServerNotification;
+
 import logic.utils.LoggedUser;
 import logic.utils.SecureObjectInputStream;
 import logic.utils.UserTypes;
-import logic.view.NotificationView;
+
 
 import java.io.IOException;
 import java.util.concurrent.Semaphore;
@@ -20,6 +19,7 @@ public class ClientListener implements Runnable {
     private SecureObjectInputStream in;
     private boolean listenerRunning = true;
     private CFacade facade;
+    private final String SERVER_USER = "SERVER: user ";
 
     public ClientListener(CFacade facade, Semaphore semaphore, SecureObjectInputStream in) {
         this.facade = facade;
@@ -57,14 +57,14 @@ public class ClientListener implements Runnable {
         if (incomingNoti != null) {
             switch (incomingNoti.getNotificationType()) {
                 case UserRegistration:
-                    System.out.println("New client " + incomingNoti.getClientID() + " successfully registered.");
+                    logger.info(() -> "SERVER: New client " + incomingNoti.getClientID() + " successfully registered.");
                     //chiudo i canali di comunicazione del client con il server
                     semaphore.release(2);
                     listenerRunning = false;
                     break;
 
                 case LoggedIn:
-                    System.out.println("Client " + incomingNoti.getClientID() + " logged in successfully.");
+                    logger.info(() -> "SERVER: Client " + incomingNoti.getClientID() + " logged in successfully.");
                     //chiudo i canali di comunicazione del client con il server
                     semaphore.release(2);
                     break;
@@ -83,7 +83,7 @@ public class ClientListener implements Runnable {
                 case EventDeleted:
                     //rilascia semaforo solo per organizer per non bloccare l'applicazione
                     semaphore.release(2);
-                    System.out.println("SERVER: Event " + incomingNoti.getEventID() + " deleted successfully!");
+                    logger.info(() -> "SERVER: Event " + incomingNoti.getEventID() + " deleted successfully!");
                     break;
 
                 case UserEventParticipation:
@@ -97,25 +97,25 @@ public class ClientListener implements Runnable {
 
                 case UserEventRemoval:
                     semaphore.release(2);
-                    System.out.println("SERVER: user " + incomingNoti.getClientID() + " removed participation to event " + incomingNoti.getEventID() + " successfully!");
+                    logger.info(() -> SERVER_USER + incomingNoti.getClientID() + " removed participation to event " + incomingNoti.getEventID() + " successfully!");
                     break;
 
                 case ChangeCity:
                     semaphore.release(2);
-                    System.out.println("SERVER: user " + incomingNoti.getClientID() + " changed city from " + incomingNoti.getCity() + " to " + incomingNoti.getNewCity() + " successfully!");
+                    logger.info(() -> SERVER_USER + incomingNoti.getClientID() + " changed city from " + incomingNoti.getCity() + " to " + incomingNoti.getNewCity() + " successfully!");
                     break;
                 case GroupJoin:
-                    System.out.println("SERVER: group with id " + incomingNoti.getEventID() + " joined successfully");
+                    logger.info(() -> "SERVER: group with id " + incomingNoti.getEventID() + " joined successfully");
                     semaphore.release(2);
                     break;
 
                 case GroupLeave:
-                    System.out.println("SERVER: user " + LoggedUser.getUserID() + " left group " + incomingNoti.getEventID());
+                    logger.info(() -> SERVER_USER + LoggedUser.getUserID() + " left group " + incomingNoti.getEventID());
                     semaphore.release(2);
                     break;
 
                 case Disconnected:
-                    System.out.println("Client " + incomingNoti.getClientID() + " disconnected successfully.");
+                    logger.info(() -> "Client " + incomingNoti.getClientID() + " disconnected successfully.");
                     //chiudo i canali di comunicazione del client con il server
                     semaphore.release(2);
                     listenerRunning = false;
@@ -126,7 +126,7 @@ public class ClientListener implements Runnable {
 
     private void handleMessage(Message incomingMsg) {
         //IMPLEMENTATO SOLO GROUPMESSAGE QUINDI NON FACCIO CONTROLLI AGGIUNTIVI SUL TIPO DI MESSAGGIO
-        System.out.println("LISTENER: Ricevuto messaggio da id: "+incomingMsg.getSenderID()+
+        logger.info(() -> "LISTENER: Ricevuto messaggio da id: "+incomingMsg.getSenderID()+
                 ", verso gruppo con id: "+incomingMsg.getReceiverID()+", testo: "+incomingMsg.getMessage());
         if (facade.getChatGraphic()!=null){ //significa che mi trovo effettivamente sulla schermata della chat
             facade.addMessageToChat(incomingMsg);
