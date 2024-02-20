@@ -37,7 +37,7 @@ public class GCAnalytics extends EssentialGUI {
     private Label timesClickedL;
 
     @FXML
-    private ImageView eventImage;
+    private ImageView eventImageView;
 
     private int eventID;
     private static Integer timesClicked;
@@ -58,7 +58,7 @@ public class GCAnalytics extends EssentialGUI {
         dateL.setText(eventBean.getEventDate());
         try {
             Image eventImage = new Image(new ByteArrayInputStream(eventBean.getEventPicData()));
-            this.eventImage.setImage(eventImage);
+            this.eventImageView.setImage(eventImage);
         } catch (NullPointerException e) {
             throw new RuntimeException(e);
         }

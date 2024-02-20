@@ -214,7 +214,7 @@
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Label>
-      <ImageView fx:id="eventImage" fitHeight="178.0" fitWidth="316.0" layoutX="52.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="eventImageView" fitHeight="178.0" fitWidth="316.0" layoutX="52.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true" />
       <Text layoutX="51.0" layoutY="457.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" wrappingWidth="48.13665771484375">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
