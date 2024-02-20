@@ -88,45 +88,7 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
                 Button groupButton = new Button();
                 groupName.setFont(new Font(SYSTEM, 12));
                 groupButton.setFont(new Font(SYSTEM, 9));
-                if (item.getGroupID() != null && res) {
-                    groupName.setText(item.getGroupName());
-
-                    groupButton.setText("Group chat");
-                    groupButton.setOnMouseClicked(event ->
-                        //OPEN GROUP CHAT
-                        setupGroupChat(event, groupsBeans.get(getIndex()).getGroupID())
-                    );
-                } else if (item.getGroupID() != null && !res) {
-                    groupName.setText(item.getGroupName());
-                    groupButton.setText("Join group");
-                    groupButton.setOnMouseClicked(event -> {
-                        //JOIN GROUP
-                        if(cfacade.joinGroup(groupsBeans.get(getIndex()).getGroupID())) {
-                            changeGUI(event, CURRENT_PAGE);
-                        } else {
-                            alert.displayAlertPopup(Alerts.ERROR, "Error while joining group");
-                        }
-                    });
-                } else {
-                    groupName.setText("No group");
-                    groupButton.setText("Create group");
-                    groupButton.setOnMouseClicked(event -> {
-                        //CREATE GROUP (AND JOIN)
-                        String value = askUserForGroupName();
-                        try {
-                            if(cfacade.createGroup(value, upComingEventsBeans.get(getIndex()).getEventID())){
-                                logger.info("Successfully created and joined new group");
-                                changeGUI(event,CURRENT_PAGE);
-                            } else {
-                                alert.displayAlertPopup(Alerts.ERROR, "Error while joining group");
-                            }
-                        } catch (GroupAlreadyCreated e) {
-                            alert.displayAlertPopup(Alerts.ERROR, e.getMessage());
-                            changeGUI(event,CURRENT_PAGE);
-                        }
-                    });
-                }
-
+                setupGroupAppearance(groupButton,groupName,item,res);
                 HBox hbox = new HBox();
                 HBox.setHgrow(groupName, Priority.ALWAYS);
                 Region spacer = new Region();
@@ -137,6 +99,47 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
                 setGraphic(hbox);
             }
         }
+
+        private void setupGroupAppearance(Button groupButton, Label groupName, BGroup item, boolean res) {
+            if (item.getGroupID() != null && res) {
+                groupName.setText(item.getGroupName());
+                groupButton.setText("Group chat");
+                groupButton.setOnMouseClicked(event ->
+                        //OPEN GROUP CHAT
+                        setupGroupChat(event, groupsBeans.get(getIndex()).getGroupID())
+                );
+            } else if (item.getGroupID() != null && !res) {
+                groupName.setText(item.getGroupName());
+                groupButton.setText("Join group");
+                groupButton.setOnMouseClicked(event -> {
+                    //JOIN GROUP
+                    if(cfacade.joinGroup(groupsBeans.get(getIndex()).getGroupID())) {
+                        changeGUI(event, CURRENT_PAGE);
+                    } else {
+                        alert.displayAlertPopup(Alerts.ERROR, "Error while joining group");
+                    }
+                });
+            } else {
+                groupName.setText("No group");
+                groupButton.setText("Create group");
+                groupButton.setOnMouseClicked(event -> {
+                    //CREATE GROUP (AND JOIN)
+                    String value = askUserForGroupName();
+                    try {
+                        if(cfacade.createGroup(value, upComingEventsBeans.get(getIndex()).getEventID())){
+                            logger.info("Successfully created and joined new group");
+                            changeGUI(event,CURRENT_PAGE);
+                        } else {
+                            alert.displayAlertPopup(Alerts.ERROR, "Error while joining group");
+                        }
+                    } catch (GroupAlreadyCreated e) {
+                        alert.displayAlertPopup(Alerts.ERROR, e.getMessage());
+                        changeGUI(event,CURRENT_PAGE);
+                    }
+                });
+            }
+        }
+
         private String askUserForGroupName(){
             TextInputDialog dialog = new TextInputDialog();
             dialog.setTitle("Insert group name");

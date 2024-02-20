@@ -22,44 +22,31 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CLI implements NotificationView, ChatView {
     private static final Logger logger = Logger.getLogger("NightPlan");
     private static CFacade cFacade;
     private static BUserData bUserData;
-    private static final String[] MUSIC_GENRES = {"Pop","Rock","Dance","Electronic","Techno","Reggaeton", "Metal", "Disco", "Tech house", "House", "Rap", "Trap"};
+    private static final String[] MUSIC_GENRES = {"Pop", "Rock", "Dance", "Electronic", "Techno", "Reggaeton", "Metal", "Disco", "Tech house", "House", "Rap", "Trap"};
     private static final List<String> commands = new ArrayList<>();
     private static final String[] COMMANDS_LIST = {"/commands", "/home", "/events", "/notifications", "/settings", "/quit"};
     private static final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
     private static String filePath;
     private static final String COMMANDS_HELP = "Use /commands to view a list of commands which you can use to navigate into application pages";
-    private static final String ASCII_LOGO = "                                                                                                     \n" +
-            "                                                                                                     \n" +
-            "                                                                                                     \n" +
-            "                                                                                                     \n" +
-            "                                                                                                     \n" +
-            "                                                                                                     \n" +
-            "                                                                                                     \n" +
+    private static final String ASCII_LOGO =
             "           -#####   #####                                ##########                                  \n" +
-            "          #      # ##    #                 -            #          #  .-                             \n" +
-            "          #      ###    +##  .          #    #      ## -#    ##.    #    #                           \n" +
-            "         ##       ##    # #  #  ######.+#   ##+   #    #     ##    ##   ## +#####   .+-.+#           \n" +
-            "         #              ##   ##        #        ##                ###   ##        #        #         \n" +
-            "        .#    ##       ##    #   ##    #    #    #    ##    #####+ #   --   ##   -#   ##    #        \n" +
-            "        #     ##+      ##   ##   ##   ##   ##   ##   ##    #+      #   #   +#    #    #+   #         \n" +
-            "        #    #. #     ##    ##        #    ##   ##   ##    #      -    ##        #   -#    #         \n" +
-            "     # + ####+ + ##### + ####   #    -#-###++##+.#-## # #### .+ #  ###+ +######## #### ####  # #     \n" +
-            "    +# #  +    #  + +  # +  ###. +###-+  #    #  + +  # +  # -# # .+ +  #    +  + +  # +  + .# # -   \n" +
-            "      +    .++.             #   #          ++.       .     #   +    -     +++       -     #   +      \n" +
-            "            +               #               -              #               -              #          \n" +
-            "                                                                                                     \n" +
-            "                                                                                                     \n" +
-            "                                                                                                     \n" +
-            "                                                                                                     \n" +
-            "                                                                                                     \n" +
-            "                                                                                                     ";
+                    "          #      # ##    #                 -            #          #  .-                             \n" +
+                    "          #      ###    +##  .          #    #      ## -#    ##.    #    #                           \n" +
+                    "         ##       ##    # #  #  ######.+#   ##+   #    #     ##    ##   ## +#####   .+-.+#           \n" +
+                    "         #              ##   ##        #        ##                ###   ##        #        #         \n" +
+                    "        .#    ##       ##    #   ##    #    #    #    ##    #####+ #   --   ##   -#   ##    #        \n" +
+                    "        #     ##+      ##   ##   ##   ##   ##   ##   ##    #+      #   #   +#    #    #+   #         \n" +
+                    "        #    #. #     ##    ##        #    ##   ##   ##    #      -    ##        #   -#    #         \n" +
+                    "     # + ####+ + ##### + ####   #    -#-###++##+.#-## # #### .+ #  ###+ +######## #### ####  # #     \n" +
+                    "    +# #  +    #  + +  # +  ###. +###-+  #    #  + +  # +  # -# # .+ +  #    +  + +  # +  + .# # -   \n" +
+                    "      +    .++.             #   #          ++.       .     #   +    -     +++       -     #   +      \n" +
+                    "            +               #               -              #               -              #          \n";
     private static Integer timesClicked;
     private static Integer nParticipants;
 
@@ -116,99 +103,107 @@ public class CLI implements NotificationView, ChatView {
         boolean valid = false;
         if (LoggedUser.getUserType().equals(UserTypes.USER)) {
             do {
-                System.out.println("Settings:   \n" +
-                        "a. Your profile\n" +
-                        "b. Your groups\n" +
-                        "c. Change city\n" +
-                        "d. Contact us\n" +
-                        "e. Help & FAQs\n" +
-                        "f. Sign Out");
-
+                showSettings(UserTypes.USER);
                 spacer(1);
-                System.out.println(COMMANDS_HELP);
+                String value = acquireInput();
 
-                try {
-                    spacer(1);
-                    String value = READER.readLine();
-
-                    //verifico comandi generali
-                    if (commands.contains(value)) {
-                        handleCommand(value);
-                    }
-
-                    switch (value) {
-                        case "a":
-                            valid = true;
-                            showProfileInfo();
-
-                        case "b":
-                            valid = true;
-                            System.out.println("Not implemented :S");
-
-                        case "c":
-                            valid = true;
-                            changeCity();
-
-                        case "d":
-                            valid = true;
-                            showContacts();
-
-                        case "e":
-                            valid = true;
-                            showHelp();
-
-                        case "f":
-                            valid = true;
-                            signOut();
-
-                        default:
-
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                //verifico comandi generali
+                if (commands.contains(value)) {
+                    handleCommand(value);
                 }
+                valid = handleSettingsInputUser(value);
+
             } while (!valid);
         } else { //UserType == ORGANIZER
             do {
-                System.out.println("Settings:   \n" +
-                        "a. Your profile\n" +
-                        "b. Contact us\n" +
-                        "c. Help & FAQs\n" +
-                        "d. Sign Out");
-                try {
-                    String value = READER.readLine();
+                showSettings(UserTypes.ORGANIZER);
+                String value = acquireInput();
 
-                    //verifico comandi generali
-                    if (commands.contains(value)) {
-                        handleCommand(value);
-                    }
-
-                    switch (value) {
-                        case "a":
-                            valid = true;
-                            showProfileInfo();
-                            break;
-                        case "b":
-                            valid = true;
-                            showContacts();
-                            break;
-                        case "c":
-                            valid = true;
-                            showHelp();
-                            break;
-                        case "d":
-                            valid = true;
-                            signOut();
-                            break;
-                        default:
-                            break;
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                //verifico comandi generali
+                if (commands.contains(value)) {
+                    handleCommand(value);
                 }
+                valid = handleSettingsInputOrg(value);
+
             } while (!valid);
         }
         spacer(2);
+    }
+
+    private static boolean handleSettingsInputOrg(String value) {
+        switch (value) {
+            case "a":
+                showProfileInfo();
+                return true;
+            case "b":
+                showContacts();
+                return true;
+            case "c":
+                showHelp();
+                return true;
+            case "d":
+                signOut();
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private static boolean handleSettingsInputUser(String value) {
+        switch (value) {
+            case "a":
+                showProfileInfo();
+                return true;
+
+            case "b":
+                changeCity();
+                return true;
+
+            case "c":
+                showContacts();
+                return true;
+
+            case "d":
+                showHelp();
+                return true;
+
+            case "e":
+                signOut();
+                return true;
+
+            default:
+                return false;
+        }
+    }
+
+    private static String acquireInput() {
+        String input;
+        try {
+            input = CLI.READER.readLine();
+        } catch (IOException e) {
+            logger.severe("Error during input acquisition");
+            return null;
+        }
+        return input;
+    }
+
+    private static void showSettings(UserTypes type) {
+        if (type.equals(UserTypes.USER)) {
+            System.out.println("Settings:   \n" +
+                    "a. Your profile\n" +
+                    "b. Change city\n" +
+                    "c. Contact us\n" +
+                    "d. Help & FAQs\n" +
+                    "e. Sign Out");
+        } else if (type.equals(UserTypes.ORGANIZER)) {
+            System.out.println("Settings:   \n" +
+                    "a. Your profile\n" +
+                    "b. Contact us\n" +
+                    "c. Help & FAQs\n" +
+                    "d. Sign Out");
+        }
+        spacer(1);
+        System.out.println(COMMANDS_HELP);
     }
 
 
@@ -1446,7 +1441,7 @@ public class CLI implements NotificationView, ChatView {
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } catch (UsernameAlreadyTaken e){
+        } catch (UsernameAlreadyTaken e) {
             logger.warning("Username already taken! Change it and retry registration...");
             return 0;
         } catch (InvalidValueException | TextTooLongException e) {
