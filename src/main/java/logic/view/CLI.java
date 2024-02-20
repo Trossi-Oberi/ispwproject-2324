@@ -101,35 +101,43 @@ public class CLI implements NotificationView, ChatView {
     }
 
     private static void loadSettings() {
-        boolean valid = false;
         if (LoggedUser.getUserType().equals(UserTypes.USER)) {
-            do {
-                showSettings(UserTypes.USER);
-                spacer(1);
-                String value = acquireInput();
-                if (value!=null){
-                    //verifico comandi generali
-                    if (commands.contains(value)) {
-                        handleCommand(value);
-                    }
-                    valid = handleSettingsInputUser(value);
-                }
-            } while (!valid);
-
-        } else { //UserType == ORGANIZER
-            do {
-                showSettings(UserTypes.ORGANIZER);
-                String value = acquireInput();
-                if (value!=null){
-                    //verifico comandi generali
-                    if (commands.contains(value)) {
-                        handleCommand(value);
-                    }
-                    valid = handleSettingsInputOrg(value);
-                }
-            } while (!valid);
+            acquireInputCycleSettingsUser();
+        } else {//UserType == ORGANIZER
+            acquireInputCycleSettingsOrg();
         }
         spacer(2);
+    }
+
+    private static void acquireInputCycleSettingsOrg() {
+        boolean valid = false;
+        do {
+            showSettings(UserTypes.ORGANIZER);
+            String value = acquireInput();
+            if (value!=null){
+                //verifico comandi generali
+                if (commands.contains(value)) {
+                    handleCommand(value);
+                }
+                valid = handleSettingsInputOrg(value);
+            }
+        } while (!valid);
+    }
+
+    private static void acquireInputCycleSettingsUser() {
+        boolean valid = false;
+        do {
+            showSettings(UserTypes.USER);
+            spacer(1);
+            String value = acquireInput();
+            if (value!=null){
+                //verifico comandi generali
+                if (commands.contains(value)) {
+                    handleCommand(value);
+                }
+                valid = handleSettingsInputUser(value);
+            }
+        } while (!valid);
     }
 
     private static boolean handleSettingsInputOrg(String value) {
