@@ -97,7 +97,7 @@ public class GCEditEvent extends GCManageEvent {
         this.datePicker.setValue(LocalDate.parse(date, formatter));
     }
 
-    private void goToPreviousEventPage(MouseEvent event, BEvent bean) {
+    private static void goToPreviousEventPage(MouseEvent event, BEvent bean) {
         try {
             URL loc = EssentialGUI.class.getResource("EventPageOrg.fxml");
             FXMLLoader loader = new FXMLLoader(loc);
@@ -106,7 +106,7 @@ public class GCEditEvent extends GCManageEvent {
                 root = loader.load();
             }
             GCEventPageOrg eventPageOrgGC = loader.getController();
-            eventPageOrgGC.initEventFromBean(bean, this.getClass().getSimpleName());
+            eventPageOrgGC.initEventFromBean(bean, GCEditEvent.class.getSimpleName());
             scene = new Scene(root);
             scene.getStylesheets().add(Objects.requireNonNull(EssentialGUI.class.getResource("application.css")).toExternalForm());
         } catch (IOException |
@@ -117,7 +117,7 @@ public class GCEditEvent extends GCManageEvent {
             Thread.currentThread().interrupt();
         }
 
-        nextGuiOnClick(event);
+        gui.nextGuiOnClick(event);
     }
 
 }
