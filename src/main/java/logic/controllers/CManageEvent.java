@@ -14,6 +14,7 @@ import logic.utils.UserTypes;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 public class CManageEvent {
 
     private UserDAO userDAO;
@@ -26,13 +27,9 @@ public class CManageEvent {
         userDAO = new UserDAO();
         eventDAO = new EventDAO();
         userEventDAO = new UserEventDAO();
-        switch (PersistenceClass.getPersistenceType()){
+        switch (PersistenceClass.getPersistenceType()) {
             case FILE_SYSTEM:
-                try {
-                    notiDAO = new NotificationDAOCSV();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                notiDAO = new NotificationDAOCSV();
                 break;
             case JDBC:
             default:
@@ -43,7 +40,7 @@ public class CManageEvent {
 
     public boolean addEvent(BEvent eventBean) throws EventAlreadyAdded {
         MEvent eventModel = new MEvent(eventBean);
-        if(eventDAO.createEvent(eventModel)){
+        if (eventDAO.createEvent(eventModel)) {
             eventBean.setEventID(eventModel.getEventID());
 
             List<Integer> usersIDs;
@@ -88,7 +85,7 @@ public class CManageEvent {
 
     public boolean participateToEvent(BEvent eventBean) throws EventAlreadyDeleted {
         MEvent eventModel = new MEvent(eventBean);
-        if (userEventDAO.joinUserToEvent(eventModel)){
+        if (userEventDAO.joinUserToEvent(eventModel)) {
             //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
 
             //notifico l'organizerID della partecipazione all'evento da parte dell'utente
@@ -97,7 +94,7 @@ public class CManageEvent {
 
             notiDAO.addNotification(organizerID, NotificationTypes.USER_EVENT_PARTICIPATION, eventBean.getEventID());
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -107,7 +104,7 @@ public class CManageEvent {
         return userEventDAO.removeUserToEvent(eventModel);
     }
 
-    public boolean checkPreviousEventParticipation(BEvent eventBean){
+    public boolean checkPreviousEventParticipation(BEvent eventBean) {
         try {
             userEventDAO.checkPreviousParticipation(eventBean.getEventID());
             return false;
@@ -116,7 +113,7 @@ public class CManageEvent {
         }
     }
 
-    private List<BEvent> getEventBeansListFromModelsList(List<MEvent> eventModelList){
+    private List<BEvent> getEventBeansListFromModelsList(List<MEvent> eventModelList) {
         List<BEvent> myEventsBeans = new ArrayList<>();
         BEvent tempEventBean;
         for (MEvent mEvent : eventModelList) {
@@ -126,7 +123,7 @@ public class CManageEvent {
         return myEventsBeans;
     }
 
-    public int getParticipationsToEvent(int id){
+    public int getParticipationsToEvent(int id) {
         return userEventDAO.getParticipationsToEvent(id);
     }
 
