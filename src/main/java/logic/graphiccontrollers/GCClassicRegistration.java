@@ -17,12 +17,6 @@ import java.time.LocalDate;
 
 public class GCClassicRegistration extends GCRegistration{
 
-    @FXML
-    private TextField emailField;
-
-    @FXML
-    private PasswordField passwordField;
-
     @Override
     @FXML
     public void initialize() {
