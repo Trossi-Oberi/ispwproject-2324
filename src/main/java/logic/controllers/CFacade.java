@@ -270,7 +270,7 @@ public class CFacade {
         return regController.getProvincesList();
     }
 
-    public ArrayList<String> getCitiesList(String province) {
+    public List<String> getCitiesList(String province) {
         if (regController == null) {
             regController = new CRegistration();
         }

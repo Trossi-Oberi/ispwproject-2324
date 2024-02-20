@@ -46,7 +46,7 @@ public class GCManageEvent extends EssentialGUI {
     protected byte[] eventPicData;
     protected List<String> provincesList = new ArrayList<>();
     protected ObservableList<String> provincesObsList;
-    protected ArrayList<String> citiesList = new ArrayList<>();
+    protected List<String> citiesList = new ArrayList<>();
     protected ObservableList<String> citiesObsList;
     protected final ObservableList<String> musicGenresList = FXCollections.observableArrayList(MusicGenres.MUSIC_GENRES);
 

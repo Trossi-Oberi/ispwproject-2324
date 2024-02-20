@@ -34,7 +34,7 @@ public class GCEditCity extends EssentialGUI {
 
     private List<String> provincesList = new ArrayList<>();
     private ObservableList<String> provincesObsList;
-    private ArrayList<String> citiesList = new ArrayList<>();
+    private List<String> citiesList = new ArrayList<>();
     private ObservableList<String> citiesObsList;
 
 

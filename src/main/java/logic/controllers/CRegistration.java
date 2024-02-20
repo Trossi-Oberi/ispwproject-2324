@@ -39,8 +39,8 @@ public class CRegistration {
         return provincesList;
     }
 
-    public ArrayList<String> getCitiesList(String selectedProvince) {
-        ArrayList<String> citiesList;
+    public List<String> getCitiesList(String selectedProvince) {
+        List<String> citiesList;
         citiesList = this.locationDao.getCitiesList(selectedProvince);
         return citiesList;
     }

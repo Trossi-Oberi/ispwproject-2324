@@ -294,7 +294,7 @@ public class CLI implements NotificationView, ChatView {
         String newProvince = null;
         String newCity = null;
         List<String> provinces = cFacade.getProvincesList();
-        ArrayList<String> cities = null;
+        List<String> cities = null;
         boolean valid = false;
 
         spacer(1);
@@ -437,7 +437,7 @@ public class CLI implements NotificationView, ChatView {
 
         boolean valid = false;
         List<String> provinces = cFacade.getProvincesList();
-        ArrayList<String> cities = null;
+        List<String> cities = null;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         try {
@@ -543,7 +543,7 @@ public class CLI implements NotificationView, ChatView {
 
         boolean valid = false;
         List<String> provinces = cFacade.getProvincesList();
-        ArrayList<String> cities = null;
+        List<String> cities = null;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         try {
@@ -1411,7 +1411,7 @@ public class CLI implements NotificationView, ChatView {
             valid = false;
 
             System.out.println("City: ");
-            ArrayList<String> cities = cFacade.getCitiesList(bUserData.getProvince());
+            List<String> cities = cFacade.getCitiesList(bUserData.getProvince());
             do {
                 String val = reader.readLine();
                 if (cities.contains(val)) {
