@@ -18,7 +18,7 @@ import static logic.view.EssentialGUI.logger;
 
 public class CNotification extends CServerInteraction {
     //questo controller si occupa solo di rigirare notifiche ai graphic controller a seguito di interazioni con il listener
-    private static final SituationType NOTIFICATION = SituationType.ServerClient;
+    private static final SituationType NOTIFICATION = SituationType.SERVER_CLIENT;
     private NotificationDAO notificationDAO;
     private NotificationFactory notiFactory;
 
@@ -26,7 +26,7 @@ public class CNotification extends CServerInteraction {
     public CNotification(CFacade facadeRef){
         super();
         switch (PersistenceClass.getPersistenceType()) {
-            case FileSystem:
+            case FILE_SYSTEM:
                 try {
                     this.notificationDAO = new NotificationDAOCSV();
                 } catch (IOException e) {
@@ -79,7 +79,7 @@ public class CNotification extends CServerInteraction {
             semaphore.acquire(2);
 
             //Vedo il tipo di messaggio per decidere se chiudere il listener oppure no
-            if (notiType == NotificationTypes.UserRegistration || notiType == NotificationTypes.Disconnected) {
+            if (notiType == NotificationTypes.USER_REGISTRATION || notiType == NotificationTypes.DISCONNECTED) {
                 stopListener(clientID);
             }
 

@@ -40,7 +40,7 @@ public class CFacade {
             if (notificationController == null) {
                 notificationController = new CNotification(this);
             }
-            notificationController.sendNotification(NotificationTypes.EventAdded, bean.getEventOrganizerID(), null, bean.getEventID(), null, bean.getEventCity(), null, null);
+            notificationController.sendNotification(NotificationTypes.EVENT_ADDED, bean.getEventOrganizerID(), null, bean.getEventID(), null, bean.getEventCity(), null, null);
         }
         return res;
     }
@@ -54,7 +54,7 @@ public class CFacade {
             if (notificationController == null) {
                 notificationController = new CNotification(this);
             }
-            notificationController.sendNotification(NotificationTypes.EventDeleted, null, null, eventID, null, null, null, null);
+            notificationController.sendNotification(NotificationTypes.EVENT_DELETED, null, null, eventID, null, null, null, null);
         }
         return res;
     }
@@ -68,7 +68,7 @@ public class CFacade {
             if (notificationController == null) {
                 notificationController = new CNotification(this);
             }
-            notificationController.sendNotification(NotificationTypes.UserEventParticipation, LoggedUser.getUserID(), null, eventBean.getEventID(), null, null, null, null);
+            notificationController.sendNotification(NotificationTypes.USER_EVENT_PARTICIPATION, LoggedUser.getUserID(), null, eventBean.getEventID(), null, null, null, null);
         }
         return res;
     }
@@ -81,7 +81,7 @@ public class CFacade {
         }
         boolean res = manageEventController.removeEventParticipation(eventBean);
         if (res) {
-            notificationController.sendNotification(NotificationTypes.UserEventRemoval, LoggedUser.getUserID(), null, eventBean.getEventID(), null, null, null, null);
+            notificationController.sendNotification(NotificationTypes.USER_EVENT_REMOVAL, LoggedUser.getUserID(), null, eventBean.getEventID(), null, null, null, null);
             Integer groupID = getGroupByEventID(eventBean.getEventID()).getGroupID();
             //se il gruppo non esiste salto il leaveGroup
             if (groupID == null || !checkUserInGroup(groupID)) {
@@ -98,7 +98,7 @@ public class CFacade {
                 if (notificationController == null) {
                     notificationController = new CNotification(this);
                 }
-                notificationController.sendNotification(NotificationTypes.GroupLeave, LoggedUser.getUserID(), null, groupID, null, null, null, null);
+                notificationController.sendNotification(NotificationTypes.GROUP_LEAVE, LoggedUser.getUserID(), null, groupID, null, null, null, null);
             }
         }
         return result;
@@ -134,7 +134,7 @@ public class CFacade {
                 }
                 //setup temp socket per la registrazione (viene automaticamente chiusa dopo l'invio della notifica UserRegistration response dal server
                 setupTempSocket();
-                notificationController.sendNotification(NotificationTypes.UserRegistration, bean.getUserID(), null, null, null, bean.getCity(), null, null); //null ovvio che sia userType
+                notificationController.sendNotification(NotificationTypes.USER_REGISTRATION, bean.getUserID(), null, null, null, bean.getCity(), null, null); //null ovvio che sia userType
             }
         }
         return res;
@@ -165,7 +165,7 @@ public class CFacade {
             if (notificationController == null) {
                 notificationController = new CNotification(this);
             }
-            notificationController.sendNotification(NotificationTypes.LoggedIn, LoggedUser.getUserID(), null, null, null, LoggedUser.getCity(), null, LoggedUser.getUserType());
+            notificationController.sendNotification(NotificationTypes.LOGGED_IN, LoggedUser.getUserID(), null, null, null, LoggedUser.getCity(), null, LoggedUser.getUserType());
         }
         return loginRes;
     }
@@ -175,7 +175,7 @@ public class CFacade {
         if (notificationController == null) {
             notificationController = new CNotification(this);
         }
-        notificationController.sendNotification(NotificationTypes.Disconnected, LoggedUser.getUserID(), null, null, null, null, null, LoggedUser.getUserType());
+        notificationController.sendNotification(NotificationTypes.DISCONNECTED, LoggedUser.getUserID(), null, null, null, null, null, LoggedUser.getUserType());
         //dopo la disconnessione dal server chiudo la sessione di Login
         if (loginController == null) {
             loginController = new CLogin();
@@ -206,7 +206,7 @@ public class CFacade {
                 notificationController = new CNotification(this);
             }
             //anche qui groupID passato al posto di eventID
-            notificationController.sendNotification(NotificationTypes.GroupJoin, LoggedUser.getUserID(), null, groupID, null, null, null, null);
+            notificationController.sendNotification(NotificationTypes.GROUP_JOIN, LoggedUser.getUserID(), null, groupID, null, null, null, null);
         }
         return res;
     }
@@ -221,7 +221,7 @@ public class CFacade {
             if (notificationController == null) {
                 notificationController = new CNotification(this);
             }
-            notificationController.sendNotification(NotificationTypes.GroupLeave, LoggedUser.getUserID(), null, groupID, null, null, null, null);
+            notificationController.sendNotification(NotificationTypes.GROUP_LEAVE, LoggedUser.getUserID(), null, groupID, null, null, null, null);
         }
         return result;
     }
@@ -303,7 +303,7 @@ public class CFacade {
             if (notificationController == null) {
                 notificationController = new CNotification(this);
             }
-            notificationController.sendNotification(NotificationTypes.ChangeCity, LoggedUser.getUserID(), null, null, null, oldCity, newCity, null);
+            notificationController.sendNotification(NotificationTypes.CHANGE_CITY, LoggedUser.getUserID(), null, null, null, oldCity, newCity, null);
         }
         return res;
     }

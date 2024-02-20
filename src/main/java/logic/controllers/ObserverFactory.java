@@ -7,7 +7,7 @@ import java.io.ObjectOutputStream;
 public class ObserverFactory {
     public ObserverClass createObserver(ObserverType obsType, Integer id, ObjectOutputStream out) {
         ObserverClass obs;
-        if (obsType == ObserverType.NotiObserver) {
+        if (obsType == ObserverType.NOTI_OBSERVER) {
             obs = new NotiObserverClass();
         } else {
             obs = new MessageObserverClass();

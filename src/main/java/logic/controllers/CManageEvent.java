@@ -25,7 +25,7 @@ public class CManageEvent {
         eventDAO = new EventDAO();
         userEventDAO = new UserEventDAO();
         switch (PersistenceClass.getPersistenceType()){
-            case FileSystem:
+            case FILE_SYSTEM:
                 try {
                     notiDAO = new NotificationDAOCSV();
                 } catch (IOException e) {
@@ -48,7 +48,7 @@ public class CManageEvent {
             usersIDs = userDAO.getUsersInCity(eventBean.getEventCity());
 
             //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
-            notiDAO.addNotification(usersIDs, NotificationTypes.EventAdded, eventBean.getEventID());
+            notiDAO.addNotification(usersIDs, NotificationTypes.EVENT_ADDED, eventBean.getEventID());
             return true;
         } else {
             return false;
@@ -93,7 +93,7 @@ public class CManageEvent {
             ArrayList<Integer> organizerID = new ArrayList<>();
             organizerID.add(eventBean.getEventOrganizerID());
 
-            notiDAO.addNotification(organizerID, NotificationTypes.UserEventParticipation, eventBean.getEventID());
+            notiDAO.addNotification(organizerID, NotificationTypes.USER_EVENT_PARTICIPATION, eventBean.getEventID());
             return true;
         }else{
             return false;

@@ -12,7 +12,7 @@ public class NotificationFactory {
 
     public Notification createNotification(SituationType sitType, NotificationTypes notiType, Integer clientOrNotifiedID, Integer notifierID, Integer eventID, Integer notificationID, String city, String newCity, UserTypes usrType) {
         Notification noti;
-        if (sitType == SituationType.ServerClient) {
+        if (sitType == SituationType.SERVER_CLIENT) {
             noti = new ServerNotification();
         } else {
             noti = new LocalNotification();

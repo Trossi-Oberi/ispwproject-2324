@@ -136,7 +136,7 @@ public class GroupDAO {
             ResultSet rs = statement.executeQuery();
             ObserverFactory obsFactory = new ObserverFactory();
             while (rs.next()) {
-                ObserverClass obs = obsFactory.createObserver(ObserverType.MessageObserver, rs.getInt(1), null);
+                ObserverClass obs = obsFactory.createObserver(ObserverType.MESSAGE_OBSERVER, rs.getInt(1), null);
                 usersInGroups.computeIfAbsent(rs.getInt(2), k -> new ArrayList<>()).add(obs);
             }
         } catch (SQLException e) {

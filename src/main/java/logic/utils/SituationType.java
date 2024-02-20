@@ -1,6 +1,6 @@
 package logic.utils;
 
 public enum SituationType {
-    ServerClient,
-    Local;
+    SERVER_CLIENT,
+    LOCAL;
 }

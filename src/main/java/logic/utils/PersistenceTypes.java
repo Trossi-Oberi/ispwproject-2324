@@ -1,5 +1,5 @@
 package logic.utils;
 
 public enum PersistenceTypes {
-    JDBC, FileSystem
+    JDBC, FILE_SYSTEM
 }

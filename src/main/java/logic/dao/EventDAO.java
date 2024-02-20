@@ -157,7 +157,7 @@ public class EventDAO {
             ResultSet rs = statement.executeQuery();
             ObserverFactory obsFactory = new ObserverFactory();
             while (rs.next()) {
-                ObserverClass orgObs = obsFactory.createObserver(ObserverType.NotiObserver, rs.getInt(2), null);
+                ObserverClass orgObs = obsFactory.createObserver(ObserverType.NOTI_OBSERVER, rs.getInt(2), null);
                 orgByEventID.put(rs.getInt(1), orgObs);
             }
         } catch (SQLException e) {

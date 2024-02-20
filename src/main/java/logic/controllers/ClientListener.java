@@ -56,20 +56,20 @@ public class ClientListener implements Runnable {
     private void handleNotification(Notification incomingNoti) {
         if (incomingNoti != null) {
             switch (incomingNoti.getNotificationType()) {
-                case UserRegistration:
+                case USER_REGISTRATION:
                     logger.info(() -> "SERVER: New client " + incomingNoti.getClientID() + " successfully registered.");
                     //chiudo i canali di comunicazione del client con il server
                     semaphore.release(2);
                     listenerRunning = false;
                     break;
 
-                case LoggedIn:
+                case LOGGED_IN:
                     logger.info(() -> "SERVER: Client " + incomingNoti.getClientID() + " logged in successfully.");
                     //chiudo i canali di comunicazione del client con il server
                     semaphore.release(2);
                     break;
 
-                case EventAdded:
+                case EVENT_ADDED:
                     if (LoggedUser.getUserType() == UserTypes.ORGANIZER) {
                         //rilascia semaforo solo per organizer per non bloccare l'applicazione
                         semaphore.release(2);
@@ -80,13 +80,13 @@ public class ClientListener implements Runnable {
                     }
                     break;
 
-                case EventDeleted:
+                case EVENT_DELETED:
                     //rilascia semaforo solo per organizer per non bloccare l'applicazione
                     semaphore.release(2);
                     logger.info(() -> "SERVER: Event " + incomingNoti.getEventID() + " deleted successfully!");
                     break;
 
-                case UserEventParticipation:
+                case USER_EVENT_PARTICIPATION:
                     if (LoggedUser.getUserType() == UserTypes.USER) {
                         semaphore.release(2);
                     } else {
@@ -95,26 +95,26 @@ public class ClientListener implements Runnable {
                     }
                     break;
 
-                case UserEventRemoval:
+                case USER_EVENT_REMOVAL:
                     semaphore.release(2);
                     logger.info(() -> SERVER_USER + incomingNoti.getClientID() + " removed participation to event " + incomingNoti.getEventID() + " successfully!");
                     break;
 
-                case ChangeCity:
+                case CHANGE_CITY:
                     semaphore.release(2);
                     logger.info(() -> SERVER_USER + incomingNoti.getClientID() + " changed city from " + incomingNoti.getCity() + " to " + incomingNoti.getNewCity() + " successfully!");
                     break;
-                case GroupJoin:
+                case GROUP_JOIN:
                     logger.info(() -> "SERVER: group with id " + incomingNoti.getEventID() + " joined successfully");
                     semaphore.release(2);
                     break;
 
-                case GroupLeave:
+                case GROUP_LEAVE:
                     logger.info(() -> SERVER_USER + LoggedUser.getUserID() + " left group " + incomingNoti.getEventID());
                     semaphore.release(2);
                     break;
 
-                case Disconnected:
+                case DISCONNECTED:
                     logger.info(() -> "Client " + incomingNoti.getClientID() + " disconnected successfully.");
                     //chiudo i canali di comunicazione del client con il server
                     listenerRunning = false;

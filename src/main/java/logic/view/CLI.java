@@ -845,9 +845,9 @@ public class CLI implements NotificationView, ChatView {
         List<BNotification> notifications = cFacade.retrieveNotifications(LoggedUser.getUserID());
         if (!notifications.isEmpty()) {
             for (int i = 0; i < notifications.size(); i++) {
-                if (notifications.get(i).getMessageType() == NotificationTypes.EventAdded) {
+                if (notifications.get(i).getMessageType() == NotificationTypes.EVENT_ADDED) {
                     System.out.println(i + 1 + ". New event called " + cFacade.getEventNameByEventID(notifications.get(i).getEventID()) + " in your city!");
-                } else if (notifications.get(i).getMessageType() == NotificationTypes.UserEventParticipation) {
+                } else if (notifications.get(i).getMessageType() == NotificationTypes.USER_EVENT_PARTICIPATION) {
                     System.out.println(i + 1 + ". New user " + cFacade.getUsernameByID(notifications.get(i).getNotifierID()) + " participating to your event " + cFacade.getEventNameByEventID(notifications.get(i).getEventID()));
                 }
             }
@@ -1347,7 +1347,7 @@ public class CLI implements NotificationView, ChatView {
                     if (val.equalsIgnoreCase("jdbc")) {
                         PersistenceClass.setPersistenceType(PersistenceTypes.JDBC);
                     } else {
-                        PersistenceClass.setPersistenceType(PersistenceTypes.FileSystem);
+                        PersistenceClass.setPersistenceType(PersistenceTypes.FILE_SYSTEM);
                     }
                 } else {
                     System.out.println("Invalid option. Please enter 'JDBC' or 'FileSystem'.");
@@ -1459,10 +1459,10 @@ public class CLI implements NotificationView, ChatView {
     public void showNotification(NotificationTypes notificationType) {
         String value = null;
         switch (notificationType) {
-            case EventAdded:
+            case EVENT_ADDED:
                 value = "new event in your city!";
                 break;
-            case UserEventParticipation:
+            case USER_EVENT_PARTICIPATION:
                 value = "new user participation to your event!";
                 break;
         }

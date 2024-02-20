@@ -1,7 +1,7 @@
 package logic.utils;
 
 public enum SubjectTypes {
-    UsersInCity,
-    EventOrganizer,
-    UsersInGroup
+    USERS_IN_CITY,
+    EVENT_ORGANIZER,
+    USERS_IN_GROUP
 }

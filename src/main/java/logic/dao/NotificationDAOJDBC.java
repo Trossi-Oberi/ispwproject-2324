@@ -44,10 +44,10 @@ public class NotificationDAOJDBC implements NotificationDAO{
             try(ResultSet rs = statement.executeQuery()) {
                 Notification msg;
                 while (rs.next()) {
-                    if (rs.getString(2).equals(NotificationTypes.EventAdded.toString())) {
-                        msg = notiFactory.createNotification(SituationType.Local, NotificationTypes.EventAdded, usrID, rs.getInt(4), rs.getInt(3), rs.getInt(1), null, null, null);
+                    if (rs.getString(2).equals(NotificationTypes.EVENT_ADDED.toString())) {
+                        msg = notiFactory.createNotification(SituationType.LOCAL, NotificationTypes.EVENT_ADDED, usrID, rs.getInt(4), rs.getInt(3), rs.getInt(1), null, null, null);
                     } else {
-                        msg = notiFactory.createNotification(SituationType.Local, NotificationTypes.UserEventParticipation, usrID, rs.getInt(4), rs.getInt(3), rs.getInt(1), null, null, null);
+                        msg = notiFactory.createNotification(SituationType.LOCAL, NotificationTypes.USER_EVENT_PARTICIPATION, usrID, rs.getInt(4), rs.getInt(3), rs.getInt(1), null, null, null);
                     }
                     notifications.add(msg);
                 }

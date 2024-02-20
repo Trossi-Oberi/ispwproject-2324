@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -16,7 +15,6 @@ import logic.utils.LoggedUser;
 import logic.utils.NotificationTypes;
 import logic.view.EssentialGUI;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -86,9 +84,9 @@ public class GCNotifications extends EssentialGUI {
     private void populateNotificationsLV(List<BNotification> notificationsList) {
         try {
             for (int i = 0; i < notificationsList.size(); i++) {
-                if (notificationsList.get(i).getMessageType() == NotificationTypes.EventAdded) {
+                if (notificationsList.get(i).getMessageType() == NotificationTypes.EVENT_ADDED) {
                     notificationsLV.getItems().add("New event called " + cfacade.getEventNameByEventID(notificationsList.get(i).getEventID()) + " in your city!");
-                } else if (notificationsList.get(i).getMessageType() == NotificationTypes.UserEventParticipation) {
+                } else if (notificationsList.get(i).getMessageType() == NotificationTypes.USER_EVENT_PARTICIPATION) {
                     notificationsLV.getItems().add("New user " + cfacade.getUsernameByID(notificationsList.get(i).getNotifierID()) + " participating to your event " + cfacade.getEventNameByEventID(notificationsList.get(i).getEventID()));
                 }
             }

@@ -142,10 +142,10 @@ public class NotificationDAOCSV implements NotificationDAO {
             while ((record = csvReader.readNext()) != null) {
                 if (Integer.parseInt(record[NotificationAttributesOrder.getIndexNotifiedID()]) == usrID) {
                     //id, type, event_id, notifier_id
-                    if ((record[NotificationAttributesOrder.getIndexNotiType()]).equals(NotificationTypes.EventAdded.toString())) {
-                        msg = notiFactory.createNotification(SituationType.Local, NotificationTypes.EventAdded, usrID, Integer.parseInt(record[NotificationAttributesOrder.getIndexNotifierID()]), Integer.parseInt(record[NotificationAttributesOrder.getIndexEventID()]), Integer.parseInt(record[NotificationAttributesOrder.getIndexNotificationID()]), null, null, null);
+                    if ((record[NotificationAttributesOrder.getIndexNotiType()]).equals(NotificationTypes.EVENT_ADDED.toString())) {
+                        msg = notiFactory.createNotification(SituationType.LOCAL, NotificationTypes.EVENT_ADDED, usrID, Integer.parseInt(record[NotificationAttributesOrder.getIndexNotifierID()]), Integer.parseInt(record[NotificationAttributesOrder.getIndexEventID()]), Integer.parseInt(record[NotificationAttributesOrder.getIndexNotificationID()]), null, null, null);
                     } else {
-                        msg = notiFactory.createNotification(SituationType.Local, NotificationTypes.UserEventParticipation, usrID, Integer.parseInt(record[NotificationAttributesOrder.getIndexNotifierID()]), Integer.parseInt(record[NotificationAttributesOrder.getIndexEventID()]), Integer.parseInt(record[NotificationAttributesOrder.getIndexNotificationID()]), null, null, null);
+                        msg = notiFactory.createNotification(SituationType.LOCAL, NotificationTypes.USER_EVENT_PARTICIPATION, usrID, Integer.parseInt(record[NotificationAttributesOrder.getIndexNotifierID()]), Integer.parseInt(record[NotificationAttributesOrder.getIndexEventID()]), Integer.parseInt(record[NotificationAttributesOrder.getIndexNotificationID()]), null, null, null);
                     }
                     notifications.add(msg);
                 }

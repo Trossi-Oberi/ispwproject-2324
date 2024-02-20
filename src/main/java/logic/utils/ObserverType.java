@@ -1,6 +1,6 @@
 package logic.utils;
 
 public enum ObserverType {
-    NotiObserver,
-    MessageObserver
+    NOTI_OBSERVER,
+    MESSAGE_OBSERVER
 }

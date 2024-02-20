@@ -15,8 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
-import logic.model.Notification;
 import logic.utils.*;
 import logic.controllers.CFacade;
 
@@ -101,7 +99,7 @@ public class EssentialGUI extends Application implements NotificationView {
                 PersistenceClass.setPersistenceType(PersistenceTypes.JDBC);
             } else if ("FileSystem".equals(args[0])) {
                 logger.info("NightPlan started with FileSystem persistence logic");
-                PersistenceClass.setPersistenceType(PersistenceTypes.FileSystem);
+                PersistenceClass.setPersistenceType(PersistenceTypes.FILE_SYSTEM);
             }
         } else {
             logger.info("NightPlan started with default persistence logic (JDBC)");
@@ -142,10 +140,10 @@ public class EssentialGUI extends Application implements NotificationView {
     @Override
     public void showNotification(NotificationTypes type) {
         Platform.runLater(() -> {
-            if (type.equals(NotificationTypes.EventAdded)) {
+            if (type.equals(NotificationTypes.EVENT_ADDED)) {
                 alert.displayAlertPopup(Alerts.INFORMATION, "New event in your city!\nCheck your events page.");
                 //TODO: forse un giorno faremo l'aggiornamento dinamico (fattibile)
-            } else if (type.equals(NotificationTypes.UserEventParticipation)) {
+            } else if (type.equals(NotificationTypes.USER_EVENT_PARTICIPATION)) {
                 alert.displayAlertPopup(Alerts.INFORMATION, "New user participating to your event.");
             }
         });

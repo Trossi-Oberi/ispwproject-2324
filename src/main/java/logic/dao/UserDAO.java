@@ -200,7 +200,7 @@ public class UserDAO {
             try (ResultSet rs = statement.executeQuery()) {
                 ObserverFactory obsFactory = new ObserverFactory();
                 while (rs.next()) {
-                    ObserverClass usrObs = obsFactory.createObserver(ObserverType.NotiObserver,rs.getInt(1), null);
+                    ObserverClass usrObs = obsFactory.createObserver(ObserverType.NOTI_OBSERVER,rs.getInt(1), null);
                     obsByCity.computeIfAbsent(rs.getString(2), k -> new ArrayList<>()).add(usrObs);
                 }
             }
