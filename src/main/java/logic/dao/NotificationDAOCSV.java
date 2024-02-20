@@ -30,7 +30,6 @@ public class NotificationDAOCSV implements NotificationDAO {
 
     private NotificationFactory notiFactory;
 
-    //TODO: fare in modo che il file DBNotification.csv si cancelli ogni volta
     private static class NotificationAttributesOrder {
         public static int getIndexNotificationID() {
             return 0;
@@ -74,7 +73,17 @@ public class NotificationDAOCSV implements NotificationDAO {
         //inizializzo il file descriptor
         this.fd = new File(filePath);
 
-        //creo il file se non esiste
+        //elimino il file se già esiste
+        if (fd.exists()) {
+            // Elimina il file esistente
+            if (fd.delete()) {
+                logger.finest("Deleted existing CSV file.");
+            } else {
+                logger.warning("Failed to delete existing CSV file.");
+            }
+        }
+
+        //creo il file
         if (!this.fd.exists()) {
             try {
                 boolean res = this.fd.createNewFile();
