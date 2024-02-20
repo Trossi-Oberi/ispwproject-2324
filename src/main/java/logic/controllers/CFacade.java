@@ -263,7 +263,7 @@ public class CFacade {
     }
 
 
-    public ArrayList<String> getProvincesList() {
+    public List<String> getProvincesList() {
         if (regController == null) {
             regController = new CRegistration();
         }

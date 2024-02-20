@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 public class GCManageEvent extends EssentialGUI {
@@ -43,7 +44,7 @@ public class GCManageEvent extends EssentialGUI {
 
     protected BEvent eventBean;
     protected byte[] eventPicData;
-    protected ArrayList<String> provincesList = new ArrayList<>();
+    protected List<String> provincesList = new ArrayList<>();
     protected ObservableList<String> provincesObsList;
     protected ArrayList<String> citiesList = new ArrayList<>();
     protected ObservableList<String> citiesObsList;

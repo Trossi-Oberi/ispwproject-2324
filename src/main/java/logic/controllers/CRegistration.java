@@ -7,6 +7,7 @@ import logic.dao.LocationDAO;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class CRegistration {
@@ -32,8 +33,8 @@ public class CRegistration {
         return true;
     }
 
-    public ArrayList<String> getProvincesList() {
-        ArrayList<String> provincesList;
+    public List<String> getProvincesList() {
+        List<String> provincesList;
         provincesList = this.locationDao.getProvincesList();
         return provincesList;
     }

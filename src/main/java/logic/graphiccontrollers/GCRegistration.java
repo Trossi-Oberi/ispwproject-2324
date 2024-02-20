@@ -13,6 +13,7 @@ import logic.view.AlertPopup;
 import logic.view.EssentialGUI;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class GCRegistration {
 
@@ -54,8 +55,8 @@ public abstract class GCRegistration {
     @FXML
     protected final ToggleGroup group = new ToggleGroup();
 
-    protected ArrayList<String> provincesList = new ArrayList<>();
-    protected ArrayList<String> citiesList = new ArrayList<>();
+    protected List<String> provincesList = new ArrayList<>();
+    protected List<String> citiesList = new ArrayList<>();
 
     protected AlertPopup alert;
     protected EssentialGUI gui;

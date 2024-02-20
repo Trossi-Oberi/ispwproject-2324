@@ -13,6 +13,7 @@ import logic.view.EssentialGUI;
 
 import javax.xml.validation.SchemaFactoryConfigurationError;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GCEditCity extends EssentialGUI {
 
@@ -31,7 +32,7 @@ public class GCEditCity extends EssentialGUI {
     @FXML
     private Label pickedFileLabel;
 
-    private ArrayList<String> provincesList = new ArrayList<>();
+    private List<String> provincesList = new ArrayList<>();
     private ObservableList<String> provincesObsList;
     private ArrayList<String> citiesList = new ArrayList<>();
     private ObservableList<String> citiesObsList;
