@@ -134,5 +134,4 @@ public class CManageEvent {
         return eventDAO.getEventNameByEventID(eventID);
     }
 
-
 }

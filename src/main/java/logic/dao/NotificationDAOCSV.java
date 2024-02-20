@@ -114,7 +114,7 @@ public class NotificationDAOCSV implements NotificationDAO {
                 count++;
             }
         } catch (CsvValidationException | IOException e) {
-            throw new RuntimeException(e);
+            logger.severe("Cannot update last index");
         }
         entriesNumber = count;
     }

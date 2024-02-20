@@ -58,9 +58,11 @@ public class CGroupChat extends CServerInteraction{
         } catch (InvalidClassException e) {
             //gestione errore di serializzazione (writeObject)
             logger.severe("Cannot deserialize object");
-        } catch (IOException | InterruptedException e) {
+        } catch (InterruptedException e) {
             //gestione eccezioni IO o interruzione thread
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
+        } catch (IOException e){
+            logger.severe(e.getMessage());
         }
     }
 }

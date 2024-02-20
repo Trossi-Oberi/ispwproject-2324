@@ -2,8 +2,6 @@ package logic.controllers;
 
 import logic.dao.UserDAO;
 import logic.exceptions.InvalidTokenValue;
-import logic.exceptions.InvalidValueException;
-import logic.exceptions.TextTooLongException;
 import logic.model.MUser;
 import logic.beans.BUserData;
 import logic.server.Server;
@@ -42,8 +40,9 @@ public class CLogin {
                 //gestione token invalido
                 throw e;
             } catch (Exception e) {
-                //runtime exception perché non dovrebbe mai andare qui, se ci va è grave!!!!
-                throw new RuntimeException(e);
+                //grave errore perché non dovrebbe mai andare qui, se ci va è grave!!!!
+                logger.severe(e.getMessage());
+                System.exit(1);
             }
             this.userModel.setUsrAndPswByBean(logBean);
             ret = this.userDao.checkLoginInfo(this.userModel, true);

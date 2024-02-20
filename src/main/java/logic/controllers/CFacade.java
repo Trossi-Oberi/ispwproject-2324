@@ -119,7 +119,7 @@ public class CFacade {
     }
 
 
-    public boolean registerUser(BUserData bean) throws RuntimeException, UsernameAlreadyTaken {
+    public boolean registerUser(BUserData bean) throws UsernameAlreadyTaken {
         if (regController == null) {
             regController = new CRegistration();
         }
