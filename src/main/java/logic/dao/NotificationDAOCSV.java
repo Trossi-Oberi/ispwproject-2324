@@ -32,23 +32,23 @@ public class NotificationDAOCSV implements NotificationDAO {
 
     //TODO: Fixare rimozione notifica dal DAO CSV
     private static class NotificationAttributesOrder {
-        public static int getIndex_NotificationID() {
+        public static int getIndexNotificationID() {
             return 0;
         }
 
-        public static int getIndex_NotifiedID() {
+        public static int getIndexNotifiedID() {
             return 1;
         }
 
-        public static int getIndex_NotiType() {
+        public static int getIndexNotiType() {
             return 2;
         }
 
-        public static int getIndex_EventID() {
+        public static int getIndexEventID() {
             return 3;
         }
 
-        public static int getIndex_NotifierID() {
+        public static int getIndexNotifierID() {
             return 4;
         }
     }
@@ -116,11 +116,11 @@ public class NotificationDAOCSV implements NotificationDAO {
             String[] record = new String[5];
 
             for (Integer notifiedID : notifiedIDs) {
-                record[NotificationAttributesOrder.getIndex_NotificationID()] = String.valueOf(++entriesNumber);
-                record[NotificationAttributesOrder.getIndex_NotifiedID()] = String.valueOf(notifiedID);
-                record[NotificationAttributesOrder.getIndex_NotiType()] = notificationTypes.toString();
-                record[NotificationAttributesOrder.getIndex_EventID()] = String.valueOf(eventID);
-                record[NotificationAttributesOrder.getIndex_NotifierID()] = String.valueOf(LoggedUser.getUserID());
+                record[NotificationAttributesOrder.getIndexNotificationID()] = String.valueOf(++entriesNumber);
+                record[NotificationAttributesOrder.getIndexNotifiedID()] = String.valueOf(notifiedID);
+                record[NotificationAttributesOrder.getIndexNotiType()] = notificationTypes.toString();
+                record[NotificationAttributesOrder.getIndexEventID()] = String.valueOf(eventID);
+                record[NotificationAttributesOrder.getIndexNotifierID()] = String.valueOf(LoggedUser.getUserID());
 
                 //scrivo e aggiorno il file csv
                 csvWriter.writeNext(record);
@@ -140,12 +140,12 @@ public class NotificationDAOCSV implements NotificationDAO {
             Notification msg;
 
             while ((record = csvReader.readNext()) != null) {
-                if (Integer.parseInt(record[NotificationAttributesOrder.getIndex_NotifiedID()]) == usrID) {
+                if (Integer.parseInt(record[NotificationAttributesOrder.getIndexNotifiedID()]) == usrID) {
                     //id, type, event_id, notifier_id
-                    if ((record[NotificationAttributesOrder.getIndex_NotiType()]).equals(NotificationTypes.EventAdded.toString())) {
-                        msg = notiFactory.createNotification(SituationType.Local, NotificationTypes.EventAdded, usrID, Integer.parseInt(record[NotificationAttributesOrder.getIndex_NotifierID()]), Integer.parseInt(record[NotificationAttributesOrder.getIndex_EventID()]), Integer.parseInt(record[NotificationAttributesOrder.getIndex_NotificationID()]), null, null, null);
+                    if ((record[NotificationAttributesOrder.getIndexNotiType()]).equals(NotificationTypes.EventAdded.toString())) {
+                        msg = notiFactory.createNotification(SituationType.Local, NotificationTypes.EventAdded, usrID, Integer.parseInt(record[NotificationAttributesOrder.getIndexNotifierID()]), Integer.parseInt(record[NotificationAttributesOrder.getIndexEventID()]), Integer.parseInt(record[NotificationAttributesOrder.getIndexNotificationID()]), null, null, null);
                     } else {
-                        msg = notiFactory.createNotification(SituationType.Local, NotificationTypes.UserEventParticipation, usrID, Integer.parseInt(record[NotificationAttributesOrder.getIndex_NotifierID()]), Integer.parseInt(record[NotificationAttributesOrder.getIndex_EventID()]), Integer.parseInt(record[NotificationAttributesOrder.getIndex_NotificationID()]), null, null, null);
+                        msg = notiFactory.createNotification(SituationType.Local, NotificationTypes.UserEventParticipation, usrID, Integer.parseInt(record[NotificationAttributesOrder.getIndexNotifierID()]), Integer.parseInt(record[NotificationAttributesOrder.getIndexEventID()]), Integer.parseInt(record[NotificationAttributesOrder.getIndexNotificationID()]), null, null, null);
                     }
                     notifications.add(msg);
                 }
@@ -164,7 +164,7 @@ public class NotificationDAOCSV implements NotificationDAO {
 
             String[] record;
             while ((record = csvReader.readNext()) != null) {
-                if (Integer.parseInt(record[NotificationAttributesOrder.getIndex_NotificationID()]) != notificationID) {
+                if (Integer.parseInt(record[NotificationAttributesOrder.getIndexNotificationID()]) != notificationID) {
                     // Scrivi solo le voci che non corrispondono all'ID della notifica da eliminare
                     csvWriter.writeNext(record);
                 }
