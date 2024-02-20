@@ -553,11 +553,10 @@ public class CLI implements NotificationView, ChatView {
     private static void acquireDateAndSetBean(BEvent eventBean) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         boolean valid = false;
-        do {
+        while(!valid){
             String val = acquireInput();
             valid = convertDateAndSetBean(val, formatter, eventBean);
-
-        } while (!valid);
+        }
     }
 
     private static boolean convertDateAndSetBean(String val, DateTimeFormatter formatter, BEvent eventBean) {
@@ -575,13 +574,13 @@ public class CLI implements NotificationView, ChatView {
 
     private static void acquireCityInputAndSetBean(List<String> cities, BEvent eventBean) {
         boolean valid = false;
-        do {
+        while(!valid){
             String val = acquireInput();
             if (cities.contains(val)) {
                 setCityInBean(val, eventBean);
                 valid = true;
             }
-        } while (!valid);
+        }
     }
 
     private static void setCityInBean(String val, BEvent eventBean) {
@@ -595,13 +594,13 @@ public class CLI implements NotificationView, ChatView {
 
     private static void acquireProvinceInputAndSetBean(List<String> provinces, BEvent eventBean) {
         boolean valid = false;
-        do {
+        while(!valid){
             String val = acquireInput();
             if (provinces.contains(val)) {
                 setProvinceInBean(val, eventBean);
                 valid = true;
             }
-        } while (!valid);
+        }
     }
 
     private static void setProvinceInBean(String val, BEvent eventBean) {
@@ -619,10 +618,8 @@ public class CLI implements NotificationView, ChatView {
         System.out.println("Press enter to maintain previous value!");
         String newVal;
 
-        boolean valid = false;
         List<String> provinces = cFacade.getProvincesList();
-        List<String> cities = null;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        List<String> cities;
 
         try {
 
@@ -632,51 +629,14 @@ public class CLI implements NotificationView, ChatView {
             }
 
             System.out.println("Event province: (previous: " + eventBean.getEventProvince() + ")");
-            do {
-                if (!(newVal = READER.readLine()).isEmpty()) {
-                    if (provinces.contains(newVal)) {
-                        eventBean.setEventProvince(newVal);
-                        valid = true;
-                    }
-                } else {
-                    valid = true;
-                }
-            } while (!valid);
-            valid = false;
+            acquireProvinceInputAndEditBean(provinces,eventBean);
 
             cities = cFacade.getCitiesList(eventBean.getEventProvince());
             System.out.println("Event city: (previous: " + eventBean.getEventCity() + ")");
-            do {
-                if (!(newVal = READER.readLine()).isEmpty()) {
-                    if (cities.contains(newVal)) {
-                        eventBean.setEventCity(newVal);
-                        valid = true;
-                    }
-                } else {
-                    valid = true;
-                }
-            } while (!valid);
-            valid = false;
+            acquireCityInputAndEditBean(cities,eventBean);
 
             System.out.println("Event date: (previous: " + eventBean.getEventDate() + ")");
-            do {
-                String val = READER.readLine();
-                if (!val.isEmpty()) {
-                    try {
-                        // Convertire la stringa in un oggetto LocalDate utilizzando il formatter
-                        LocalDate eventDate = LocalDate.parse(val, formatter);
-                        eventBean.setEventDate(eventDate.format(formatter));
-                        valid = true;
-                    } catch (Exception e) {
-                        // Gestire il caso in cui l'input non sia nel formato corretto
-                        logger.severe("Invalid date format.");
-                    }
-                } else {
-                    //nothing changed
-                    valid = true;
-                }
-            } while (!valid);
-            valid = false;
+            acquireDateAndEditBean(eventBean);
 
             System.out.println("Event address: (previous: " + eventBean.getEventAddress() + ")");
             if (!(newVal = READER.readLine()).isEmpty()) {
@@ -684,55 +644,15 @@ public class CLI implements NotificationView, ChatView {
             }
 
             System.out.println("Choose music genre from list: (previous: " + eventBean.getEventMusicGenre() + ")");
-            for (int i = 0; i < MUSIC_GENRES.length; i++) {
-                System.out.println(i + 1 + ". " + MUSIC_GENRES[i]);
-            }
-            do {
-                String val = READER.readLine();
-                if (!val.isEmpty()) {
-                    for (int i = 0; i < MUSIC_GENRES.length; i++) {
-
-                        if (MUSIC_GENRES[i].contains(val)) {
-                            valid = true;
-                            eventBean.setEventMusicGenre(val);
-                        }
-                    }
-                } else {
-                    //nothing changed
-                    valid = true;
-                }
-            } while (!valid);
-            valid = false;
+            printMusicGenres();
+            acquireMusicGenreAndEditBean(eventBean);
 
             System.out.println("Event time: HH:mm (previous: " + eventBean.getEventTime() + ")");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-            do {
-                String val = READER.readLine();
-
-                if (!val.isEmpty()) {
-                    try {
-                        timeFormat.parse(val);
-                    } catch (ParseException e) {
-                        logger.severe("Invalid time format.");
-                        continue;
-                    }
-
-                    //qua ci arriva solo se il time viene parsato correttamente
-                    String[] parts = val.split(":");
-
-                    if (parts.length == 2) {
-                        String hours = parts[0];
-                        String minutes = parts[1];
-                        eventBean.setEventTime(hours, minutes);
-                        valid = true;
-                    }
-                } else {
-                    //nothing changed
-                    valid = true;
-                }
-            } while (!valid);
+            acquireTimeAndEditBean(eventBean,timeFormat);
 
             spacer(1);
+
             System.out.print("Do you want to change event image? Write 'y' or 'Y if you want to update event image");
             String decision = READER.readLine();
             if (decision.equalsIgnoreCase("y")) {
@@ -746,10 +666,91 @@ public class CLI implements NotificationView, ChatView {
             eventBean.setEventOrganizer(LoggedUser.getUserName());
             eventBean.setEventOrganizerID(LoggedUser.getUserID());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            logger.severe("IOException while changing event image");
         } catch (InvalidValueException | TextTooLongException e) {
             logger.warning(e.getMessage());
         }
+    }
+
+    private static void acquireTimeAndEditBean(BEvent eventBean, SimpleDateFormat timeFormat) {
+        boolean valid = false;
+        while(!valid){
+            String val = acquireInput();
+            try {
+                timeFormat.parse(val);
+            } catch (ParseException e) {
+                logger.severe("Invalid time format.");
+                continue;
+            }
+            //qua ci arriva solo se il time viene parsato correttamente
+            if (val!=null && val.isEmpty()){
+                break;
+
+            }else if (val!=null){
+                String[] parts = val.split(":");
+                String hours = parts[0];
+                String minutes = parts[1];
+                valid = setTimeToBean(eventBean,hours,minutes);
+            }
+        }
+    }
+
+    private static void acquireMusicGenreAndEditBean(BEvent eventBean) {
+        boolean valid = false;
+        boolean found = false;
+        while (!valid) {
+            String val = acquireInput();
+            if (val != null && val.isEmpty()) {
+                break;
+            }
+            found = checkIfGenreIsValid(val);
+            if (found) {
+                valid = setGenreToBean(val, eventBean);
+            }
+        }
+    }
+
+    private static void acquireDateAndEditBean(BEvent eventBean) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        while(true){
+            String val = acquireInput();
+            if (val!=null && val.isEmpty()){
+                break;
+            }
+            if (convertDateAndSetBean(val,formatter,eventBean)){
+                break;
+            }
+        }
+    }
+
+    private static void acquireCityInputAndEditBean(List<String> cities, BEvent eventBean) {
+        while(true){
+            String val = acquireInput();
+            if (val!=null && val.isEmpty()){
+                break;
+            }
+            if (cities.contains(val)) {
+                setCityInBean(val, eventBean);
+                break;
+            }
+        }
+    }
+
+    private static void acquireProvinceInputAndEditBean(List<String> provinces, BEvent eventBean) {
+        while(true){
+            String val = acquireInput();
+            if (val!=null && val.isEmpty()){
+                break;
+            }
+            if (provinces.contains(val)) {
+                setProvinceInBean(val, eventBean);
+                break;
+            }
+        }
+    }
+
+    private static boolean isInputEmpty(String val) {
+        return val.isEmpty();
     }
 
     private static byte[] pickFileData() {
