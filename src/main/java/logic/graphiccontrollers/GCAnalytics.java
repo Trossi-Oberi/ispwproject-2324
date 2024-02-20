@@ -41,11 +41,12 @@ public class GCAnalytics extends EssentialGUI {
     @FXML
     private ImageView eventImageView;
 
-    private int eventID;
+    private static int eventID;
+    private BEvent eventBean;
+
     private static Integer timesClicked;
     private static Integer nParticipants; //partecipanti effettivi (Random tra 0 e participations)
-
-    private BEvent eventBean;
+    private static Integer participations;
 
     @FXML
     public void initialize() {
@@ -53,7 +54,6 @@ public class GCAnalytics extends EssentialGUI {
     }
 
     public void initAnalyticsByBean(BEvent eventBean){
-        this.eventID = eventBean.getEventID();
         eventNameL.setText(eventBean.getEventName());
         cityL.setText(eventBean.getEventCity());
         addressL.setText(eventBean.getEventAddress());
@@ -68,20 +68,21 @@ public class GCAnalytics extends EssentialGUI {
         //inizializzo l'event bean
         this.eventBean = eventBean;
 
+        this.timesClickedL.setText("" + timesClicked);
+        this.plannedL.setText("" + participations);
+        this.participantsL.setText("" + nParticipants);
     }
 
-    public void initParticipantsInfo(){
+    public static void initParticipantsInfo(BEvent eventBean){
+        eventID = eventBean.getEventID();
         //retrieve del numero delle participations
         //partecipazioni segnate (Query dal DB UserEvent)
-        int participations = cfacade.retrieveParticipationsToEvent(eventID);
+        participations = cfacade.retrieveParticipationsToEvent(eventID);
         if (timesClicked == null){
             Random rand = new SecureRandom();
-            timesClicked = rand.nextInt(5000- participations +1) + participations;
-            nParticipants = rand.nextInt(participations +1);
+            timesClicked = rand.nextInt(5000 - participations +1) + participations;
+            nParticipants = rand.nextInt(participations + 1);
         }
-        timesClickedL.setText(""+timesClicked);
-        plannedL.setText(""+ participations);
-        participantsL.setText(""+nParticipants);
     }
 
     @FXML

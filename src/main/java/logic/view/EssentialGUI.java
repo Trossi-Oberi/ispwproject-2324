@@ -55,7 +55,7 @@ public class EssentialGUI extends Application implements NotificationView {
 
     private String setAbsolutePath() {
         try {
-            return getClass().getResource(PATH + File.separator+ LOGO_NAME).toExternalForm();
+            return getClass().getResource("/" + PATH + "/" + LOGO_NAME).toExternalForm();
         } catch (NullPointerException e) {
             throw new NullPointerException();
         }
