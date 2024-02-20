@@ -27,6 +27,7 @@ public class EssentialGUI extends Application implements NotificationView {
     protected static Scene scene;
     protected static CFacade cfacade = new CFacade();
     protected AlertPopup alert;
+    protected static EssentialGUI gui = new EssentialGUI();
 
     //dichiaro logger pubblico, globale e costante
     public static final Logger logger = Logger.getLogger(APP_NAME);
