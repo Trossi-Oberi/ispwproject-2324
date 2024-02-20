@@ -681,18 +681,20 @@ public class CLI implements NotificationView, ChatView {
                 toEdit = false;
                 valid = true;
             }
-            try {
-                timeFormat.parse(val);
-            } catch (ParseException e) {
-                logger.severe("Invalid time format.");
-                continue;
-            }
-            //qua ci arriva solo se il time viene parsato correttamente
-            if (val!=null && toEdit){
-                String[] parts = val.split(":");
-                String hours = parts[0];
-                String minutes = parts[1];
-                valid = setTimeToBean(eventBean,hours,minutes);
+            if (toEdit){
+                try {
+                    timeFormat.parse(val);
+                } catch (ParseException e) {
+                    logger.severe("Invalid time format.");
+                    continue;
+                }
+                //qua ci arriva solo se il time viene parsato correttamente
+                if (val!=null){
+                    String[] parts = val.split(":");
+                    String hours = parts[0];
+                    String minutes = parts[1];
+                    valid = setTimeToBean(eventBean,hours,minutes);
+                }
             }
         }
     }
