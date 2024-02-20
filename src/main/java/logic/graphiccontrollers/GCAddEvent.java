@@ -13,7 +13,7 @@ import logic.beans.BEvent;
 
 
 public class GCAddEvent extends GCManageEvent {
-    private final String[] MUSICGENRES = {"Pop","Rock","Dance","Electronic","Techno","Reggaeton", "Metal", "Disco", "Tech house", "House", "Rap", "Trap"};
+    private final String[] musicGenres = {"Pop","Rock","Dance","Electronic","Techno","Reggaeton", "Metal", "Disco", "Tech house", "House", "Rap", "Trap"};
 
     public GCAddEvent() {
         eventBean = new BEvent();
@@ -41,7 +41,7 @@ public class GCAddEvent extends GCManageEvent {
         this.provinceChoiceBox.setItems(provincesObsList);
         setupProvinceBoxListener();
 
-        musicGenreBox.setValue(MUSICGENRES[0]);
+        musicGenreBox.setValue(musicGenres[0]);
         musicGenreBox.setItems(musicGenresList);
     }
 

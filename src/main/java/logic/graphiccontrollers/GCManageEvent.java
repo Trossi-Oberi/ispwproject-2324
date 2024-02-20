@@ -48,8 +48,8 @@ public class GCManageEvent extends EssentialGUI {
     protected ObservableList<String> provincesObsList;
     protected List<String> citiesList = new ArrayList<>();
     protected ObservableList<String> citiesObsList;
-    private final String[] MUSICGENRES = {"Pop","Rock","Dance","Electronic","Techno","Reggaeton", "Metal", "Disco", "Tech house", "House", "Rap", "Trap"};
-    protected final ObservableList<String> musicGenresList = FXCollections.observableArrayList(MUSICGENRES);
+    private final String[] musicGenres = {"Pop","Rock","Dance","Electronic","Techno","Reggaeton", "Metal", "Disco", "Tech house", "House", "Rap", "Trap"};
+    protected final ObservableList<String> musicGenresList = FXCollections.observableArrayList(musicGenres);
 
     @FXML
     void pickImage(MouseEvent event) {
