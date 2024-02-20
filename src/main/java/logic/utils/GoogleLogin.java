@@ -14,6 +14,7 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
+
 import logic.exceptions.InvalidTokenValue;
 
 import java.io.*;
@@ -25,6 +26,10 @@ import java.net.URI;
 import java.util.Map;
 
 public class GoogleLogin {
+    private GoogleLogin(){
+        //empty
+    }
+
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
     private static final String CLIENT_SECRETS_FILE_PATH = "client_secrets.json";

@@ -50,9 +50,31 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
     private ArrayList<BEvent> pastEventsBeans = new ArrayList<>();
     private ArrayList<BGroup> groupsBeans = new ArrayList<>();
 
+    private static final String SYSTEM = "System";
+    private static final String CURRENT_PAGE = "YourEventsUser.fxml";
+
     // Classe per personalizzare la visualizzazione delle celle nella ListView
     private class GroupListCell extends ListCell<BGroup> {
         private Label groupName = new Label();
+
+        private void setupGroupChat(MouseEvent event, int groupID){
+            try {
+                URL loc = EssentialGUI.class.getResource("GroupChat.fxml");
+                FXMLLoader loader = new FXMLLoader(loc);
+                Parent root = null;
+                if (loc != null) {
+                    root = loader.load();
+                }
+                scene = new Scene(root);
+                scene.getStylesheets().add(Objects.requireNonNull(EssentialGUI.class.getResource("application.css")).toExternalForm());
+
+                GCGroupChat groupChatGC = loader.getController();
+                groupChatGC.initGroupChat(groupID);
+            } catch (IOException | NullPointerException e) {
+                logger.log(Level.SEVERE, "Cannot load scene\n", e);
+            }
+            nextGuiOnClick(event);
+        }
 
         @Override
         protected void updateItem(BGroup item, boolean empty) {
@@ -61,28 +83,26 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
             if (empty || item == null) {
                 setGraphic(null);
             } else {
-
                 // Personalizzazione del pulsante in base allo stato del gruppo e dell'appartenenza
                 boolean res = cfacade.userInGroup(LoggedUser.getUserID(), item.getGroupID());
                 Button groupButton = new Button();
-                groupName.setFont(new Font("System", 12));
-                groupButton.setFont(new Font("System", 9));
+                groupName.setFont(new Font(SYSTEM, 12));
+                groupButton.setFont(new Font(SYSTEM, 9));
                 if (item.getGroupID() != null && res) {
                     groupName.setText(item.getGroupName());
 
                     groupButton.setText("Group chat");
-                    groupButton.setOnMouseClicked(event -> {
+                    groupButton.setOnMouseClicked(event ->
                         //OPEN GROUP CHAT
-                        setupGroupChat(event, groupsBeans.get(getIndex()).getGroupID());
-
-                    });
+                        setupGroupChat(event, groupsBeans.get(getIndex()).getGroupID())
+                    );
                 } else if (item.getGroupID() != null && !res) {
                     groupName.setText(item.getGroupName());
                     groupButton.setText("Join group");
                     groupButton.setOnMouseClicked(event -> {
                         //JOIN GROUP
                         if(cfacade.joinGroup(groupsBeans.get(getIndex()).getGroupID())) {
-                            changeGUI(event, "YourEventsUser.fxml");
+                            changeGUI(event, CURRENT_PAGE);
                         } else {
                             alert.displayAlertPopup(Alerts.ERROR, "Error while joining group");
                         }
@@ -92,17 +112,17 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
                     groupButton.setText("Create group");
                     groupButton.setOnMouseClicked(event -> {
                         //CREATE GROUP (AND JOIN)
-                        String groupName = askUserForGroupName();
+                        String value = askUserForGroupName();
                         try {
-                            if(cfacade.createGroup(groupName, upComingEventsBeans.get(getIndex()).getEventID())){
-                                System.out.println("Successfully created and joined new group");
-                                changeGUI(event,"YourEventsUser.fxml");
+                            if(cfacade.createGroup(value, upComingEventsBeans.get(getIndex()).getEventID())){
+                                logger.info("Successfully created and joined new group");
+                                changeGUI(event,CURRENT_PAGE);
                             } else {
                                 alert.displayAlertPopup(Alerts.ERROR, "Error while joining group");
                             }
                         } catch (GroupAlreadyCreated e) {
                             alert.displayAlertPopup(Alerts.ERROR, e.getMessage());
-                            changeGUI(event,"YourEventsUser.fxml");
+                            changeGUI(event,CURRENT_PAGE);
                         }
                     });
                 }
@@ -160,7 +180,7 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
 
                     // Imposta la dimensione del testo della cella
                     setAlignment(Pos.CENTER);
-                    setFont(new Font("System", 13));
+                    setFont(new Font(SYSTEM, 13));
                 }
             }
         });
@@ -197,6 +217,11 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
 
     @Override
     public void setupEventClickListener() {
+        setupUpComingLV();
+        setupPastLV();
+    }
+
+    private void setupUpComingLV(){
         upComingEventsLV.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 BEvent selectedEventBean = getBeanFromListView(upComingEventsLV, upComingEventsBeans);
@@ -209,6 +234,9 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
                 }
             }
         });
+    }
+
+    private void setupPastLV(){
         pastEventsLV.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 BEvent selectedEventBean = getBeanFromListView(pastEventsLV, pastEventsBeans);
@@ -224,7 +252,7 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
     }
 
     @Override
-    public void onItemDoubleClick(MouseEvent event, BEvent selectedEventBean, String fxmlpage) throws RuntimeException {
+    public void onItemDoubleClick(MouseEvent event, BEvent selectedEventBean, String fxmlpage){
         try {
             URL loc = EssentialGUI.class.getResource(fxmlpage);
             FXMLLoader loader = new FXMLLoader(loc);
@@ -240,31 +268,7 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
             eventPageUserGC.initEventPageButton();
         } catch (IOException | NullPointerException e) {
             logger.log(Level.SEVERE, "Cannot load scene\n", e);
-        } catch (RuntimeException e) {
-            throw new RuntimeException(e);
         }
         nextGuiOnClick(event);
     }
-
-    private void setupGroupChat(MouseEvent event, int groupID){
-        try {
-            URL loc = EssentialGUI.class.getResource("GroupChat.fxml");
-            FXMLLoader loader = new FXMLLoader(loc);
-            Parent root = null;
-            if (loc != null) {
-                root = loader.load();
-            }
-            scene = new Scene(root);
-            scene.getStylesheets().add(Objects.requireNonNull(EssentialGUI.class.getResource("application.css")).toExternalForm());
-
-            GCGroupChat groupChatGC = loader.getController();
-            groupChatGC.initGroupChat(groupID);
-        } catch (IOException | NullPointerException e) {
-            logger.log(Level.SEVERE, "Cannot load scene\n", e);
-        } catch (RuntimeException e) {
-            throw new RuntimeException(e);
-        }
-        nextGuiOnClick(event);
-    }
-
 }
