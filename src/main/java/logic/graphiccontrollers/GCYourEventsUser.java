@@ -53,27 +53,31 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
     private static final String SYSTEM = "System";
     private static final String CURRENT_PAGE = "YourEventsUser.fxml";
 
+    private static void preloadChatPage(MouseEvent event, int groupID){
+        try {
+            URL loc = EssentialGUI.class.getResource("GroupChat.fxml");
+            FXMLLoader loader = new FXMLLoader(loc);
+            Parent root = null;
+            if (loc != null) {
+                root = loader.load();
+            }
+            scene = new Scene(root);
+            scene.getStylesheets().add(Objects.requireNonNull(EssentialGUI.class.getResource("application.css")).toExternalForm());
+
+            GCGroupChat groupChatGC = loader.getController();
+            groupChatGC.initGroupChat(groupID);
+        } catch (IOException | NullPointerException e) {
+            logger.log(Level.SEVERE, "Cannot load scene\n", e);
+        }
+        gui.nextGuiOnClick(event);
+    }
+
     // Classe per personalizzare la visualizzazione delle celle nella ListView
     private class GroupListCell extends ListCell<BGroup> {
         private Label groupName = new Label();
 
         private void setupGroupChat(MouseEvent event, int groupID){
-            try {
-                URL loc = EssentialGUI.class.getResource("GroupChat.fxml");
-                FXMLLoader loader = new FXMLLoader(loc);
-                Parent root = null;
-                if (loc != null) {
-                    root = loader.load();
-                }
-                scene = new Scene(root);
-                scene.getStylesheets().add(Objects.requireNonNull(EssentialGUI.class.getResource("application.css")).toExternalForm());
-
-                GCGroupChat groupChatGC = loader.getController();
-                groupChatGC.initGroupChat(groupID);
-            } catch (IOException | NullPointerException e) {
-                logger.log(Level.SEVERE, "Cannot load scene\n", e);
-            }
-            nextGuiOnClick(event);
+            preloadChatPage(event, groupID);
         }
 
         @Override
@@ -258,6 +262,10 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
 
     @Override
     public void onItemDoubleClick(MouseEvent event, BEvent selectedEventBean, String fxmlpage){
+        changePage(event, selectedEventBean, fxmlpage);
+    }
+
+    private static void changePage(MouseEvent event, BEvent selectedEventBean, String fxmlpage){
         try {
             URL loc = EssentialGUI.class.getResource(fxmlpage);
             FXMLLoader loader = new FXMLLoader(loc);
@@ -269,11 +277,11 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
             scene.getStylesheets().add(Objects.requireNonNull(EssentialGUI.class.getResource("application.css")).toExternalForm());
 
             GCEventPageUser eventPageUserGC = loader.getController();
-            eventPageUserGC.initEventFromBean(selectedEventBean, this.getClass().getSimpleName());
+            eventPageUserGC.initEventFromBean(selectedEventBean, GCYourEventsUser.class.getSimpleName());
             eventPageUserGC.initEventPageButton();
         } catch (IOException | NullPointerException e) {
             logger.log(Level.SEVERE, "Cannot load scene\n", e);
         }
-        nextGuiOnClick(event);
+        gui.nextGuiOnClick(event);
     }
 }
