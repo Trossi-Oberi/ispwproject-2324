@@ -1,11 +1,14 @@
 package logic.beans;
 
+import logic.exceptions.InvalidValueException;
+import logic.exceptions.TextTooLongException;
+
 public class BAnalytics extends BEvent{
     private Integer timesClicked;
     private Integer participants;
     private Integer plannedParticipations;
 
-    public BAnalytics(BEvent eventBean) {
+    public BAnalytics(BEvent eventBean) throws InvalidValueException, TextTooLongException {
         setEventName(eventBean.getEventName());
         setEventProvince(eventBean.getEventProvince());
         setEventCity(eventBean.getEventCity());

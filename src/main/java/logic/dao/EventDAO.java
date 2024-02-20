@@ -11,6 +11,8 @@ import java.util.logging.Level;
 
 import logic.controllers.ObserverClass;
 import logic.controllers.ObserverFactory;
+import logic.exceptions.EventAlreadyAdded;
+import logic.exceptions.UsernameAlreadyTaken;
 import logic.utils.LoggedUser;
 import logic.utils.ObserverType;
 import logic.utils.SingletonDBSession;
@@ -20,7 +22,7 @@ import static logic.view.EssentialGUI.logger;
 
 public class EventDAO {
     private static final String RETRIEVE_ERROR = "SQLException occurred while retrieving events";
-    public boolean createEvent(MEvent eventModel) { //restituisce l'event id dell'evento appena aggiunto
+    public boolean createEvent(MEvent eventModel) throws EventAlreadyAdded { //restituisce l'event id dell'evento appena aggiunto
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Events(event_id,organizer,organizer_id,name,province, city,address,music_genre,date,time,image, pic_path) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, eventModel.getEventOrganizer());
             statement.setInt(2, LoggedUser.getUserID()); //preso dalla sessione (classe LoggedUser)
@@ -46,6 +48,10 @@ public class EventDAO {
             }
             return true;
         } catch (SQLException e) {
+            if(e.getErrorCode() == 1062) {
+                throw new EventAlreadyAdded(e.getMessage(), eventModel.getEventName());
+            }
+
             logger.log(Level.SEVERE, "SQLException occurred while creating new event");
             return false;
         } finally {

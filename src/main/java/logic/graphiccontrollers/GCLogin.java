@@ -15,6 +15,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import logic.exceptions.InvalidTokenValue;
+import logic.exceptions.InvalidValueException;
+import logic.exceptions.TextTooLongException;
 import logic.utils.Alerts;
 import logic.utils.GoogleLogin;
 import logic.utils.LoggedUser;
@@ -87,6 +89,8 @@ public class GCLogin extends EssentialGUI{
             }
         } catch (InvalidTokenValue e) {
             alert.displayAlertPopup(Alerts.WARNING, "Invalid authorization code. Please retry...");
+        } catch (InvalidValueException | TextTooLongException e) {
+            alert.displayAlertPopup(Alerts.WARNING, e.getMessage());
         } catch (RuntimeException e){
             alert.displayAlertPopup(Alerts.ERROR, "Runtime exception: " + e.getMessage());
         }

@@ -1,5 +1,12 @@
 package logic.beans;
 
+import logic.exceptions.InvalidValueException;
+import logic.exceptions.TextTooLongException;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 public class BEvent {
     protected String eventName;
     protected String eventProvince;
@@ -23,7 +30,7 @@ public class BEvent {
         this.eventID = eventID;
     }
 
-    public void setEventOrganizer(String eventOrganizer) { //throws LengthFieldException {
+    public void setEventOrganizer(String eventOrganizer) {
         this.eventOrganizer = eventOrganizer;
     }
 
@@ -31,43 +38,82 @@ public class BEvent {
         this.eventOrganizerID = eventOrgID;
     }
 
-    public void setEventName(String eventName) { //throws LengthFieldException, NullValueException{
+    public void setEventName(String eventName) throws InvalidValueException, TextTooLongException {
+        if(eventName == null || eventName.equalsIgnoreCase("")) {
+            throw new InvalidValueException("Please insert a valid event name");
+        }
+        else if(eventName.length() > 20) {
+            throw new TextTooLongException("Too many characters for event name field");
+        }
         this.eventName = eventName;
     }
 
-    public void setEventProvince(String province) {
+    public void setEventProvince(String province) throws InvalidValueException {
+        if(province == null){
+            throw new InvalidValueException("Please insert a valid province");
+        }
         this.eventProvince = province;
     }
 
-    public void setEventCity(String eventCity) { //throws LengthFieldException, NullValueException{
-        this.eventCity = eventCity;
+    public void setEventCity(String city) throws InvalidValueException {
+        if(city == null){
+            throw new InvalidValueException("Please insert a valid city");
+        }
+        this.eventCity = city;
     }
 
-    public void setEventAddress(String eventAddress) { //throws LengthFieldException, NullValueException{
+    public void setEventAddress(String eventAddress) throws InvalidValueException, TextTooLongException {
+        if(eventAddress == null || eventAddress.equalsIgnoreCase("")) {
+            throw new InvalidValueException("Please insert a valid address");
+        }
+        else if(eventAddress.length() > 50) {
+            throw new TextTooLongException("Too many characters for address field");
+        }
         this.eventAddress = eventAddress;
     }
 
-    public void setEventMusicGenre(String eventMusicGenre) { //throws LengthFieldException, NullValueException{
+    public void setEventMusicGenre(String eventMusicGenre) throws InvalidValueException {
+        if(eventMusicGenre == null) {
+            throw new InvalidValueException("Please insert a valid music genre");
+        }
         this.eventMusicGenre = eventMusicGenre;
     }
 
-    public void setEventDate(String eventDate) { //throws LengthFieldException, NullValueException{
+    public void setEventDate(String eventDate) throws InvalidValueException {
+        if(eventDate == null) {
+            throw new InvalidValueException("Please insert a valid date");
+        }
         this.eventDate = eventDate;
     }
 
-    public void setEventTime(String eventHour, String eventMinutes) { //throws LengthFieldException, NullValueException{
-        this.eventTime = eventHour + ":" + eventMinutes;
+    public void setEventTime(String eventHour, String eventMinutes) throws InvalidValueException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        try{
+            LocalTime localTime = LocalTime.parse(eventHour + ":" + eventMinutes, formatter);
+            this.eventTime = localTime.getHour() + ":" + localTime.getMinute();
+        } catch (Exception e){
+            throw new InvalidValueException("Please insert a valid time (hours 00-23, minutes 00-59)");
+        }
     }
 
-    public void setEventTime(String eventTime) {
-        this.eventTime = eventTime;
+    public void setEventTime(String eventTime) throws InvalidValueException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        try{
+            LocalTime localTime = LocalTime.parse(eventTime, formatter);
+            this.eventTime = localTime.toString();
+        } catch (Exception e){
+            throw new InvalidValueException("Please insert a valid time (hours 00-23, minutes 00-59)");
+        }
     }
 
     public void setEventPicData(byte[] picData) { //ALL = Data + File, rende disponibile sia la versione file che la versione binaria dell'immagine
         this.eventPicData = picData;
     }
 
-    public void setEventPicPath(String path) {
+    public void setEventPicPath(String path) throws InvalidValueException {
+        if(path.isBlank()) {
+            throw new InvalidValueException("Please insert an image to complete event adding");
+        }
         this.eventPicPath = path;
     }
 

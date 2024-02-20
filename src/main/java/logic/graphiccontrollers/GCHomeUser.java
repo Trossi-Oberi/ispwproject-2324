@@ -56,7 +56,7 @@ public class GCHomeUser extends EssentialGUI implements DoubleClickListener {
         for (BEvent bEvent : eventsList) {
             String eventDateString = bEvent.getEventDate();
             LocalDate date = LocalDate.parse(eventDateString, dateTimeFormatter);
-            if (LocalDate.now().isBefore(date)) {
+            if (LocalDate.now().minusDays(1).isBefore(date)) {
                 this.eventsListView.getItems().add(bEvent.getEventName());
                 this.musicListView.getItems().add(bEvent.getEventMusicGenre());
                 this.upcomingEventsList.add(bEvent);

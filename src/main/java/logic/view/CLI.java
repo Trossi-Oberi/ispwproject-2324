@@ -5,7 +5,7 @@ import logic.beans.BMessage;
 import logic.beans.BNotification;
 import logic.beans.BUserData;
 import logic.controllers.CFacade;
-import logic.exceptions.InvalidTokenValue;
+import logic.exceptions.*;
 import logic.utils.*;
 
 import javax.swing.*;
@@ -418,10 +418,14 @@ public class CLI implements NotificationView, ChatView {
         BEvent bEventBean = new BEvent();
         setEventBean(bEventBean);
 
-        if (cFacade.addEvent(bEventBean)) {
-            System.out.println("Event added successfully");
-        } else {
-            System.out.println("Event adding failed. Returning home...");
+        try {
+            if (cFacade.addEvent(bEventBean)) {
+                System.out.println("Event added successfully");
+            } else {
+                System.out.println("Event adding failed. Returning home...");
+            }
+        } catch (EventAlreadyAdded e) {
+            logger.warning("Event already added with this name: " + e.getEventName());
         }
         loadHome();
     }
@@ -526,6 +530,8 @@ public class CLI implements NotificationView, ChatView {
             eventBean.setEventPicPath(filePath);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (InvalidValueException | TextTooLongException e) {
+            logger.warning(e.getMessage());
         }
     }
 
@@ -663,6 +669,8 @@ public class CLI implements NotificationView, ChatView {
             eventBean.setEventOrganizerID(LoggedUser.getUserID());
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (InvalidValueException | TextTooLongException e) {
+            logger.warning(e.getMessage());
         }
     }
 
@@ -737,6 +745,7 @@ public class CLI implements NotificationView, ChatView {
                             }
                             break;
                         case "2":
+                            valid = true;
                             if (isEventParticipated) {
                                 if (cFacade.removeEventParticipation(bEvent)) {
                                     System.out.println("Event participation remove successfully!");
@@ -749,7 +758,6 @@ public class CLI implements NotificationView, ChatView {
                                 } else {
                                     logger.severe("Event participation failed!");
                                 }
-                                System.out.println("Press 1 to go back");
                             }
                             break;
                         default:
@@ -757,7 +765,11 @@ public class CLI implements NotificationView, ChatView {
                     }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
+                } catch (EventAlreadyDeleted e) {
+                    logger.severe(e.getMessage());
+                    System.out.println("Press 1 to go back");
                 }
+                System.out.println("Press 1 to go back");
             } while (!valid);
         } else if (LoggedUser.getUserType().equals(UserTypes.ORGANIZER)) {
             spacer(1);
@@ -1322,6 +1334,10 @@ public class CLI implements NotificationView, ChatView {
             }
         } catch (IOException e) {
             logger.severe(e.getMessage());
+        } catch (InvalidValueException e) {
+            throw new RuntimeException(e);
+        } catch (TextTooLongException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 // Chiudi il BufferedReader
@@ -1451,6 +1467,11 @@ public class CLI implements NotificationView, ChatView {
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (UsernameAlreadyTaken e){
+            logger.warning("Username already taken! Change it and retry registration...");
+            return 0;
+        } catch (InvalidValueException | TextTooLongException e) {
+            logger.warning(e.getMessage());
         }
         return 1;
     }

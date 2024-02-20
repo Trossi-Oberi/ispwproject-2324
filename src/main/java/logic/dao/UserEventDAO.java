@@ -1,6 +1,7 @@
 package logic.dao;
 
 import logic.exceptions.DuplicateEventParticipation;
+import logic.exceptions.EventAlreadyDeleted;
 import logic.model.MEvent;
 import logic.utils.LoggedUser;
 import logic.utils.SingletonDBSession;
@@ -14,13 +15,16 @@ import static logic.view.EssentialGUI.logger;
 
 public class UserEventDAO {
 
-    public boolean joinUserToEvent(MEvent eventModel) {
+    public boolean joinUserToEvent(MEvent eventModel) throws EventAlreadyDeleted {
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO userevent (id, user_id, event_id) VALUES (NULL, ?, ?)")) {
             statement.setInt(1, LoggedUser.getUserID()); //id_user preso dalla sessione di Login
             statement.setInt(2, eventModel.getEventID());
             statement.execute();
             return true;
         } catch (SQLException e) {
+            if(e.getErrorCode() == 1452){
+                throw new EventAlreadyDeleted("Event already deleted or modified: " + eventModel.getEventID());
+            }
             logger.log(Level.SEVERE, "SQLException occurred while adding user participation to event");
             return false;
         } finally {

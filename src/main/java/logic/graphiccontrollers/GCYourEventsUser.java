@@ -14,6 +14,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
 import logic.beans.BEvent;
 import logic.beans.BGroup;
+import logic.exceptions.GroupAlreadyCreated;
 import logic.interfaces.DoubleClickListener;
 import logic.utils.Alerts;
 import logic.utils.LoggedUser;
@@ -92,11 +93,16 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
                     groupButton.setOnMouseClicked(event -> {
                         //CREATE GROUP (AND JOIN)
                         String groupName = askUserForGroupName();
-                        if(cfacade.createGroup(groupName, upComingEventsBeans.get(getIndex()).getEventID())){
-                            System.out.println("Successfully created and joined new group");
+                        try {
+                            if(cfacade.createGroup(groupName, upComingEventsBeans.get(getIndex()).getEventID())){
+                                System.out.println("Successfully created and joined new group");
+                                changeGUI(event,"YourEventsUser.fxml");
+                            } else {
+                                alert.displayAlertPopup(Alerts.ERROR, "Error while joining group");
+                            }
+                        } catch (GroupAlreadyCreated e) {
+                            alert.displayAlertPopup(Alerts.ERROR, e.getMessage());
                             changeGUI(event,"YourEventsUser.fxml");
-                        } else {
-                            alert.displayAlertPopup(Alerts.ERROR, "Error while joining group");
                         }
                     });
                 }
@@ -166,8 +172,7 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
             String eventDateString = bEvent.getEventDate();
             LocalDate date = LocalDate.parse(eventDateString, dateTimeFormatter);
 
-            //problema: se evento ha stesso data di oggi viene considerato passato
-            if (LocalDate.now().isBefore(date)) {
+            if (LocalDate.now().minusDays(1).isBefore(date)) {
                 upComingEventsBeans.add(bEvent);
                 BGroup group = cfacade.getGroupByEventID(bEvent.getEventID());
                 groupsBeans.add(group);

@@ -6,7 +6,7 @@ create table Events
     event_id     INT AUTO_INCREMENT PRIMARY KEY,
     organizer    VARCHAR(50) NOT NULL,
     organizer_id INT         NOT NULL,
-    name         VARCHAR(50) NOT NULL,
+    name         VARCHAR(20) NOT NULL unique,
     province     VARCHAR(50) NOT NULL,
     city         VARCHAR(50) NOT NULL,
     address      VARCHAR(50) NOT NULL,
@@ -20,8 +20,8 @@ create table Events
 create table Users
 (
     id          INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    username    VARCHAR(50)                    NOT NULL unique,
-    password    VARCHAR(50)                    NOT NULL,
+    username    VARCHAR(30)                    NOT NULL unique,
+    password    VARCHAR(25)                    NOT NULL,
     firstName   VARCHAR(20)                    NOT NULL,
     lastName    VARCHAR(20)                    NOT NULL,
     dateOfBirth VARCHAR(10)                    NOT NULL,
@@ -55,7 +55,7 @@ create table EventGroups
 (
     group_id   INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
     group_name VARCHAR(50) NOT NULL,
-    event_id   INT         NOT NULL,
+    event_id   INT         NOT NULL unique,
     owner_id   INT         NOT NULL,
     FOREIGN KEY (event_id) REFERENCES Events (event_id) ON DELETE CASCADE
 );

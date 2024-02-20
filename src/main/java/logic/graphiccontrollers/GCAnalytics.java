@@ -11,6 +11,8 @@ import java.util.Random;
 
 import logic.beans.BAnalytics;
 import logic.beans.BEvent;
+import logic.exceptions.InvalidValueException;
+import logic.exceptions.TextTooLongException;
 import logic.utils.Alerts;
 import logic.view.EssentialGUI;
 
@@ -85,7 +87,12 @@ public class GCAnalytics extends EssentialGUI {
     @FXML
     void exportAnalyticsFile() {
         //popolo il bean con i dati dell'analisi presi dal bean Event che è superclass di bean Analysis
-        BAnalytics analysis = new BAnalytics(this.eventBean);
+        BAnalytics analysis;
+        try {
+            analysis = new BAnalytics(this.eventBean);
+        } catch (InvalidValueException | TextTooLongException e) {
+            throw new RuntimeException(e);
+        }
         analysis.setTimesClicked(Integer.parseInt(this.timesClickedL.getText()));
         analysis.setParticipants(Integer.parseInt(this.participantsL.getText()));
         analysis.setPlannedParticipations(Integer.parseInt(this.plannedL.getText()));

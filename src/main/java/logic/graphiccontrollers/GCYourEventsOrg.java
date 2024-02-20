@@ -60,8 +60,7 @@ public class GCYourEventsOrg extends GCYourEventsGeneral implements DoubleClickL
             String eventDateString = bEvent.getEventDate();
             LocalDate date = LocalDate.parse(eventDateString, dateTimeFormatter);
 
-            //problema: se evento ha stesso data di oggi viene considerato passato
-            if (LocalDate.now().isBefore(date)) {
+            if (LocalDate.now().minusDays(1).isBefore(date)) {
                 upComingEventsBeans.add(bEvent);
                 this.upcEventsLV.getItems().add(bEvent.getEventName());
                 this.timeAndDateLV.getItems().add(formatTimeAndDate(bEvent.getEventDate(), bEvent.getEventTime()));

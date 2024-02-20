@@ -7,6 +7,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import logic.beans.BEvent;
+import logic.exceptions.InvalidValueException;
+import logic.exceptions.TextTooLongException;
 import logic.utils.LoggedUser;
 import logic.utils.MusicGenres;
 import logic.view.EssentialGUI;
@@ -84,18 +86,16 @@ public class GCManageEvent extends EssentialGUI {
         cityChoiceBox.setItems(citiesObsList);
     }
 
-    protected void setEventBean(BEvent bean) {
+    protected void setEventBean(BEvent bean) throws InvalidValueException, TextTooLongException {
         bean.setEventName(eventNameTF.getText());
         bean.setEventProvince(provinceChoiceBox.getValue());
         bean.setEventCity(cityChoiceBox.getValue());
         bean.setEventAddress(eventAddressTF.getText());
-        /*}catch (LengthFieldException e) {
-            this.popErr.displayErrorPopup(e.getMsg());
-        }*/
         bean.setEventMusicGenre(musicGenreBox.getValue());
         bean.setEventDate(datePicker.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
         bean.setEventTime(eventHourTF.getText(), eventMinutesTF.getText());
-        if (eventPicData!=null){
+
+        if (eventPicData != null) {
             bean.setEventPicData(eventPicData);
         }
 

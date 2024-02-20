@@ -2,6 +2,8 @@ package logic.controllers;
 
 import logic.dao.UserDAO;
 import logic.exceptions.InvalidTokenValue;
+import logic.exceptions.InvalidValueException;
+import logic.exceptions.TextTooLongException;
 import logic.model.MUser;
 import logic.beans.BUserData;
 import logic.server.Server;
@@ -25,7 +27,7 @@ public class CLogin {
         this.userModel = new MUser();
     }
 
-    public int checkLoginControl(BUserData logBean, boolean isGoogleAuth, String authCode) throws InvalidTokenValue, RuntimeException {
+    public int checkLoginControl(BUserData logBean, boolean isGoogleAuth, String authCode) throws InvalidTokenValue{
         int ret = 0;
         if (!isGoogleAuth && authCode == null) {
             //classic login
@@ -35,13 +37,14 @@ public class CLogin {
             String userGoogleEmail;
             try {
                 userGoogleEmail = GoogleLogin.getGoogleAccountEmail(GoogleLogin.getGoogleAccountCredentials(GoogleLogin.getGoogleAuthFlow(), authCode));
+                logBean.setUsername(userGoogleEmail);
             } catch (InvalidTokenValue e) {
                 //gestione token invalido
                 throw e;
             } catch (Exception e) {
+                //runtime exception perché non dovrebbe mai andare qui, se ci va è grave!!!!
                 throw new RuntimeException(e);
             }
-            logBean.setUsername(userGoogleEmail);
             this.userModel.setUsrAndPswByBean(logBean);
             ret = this.userDao.checkLoginInfo(this.userModel, true);
         }

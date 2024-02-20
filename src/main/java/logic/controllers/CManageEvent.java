@@ -3,6 +3,8 @@ package logic.controllers;
 import logic.beans.BEvent;
 import logic.dao.*;
 import logic.exceptions.DuplicateEventParticipation;
+import logic.exceptions.EventAlreadyAdded;
+import logic.exceptions.EventAlreadyDeleted;
 import logic.model.MEvent;
 import logic.utils.LoggedUser;
 import logic.utils.NotificationTypes;
@@ -39,7 +41,7 @@ public class CManageEvent {
         }
     }
 
-    public boolean addEvent(BEvent eventBean) {
+    public boolean addEvent(BEvent eventBean) throws EventAlreadyAdded {
         MEvent eventModel = new MEvent(eventBean);
         if(eventDAO.createEvent(eventModel)){
             eventBean.setEventID(eventModel.getEventID());
@@ -84,7 +86,7 @@ public class CManageEvent {
         return eventDAO.deleteEvent(eventID);
     }
 
-    public boolean participateToEvent(BEvent eventBean) {
+    public boolean participateToEvent(BEvent eventBean) throws EventAlreadyDeleted {
         MEvent eventModel = new MEvent(eventBean);
         if (userEventDAO.joinUserToEvent(eventModel)){
             //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente

@@ -1,5 +1,7 @@
 package logic.beans;
 
+import logic.exceptions.InvalidValueException;
+import logic.exceptions.TextTooLongException;
 import logic.utils.UserTypes;
 
 import java.time.LocalDate;
@@ -30,44 +32,52 @@ public class BUserData {
         this.password = password;
     }
 
-    //TODO: completare la gestione dei campi
-    public void setFirstName(String firstName) { //throws LengthFieldException, NullValueException {
-//        if(name == null || name.equalsIgnoreCase("")) {
-//            throw new NullValueException("Please insert a valid name");
-//        }
-//        else if(name.length() > 20) {
-//            throw new LengthFieldException("Too many character for name field");
-//        }
+    public void setFirstName(String firstName) throws InvalidValueException, TextTooLongException {
+        if(firstName == null || firstName.equalsIgnoreCase("")) {
+            throw new InvalidValueException("Please insert a valid name");
+        }
+        else if(firstName.length() > 20) {
+            throw new TextTooLongException("Too many characters for name field");
+        }
         this.firstName = firstName;
     }
 
-    public void setLastName(String lastName) { //throws LengthFieldException, NullValueException{
-//        if((surname == null || surname.equalsIgnoreCase(""))){
-//            throw new NullValueException("Please insert a valid surname");
-//        }
-//        else if(surname.length() > 20) {
-//            throw new LengthFieldException("Too many character for surname field");
-//        }
+    public void setLastName(String lastName) throws InvalidValueException, TextTooLongException {
+        if(lastName == null || lastName.equalsIgnoreCase("")){
+            throw new InvalidValueException("Please insert a valid lastname");
+        }
+        else if(lastName.length() > 20) {
+            throw new TextTooLongException("Too many characters for lastname field");
+        }
         this.lastName = lastName;
     }
 
-    public void setBirthDate(LocalDate birthDate) { //throws NullValueException {
-//        if(dateOfBirth == null){
-//            throw new NullValueException("Please insert a valid date of birth");
-//        }
+    public void setBirthDate(LocalDate birthDate) throws InvalidValueException {
+        if(birthDate == null){
+            throw new InvalidValueException("Please insert a valid date of birth");
+        }
         this.birthDate = LocalDate.parse(birthDate.toString());
     }
 
-    public void setProvince(String province){
+    public void setProvince(String province) throws InvalidValueException {
+        if(province == null){
+            throw new InvalidValueException("Please insert a valid province");
+        }
         this.province = province;
     }
 
-    public void setCity(String city) {
+    public void setCity(String city) throws InvalidValueException {
+        if(city == null){
+            throw new InvalidValueException("Please insert a valid city");
+        }
         this.city = city;
     }
 
 
-    public void setGender(String gender) {
+    public void setGender(String gender) throws InvalidValueException {
+        if(gender == null){
+            throw new InvalidValueException("Please insert a valid gender type");
+        }
         this.gender = gender;
     }
 
@@ -75,23 +85,23 @@ public class BUserData {
         this.userType = typeOfUsr;
     }
 
-    public void setUsername(String usrName) {//throws LengthFieldException, NullValueException {
-//        if(usrName == null || usrName.equalsIgnoreCase("")) {
-//            throw new NullValueException("Please insert a valid username");
-//        }
-//        else if(usrName.length() > 20) {
-//            throw new LengthFieldException("Too many character for username field");
-//        }
+    public void setUsername(String usrName) throws InvalidValueException, TextTooLongException {
+        if(usrName == null || usrName.equalsIgnoreCase("")) {
+            throw new InvalidValueException("Please insert a valid username");
+        }
+        else if(usrName.length() > 30) {
+            throw new TextTooLongException("Too many characters for username field");
+        }
         this.username = usrName;
     }
 
-    public void setPassword(String passwd) {//throws LengthFieldException, NullValueException {
-//        if(passwd == null || passwd.equalsIgnoreCase("")) {
-//            throw new NullValueException("Please insert a valid password");
-//        }
-//        else if(passwd.length() > 20) {
-//            throw new LengthFieldException("Too many character for password field");
-//        }
+    public void setPassword(String passwd) throws InvalidValueException, TextTooLongException {
+        if(passwd == null || passwd.equalsIgnoreCase("")) {
+            throw new InvalidValueException("Please insert a valid password");
+        }
+        else if(passwd.length() > 25) {
+            throw new TextTooLongException("Too many character for password field");
+        }
         this.password = passwd;
     }
 

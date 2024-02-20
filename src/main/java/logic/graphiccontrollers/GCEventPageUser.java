@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.ImageView;
 
+import logic.exceptions.EventAlreadyDeleted;
 import logic.interfaces.InfoPages;
 import logic.utils.Alerts;
 
@@ -79,10 +80,14 @@ public class GCEventPageUser extends GCEventPageGeneral implements InfoPages {
 
     @FXML
     public void participateToEvent(MouseEvent event) {
-        if (cfacade.participateToEvent(this.eventBean)) {
-            alert.displayAlertPopup(Alerts.INFORMATION, "Event participation added successfully!\nYou can now view it on Your Events page");
-        } else {
-            alert.displayAlertPopup(Alerts.ERROR, "Event participation failed :(");
+        try {
+            if (cfacade.participateToEvent(this.eventBean)) {
+                alert.displayAlertPopup(Alerts.INFORMATION, "Event participation added successfully!\nYou can now view it on Your Events page");
+            } else {
+                alert.displayAlertPopup(Alerts.ERROR, "Event participation failed :(");
+            }
+        } catch (EventAlreadyDeleted e) {
+            alert.displayAlertPopup(Alerts.ERROR, e.getMessage());
         }
         goBack(event);
     }

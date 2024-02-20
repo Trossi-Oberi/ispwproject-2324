@@ -1,6 +1,8 @@
 package logic.model;
 
 import logic.beans.BEvent;
+import logic.exceptions.InvalidValueException;
+import logic.exceptions.TextTooLongException;
 
 public class MEvent {
     private int eventID;
@@ -37,21 +39,24 @@ public class MEvent {
     }
 
     public BEvent getEventInfo() {
-        BEvent eventInfo = new BEvent();
-        eventInfo.setEventID(eventID);
-        eventInfo.setEventOrganizer(eventOrganizer);
-        eventInfo.setEventOrganizerID(eventOrganizerID);
-        eventInfo.setEventName(eventName);
-        eventInfo.setEventProvince(eventProvince);
-        eventInfo.setEventCity(eventCity);
-        eventInfo.setEventAddress(eventAddress);
-        eventInfo.setEventMusicGenre(eventMusicGenre);
-        eventInfo.setEventDate(eventDate);
-        eventInfo.setEventTime(eventTime);
-        eventInfo.setEventPicData(eventPicData); //data = array di bytes
-        eventInfo.setEventPicPath(eventPicPath);
-
-        return eventInfo;
+        try {
+            BEvent eventInfo = new BEvent();
+            eventInfo.setEventID(eventID);
+            eventInfo.setEventOrganizer(eventOrganizer);
+            eventInfo.setEventOrganizerID(eventOrganizerID);
+            eventInfo.setEventName(eventName);
+            eventInfo.setEventProvince(eventProvince);
+            eventInfo.setEventCity(eventCity);
+            eventInfo.setEventAddress(eventAddress);
+            eventInfo.setEventMusicGenre(eventMusicGenre);
+            eventInfo.setEventDate(eventDate);
+            eventInfo.setEventTime(eventTime);
+            eventInfo.setEventPicData(eventPicData); //data = array di bytes
+            eventInfo.setEventPicPath(eventPicPath);
+            return eventInfo;
+        } catch (InvalidValueException | TextTooLongException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     //SETTERS

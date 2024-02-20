@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import logic.beans.BEvent;
+import logic.exceptions.InvalidValueException;
+import logic.exceptions.TextTooLongException;
 import logic.utils.Alerts;
 import logic.view.EssentialGUI;
 
@@ -24,6 +26,10 @@ public class GCEditEvent extends GCManageEvent {
 
     @FXML
     public void initialize() {
+        datePicker.setValue(LocalDate.now());
+        datePicker.getEditor().setDisable(true);
+        datePicker.getEditor().setOpacity(1);
+
         datePicker.setDayCellFactory(picker -> new DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
@@ -59,8 +65,8 @@ public class GCEditEvent extends GCManageEvent {
 
     @FXML
     void editEventControl(MouseEvent event) {
-        setEventBean(this.eventBean);
         try {
+            setEventBean(this.eventBean);
             if (cfacade.editEvent(this.eventBean)) {
                 //alerts
                 alert.displayAlertPopup(Alerts.INFORMATION, "Event edited successfully");
@@ -68,8 +74,8 @@ public class GCEditEvent extends GCManageEvent {
             } else {
                 alert.displayAlertPopup(Alerts.WARNING, "Event adding procedure failed. Please retry...");
             }
-        } catch (Exception e) {
-            alert.displayAlertPopup(Alerts.INFORMATION, "Cannot complete event adding procedure!");
+        } catch (InvalidValueException | TextTooLongException e) {
+            alert.displayAlertPopup(Alerts.ERROR, e.getMessage());
         }
     }
 

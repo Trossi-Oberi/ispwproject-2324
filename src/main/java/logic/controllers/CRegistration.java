@@ -2,6 +2,7 @@ package logic.controllers;
 
 import logic.beans.BUserData;
 import logic.dao.UserDAO;
+import logic.exceptions.UsernameAlreadyTaken;
 import logic.model.MUser;
 import logic.dao.LocationDAO;
 
@@ -20,7 +21,7 @@ public class CRegistration {
         this.locationDao = new LocationDAO();
     }
 
-    public boolean registerUserControl(BUserData usrBean) {
+    public boolean registerUserControl(BUserData usrBean) throws UsernameAlreadyTaken{
         if (checkBirthDate(usrBean.getBirthDate()) == -1) {
             return false;
         } else {

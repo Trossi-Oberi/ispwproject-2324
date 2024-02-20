@@ -2,6 +2,7 @@ package logic.dao;
 
 import logic.controllers.ObserverClass;
 import logic.controllers.ObserverFactory;
+import logic.exceptions.GroupAlreadyCreated;
 import logic.model.MGroup;
 import logic.utils.LoggedUser;
 import logic.utils.ObserverType;
@@ -74,7 +75,7 @@ public class GroupDAO {
         return null;
     }
 
-    public int createGroup(String groupName, int eventID) { //returna l'id dell'evento creato
+    public int createGroup(String groupName, int eventID) throws GroupAlreadyCreated { //returna l'id dell'evento creato
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO eventgroups(group_id, group_name, event_id, owner_id) VALUES (NULL, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)){
             statement.setString(1,groupName);
             statement.setInt(2,eventID);
@@ -91,6 +92,9 @@ public class GroupDAO {
             }
         }
         catch (SQLException e) {
+            if(e.getErrorCode() == 1062){
+                throw new GroupAlreadyCreated("Group already created for this event ");
+            }
             logger.log(Level.SEVERE, "SQLException occurred while creating group");
         }
         finally {

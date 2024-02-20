@@ -2,6 +2,7 @@ package logic.dao;
 
 import logic.controllers.ObserverClass;
 import logic.controllers.ObserverFactory;
+import logic.exceptions.UsernameAlreadyTaken;
 import logic.utils.LoggedUser;
 import logic.utils.ObserverType;
 import logic.utils.SingletonDBSession;
@@ -89,7 +90,7 @@ public class UserDAO {
         return userCity;
     }
 
-    public void registerUser(MUser usrModel) {
+    public void registerUser(MUser usrModel) throws UsernameAlreadyTaken {
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Users (id, username, password, firstName, lastName, dateOfBirth, gender, province, city, userType,  userStatus) VALUES(NULL,?,?,?,?,?,?,?,?,?,?)")) {
             statement.setString(1, usrModel.getUserName());
             statement.setString(2, usrModel.getPassword());
@@ -103,6 +104,9 @@ public class UserDAO {
             statement.setString(10, "Offline");
             statement.execute();
         } catch (SQLException e) {
+            if(e.getErrorCode() == 1062) {
+                throw new UsernameAlreadyTaken(e.getMessage(), usrModel.getUserName());
+            }
             logger.log(Level.SEVERE, "SQLException occurred while adding new user in db");
         } finally {
             SingletonDBSession.getInstance().closeConn();

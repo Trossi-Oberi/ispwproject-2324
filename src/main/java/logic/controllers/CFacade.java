@@ -1,7 +1,7 @@
 package logic.controllers;
 
 import logic.beans.*;
-import logic.exceptions.InvalidTokenValue;
+import logic.exceptions.*;
 import logic.model.Message;
 import logic.server.Server;
 import logic.utils.*;
@@ -31,7 +31,7 @@ public class CFacade {
     }
 
     //Metodi che interagiscono col server inviando notifiche
-    public boolean addEvent(BEvent bean) {
+    public boolean addEvent(BEvent bean) throws EventAlreadyAdded {
         if (manageEventController == null) {
             manageEventController = new CManageEvent();
         }
@@ -59,7 +59,7 @@ public class CFacade {
         return res;
     }
 
-    public boolean participateToEvent(BEvent eventBean) {
+    public boolean participateToEvent(BEvent eventBean) throws EventAlreadyDeleted {
         if (manageEventController == null) {
             manageEventController = new CManageEvent();
         }
@@ -119,7 +119,7 @@ public class CFacade {
     }
 
 
-    public boolean registerUser(BUserData bean) throws RuntimeException {
+    public boolean registerUser(BUserData bean) throws RuntimeException, UsernameAlreadyTaken {
         if (regController == null) {
             regController = new CRegistration();
         }
@@ -153,7 +153,7 @@ public class CFacade {
         LoggedUser.setInputStream(in);
     }
 
-    public int loginUser(BUserData bean, boolean isGoogleAuth, String authCode) throws InvalidTokenValue, RuntimeException {
+    public int loginUser(BUserData bean, boolean isGoogleAuth, String authCode) throws InvalidTokenValue, TextTooLongException, RuntimeException, InvalidValueException {
         if (loginController == null) {
             loginController = new CLogin();
         }
@@ -180,7 +180,7 @@ public class CFacade {
         loginController.closeLoginSession();
     }
 
-    public boolean createGroup(String groupName, int eventID) {
+    public boolean createGroup(String groupName, int eventID) throws GroupAlreadyCreated {
         boolean res = false;
 
         if (groupController == null) {

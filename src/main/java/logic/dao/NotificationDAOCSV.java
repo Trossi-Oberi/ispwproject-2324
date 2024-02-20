@@ -30,7 +30,7 @@ public class NotificationDAOCSV implements NotificationDAO {
 
     private NotificationFactory notiFactory;
 
-    //TODO: Fixare rimozione notifica dal DAO CSV
+    //TODO: fare in modo che il file DBNotification.csv si cancelli ogni volta
     private static class NotificationAttributesOrder {
         public static int getIndexNotificationID() {
             return 0;

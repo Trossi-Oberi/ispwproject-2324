@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 
 import logic.beans.BUserData;
 import logic.controllers.CFacade;
+import logic.exceptions.UsernameAlreadyTaken;
 import logic.utils.Alerts;
 import logic.view.AlertPopup;
 import logic.view.EssentialGUI;
@@ -76,13 +77,14 @@ public abstract class GCRegistration {
 
     protected void register(MouseEvent event) {
         try {
-            //TODO: gestire eccezioni registrazione campi da compilare
             if (this.facadeController.registerUser(this.dataBean)) {
                 this.alert.displayAlertPopup(Alerts.INFORMATION, "Successfully registered to NightPlan");
                 this.gui.changeGUI(event, "Login.fxml");
             } else {
                 this.alert.displayAlertPopup(Alerts.WARNING, "Registration procedure failed. Please retry...");
             }
+        } catch (UsernameAlreadyTaken e){
+            this.alert.displayAlertPopup(Alerts.WARNING, "Username " + e.getUsername() + " is already taken! Change it and retry...");
         } catch (RuntimeException e) {
             this.alert.displayAlertPopup(Alerts.INFORMATION, "Cannot complete registration! " + e.getMessage());
         }

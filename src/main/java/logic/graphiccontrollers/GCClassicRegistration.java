@@ -6,14 +6,20 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
+import javafx.util.StringConverter;
+import javafx.util.converter.LocalDateStringConverter;
 import logic.beans.BUserData;
 import logic.controllers.CFacade;
+import logic.exceptions.InvalidValueException;
+import logic.exceptions.TextTooLongException;
 import logic.utils.Alerts;
 import logic.utils.UserTypes;
 import logic.view.AlertPopup;
 import logic.view.EssentialGUI;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class GCClassicRegistration extends GCRegistration{
 
@@ -26,6 +32,10 @@ public class GCClassicRegistration extends GCRegistration{
         this.gender.getItems().addAll("Male", "Female", "Other");
         this.dataBean = new BUserData();
 
+        this.birthDate.setValue(LocalDate.of(2005, 1, 1));
+        this.birthDate.getEditor().setDisable(true);
+        this.birthDate.getEditor().setOpacity(1);
+
         //Disabilita le date successive a quella odierna per il datePicker
         this.birthDate.setDayCellFactory(picker -> new DateCell() {
             @Override
@@ -34,6 +44,7 @@ public class GCClassicRegistration extends GCRegistration{
                 setDisable(date.isAfter(LocalDate.now()));
             }
         });
+
 
         this.provincesList = facadeController.getProvincesList();
         ObservableList<String> provinces = FXCollections.observableArrayList(provincesList);
@@ -63,8 +74,7 @@ public class GCClassicRegistration extends GCRegistration{
                 this.dataBean.setType(UserTypes.ORGANIZER);
             }
             register(event);
-        } catch (
-                Exception e) { //vanno configurate tutte le eccezioni nel dataBean (nome troppo lungo, data non valida, etc...)
+        } catch (InvalidValueException | TextTooLongException e) {
             this.alert.displayAlertPopup(Alerts.ERROR, e.getMessage());
         }
     }

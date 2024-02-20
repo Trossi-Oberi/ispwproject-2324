@@ -3,6 +3,7 @@ package logic.controllers;
 import logic.beans.BEvent;
 import logic.beans.BGroup;
 import logic.dao.GroupDAO;
+import logic.exceptions.GroupAlreadyCreated;
 import logic.model.MGroup;
 
 import java.util.ArrayList;
@@ -68,15 +69,13 @@ public class CGroup {
         return groupDAO.getGroupName(groupID);
     }
 
-    public int createGroup(String groupName, int eventID) {
+    public int createGroup(String groupName, int eventID) throws GroupAlreadyCreated {
         return groupDAO.createGroup(groupName, eventID);
     }
 
     public boolean joinGroup(Integer groupID) {
         return groupDAO.joinGroup(groupID);
     }
-
-    //TODO: fare controllo su gruppo già creato.
 
     public boolean leaveGroup(Integer groupID){
         return groupDAO.leaveGroup(groupID);

@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import logic.utils.Alerts;
 import logic.utils.LoggedUser;
 import logic.view.EssentialGUI;
+
 import java.util.ArrayList;
 import java.util.List;
 
