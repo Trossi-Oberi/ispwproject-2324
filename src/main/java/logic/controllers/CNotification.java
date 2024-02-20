@@ -13,7 +13,6 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
-import java.util.logging.Level;
 
 import static logic.view.EssentialGUI.logger;
 
