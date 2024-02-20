@@ -871,171 +871,264 @@ public class CLI implements NotificationView, ChatView {
     }
 
 
-private static boolean handleShowEventInfoUserInput(String value, boolean isEventParticipated, String lastPage, BEvent bEvent) {
-    if (value.equals("1")) {
-        showCorrectBackPageUser(lastPage);
-        return true;
-
-    } else if (value.equals("2") && isEventParticipated) {
-        if (cFacade.removeEventParticipation(bEvent)) {
-            System.out.println("Event participation removed successfully!");
+    private static boolean handleShowEventInfoUserInput(String value, boolean isEventParticipated, String lastPage, BEvent bEvent) {
+        if (value.equals("1")) {
+            showCorrectBackPageUser(lastPage);
             return true;
-        } else {
-            logger.severe("Event participation removal failed!");
-            return false;
-        }
-    } else if (value.equals("2")) {
-        if (participateToEvent(bEvent)) {
-            System.out.println("Event participation successful!");
-            return true;
-        } else {
-            logger.severe("Event participation failed!");
-            return false;
-        }
-    } else {
-        return false;
-    }
-}
 
-private static void showCorrectBackPageUser(String lastPage) {
-    if (lastPage.equals("Home")) {
-        //torno nella home
-        loadHome();
-    } else if (lastPage.equals("YourEventsUser")) {
-        loadEvents();
-    }
-}
-
-private static boolean participateToEvent(BEvent bEvent) {
-    try {
-        return cFacade.participateToEvent(bEvent);
-    } catch (EventAlreadyDeleted e) {
-        logger.severe(e.getMessage());
-        return false;
-    }
-}
-
-
-private static void printEventInfo(BEvent bEvent) {
-    System.out.println("Event info:");
-    System.out.println("Name: " + bEvent.getEventName());
-    System.out.println(CITY + bEvent.getEventCity());
-    System.out.println("Music genre: " + bEvent.getEventMusicGenre());
-    System.out.println("Organizer: " + bEvent.getEventOrganizer());
-    System.out.println("Time: " + bEvent.getEventTime());
-    System.out.println("Date: " + bEvent.getEventDate());
-    System.out.println("Address: " + bEvent.getEventAddress());
-}
-
-private static boolean deleteEvent(int eventID) {
-    System.out.println("Are you sure you want to delete this event?\nWrite 'y' to confirm or anything else to cancel.");
-    spacer(1);
-    try {
-        String val = READER.readLine();
-        if (val.equalsIgnoreCase("y")) {
-            if (!cFacade.deleteEvent(eventID)) {
-                logger.severe("Failed to delete event. Retry...");
+        } else if (value.equals("2") && isEventParticipated) {
+            if (cFacade.removeEventParticipation(bEvent)) {
+                System.out.println("Event participation removed successfully!");
+                return true;
+            } else {
+                logger.severe("Event participation removal failed!");
+                return false;
+            }
+        } else if (value.equals("2")) {
+            if (participateToEvent(bEvent)) {
+                System.out.println("Event participation successful!");
+                return true;
+            } else {
+                logger.severe("Event participation failed!");
                 return false;
             }
         } else {
             return false;
         }
-    } catch (IOException e) {
-        logger.severe(e.getMessage());
     }
-    return true;
-}
 
-private static void loadNotifications() {
-    spacer(1);
-    System.out.println("Notifications");
+    private static void showCorrectBackPageUser(String lastPage) {
+        if (lastPage.equals("Home")) {
+            //torno nella home
+            loadHome();
+        } else if (lastPage.equals("YourEventsUser")) {
+            loadEvents();
+        }
+    }
+
+    private static boolean participateToEvent(BEvent bEvent) {
+        try {
+            return cFacade.participateToEvent(bEvent);
+        } catch (EventAlreadyDeleted e) {
+            logger.severe(e.getMessage());
+            return false;
+        }
+    }
 
 
-    List<BNotification> notifications = cFacade.retrieveNotifications(LoggedUser.getUserID());
-    if (!notifications.isEmpty()) {
-        for (int i = 0; i < notifications.size(); i++) {
-            if (notifications.get(i).getMessageType() == NotificationTypes.EVENT_ADDED) {
-                System.out.println(i + 1 + ". New event called " + cFacade.getEventNameByEventID(notifications.get(i).getEventID()) + " in your city!");
-            } else if (notifications.get(i).getMessageType() == NotificationTypes.USER_EVENT_PARTICIPATION) {
-                System.out.println(i + 1 + ". New user " + cFacade.getUsernameByID(notifications.get(i).getNotifierID()) + " participating to your event " + cFacade.getEventNameByEventID(notifications.get(i).getEventID()));
+    private static void printEventInfo(BEvent bEvent) {
+        System.out.println("Event info:");
+        System.out.println("Name: " + bEvent.getEventName());
+        System.out.println(CITY + bEvent.getEventCity());
+        System.out.println("Music genre: " + bEvent.getEventMusicGenre());
+        System.out.println("Organizer: " + bEvent.getEventOrganizer());
+        System.out.println("Time: " + bEvent.getEventTime());
+        System.out.println("Date: " + bEvent.getEventDate());
+        System.out.println("Address: " + bEvent.getEventAddress());
+    }
+
+    private static boolean deleteEvent(int eventID) {
+        System.out.println("Are you sure you want to delete this event?\nWrite 'y' to confirm or anything else to cancel.");
+        spacer(1);
+        try {
+            String val = READER.readLine();
+            if (val.equalsIgnoreCase("y")) {
+                if (!cFacade.deleteEvent(eventID)) {
+                    logger.severe("Failed to delete event. Retry...");
+                    return false;
+                }
+            } else {
+                return false;
             }
+        } catch (IOException e) {
+            logger.severe(e.getMessage());
+        }
+        return true;
+    }
+
+    private static void loadNotifications() {
+        spacer(1);
+        System.out.println("Notifications");
+
+
+        List<BNotification> notifications = cFacade.retrieveNotifications(LoggedUser.getUserID());
+        if (!notifications.isEmpty()) {
+            for (int i = 0; i < notifications.size(); i++) {
+                if (notifications.get(i).getMessageType() == NotificationTypes.EVENT_ADDED) {
+                    System.out.println(i + 1 + ". New event called " + cFacade.getEventNameByEventID(notifications.get(i).getEventID()) + " in your city!");
+                } else if (notifications.get(i).getMessageType() == NotificationTypes.USER_EVENT_PARTICIPATION) {
+                    System.out.println(i + 1 + ". New user " + cFacade.getUsernameByID(notifications.get(i).getNotifierID()) + " participating to your event " + cFacade.getEventNameByEventID(notifications.get(i).getEventID()));
+                }
+            }
+
+            spacer(1);
+            System.out.println("Press 1 to delete a notification or write /commands to view all possibile commands.");
+            spacer(1);
+        } else {
+            System.out.println("No notifications to show.");
+            System.out.println("Write /commands to view all possibile commands.");
         }
 
-        spacer(1);
-        System.out.println("Press 1 to delete a notification or write /commands to view all possibile commands.");
-        spacer(1);
-    } else {
-        System.out.println("No notifications to show.");
-        System.out.println("Write /commands to view all possibile commands.");
+        boolean valid = false;
+        do {
+            try {
+                String value = READER.readLine();
+
+                //verifico comandi generali
+                if (commands.contains(value)) {
+                    handleCommand(value);
+                }
+
+                //cancello la notifica
+                if (value.equals("1")) {
+                    valid = true;
+                    deleteNotification(notifications);
+
+                    //ricarico le notifiche aggiornate
+                    loadNotifications();
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } while (!valid);
     }
 
-    boolean valid = false;
-    do {
+    private static void deleteNotification(List<BNotification> notifications) {
+        boolean valid = false;
+
+        spacer(1);
+        System.out.print("Choose the number of the notification you want to delete: ");
+
         try {
-            String value = READER.readLine();
+            do {
+                String value = READER.readLine();
 
-            //verifico comandi generali
-            if (commands.contains(value)) {
-                handleCommand(value);
-            }
+                // Converte la stringa in un numero intero
+                int index;
+                try {
+                    index = Integer.parseInt(value);
+                } catch (NumberFormatException e) {
+                    logger.severe("Index format not valid...");
+                    continue;
+                }
 
-            //cancello la notifica
-            if (value.equals("1")) {
-                valid = true;
-                deleteNotification(notifications);
+                // Verifica se l'indice è valido
+                if (index >= 1 && index <= notifications.size()) {
+                    cFacade.deleteNotification(notifications.get(index - 1).getNotificationID(), notifications, index - 1);
+                    valid = true;
 
-                //ricarico le notifiche aggiornate
-                loadNotifications();
-            }
+                    //ricarica notifications
+                    loadNotifications();
+                } else {
+                    logger.severe("Index range non valid. If must be between 1 and " + (notifications.size()));
+                }
+            } while (!valid);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    } while (!valid);
-}
+    }
 
-private static void deleteNotification(List<BNotification> notifications) {
-    boolean valid = false;
+    private static void loadEvents() {
+        spacer(3);
 
-    spacer(1);
-    System.out.print("Choose the number of the notification you want to delete: ");
+        System.out.println("Your events");
+        if (LoggedUser.getUserType().equals(UserTypes.USER)) {
+            System.out.println("1. Events with planned participation\n" + "2. Past events");
 
-    try {
-        do {
-            String value = READER.readLine();
-
-            // Converte la stringa in un numero intero
-            int index;
-            try {
-                index = Integer.parseInt(value);
-            } catch (NumberFormatException e) {
-                logger.severe("Index format not valid...");
-                continue;
+            boolean valid = false;
+            while (!valid) {
+                String value = acquireInput();
+                if (value != null && commands.contains(value)) {
+                    handleCommand(value);
+                }
+                if (value != null && value.equals("1")) {
+                    valid = true;
+                    showEvents(false);
+                } else if (value != null && value.equals("2")) {
+                    valid = true;
+                    showEvents(true);
+                }
             }
 
-            // Verifica se l'indice è valido
-            if (index >= 1 && index <= notifications.size()) {
-                cFacade.deleteNotification(notifications.get(index - 1).getNotificationID(), notifications, index - 1);
-                valid = true;
+        } else if (LoggedUser.getUserType().equals(UserTypes.ORGANIZER)) {
+            System.out.println("1. Events created by you\n" + "2. Past events\n" + "3. Analytics");
 
-                //ricarica notifications
-                loadNotifications();
-            } else {
-                logger.severe("Index range non valid. If must be between 1 and " + (notifications.size()));
+            boolean valid = false;
+            while (!valid) {
+                String value = acquireInput();
+                if (value!=null && commands.contains(value)) {
+                    handleCommand(value);
+                }
+                if (value!=null && value.equals("1")){
+                    valid = true;
+                    showEvents(false);
+                }else if (value!=null && value.equals("2")){
+                    valid = true;
+                    showEvents(true);
+                } else if (value!=null && value.equals("3")) {
+                    //apro la pagina analytics con la lista degli eventi passati
+                    showAnalytics(showEvents(true));
+                }
+            }
+        }
+    }
+
+    private static void showAnalytics(ArrayList<BEvent> pastEvents) {
+        spacer(3);
+        System.out.println("Analytics");
+        spacer(1);
+        printEventsList(pastEvents);
+        spacer(1);
+        System.out.print("Write event name to view its analytics:");
+        System.out.print(COMMANDS_HELP);
+
+        boolean valid = false;
+        do {
+            try {
+                String value = READER.readLine();
+
+                //vedo eventuali comandi generali
+                if (commands.contains(value)) {
+                    handleCommand(value);
+                }
+
+                for (BEvent bEvent : pastEvents) {
+                    if (bEvent.getEventName().equals(value)) {
+                        valid = true;
+                        printEventAnalytics(bEvent);
+                    }
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         } while (!valid);
-    } catch (IOException e) {
-        throw new RuntimeException(e);
+        spacer(1);
+
     }
-}
 
-private static void loadEvents() {
-    spacer(3);
-    ArrayList<BEvent> eventList;
-    spacer(1);
+    private static void printEventAnalytics(BEvent bEvent) {
+        System.out.println("Event analytics:");
+        System.out.println("Name: " + bEvent.getEventName());
+        System.out.println(CITY + bEvent.getEventCity());
+        System.out.println("Music genre: " + bEvent.getEventMusicGenre());
+        System.out.println("Organizer: " + bEvent.getEventOrganizer());
+        System.out.println("Time: " + bEvent.getEventTime());
+        System.out.println("Date: " + bEvent.getEventDate());
+        System.out.println("Address: " + bEvent.getEventAddress());
 
-    System.out.println("Your events");
-    if (LoggedUser.getUserType().equals(UserTypes.USER)) {
-        System.out.println("1. Events with planned participation\n" + "2. Past events");
+        int participations = cFacade.retrieveParticipationsToEvent(bEvent.getEventID());
+        if (timesClicked == null) {
+            Random rand = new SecureRandom();
+            timesClicked = rand.nextInt(5000 - participations + 1) + participations;
+            nParticipants = rand.nextInt(participations + 1);
+        }
+
+        System.out.println("Participants: " + participations);
+        System.out.println("Planned participations: " + nParticipants);
+        System.out.println("Times clicked: " + timesClicked);
+
+        spacer(1);
+        System.out.println("1. Go back\n");
 
         boolean valid = false;
         do {
@@ -1048,346 +1141,197 @@ private static void loadEvents() {
                 }
 
                 if (value.equals("1")) {
+                    loadEvents();
                     valid = true;
-                    showEvents(false);
-                } else if (value.equals("2")) {
-                    valid = true;
-                    showEvents(true);
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         } while (!valid);
+    }
 
-    } else if (LoggedUser.getUserType().equals(UserTypes.ORGANIZER)) {
-        System.out.println("1. Events created by you\n" + "2. Past events\n" + "3. Analytics");
+    private static ArrayList<BEvent> showEvents(boolean isPassed) {
+        spacer(3);
+        ArrayList<BEvent> eventList = new ArrayList<>();
+        spacer(1);
 
-        boolean valid = false;
-        do {
-            try {
+        if (LoggedUser.getUserType().equals(UserTypes.USER)) {
+
+            List<BEvent> tempList = cFacade.retrieveEvents(LoggedUser.getUserType(), "GCYourEventsUser");
+
+            if (!isPassed) {
+                for (BEvent bEvent : tempList) {
+                    String eventDateString = bEvent.getEventDate();
+                    LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+                    if (LocalDate.now().isBefore(date)) {
+                        //aggiungo alla lista solo gli eventi passati (today is NOT before event date)
+                        eventList.add(bEvent);
+                    }
+                }
+            } else {
+                for (BEvent bEvent : tempList) {
+                    String eventDateString = bEvent.getEventDate();
+                    LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+                    if (!LocalDate.now().isBefore(date)) {
+                        //aggiungo alla lista solo gli eventi futuri (today is before event date)
+                        eventList.add(bEvent);
+                    }
+                }
+            }
+
+            if (!eventList.isEmpty()) {
+                if (!isPassed) {
+                    System.out.println("Your events. \nWrite event name to show event info!");
+                } else {
+                    System.out.println("Your past events. \nWrite event name to show event info!");
+                }
+                printEventsList(eventList);
+
+                spacer(1);
+                System.out.println(COMMANDS_HELP);
+                spacer(1);
+
+                boolean valid = false;
+                do {
+                    try {
+                        String value = READER.readLine();
+
+                        //vedo eventuali comandi generali
+                        if (commands.contains(value)) {
+                            handleCommand(value);
+                        }
+
+                        for (BEvent bEvent : eventList) {
+                            if (bEvent.getEventName().equals(value)) {
+                                valid = true;
+                                showEventInfo(bEvent, "YourEventsUser");
+                            }
+                        }
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                } while (!valid);
+            } else {
+                System.out.println("No planned events!");
+                System.out.println("To plan participation to an event in your city go to /home and write the name of an available event.\n Then follow instructions to Plan event participation.");
+                spacer(1);
+
+                waitCommands();
+            }
+            spacer(3);
+        } else if (LoggedUser.getUserType().equals(UserTypes.ORGANIZER)) {
+            List<BEvent> tempList = cFacade.retrieveEvents(LoggedUser.getUserType(), "GCYourEventsOrg");
+
+            if (!isPassed) {
+                for (BEvent bEvent : tempList) {
+                    String eventDateString = bEvent.getEventDate();
+                    LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+                    if (LocalDate.now().isBefore(date)) {
+                        //aggiungo alla lista solo gli eventi passati (today is NOT before event date)
+                        eventList.add(bEvent);
+                    }
+                }
+            } else {
+                for (BEvent bEvent : tempList) {
+                    String eventDateString = bEvent.getEventDate();
+                    LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+                    if (!LocalDate.now().isBefore(date)) {
+                        //aggiungo alla lista solo gli eventi futuri (today is before event date)
+                        eventList.add(bEvent);
+                    }
+                }
+            }
+
+            if (!eventList.isEmpty()) {
+                System.out.println("Your organized events. \nWrite event name to show event info, edit or delete it!");
+                printEventsList(eventList);
+
+                spacer(1);
+                System.out.println(COMMANDS_HELP);
+                spacer(1);
+
+                boolean valid = false;
+                do {
+                    try {
+                        String value = READER.readLine();
+
+                        //vedo eventuali comandi generali
+                        if (commands.contains(value)) {
+                            handleCommand(value);
+                        }
+
+                        for (BEvent bEvent : eventList) {
+                            if (bEvent.getEventName().equals(value)) {
+                                valid = true;
+                                showEventInfo(bEvent, "YourEventsOrg");
+                            }
+                        }
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                } while (!valid);
+            } else {
+                System.out.println("No organized events!");
+                System.out.println("To add a new event go to /home and write 1 to add event.\n Then follow instructions to finish the procedure.");
+                spacer(1);
+
+                waitCommands();
+            }
+            spacer(3);
+        }
+        return eventList;
+    }
+
+    private static void printEventsList(ArrayList<BEvent> eventList) {
+        for (int i = 0; i < eventList.size(); i++) {
+            System.out.println(i + 1 + ". " + eventList.get(i).getEventName());
+        }
+    }
+
+    private static void waitCommands() {
+        boolean waiting = true;
+        try {
+            while (waiting) {
                 String value = READER.readLine();
-
-                //verifico comandi generali
                 if (commands.contains(value)) {
+                    waiting = false;
                     handleCommand(value);
                 }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-                switch (value) {
+    public static void loadApp() {
+        try {
+            boolean valid = false;
+            while (!valid) {
+                spacer(3);
+                System.out.println(ASCII_LOGO);
+                System.out.println("Login or register");
+                System.out.println("1. Login");
+                System.out.println("2. Login with Google");
+                System.out.println("3. Register new account");
+
+                String inputLine = READER.readLine();
+                switch (inputLine) {
                     case "1":
-                        valid = true;
-                        showEvents(false);
-                        break;
-                    case "2":
-                        valid = true;
-                        showEvents(true);
-                        break;
-                    case "3":
-                        //apro la pagina analytics con la lista degli eventi passati
-                        showAnalytics(showEvents(true));
-                        break;
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        } while (!valid);
-    }
-
-
-}
-
-private static void showAnalytics(ArrayList<BEvent> pastEvents) {
-    spacer(3);
-    System.out.println("Analytics");
-    spacer(1);
-    printEventsList(pastEvents);
-    spacer(1);
-    System.out.print("Write event name to view its analytics:");
-    System.out.print(COMMANDS_HELP);
-
-    boolean valid = false;
-    do {
-        try {
-            String value = READER.readLine();
-
-            //vedo eventuali comandi generali
-            if (commands.contains(value)) {
-                handleCommand(value);
-            }
-
-            for (BEvent bEvent : pastEvents) {
-                if (bEvent.getEventName().equals(value)) {
-                    valid = true;
-                    printEventAnalytics(bEvent);
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    } while (!valid);
-    spacer(1);
-
-}
-
-private static void printEventAnalytics(BEvent bEvent) {
-    System.out.println("Event analytics:");
-    System.out.println("Name: " + bEvent.getEventName());
-    System.out.println(CITY + bEvent.getEventCity());
-    System.out.println("Music genre: " + bEvent.getEventMusicGenre());
-    System.out.println("Organizer: " + bEvent.getEventOrganizer());
-    System.out.println("Time: " + bEvent.getEventTime());
-    System.out.println("Date: " + bEvent.getEventDate());
-    System.out.println("Address: " + bEvent.getEventAddress());
-
-    int participations = cFacade.retrieveParticipationsToEvent(bEvent.getEventID());
-    if (timesClicked == null) {
-        Random rand = new SecureRandom();
-        timesClicked = rand.nextInt(5000 - participations + 1) + participations;
-        nParticipants = rand.nextInt(participations + 1);
-    }
-
-    System.out.println("Participants: " + participations);
-    System.out.println("Planned participations: " + nParticipants);
-    System.out.println("Times clicked: " + timesClicked);
-
-    spacer(1);
-    System.out.println("1. Go back\n");
-
-    boolean valid = false;
-    do {
-        try {
-            String value = READER.readLine();
-
-            //verifico comandi generali
-            if (commands.contains(value)) {
-                handleCommand(value);
-            }
-
-            if (value.equals("1")) {
-                loadEvents();
-                valid = true;
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    } while (!valid);
-}
-
-private static ArrayList<BEvent> showEvents(boolean isPassed) {
-    spacer(3);
-    ArrayList<BEvent> eventList = new ArrayList<>();
-    spacer(1);
-
-    if (LoggedUser.getUserType().equals(UserTypes.USER)) {
-
-        List<BEvent> tempList = cFacade.retrieveEvents(LoggedUser.getUserType(), "GCYourEventsUser");
-
-        if (!isPassed) {
-            for (BEvent bEvent : tempList) {
-                String eventDateString = bEvent.getEventDate();
-                LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-
-                if (LocalDate.now().isBefore(date)) {
-                    //aggiungo alla lista solo gli eventi passati (today is NOT before event date)
-                    eventList.add(bEvent);
-                }
-            }
-        } else {
-            for (BEvent bEvent : tempList) {
-                String eventDateString = bEvent.getEventDate();
-                LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-
-                if (!LocalDate.now().isBefore(date)) {
-                    //aggiungo alla lista solo gli eventi futuri (today is before event date)
-                    eventList.add(bEvent);
-                }
-            }
-        }
-
-        if (!eventList.isEmpty()) {
-            if (!isPassed) {
-                System.out.println("Your events. \nWrite event name to show event info!");
-            } else {
-                System.out.println("Your past events. \nWrite event name to show event info!");
-            }
-            printEventsList(eventList);
-
-            spacer(1);
-            System.out.println(COMMANDS_HELP);
-            spacer(1);
-
-            boolean valid = false;
-            do {
-                try {
-                    String value = READER.readLine();
-
-                    //vedo eventuali comandi generali
-                    if (commands.contains(value)) {
-                        handleCommand(value);
-                    }
-
-                    for (BEvent bEvent : eventList) {
-                        if (bEvent.getEventName().equals(value)) {
-                            valid = true;
-                            showEventInfo(bEvent, "YourEventsUser");
-                        }
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            } while (!valid);
-        } else {
-            System.out.println("No planned events!");
-            System.out.println("To plan participation to an event in your city go to /home and write the name of an available event.\n Then follow instructions to Plan event participation.");
-            spacer(1);
-
-            waitCommands();
-        }
-        spacer(3);
-    } else if (LoggedUser.getUserType().equals(UserTypes.ORGANIZER)) {
-        List<BEvent> tempList = cFacade.retrieveEvents(LoggedUser.getUserType(), "GCYourEventsOrg");
-
-        if (!isPassed) {
-            for (BEvent bEvent : tempList) {
-                String eventDateString = bEvent.getEventDate();
-                LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-
-                if (LocalDate.now().isBefore(date)) {
-                    //aggiungo alla lista solo gli eventi passati (today is NOT before event date)
-                    eventList.add(bEvent);
-                }
-            }
-        } else {
-            for (BEvent bEvent : tempList) {
-                String eventDateString = bEvent.getEventDate();
-                LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-
-                if (!LocalDate.now().isBefore(date)) {
-                    //aggiungo alla lista solo gli eventi futuri (today is before event date)
-                    eventList.add(bEvent);
-                }
-            }
-        }
-
-        if (!eventList.isEmpty()) {
-            System.out.println("Your organized events. \nWrite event name to show event info, edit or delete it!");
-            printEventsList(eventList);
-
-            spacer(1);
-            System.out.println(COMMANDS_HELP);
-            spacer(1);
-
-            boolean valid = false;
-            do {
-                try {
-                    String value = READER.readLine();
-
-                    //vedo eventuali comandi generali
-                    if (commands.contains(value)) {
-                        handleCommand(value);
-                    }
-
-                    for (BEvent bEvent : eventList) {
-                        if (bEvent.getEventName().equals(value)) {
-                            valid = true;
-                            showEventInfo(bEvent, "YourEventsOrg");
-                        }
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            } while (!valid);
-        } else {
-            System.out.println("No organized events!");
-            System.out.println("To add a new event go to /home and write 1 to add event.\n Then follow instructions to finish the procedure.");
-            spacer(1);
-
-            waitCommands();
-        }
-        spacer(3);
-    }
-    return eventList;
-}
-
-private static void printEventsList(ArrayList<BEvent> eventList) {
-    for (int i = 0; i < eventList.size(); i++) {
-        System.out.println(i + 1 + ". " + eventList.get(i).getEventName());
-    }
-}
-
-private static void waitCommands() {
-    boolean waiting = true;
-    try {
-        while (waiting) {
-            String value = READER.readLine();
-            if (commands.contains(value)) {
-                waiting = false;
-                handleCommand(value);
-            }
-        }
-    } catch (IOException e) {
-        throw new RuntimeException(e);
-    }
-}
-
-public static void loadApp() {
-    try {
-        boolean valid = false;
-        while (!valid) {
-            spacer(3);
-            System.out.println(ASCII_LOGO);
-            System.out.println("Login or register");
-            System.out.println("1. Login");
-            System.out.println("2. Login with Google");
-            System.out.println("3. Register new account");
-
-            String inputLine = READER.readLine();
-            switch (inputLine) {
-                case "1":
-                    while (true) {
-                        System.out.println("Insert username: ");
-                        bUserData.setUsername(READER.readLine());
-                        System.out.println("Insert password: ");
-                        bUserData.setPassword(READER.readLine());
-
-
-                        //login user
-                        int res = 0;
-                        try {
-                            res = cFacade.loginUser(bUserData, false, null);
-
-                            System.out.println();
-                            if (res == 1) {
-                                System.out.println("Logged in successfully as " + LoggedUser.getUserType());
-                                valid = true;
-                                break;
-                            } else {
-                                System.out.println("Wrong credentials. Retry...");
-                            }
-                        } catch (RuntimeException e) {
-                            logger.severe("Runtime exception: " + e.getMessage());
-                            break;
-                        } catch (InvalidTokenValue e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                    loadHome();
-                    break;
-                case "2":
-                    try {
                         while (true) {
-                            System.out.println("Opening google login page...");
-                            spacer(1);
-                            System.out.println("Write authorization code to continue login: ");
+                            System.out.println("Insert username: ");
+                            bUserData.setUsername(READER.readLine());
+                            System.out.println("Insert password: ");
+                            bUserData.setPassword(READER.readLine());
 
-                            //avvio la schermata di login
-                            GoogleLogin.initGoogleLogin();
 
-                            String authCode = READER.readLine();
-
+                            //login user
+                            int res = 0;
                             try {
-
-                                //login user
-                                int res = cFacade.loginUser(bUserData, true, authCode);
+                                res = cFacade.loginUser(bUserData, false, null);
 
                                 System.out.println();
                                 if (res == 1) {
@@ -1395,197 +1339,231 @@ public static void loadApp() {
                                     valid = true;
                                     break;
                                 } else {
-                                    System.out.println("User not registered with Google. \nYou will be redirected to registration page.");
-                                    if (registerUser(true) == 1) {
-                                        System.out.println("Successfully registered with Google");
-                                    }
-
-                                    //ricarico tutta l'interfaccia
-                                    loadApp();
+                                    System.out.println("Wrong credentials. Retry...");
                                 }
+                            } catch (RuntimeException e) {
+                                logger.severe("Runtime exception: " + e.getMessage());
+                                break;
                             } catch (InvalidTokenValue e) {
-                                logger.info("Invalid token value...");
-
-                                //ricarico l'interfaccia
-                                loadApp();
+                                throw new RuntimeException(e);
                             }
                         }
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                    loadHome();
-                    break;
-                case "3":
-                    try {
-                        if (registerUser(false) == 1) {
-                            spacer(1);
-                            System.out.println("Loading home page...");
-                            spacer(1);
-                            loadHome();
+                        loadHome();
+                        break;
+                    case "2":
+                        try {
+                            while (true) {
+                                System.out.println("Opening google login page...");
+                                spacer(1);
+                                System.out.println("Write authorization code to continue login: ");
+
+                                //avvio la schermata di login
+                                GoogleLogin.initGoogleLogin();
+
+                                String authCode = READER.readLine();
+
+                                try {
+
+                                    //login user
+                                    int res = cFacade.loginUser(bUserData, true, authCode);
+
+                                    System.out.println();
+                                    if (res == 1) {
+                                        System.out.println("Logged in successfully as " + LoggedUser.getUserType());
+                                        valid = true;
+                                        break;
+                                    } else {
+                                        System.out.println("User not registered with Google. \nYou will be redirected to registration page.");
+                                        if (registerUser(true) == 1) {
+                                            System.out.println("Successfully registered with Google");
+                                        }
+
+                                        //ricarico tutta l'interfaccia
+                                        loadApp();
+                                    }
+                                } catch (InvalidTokenValue e) {
+                                    logger.info("Invalid token value...");
+
+                                    //ricarico l'interfaccia
+                                    loadApp();
+                                }
+                            }
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
                         }
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                    break;
+                        loadHome();
+                        break;
+                    case "3":
+                        try {
+                            if (registerUser(false) == 1) {
+                                spacer(1);
+                                System.out.println("Loading home page...");
+                                spacer(1);
+                                loadHome();
+                            }
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                        break;
+                }
             }
-        }
-    } catch (IOException e) {
-        logger.severe(e.getMessage());
-    } catch (InvalidValueException e) {
-        throw new RuntimeException(e);
-    } catch (TextTooLongException e) {
-        throw new RuntimeException(e);
-    } finally {
-        try {
-            // Chiudi il BufferedReader
-            READER.close();
         } catch (IOException e) {
             logger.severe(e.getMessage());
-        }
-    }
-}
-
-public static void main(String[] args) {
-    initializeControllers();
-
-    System.out.print("Choose the persistence logic!\n Type 'JDBC' or 'FileSystem' -> ");
-    try {
-        boolean valid = false;
-
-        do {
-            String val = READER.readLine();
-
-            if (val.equalsIgnoreCase("jdbc") || val.equalsIgnoreCase("filesystem")) {
-                valid = true;
-                if (val.equalsIgnoreCase("jdbc")) {
-                    PersistenceClass.setPersistenceType(PersistenceTypes.JDBC);
-                } else {
-                    PersistenceClass.setPersistenceType(PersistenceTypes.FILE_SYSTEM);
-                }
-            } else {
-                System.out.println("Invalid option. Please enter 'JDBC' or 'FileSystem'.");
-            }
-        } while (!valid);
-    } catch (IOException e) {
-        throw new RuntimeException(e);
-    }
-
-    loadApp();
-}
-
-private static int registerUser(boolean isGoogleAuth) {
-    try {
-        boolean valid = false;
-
-        spacer(1);
-        System.out.println("Registration procedure");
-        spacer(1);
-
-        if (!isGoogleAuth) {
-            //classic registration
-            System.out.println("Username: ");
-            bUserData.setUsername(READER.readLine());
-            System.out.println("Password: ");
-            bUserData.setPassword(READER.readLine());
-        } else {
-            bUserData.setPassword("google_account_hidden_psw");
-        }
-
-        System.out.println("First name: ");
-        bUserData.setFirstName(READER.readLine());
-        System.out.println("Last name: ");
-        bUserData.setLastName(READER.readLine());
-        System.out.println("Gender: ");
-        System.out.println("a. Male\n" + "b. Female\n" + "c. Other");
-        do {
-            String val = READER.readLine();
-            bUserData.setGender(val);
-            if (val.equals("a") || val.equals("b") || val.equals("c")) {
-                valid = true;
-            }
-        } while (!valid);
-        valid = false;
-
-        System.out.println("Province: ");
-        List<String> provinces = cFacade.getProvincesList();
-        do {
-            String val = READER.readLine();
-            if (provinces.contains(val)) {
-                bUserData.setProvince(val);
-                valid = true;
-            }
-        } while (!valid);
-        valid = false;
-
-        System.out.println(CITY);
-        List<String> cities = cFacade.getCitiesList(bUserData.getProvince());
-        do {
-            String val = READER.readLine();
-            if (cities.contains(val)) {
-                bUserData.setCity(val);
-                valid = true;
-            }
-        } while (!valid);
-        valid = false;
-
-
-        System.out.println("Birth date: dd-MM-yyyy");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        do {
-            String val = READER.readLine();
+        } catch (InvalidValueException e) {
+            throw new RuntimeException(e);
+        } catch (TextTooLongException e) {
+            throw new RuntimeException(e);
+        } finally {
             try {
-                // Convertire la stringa in un oggetto LocalDate utilizzando il formatter
-                LocalDate birthDate = LocalDate.parse(val, formatter);
-                bUserData.setBirthDate(birthDate);
-                valid = true;
-            } catch (Exception e) {
-                // Gestire il caso in cui l'input non sia nel formato corretto
-                logger.severe("Invalid birth date format.");
+                // Chiudi il BufferedReader
+                READER.close();
+            } catch (IOException e) {
+                logger.severe(e.getMessage());
             }
-        } while (!valid);
-        valid = false;
-
-        System.out.println("User type: ");
-        System.out.println("a. USER\n" + "b. ORGANIZER");
-        do {
-            String val = READER.readLine();
-            val = val.toUpperCase();
-            if (val.equals(UserTypes.USER.toString()) || val.equals(UserTypes.ORGANIZER.toString())) {
-                bUserData.setType(UserTypes.valueOf(val));
-                valid = true;
-            }
-        } while (!valid);
-
-        if (cFacade.registerUser(bUserData)) {
-            System.out.println("User registration completed successfully! Return to login page.");
-        } else {
-            System.out.println("Error in registration procedure. Retry...");
-            return 0;
         }
-    } catch (IOException e) {
-        throw new RuntimeException(e);
-    } catch (UsernameAlreadyTaken e) {
-        logger.warning("Username already taken! Change it and retry registration...");
-        return 0;
-    } catch (InvalidValueException | TextTooLongException e) {
-        logger.warning(e.getMessage());
     }
-    return 1;
-}
 
-@Override
-public void showNotification(NotificationTypes notificationType) {
-    String value = null;
-    if (notificationType.equals(NotificationTypes.EVENT_ADDED)) {
-        value = "new event in your city!";
-    } else if (notificationType.equals(NotificationTypes.USER_EVENT_PARTICIPATION)) {
-        value = "new user participation to your event!";
+    public static void main(String[] args) {
+        initializeControllers();
+
+        System.out.print("Choose the persistence logic!\n Type 'JDBC' or 'FileSystem' -> ");
+        try {
+            boolean valid = false;
+
+            do {
+                String val = READER.readLine();
+
+                if (val.equalsIgnoreCase("jdbc") || val.equalsIgnoreCase("filesystem")) {
+                    valid = true;
+                    if (val.equalsIgnoreCase("jdbc")) {
+                        PersistenceClass.setPersistenceType(PersistenceTypes.JDBC);
+                    } else {
+                        PersistenceClass.setPersistenceType(PersistenceTypes.FILE_SYSTEM);
+                    }
+                } else {
+                    System.out.println("Invalid option. Please enter 'JDBC' or 'FileSystem'.");
+                }
+            } while (!valid);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        loadApp();
     }
-    logger.info("New notification: " + value);
-}
 
-@Override
-public void addMessageToChat(BMessage messageBean) {
-    //
-}
+    private static int registerUser(boolean isGoogleAuth) {
+        try {
+            boolean valid = false;
+
+            spacer(1);
+            System.out.println("Registration procedure");
+            spacer(1);
+
+            if (!isGoogleAuth) {
+                //classic registration
+                System.out.println("Username: ");
+                bUserData.setUsername(READER.readLine());
+                System.out.println("Password: ");
+                bUserData.setPassword(READER.readLine());
+            } else {
+                bUserData.setPassword("google_account_hidden_psw");
+            }
+
+            System.out.println("First name: ");
+            bUserData.setFirstName(READER.readLine());
+            System.out.println("Last name: ");
+            bUserData.setLastName(READER.readLine());
+            System.out.println("Gender: ");
+            System.out.println("a. Male\n" + "b. Female\n" + "c. Other");
+            do {
+                String val = READER.readLine();
+                bUserData.setGender(val);
+                if (val.equals("a") || val.equals("b") || val.equals("c")) {
+                    valid = true;
+                }
+            } while (!valid);
+            valid = false;
+
+            System.out.println("Province: ");
+            List<String> provinces = cFacade.getProvincesList();
+            do {
+                String val = READER.readLine();
+                if (provinces.contains(val)) {
+                    bUserData.setProvince(val);
+                    valid = true;
+                }
+            } while (!valid);
+            valid = false;
+
+            System.out.println(CITY);
+            List<String> cities = cFacade.getCitiesList(bUserData.getProvince());
+            do {
+                String val = READER.readLine();
+                if (cities.contains(val)) {
+                    bUserData.setCity(val);
+                    valid = true;
+                }
+            } while (!valid);
+            valid = false;
+
+
+            System.out.println("Birth date: dd-MM-yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            do {
+                String val = READER.readLine();
+                try {
+                    // Convertire la stringa in un oggetto LocalDate utilizzando il formatter
+                    LocalDate birthDate = LocalDate.parse(val, formatter);
+                    bUserData.setBirthDate(birthDate);
+                    valid = true;
+                } catch (Exception e) {
+                    // Gestire il caso in cui l'input non sia nel formato corretto
+                    logger.severe("Invalid birth date format.");
+                }
+            } while (!valid);
+            valid = false;
+
+            System.out.println("User type: ");
+            System.out.println("a. USER\n" + "b. ORGANIZER");
+            do {
+                String val = READER.readLine();
+                val = val.toUpperCase();
+                if (val.equals(UserTypes.USER.toString()) || val.equals(UserTypes.ORGANIZER.toString())) {
+                    bUserData.setType(UserTypes.valueOf(val));
+                    valid = true;
+                }
+            } while (!valid);
+
+            if (cFacade.registerUser(bUserData)) {
+                System.out.println("User registration completed successfully! Return to login page.");
+            } else {
+                System.out.println("Error in registration procedure. Retry...");
+                return 0;
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (UsernameAlreadyTaken e) {
+            logger.warning("Username already taken! Change it and retry registration...");
+            return 0;
+        } catch (InvalidValueException | TextTooLongException e) {
+            logger.warning(e.getMessage());
+        }
+        return 1;
+    }
+
+    @Override
+    public void showNotification(NotificationTypes notificationType) {
+        String value = null;
+        if (notificationType.equals(NotificationTypes.EVENT_ADDED)) {
+            value = "new event in your city!";
+        } else if (notificationType.equals(NotificationTypes.USER_EVENT_PARTICIPATION)) {
+            value = "new user participation to your event!";
+        }
+        logger.info("New notification: " + value);
+    }
+
+    @Override
+    public void addMessageToChat(BMessage messageBean) {
+        //
+    }
 }
