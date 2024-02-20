@@ -6,13 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 import static logic.view.EssentialGUI.logger;
 
 public class LocationDAO {
-    public ArrayList<String> getProvincesList(){
-        ArrayList<String> provincesList = new ArrayList<>();
+    public List<String> getProvincesList(){
+        List<String> provincesList = new ArrayList<>();
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT name FROM provinces")) {
             try (ResultSet rs = statement.executeQuery()){
                 while (rs.next()){
@@ -29,8 +30,8 @@ public class LocationDAO {
         return provincesList;
     }
 
-    public ArrayList<String> getCitiesList(String selectedProvince){
-        ArrayList<String> citiesList = new ArrayList<>();
+    public List<String> getCitiesList(String selectedProvince){
+        List<String> citiesList = new ArrayList<>();
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT name FROM cities WHERE province = ?")) {
             statement.setString(1, selectedProvince);
             try (ResultSet rs = statement.executeQuery()){
