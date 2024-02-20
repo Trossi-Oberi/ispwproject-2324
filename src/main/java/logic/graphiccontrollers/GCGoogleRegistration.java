@@ -1,53 +1,21 @@
 package logic.graphiccontrollers;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import logic.beans.BUserData;
-import logic.controllers.CFacade;
 import logic.exceptions.InvalidValueException;
 import logic.exceptions.TextTooLongException;
 import logic.utils.Alerts;
 import logic.utils.LoggedUser;
 import logic.utils.UserTypes;
-import logic.view.AlertPopup;
-import logic.view.EssentialGUI;
-
-import java.time.LocalDate;
 
 public class GCGoogleRegistration extends GCRegistration {
     @FXML
     @Override
     public void initialize() {
-        this.alert = new AlertPopup();
-        this.gui = new EssentialGUI();
-        this.facadeController = new CFacade();
-        this.gender.getItems().addAll("Male", "Female", "Other");
+        initRegistration();
         this.dataBean = new BUserData(LoggedUser.getUserName()); //inizializzo il data bean con username preso da GoogleAuth
-
-        this.birthDate.setValue(LocalDate.of(2005, 1, 1));
-        this.birthDate.getEditor().setDisable(true);
-        this.birthDate.getEditor().setOpacity(1);
-        //Disabilita le date successive a quella odierna per il datePicker
-        this.birthDate.setDayCellFactory(picker -> new DateCell() {
-            @Override
-            public void updateItem(LocalDate date, boolean empty) {
-                super.updateItem(date, empty);
-                setDisable(date.isAfter(LocalDate.now()));
-            }
-        });
-
-        this.provincesList = facadeController.getProvincesList();
-        ObservableList<String> provincesList = FXCollections.observableArrayList(this.provincesList);
-        this.provinceBox.setItems(provincesList);
-        setupProvinceBoxListener();
-
-        this.userRadio.setSelected(true);
-        this.userRadio.setToggleGroup(group);
-        this.organizerRadio.setToggleGroup(group);
     }
 
     @FXML

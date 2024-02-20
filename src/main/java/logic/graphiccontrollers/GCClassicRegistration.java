@@ -1,59 +1,20 @@
 package logic.graphiccontrollers;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
-import javafx.util.StringConverter;
-import javafx.util.converter.LocalDateStringConverter;
 import logic.beans.BUserData;
-import logic.controllers.CFacade;
 import logic.exceptions.InvalidValueException;
 import logic.exceptions.TextTooLongException;
 import logic.utils.Alerts;
 import logic.utils.UserTypes;
-import logic.view.AlertPopup;
-import logic.view.EssentialGUI;
-
-import java.time.DateTimeException;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 public class GCClassicRegistration extends GCRegistration{
-
     @Override
     @FXML
     public void initialize() {
-        this.alert = new AlertPopup();
-        this.gui = new EssentialGUI();
-        this.facadeController = new CFacade();
-        this.gender.getItems().addAll("Male", "Female", "Other");
+        initRegistration();
         this.dataBean = new BUserData();
-
-        this.birthDate.setValue(LocalDate.of(2005, 1, 1));
-        this.birthDate.getEditor().setDisable(true);
-        this.birthDate.getEditor().setOpacity(1);
-
-        //Disabilita le date successive a quella odierna per il datePicker
-        this.birthDate.setDayCellFactory(picker -> new DateCell() {
-            @Override
-            public void updateItem(LocalDate date, boolean empty) {
-                super.updateItem(date, empty);
-                setDisable(date.isAfter(LocalDate.now()));
-            }
-        });
-
-
-        this.provincesList = facadeController.getProvincesList();
-        ObservableList<String> provinces = FXCollections.observableArrayList(provincesList);
-        this.provinceBox.setItems(provinces);
-        setupProvinceBoxListener();
-
-        this.userRadio.setSelected(true);
-        this.userRadio.setToggleGroup(group);
-        this.organizerRadio.setToggleGroup(group);
     }
 
     @Override

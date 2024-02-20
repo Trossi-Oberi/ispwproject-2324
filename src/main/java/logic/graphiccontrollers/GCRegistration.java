@@ -13,6 +13,7 @@ import logic.utils.Alerts;
 import logic.view.AlertPopup;
 import logic.view.EssentialGUI;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,6 +74,34 @@ public abstract class GCRegistration {
     @FXML
     public void returnBack(MouseEvent event) {
         gui.changeGUI(event, "Login.fxml");
+    }
+
+    protected void initRegistration(){
+        this.alert = new AlertPopup();
+        this.gui = new EssentialGUI();
+        this.facadeController = new CFacade();
+        this.gender.getItems().addAll("Male", "Female", "Other");
+
+        this.birthDate.setValue(LocalDate.of(2005, 1, 1));
+        this.birthDate.getEditor().setDisable(true);
+        this.birthDate.getEditor().setOpacity(1);
+        //Disabilita le date successive a quella odierna per il datePicker
+        this.birthDate.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(date.isAfter(LocalDate.now()));
+            }
+        });
+
+        this.provincesList = facadeController.getProvincesList();
+        ObservableList<String> provincesList = FXCollections.observableArrayList(this.provincesList);
+        this.provinceBox.setItems(provincesList);
+        setupProvinceBoxListener();
+
+        this.userRadio.setSelected(true);
+        this.userRadio.setToggleGroup(group);
+        this.organizerRadio.setToggleGroup(group);
     }
 
     protected void register(MouseEvent event) {
