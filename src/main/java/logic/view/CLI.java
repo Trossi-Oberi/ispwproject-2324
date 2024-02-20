@@ -107,25 +107,26 @@ public class CLI implements NotificationView, ChatView {
                 showSettings(UserTypes.USER);
                 spacer(1);
                 String value = acquireInput();
-
-                //verifico comandi generali
-                if (commands.contains(value)) {
-                    handleCommand(value);
+                if (value!=null){
+                    //verifico comandi generali
+                    if (commands.contains(value)) {
+                        handleCommand(value);
+                    }
+                    valid = handleSettingsInputUser(value);
                 }
-                valid = handleSettingsInputUser(value);
-
             } while (!valid);
+
         } else { //UserType == ORGANIZER
             do {
                 showSettings(UserTypes.ORGANIZER);
                 String value = acquireInput();
-
-                //verifico comandi generali
-                if (commands.contains(value)) {
-                    handleCommand(value);
+                if (value!=null){
+                    //verifico comandi generali
+                    if (commands.contains(value)) {
+                        handleCommand(value);
+                    }
+                    valid = handleSettingsInputOrg(value);
                 }
-                valid = handleSettingsInputOrg(value);
-
             } while (!valid);
         }
         spacer(2);
@@ -178,7 +179,7 @@ public class CLI implements NotificationView, ChatView {
     }
 
     private static String acquireInput() {
-        String input;
+        String input = "";
         try {
             input = CLI.READER.readLine();
         } catch (IOException e) {
@@ -324,15 +325,7 @@ public class CLI implements NotificationView, ChatView {
             if (!eventList.isEmpty()) {
                 System.out.println("Events in your city. \nWrite event name to show event info!");
                 printFutureEvents(futureEvents);
-                boolean valid = false;
-                do {
-                    String value = acquireInput();
-                    if (commands.contains(value)) {
-                        handleCommand(value);
-                    }
-                    valid = handleEventNameInput(value, futureEvents);
-
-                } while (!valid);
+                acquireInputCycleHomeUser(futureEvents);
             } else {
                 System.out.println("No events in your city");
                 System.out.println("Please wait new events to be added in your city. Use /commands to navigate!");
@@ -344,10 +337,17 @@ public class CLI implements NotificationView, ChatView {
         } else if (LoggedUser.getUserType().equals(UserTypes.ORGANIZER)) {
             System.out.println("You can add a new event or navigate in other menus:");
             System.out.println("1. Add new event");
+            acquireInputCycleHomeOrg();
 
-            boolean valid = false;
-            do {
-                String value = acquireInput();
+            spacer(3);
+        }
+    }
+
+    private static void acquireInputCycleHomeOrg() {
+        boolean valid = false;
+        do {
+            String value = acquireInput();
+            if (value!=null){
                 if (commands.contains(value)) {
                     handleCommand(value);
                 }
@@ -355,9 +355,21 @@ public class CLI implements NotificationView, ChatView {
                     addEventPage();
                     valid = true;
                 }
-            } while (!valid);
-            spacer(3);
-        }
+            }
+        } while (!valid);
+    }
+
+    private static void acquireInputCycleHomeUser(List<BEvent> futureEvents) {
+        boolean valid = false;
+        do {
+            String value = acquireInput();
+            if (value!=null){
+                if (commands.contains(value)) {
+                    handleCommand(value);
+                }
+                valid = handleEventNameInput(value, futureEvents);
+            }
+        } while (!valid);
     }
 
     private static boolean handleEventNameInput(String value, List<BEvent> futureEvents) {
