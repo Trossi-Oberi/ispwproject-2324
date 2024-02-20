@@ -29,6 +29,7 @@ public class CLI implements NotificationView, ChatView {
     private static final Logger logger = Logger.getLogger("NightPlan");
     private static CFacade cFacade;
     private static BUserData bUserData;
+    private static final String[] MUSIC_GENRES = {"Pop","Rock","Dance","Electronic","Techno","Reggaeton", "Metal", "Disco", "Tech house", "House", "Rap", "Trap"};
     private static final List<String> commands = new ArrayList<>();
     private static final String[] COMMANDS_LIST = {"/commands", "/home", "/events", "/notifications", "/settings", "/quit"};
     private static final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
@@ -461,14 +462,14 @@ public class CLI implements NotificationView, ChatView {
             eventBean.setEventAddress(READER.readLine());
 
             System.out.println("Choose music genre from list:");
-            for (int i = 0; i < MusicGenres.MUSIC_GENRES.length; i++) {
-                System.out.println(i + 1 + ". " + MusicGenres.MUSIC_GENRES[i]);
+            for (int i = 0; i < MUSIC_GENRES.length; i++) {
+                System.out.println(i + 1 + ". " + MUSIC_GENRES[i]);
             }
             do {
                 String val = READER.readLine();
-                for (int i = 0; i < MusicGenres.MUSIC_GENRES.length; i++) {
+                for (int i = 0; i < MUSIC_GENRES.length; i++) {
 
-                    if (MusicGenres.MUSIC_GENRES[i].contains(val)) {
+                    if (MUSIC_GENRES[i].contains(val)) {
                         valid = true;
                         eventBean.setEventMusicGenre(val);
                     }
@@ -584,15 +585,15 @@ public class CLI implements NotificationView, ChatView {
             }
 
             System.out.println("Choose music genre from list: (previous: " + eventBean.getEventMusicGenre() + ")");
-            for (int i = 0; i < MusicGenres.MUSIC_GENRES.length; i++) {
-                System.out.println(i + 1 + ". " + MusicGenres.MUSIC_GENRES[i]);
+            for (int i = 0; i < MUSIC_GENRES.length; i++) {
+                System.out.println(i + 1 + ". " + MUSIC_GENRES[i]);
             }
             do {
                 String val = READER.readLine();
                 if (!val.isEmpty()) {
-                    for (int i = 0; i < MusicGenres.MUSIC_GENRES.length; i++) {
+                    for (int i = 0; i < MUSIC_GENRES.length; i++) {
 
-                        if (MusicGenres.MUSIC_GENRES[i].contains(val)) {
+                        if (MUSIC_GENRES[i].contains(val)) {
                             valid = true;
                             eventBean.setEventMusicGenre(val);
                         }

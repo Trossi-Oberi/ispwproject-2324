@@ -7,7 +7,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import javafx.util.Callback;
 
 import logic.beans.BNotification;
 import logic.utils.Alerts;

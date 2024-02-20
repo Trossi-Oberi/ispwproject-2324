@@ -1,6 +1,7 @@
 package logic.utils;
 
 public class PersistenceClass {
+    private PersistenceClass(){}
 
     //inizializzata di default a JDBC
     private static PersistenceTypes persistenceType = PersistenceTypes.JDBC;
