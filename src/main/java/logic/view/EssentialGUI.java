@@ -142,7 +142,6 @@ public class EssentialGUI extends Application implements NotificationView {
         Platform.runLater(() -> {
             if (type.equals(NotificationTypes.EVENT_ADDED)) {
                 alert.displayAlertPopup(Alerts.INFORMATION, "New event in your city!\nCheck your events page.");
-                //TODO: forse un giorno faremo l'aggiornamento dinamico (fattibile)
             } else if (type.equals(NotificationTypes.USER_EVENT_PARTICIPATION)) {
                 alert.displayAlertPopup(Alerts.INFORMATION, "New user participating to your event.");
             }

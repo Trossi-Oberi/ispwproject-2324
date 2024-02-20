@@ -5,9 +5,6 @@ public class GroupAlreadyCreated extends Exception{
 
     private final Integer eventID;
 
-    /*public GroupAlreadyCreated(String message){
-        super(message);
-    }*/
 
     public GroupAlreadyCreated(String message, Integer eventID){
         super(message);

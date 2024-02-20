@@ -49,7 +49,7 @@ public class ClientListener implements Runnable {
             Thread.currentThread().interrupt();
         } catch (IllegalArgumentException e) {
             //gestione rilascio semafori
-            logger.severe(e.getMessage());
+            logger.severe(()->"Illegal argument "+e.getMessage());
         }
     }
 

@@ -7,10 +7,6 @@ public class UsernameAlreadyTaken extends Exception {
 
     private final String username;
 
-    /*public UsernameAlreadyTaken(String message){
-        super(message);
-    }*/
-
     public UsernameAlreadyTaken(String message, String username){
         super(message);
         this.username = username;

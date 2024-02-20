@@ -7,9 +7,6 @@ public class EventAlreadyAdded extends Exception {
 
     private final String eventName;
 
-   /* public EventAlreadyAdded(String message){
-        super(message);
-    }*/
 
     public EventAlreadyAdded(String message, String eventName){
         super(message);
