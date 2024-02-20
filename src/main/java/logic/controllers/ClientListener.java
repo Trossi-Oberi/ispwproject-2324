@@ -95,11 +95,6 @@ public class ClientListener implements Runnable {
                     }
                     break;
 
-                case USER_EVENT_REMOVAL:
-                    semaphore.release(2);
-                    logger.info(() -> SERVER_USER + incomingNoti.getClientID() + " removed participation to event " + incomingNoti.getEventID() + " successfully!");
-                    break;
-
                 case CHANGE_CITY:
                     semaphore.release(2);
                     logger.info(() -> SERVER_USER + incomingNoti.getClientID() + " changed city from " + incomingNoti.getCity() + " to " + incomingNoti.getNewCity() + " successfully!");
