@@ -21,6 +21,7 @@ import logic.controllers.CFacade;
 
 public class EssentialGUI extends Application implements NotificationView {
     private static final String APP_NAME = "NightPlan";
+    private static final String LOGO_PATH = "/icons/favicon.png";
     protected static String sceneName;
     protected static Scene scene;
     protected static CFacade cfacade = new CFacade();
@@ -36,15 +37,9 @@ public class EssentialGUI extends Application implements NotificationView {
     @Override
     public void start(Stage stage){
         try{
-            cfacade.setNotiGraphic(this);
+            CFacade.setNotiGraphic(this);
             stage.setTitle(APP_NAME);
-            String logoPath = "/icons/favicon.png";
-            String absolutePath;
-            try {
-                absolutePath = getClass().getResource(logoPath).toExternalForm();
-            } catch (NullPointerException e){
-                throw new NullPointerException();
-            }
+            String absolutePath = setAbsolutePath();
             Image logoImage = new Image(absolutePath);
             stage.getIcons().add(logoImage);
             stage.setResizable(false);
@@ -54,6 +49,14 @@ public class EssentialGUI extends Application implements NotificationView {
             logger.log(Level.SEVERE, "Cannot load absolute path of app icon\n", e);
         } catch(IllegalArgumentException e){
             logger.log(Level.SEVERE, "Cannot load EssentialGUI due to illegal argument into logo image\n", e);
+        }
+    }
+
+    private String setAbsolutePath() {
+        try {
+            return getClass().getResource(LOGO_PATH).toExternalForm();
+        } catch (NullPointerException e){
+            throw new NullPointerException();
         }
     }
 
@@ -108,15 +111,11 @@ public class EssentialGUI extends Application implements NotificationView {
     }
 
     public void goToHome(MouseEvent event){
-        switch(LoggedUser.getUserType()){
-            case USER:
-                changeGUI(event, "HomeUser.fxml");
-                break;
-            case ORGANIZER:
-                changeGUI(event, "HomeOrg.fxml");
-                break;
+        if (LoggedUser.getUserType().equals(UserTypes.USER)){
+            changeGUI(event, "HomeUser.fxml");
+        }else{
+            changeGUI(event, "HomeOrg.fxml");
         }
-
     }
 
     public void goToNotifications(MouseEvent event){
@@ -124,31 +123,25 @@ public class EssentialGUI extends Application implements NotificationView {
     }
 
     public void goToYourEvents(MouseEvent event){
-        switch(LoggedUser.getUserType()){
-            case USER:
-                changeGUI(event, "YourEventsUser.fxml");
-                break;
-            case ORGANIZER:
-                changeGUI(event, "YourEventsOrg.fxml");
-                break;
+        if (LoggedUser.getUserType().equals(UserTypes.USER)){
+            changeGUI(event, "YourEventsUser.fxml");
+        }else{
+            changeGUI(event, "YourEventsOrg.fxml");
         }
     }
 
     public void goToSettings(MouseEvent event){
-        switch(LoggedUser.getUserType()){
-            case USER:
-                changeGUI(event, "SettingsUser.fxml");
-                break;
-            case ORGANIZER:
-                changeGUI(event, "SettingsOrg.fxml");
-                break;
+        if (LoggedUser.getUserType().equals(UserTypes.USER)){
+            changeGUI(event, "SettingsUser.fxml");
+        }else{
+            changeGUI(event, "SettingsOrg.fxml");
         }
     }
 
     @Override
     public void showNotification(NotificationTypes type) {
         Platform.runLater(() -> {
-            AlertPopup alert = new AlertPopup();
+            //AlertPopup popup = new AlertPopup();
             switch (type) {
                 case EventAdded:
                     alert.displayAlertPopup(Alerts.INFORMATION, "New event in your city!\nCheck your events page.");
