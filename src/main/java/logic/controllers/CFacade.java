@@ -127,15 +127,13 @@ public class CFacade {
         boolean res = regController.registerUserControl(bean);
 
         //se completo con successo la registrazione di un nuovo utente allora effettuo una connessione al server
-        if (res) {
-            if (bean.getUserType().equals(UserTypes.USER)) {
-                if (notificationController == null) {
-                    notificationController = new CNotification(this); //inizializzo il controller delle notifiche
-                }
-                //setup temp socket per la registrazione (viene automaticamente chiusa dopo l'invio della notifica UserRegistration response dal server
-                setupTempSocket();
-                notificationController.sendNotification(NotificationTypes.USER_REGISTRATION, bean.getUserID(), null, null, null, bean.getCity(), null, null); //null ovvio che sia userType
+        if (res && bean.getUserType().equals(UserTypes.USER)) {
+            if (notificationController == null) {
+                notificationController = new CNotification(this); //inizializzo il controller delle notifiche
             }
+            //setup temp socket per la registrazione (viene automaticamente chiusa dopo l'invio della notifica UserRegistration response dal server
+            setupTempSocket();
+            notificationController.sendNotification(NotificationTypes.USER_REGISTRATION, bean.getUserID(), null, null, null, bean.getCity(), null, null); //null ovvio che sia userType
         }
         return res;
     }
