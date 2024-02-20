@@ -19,7 +19,7 @@ public class GCEventPageGeneral extends EssentialGUI {
     @FXML
     private Text dateTime;
     @FXML
-    private ImageView eventImage;
+    private ImageView eventImageView;
     @FXML
     private Text eventName;
     @FXML
@@ -47,7 +47,7 @@ public class GCEventPageGeneral extends EssentialGUI {
 
         try {
             Image eventImage = new Image(new ByteArrayInputStream(eventB.getEventPicData()));
-            this.eventImage.setImage(eventImage);
+            this.eventImageView.setImage(eventImage);
         } catch (NullPointerException e) {
             throw new RuntimeException(e);
         }

@@ -137,7 +137,7 @@
                 <Font name="Baloo 2 Regular" size="24.0" />
             </font>
         </Text>
-      <ImageView fx:id="eventImage" fitHeight="189.0" fitWidth="345.0" layoutX="228.0" layoutY="118.0" pickOnBounds="true" />
+      <ImageView fx:id="eventImageView" fitHeight="189.0" fitWidth="345.0" layoutX="228.0" layoutY="118.0" pickOnBounds="true" />
       <Text fx:id="eventName" layoutX="201.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="198.8333282470703">
          <font>
             <Font name="Baloo 2 Regular" size="22.0" />

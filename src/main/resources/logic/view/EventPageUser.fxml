@@ -179,7 +179,7 @@
                 <Font name="Baloo 2 Regular" size="24.0" />
             </font>
         </Text>
-      <ImageView fx:id="eventImage" fitHeight="158.0" fitWidth="421.0" layoutX="193.0" layoutY="110.0" pickOnBounds="true" />
+      <ImageView fx:id="eventImageView" fitHeight="158.0" fitWidth="421.0" layoutX="193.0" layoutY="110.0" pickOnBounds="true" />
       <Button fx:id="eventBtn" layoutX="536.0" layoutY="524.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="238.0" style="-fx-background-radius: 3;">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
