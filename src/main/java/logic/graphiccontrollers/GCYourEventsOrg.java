@@ -134,7 +134,7 @@ public class GCYourEventsOrg extends GCYourEventsGeneral implements DoubleClickL
         } catch (IOException | NullPointerException e) {
             logger.log(Level.SEVERE, "Cannot load scene\n", e);
         } catch (RuntimeException e) {
-            throw new RuntimeException(e);
+            logger.severe(e.getMessage());
         }
         nextGuiOnClick(event);
     }

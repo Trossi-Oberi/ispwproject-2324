@@ -7,6 +7,7 @@ import logic.utils.*;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
@@ -31,24 +32,29 @@ public class NotificationDAOCSV implements NotificationDAO {
     private NotificationFactory notiFactory;
 
     private static class NotificationAttributesOrder {
+        private static final int FIRST = 0;
+        private static final int SECOND = 1;
+        private static final int THIRD = 2;
+        private static final int FOURTH = 3;
+        private static final int FIFTH = 4;
         public static int getIndexNotificationID() {
-            return 0;
+            return FIRST;
         }
 
         public static int getIndexNotifiedID() {
-            return 1;
+            return SECOND;
         }
 
         public static int getIndexNotiType() {
-            return 2;
+            return THIRD;
         }
 
         public static int getIndexEventID() {
-            return 3;
+            return FOURTH;
         }
 
         public static int getIndexNotifierID() {
-            return 4;
+            return FIFTH;
         }
     }
 
@@ -58,14 +64,9 @@ public class NotificationDAOCSV implements NotificationDAO {
         File folder = new File(folderName);
 
         if (!folder.exists()) {
-            boolean success = folder.mkdirs();
-            if (success) {
-                logger.finest("New folder created successfully.");
-            } else {
-                logger.finest("Folder creation failed.");
-            }
+            createFolder(folder);
         } else {
-            logger.finest("Folder already exists: " + folderName);
+            logger.finest(() -> "Folder already exists: " + folderName);
         }
 
         String filePath = folderName + File.separator + CSV_DB_NAME;
@@ -76,27 +77,19 @@ public class NotificationDAOCSV implements NotificationDAO {
         //elimino il file se già esiste
         if (fd.exists()) {
             // Elimina il file esistente
-            if (fd.delete()) {
+            try{
+                Files.delete(Paths.get(filePath));
                 logger.finest("Deleted existing CSV file.");
-            } else {
+            } catch (IOException e) {
                 logger.warning("Failed to delete existing CSV file.");
             }
         }
 
         //creo il file
         if (!this.fd.exists()) {
-            try {
-                boolean res = this.fd.createNewFile();
-                if (res) {
-                    logger.finest("Created new file.");
-                } else {
-                    logger.finest("Creation of CSV file failed.");
-                }
-            } catch (IOException e) {
-                logger.severe("Error while creating new file: " + e.getMessage());
-            }
+            createFileFromDesc(this.fd);
         } else {
-            logger.finest("File CSV already exists in path: " + folderName + "/" + CSV_DB_NAME);
+            logger.finest(() -> "File CSV already exists in path: " + folderName + "/" + CSV_DB_NAME);
         }
 
         //aggiorno l'indice del file all'ultima entry aggiunta
@@ -105,6 +98,28 @@ public class NotificationDAOCSV implements NotificationDAO {
         //inizializzo una notificationFactory
         this.notiFactory = new NotificationFactory();
 
+    }
+
+    private void createFileFromDesc(File fd) {
+        try {
+            boolean res = fd.createNewFile();
+            if (res) {
+                logger.finest("Created new file.");
+            } else {
+                logger.finest("Creation of CSV file failed.");
+            }
+        } catch (IOException e) {
+            logger.severe("Error while creating new file: " + e.getMessage());
+        }
+    }
+
+    private void createFolder(File folderFile) {
+        boolean success = folderFile.mkdirs();
+        if (success) {
+            logger.finest("New folder created successfully.");
+        } else {
+            logger.finest("Folder creation failed.");
+        }
     }
 
     private void updateLastIndex() {
@@ -123,17 +138,17 @@ public class NotificationDAOCSV implements NotificationDAO {
     @Override
     public void addNotification(List<Integer> notifiedIDs, NotificationTypes notificationTypes, int eventID) {
         try (CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, true)))){
-            String[] record = new String[5];
+            String[] csvRecord = new String[5];
 
             for (Integer notifiedID : notifiedIDs) {
-                record[NotificationAttributesOrder.getIndexNotificationID()] = String.valueOf(++entriesNumber);
-                record[NotificationAttributesOrder.getIndexNotifiedID()] = String.valueOf(notifiedID);
-                record[NotificationAttributesOrder.getIndexNotiType()] = notificationTypes.toString();
-                record[NotificationAttributesOrder.getIndexEventID()] = String.valueOf(eventID);
-                record[NotificationAttributesOrder.getIndexNotifierID()] = String.valueOf(LoggedUser.getUserID());
+                csvRecord[NotificationAttributesOrder.getIndexNotificationID()] = String.valueOf(++entriesNumber);
+                csvRecord[NotificationAttributesOrder.getIndexNotifiedID()] = String.valueOf(notifiedID);
+                csvRecord[NotificationAttributesOrder.getIndexNotiType()] = notificationTypes.toString();
+                csvRecord[NotificationAttributesOrder.getIndexEventID()] = String.valueOf(eventID);
+                csvRecord[NotificationAttributesOrder.getIndexNotifierID()] = String.valueOf(LoggedUser.getUserID());
 
                 //scrivo e aggiorno il file csv
-                csvWriter.writeNext(record);
+                csvWriter.writeNext(csvRecord);
                 csvWriter.flush();
             }
         } catch (IOException e) {
@@ -168,21 +183,16 @@ public class NotificationDAOCSV implements NotificationDAO {
 
     @Override
     public boolean deleteNotification(int notificationID) {
-        try {
-            CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
-            CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter("csvData/temp.csv", false)));
-
-            String[] record;
-            while ((record = csvReader.readNext()) != null) {
-                if (Integer.parseInt(record[NotificationAttributesOrder.getIndexNotificationID()]) != notificationID) {
+        try (CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd))); CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter("csvData/temp.csv", false)))){
+            String[] retrievedRecord;
+            while ((retrievedRecord = csvReader.readNext()) != null) {
+                if (Integer.parseInt(retrievedRecord[NotificationAttributesOrder.getIndexNotificationID()]) != notificationID) {
                     // Scrivi solo le voci che non corrispondono all'ID della notifica da eliminare
-                    csvWriter.writeNext(record);
+                    csvWriter.writeNext(retrievedRecord);
                 }
             }
-
             csvReader.close();
             csvWriter.close();
-
             Files.move(Paths.get("csvData/temp.csv"), Paths.get(fd.toURI()), StandardCopyOption.REPLACE_EXISTING);
         } catch (CsvValidationException | IOException e) {
             logger.log(Level.SEVERE, "IOException occurred while removing notification from db (csv)");

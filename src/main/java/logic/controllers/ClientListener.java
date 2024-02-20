@@ -44,9 +44,9 @@ public class ClientListener implements Runnable {
             }
         } catch (ClassNotFoundException | IOException e) {
             //gestione eccezioni di deserializzazione (readObject)
-            logger.severe("Cannot serialize object");
+            logger.severe(e.getMessage());
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
         } catch (IllegalArgumentException e) {
             //gestione rilascio semafori
             logger.severe(e.getMessage());
@@ -74,7 +74,6 @@ public class ClientListener implements Runnable {
                         //rilascia semaforo solo per organizer per non bloccare l'applicazione
                         semaphore.release(2);
                     } else {
-
                         //chiama la giusta funzione in base alla GUI per lo user
                         facade.showNotification(incomingNoti.getNotificationType());
                     }

@@ -23,7 +23,7 @@ public class CNotification extends CServerInteraction {
     private NotificationFactory notiFactory;
 
 
-    public CNotification(CFacade facadeRef){
+    public CNotification(CFacade facadeRef) {
         super();
         switch (PersistenceClass.getPersistenceType()) {
             case FILE_SYSTEM:
@@ -43,7 +43,7 @@ public class CNotification extends CServerInteraction {
         semaphore = new Semaphore(1);
         //avviamo il thread con il listener
         listener = new ClientListener(facade, semaphore, LoggedUser.getInputStream());
-        listenerThread = new Thread(listener){
+        listenerThread = new Thread(listener) {
 
         };
 
@@ -55,7 +55,6 @@ public class CNotification extends CServerInteraction {
         logger.info(() -> "Client " + userID + " listener started successfully");
     }
 
-    //TODO: SONARCLOUD DA SMELL SE UN METODO HA PIU DI 7 PARAMETRI
     public void sendNotification(NotificationTypes notiType, Integer clientID, Integer notifierID, Integer eventID, Integer notificationID, String city, String newCity, UserTypes usrType) {
         try {
             //se ListenerThread non è ancora stato inizializzato oppure è stato inizializzato ma è stato poi interrotto lo avvio
@@ -82,9 +81,11 @@ public class CNotification extends CServerInteraction {
         } catch (InvalidClassException e) {
             //gestione errore di serializzazione (writeObject)
             logger.severe("Cannot deserialize object");
-        } catch (IOException | InterruptedException e) {
+        } catch (InterruptedException e) {
             //gestione eccezioni IO o interruzione thread
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
+        } catch (IOException e) {
+            logger.severe(e.getMessage());
         }
     }
 
@@ -92,7 +93,7 @@ public class CNotification extends CServerInteraction {
         //chiudo il thread listener del client
         try {
             listenerThread.interrupt();
-            if (!LoggedUser.getSocket().isClosed()){
+            if (!LoggedUser.getSocket().isClosed()) {
                 LoggedUser.getSocket().close();
                 logger.info(() -> "Client " + userID + " socket closed successfully");
             }

@@ -38,14 +38,13 @@ public class GCProfile extends EssentialGUI{
     @FXML
     private Label userType;
 
-    private UserTypes type;
-
     @FXML
     public void initialize() {
+        UserTypes type;
         if (LoggedUser.getUserType().equals(UserTypes.USER)){
-            this.type = UserTypes.USER;
+            type = UserTypes.USER;
         }else{
-            this.type = UserTypes.ORGANIZER;
+            type = UserTypes.ORGANIZER;
         }
         this.userName.setText(LoggedUser.getUserName());
         this.firstName.setText(LoggedUser.getFirstName());

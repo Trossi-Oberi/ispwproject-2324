@@ -1,7 +1,6 @@
 package logic.graphiccontrollers;
 
 import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
 import logic.beans.BEvent;
 import logic.interfaces.DoubleClickListener;
 import logic.view.EssentialGUI;

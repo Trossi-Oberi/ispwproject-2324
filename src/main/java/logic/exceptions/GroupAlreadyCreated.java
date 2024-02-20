@@ -3,14 +3,14 @@ package logic.exceptions;
 public class GroupAlreadyCreated extends Exception{
     private static final long serialVersionUID = 1L;
 
-    private Integer eventID;
+    private final Integer eventID;
 
-    public GroupAlreadyCreated(String message){
+    /*public GroupAlreadyCreated(String message){
         super(message);
-    }
+    }*/
 
     public GroupAlreadyCreated(String message, Integer eventID){
-        this(message);
+        super(message);
         this.eventID = eventID;
     }
 

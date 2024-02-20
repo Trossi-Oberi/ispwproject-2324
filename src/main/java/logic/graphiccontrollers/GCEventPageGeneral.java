@@ -49,7 +49,7 @@ public class GCEventPageGeneral extends EssentialGUI {
             Image eventImage = new Image(new ByteArrayInputStream(eventB.getEventPicData()));
             this.eventImageView.setImage(eventImage);
         } catch (NullPointerException e) {
-            throw new RuntimeException(e);
+            logger.severe("Error during ImageView setup");
         }
 
         //salvo localmente il bean evento

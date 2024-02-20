@@ -5,14 +5,14 @@ package logic.exceptions;
 public class EventAlreadyAdded extends Exception {
     private static final long serialVersionUID = 1L;
 
-    private String eventName;
+    private final String eventName;
 
-    public EventAlreadyAdded(String message){
+   /* public EventAlreadyAdded(String message){
         super(message);
-    }
+    }*/
 
     public EventAlreadyAdded(String message, String eventName){
-        this(message);
+        super(message);
         this.eventName = eventName;
     }
 

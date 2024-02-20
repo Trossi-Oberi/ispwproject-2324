@@ -95,8 +95,8 @@ public abstract class GCRegistration {
         });
 
         this.provincesList = facadeController.getProvincesList();
-        ObservableList<String> provincesList = FXCollections.observableArrayList(this.provincesList);
-        this.provinceBox.setItems(provincesList);
+        ObservableList<String> provincesListObs = FXCollections.observableArrayList(this.provincesList);
+        this.provinceBox.setItems(provincesListObs);
         setupProvinceBoxListener();
 
         this.userRadio.setSelected(true);

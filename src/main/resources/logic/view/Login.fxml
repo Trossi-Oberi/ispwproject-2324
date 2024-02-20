@@ -67,7 +67,7 @@
             </HBox>
          </graphic>
       </Button>
-      <Button fx:id="GoogleLoginButton" alignment="CENTER" layoutX="294.0" layoutY="424.0" lineSpacing="15.0" mnemonicParsing="false" onMouseClicked="#googleLoginControl" prefHeight="44.0" prefWidth="214.0">
+      <Button fx:id="googleLoginButton" alignment="CENTER" layoutX="294.0" layoutY="424.0" lineSpacing="15.0" mnemonicParsing="false" onMouseClicked="#googleLoginControl" prefHeight="44.0" prefWidth="214.0">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>

@@ -70,12 +70,7 @@ public class GCNotifications extends EssentialGUI {
     public void initialize() {
 
         //Imposta la cell factory personalizzata
-        notificationsLV.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
-            @Override
-            public ListCell<String> call(ListView<String> param) {
-                return new DeleteButtonCell();
-            }
-        });
+        notificationsLV.setCellFactory(param -> new DeleteButtonCell());
         notificationsList = cfacade.retrieveNotifications(LoggedUser.getUserID());
         populateNotificationsLV(notificationsList);
 
@@ -95,18 +90,5 @@ public class GCNotifications extends EssentialGUI {
             logger.log(Level.SEVERE, "Invalid notification string value");
         }
     }
-
-
-    //AGGIORNAMENTO DINAMICO NOTIFICHE (DA FARE?)
-   /* public void addNewNotifications() {
-        String notify = "null; not implemented";
-//        notify = DA IMPLEMENTARE, questo metodo verrà chiamato dal singolo observer (utente) chiamato a sua volta dal subject dell'organizer
-        try {
-            notificationsLV.getItems().add(notify);
-        } catch (NullPointerException e) {
-            logger.log(Level.SEVERE, "Invalid notification string value");
-        }
-    }*/
-
 
 }
