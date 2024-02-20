@@ -20,6 +20,7 @@ public class CFacade {
     private CRegistration regController;
     private CManageEvent manageEventController;
     private CNotification notificationController;
+    private CAnalytics analyticsController;
     private CGroup groupController;
     private CGroupChat chatController;
     private ChatView chatView;
@@ -378,5 +379,12 @@ public class CFacade {
 
     public ChatView getChatGraphic() {
         return this.chatView;
+    }
+
+    public boolean exportAnalyticsFile(BAnalysis analysis) {
+        if (analyticsController == null) {
+            analyticsController = new CAnalytics();
+        }
+        return analyticsController.exportAnalyticsFile(analysis);
     }
 }

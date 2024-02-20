@@ -1,20 +1,21 @@
 package logic.beans;
 
 public class BEvent {
+    protected String eventName;
+    protected String eventProvince;
+    protected String eventCity;
+    protected String eventAddress;
+    protected String eventMusicGenre;
+    protected String eventDate;
+    protected String eventTime;
     private int eventID;
-    private String eventName;
-    private String eventProvince;
-    private String eventCity;
-    private String eventAddress;
-    private String eventMusicGenre;
-    private String eventDate;
-    private String eventTime;
     private byte[] eventPicData;
     private String eventOrganizer;
     private int eventOrganizerID;
     private String eventPicPath;
 
     public BEvent() {
+        //empty
     }
 
     //SETTERS

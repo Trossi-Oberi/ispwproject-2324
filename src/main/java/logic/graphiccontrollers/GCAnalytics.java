@@ -5,13 +5,14 @@ import javafx.scene.image.ImageView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 
 import java.io.ByteArrayInputStream;
 import java.security.SecureRandom;
 import java.util.Random;
 
+import logic.beans.BAnalysis;
 import logic.beans.BEvent;
+import logic.utils.Alerts;
 import logic.view.EssentialGUI;
 
 public class GCAnalytics extends EssentialGUI {
@@ -26,9 +27,6 @@ public class GCAnalytics extends EssentialGUI {
 
     @FXML
     private Label eventNameL;
-
-    @FXML
-    private Button goBackBtn;
 
     @FXML
     private Label participantsL;
@@ -46,6 +44,7 @@ public class GCAnalytics extends EssentialGUI {
     private static Integer timesClicked;
     private static Integer nParticipants; //partecipanti effettivi (Random tra 0 e participations)
 
+    private BEvent eventBean;
 
     @FXML
     public void initialize() {
@@ -65,6 +64,9 @@ public class GCAnalytics extends EssentialGUI {
             throw new RuntimeException(e);
         }
 
+        //inizializzo l'event bean
+        this.eventBean = eventBean;
+
     }
 
     public void initParticipantsInfo(){
@@ -82,7 +84,17 @@ public class GCAnalytics extends EssentialGUI {
     }
 
     @FXML
-    void exportAnalyticsFile(MouseEvent event) {
+    void exportAnalyticsFile() {
+        //popolo il bean con i dati dell'analisi presi dal bean Event che è superclass di bean Analysis
+        BAnalysis analysis = new BAnalysis(this.eventBean);
+        analysis.setTimesClicked(Integer.parseInt(this.timesClickedL.getText()));
+        analysis.setParticipants(Integer.parseInt(this.participantsL.getText()));
+        analysis.setPlannedParticipations(Integer.parseInt(this.plannedL.getText()));
 
+        if(cfacade.exportAnalyticsFile(analysis)){
+            alert.displayAlertPopup(Alerts.INFORMATION, "Analytics file exported as a .txt successfully!\nYou can find it into exportedAnalytics folder.");
+        } else {
+            alert.displayAlertPopup(Alerts.ERROR, "Analytics file export failed!\n Retry...");
+        }
     }
 }
