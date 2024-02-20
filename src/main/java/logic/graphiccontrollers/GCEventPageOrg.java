@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import logic.beans.BEvent;
 import logic.utils.Alerts;
 import logic.view.EssentialGUI;
 
@@ -37,11 +38,10 @@ public class GCEventPageOrg extends GCEventPageGeneral {
 
     @FXML
     public void editEventAction(MouseEvent event) {
-        preloadEditEvent(event);
-
+        preloadEditEvent(event, eventBean);
     }
 
-    private void preloadEditEvent(MouseEvent event) {
+    private static void preloadEditEvent(MouseEvent event, BEvent eventBean) {
         try {
             URL loc = EssentialGUI.class.getResource("EditEvent.fxml");
             FXMLLoader loader = new FXMLLoader(loc);
@@ -58,7 +58,7 @@ public class GCEventPageOrg extends GCEventPageGeneral {
         } catch (RuntimeException e) {
             logger.log(Level.SEVERE, "Error during preload\n", e);
         }
-        nextGuiOnClick(event);
+        gui.nextGuiOnClick(event);
     }
 
 

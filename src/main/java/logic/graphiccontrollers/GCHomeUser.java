@@ -91,6 +91,10 @@ public class GCHomeUser extends EssentialGUI implements DoubleClickListener {
 
     @Override
     public void onItemDoubleClick(MouseEvent event, BEvent selectedEventBean, String fxmlpage) {
+        changePage(event, selectedEventBean, fxmlpage);
+    }
+
+    private static void changePage(MouseEvent event, BEvent selectedEventBean, String fxmlpage){
         try {
             URL loc = EssentialGUI.class.getResource(fxmlpage);
             FXMLLoader loader = new FXMLLoader(loc);
@@ -102,14 +106,14 @@ public class GCHomeUser extends EssentialGUI implements DoubleClickListener {
             scene.getStylesheets().add(Objects.requireNonNull(EssentialGUI.class.getResource("application.css")).toExternalForm());
 
             GCEventPageUser eventPageUserGC = loader.getController();
-            eventPageUserGC.initEventFromBean(selectedEventBean, this.getClass().getSimpleName());
+            eventPageUserGC.initEventFromBean(selectedEventBean, GCHomeUser.class.getSimpleName());
             eventPageUserGC.initEventPageButton();
         } catch (IOException | NullPointerException e) {
             logger.log(Level.SEVERE, "Cannot load scene\n", e);
         } catch (RuntimeException e) {
             logger.severe("Error during next event page preload");
         }
-        nextGuiOnClick(event);
+        gui.nextGuiOnClick(event);
     }
 
 }

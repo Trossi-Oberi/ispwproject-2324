@@ -114,6 +114,10 @@ public class GCYourEventsOrg extends GCYourEventsGeneral implements DoubleClickL
 
     @Override
     public void onItemDoubleClick(MouseEvent event, BEvent selectedEventBean, String fxmlpage) {
+        changePage(event, selectedEventBean, fxmlpage);
+    }
+
+    private static void changePage(MouseEvent event, BEvent selectedEventBean, String fxmlpage){
         try {
             URL loc = EssentialGUI.class.getResource(fxmlpage);
             FXMLLoader loader = new FXMLLoader(loc);
@@ -125,9 +129,9 @@ public class GCYourEventsOrg extends GCYourEventsGeneral implements DoubleClickL
                 GCAnalytics analyticsGC = loader.getController();
                 GCAnalytics.initParticipantsInfo(selectedEventBean);
                 analyticsGC.initAnalyticsByBean(selectedEventBean);
-             } else {
+            } else {
                 GCEventPageOrg eventPageOrgGC = loader.getController();
-                eventPageOrgGC.initEventFromBean(selectedEventBean, this.getClass().getSimpleName());
+                eventPageOrgGC.initEventFromBean(selectedEventBean, GCYourEventsOrg.class.getSimpleName());
             }
             scene = new Scene(root);
             scene.getStylesheets().add(Objects.requireNonNull(EssentialGUI.class.getResource("application.css")).toExternalForm());
@@ -136,6 +140,6 @@ public class GCYourEventsOrg extends GCYourEventsGeneral implements DoubleClickL
         } catch (RuntimeException e) {
             logger.severe(e.getMessage());
         }
-        nextGuiOnClick(event);
+        gui.nextGuiOnClick(event);
     }
 }
