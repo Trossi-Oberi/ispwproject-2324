@@ -53,14 +53,11 @@ public class Server {
         (il server è un controller a tutti gli effetti,
         facciamo questa operazione solo per semplicità
         perché il nostro server non rimane sempre accesso 24/7 */
-        ServerSocket serverSocket;
-
         loadData();
         boolean serverRunning = true;
 
-        try {
+        try (ServerSocket serverSocket = new ServerSocket(PORT)){
             //attivo la connessione del server tramite ServerSocket
-            serverSocket = new ServerSocket(PORT);
             while (serverRunning) {
                 //verifico che non si sia raggiunto il numero massimo di connessioni possibili al server
                 if (connections == MAX_CONNECTIONS) {
