@@ -1035,41 +1035,48 @@ public class CLI implements NotificationView, ChatView {
         System.out.println("Your events");
         if (LoggedUser.getUserType().equals(UserTypes.USER)) {
             System.out.println("1. Events with planned participation\n" + "2. Past events");
-
-            boolean valid = false;
-            while (!valid) {
-                String value = acquireInput();
-                if (value != null && commands.contains(value)) {
-                    handleCommand(value);
-                }
-                if (value != null && value.equals("1")) {
-                    valid = true;
-                    showEvents(false);
-                } else if (value != null && value.equals("2")) {
-                    valid = true;
-                    showEvents(true);
-                }
-            }
+            cycleForUserLoadEvents();
 
         } else if (LoggedUser.getUserType().equals(UserTypes.ORGANIZER)) {
             System.out.println("1. Events created by you\n" + "2. Past events\n" + "3. Analytics");
+            cycleForOrgLoadEvents();
 
-            boolean valid = false;
-            while (!valid) {
-                String value = acquireInput();
-                if (value != null && commands.contains(value)) {
-                    handleCommand(value);
-                }
-                if (value != null && value.equals("1")) {
-                    valid = true;
-                    showEvents(false);
-                } else if (value != null && value.equals("2")) {
-                    valid = true;
-                    showEvents(true);
-                } else if (value != null && value.equals("3")) {
-                    //apro la pagina analytics con la lista degli eventi passati
-                    showAnalytics(showEvents(true));
-                }
+        }
+    }
+
+    private static void cycleForOrgLoadEvents() {
+        boolean valid = false;
+        while (!valid) {
+            String value = acquireInput();
+            if (value != null && commands.contains(value)) {
+                handleCommand(value);
+            }
+            if (value != null && value.equals("1")) {
+                valid = true;
+                showEvents(false);
+            } else if (value != null && value.equals("2")) {
+                valid = true;
+                showEvents(true);
+            } else if (value != null && value.equals("3")) {
+                //apro la pagina analytics con la lista degli eventi passati
+                showAnalytics(showEvents(true));
+            }
+        }
+    }
+
+    private static void cycleForUserLoadEvents() {
+        boolean valid = false;
+        while (!valid) {
+            String value = acquireInput();
+            if (value != null && commands.contains(value)) {
+                handleCommand(value);
+            }
+            if (value != null && value.equals("1")) {
+                valid = true;
+                showEvents(false);
+            } else if (value != null && value.equals("2")) {
+                valid = true;
+                showEvents(true);
             }
         }
     }
