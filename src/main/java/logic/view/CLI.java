@@ -33,6 +33,7 @@ public class CLI implements NotificationView, ChatView {
     private static final String[] COMMANDS_LIST = {"/commands", "/home", "/events", "/notifications", "/settings", "/quit"};
     private static final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
     private static String filePath;
+    private static final String DATE_PATTERN = "dd-MM-yyyy";
     private static final String CITY = "City: ";
     private static final String COMMANDS_HELP = "Use /commands to view a list of commands which you can use to navigate into application pages";
     private static final String ASCII_LOGO =
@@ -400,7 +401,7 @@ public class CLI implements NotificationView, ChatView {
         List<BEvent> futureEvents = new ArrayList<>();
         for (BEvent event : eventList) {
             String eventDateString = event.getEventDate();
-            LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern(DATE_PATTERN));
             if (LocalDate.now().isBefore(date)) {
                 futureEvents.add(event);
             }
@@ -550,7 +551,7 @@ public class CLI implements NotificationView, ChatView {
     }
 
     private static void acquireDateAndSetBean(BEvent eventBean) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
         boolean valid = false;
         while (!valid) {
             String val = acquireInput();
@@ -714,7 +715,7 @@ public class CLI implements NotificationView, ChatView {
     }
 
     private static void acquireDateAndEditBean(BEvent eventBean) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
         boolean toEdit = true;
         boolean valid = false;
         while (!valid) {
@@ -1056,16 +1057,16 @@ public class CLI implements NotificationView, ChatView {
             boolean valid = false;
             while (!valid) {
                 String value = acquireInput();
-                if (value!=null && commands.contains(value)) {
+                if (value != null && commands.contains(value)) {
                     handleCommand(value);
                 }
-                if (value!=null && value.equals("1")){
+                if (value != null && value.equals("1")) {
                     valid = true;
                     showEvents(false);
-                }else if (value!=null && value.equals("2")){
+                } else if (value != null && value.equals("2")) {
                     valid = true;
                     showEvents(true);
-                } else if (value!=null && value.equals("3")) {
+                } else if (value != null && value.equals("3")) {
                     //apro la pagina analytics con la lista degli eventi passati
                     showAnalytics(showEvents(true));
                 }
@@ -1073,7 +1074,7 @@ public class CLI implements NotificationView, ChatView {
         }
     }
 
-    private static void showAnalytics(ArrayList<BEvent> pastEvents) {
+    private static void showAnalytics(List<BEvent> pastEvents) {
         spacer(3);
         System.out.println("Analytics");
         spacer(1);
@@ -1150,36 +1151,14 @@ public class CLI implements NotificationView, ChatView {
         } while (!valid);
     }
 
-    private static ArrayList<BEvent> showEvents(boolean isPassed) {
+    private static List<BEvent> showEvents(boolean isPassed) {
         spacer(3);
-        ArrayList<BEvent> eventList = new ArrayList<>();
-        spacer(1);
+        List<BEvent> eventList = new ArrayList<>();
 
         if (LoggedUser.getUserType().equals(UserTypes.USER)) {
 
             List<BEvent> tempList = cFacade.retrieveEvents(LoggedUser.getUserType(), "GCYourEventsUser");
-
-            if (!isPassed) {
-                for (BEvent bEvent : tempList) {
-                    String eventDateString = bEvent.getEventDate();
-                    LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-
-                    if (LocalDate.now().isBefore(date)) {
-                        //aggiungo alla lista solo gli eventi passati (today is NOT before event date)
-                        eventList.add(bEvent);
-                    }
-                }
-            } else {
-                for (BEvent bEvent : tempList) {
-                    String eventDateString = bEvent.getEventDate();
-                    LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-
-                    if (!LocalDate.now().isBefore(date)) {
-                        //aggiungo alla lista solo gli eventi futuri (today is before event date)
-                        eventList.add(bEvent);
-                    }
-                }
-            }
+            eventList = populateEventList(isPassed, tempList); //isPassed = true -> show past events; isPassed = false -> show upcoming events
 
             if (!eventList.isEmpty()) {
                 if (!isPassed) {
@@ -1194,25 +1173,13 @@ public class CLI implements NotificationView, ChatView {
                 spacer(1);
 
                 boolean valid = false;
-                do {
-                    try {
-                        String value = READER.readLine();
-
-                        //vedo eventuali comandi generali
-                        if (commands.contains(value)) {
-                            handleCommand(value);
-                        }
-
-                        for (BEvent bEvent : eventList) {
-                            if (bEvent.getEventName().equals(value)) {
-                                valid = true;
-                                showEventInfo(bEvent, "YourEventsUser");
-                            }
-                        }
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                while (!valid) {
+                    String value = acquireInput();
+                    if (value != null && commands.contains(value)) {
+                        handleCommand(value);
                     }
-                } while (!valid);
+                    valid = checkIfEventNameEntered(value, eventList);
+                }
             } else {
                 System.out.println("No planned events!");
                 System.out.println("To plan participation to an event in your city go to /home and write the name of an available event.\n Then follow instructions to Plan event participation.");
@@ -1221,30 +1188,11 @@ public class CLI implements NotificationView, ChatView {
                 waitCommands();
             }
             spacer(3);
+
         } else if (LoggedUser.getUserType().equals(UserTypes.ORGANIZER)) {
             List<BEvent> tempList = cFacade.retrieveEvents(LoggedUser.getUserType(), "GCYourEventsOrg");
+            eventList = populateEventList(isPassed, tempList);
 
-            if (!isPassed) {
-                for (BEvent bEvent : tempList) {
-                    String eventDateString = bEvent.getEventDate();
-                    LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-
-                    if (LocalDate.now().isBefore(date)) {
-                        //aggiungo alla lista solo gli eventi passati (today is NOT before event date)
-                        eventList.add(bEvent);
-                    }
-                }
-            } else {
-                for (BEvent bEvent : tempList) {
-                    String eventDateString = bEvent.getEventDate();
-                    LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-
-                    if (!LocalDate.now().isBefore(date)) {
-                        //aggiungo alla lista solo gli eventi futuri (today is before event date)
-                        eventList.add(bEvent);
-                    }
-                }
-            }
 
             if (!eventList.isEmpty()) {
                 System.out.println("Your organized events. \nWrite event name to show event info, edit or delete it!");
@@ -1255,25 +1203,14 @@ public class CLI implements NotificationView, ChatView {
                 spacer(1);
 
                 boolean valid = false;
-                do {
-                    try {
-                        String value = READER.readLine();
-
-                        //vedo eventuali comandi generali
-                        if (commands.contains(value)) {
-                            handleCommand(value);
-                        }
-
-                        for (BEvent bEvent : eventList) {
-                            if (bEvent.getEventName().equals(value)) {
-                                valid = true;
-                                showEventInfo(bEvent, "YourEventsOrg");
-                            }
-                        }
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                while (!valid) {
+                    String value = acquireInput();
+                    if (value != null && commands.contains(value)) {
+                        handleCommand(value);
                     }
-                } while (!valid);
+                    valid = checkIfEventNameEntered(value, eventList);
+                }
+
             } else {
                 System.out.println("No organized events!");
                 System.out.println("To add a new event go to /home and write 1 to add event.\n Then follow instructions to finish the procedure.");
@@ -1286,7 +1223,43 @@ public class CLI implements NotificationView, ChatView {
         return eventList;
     }
 
-    private static void printEventsList(ArrayList<BEvent> eventList) {
+    private static boolean checkIfEventNameEntered(String value, List<BEvent> eventList) {
+        for (BEvent bEvent : eventList) {
+            if (bEvent.getEventName().equals(value)) {
+                showEventInfo(bEvent, "YourEventsUser");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static List<BEvent> populateEventList(boolean isPassed, List<BEvent> tempList) {
+        List<BEvent> eventList = new ArrayList<>();
+        if (!isPassed) {
+            for (BEvent bEvent : tempList) {
+                String eventDateString = bEvent.getEventDate();
+                LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern(DATE_PATTERN));
+
+                if (LocalDate.now().isBefore(date)) {
+                    //aggiungo alla lista solo gli eventi futuri (today is before event date)
+                    eventList.add(bEvent);
+                }
+            }
+        } else {
+            for (BEvent bEvent : tempList) {
+                String eventDateString = bEvent.getEventDate();
+                LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern(DATE_PATTERN));
+
+                if (!LocalDate.now().isBefore(date)) {
+                    //aggiungo alla lista solo gli eventi passati (today is NOT before event date)
+                    eventList.add(bEvent);
+                }
+            }
+        }
+        return eventList;
+    }
+
+    private static void printEventsList(List<BEvent> eventList) {
         for (int i = 0; i < eventList.size(); i++) {
             System.out.println(i + 1 + ". " + eventList.get(i).getEventName());
         }
@@ -1508,7 +1481,7 @@ public class CLI implements NotificationView, ChatView {
 
 
             System.out.println("Birth date: dd-MM-yyyy");
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
             do {
                 String val = READER.readLine();
                 try {
