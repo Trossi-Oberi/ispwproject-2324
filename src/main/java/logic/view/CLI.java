@@ -1166,68 +1166,73 @@ public class CLI implements NotificationView, ChatView {
 
             List<BEvent> tempList = cFacade.retrieveEvents(LoggedUser.getUserType(), "GCYourEventsUser");
             eventList = populateEventList(isPassed, tempList); //isPassed = true -> show past events; isPassed = false -> show upcoming events
-
-            if (!eventList.isEmpty()) {
-                if (!isPassed) {
-                    System.out.println("Your events. \nWrite event name to show event info!");
-                } else {
-                    System.out.println("Your past events. \nWrite event name to show event info!");
-                }
-                printEventsList(eventList);
-
-                spacer(1);
-                System.out.println(COMMANDS_HELP);
-                spacer(1);
-
-                boolean valid = false;
-                while (!valid) {
-                    String value = acquireInput();
-                    if (value != null && commands.contains(value)) {
-                        handleCommand(value);
-                    }
-                    valid = checkIfEventNameEntered(value, eventList);
-                }
-            } else {
-                System.out.println("No planned events!");
-                System.out.println("To plan participation to an event in your city go to /home and write the name of an available event.\n Then follow instructions to Plan event participation.");
-                spacer(1);
-
-                waitCommands();
-            }
-            spacer(3);
+            checksOnEventListUser(eventList, isPassed);
 
         } else if (LoggedUser.getUserType().equals(UserTypes.ORGANIZER)) {
             List<BEvent> tempList = cFacade.retrieveEvents(LoggedUser.getUserType(), "GCYourEventsOrg");
             eventList = populateEventList(isPassed, tempList);
+            checksOnEventListOrg(eventList, isPassed);
 
+        } else {
+            System.out.println("No organized events!");
+            System.out.println("To add a new event go to /home and write 1 to add event.\n Then follow instructions to finish the procedure.");
+            spacer(1);
 
-            if (!eventList.isEmpty()) {
-                System.out.println("Your organized events. \nWrite event name to show event info, edit or delete it!");
-                printEventsList(eventList);
-
-                spacer(1);
-                System.out.println(COMMANDS_HELP);
-                spacer(1);
-
-                boolean valid = false;
-                while (!valid) {
-                    String value = acquireInput();
-                    if (value != null && commands.contains(value)) {
-                        handleCommand(value);
-                    }
-                    valid = checkIfEventNameEntered(value, eventList);
-                }
-
-            } else {
-                System.out.println("No organized events!");
-                System.out.println("To add a new event go to /home and write 1 to add event.\n Then follow instructions to finish the procedure.");
-                spacer(1);
-
-                waitCommands();
-            }
-            spacer(3);
+            waitCommands();
         }
+        spacer(3);
+
         return eventList;
+    }
+
+    private static void checksOnEventListOrg(List<BEvent> eventList, boolean isPassed) {
+        if (!eventList.isEmpty()) {
+            System.out.println("Your organized events. \nWrite event name to show event info, edit or delete it!");
+            CLI.printEventsList(eventList);
+
+            spacer(1);
+            System.out.println(COMMANDS_HELP);
+            spacer(1);
+
+            boolean valid = false;
+            while (!valid) {
+                String value = acquireInput();
+                if (value != null && commands.contains(value)) {
+                    handleCommand(value);
+                }
+                valid = checkIfEventNameEntered(value, eventList);
+            }
+        }
+    }
+
+    private static void checksOnEventListUser(List<BEvent> eventList, boolean isPassed) {
+        if (!eventList.isEmpty()) {
+            if (!isPassed) {
+                System.out.println("Your events. \nWrite event name to show event info!");
+            } else {
+                System.out.println("Your past events. \nWrite event name to show event info!");
+            }
+            printEventsList(eventList);
+
+            spacer(1);
+            System.out.println(COMMANDS_HELP);
+            spacer(1);
+
+            boolean valid = false;
+            while (!valid) {
+                String value = acquireInput();
+                if (value != null && commands.contains(value)) {
+                    handleCommand(value);
+                }
+                valid = checkIfEventNameEntered(value, eventList);
+            }
+        } else {
+            System.out.println("No planned events!");
+            System.out.println("To plan participation to an event in your city go to /home and write the name of an available event.\n Then follow instructions to Plan event participation.");
+            spacer(1);
+
+            waitCommands();
+        }
     }
 
     private static boolean checkIfEventNameEntered(String value, List<BEvent> eventList) {
