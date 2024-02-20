@@ -1,5 +1,6 @@
 package logic.view;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -20,7 +21,8 @@ import logic.controllers.CFacade;
 
 public class EssentialGUI extends Application implements NotificationView {
     private static final String APP_NAME = "NightPlan";
-    private static final String LOGO_PATH = "/icons/favicon.png";
+    private static final String PATH = "icons";
+    private static final String LOGO_NAME = "favicon.png";
     protected static String sceneName;
     protected static Scene scene;
     protected static CFacade cfacade = new CFacade();
@@ -53,7 +55,7 @@ public class EssentialGUI extends Application implements NotificationView {
 
     private String setAbsolutePath() {
         try {
-            return getClass().getResource(LOGO_PATH).toExternalForm();
+            return getClass().getResource(PATH + File.separator+ LOGO_NAME).toExternalForm();
         } catch (NullPointerException e) {
             throw new NullPointerException();
         }
