@@ -7,7 +7,6 @@ import logic.utils.*;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ public class NotificationDAOCSV implements NotificationDAO {
 
     private static final String CSV_DB_NAME = "DBNotifications.csv";
 
-    private static int entriesNumber = 0;
+    private int entriesNumber = 0;
 
     //file descriptor
     private File fd;
@@ -161,16 +160,16 @@ public class NotificationDAOCSV implements NotificationDAO {
         ArrayList<Notification> notifications = new ArrayList<>();
 
         try (CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)))) {
-            String[] record;
+            String[] retrievedRecord;
             Notification msg;
 
-            while ((record = csvReader.readNext()) != null) {
-                if (Integer.parseInt(record[NotificationAttributesOrder.getIndexNotifiedID()]) == usrID) {
+            while ((retrievedRecord = csvReader.readNext()) != null) {
+                if (Integer.parseInt(retrievedRecord[NotificationAttributesOrder.getIndexNotifiedID()]) == usrID) {
                     //id, type, event_id, notifier_id
-                    if ((record[NotificationAttributesOrder.getIndexNotiType()]).equals(NotificationTypes.EVENT_ADDED.toString())) {
-                        msg = notiFactory.createNotification(SituationType.LOCAL, NotificationTypes.EVENT_ADDED, usrID, Integer.parseInt(record[NotificationAttributesOrder.getIndexNotifierID()]), Integer.parseInt(record[NotificationAttributesOrder.getIndexEventID()]), Integer.parseInt(record[NotificationAttributesOrder.getIndexNotificationID()]), null, null, null);
+                    if ((retrievedRecord[NotificationAttributesOrder.getIndexNotiType()]).equals(NotificationTypes.EVENT_ADDED.toString())) {
+                        msg = notiFactory.createNotification(SituationType.LOCAL, NotificationTypes.EVENT_ADDED, usrID, Integer.parseInt(retrievedRecord[NotificationAttributesOrder.getIndexNotifierID()]), Integer.parseInt(retrievedRecord[NotificationAttributesOrder.getIndexEventID()]), Integer.parseInt(retrievedRecord[NotificationAttributesOrder.getIndexNotificationID()]), null, null, null);
                     } else {
-                        msg = notiFactory.createNotification(SituationType.LOCAL, NotificationTypes.USER_EVENT_PARTICIPATION, usrID, Integer.parseInt(record[NotificationAttributesOrder.getIndexNotifierID()]), Integer.parseInt(record[NotificationAttributesOrder.getIndexEventID()]), Integer.parseInt(record[NotificationAttributesOrder.getIndexNotificationID()]), null, null, null);
+                        msg = notiFactory.createNotification(SituationType.LOCAL, NotificationTypes.USER_EVENT_PARTICIPATION, usrID, Integer.parseInt(retrievedRecord[NotificationAttributesOrder.getIndexNotifierID()]), Integer.parseInt(retrievedRecord[NotificationAttributesOrder.getIndexEventID()]), Integer.parseInt(retrievedRecord[NotificationAttributesOrder.getIndexNotificationID()]), null, null, null);
                     }
                     notifications.add(msg);
                 }
