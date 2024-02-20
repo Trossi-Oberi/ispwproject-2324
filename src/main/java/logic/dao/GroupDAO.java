@@ -93,7 +93,7 @@ public class GroupDAO {
         }
         catch (SQLException e) {
             if(e.getErrorCode() == 1062){
-                throw new GroupAlreadyCreated("Group already created for this event ");
+                throw new GroupAlreadyCreated("Group already created for this event", eventID);
             }
             logger.log(Level.SEVERE, "SQLException occurred while creating group");
         }
