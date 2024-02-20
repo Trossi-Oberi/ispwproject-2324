@@ -97,7 +97,7 @@ public abstract class GCRegistration {
     }
 
     protected void updateCityListView() {
-        ObservableList<String> citiesList = FXCollections.observableArrayList(this.citiesList);
-        this.cityBox.setItems(citiesList);
+        ObservableList<String> citiesListObs = FXCollections.observableArrayList(this.citiesList);
+        this.cityBox.setItems(citiesListObs);
     }
 }

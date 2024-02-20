@@ -52,7 +52,6 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
     // Classe per personalizzare la visualizzazione delle celle nella ListView
     private class GroupListCell extends ListCell<BGroup> {
         private Label groupName = new Label();
-        private Region spacer;
 
         @Override
         protected void updateItem(BGroup item, boolean empty) {
@@ -104,7 +103,7 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
 
                 HBox hbox = new HBox();
                 HBox.setHgrow(groupName, Priority.ALWAYS);
-                spacer = new Region();
+                Region spacer = new Region();
                 HBox.setHgrow(spacer, Priority.ALWAYS);
                 hbox.setAlignment(Pos.CENTER_LEFT);
                 hbox.setSpacing(5);

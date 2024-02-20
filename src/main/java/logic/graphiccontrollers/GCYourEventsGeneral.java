@@ -7,7 +7,6 @@ import logic.interfaces.DoubleClickListener;
 import logic.view.EssentialGUI;
 
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class GCYourEventsGeneral extends EssentialGUI implements DoubleClickListener {
@@ -16,11 +15,6 @@ public abstract class GCYourEventsGeneral extends EssentialGUI implements Double
     protected String formatTimeAndDate(String date, String time){
         return (date + " - "+ time);
     }
-
-    @Override
-    public abstract void setupEventClickListener();
-    @Override
-    public abstract void onItemDoubleClick(MouseEvent event, BEvent selectedEventBean, String fxmlpage);
 
     public static BEvent getBeanFromListView(ListView<String> lv, List<BEvent> beansArray){
         int selectedEventIndex = lv.getSelectionModel().getSelectedIndex();

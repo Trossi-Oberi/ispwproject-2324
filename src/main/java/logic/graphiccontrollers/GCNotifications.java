@@ -29,7 +29,7 @@ public class GCNotifications extends EssentialGUI {
         private Region spacer;
         private Button deleteButton;
 
-        public DeleteButtonCell(ListView<String> param) {
+        public DeleteButtonCell() {
             hbox = new HBox();
             label = new Label();
             HBox.setHgrow(label, Priority.ALWAYS);
@@ -73,7 +73,7 @@ public class GCNotifications extends EssentialGUI {
         notificationsLV.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
             @Override
             public ListCell<String> call(ListView<String> param) {
-                return new DeleteButtonCell(param);
+                return new DeleteButtonCell();
             }
         });
         notificationsList = cfacade.retrieveNotifications(LoggedUser.getUserID());

@@ -81,28 +81,36 @@ public class GCYourEventsOrg extends GCYourEventsGeneral implements DoubleClickL
         analyticsLV.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 BEvent selectedEventBean = getBeanFromListView(analyticsLV, pastEventsBeans);
-                try {
-                    if (selectedEventBean != null) {
-                        onItemDoubleClick(event, selectedEventBean, "Analytics.fxml");
-                    }
-                } catch (RuntimeException e) {
-                    alert.displayAlertPopup(Alerts.ERROR, "Fatal: " + e.getMessage());
-                }
+                showAnalytics(event, selectedEventBean);
             }
         });
         upcEventsLV.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 // Verifica se è stato effettuato un doppio clic
                 BEvent selectedEventBean = getBeanFromListView(upcEventsLV, upComingEventsBeans);
-                try {
-                    if (selectedEventBean != null) {
-                        onItemDoubleClick(event, selectedEventBean, "EventPageOrg.fxml");
-                    }
-                } catch (RuntimeException e) {
-                    alert.displayAlertPopup(Alerts.ERROR, "Fatal: " + e.getMessage());
-                }
+                showEventPage(event, selectedEventBean);
             }
         });
+    }
+
+    private void showEventPage(MouseEvent event, BEvent selectedEventBean) {
+        try {
+            if (selectedEventBean != null) {
+                onItemDoubleClick(event, selectedEventBean, "EventPageOrg.fxml");
+            }
+        } catch (RuntimeException e) {
+            alert.displayAlertPopup(Alerts.ERROR, "Fatal: " + e.getMessage());
+        }
+    }
+
+    private void showAnalytics(MouseEvent event, BEvent selectedEventBean) {
+        try {
+            if (selectedEventBean != null) {
+                onItemDoubleClick(event, selectedEventBean, "Analytics.fxml");
+            }
+        } catch (RuntimeException e) {
+            alert.displayAlertPopup(Alerts.ERROR, "Fatal: " + e.getMessage());
+        }
     }
 
     @Override

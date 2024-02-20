@@ -54,18 +54,11 @@ public class GCLogin extends EssentialGUI{
     @FXML
     public void loginControl(MouseEvent event){
         BUserData userBean;
-        NotificationView notiView = new EssentialGUI();
         try {
             if (isGoogleAuth) {
                 //google login
                 userBean = new BUserData();
-                try {
-                    if(GoogleLogin.initGoogleLogin() == 1){
-                        openAuthCodeWindow();
-                    }
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+                setupGoogleLogin();
             } else {
                 //classic login
                 userBean = new BUserData(this.usrname.getText(), this.passwd.getText());
@@ -96,6 +89,16 @@ public class GCLogin extends EssentialGUI{
             alert.displayAlertPopup(Alerts.WARNING, "Invalid authorization code. Please retry...");
         } catch (RuntimeException e){
             alert.displayAlertPopup(Alerts.ERROR, "Runtime exception: " + e.getMessage());
+        }
+    }
+
+    private void setupGoogleLogin() {
+        try {
+            if(GoogleLogin.initGoogleLogin() == 1){
+                openAuthCodeWindow();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
