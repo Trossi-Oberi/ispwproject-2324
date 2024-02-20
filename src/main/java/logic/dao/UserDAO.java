@@ -1,7 +1,5 @@
 package logic.dao;
 
-import logic.controllers.MessageFactory;
-import logic.controllers.NotiObserverClass;
 import logic.controllers.ObserverClass;
 import logic.controllers.ObserverFactory;
 import logic.utils.LoggedUser;
@@ -178,8 +176,8 @@ public class UserDAO {
         return username;
     }
 
-    public ArrayList<Integer> getUsersInCity(String city) {
-        ArrayList<Integer> usersIDs = new ArrayList<>();
+    public List<Integer> getUsersInCity(String city) {
+        List<Integer> usersIDs = new ArrayList<>();
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id FROM users WHERE (city = ? AND userType = ?)")) {
             statement.setString(1, city);
             statement.setString(2, "USER");

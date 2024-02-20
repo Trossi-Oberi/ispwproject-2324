@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 import com.opencsv.CSVReader;
@@ -110,7 +111,7 @@ public class NotificationDAOCSV implements NotificationDAO {
     }
 
     @Override
-    public void addNotification(ArrayList<Integer> notifiedIDs, NotificationTypes notificationTypes, int eventID) {
+    public void addNotification(List<Integer> notifiedIDs, NotificationTypes notificationTypes, int eventID) {
         try (CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, true)))){
             String[] record = new String[5];
 

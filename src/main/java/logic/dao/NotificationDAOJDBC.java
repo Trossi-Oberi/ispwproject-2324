@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 import static logic.view.EssentialGUI.logger;
@@ -19,7 +20,7 @@ public class NotificationDAOJDBC implements NotificationDAO{
         notiFactory = new NotificationFactory();
     }
 
-    public void addNotification(ArrayList<Integer> notifiedIDs, NotificationTypes notificationTypes, int eventID) {
+    public void addNotification(List<Integer> notifiedIDs, NotificationTypes notificationTypes, int eventID) {
         //questo metodo ha come valore di ritorno l'id della notifica appena inserita nel database
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Notifications VALUES (NULL, ?, ?, ?, ?)")) {
             for (Integer notifiedID : notifiedIDs) {

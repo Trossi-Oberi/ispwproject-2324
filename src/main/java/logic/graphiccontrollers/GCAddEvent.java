@@ -1,24 +1,12 @@
 package logic.graphiccontrollers;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.DateCell;
 import javafx.fxml.FXML;
 import logic.utils.Alerts;
-import logic.utils.LoggedUser;
 import logic.utils.MusicGenres;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.logging.Level;
-
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
-
 import logic.beans.BEvent;
 
 

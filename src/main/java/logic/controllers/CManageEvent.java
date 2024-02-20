@@ -44,7 +44,7 @@ public class CManageEvent {
         if(eventDAO.createEvent(eventModel)){
             eventBean.setEventID(eventModel.getEventID());
 
-            ArrayList<Integer> usersIDs;
+            List<Integer> usersIDs;
             usersIDs = userDAO.getUsersInCity(eventBean.getEventCity());
 
             //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
