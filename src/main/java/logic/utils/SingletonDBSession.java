@@ -7,13 +7,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.logging.Level;
+
 import static logic.view.EssentialGUI.logger;
 
 
 public class SingletonDBSession {
-    private static SingletonDBSession istance = null;
-    private final String username;
-    private final String password;
+    private static SingletonDBSession instance;
+    private String username;
+    private String password;
     private final String url;
     private InputStream inputStream;
     protected Connection connection = null;
@@ -40,42 +41,38 @@ public class SingletonDBSession {
         return result;
     }
 
-    private SingletonDBSession() throws RuntimeException {
+    private SingletonDBSession() {
         this.url = "jdbc:mysql://localhost/nightplan";
         try {
-            this.username= getPropValues()[0];
+            this.username = getPropValues()[0];
             this.password = getPropValues()[1];
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            logger.severe("Failed to get username and password from config.properties file");
         }
     }
 
     public Connection getConnection() {
-        try{
+        try {
             this.connection = DriverManager.getConnection(url, username, password);
             return this.connection;
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             logger.log(Level.SEVERE, "Connection to DB failed!", e);
             return null;
         }
     }
 
-    public static synchronized SingletonDBSession getInstance(){
+    public static synchronized SingletonDBSession getInstance() {
         //singleton method
-        if(SingletonDBSession.istance == null) {
-            try {
-                SingletonDBSession.istance = new SingletonDBSession();
-            } catch (RuntimeException e) {
-                logger.log(Level.SEVERE, "Runtime exception in DB session manager");
-            }
+        if (instance == null) {
+            instance = new SingletonDBSession();
         }
-        return SingletonDBSession.istance;
+        return instance;
     }
 
     public void closeConn() {
         try {
             this.connection.close();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
         }
     }
