@@ -119,15 +119,47 @@
                 <Font name="Baloo 2 Regular" size="32.0" />
             </font>
         </Label>
-        <Button fx:id="confirmBtn" layoutX="467.0" layoutY="483.0" mnemonicParsing="false" onMouseClicked="#changeCityControl" prefHeight="88.0" prefWidth="168.0" text="Confirm">
+        <Button fx:id="confirmBtn" layoutX="467.0" layoutY="483.0" mnemonicParsing="false" onMouseClicked="#changeCityControl" prefHeight="88.0" prefWidth="168.0">
             <font>
                 <Font name="Baloo 2 Regular" size="20.0" />
             </font>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="hbox-nav">
+               <children>
+                  <Label styleClass="label-nav" text="Confirm">
+                     <font>
+                        <Font name="Baloo 2 Regular" size="23.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="44.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/confirm.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </graphic>
         </Button>
-        <Button fx:id="goBackBtn" layoutX="152.0" layoutY="483.0" mnemonicParsing="false" onMouseClicked="#goToSettings" prefHeight="88.0" prefWidth="168.0" text="Go back" AnchorPane.leftAnchor="152.0">
+        <Button fx:id="goBackBtn" layoutX="152.0" layoutY="483.0" mnemonicParsing="false" onMouseClicked="#goToSettings" prefHeight="88.0" prefWidth="168.0" AnchorPane.leftAnchor="152.0">
             <font>
                 <Font name="Baloo 2 Regular" size="20.0" />
             </font>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="hbox-nav">
+               <children>
+                  <Label styleClass="label-nav" text="Go back">
+                     <font>
+                        <Font name="Baloo 2 Regular" size="23.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="44.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/goback.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </graphic>
         </Button>
         <Label layoutX="49.0" layoutY="300.0" prefHeight="74.0" prefWidth="143.0" text="City">
             <font>

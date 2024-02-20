@@ -106,35 +106,110 @@
             <Rectangle2D />
          </viewport>
       </ImageView>
-      <Button fx:id="yourProfileBtn" layoutX="35.0" layoutY="122.0" mnemonicParsing="false" onMouseClicked="#goToProfile" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;" text="Your profile">
+      <Button fx:id="yourProfileBtn" layoutX="36.0" layoutY="127.0" mnemonicParsing="false" onMouseClicked="#goToProfile" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="hbox-nav">
+               <children>
+                  <Label styleClass="label-nav" text="Your profile">
+                     <font>
+                        <Font name="Baloo 2 Regular" size="22.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="50.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/profile.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </graphic>
       </Button>
-      <Button fx:id="changeCityBtn" layoutX="35.0" layoutY="278.0" mnemonicParsing="false" onMouseClicked="#goToChangeCity" prefHeight="126.0" prefWidth="334.0" style="-fx-background-radius: 0;" text="Change city">
+      <Button fx:id="changeCityBtn" layoutX="432.0" layoutY="127.0" mnemonicParsing="false" onMouseClicked="#goToChangeCity" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="hbox-nav">
+               <children>
+                  <Label styleClass="label-nav" text="Change city">
+                     <font>
+                        <Font name="Baloo 2 Regular" size="22.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="50.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/location.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </graphic>
       </Button>
-      <Button layoutX="35.0" layoutY="436.0" mnemonicParsing="false" onMouseClicked="#goToHelpFaqs" prefHeight="126.0" prefWidth="334.0" style="-fx-background-radius: 0;" text="Help &amp; FAQs">
+      <Button layoutX="432.0" layoutY="287.0" mnemonicParsing="false" onMouseClicked="#goToHelpFaqs" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="hbox-nav">
+               <children>
+                  <Label styleClass="label-nav" text="Help &amp; FAQs">
+                     <font>
+                        <Font name="Baloo 2 Regular" size="22.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="50.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/help.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </graphic>
       </Button>
-      <Button fx:id="yourGroupsBtn" layoutX="432.0" layoutY="122.0" mnemonicParsing="false" onMouseClicked="#goToYourGroups" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;" text="Your groups">
+      <Button layoutX="36.0" layoutY="287.0" mnemonicParsing="false" onMouseClicked="#goToContactUs" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="hbox-nav">
+               <children>
+                  <Label styleClass="label-nav" text="Contact us">
+                     <font>
+                        <Font name="Baloo 2 Regular" size="22.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="50.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/contact_us.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </graphic>
       </Button>
-      <Button layoutX="432.0" layoutY="278.0" mnemonicParsing="false" onMouseClicked="#goToContactUs" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;" text="Contact us">
+      <Button fx:id="signOutButton" layoutX="36.0" layoutY="437.0" mnemonicParsing="false" onMouseClicked="#leaveApp" prefHeight="126.0" prefWidth="729.0" style="-fx-background-radius: 0;">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
-      </Button>
-      <Button fx:id="signOutButton" layoutX="432.0" layoutY="436.0" mnemonicParsing="false" onMouseClicked="#leaveApp" prefHeight="126.0" prefWidth="333.0" style="-fx-background-radius: 0;" text="Sign out">
-         <font>
-            <Font name="Baloo 2 Regular" size="20.0" />
-         </font>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="hbox-nav">
+               <children>
+                  <Label styleClass="label-nav" text="Sign out">
+                     <font>
+                        <Font name="Baloo 2 Regular" size="22.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="50.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/logout.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </graphic>
       </Button>
    </children>
    <rotationAxis>

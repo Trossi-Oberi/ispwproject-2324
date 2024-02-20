@@ -107,10 +107,26 @@
             <Rectangle2D />
          </viewport>
       </ImageView>
-        <Button fx:id="goBackBtn" layoutX="634.0" layoutY="524.0" mnemonicParsing="false" onMouseClicked="#goToSettings" prefHeight="0.0" prefWidth="130.0" style="-fx-background-radius: 0;" text="Go back">
+        <Button fx:id="goBackBtn" layoutX="621.0" layoutY="524.0" mnemonicParsing="false" onMouseClicked="#goToSettings" prefHeight="55.0" prefWidth="143.0" style="-fx-background-radius: 0;">
             <font>
                 <Font name="Baloo 2 Regular" size="20.0" />
             </font>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="hbox-nav">
+               <children>
+                  <Label styleClass="label-nav" text="Go back">
+                     <font>
+                        <Font name="Baloo 2 Regular" size="19.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="41.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/goback.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </graphic>
         </Button>
       <Text layoutX="52.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your profile" wrappingWidth="164.13671875">
          <font>
@@ -167,7 +183,7 @@
             <Font name="Baloo 2 Regular" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="userType" layoutX="263.0" layoutY="500.0" prefHeight="48.0" prefWidth="323.0">
+      <Label fx:id="userType" layoutX="263.0" layoutY="500.0" prefHeight="48.0" prefWidth="270.0">
          <font>
             <Font name="Baloo 2 Regular" size="24.0" />
          </font>

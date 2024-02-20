@@ -107,22 +107,54 @@
             <Rectangle2D />
          </viewport>
       </ImageView>
-        <Button fx:id="goBackBtn" layoutX="634.0" layoutY="524.0" mnemonicParsing="false" onMouseClicked="#goToYourEvents" prefHeight="0.0" prefWidth="130.0" style="-fx-background-radius: 0;" text="Go back">
+        <Button fx:id="goBackBtn" layoutX="614.0" layoutY="524.0" mnemonicParsing="false" onMouseClicked="#goToYourEvents" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 0;">
             <font>
                 <Font name="Baloo 2 Regular" size="20.0" />
             </font>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="hbox-nav">
+               <children>
+                  <Label styleClass="label-nav" text="Go back">
+                     <font>
+                        <Font name="Baloo 2 Regular" size="19.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="41.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/goback.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </graphic>
         </Button>
-      <Button layoutX="613.0" layoutY="111.0" mnemonicParsing="false" onMouseClicked="#exportAnalyticsFile" prefHeight="51.0" prefWidth="150.0" text="Export as TXT file">
+      <Button layoutX="550.0" layoutY="111.0" mnemonicParsing="false" onMouseClicked="#exportAnalyticsFile" prefHeight="51.0" prefWidth="213.0">
          <font>
             <Font name="Baloo 2 Regular" size="16.0" />
          </font>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="hbox-nav">
+               <children>
+                  <Label styleClass="label-nav" text="Export as TXT file">
+                     <font>
+                        <Font name="Baloo 2 Regular" size="19.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="41.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/save_export.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </graphic>
       </Button>
-      <Text layoutX="52.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event analytics" wrappingWidth="246.53672790527344">
+      <Text layoutX="52.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event analytics" wrappingWidth="201.0">
          <font>
             <Font name="Baloo 2 Regular" size="30.0" />
          </font>
       </Text>
-      <Text layoutX="425.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="City:" wrappingWidth="48.13665771484375">
+      <Text layoutX="422.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="City:" wrappingWidth="48.13665771484375">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
@@ -132,17 +164,17 @@
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Text>
-      <Text layoutX="51.0" layoutY="416.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:" wrappingWidth="80.93670654296875">
+      <Text layoutX="51.0" layoutY="415.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:" wrappingWidth="80.93670654296875">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Text>
-      <Text layoutX="52.0" layoutY="500.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Planned participations:" wrappingWidth="200.9366912841797">
+      <Text layoutX="51.0" layoutY="498.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Planned participations:" wrappingWidth="200.9366912841797">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Text>
-      <Text layoutX="425.0" layoutY="499.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Participants:" wrappingWidth="112.93670654296875">
+      <Text layoutX="422.0" layoutY="498.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Participants:" wrappingWidth="112.93670654296875">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
@@ -183,16 +215,21 @@
          </font>
       </Label>
       <ImageView fx:id="eventImage" fitHeight="178.0" fitWidth="316.0" layoutX="52.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true" />
-      <Text layoutX="52.0" layoutY="458.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" wrappingWidth="48.13665771484375">
+      <Text layoutX="51.0" layoutY="457.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" wrappingWidth="48.13665771484375">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Text>
-      <Text layoutX="423.0" layoutY="458.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Times clicked:" wrappingWidth="130.39999999999986">
+      <Text layoutX="422.0" layoutY="457.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Times clicked:" wrappingWidth="130.39999999999986">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Text>
+      <ImageView fitHeight="58.0" fitWidth="48.0" layoutX="263.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../icons/analytics.png" />
+         </image>
+      </ImageView>
     </children>
     <rotationAxis>
         <Point3D />

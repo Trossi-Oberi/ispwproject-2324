@@ -123,10 +123,26 @@
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>
       </Hyperlink>
-      <Button layoutX="288.0" layoutY="431.0" mnemonicParsing="false" onMouseClicked="#goToSettings" prefHeight="102.0" prefWidth="223.0" text="Go back">
+      <Button layoutX="288.0" layoutY="431.0" mnemonicParsing="false" onMouseClicked="#goToSettings" prefHeight="102.0" prefWidth="223.0">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="hbox-nav">
+               <children>
+                  <Label styleClass="label-nav" text="Go back">
+                     <font>
+                        <Font name="Baloo 2 Regular" size="25.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="44.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/goback.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </graphic>
       </Button>
    </children>
    <rotationAxis>

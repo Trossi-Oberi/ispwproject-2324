@@ -109,36 +109,74 @@
                 <Rectangle2D />
             </viewport>
         </ImageView>
-        <ListView fx:id="chatMessagesLV" layoutX="11.0" layoutY="144.0" prefHeight="365.0" prefWidth="774.0" />
-        <Text layoutX="14.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Group chat:">
+        <ListView fx:id="chatMessagesLV" layoutX="12.0" layoutY="153.0" prefHeight="361.0" prefWidth="773.0" />
+        <Text layoutX="14.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Group chat:">
             <font>
                 <Font name="Baloo 2 Regular" size="20.0" />
             </font>
         </Text>
-      <Label fx:id="groupName" layoutX="124.0" layoutY="99.0">
+      <Label fx:id="groupName" layoutX="127.0" layoutY="103.0">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="messageTextField" layoutX="127.0" layoutY="526.0" prefHeight="43.0" prefWidth="527.0">
+      <TextField fx:id="messageTextField" layoutX="127.0" layoutY="535.0" prefHeight="43.0" prefWidth="527.0">
          <font>
             <Font name="Baloo 2 Regular" size="14.0" />
          </font>
       </TextField>
-      <Button fx:id="sendBtn" layoutX="669.0" layoutY="526.0" mnemonicParsing="false" onMouseClicked="#sendMessage" prefHeight="43.0" prefWidth="116.0" text="Send Message">
+      <Button fx:id="sendBtn" layoutX="669.0" layoutY="535.0" mnemonicParsing="false" onMouseClicked="#sendMessage" prefHeight="43.0" prefWidth="116.0">
          <font>
             <Font name="Baloo 2 Regular" size="14.0" />
          </font>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="hbox-nav">
+               <children>
+                  <ImageView fitHeight="32.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/send.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </graphic>
       </Button>
-      <Button fx:id="goBackBtn" layoutX="12.0" layoutY="526.0" mnemonicParsing="false" onMouseClicked="#goToYourEvents" prefHeight="43.0" prefWidth="99.0" text="Go Back">
+      <Button fx:id="goBackBtn" layoutX="12.0" layoutY="535.0" mnemonicParsing="false" onMouseClicked="#goToYourEvents" prefHeight="43.0" prefWidth="99.0">
          <font>
             <Font name="Baloo 2 Regular" size="14.0" />
          </font>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="hbox-nav">
+               <children>
+                  <ImageView fitHeight="32.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/goback.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </graphic>
       </Button>
-      <Button fx:id="leaveGroupBtn" layoutX="686.0" layoutY="95.0" mnemonicParsing="false" onMouseClicked="#leaveGroup" prefHeight="43.0" prefWidth="99.0" text="Leave group">
+      <Button fx:id="leaveGroupBtn" layoutX="612.0" layoutY="99.0" mnemonicParsing="false" onMouseClicked="#leaveGroup" prefHeight="43.0" prefWidth="173.0">
          <font>
             <Font name="Baloo 2 Regular" size="14.0" />
          </font>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="hbox-nav">
+               <children>
+                  <Label styleClass="label-nav" text="Leave group">
+                     <font>
+                        <Font name="Baloo 2 Regular" size="18.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="32.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/leave.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </graphic>
       </Button>
     </children>
     <rotationAxis>

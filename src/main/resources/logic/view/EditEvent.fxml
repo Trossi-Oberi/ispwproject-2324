@@ -110,105 +110,142 @@
             <Rectangle2D />
          </viewport>
       </ImageView>
-      <Text layoutX="330.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit event">
+      <Text layoutX="337.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit event">
          <font>
             <Font name="Baloo 2 Regular" size="32.0" />
          </font>
       </Text>
-      <TextField fx:id="eventNameTF" layoutX="191.0" layoutY="181.0" prefHeight="35.0" prefWidth="545.0" AnchorPane.rightAnchor="68.0">
+      <TextField fx:id="eventNameTF" layoutX="184.0" layoutY="187.0" prefHeight="35.0" prefWidth="546.0" AnchorPane.rightAnchor="70.0">
          <font>
             <Font name="Baloo 2 Regular" size="14.0" />
          </font>
       </TextField>
-      <ChoiceBox fx:id="provinceChoiceBox" layoutX="186.0" layoutY="240.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="222.0" />
-      <TextField fx:id="eventAddressTF" layoutX="186.0" layoutY="291.0" prefHeight="35.0" prefWidth="546.0" AnchorPane.rightAnchor="68.0">
+      <ChoiceBox fx:id="provinceChoiceBox" layoutX="184.0" layoutY="236.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="35.0" prefWidth="215.0" />
+      <TextField fx:id="eventAddressTF" layoutX="184.0" layoutY="291.0" prefHeight="35.0" prefWidth="546.0" AnchorPane.rightAnchor="70.0">
          <font>
             <Font name="Baloo 2 Regular" size="14.0" />
          </font>
       </TextField>
-      <ChoiceBox fx:id="musicGenreBox" layoutX="201.0" layoutY="405.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="180.0" />
-      <DatePicker fx:id="datePicker" editable="false" layoutX="201.0" layoutY="350.0" prefHeight="26.0" prefWidth="180.0" />
-      <TextField fx:id="eventHourTF" layoutX="499.0" layoutY="346.0" prefHeight="35.0" prefWidth="42.0">
+      <ChoiceBox fx:id="musicGenreBox" layoutX="184.0" layoutY="387.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="35.0" prefWidth="215.0" />
+      <DatePicker fx:id="datePicker" editable="false" layoutX="184.0" layoutY="337.0" prefHeight="35.0" prefWidth="215.0" />
+      <TextField fx:id="eventHourTF" layoutX="505.0" layoutY="337.0" prefHeight="35.0" prefWidth="42.0">
          <font>
             <Font name="Baloo 2 Regular" size="14.0" />
          </font>
       </TextField>
-      <TextField fx:id="eventMinutesTF" layoutX="550.0" layoutY="346.0" prefHeight="35.0" prefWidth="42.0">
+      <TextField fx:id="eventMinutesTF" layoutX="556.0" layoutY="337.0" prefHeight="35.0" prefWidth="42.0">
          <font>
             <Font name="Baloo 2 Regular" size="14.0" />
          </font>
       </TextField>
-      <Button fx:id="fileChooserBtn" layoutX="532.0" layoutY="403.0" mnemonicParsing="false" onMouseClicked="#pickImage" prefHeight="30.0" prefWidth="180.0" text="Select image " AnchorPane.rightAnchor="68.0">
+      <Button fx:id="fileChooserBtn" layoutX="550.0" layoutY="387.0" mnemonicParsing="false" onMouseClicked="#pickImage" prefHeight="35.0" prefWidth="186.0" text="Select image " AnchorPane.rightAnchor="70.0">
          <font>
             <Font name="Baloo 2 Regular" size="12.0" />
          </font>
       </Button>
-      <Label layoutX="68.0" layoutY="181.0" text="Event name" AnchorPane.leftAnchor="68.0">
+      <Label layoutX="51.0" layoutY="187.0" text="Event name" AnchorPane.leftAnchor="58.0">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="64.0" layoutY="236.0" text="Province" AnchorPane.leftAnchor="68.0">
+      <Label layoutX="51.0" layoutY="237.0" text="Province" AnchorPane.leftAnchor="58.0">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="68.0" layoutY="401.0" text="Music genre" AnchorPane.leftAnchor="68.0">
+      <Label layoutX="51.0" layoutY="387.0" text="Music genre" AnchorPane.leftAnchor="56.0">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="68.0" layoutY="346.0" text="Date" AnchorPane.leftAnchor="68.0">
+      <Label layoutX="58.0" layoutY="337.0" text="Date" AnchorPane.leftAnchor="58.0">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="422.0" layoutY="400.0" text="Event image">
+      <Label layoutX="425.0" layoutY="387.0" text="Event image">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Label>
-      <Button layoutX="415.0" layoutY="483.0" mnemonicParsing="false" onMouseClicked="#editEventControl" prefHeight="88.0" prefWidth="168.0" text="Confirm">
+      <Button layoutX="415.0" layoutY="467.0" mnemonicParsing="false" onMouseClicked="#editEventControl" prefHeight="88.0" prefWidth="168.0">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="hbox-nav">
+               <children>
+                  <Label styleClass="label-nav" text="Confirm">
+                     <font>
+                        <Font name="Baloo 2 Regular" size="23.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="44.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/confirm.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </graphic>
       </Button>
-      <Button layoutX="217.0" layoutY="483.0" mnemonicParsing="false" onMouseClicked="#cancelButtonControl" prefHeight="88.0" prefWidth="168.0" text="Cancel" AnchorPane.leftAnchor="217.0">
+      <Button layoutX="217.0" layoutY="467.0" mnemonicParsing="false" onMouseClicked="#cancelButtonControl" prefHeight="88.0" prefWidth="168.0" AnchorPane.leftAnchor="217.0">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="hbox-nav">
+               <children>
+                  <Label styleClass="label-nav" text="Cancel">
+                     <font>
+                        <Font name="Baloo 2 Regular" size="23.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="44.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/cancel.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </graphic>
       </Button>
-      <Label layoutX="422.0" layoutY="346.0" text="Time:" AnchorPane.leftAnchor="422.0">
+      <Label layoutX="425.0" layoutY="337.0" text="Time:" AnchorPane.leftAnchor="425.0">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="480.0" layoutY="346.0" text="h">
+      <Label layoutX="483.0" layoutY="337.0" text="h">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="544.0" layoutY="346.0" text=":">
+      <Label layoutX="550.0" layoutY="337.0" text=":">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="67.0" layoutY="291.0" text="Address" AnchorPane.leftAnchor="68.0">
+      <Label layoutX="51.0" layoutY="291.0" text="Address" AnchorPane.leftAnchor="58.0">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="438.0" layoutY="236.0" text="City">
+      <Label layoutX="425.0" layoutY="236.0" text="City">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="cityChoiceBox" layoutX="480.0" layoutY="240.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="238.0" AnchorPane.rightAnchor="68.0" />
+      <ChoiceBox fx:id="cityChoiceBox" layoutX="492.0" layoutY="236.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="35.0" prefWidth="247.0" AnchorPane.rightAnchor="70.0" />
       <Label fx:id="pickedFileLabel" layoutX="551.0" layoutY="436.0" maxWidth="195.0">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>
       </Label>
+      <ImageView fitHeight="58.0" fitWidth="48.0" layoutX="492.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../icons/edit.png" />
+         </image>
+      </ImageView>
    </children>
    <rotationAxis>
       <Point3D />
