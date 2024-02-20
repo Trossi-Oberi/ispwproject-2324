@@ -3,14 +3,13 @@ package logic.graphiccontrollers;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import java.io.ByteArrayInputStream;
 import java.security.SecureRandom;
 import java.util.Random;
 
-import logic.beans.BAnalysis;
+import logic.beans.BAnalytics;
 import logic.beans.BEvent;
 import logic.utils.Alerts;
 import logic.view.EssentialGUI;
@@ -86,7 +85,7 @@ public class GCAnalytics extends EssentialGUI {
     @FXML
     void exportAnalyticsFile() {
         //popolo il bean con i dati dell'analisi presi dal bean Event che è superclass di bean Analysis
-        BAnalysis analysis = new BAnalysis(this.eventBean);
+        BAnalytics analysis = new BAnalytics(this.eventBean);
         analysis.setTimesClicked(Integer.parseInt(this.timesClickedL.getText()));
         analysis.setParticipants(Integer.parseInt(this.participantsL.getText()));
         analysis.setPlannedParticipations(Integer.parseInt(this.plannedL.getText()));

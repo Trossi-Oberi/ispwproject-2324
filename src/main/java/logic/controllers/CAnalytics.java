@@ -1,15 +1,16 @@
 package logic.controllers;
 
-import logic.beans.BAnalysis;
+import logic.beans.BAnalytics;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
 
 import static logic.view.EssentialGUI.logger;
 
 public class CAnalytics {
-    public boolean exportAnalyticsFile(BAnalysis analysis) {
+    public boolean exportAnalyticsFile(BAnalytics analysis) {
         String folderPath = "exportedAnalytics";
         String fileName = analysis.getEventName() + ".txt";
 
@@ -29,7 +30,7 @@ public class CAnalytics {
             writer.write("Planned participants: " + analysis.getPlannedParticipations() + "\n");
             writer.write("\n\n++++++++++++++End of file++++++++++++++");
 
-            logger.finest("Analysis exported successfully: " + folderPath + "/" + fileName);
+            logger.log(Level.FINEST, () -> "Analysis exported successfully: "+folderPath+"/"+fileName);
             return true;
         } catch (IOException e) {
             logger.severe("Error while exporting .txt file: " + e.getMessage());

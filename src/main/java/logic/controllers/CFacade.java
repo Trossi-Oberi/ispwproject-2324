@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 import static logic.view.EssentialGUI.logger;
 
@@ -239,7 +240,7 @@ public class CFacade {
 
 
     //Metodi che non interagiscono col server
-    public ArrayList<BEvent> retrieveEvents(UserTypes userType, String className) {
+    public List<BEvent> retrieveEvents(UserTypes userType, String className) {
         if (manageEventController == null) {
             manageEventController = new CManageEvent();
         }
@@ -381,7 +382,7 @@ public class CFacade {
         return this.chatView;
     }
 
-    public boolean exportAnalyticsFile(BAnalysis analysis) {
+    public boolean exportAnalyticsFile(BAnalytics analysis) {
         if (analyticsController == null) {
             analyticsController = new CAnalytics();
         }

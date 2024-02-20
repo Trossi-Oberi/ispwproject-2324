@@ -342,7 +342,7 @@ public class CLI implements NotificationView, ChatView {
 
     private static void loadHome() {
         clearScreen();
-        ArrayList<BEvent> eventList;
+        List<BEvent> eventList;
 
         System.out.println("Welcome to NightPlan!");
         spacer(1);
@@ -1076,7 +1076,7 @@ public class CLI implements NotificationView, ChatView {
 
         if (LoggedUser.getUserType().equals(UserTypes.USER)) {
 
-            ArrayList<BEvent> tempList = cFacade.retrieveEvents(LoggedUser.getUserType(), "GCYourEventsUser");
+            List<BEvent> tempList = cFacade.retrieveEvents(LoggedUser.getUserType(), "GCYourEventsUser");
 
             if (!isPassed) {
                 for (BEvent bEvent : tempList) {
@@ -1141,7 +1141,7 @@ public class CLI implements NotificationView, ChatView {
             }
             spacer(3);
         } else if (LoggedUser.getUserType().equals(UserTypes.ORGANIZER)) {
-            ArrayList<BEvent> tempList = cFacade.retrieveEvents(LoggedUser.getUserType(), "GCYourEventsOrg");
+            List<BEvent> tempList = cFacade.retrieveEvents(LoggedUser.getUserType(), "GCYourEventsOrg");
 
             if (!isPassed) {
                 for (BEvent bEvent : tempList) {

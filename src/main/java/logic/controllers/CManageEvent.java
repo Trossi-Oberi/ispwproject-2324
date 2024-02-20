@@ -11,6 +11,7 @@ import logic.utils.UserTypes;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static logic.view.EssentialGUI.logger;
 
@@ -64,8 +65,8 @@ public class CManageEvent {
     3: user si trova su schermata YourEventsUser e gli vengono mostrati gli eventi passati e futuri a cui ha messo la partecipazione - query con relazione user_id ed event_id
     */
 
-    public ArrayList<BEvent> retrieveMyEvents(UserTypes usertype, String className) {
-        ArrayList<MEvent> myEvents;
+    public List<BEvent> retrieveMyEvents(UserTypes usertype, String className) {
+        List<MEvent> myEvents;
         if (usertype == UserTypes.ORGANIZER && className.equals("GCYourEventsOrg")) { //Caso 1:
             myEvents = eventDAO.retrieveMyEvents(LoggedUser.getUserID(), 0);
 
@@ -116,8 +117,8 @@ public class CManageEvent {
         }
     }
 
-    private ArrayList<BEvent> getEventBeansListFromModelsList(ArrayList<MEvent> eventModelList){
-        ArrayList<BEvent> myEventsBeans = new ArrayList<>();
+    private List<BEvent> getEventBeansListFromModelsList(List<MEvent> eventModelList){
+        List<BEvent> myEventsBeans = new ArrayList<>();
         BEvent tempEventBean;
         for (MEvent mEvent : eventModelList) {
             tempEventBean = mEvent.getEventInfo();

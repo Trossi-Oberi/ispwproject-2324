@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 
@@ -38,7 +39,7 @@ public class GCYourEventsOrg extends GCYourEventsGeneral implements DoubleClickL
     @FXML
     private ListView<String> upcEventsLV;
     
-    private ArrayList <BEvent> eventsBeanList = new ArrayList<>();
+    private List<BEvent> eventsBeanList = new ArrayList<>();
 
 
     private ArrayList <BEvent> upComingEventsBeans = new ArrayList<>();

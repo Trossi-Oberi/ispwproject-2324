@@ -24,12 +24,13 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 
 import static logic.graphiccontrollers.GCYourEventsGeneral.getBeanFromListView;
 
-public class GCHomeUser extends EssentialGUI implements DoubleClickListener{
+public class GCHomeUser extends EssentialGUI implements DoubleClickListener {
     @FXML
     private ListView<String> eventsListView;
 
@@ -39,14 +40,14 @@ public class GCHomeUser extends EssentialGUI implements DoubleClickListener{
     @FXML
     private ListView<String> groupsListView;
 
-    private ArrayList<BEvent> eventsList = new ArrayList<>();
+    private List<BEvent> eventsList = new ArrayList<>();
     private ArrayList<BGroup> groupsList = new ArrayList<>();
     private ArrayList<BEvent> upcomingEventsList = new ArrayList<>();
 
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         //Retrieve eventi
         eventsList = cfacade.retrieveEvents(LoggedUser.getUserType(), this.getClass().getSimpleName());
         populateEventsListView();
@@ -79,10 +80,10 @@ public class GCHomeUser extends EssentialGUI implements DoubleClickListener{
     }
 
     private void populateGroupsListView() {
-        for (BGroup bGroup : groupsList){
-            if (bGroup.getGroupID()!=null){
+        for (BGroup bGroup : groupsList) {
+            if (bGroup.getGroupID() != null) {
                 this.groupsListView.getItems().add(bGroup.getGroupName());
-            }else{
+            } else {
                 this.groupsListView.getItems().add("No group");
             }
         }

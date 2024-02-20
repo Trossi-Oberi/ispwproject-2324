@@ -1,11 +1,11 @@
 package logic.beans;
 
-public class BAnalysis extends BEvent{
+public class BAnalytics extends BEvent{
     private Integer timesClicked;
     private Integer participants;
     private Integer plannedParticipations;
 
-    public BAnalysis(BEvent eventBean) {
+    public BAnalytics(BEvent eventBean) {
         setEventName(eventBean.getEventName());
         setEventProvince(eventBean.getEventProvince());
         setEventCity(eventBean.getEventCity());
