@@ -32,7 +32,6 @@ public class SingletonDBSession {
             logger.log(Level.SEVERE, "Properties file not found!", e);
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Properties cannot be loaded!", e);
-            throw new IOException();
         } finally {
             if (inputStream != null) {
                 inputStream.close();
