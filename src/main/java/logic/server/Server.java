@@ -189,7 +189,7 @@ public class Server implements Subject {
                     synchronized (organizersByEventID) {
                         //un solo thread alla volta può read/write su observersByCity affinché i dati siano consistenti
                         //creo observer con le informazioni del nuovo utente registrato (user_id, canali di comunicazione in uscita verso la Client socket)
-                        if(!attach(SubjectTypes.UsersInCity, noti, out)){
+                        if(!attach(SubjectTypes.EventOrganizer, noti, out)){
                             logger.severe("Error during EventAdded attach");
                         }
                     }

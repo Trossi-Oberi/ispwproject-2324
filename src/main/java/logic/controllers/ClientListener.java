@@ -117,8 +117,8 @@ public class ClientListener implements Runnable {
                 case Disconnected:
                     logger.info(() -> "Client " + incomingNoti.getClientID() + " disconnected successfully.");
                     //chiudo i canali di comunicazione del client con il server
-                    semaphore.release(2);
                     listenerRunning = false;
+                    semaphore.release(2);
                     break;
             }
         }
