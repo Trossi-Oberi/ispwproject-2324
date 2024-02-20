@@ -6,6 +6,7 @@ import logic.dao.GroupDAO;
 import logic.model.MGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CGroup {
     private GroupDAO groupDAO;
@@ -20,9 +21,9 @@ public class CGroup {
     leaveGroup();   //rimuove l'associazione
     deleteGroup();   //cancella la entry dalla hashmap*/
 
-    public ArrayList<BGroup> retrieveGroups(ArrayList<BEvent> upcEventsList) {
+    public List<BGroup> retrieveGroups(List<BEvent> upcEventsList) {
         MGroup groupModel;
-        ArrayList<MGroup> groupsModels = new ArrayList<>();
+        List<MGroup> groupsModels = new ArrayList<>();
         for (BEvent event : upcEventsList) {
             groupModel = groupDAO.retrieveGroupByEventID(event.getEventID());
             groupsModels.add(groupModel);
@@ -43,7 +44,7 @@ public class CGroup {
         return bean;
     }
 
-    private ArrayList<BGroup> makeBeanListFromModelList(ArrayList<MGroup> groupsModels) {
+    private ArrayList<BGroup> makeBeanListFromModelList(List<MGroup> groupsModels) {
         ArrayList<BGroup> groupBeans = new ArrayList<>();
         for (MGroup model : groupsModels) {
             BGroup bean = new BGroup();

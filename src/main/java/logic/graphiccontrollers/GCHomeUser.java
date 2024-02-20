@@ -41,8 +41,8 @@ public class GCHomeUser extends EssentialGUI implements DoubleClickListener {
     private ListView<String> groupsListView;
 
     private List<BEvent> eventsList = new ArrayList<>();
-    private ArrayList<BGroup> groupsList = new ArrayList<>();
-    private ArrayList<BEvent> upcomingEventsList = new ArrayList<>();
+    private List<BGroup> groupsList = new ArrayList<>();
+    private List<BEvent> upcomingEventsList = new ArrayList<>();
 
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
@@ -57,15 +57,6 @@ public class GCHomeUser extends EssentialGUI implements DoubleClickListener {
         groupsList = cfacade.retrieveGroups(upcomingEventsList);
         populateGroupsListView();
     }
-
-/*    public void reload(){
-        Platform.runLater(() -> {
-            // Questo codice viene eseguito sul JavaFX Application Thread
-            eventsList = cfacade.retrieveEvents(LoggedUser.getUserType(), this.getClass().getSimpleName());
-            populateEventsListView();
-            setupEventClickListener();
-        });
-    }*/
 
     private void populateEventsListView() {
         for (BEvent bEvent : eventsList) {

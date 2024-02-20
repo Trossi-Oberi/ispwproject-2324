@@ -8,6 +8,7 @@ import logic.view.EssentialGUI;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class GCYourEventsGeneral extends EssentialGUI implements DoubleClickListener {
 
@@ -21,7 +22,7 @@ public abstract class GCYourEventsGeneral extends EssentialGUI implements Double
     @Override
     public abstract void onItemDoubleClick(MouseEvent event, BEvent selectedEventBean, String fxmlpage);
 
-    public static BEvent getBeanFromListView(ListView<String> lv, ArrayList<BEvent> beansArray){
+    public static BEvent getBeanFromListView(ListView<String> lv, List<BEvent> beansArray){
         int selectedEventIndex = lv.getSelectionModel().getSelectedIndex();
         if(selectedEventIndex == -1){
             return null;

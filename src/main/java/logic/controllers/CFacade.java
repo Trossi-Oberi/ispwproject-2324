@@ -324,7 +324,7 @@ public class CFacade {
         return notificationController.deleteNotification(notificationID, notificationsList, index);
     }
 
-    public ArrayList<BGroup> retrieveGroups(ArrayList<BEvent> upcomingEventsList) {
+    public List<BGroup> retrieveGroups(List<BEvent> upcomingEventsList) {
         if (groupController == null) {
             groupController = new CGroup();
         }
@@ -359,7 +359,7 @@ public class CFacade {
         return chatController.retrieveGroupChat(groupID);
     }
 
-    public void setNotiGraphic(NotificationView notificationView) {
+    public static void setNotiGraphic(NotificationView notificationView) {
         notiView = notificationView;
     }
 
