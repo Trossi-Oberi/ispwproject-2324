@@ -10,8 +10,6 @@ import javafx.scene.input.MouseEvent;
 import logic.utils.Alerts;
 import logic.utils.LoggedUser;
 import logic.view.EssentialGUI;
-
-import javax.xml.validation.SchemaFactoryConfigurationError;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +33,6 @@ public class GCEditCity extends EssentialGUI {
     private List<String> provincesList = new ArrayList<>();
     private ObservableList<String> provincesObsList;
     private List<String> citiesList = new ArrayList<>();
-    private ObservableList<String> citiesObsList;
 
 
     @FXML
@@ -57,15 +54,7 @@ public class GCEditCity extends EssentialGUI {
         try{
             if (res){
                 //conferma il cambiamento
-                try {
-                    if (cfacade.changeUserCity(LoggedUser.getUserID(), this.provinceChoiceBox.getValue(), this.cityChoiceBox.getValue()) == 1) {
-                        alert.displayAlertPopup(Alerts.INFORMATION, "City updated successfully. Now you will fetch events in " + LoggedUser.getCity());
-                    }
-                } catch (Exception e){
-                    alert.displayAlertPopup(Alerts.ERROR, "City update failed.");
-                } finally {
-                    goToSettings(event);
-                }
+                submitChange(event);
             } else {
                 //annulla il cambiamento
                 alert.displayAlertPopup(Alerts.WARNING, "City update cancelled.");
@@ -74,6 +63,19 @@ public class GCEditCity extends EssentialGUI {
             alert.displayAlertPopup(Alerts.ERROR, e.getMessage());
         }
     }
+
+    private void submitChange(MouseEvent event) {
+        try {
+            if (cfacade.changeUserCity(LoggedUser.getUserID(), this.provinceChoiceBox.getValue(), this.cityChoiceBox.getValue()) == 1) {
+                alert.displayAlertPopup(Alerts.INFORMATION, "City updated successfully. Now you will fetch events in " + LoggedUser.getCity());
+            }
+        } catch (Exception e){
+            alert.displayAlertPopup(Alerts.ERROR, "City update failed.");
+        } finally {
+            goToSettings(event);
+        }
+    }
+
     private void setupProvinceBoxListener() {
         provinceChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             citiesList.clear();
@@ -83,7 +85,7 @@ public class GCEditCity extends EssentialGUI {
     }
 
     private void updateCityListView() {
-        citiesObsList = FXCollections.observableArrayList(citiesList);
+        ObservableList<String> citiesObsList = FXCollections.observableArrayList(citiesList);
         cityChoiceBox.setItems(citiesObsList);
     }
 
