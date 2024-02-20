@@ -30,7 +30,6 @@ public class Server {
     private static Logger logger = Logger.getLogger("NightPlan");
     private int connections = 0;
     private static final int MAX_CONNECTIONS = 500;
-    private ServerSocket serverSocket;
     public static final String ADDRESS = "localhost";
     public static final int PORT = 2521;
     private NotificationFactory notiFactory;
@@ -54,6 +53,7 @@ public class Server {
         (il server è un controller a tutti gli effetti,
         facciamo questa operazione solo per semplicità
         perché il nostro server non rimane sempre accesso 24/7 */
+        ServerSocket serverSocket;
 
         loadData();
         boolean serverRunning = true;
@@ -86,13 +86,13 @@ public class Server {
     }
 
 
-
     private class ClientHandler implements Runnable, Subject {
         private Socket client;
-        private SecureObjectInputStream in;
         private ObjectOutputStream out;
 
         private boolean clientRunning = true;
+
+        private static final String USER_ID_STR = "User with id = ";
 
         public ClientHandler(Socket client) {
             this.client = client;
@@ -101,19 +101,25 @@ public class Server {
 
         @Override
         public void run() {
+            SecureObjectInputStream in = null;
+
             try {
                 //quando viene avviato il thread associato al client parte questa funzione run()
                 //apriamo i canali di input/output del client con il server.
                 out = new ObjectOutputStream(client.getOutputStream()); //da server a client
                 in = new SecureObjectInputStream(client.getInputStream()); //da client a server
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                logger.severe(e.getMessage());
+                Thread.currentThread().interrupt();
             }
 
             try {
                 while (clientRunning) { //questo ciclo while si interrompe non appena il Client chiude i suoi canali di comunicazione con il server
                     //blocco il thread in lettura di un messaggio in arrivo dal client
-                    Object object = in.readObject();
+                    Object object = null;
+                    if (in != null) {
+                        object = in.readObject();
+                    }
                     if (object instanceof Notification) {
                         handleNotification((Notification) object);
                     } else if (object instanceof Message) {
@@ -130,170 +136,204 @@ public class Server {
             //implementato solo il caso di group message quindi il message type verra' ignorato
             //rigiro il messaggio cosi' come e' arrivato al server
             System.out.println("Ricevuto messaggio da id: " + mex.getSenderID() + ", verso group id: " + mex.getReceiverID() + ", testo: " + mex.getMessage());
-            //notifyGroupUsers(mex.getReceiverID(), mex);
-            this.notify(SubjectTypes.USERS_IN_GROUP,mex);
+            this.notify(SubjectTypes.USERS_IN_GROUP, mex);
             //notifico solo gli utenti online nel gruppo con quell'ID (receiverID)
 
 
         }
 
         private void handleNotification(Notification noti) {
-            Notification response;
             switch (noti.getNotificationType()) {
                 case USER_REGISTRATION:
-                    System.out.println("User registered, id = " + noti.getClientID() + ", city = " + noti.getCity());
-                    synchronized (observersByCity) {
-                        //un solo thread alla volta può read/write su observersByCity affinché i dati siano consistenti
-                        //creo observer con le informazioni del nuovo utente registrato (user_id, canali di comunicazione in uscita verso la Client socket)
-                        if(!attach(SubjectTypes.USERS_IN_CITY,noti, null)){
-                            logger.severe("Error during UserRegistration attach");
-                        }
-                    }
-                    //notifica l'utente
-                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.USER_REGISTRATION, noti.getClientID(), null, null, null, null, null, null);
-                    sendNotificationToClient(response, out);
-                    connections--;
-                    clientRunning = false;
+                    handleUserReg(noti);
                     break;
 
                 case LOGGED_IN:
-                    if (noti.getUserType().equals(UserTypes.USER)){
-                        System.out.println("User logged in, id = " + noti.getClientID());
-                        synchronized (connectedUsers) {
-                            updateLoggedUsers(noti.getClientID(), true, noti.getUserType());
-                        }
-                        synchronized (observersByCity) {
-                            updateUserOut(noti.getCity(), noti.getClientID(), out);
-                        }
-                    }else if(noti.getUserType().equals(UserTypes.ORGANIZER)){
-                        System.out.println("Organizer logged in, id = " + noti.getClientID());
-                        synchronized (connectedOrganizers) {
-                            updateLoggedUsers(noti.getClientID(), true, noti.getUserType());
-                        }
-                        synchronized (organizersByEventID) {
-                            updateOrgOut(noti.getClientID(), out);
-                        }
-                    }
-
-                    //notifica l'utente
-                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.LOGGED_IN, noti.getClientID(), null, null, null, null, null, null);
-                    sendNotificationToClient(response, out);
+                    handleLogin(noti);
                     break;
 
                 case EVENT_ADDED:
-                    System.out.println("New event added by " + noti.getClientID() + ", eventID: " + noti.getEventID() + ", city: " + noti.getCity());
-                    synchronized (organizersByEventID) {
-                        //un solo thread alla volta può read/write su observersByCity affinché i dati siano consistenti
-                        //creo observer con le informazioni del nuovo utente registrato (user_id, canali di comunicazione in uscita verso la Client socket)
-                        if(!attach(SubjectTypes.EVENT_ORGANIZER, noti, out)){
-                            logger.severe("Error during EventAdded attach");
-                        }
-                    }
-                    //notifica l'organizer
-                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.EVENT_ADDED, noti.getClientID(), null, null, null, null, null, null);
-                    sendNotificationToClient(response, out);
-
-                    //notifica l'utente
-                    if(!this.notify(SubjectTypes.USERS_IN_CITY,noti)){
-                        logger.severe("Error during EventAdded notify");
-                    }
+                    handleEventAdded(noti);
                     break;
 
                 case EVENT_DELETED:
-                    System.out.println("Event with id " + noti.getEventID() + " deleted");
-                    synchronized (organizersByEventID) {
-                        //rimuove l'associazione tra event-id e organizer nella hashmap
-                        if(!detach(SubjectTypes.EVENT_ORGANIZER,noti)){
-                            logger.severe("Error during EventDeleted detach");
-                        }
-                    }
-                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.EVENT_DELETED, null, null, noti.getEventID(), null, null, null, null);
-                    sendNotificationToClient(response, out);
+                    handleEventDeleted(noti);
                     break;
 
                 case USER_EVENT_PARTICIPATION:
-                    System.out.println("User with id " + noti.getClientID() + " participating to event with id = " + noti.getEventID());
-
-                    //mandare messaggio di ritorno all'utente
-                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.USER_EVENT_PARTICIPATION, null, null, null, null, null, null, null);
-                    sendNotificationToClient(response, out);
-
-                    //mandare notifica all'organizzatore
-                    if(!this.notify(SubjectTypes.EVENT_ORGANIZER,noti)){
-                        logger.severe("Error during UserEventParticipation notify");
-                    }
-
+                    handleEventParticipation(noti);
                     break;
 
                 case CHANGE_CITY:
-                    System.out.println("User with id = " + noti.getClientID() + ", changed city from " + noti.getCity() + " to " + noti.getNewCity());
-
-                    synchronized (observersByCity) {
-                        //DETACH CITY VECCHIA
-                        if (detach(SubjectTypes.USERS_IN_CITY,noti)) {
-                            System.out.println("User with id " + noti.getClientID() + " detached from city " + noti.getCity());
-                        } else {
-                            logger.severe("Error during ChangeCity detach");
-                        }
-                        //ATTACH SU CITY NUOVA
-                        Notification newNoti = notiFactory.createNotification(SERVER_CLIENT, null, noti.getClientID(), null, null, null, noti.getNewCity(), null, null);
-                        if(!attach(SubjectTypes.USERS_IN_CITY,newNoti, out)){
-                            logger.severe("Error during ChangeCity attach");
-                        }
-                    }
-
-                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.CHANGE_CITY, noti.getClientID(), null, null, null, noti.getCity(), noti.getNewCity(), null);
-                    sendNotificationToClient(response, out);
+                    handleChangeCity(noti);
                     break;
 
                 case GROUP_JOIN:
-                    System.out.println("User with id = " + noti.getClientID() + ", joined group with id = " + noti.getEventID()); //event viene usato come group
-
-                    //AGGIORNO HASHMAP
-                    synchronized (usersInGroups) {
-                        if(!attach(SubjectTypes.USERS_IN_GROUP,noti, out)){
-                            logger.severe("Error during GroupJoin attach");
-                        }
-                    }
-
-                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.GROUP_JOIN, null, null, noti.getEventID(), null, null, null, null);
-                    sendNotificationToClient(response, out);
+                    handleGroupJoin(noti);
                     break;
 
                 case GROUP_LEAVE:
-                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.GROUP_LEAVE, null, null, noti.getEventID(), null, null, null, null);
-
-                    synchronized (usersInGroups) {
-                        if (detach(SubjectTypes.USERS_IN_GROUP,noti)) {
-                            System.out.println("User with id = " + noti.getClientID() + ", left group with id = " + noti.getEventID());
-                        }else{
-                            logger.severe("Error during GroupLeave detach");
-                        }
-                    }
-
-                    sendNotificationToClient(response, out);
+                    handleGroupLeave(noti);
                     break;
 
                 case DISCONNECTED:
-                    if (noti.getUserType().equals(UserTypes.USER)){
-                        System.out.println("User logged out, id = " + noti.getClientID());
-                        synchronized (connectedUsers) {
-                            updateLoggedUsers(noti.getClientID(), false, noti.getUserType());
-                        }
-                    }else if (noti.getUserType().equals(UserTypes.ORGANIZER)){
-                        System.out.println("Organizer logged out, id = " + noti.getClientID());
-                        synchronized (connectedOrganizers) {
-                            updateLoggedUsers(noti.getClientID(), false, noti.getUserType());
-                        }
-                    }
-
-                    //notifica l'utente
-                    response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.DISCONNECTED, noti.getClientID(), null, null, null, null, null, null);
-                    sendNotificationToClient(response, out);
-                    connections--;
-                    clientRunning = false;
+                    handleDisconnected(noti);
                     break;
             }
+        }
+
+        private void handleDisconnected(Notification noti) {
+            if (noti.getUserType().equals(UserTypes.USER)) {
+                System.out.println("User logged out, id = " + noti.getClientID());
+                synchronized (connectedUsers) {
+                    updateLoggedUsers(noti.getClientID(), false, noti.getUserType());
+                }
+            } else if (noti.getUserType().equals(UserTypes.ORGANIZER)) {
+                System.out.println("Organizer logged out, id = " + noti.getClientID());
+                synchronized (connectedOrganizers) {
+                    updateLoggedUsers(noti.getClientID(), false, noti.getUserType());
+                }
+            }
+
+            //notifica l'utente
+            Notification response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.DISCONNECTED, noti.getClientID(), null, null, null, null, null, null);
+            sendNotificationToClient(response, out);
+            connections--;
+            clientRunning = false;
+        }
+
+        private void handleGroupLeave(Notification noti) {
+            Notification response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.GROUP_LEAVE, null, null, noti.getEventID(), null, null, null, null);
+
+            synchronized (usersInGroups) {
+                if (detach(SubjectTypes.USERS_IN_GROUP, noti)) {
+                    System.out.println(USER_ID_STR + noti.getClientID() + ", left group with id = " + noti.getEventID());
+                } else {
+                    logger.severe("Error during GroupLeave detach");
+                }
+            }
+
+            sendNotificationToClient(response, out);
+        }
+
+        private void handleGroupJoin(Notification noti) {
+            System.out.println(USER_ID_STR + noti.getClientID() + ", joined group with id = " + noti.getEventID()); //event viene usato come group
+
+            //AGGIORNO HASHMAP
+            synchronized (usersInGroups) {
+                if (!attach(SubjectTypes.USERS_IN_GROUP, noti, out)) {
+                    logger.severe("Error during GroupJoin attach");
+                }
+            }
+
+            Notification response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.GROUP_JOIN, null, null, noti.getEventID(), null, null, null, null);
+            sendNotificationToClient(response, out);
+        }
+
+        private void handleChangeCity(Notification noti) {
+            System.out.println(USER_ID_STR + noti.getClientID() + ", changed city from " + noti.getCity() + " to " + noti.getNewCity());
+
+            synchronized (observersByCity) {
+                //DETACH CITY VECCHIA
+                if (detach(SubjectTypes.USERS_IN_CITY, noti)) {
+                    System.out.println("User with id " + noti.getClientID() + " detached from city " + noti.getCity());
+                } else {
+                    logger.severe("Error during ChangeCity detach");
+                }
+                //ATTACH SU CITY NUOVA
+                Notification newNoti = notiFactory.createNotification(SERVER_CLIENT, null, noti.getClientID(), null, null, null, noti.getNewCity(), null, null);
+                if (!attach(SubjectTypes.USERS_IN_CITY, newNoti, out)) {
+                    logger.severe("Error during ChangeCity attach");
+                }
+            }
+
+            Notification response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.CHANGE_CITY, noti.getClientID(), null, null, null, noti.getCity(), noti.getNewCity(), null);
+            sendNotificationToClient(response, out);
+        }
+
+        private void handleEventParticipation(Notification noti) {
+            System.out.println("User with id " + noti.getClientID() + " participating to event with id = " + noti.getEventID());
+
+            //mandare messaggio di ritorno all'utente
+            Notification response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.USER_EVENT_PARTICIPATION, null, null, null, null, null, null, null);
+            sendNotificationToClient(response, out);
+
+            //mandare notifica all'organizzatore
+            if (!this.notify(SubjectTypes.EVENT_ORGANIZER, noti)) {
+                logger.severe("Error during UserEventParticipation notify");
+            }
+
+        }
+
+        private void handleEventDeleted(Notification noti) {
+            System.out.println("Event with id " + noti.getEventID() + " deleted");
+            synchronized (organizersByEventID) {
+                //rimuove l'associazione tra event-id e organizer nella hashmap
+                if (!detach(SubjectTypes.EVENT_ORGANIZER, noti)) {
+                    logger.severe("Error during EventDeleted detach");
+                }
+            }
+            Notification response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.EVENT_DELETED, null, null, noti.getEventID(), null, null, null, null);
+            sendNotificationToClient(response, out);
+        }
+
+        private void handleEventAdded(Notification noti) {
+            System.out.println("New event added by " + noti.getClientID() + ", eventID: " + noti.getEventID() + ", city: " + noti.getCity());
+            synchronized (organizersByEventID) {
+                //un solo thread alla volta può read/write su observersByCity affinché i dati siano consistenti
+                //creo observer con le informazioni del nuovo utente registrato (user_id, canali di comunicazione in uscita verso la Client socket)
+                if (!attach(SubjectTypes.EVENT_ORGANIZER, noti, out)) {
+                    logger.severe("Error during EventAdded attach");
+                }
+            }
+            //notifica l'organizer
+            Notification response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.EVENT_ADDED, noti.getClientID(), null, null, null, null, null, null);
+            sendNotificationToClient(response, out);
+
+            //notifica l'utente
+            if (!this.notify(SubjectTypes.USERS_IN_CITY, noti)) {
+                logger.severe("Error during EventAdded notify");
+            }
+        }
+
+        private void handleLogin(Notification noti) {
+            if (noti.getUserType().equals(UserTypes.USER)) {
+                System.out.println("User logged in, id = " + noti.getClientID());
+                synchronized (connectedUsers) {
+                    updateLoggedUsers(noti.getClientID(), true, noti.getUserType());
+                }
+                synchronized (observersByCity) {
+                    updateUserOut(noti.getCity(), noti.getClientID(), out);
+                }
+            } else if (noti.getUserType().equals(UserTypes.ORGANIZER)) {
+                System.out.println("Organizer logged in, id = " + noti.getClientID());
+                synchronized (connectedOrganizers) {
+                    updateLoggedUsers(noti.getClientID(), true, noti.getUserType());
+                }
+                synchronized (organizersByEventID) {
+                    updateOrgOut(noti.getClientID(), out);
+                }
+            }
+
+            //notifica l'utente
+            Notification response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.LOGGED_IN, noti.getClientID(), null, null, null, null, null, null);
+            sendNotificationToClient(response, out);
+        }
+
+        private void handleUserReg(Notification noti) {
+            System.out.println("User registered, id = " + noti.getClientID() + ", city = " + noti.getCity());
+            synchronized (observersByCity) {
+                //un solo thread alla volta può read/write su observersByCity affinché i dati siano consistenti
+                //creo observer con le informazioni del nuovo utente registrato (user_id, canali di comunicazione in uscita verso la Client socket)
+                if (!attach(SubjectTypes.USERS_IN_CITY, noti, null)) {
+                    logger.severe("Error during UserRegistration attach");
+                }
+            }
+            //notifica l'utente
+            Notification response = notiFactory.createNotification(SERVER_CLIENT, NotificationTypes.USER_REGISTRATION, noti.getClientID(), null, null, null, null, null, null);
+            sendNotificationToClient(response, out);
+            connections--;
+            clientRunning = false;
         }
 
         private void sendNotificationToClient(Notification noti, ObjectOutputStream out) {
@@ -329,6 +369,7 @@ public class Server {
                 }
             }
         }
+
         private void updateOrgOut(int orgID, ObjectOutputStream out) {
             for (Map.Entry<Integer, ObserverClass> entry : organizersByEventID.entrySet()) {
                 if (entry.getValue().getObsID() == orgID) {
@@ -341,18 +382,19 @@ public class Server {
             if (type.equals(UserTypes.USER)) {
                 connectedUsers.put(userID, isConnected);
                 System.out.println("User id: " + userID + ", isConnected:" + connectedUsers.get(userID).toString());
-            }else if(type.equals(UserTypes.ORGANIZER)){
+            } else if (type.equals(UserTypes.ORGANIZER)) {
                 connectedOrganizers.put(userID, isConnected);
                 System.out.println("Organizer id: " + userID + ", isConnected:" + connectedOrganizers.get(userID).toString());
             }
         }
+
         @Override
         public boolean attach(SubjectTypes type, Notification noti, ObjectOutputStream out) {
-            switch (type){
+            switch (type) {
                 case USERS_IN_CITY:
-                    return attachUserToCity(noti,out);
+                    return attachUserToCity(noti, out);
                 case EVENT_ORGANIZER:
-                    return attachOrgToEvent(noti,out);
+                    return attachOrgToEvent(noti, out);
                 case USERS_IN_GROUP:
                     return attachUserToGroup(noti, out);
             }
@@ -361,7 +403,7 @@ public class Server {
 
         @Override
         public boolean detach(SubjectTypes type, Notification noti) {
-            switch (type){
+            switch (type) {
                 case USERS_IN_CITY:
                     return detachUserFromCity(noti);
                 case EVENT_ORGANIZER:
@@ -374,7 +416,7 @@ public class Server {
 
         @Override
         public boolean notify(SubjectTypes type, Object o) {
-            switch (type){
+            switch (type) {
                 case USERS_IN_CITY:
                     return notifyUsersInCity((Notification) o);
                 case EVENT_ORGANIZER:
@@ -387,7 +429,7 @@ public class Server {
 
         //ATTACH
         private boolean attachOrgToEvent(Notification noti, ObjectOutputStream out) {
-            if (noti==null){
+            if (noti == null) {
                 return false;
             }
             ObserverClass orgObs = obsFactory.createObserver(ObserverType.NOTI_OBSERVER, noti.getClientID(), out);
@@ -397,7 +439,7 @@ public class Server {
         }
 
         private boolean attachUserToCity(Notification noti, ObjectOutputStream out) {
-            if (noti==null){
+            if (noti == null) {
                 return false;
             }
             ObserverClass notiObs = obsFactory.createObserver(ObserverType.NOTI_OBSERVER, noti.getClientID(), out);
@@ -407,7 +449,7 @@ public class Server {
         }
 
         private boolean attachUserToGroup(Notification noti, ObjectOutputStream out) {
-            if (noti==null){
+            if (noti == null) {
                 return false;
             }
             Integer groupID = noti.getEventID();
@@ -431,7 +473,7 @@ public class Server {
         }
 
         private boolean detachOrgFromEvent(Notification noti) {
-            if (noti==null){
+            if (noti == null) {
                 return false;
             }
             ObserverClass tempObs = organizersByEventID.remove(noti.getEventID());
@@ -454,7 +496,8 @@ public class Server {
             List<ObserverClass> users = observersByCity.get(noti.getCity());
             if (users != null) {
                 for (ObserverClass user : users) {
-                    if (connectedUsers.get(user.getObsID())) {
+                    Boolean res = connectedUsers.get(user.getObsID());
+                    if (res != null && res) {
                         //se utente online notifica
                         user.update(noti);
                     }
@@ -468,10 +511,10 @@ public class Server {
             ObserverClass org = organizersByEventID.get(noti.getEventID());
             if (org == null) {
                 logger.severe("Org id got from observer is null - can't update observers");
-                throw new RuntimeException();
-
+                return false;
             }
-            if (connectedOrganizers.get(org.getObsID())) {
+            Boolean res = connectedOrganizers.get(org.getObsID());
+            if (res != null && res) {
                 //se org online notifica
                 org.update(noti);
             }
@@ -482,7 +525,8 @@ public class Server {
             List<ObserverClass> usersObsList = usersInGroups.get(mex.getReceiverID());
             if (usersObsList != null) {
                 for (ObserverClass obs : usersObsList) {
-                    if (connectedUsers.get(obs.getObsID())) {
+                    Boolean res = connectedUsers.get(obs.getObsID());
+                    if (res != null && res) {
                         //se user online mandagli il messaggio per aggiungerlo alla chat
                         obs.update(mex);
                     }
@@ -490,7 +534,7 @@ public class Server {
 
             } else {
                 logger.severe("Org id got from observer is null - can't update observers");
-                throw new RuntimeException();
+                return false;
             }
             return true;
         }
@@ -511,10 +555,6 @@ public class Server {
             logger.info("Finished to preload data from database");
         }
     }
-
-
-
-
 
 
 }

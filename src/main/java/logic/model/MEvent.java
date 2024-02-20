@@ -4,6 +4,8 @@ import logic.beans.BEvent;
 import logic.exceptions.InvalidValueException;
 import logic.exceptions.TextTooLongException;
 
+import static logic.view.EssentialGUI.logger;
+
 public class MEvent {
     private int eventID;
     private String eventOrganizer;
@@ -36,6 +38,7 @@ public class MEvent {
     }
 
     public MEvent() {
+        //empty
     }
 
     public BEvent getEventInfo() {
@@ -55,7 +58,9 @@ public class MEvent {
             eventInfo.setEventPicPath(eventPicPath);
             return eventInfo;
         } catch (InvalidValueException | TextTooLongException e) {
-            throw new RuntimeException(e);
+            //grave se entra qui dentro perché prendendo le informazioni dal DB dovrebbero essere già state controllate all'inserimento
+            logger.severe(e.getMessage());
+            return null;
         }
     }
 
@@ -97,7 +102,6 @@ public class MEvent {
     //GETTERS
     public int getEventID(){return this.eventID;}
     public String getEventOrganizer(){return this.eventOrganizer;}
-    public int getEventOrganizerID(){return this.eventOrganizerID;}
     public String getEventName(){return this.eventName;}
     public String getEventProvince(){return this.eventProvince;}
     public String getEventCity() {
@@ -109,8 +113,6 @@ public class MEvent {
     public String getEventTime(){return this.eventTime;}
     public byte[] getEventPicData(){return this.eventPicData;}
     public String getEventPicPath(){return this.eventPicPath;}
-
-
 }
 
 
