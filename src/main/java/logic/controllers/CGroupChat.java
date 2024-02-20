@@ -28,7 +28,7 @@ public class CGroupChat extends CServerInteraction{
         return makeBeansFromModels(chatDAO.retrieveGroupChat(groupID));
     }
 
-    private List<BMessage> makeBeansFromModels (ArrayList<MGroupMessage> models){
+    private List<BMessage> makeBeansFromModels (List<MGroupMessage> models){
         ArrayList<BMessage> beans = new ArrayList<>();
         for (MGroupMessage model : models){
             BMessage bean = new BMessage(model);

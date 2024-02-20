@@ -8,25 +8,26 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 import static logic.view.EssentialGUI.logger;
 
 public class ChatDAO {
-    public ArrayList<MGroupMessage> retrieveGroupChat(Integer groupID) {
+    public List<MGroupMessage> retrieveGroupChat(Integer groupID) {
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT sender_id,message FROM ChatGroup WHERE (group_id = ?)")) {
             statement.setInt(1, groupID);
             return getMessagesArrayList(statement);
         } catch (SQLException | RuntimeException e) {
             logger.log(Level.SEVERE, e.getMessage());
-            return null;
+            return new ArrayList<>(); //null - toglie smell
         }finally {
             SingletonDBSession.getInstance().closeConn();
         }
     }
 
-    private ArrayList<MGroupMessage> getMessagesArrayList(PreparedStatement statement) {
-        ArrayList<MGroupMessage> gMessages = new ArrayList<>();
+    private List<MGroupMessage> getMessagesArrayList(PreparedStatement statement) {
+        List<MGroupMessage> gMessages = new ArrayList<>();
         //sender_id,message
         try (ResultSet rs = statement.executeQuery()) {
             while (rs.next()) {
