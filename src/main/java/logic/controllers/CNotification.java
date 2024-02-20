@@ -24,6 +24,7 @@ public class CNotification extends CServerInteraction {
 
 
     public CNotification(CFacade facadeRef){
+        super();
         switch (PersistenceClass.getPersistenceType()) {
             case FileSystem:
                 try {

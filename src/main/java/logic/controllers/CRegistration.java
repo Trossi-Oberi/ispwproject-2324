@@ -6,7 +6,6 @@ import logic.model.MUser;
 import logic.dao.LocationDAO;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 
