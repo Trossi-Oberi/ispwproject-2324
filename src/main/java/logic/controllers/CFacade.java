@@ -278,7 +278,7 @@ public class CFacade {
     }
 
 
-    public ArrayList<BNotification> retrieveNotifications(int userID) {
+    public List<BNotification> retrieveNotifications(int userID) {
         if (notificationController == null) {
             notificationController = new CNotification(this);
         }
@@ -316,7 +316,7 @@ public class CFacade {
         return loginController.getUsernameByID(userID);
     }
 
-    public boolean deleteNotification(Integer notificationID, ArrayList<BNotification> notificationsList, int index) {
+    public boolean deleteNotification(Integer notificationID, List<BNotification> notificationsList, int index) {
         if (notificationController == null) {
             notificationController = new CNotification(this);
         }

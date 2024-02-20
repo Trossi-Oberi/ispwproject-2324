@@ -848,7 +848,7 @@ public class CLI implements NotificationView, ChatView {
         System.out.println("Notifications");
 
 
-        ArrayList<BNotification> notifications = cFacade.retrieveNotifications(LoggedUser.getUserID());
+        List<BNotification> notifications = cFacade.retrieveNotifications(LoggedUser.getUserID());
         if (!notifications.isEmpty()) {
             for (int i = 0; i < notifications.size(); i++) {
                 if (notifications.get(i).getMessageType() == NotificationTypes.EventAdded) {
@@ -890,7 +890,7 @@ public class CLI implements NotificationView, ChatView {
         } while (!valid);
     }
 
-    private static void deleteNotification(ArrayList<BNotification> notifications) {
+    private static void deleteNotification(List<BNotification> notifications) {
         boolean valid = false;
 
         spacer(1);

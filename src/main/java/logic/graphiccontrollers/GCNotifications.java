@@ -17,12 +17,13 @@ import logic.utils.NotificationTypes;
 import logic.view.EssentialGUI;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 public class GCNotifications extends EssentialGUI {
     @FXML
     private ListView<String> notificationsLV;
-    private ArrayList<BNotification> notificationsList;
+    private List<BNotification> notificationsList;
 
     private class DeleteButtonCell extends ListCell<String> {
         private HBox hbox;
@@ -39,7 +40,7 @@ public class GCNotifications extends EssentialGUI {
             deleteButton = new Button("Delete");
             deleteButton.setOnMouseClicked(event -> {
                 getListView().getItems().remove(getItem());
-                if(cfacade.deleteNotification(notificationsList.get(getIndex()).getNotificationID(), notificationsList, getIndex())){
+                if (cfacade.deleteNotification(notificationsList.get(getIndex()).getNotificationID(), notificationsList, getIndex())) {
                     //ID notifica, lista (per rimuovere notifica) e indice di item della listview
                     alert.displayAlertPopup(Alerts.INFORMATION, "Removed notification successfully");
                 } else {
@@ -70,7 +71,6 @@ public class GCNotifications extends EssentialGUI {
     @FXML
     public void initialize() {
 
-        BNotification notiBean = new BNotification();
         //Imposta la cell factory personalizzata
         notificationsLV.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
             @Override
@@ -83,7 +83,7 @@ public class GCNotifications extends EssentialGUI {
 
     }
 
-    private void populateNotificationsLV(ArrayList<BNotification> notificationsList) {
+    private void populateNotificationsLV(List<BNotification> notificationsList) {
         try {
             for (int i = 0; i < notificationsList.size(); i++) {
                 if (notificationsList.get(i).getMessageType() == NotificationTypes.EventAdded) {

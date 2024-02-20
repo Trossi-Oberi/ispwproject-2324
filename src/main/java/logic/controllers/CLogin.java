@@ -69,7 +69,7 @@ public class CLogin {
             out = new ObjectOutputStream(client.getOutputStream());
             in = new SecureObjectInputStream(client.getInputStream());
         } catch (UnknownHostException e) {
-            System.out.println(e.getMessage());
+            logger.severe(e.getMessage());
         } catch (IOException e) {
             logger.severe(e.getMessage());
         }

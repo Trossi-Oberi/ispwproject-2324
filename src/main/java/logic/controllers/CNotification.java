@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.io.InvalidClassException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Semaphore;
+import java.util.logging.Level;
 
 import static logic.view.EssentialGUI.logger;
 
@@ -54,9 +56,10 @@ public class CNotification extends CServerInteraction {
         //starto il thread
         listenerThread.start();
 
-        logger.info("Client " + userID + " listener started successfully");
+        logger.info(() -> "Client " + userID + " listener started successfully");
     }
 
+    //TODO: SONARCLOUD DA SMELL SE UN METODO HA PIU DI 7 PARAMETRI
     public void sendNotification(NotificationTypes notiType, Integer clientID, Integer notifierID, Integer eventID, Integer notificationID, String city, String newCity, UserTypes usrType) {
         try {
             //se ListenerThread non è ancora stato inizializzato oppure è stato inizializzato ma è stato poi interrotto lo avvio
@@ -95,14 +98,14 @@ public class CNotification extends CServerInteraction {
             listenerThread.interrupt();
             if (!LoggedUser.getSocket().isClosed()){
                 LoggedUser.getSocket().close();
-                logger.info("Client " + userID + " socket closed successfully");
+                logger.info(() -> "Client " + userID + " socket closed successfully");
             }
         } catch (IOException e) {
             logger.severe(e.getMessage());
         }
     }
 
-    public ArrayList<BNotification> retrieveNotifications(int userID) {
+    public List<BNotification> retrieveNotifications(int userID) {
         ArrayList<Notification> notifications = new ArrayList<>(this.notificationDAO.getNotificationsByUserID(userID));
         return makeBeanFromModel(notifications);
     }
@@ -122,7 +125,7 @@ public class CNotification extends CServerInteraction {
         return notiBeanList;
     }
 
-    public boolean deleteNotification(Integer notificationID, ArrayList<BNotification> notificationsList, int index) {
+    public boolean deleteNotification(Integer notificationID, List<BNotification> notificationsList, int index) {
         //cancellazione nel DB
         if (this.notificationDAO.deleteNotification(notificationID)) {
             //rimozione dalla lista
