@@ -15,7 +15,7 @@ public class SingletonDBSession {
     private static SingletonDBSession instance = null;
     private String username;
     private String password;
-    private final String url;
+    private final String url = "jdbc:mysql://localhost/nightplan?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private InputStream inputStream;
     protected Connection connection = null;
 
@@ -42,7 +42,6 @@ public class SingletonDBSession {
     }
 
     private SingletonDBSession() {
-        this.url = "jdbc:mysql://localhost/nightplan";
         try {
             this.username = getPropValues()[0];
             this.password = getPropValues()[1];
