@@ -123,11 +123,11 @@ values (NULL, 'Nicolas', 2, 'Uane', 'Frosinone', 'Anagni', 'Via Casilina', 'Pop'
 # insert into UserGroup(id, user_id, group_id)
 # values (NULL, 3, 1);
 
-# insert into UserEvent(id, user_id, event_id)
-# values (NULL, 1, 3),
-#        (NULL, 3, 3),
-#        (NULL, 4, 3),
-#        (NULL, 5, 3);
+insert into UserEvent(id, user_id, event_id)
+values (NULL, 1, 3),
+       (NULL, 3, 3),
+       (NULL, 4, 3),
+       (NULL, 5, 3);
 
 insert into Provinces (id, name)
 values (NULL, 'Agrigento'),
