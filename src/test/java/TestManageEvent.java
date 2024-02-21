@@ -1,4 +1,3 @@
-/*
 import com.mysql.cj.log.Log;
 
 import static org.junit.Assert.*;
@@ -16,8 +15,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-*/
-/*Nicolas Oberi*//*
+/*Nicolas Oberi*/
 
 public class TestManageEvent {
     //test login, addevent, participate, chat (last message), joingroup, notification
@@ -64,8 +62,7 @@ public class TestManageEvent {
         }
     }
 
-    */
-/*@Test
+@Test
     public void editEvent(){
         LoggedUser.setUserID(2);
         List<BEvent> myEvents = facade.retrieveEvents(UserTypes.ORGANIZER, "GCYourEventsOrg");
@@ -82,8 +79,7 @@ public class TestManageEvent {
             myEvents = facade.retrieveEvents(UserTypes.ORGANIZER, "GCYourEventsOrg");
             assertEquals(exampleEvent.getEventName(), myEvents.get(0).getEventName());
         }
-    }*//*
+    }
 
 }
 
-*/
