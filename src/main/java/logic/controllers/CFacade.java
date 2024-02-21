@@ -92,7 +92,7 @@ public class CFacade {
         boolean res = manageEventController.removeEventParticipation(eventBean);
         if (res) {
             Integer groupID = getGroupByEventID(eventBean.getEventID()).getGroupID();
-            result = leaveGroupAfterRemoveEventPart(eventBean, groupID);
+            result = leaveGroupAfterRemoveEventPart(groupID);
             if (result) {
                 if (notificationController == null) {
                     notificationController = new CNotification(this);
@@ -105,7 +105,7 @@ public class CFacade {
         return result;
     }
 
-    private boolean leaveGroupAfterRemoveEventPart(BEvent eventBean, Integer groupID){
+    private boolean leaveGroupAfterRemoveEventPart(Integer groupID){
         //se il gruppo non esiste salto il leaveGroup
         if (groupID == null || !checkUserInGroup(groupID)) {
             //gruppo non esistente o utente non nel gruppo
