@@ -1514,7 +1514,7 @@ public class CLI implements NotificationView, ChatView {
                 return 0;
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            logger.severe(e.getMessage());
         } catch (UsernameAlreadyTaken e) {
             logger.warning("Username already taken! Change it and retry registration...");
             return 0;
@@ -1599,7 +1599,9 @@ public class CLI implements NotificationView, ChatView {
         } else if (notificationType.equals(NotificationTypes.USER_EVENT_PARTICIPATION)) {
             value = "new user participation to your event!";
         }
-        logger.info("New notification: " + value);
+        spacer(1);
+        System.out.println("New notification: " + value);
+        spacer(1);
     }
 
     @Override
