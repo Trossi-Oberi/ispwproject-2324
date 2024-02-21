@@ -100,7 +100,8 @@ values (NULL, 'Matteo', 'Matteo', 'Matteo', 'Trossi', '16/03/1998', 'Male', 'Fro
        (NULL, 'Nicolas', 'Nicolas', 'Nicolas', 'Oberi', '16/03/1998', 'Male', 'Roma', 'Cave', 'ORGANIZER', 'Offline'),
        (NULL, 'm', 'm', 'm', 'm', '16/03/1998', 'Male', 'Frosinone', 'Anagni', 'USER', 'Offline'),
        (NULL, 'n', 'n', 'n', 'n', '16/03/1998', 'Male', 'Frosinone', 'Anagni', 'USER', 'Offline'),
-       (NULL, 'o', 'o', 'o', 'o', '16/03/1998', 'Male', 'Frosinone', 'Anagni', 'USER', 'Offline');
+       (NULL, 'o', 'o', 'o', 'o', '16/03/1998', 'Male', 'Frosinone', 'Anagni', 'USER', 'Offline'),
+        (NULL, 'test', 'test', 'test', 'test', '25/10/1990', 'Male', 'Palermo', 'Palermo', 'USER', 'Offline');
 
 
 
@@ -117,11 +118,13 @@ values (NULL, 'Nicolas', 2, 'Uane', 'Frosinone', 'Anagni', 'Via Casilina', 'Pop'
         LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp2.jpg'),
         'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp2.jpg');
 
-# insert into EventGroups(group_id, group_name, event_id, owner_id)
-# values (1, 'prova1', 1, 3);
+insert into EventGroups(group_id, group_name, event_id, owner_id)
+values (NULL, 'prova1', 1, 3),
+        (NULL, 'GroupForTest', 2, 3);
 
-# insert into UserGroup(id, user_id, group_id)
-# values (NULL, 3, 1);
+insert into UserGroup(id, user_id, group_id)
+values (NULL, 3, 1),
+        (NULL, 3, 2);
 
 insert into UserEvent(id, user_id, event_id)
 values (NULL, 1, 3),

@@ -18,8 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class TestManageEvent {
     //test login, participate, chat (last message), joingroup, notification
     CFacade facade;
-    LoggedUser logUser;
-    private static final String MESSAGE = "Hi! How are you?";
 
     public TestManageEvent() {
         facade = new CFacade();
