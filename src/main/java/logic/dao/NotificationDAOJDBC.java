@@ -1,7 +1,6 @@
 package logic.dao;
 
 import logic.controllers.NotificationFactory;
-import logic.model.CityData;
 import logic.model.Notification;
 import logic.model.NotificationProperties;
 import logic.utils.*;
