@@ -1,5 +1,4 @@
 import logic.beans.BEvent;
-import logic.beans.BMessage;
 import logic.beans.BNotification;
 import logic.controllers.CFacade;
 import logic.exceptions.EventAlreadyAdded;

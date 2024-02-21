@@ -179,7 +179,7 @@ public class CFacade {
             if (notificationController == null) {
                 notificationController = new CNotification(this);
             }
-            if (LoggedUser.getInputStream()!=null && LoggedUser.getOutputStream()!=null) {
+            if (LoggedUser.getInputStream()!= null && LoggedUser.getOutputStream() != null) {
                 notificationController.sendNotification(NotificationTypes.LOGGED_IN, LoggedUser.getUserID(), null, null, new CityData(LoggedUser.getCity(), null), LoggedUser.getUserType());
             }
         }
@@ -239,7 +239,9 @@ public class CFacade {
             if (notificationController == null) {
                 notificationController = new CNotification(this);
             }
-            notificationController.sendNotification(NotificationTypes.GROUP_LEAVE, LoggedUser.getUserID(), null, groupID, null, null);
+            if (LoggedUser.getInputStream()!=null && LoggedUser.getOutputStream()!=null) {
+                notificationController.sendNotification(NotificationTypes.GROUP_LEAVE, LoggedUser.getUserID(), null, groupID, null, null);
+            }
         }
         return result;
     }
@@ -321,7 +323,9 @@ public class CFacade {
             if (notificationController == null) {
                 notificationController = new CNotification(this);
             }
-            notificationController.sendNotification(NotificationTypes.CHANGE_CITY, LoggedUser.getUserID(), null, null, new CityData(oldCity, newCity), null);
+            if (LoggedUser.getInputStream() != null && LoggedUser.getOutputStream() != null) {
+                notificationController.sendNotification(NotificationTypes.CHANGE_CITY, LoggedUser.getUserID(), null, null, new CityData(oldCity, newCity), null);
+            }
         }
         return res;
     }
@@ -331,6 +335,13 @@ public class CFacade {
             loginController = new CLogin();
         }
         return loginController.getUsernameByID(userID);
+    }
+
+    public String getCityByUserID(int userID) {
+        if (loginController == null) {
+            loginController = new CLogin();
+        }
+        return loginController.getCityByUserID(userID);
     }
 
     public boolean deleteNotification(Integer notificationID, List<BNotification> notificationsList, int index) {
@@ -405,4 +416,6 @@ public class CFacade {
         }
         return analyticsController.exportAnalyticsFile(analysis);
     }
+
+
 }

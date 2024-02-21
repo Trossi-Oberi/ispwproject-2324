@@ -108,15 +108,21 @@ values (NULL, 'Matteo', 'Matteo', 'Matteo', 'Trossi', '16/03/1998', 'Male', 'Fro
 insert into Events (event_id, organizer, organizer_id, name, province, city, address, music_genre, date, time, image,
                     pic_path)
 values (NULL, 'Nicolas', 2, 'Uane', 'Frosinone', 'Anagni', 'Via Casilina', 'Pop', '03-03-2024', '18:40',
-        LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerplanet.jpg'),
-        'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerplanet.jpg'),
+        LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\locandina1.jpg'),
+        'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\locandina1.jpg'),
        (NULL, 'Nicolas', 2, 'Eleo', 'Frosinone', 'Frosinone', 'Via Marittima', 'Rap', '03-04-2025', '01:30',
-        LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp1.jpg'),
-        'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp1.jpg'),
-       (NULL, 'Nicolas', 2, 'Uane passato', 'Frosinone', 'Anagni', 'Via Casilina passata', 'Techno', '03-04-2020',
+        LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\locandina2.jpg'),
+        'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\locandina2.jpg'),
+       (NULL, 'Nicolas', 2, 'Jupiter', 'Roma', 'Roma', 'Via Cristoforo Colombo', 'Trap', '25-01-2025', '23:30',
+        LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\locandina3.jpg'),
+        'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\locandina3.jpg'),
+       (NULL, 'Nicolas', 2, 'Uane (concluso)', 'Frosinone', 'Anagni', 'Via Casilina', 'Techno', '03-04-2020',
         '22:30',
-        LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp2.jpg'),
-        'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\acerwp2.jpg');
+        LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\locandina4.jpg'),
+        'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\locandina4.jpg'),
+       (NULL, 'Nicolas', 2, 'TestJoinGroup', 'Roma', 'Roma', 'Via Casilina', 'Pop', '25-01-2025', '23:30',
+        LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\locandina4.jpg'),
+        'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\locandina4.jpg');
 
 insert into EventGroups(group_id, group_name, event_id, owner_id)
 values (NULL, 'prova1', 1, 3),
@@ -127,10 +133,11 @@ values (NULL, 3, 1),
         (NULL, 3, 2);
 
 insert into UserEvent(id, user_id, event_id)
-values (NULL, 1, 3),
-       (NULL, 3, 3),
-       (NULL, 4, 3),
-       (NULL, 5, 3);
+values (NULL, 1, 4),
+       (NULL, 3, 4),
+       (NULL, 4, 4),
+       (NULL, 1, 3),
+       (NULL, 5, 4);
 
 insert into Provinces (id, name)
 values (NULL, 'Agrigento'),

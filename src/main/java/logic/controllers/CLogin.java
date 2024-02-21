@@ -115,4 +115,7 @@ public class CLogin {
         }
     }
 
+    public String getCityByUserID(int userID) {
+        return userDao.getUserCityByID(userID);
+    }
 }
