@@ -54,13 +54,8 @@ public class CLI implements NotificationView, ChatView {
     private static Integer timesClicked;
     private static Integer nParticipants;
 
-    private static CLI view = new CLI();
-
-    private CLI(){
-        //empty
-    }
-
     private static void initializeControllers() {
+        CLI view = new CLI();
         cFacade = new CFacade();
         CFacade.setNotiGraphic(view);
         bUserData = new BUserData();
@@ -1371,8 +1366,8 @@ public class CLI implements NotificationView, ChatView {
     }
 
     private static void openGroupChat(BEvent eventBean){
-        //imposto la chatGraphic
-        cFacade.setChatGraphic(view);
+        //imposto la chat graphic view
+        setChatGraphic();
 
         //trovo il groupID dal beanEvent
         BGroup groupBean = cFacade.getGroupByEventID(eventBean.getEventID());
@@ -1415,6 +1410,11 @@ public class CLI implements NotificationView, ChatView {
 
         //termina la funzione torno in YourEventsUser
         cFacade.setChatGraphic(null);
+    }
+
+    private static void setChatGraphic() {
+        CLI view = new CLI();
+        cFacade.setChatGraphic(view);
     }
 
 
