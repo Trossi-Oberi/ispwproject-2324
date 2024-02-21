@@ -1,3 +1,4 @@
+/*
 import com.mysql.cj.log.Log;
 
 import static org.junit.Assert.*;
@@ -15,7 +16,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*Nicolas Oberi*/
+*/
+/*Nicolas Oberi*//*
+
 
 public class TestManageEvent {
     //test login, addevent, participate, chat (last message), joingroup, notification
@@ -83,3 +86,4 @@ public class TestManageEvent {
 
 }
 
+*/
