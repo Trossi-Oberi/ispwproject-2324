@@ -29,7 +29,7 @@ class TestNotification {
     }
 
     @Test
-    void sendNotification() {
+    void testAddNotification() {
         //Sono organizzatore -> pubblico un evento
         LoggedUser.setUserType(UserTypes.ORGANIZER);
         LoggedUser.setUserName("OrganizerTest");
@@ -58,8 +58,8 @@ class TestNotification {
         LoggedUser.setUserID(6);
         LoggedUser.setUserName("UserTest");
 
-        List<BNotification> notifications = facade.retrieveNotifications(LoggedUser.getUserID());
-        assertEquals(NotificationTypes.EVENT_ADDED, notifications.getLast().getMessageType());
+        List<BNotification> myNotifications = facade.retrieveNotifications(LoggedUser.getUserID());
+        assertEquals(NotificationTypes.EVENT_ADDED, myNotifications.getLast().getMessageType());
 
     }
 }

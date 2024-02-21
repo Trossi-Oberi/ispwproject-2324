@@ -1,14 +1,17 @@
 package logic.controllers;
 
+import logic.beans.BEvent;
 import logic.beans.BNotification;
 import logic.dao.NotificationDAO;
 import logic.dao.NotificationDAOCSV;
 import logic.dao.NotificationDAOJDBC;
+import logic.dao.UserDAO;
 import logic.model.CityData;
 import logic.model.Notification;
 import logic.model.NotificationProperties;
 import logic.utils.*;
 
+import javax.swing.plaf.basic.BasicEditorPaneUI;
 import java.io.IOException;
 import java.io.InvalidClassException;
 import java.io.ObjectOutputStream;
@@ -22,11 +25,13 @@ public class CNotification extends CServerInteraction {
     //questo controller si occupa solo di rigirare notifiche ai graphic controller a seguito di interazioni con il listener
     private static final SituationType NOTIFICATION = SituationType.SERVER_CLIENT;
     private NotificationDAO notificationDAO;
+    private UserDAO userDAO;
     private NotificationFactory notiFactory;
 
 
     public CNotification(CFacade facadeRef) {
         super();
+        userDAO = new UserDAO();
         switch (PersistenceClass.getPersistenceType()) {
             case FILE_SYSTEM:
                 this.notificationDAO = new NotificationDAOCSV();
@@ -140,4 +145,13 @@ public class CNotification extends CServerInteraction {
             return false;
         }
     }
+
+    public void addNotification(BEvent eventBean){
+        List<Integer> usersIDs;
+        usersIDs = userDAO.getUsersInCity(eventBean.getEventCity());
+
+        //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
+        notificationDAO.addNotificationToUsers(usersIDs, NotificationTypes.EVENT_ADDED, eventBean.getEventID());
+    }
+
 }

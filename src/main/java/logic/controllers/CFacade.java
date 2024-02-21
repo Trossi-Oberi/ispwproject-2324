@@ -41,6 +41,7 @@ public class CFacade {
             if (notificationController == null) {
                 notificationController = new CNotification(this);
             }
+            notificationController.addNotification(bean);
             if (LoggedUser.getInputStream()!=null && LoggedUser.getOutputStream()!=null){   //se non siamo connessi al server - scopo test
                 notificationController.sendNotification(NotificationTypes.EVENT_ADDED, bean.getEventOrganizerID(), null, bean.getEventID(), new CityData(bean.getEventCity(), null), null);
 

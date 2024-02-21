@@ -20,7 +20,7 @@ class TestGroupChat {
     }
 
     @Test
-    void sendMessage() {
+    void testSendMessage() {
         LoggedUser.setUserName("User1");
         LoggedUser.setUserID(3);
 

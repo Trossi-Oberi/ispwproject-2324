@@ -136,7 +136,7 @@ public class NotificationDAOCSV implements NotificationDAO {
     }
 
     @Override
-    public void addNotification(List<Integer> notifiedIDs, NotificationTypes notificationTypes, int eventID) {
+    public void addNotificationToUsers(List<Integer> notifiedIDs, NotificationTypes notificationTypes, int eventID) {
         try (CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, true)))){
             String[] csvRecord = new String[5];
 

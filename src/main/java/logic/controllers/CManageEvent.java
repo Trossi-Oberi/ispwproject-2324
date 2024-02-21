@@ -40,12 +40,6 @@ public class CManageEvent {
         MEvent eventModel = new MEvent(eventBean);
         if (eventDAO.createEvent(eventModel)) {
             eventBean.setEventID(eventModel.getEventID());
-
-            List<Integer> usersIDs;
-            usersIDs = userDAO.getUsersInCity(eventBean.getEventCity());
-
-            //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
-            notiDAO.addNotification(usersIDs, NotificationTypes.EVENT_ADDED, eventBean.getEventID());
             return true;
         } else {
             return false;
@@ -90,7 +84,7 @@ public class CManageEvent {
             ArrayList<Integer> organizerID = new ArrayList<>();
             organizerID.add(eventBean.getEventOrganizerID());
 
-            notiDAO.addNotification(organizerID, NotificationTypes.USER_EVENT_PARTICIPATION, eventBean.getEventID());
+            notiDAO.addNotificationToUsers(organizerID, NotificationTypes.USER_EVENT_PARTICIPATION, eventBean.getEventID());
             return true;
         } else {
             return false;

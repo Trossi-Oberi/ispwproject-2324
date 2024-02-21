@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface NotificationDAO {
-    void addNotification(List<Integer> notifiedIDs, NotificationTypes notificationTypes, int eventID);
+    void addNotificationToUsers(List<Integer> notifiedIDs, NotificationTypes notificationTypes, int eventID);
     ArrayList<Notification> getNotificationsByUserID(int usrID);
     boolean deleteNotification(int notificationID);
 }

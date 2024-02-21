@@ -25,7 +25,7 @@ class TestManageEvent {
     }
 
     @Test
-    void addEvent() {
+    void testAddEvent() {
         LoggedUser.setUserName("Organizer-Test");
         LoggedUser.setUserID(10);
         BEvent eventBean = new BEvent();
@@ -57,7 +57,7 @@ class TestManageEvent {
     }
 
     @Test
-    void editEvent() {
+    void testEditEvent() {
         LoggedUser.setUserID(2);
         List<BEvent> myEvents = facade.retrieveEvents(UserTypes.ORGANIZER, "GCYourEventsOrg");
         if (myEvents.isEmpty()) {

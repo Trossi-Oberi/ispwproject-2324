@@ -21,7 +21,7 @@ public class NotificationDAOJDBC implements NotificationDAO{
         notiFactory = new NotificationFactory();
     }
 
-    public void addNotification(List<Integer> notifiedIDs, NotificationTypes notificationTypes, int eventID) {
+    public void addNotificationToUsers(List<Integer> notifiedIDs, NotificationTypes notificationTypes, int eventID) {
         //questo metodo ha come valore di ritorno l'id della notifica appena inserita nel database
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Notifications VALUES (NULL, ?, ?, ?, ?)")) {
             for (Integer notifiedID : notifiedIDs) {
