@@ -6,8 +6,9 @@ import logic.exceptions.TextTooLongException;
 import logic.utils.LoggedUser;
 import logic.utils.UserTypes;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.logging.Logger;
 
 
 
-class TestManageEvent {
+public class TestManageEvent {
     //test login, addevent, participate, chat (last message), joingroup, notification
 
     //TODO: fare 3 test per persona
