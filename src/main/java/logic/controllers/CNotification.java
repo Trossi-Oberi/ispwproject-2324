@@ -11,7 +11,6 @@ import logic.model.Notification;
 import logic.model.NotificationProperties;
 import logic.utils.*;
 
-import javax.swing.plaf.basic.BasicEditorPaneUI;
 import java.io.IOException;
 import java.io.InvalidClassException;
 import java.io.ObjectOutputStream;
