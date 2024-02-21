@@ -1,4 +1,3 @@
-/*
 import logic.beans.BEvent;
 import logic.controllers.CFacade;
 import logic.exceptions.EventAlreadyAdded;
@@ -15,8 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-*/
-/*Nicolas Oberi*//*
+/*Nicolas Oberi*/
 
 
 
@@ -86,4 +84,3 @@ class TestManageEvent {
 
 }
 
-*/
