@@ -1,6 +1,10 @@
 module trossi.oberi {
     opens logic.graphiccontrollers;
     opens logic.view;
+    opens logic.utils;
+    opens logic.controllers;
+    opens logic.beans;
+    opens logic.model;
 
     requires java.base;
     requires java.net.http;
