@@ -35,6 +35,7 @@ public class CLI implements NotificationView, ChatView {
     private static String filePath;
     private static final String DATE_PATTERN = "dd-MM-yyyy";
     private static final String CITY = "City: ";
+    private static final String GOBACK = "1. Go back\n";
     private static final String COMMANDS_HELP = "Use /commands to view a list of commands which you can use to navigate into application pages";
     private static final String ASCII_LOGO =
             "           -#####   #####                                ##########                                  \n" +
@@ -555,11 +556,11 @@ public class CLI implements NotificationView, ChatView {
         boolean valid = false;
         while (!valid) {
             String val = acquireInput();
-            valid = convertDateAndSetBean(val, formatter, eventBean);
+            valid = convertDateAndSetEventBean(val, formatter, eventBean);
         }
     }
 
-    private static boolean convertDateAndSetBean(String val, DateTimeFormatter formatter, BEvent eventBean) {
+    private static boolean convertDateAndSetEventBean(String val, DateTimeFormatter formatter, BEvent eventBean) {
         try {
             // Convertire la stringa in un oggetto LocalDate utilizzando il formatter
             LocalDate eventDate = LocalDate.parse(val, formatter);
@@ -724,7 +725,7 @@ public class CLI implements NotificationView, ChatView {
                 valid = true;
                 toEdit = false;
             }
-            if (toEdit && convertDateAndSetBean(val, formatter, eventBean)) {
+            if (toEdit && convertDateAndSetEventBean(val, formatter, eventBean)) {
                 valid = true;
             }
         }
@@ -793,10 +794,10 @@ public class CLI implements NotificationView, ChatView {
             spacer(1);
             boolean isEventParticipated = cFacade.checkPreviousEventParticipation(bEvent);
             if (isEventParticipated) {
-                System.out.println("1. Go back\n" +
+                System.out.println(GOBACK +
                         "2. Remove event participation");
             } else {
-                System.out.println("1. Go back\n" +
+                System.out.println(GOBACK +
                         "2. Plan event participation");
             }
             cycleForUserInputShowEvent(isEventParticipated, lastPage, bEvent);
@@ -805,7 +806,7 @@ public class CLI implements NotificationView, ChatView {
 
         } else if (LoggedUser.getUserType().equals(UserTypes.ORGANIZER)) {
             spacer(1);
-            System.out.println("1. Go back\n" +
+            System.out.println(GOBACK +
                     "2. Edit event\n" +
                     "3. Delete event");
 
@@ -991,7 +992,7 @@ public class CLI implements NotificationView, ChatView {
                     loadNotifications();
                 }
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                logger.severe("IOException in loadNotifications");
             }
         } while (!valid);
     }
@@ -1007,14 +1008,10 @@ public class CLI implements NotificationView, ChatView {
                 String value = READER.readLine();
 
                 // Converte la stringa in un numero intero
-                int index;
-                try {
-                    index = Integer.parseInt(value);
-                } catch (NumberFormatException e) {
-                    logger.severe("Index format not valid...");
+                int index = getNotificationIndex(value);
+                if (index == -1) {
                     continue;
                 }
-
                 // Verifica se l'indice è valido
                 if (index >= 1 && index <= notifications.size()) {
                     cFacade.deleteNotification(notifications.get(index - 1).getNotificationID(), notifications, index - 1);
@@ -1023,11 +1020,20 @@ public class CLI implements NotificationView, ChatView {
                     //ricarica notifications
                     loadNotifications();
                 } else {
-                    logger.severe("Index range non valid. If must be between 1 and " + (notifications.size()));
+                    logger.severe(() -> "Index range non valid. If must be between 1 and " + (notifications.size()));
                 }
             } while (!valid);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            logger.severe("IOException in deleteNotification");
+        }
+    }
+
+    private static int getNotificationIndex(String value) {
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            logger.severe("Index format not valid...");
+            return -1;
         }
     }
 
@@ -1109,7 +1115,7 @@ public class CLI implements NotificationView, ChatView {
                     }
                 }
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                logger.severe("IOException in showAnalytics");
             }
         } while (!valid);
         spacer(1);
@@ -1138,7 +1144,7 @@ public class CLI implements NotificationView, ChatView {
         System.out.println("Times clicked: " + timesClicked);
 
         spacer(1);
-        System.out.println("1. Go back\n");
+        System.out.println(GOBACK);
 
         boolean valid = false;
         do {
@@ -1155,7 +1161,7 @@ public class CLI implements NotificationView, ChatView {
                     valid = true;
                 }
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                logger.severe("IOException in analytics input acquisition");
             }
         } while (!valid);
     }
@@ -1175,12 +1181,6 @@ public class CLI implements NotificationView, ChatView {
             eventList = populateEventList(isPassed, tempList);
             checksOnEventListOrg(eventList, isPassed);
 
-        } else {
-            System.out.println("No organized events!");
-            System.out.println("To add a new event go to /home and write 1 to add event.\n Then follow instructions to finish the procedure.");
-            spacer(1);
-
-            waitCommands();
         }
         spacer(3);
 
@@ -1189,23 +1189,41 @@ public class CLI implements NotificationView, ChatView {
 
     private static void checksOnEventListOrg(List<BEvent> eventList, boolean isPassed) {
         if (!eventList.isEmpty()) {
-            System.out.println("Your organized events. \nWrite event name to show event info, edit or delete it!");
-            CLI.printEventsList(eventList);
 
-            spacer(1);
-            System.out.println(COMMANDS_HELP);
-            spacer(1);
-
-            boolean valid = false;
-            while (!valid) {
-                String value = acquireInput();
-                if (value != null && commands.contains(value)) {
-                    handleCommand(value);
-                }
-                valid = checkIfEventNameEntered(value, eventList);
+            if (!isPassed) {
+                System.out.println("Your organized events. \nWrite event name to show event info, edit or delete it!");
+            } else {
+                System.out.println("Your past events. \nWrite event name to show event info!");
             }
+            eventsPrintAndAcquireInput(eventList);
+
+        }else {
+            System.out.println("No organized events!");
+            System.out.println("To add a new event go to /home and write 1 to add event.\n Then follow instructions to finish the procedure.");
+            spacer(1);
+
+            waitCommands();
+        }
+
+
+    }
+
+    private static void eventsPrintAndAcquireInput(List<BEvent> eventList) {
+        printEventsList(eventList);
+        spacer(1);
+        System.out.println(COMMANDS_HELP);
+        spacer(1);
+
+        boolean valid = false;
+        while (!valid) {
+            String value = acquireInput();
+            if (value != null && commands.contains(value)) {
+                handleCommand(value);
+            }
+            valid = checkIfEventNameEntered(value, eventList);
         }
     }
+
 
     private static void checksOnEventListUser(List<BEvent> eventList, boolean isPassed) {
         if (!eventList.isEmpty()) {
@@ -1214,20 +1232,7 @@ public class CLI implements NotificationView, ChatView {
             } else {
                 System.out.println("Your past events. \nWrite event name to show event info!");
             }
-            printEventsList(eventList);
-
-            spacer(1);
-            System.out.println(COMMANDS_HELP);
-            spacer(1);
-
-            boolean valid = false;
-            while (!valid) {
-                String value = acquireInput();
-                if (value != null && commands.contains(value)) {
-                    handleCommand(value);
-                }
-                valid = checkIfEventNameEntered(value, eventList);
-            }
+            eventsPrintAndAcquireInput(eventList);
         } else {
             System.out.println("No planned events!");
             System.out.println("To plan participation to an event in your city go to /home and write the name of an available event.\n Then follow instructions to Plan event participation.");
@@ -1439,7 +1444,7 @@ public class CLI implements NotificationView, ChatView {
                 }
             } while (!valid);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            logger.severe(e.getMessage());
         }
 
         loadApp();
@@ -1447,21 +1452,14 @@ public class CLI implements NotificationView, ChatView {
 
     private static int registerUser(boolean isGoogleAuth) {
         try {
-            boolean valid = false;
+
 
             spacer(1);
             System.out.println("Registration procedure");
             spacer(1);
 
-            if (!isGoogleAuth) {
-                //classic registration
-                System.out.println("Username: ");
-                bUserData.setUsername(READER.readLine());
-                System.out.println("Password: ");
-                bUserData.setPassword(READER.readLine());
-            } else {
-                bUserData.setPassword("google_account_hidden_psw");
-            }
+            populateRegistrationBean(isGoogleAuth);
+
 
             System.out.println("First name: ");
             bUserData.setFirstName(READER.readLine());
@@ -1469,17 +1467,11 @@ public class CLI implements NotificationView, ChatView {
             bUserData.setLastName(READER.readLine());
             System.out.println("Gender: ");
             System.out.println("a. Male\n" + "b. Female\n" + "c. Other");
-            do {
-                String val = READER.readLine();
-                bUserData.setGender(val);
-                if (val.equals("a") || val.equals("b") || val.equals("c")) {
-                    valid = true;
-                }
-            } while (!valid);
-            valid = false;
+            chooseGenderCycle();
 
             System.out.println("Province: ");
             List<String> provinces = cFacade.getProvincesList();
+            boolean valid = false;
             do {
                 String val = READER.readLine();
                 if (provinces.contains(val)) {
@@ -1502,20 +1494,7 @@ public class CLI implements NotificationView, ChatView {
 
 
             System.out.println("Birth date: dd-MM-yyyy");
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
-            do {
-                String val = READER.readLine();
-                try {
-                    // Convertire la stringa in un oggetto LocalDate utilizzando il formatter
-                    LocalDate birthDate = LocalDate.parse(val, formatter);
-                    bUserData.setBirthDate(birthDate);
-                    valid = true;
-                } catch (Exception e) {
-                    // Gestire il caso in cui l'input non sia nel formato corretto
-                    logger.severe("Invalid birth date format.");
-                }
-            } while (!valid);
-            valid = false;
+            acquireDateCycle();
 
             System.out.println("User type: ");
             System.out.println("a. USER\n" + "b. ORGANIZER");
@@ -1544,6 +1523,72 @@ public class CLI implements NotificationView, ChatView {
             return 0;
         }
         return 1;
+    }
+
+    private static boolean convertDateAndSetUserBean(String dateString, DateTimeFormatter formatter) {
+        try {
+            // Convertire la stringa in un oggetto LocalDate utilizzando il formatter
+            LocalDate birthDate = LocalDate.parse(dateString, formatter);
+            bUserData.setBirthDate(birthDate);
+            return true;
+        } catch (Exception e) {
+            // Gestire il caso in cui l'input non sia nel formato corretto
+            logger.severe("Invalid birth date format.");
+            return false;
+        }
+    }
+
+    private static void acquireDateCycle() {
+        boolean valid = false;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
+        while(!valid){
+            String val = acquireInput();
+            valid = convertDateAndSetUserBean(val,formatter);
+        }
+    }
+
+    private static void chooseGenderCycle() {
+        boolean valid = false;
+        while(!valid){
+            String val = acquireInput();
+            if (val!=null){
+                switch (val) {
+                    case "a":
+                        setGenderToBean("Male");
+                        valid = true;
+                        break;
+                    case "b":
+                        setGenderToBean("Female");
+                        valid = true;
+                        break;
+                    case "c":
+                        setGenderToBean("Other");
+                        valid = true;
+                        break;
+                }
+            }
+        }
+    }
+
+    private static void setGenderToBean(String val) {
+        try {
+            bUserData.setGender(val);
+        } catch (InvalidValueException e) {
+            logger.severe(e.getMessage());
+        }
+    }
+
+    private static void populateRegistrationBean(boolean isGoogleAuth) {
+        if (!isGoogleAuth) {
+            //classic registration
+            System.out.println("Username: ");
+            setUsernameToBean(acquireInput());
+
+            System.out.println("Password: ");
+            setPasswordToBean(acquireInput());
+        } else {
+            setPasswordToBean("google_account_hidden_psw");
+        }
     }
 
     @Override

@@ -105,6 +105,7 @@ public class CNotification extends CServerInteraction {
             logger.severe(e.getMessage());
         }catch (InterruptedException e){
             logger.severe(()->"Interrupted exception "+e.getMessage());
+            Thread.currentThread().interrupt();
         }
     }
 

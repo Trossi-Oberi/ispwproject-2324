@@ -15,7 +15,6 @@ import static logic.view.EssentialGUI.logger;
 
 public class ClientListener implements Runnable {
     //il client listener si occupa di gestire la comunicazione in input da server a client
-    //TODO: risolvere bug chiusura inaspettata socket se cambio città all'utente (quando disconnetto mi da errore)
     private Semaphore semaphore;
     private SecureObjectInputStream in;
     private boolean listenerRunning = true;
