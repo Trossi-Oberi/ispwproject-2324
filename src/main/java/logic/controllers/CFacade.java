@@ -243,13 +243,13 @@ public class CFacade {
         return result;
     }
 
-    public boolean sendMessageToGroup(Integer groupID, String text) {
+    public boolean sendMessageToGroup(BMessage message) {
         if (chatController == null) {
             chatController = new CGroupChat();
         }
-        boolean res = chatController.writeMessage(groupID, text);
+        boolean res = chatController.writeMessage(message);
         if (res && LoggedUser.getOutputStream()!=null && LoggedUser.getInputStream()!=null) {
-            chatController.sendMessage(MessageTypes.GROUP, LoggedUser.getUserID(), groupID, text);
+            chatController.sendMessage(MessageTypes.GROUP, message);
         }
         return res;
     }

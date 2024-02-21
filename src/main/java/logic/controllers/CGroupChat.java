@@ -37,15 +37,16 @@ public class CGroupChat extends CServerInteraction{
         return beans;
     }
 
-    public boolean writeMessage(Integer groupID, String text) {
-        return chatDAO.writeMessage(groupID,text);
+    public boolean writeMessage(BMessage message) {
+        Message msgModel = msgFactory.createMessage(MessageTypes.GROUP, message.getSenderID(), message.getReceiverID(), message.getMessage());
+        return chatDAO.writeMessage(msgModel);
     }
 
-    public synchronized void sendMessage(MessageTypes msgType, Integer senderID, Integer receiverID, String message) {
+    public synchronized void sendMessage(MessageTypes msgType, BMessage message) {
         try {
             //creo il messaggio e lo mando al server
             if (listenerThread.isAlive()) {
-                Message msg = msgFactory.createMessage(msgType, senderID, receiverID, message);
+                Message msg = msgFactory.createMessage(msgType, message.getSenderID(), message.getReceiverID(), message.getMessage());
                 ObjectOutputStream out = LoggedUser.getOutputStream();
                 out.writeObject(msg);
                 out.flush();

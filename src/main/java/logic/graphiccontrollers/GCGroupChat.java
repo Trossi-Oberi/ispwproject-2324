@@ -65,7 +65,8 @@ public class GCGroupChat extends EssentialGUI implements ChatView {
         if (messageTextField.getText().isEmpty()){
             return;
         }
-        if(cfacade.sendMessageToGroup(this.groupID, messageTextField.getText())){
+        BMessage message = new BMessage(LoggedUser.getUserID(), messageTextField.getText(), this.groupID);
+        if(cfacade.sendMessageToGroup(message)){
             messageTextField.clear();
         } else{
             alert.displayAlertPopup(Alerts.ERROR, "Error while sending message");

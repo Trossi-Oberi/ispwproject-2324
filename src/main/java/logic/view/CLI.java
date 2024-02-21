@@ -1403,7 +1403,8 @@ public class CLI implements NotificationView, ChatView {
                     logger.warning("Error while leaving group");
                 }
             } else {
-                if(!cFacade.sendMessageToGroup(groupBean.getGroupID(), message)){
+                BMessage messageBean = new BMessage(LoggedUser.getUserID(), message, groupBean.getGroupID());
+                if(!cFacade.sendMessageToGroup(messageBean)){
                     logger.warning("Error while sending message");
                     exit = true;
                 }

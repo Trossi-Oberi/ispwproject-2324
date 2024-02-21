@@ -1,7 +1,7 @@
 package logic.dao;
 
 import logic.model.MGroupMessage;
-import logic.utils.LoggedUser;
+import logic.model.Message;
 import logic.utils.SingletonDBSession;
 
 import java.sql.PreparedStatement;
@@ -42,11 +42,11 @@ public class ChatDAO {
         return gMessages;
     }
 
-    public boolean writeMessage(Integer groupID, String text) {
+    public boolean writeMessage(Message message) {
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO chatgroup(id,sender_id, message, group_id) VALUES (NULL,?,?,?)")){
-            statement.setInt(1,LoggedUser.getUserID());
-            statement.setString(2,text);
-            statement.setInt(3,groupID);
+            statement.setInt(1,message.getSenderID());
+            statement.setString(2, message.getMessage());
+            statement.setInt(3,message.getReceiverID());
             statement.execute();
             return true;
         }

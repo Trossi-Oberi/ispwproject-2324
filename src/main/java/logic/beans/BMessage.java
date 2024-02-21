@@ -3,6 +3,7 @@ package logic.beans;
 import logic.model.Message;
 
 public class BMessage {
+    private Integer receiverID;
     private Integer senderID;
     private String message;
 
@@ -11,9 +12,10 @@ public class BMessage {
         this.message = model.getMessage();
     }
 
-    public BMessage(Integer senderID, String message){
+    public BMessage(Integer senderID, String message, Integer receiverID){
         this.senderID = senderID;
         this.message = message;
+        this.receiverID = receiverID;
     }
 
     //SETTER
@@ -25,6 +27,10 @@ public class BMessage {
         this.message = message;
     }
 
+    public void setReceiverID(Integer receiverID) {
+        this.receiverID = receiverID;
+    }
+
     //GETTER
     public Integer getSenderID() {
         return senderID;
@@ -32,5 +38,9 @@ public class BMessage {
 
     public String getMessage() {
         return message;
+    }
+
+    public Integer getReceiverID() {
+        return receiverID;
     }
 }
