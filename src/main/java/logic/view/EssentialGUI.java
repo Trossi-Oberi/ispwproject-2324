@@ -38,6 +38,7 @@ public class EssentialGUI extends Application implements NotificationView {
     @Override
     public void start(Stage stage) {
         try {
+            System.out.println("CIAO");
             CFacade.setNotiGraphic(this);
             stage.setTitle(APP_NAME);
             String absolutePath = setAbsolutePath();
