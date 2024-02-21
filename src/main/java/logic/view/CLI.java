@@ -672,10 +672,8 @@ public class CLI implements NotificationView, ChatView {
         boolean valid = false;
         while (!valid) {
             String val = acquireInput();
-            if(isEditing){
-                if (val != null && val.isEmpty()) {
-                    break;
-                }
+            if(isEditing && val != null && val.isEmpty()){
+                break;
             }
             if (cities.contains(val)) {
                 setCityInBean(val, eventBean);
@@ -696,10 +694,8 @@ public class CLI implements NotificationView, ChatView {
         boolean valid = false;
         while (!valid) {
             String val = acquireInput();
-            if(isEditing) {
-                if (val != null && val.isEmpty()) {
-                    break;
-                }
+            if(isEditing && val != null && val.isEmpty()) {
+                break;
             }
             if (provinces.contains(val)) {
                 setProvinceInBean(val, eventBean);
@@ -1320,7 +1316,7 @@ public class CLI implements NotificationView, ChatView {
         return eventList;
     }
 
-    private static void printEventsList(List<BEvent> eventList, List<BGroup> groupsList, Boolean isPassed) {
+    private static void printEventsList(List<BEvent> eventList, List<BGroup> groupsList, boolean isPassed) {
         if(!isPassed && LoggedUser.getUserType().equals(UserTypes.USER)){
             //solo l'utente può vedere i gruppi
             for (int i = 0; i < eventList.size(); i++) {
