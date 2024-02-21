@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /*Nicolas Oberi*/
 
 class TestManageEvent {
-    //test login, addevent, participate, chat (last message), joingroup, notification
+    //test login, addevent, participate, chat (last message), joingroup, notification a
     //TODO: fare 3 test per persona
 
     CFacade facade;
