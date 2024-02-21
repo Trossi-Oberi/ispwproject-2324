@@ -43,7 +43,7 @@ public class CLogin {
             } catch (Exception e) {
                 //grave errore perché non dovrebbe mai andare qui, se ci va è grave!!!!
                 logger.severe(e.getMessage());
-                System.exit(1);
+                //System.exit(1);
             }
             this.userModel.setUsrAndPswByBean(logBean);
             ret = this.userDao.checkLoginInfo(this.userModel, true);
