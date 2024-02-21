@@ -385,7 +385,7 @@ public class CLI implements NotificationView, ChatView {
     private static boolean handleEventNameInput(String value, List<BEvent> futureEvents) {
         for (BEvent bEvent : futureEvents) {
             if (bEvent.getEventName().equals(value)) {
-                showEventInfo(bEvent, "Home");
+                showEventInfo(bEvent, "Home",false);
                 return true;
             }
         }
@@ -788,7 +788,7 @@ public class CLI implements NotificationView, ChatView {
         return fileData;
     }
 
-    private static void showEventInfo(BEvent bEvent, String lastPage) {
+    private static void showEventInfo(BEvent bEvent, String lastPage, boolean isPassed) {
         printEventInfo(bEvent);
         if (LoggedUser.getUserType().equals(UserTypes.USER)) {
             spacer(1);
@@ -804,17 +804,49 @@ public class CLI implements NotificationView, ChatView {
 
             System.out.println("Press 1 to go back");
 
-        } else if (LoggedUser.getUserType().equals(UserTypes.ORGANIZER)) {
+        } else if (LoggedUser.getUserType().equals(UserTypes.ORGANIZER) && !isPassed) {
             spacer(1);
             System.out.println(GOBACK +
                     "2. Edit event\n" +
                     "3. Delete event");
+            cycleForOrgInputFutureEvent(bEvent);
 
-            cycleForOrgInputShowEvent(bEvent);
+        } else if (LoggedUser.getUserType().equals(UserTypes.ORGANIZER)) {
+            System.out.println(GOBACK +
+                    "2. Show analytics");
+            cycleForOrgInputPastEvent(bEvent);
         }
     }
 
-    private static void cycleForOrgInputShowEvent(BEvent bEvent) {
+    private static void cycleForOrgInputPastEvent(BEvent bEvent) {
+        boolean valid = false;
+        while (!valid) {
+            String value = acquireInput();
+            if (value != null) {
+                if (commands.contains(value)) {
+                    handleCommand(value);
+                }
+                valid = handlePastEventOrgInput(value, bEvent);
+
+            }
+
+        }
+    }
+
+    private static boolean handlePastEventOrgInput(String value, BEvent bEvent) {
+        if (value.equals("1")){
+            loadEvents();
+            return true;
+        }else if(value.equals("2")){
+            //shows past event analytics
+            printEventAnalytics(bEvent);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private static void cycleForOrgInputFutureEvent(BEvent bEvent) {
         boolean valid = false;
         while (!valid) {
             String value = acquireInput();
@@ -1195,9 +1227,9 @@ public class CLI implements NotificationView, ChatView {
             } else {
                 System.out.println("Your past events. \nWrite event name to show event info!");
             }
-            eventsPrintAndAcquireInput(eventList);
+            eventsPrintAndAcquireInput(eventList,isPassed);
 
-        }else {
+        } else {
             System.out.println("No organized events!");
             System.out.println("To add a new event go to /home and write 1 to add event.\n Then follow instructions to finish the procedure.");
             spacer(1);
@@ -1208,7 +1240,7 @@ public class CLI implements NotificationView, ChatView {
 
     }
 
-    private static void eventsPrintAndAcquireInput(List<BEvent> eventList) {
+    private static void eventsPrintAndAcquireInput(List<BEvent> eventList, boolean isPassed) {
         printEventsList(eventList);
         spacer(1);
         System.out.println(COMMANDS_HELP);
@@ -1220,7 +1252,7 @@ public class CLI implements NotificationView, ChatView {
             if (value != null && commands.contains(value)) {
                 handleCommand(value);
             }
-            valid = checkIfEventNameEntered(value, eventList);
+            valid = checkIfEventNameEntered(value, eventList,isPassed);
         }
     }
 
@@ -1232,7 +1264,7 @@ public class CLI implements NotificationView, ChatView {
             } else {
                 System.out.println("Your past events. \nWrite event name to show event info!");
             }
-            eventsPrintAndAcquireInput(eventList);
+            eventsPrintAndAcquireInput(eventList,isPassed);
         } else {
             System.out.println("No planned events!");
             System.out.println("To plan participation to an event in your city go to /home and write the name of an available event.\n Then follow instructions to Plan event participation.");
@@ -1242,10 +1274,10 @@ public class CLI implements NotificationView, ChatView {
         }
     }
 
-    private static boolean checkIfEventNameEntered(String value, List<BEvent> eventList) {
+    private static boolean checkIfEventNameEntered(String value, List<BEvent> eventList, boolean isPassed) {
         for (BEvent bEvent : eventList) {
             if (bEvent.getEventName().equals(value)) {
-                showEventInfo(bEvent, "YourEventsUser");
+                showEventInfo(bEvent, "YourEventsUser",isPassed);
                 return true;
             }
         }
@@ -1541,17 +1573,17 @@ public class CLI implements NotificationView, ChatView {
     private static void acquireDateCycle() {
         boolean valid = false;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
-        while(!valid){
+        while (!valid) {
             String val = acquireInput();
-            valid = convertDateAndSetUserBean(val,formatter);
+            valid = convertDateAndSetUserBean(val, formatter);
         }
     }
 
     private static void chooseGenderCycle() {
         boolean valid = false;
-        while(!valid){
+        while (!valid) {
             String val = acquireInput();
-            if (val!=null){
+            if (val != null) {
                 switch (val) {
                     case "a":
                         setGenderToBean("Male");
