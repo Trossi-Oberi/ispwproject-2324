@@ -12,7 +12,7 @@ import static logic.view.EssentialGUI.logger;
 
 
 public class SingletonDBSession {
-    private static SingletonDBSession instance;
+    private static SingletonDBSession instance = null;
     private String username;
     private String password;
     private final String url;
@@ -63,10 +63,10 @@ public class SingletonDBSession {
 
     public static synchronized SingletonDBSession getInstance() {
         //singleton method
-        if (instance == null) {
-            instance = new SingletonDBSession();
+        if (SingletonDBSession.instance == null) {
+            SingletonDBSession.instance = new SingletonDBSession();
         }
-        return instance;
+        return SingletonDBSession.instance;
     }
 
     public void closeConn() {
