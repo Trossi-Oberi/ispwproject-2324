@@ -41,13 +41,12 @@ public class CNotification extends CServerInteraction {
         facade = facadeRef;
     }
 
-    private static void startListener(int userID, CFacade facade) {
+    private static void startListener(int userID, CFacade facade) throws NullPointerException {
         semaphore = new Semaphore(1);
         //avviamo il thread con il listener
-        listener = new ClientListener(facade, semaphore, LoggedUser.getInputStream());
-        listenerThread = new Thread(listener) {
 
-        };
+        listener = new ClientListener(facade, semaphore, LoggedUser.getInputStream());
+        listenerThread = new Thread(listener);
 
         //setto il thread come demone affinché termini quando termina anche il thread principale
         listenerThread.setDaemon(true);
@@ -86,9 +85,11 @@ public class CNotification extends CServerInteraction {
         } catch (InterruptedException e) {
             //gestione eccezioni IO o interruzione thread
             Thread.currentThread().interrupt();
+
         } catch (IOException e) {
-            logger.severe(e.getMessage());
+            logger.severe(() -> "IOException in sendNotification " + e.getMessage());
         }
+
     }
 
     private void stopListener(int userID) {
@@ -103,8 +104,8 @@ public class CNotification extends CServerInteraction {
             }
         } catch (IOException e) {
             logger.severe(e.getMessage());
-        }catch (InterruptedException e){
-            logger.severe(()->"Interrupted exception "+e.getMessage());
+        } catch (InterruptedException e) {
+            logger.severe(() -> "Interrupted exception " + e.getMessage());
             Thread.currentThread().interrupt();
         }
     }

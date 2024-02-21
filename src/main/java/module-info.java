@@ -28,5 +28,9 @@ module trossi.oberi {
 
     exports logic.view;
     exports logic.graphiccontrollers;
+    exports logic.controllers;
+    exports logic.utils;
+    exports logic.beans;
+    exports logic.exceptions;
 
 }

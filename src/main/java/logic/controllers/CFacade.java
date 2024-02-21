@@ -41,7 +41,10 @@ public class CFacade {
             if (notificationController == null) {
                 notificationController = new CNotification(this);
             }
-            notificationController.sendNotification(NotificationTypes.EVENT_ADDED, bean.getEventOrganizerID(), null, bean.getEventID(), new CityData(bean.getEventCity(), null), null);
+            if (LoggedUser.getInputStream()!=null && LoggedUser.getOutputStream()!=null){   //se non siamo connessi al server - scopo test
+                notificationController.sendNotification(NotificationTypes.EVENT_ADDED, bean.getEventOrganizerID(), null, bean.getEventID(), new CityData(bean.getEventCity(), null), null);
+
+            }
         }
         return res;
     }
@@ -55,7 +58,10 @@ public class CFacade {
             if (notificationController == null) {
                 notificationController = new CNotification(this);
             }
-            notificationController.sendNotification(NotificationTypes.EVENT_DELETED, null, null, eventID, null, null);
+            if (LoggedUser.getInputStream()!=null && LoggedUser.getOutputStream()!=null) {
+                notificationController.sendNotification(NotificationTypes.EVENT_DELETED, null, null, eventID, null, null);
+            }
+
         }
         return res;
     }
@@ -69,7 +75,10 @@ public class CFacade {
             if (notificationController == null) {
                 notificationController = new CNotification(this);
             }
-            notificationController.sendNotification(NotificationTypes.USER_EVENT_PARTICIPATION, LoggedUser.getUserID(), null, eventBean.getEventID(), null, null);
+            if (LoggedUser.getInputStream()!=null && LoggedUser.getOutputStream()!=null) {
+                notificationController.sendNotification(NotificationTypes.USER_EVENT_PARTICIPATION, LoggedUser.getUserID(), null, eventBean.getEventID(), null, null);
+            }
+
         }
         return res;
     }
@@ -98,7 +107,9 @@ public class CFacade {
                 if (notificationController == null) {
                     notificationController = new CNotification(this);
                 }
-                notificationController.sendNotification(NotificationTypes.GROUP_LEAVE, LoggedUser.getUserID(), null, groupID, null, null);
+                if (LoggedUser.getInputStream()!=null && LoggedUser.getOutputStream()!=null) {
+                    notificationController.sendNotification(NotificationTypes.GROUP_LEAVE, LoggedUser.getUserID(), null, groupID, null, null);
+                }
             }
         }
         return result;
@@ -133,7 +144,7 @@ public class CFacade {
             }
             //setup temp socket per la registrazione (viene automaticamente chiusa dopo l'invio della notifica UserRegistration response dal server
             setupTempSocket();
-            notificationController.sendNotification(NotificationTypes.USER_REGISTRATION, bean.getUserID(), null, null, new CityData(bean.getCity(), null),null); //null ovvio che sia userType
+            notificationController.sendNotification(NotificationTypes.USER_REGISTRATION, bean.getUserID(), null, null, new CityData(bean.getCity(), null), null); //null ovvio che sia userType
         }
         return res;
     }
@@ -154,7 +165,7 @@ public class CFacade {
         LoggedUser.setInputStream(in);
     }
 
-    public int loginUser(BUserData bean, boolean isGoogleAuth, String authCode) throws InvalidTokenValue{
+    public int loginUser(BUserData bean, boolean isGoogleAuth, String authCode) throws InvalidTokenValue {
         if (loginController == null) {
             loginController = new CLogin();
         }
@@ -163,7 +174,9 @@ public class CFacade {
             if (notificationController == null) {
                 notificationController = new CNotification(this);
             }
-            notificationController.sendNotification(NotificationTypes.LOGGED_IN, LoggedUser.getUserID(), null, null, new CityData(LoggedUser.getCity(), null), LoggedUser.getUserType());
+            if (LoggedUser.getInputStream()!=null && LoggedUser.getOutputStream()!=null) {
+                notificationController.sendNotification(NotificationTypes.LOGGED_IN, LoggedUser.getUserID(), null, null, new CityData(LoggedUser.getCity(), null), LoggedUser.getUserType());
+            }
         }
         return loginRes;
     }
@@ -204,7 +217,9 @@ public class CFacade {
                 notificationController = new CNotification(this);
             }
             //anche qui groupID passato al posto di eventID
-            notificationController.sendNotification(NotificationTypes.GROUP_JOIN, LoggedUser.getUserID(), null, groupID, null, null);
+            if (LoggedUser.getInputStream()!=null && LoggedUser.getOutputStream()!=null) {
+                notificationController.sendNotification(NotificationTypes.GROUP_JOIN, LoggedUser.getUserID(), null, groupID, null, null);
+            }
         }
         return res;
     }
@@ -229,7 +244,7 @@ public class CFacade {
             chatController = new CGroupChat();
         }
         boolean res = chatController.writeMessage(groupID, text);
-        if (res) {
+        if (res && LoggedUser.getOutputStream()!=null && LoggedUser.getInputStream()!=null) {
             chatController.sendMessage(MessageTypes.GROUP, LoggedUser.getUserID(), groupID, text);
         }
         return res;

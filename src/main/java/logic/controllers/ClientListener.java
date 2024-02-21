@@ -29,7 +29,7 @@ public class ClientListener implements Runnable {
 
 
     @Override
-    public void run() {
+    public void run(){
         try {
             semaphore.acquire();
             while (listenerRunning) { //questo ciclo while si interrompe non appena il Client chiude i suoi canali di comunicazione con il server
