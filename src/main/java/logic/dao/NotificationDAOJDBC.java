@@ -1,7 +1,9 @@
 package logic.dao;
 
 import logic.controllers.NotificationFactory;
+import logic.model.CityData;
 import logic.model.Notification;
+import logic.model.NotificationProperties;
 import logic.utils.*;
 
 import java.sql.PreparedStatement;
@@ -45,9 +47,9 @@ public class NotificationDAOJDBC implements NotificationDAO{
                 Notification msg;
                 while (rs.next()) {
                     if (rs.getString(2).equals(NotificationTypes.EVENT_ADDED.toString())) {
-                        msg = notiFactory.createNotification(SituationType.LOCAL, NotificationTypes.EVENT_ADDED, usrID, rs.getInt(4), rs.getInt(3), rs.getInt(1), null, null, null);
+                        msg = notiFactory.createNotification(SituationType.LOCAL, NotificationTypes.EVENT_ADDED, usrID, new NotificationProperties(rs.getInt(4), rs.getInt(1)), rs.getInt(3), null, null);
                     } else {
-                        msg = notiFactory.createNotification(SituationType.LOCAL, NotificationTypes.USER_EVENT_PARTICIPATION, usrID, rs.getInt(4), rs.getInt(3), rs.getInt(1), null, null, null);
+                        msg = notiFactory.createNotification(SituationType.LOCAL, NotificationTypes.USER_EVENT_PARTICIPATION, usrID, new NotificationProperties(rs.getInt(4), rs.getInt(1)), rs.getInt(3), null, null);
                     }
                     notifications.add(msg);
                 }

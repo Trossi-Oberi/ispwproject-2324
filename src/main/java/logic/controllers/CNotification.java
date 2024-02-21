@@ -4,7 +4,9 @@ import logic.beans.BNotification;
 import logic.dao.NotificationDAO;
 import logic.dao.NotificationDAOCSV;
 import logic.dao.NotificationDAOJDBC;
+import logic.model.CityData;
 import logic.model.Notification;
+import logic.model.NotificationProperties;
 import logic.utils.*;
 
 import java.io.IOException;
@@ -55,7 +57,7 @@ public class CNotification extends CServerInteraction {
         logger.info(() -> "Client " + userID + " listener started successfully");
     }
 
-    public void sendNotification(NotificationTypes notiType, Integer clientID, Integer notifierID, Integer eventID, Integer notificationID, String city, String newCity, UserTypes usrType) {
+    public void sendNotification(NotificationTypes notiType, Integer clientID, NotificationProperties notiProps, Integer eventID, CityData cityData, UserTypes usrType) {
         try {
             //se ListenerThread non è ancora stato inizializzato oppure è stato inizializzato ma è stato poi interrotto lo avvio
             if (listenerThread == null || listenerThread.isInterrupted()) {
@@ -64,7 +66,7 @@ public class CNotification extends CServerInteraction {
             //creo il messaggio e lo mando al server
             if (listenerThread.isAlive()) {
                 ObjectOutputStream out = LoggedUser.getOutputStream();
-                Notification noti = notiFactory.createNotification(NOTIFICATION, notiType, clientID, notifierID, eventID, notificationID, city, newCity, usrType);
+                Notification noti = notiFactory.createNotification(NOTIFICATION, notiType, clientID, notiProps, eventID, cityData, usrType);
                 out.writeObject(noti);
                 out.flush();
                 out.reset();

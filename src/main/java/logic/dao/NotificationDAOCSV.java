@@ -3,6 +3,7 @@ package logic.dao;
 import com.opencsv.CSVWriter;
 import logic.controllers.NotificationFactory;
 import logic.model.Notification;
+import logic.model.NotificationProperties;
 import logic.utils.*;
 
 import java.io.*;
@@ -167,9 +168,9 @@ public class NotificationDAOCSV implements NotificationDAO {
                 if (Integer.parseInt(retrievedRecord[NotificationAttributesOrder.getIndexNotifiedID()]) == usrID) {
                     //id, type, event_id, notifier_id
                     if ((retrievedRecord[NotificationAttributesOrder.getIndexNotiType()]).equals(NotificationTypes.EVENT_ADDED.toString())) {
-                        msg = notiFactory.createNotification(SituationType.LOCAL, NotificationTypes.EVENT_ADDED, usrID, Integer.parseInt(retrievedRecord[NotificationAttributesOrder.getIndexNotifierID()]), Integer.parseInt(retrievedRecord[NotificationAttributesOrder.getIndexEventID()]), Integer.parseInt(retrievedRecord[NotificationAttributesOrder.getIndexNotificationID()]), null, null, null);
+                        msg = notiFactory.createNotification(SituationType.LOCAL, NotificationTypes.EVENT_ADDED, usrID, new NotificationProperties(Integer.parseInt(retrievedRecord[NotificationAttributesOrder.getIndexNotifierID()]), Integer.parseInt(retrievedRecord[NotificationAttributesOrder.getIndexNotificationID()])), Integer.parseInt(retrievedRecord[NotificationAttributesOrder.getIndexEventID()]), null, null);
                     } else {
-                        msg = notiFactory.createNotification(SituationType.LOCAL, NotificationTypes.USER_EVENT_PARTICIPATION, usrID, Integer.parseInt(retrievedRecord[NotificationAttributesOrder.getIndexNotifierID()]), Integer.parseInt(retrievedRecord[NotificationAttributesOrder.getIndexEventID()]), Integer.parseInt(retrievedRecord[NotificationAttributesOrder.getIndexNotificationID()]), null, null, null);
+                        msg = notiFactory.createNotification(SituationType.LOCAL, NotificationTypes.USER_EVENT_PARTICIPATION, usrID, new NotificationProperties(Integer.parseInt(retrievedRecord[NotificationAttributesOrder.getIndexNotifierID()]), Integer.parseInt(retrievedRecord[NotificationAttributesOrder.getIndexNotificationID()])), Integer.parseInt(retrievedRecord[NotificationAttributesOrder.getIndexEventID()]), null, null);
                     }
                     notifications.add(msg);
                 }
