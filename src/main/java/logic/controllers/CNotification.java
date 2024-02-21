@@ -60,7 +60,7 @@ public class CNotification extends CServerInteraction {
     public void sendNotification(NotificationTypes notiType, Integer clientID, NotificationProperties notiProps, Integer eventID, CityData cityData, UserTypes usrType) {
         try {
             //se ListenerThread non è ancora stato inizializzato oppure è stato inizializzato ma è stato poi interrotto lo avvio
-            if (listenerThread == null || listenerThread.isInterrupted()) {
+            if (listenerThread == null || !listenerThread.isAlive()) {
                 startListener(clientID, facade);
             }
             //creo il messaggio e lo mando al server
@@ -94,13 +94,17 @@ public class CNotification extends CServerInteraction {
     private void stopListener(int userID) {
         //chiudo il thread listener del client
         try {
-            listenerThread.interrupt();
+            listenerThread.join();
             if (!LoggedUser.getSocket().isClosed()) {
+                LoggedUser.getOutputStream().close();
+                LoggedUser.getInputStream().close();
                 LoggedUser.getSocket().close();
                 logger.info(() -> "Client " + userID + " socket closed successfully");
             }
         } catch (IOException e) {
             logger.severe(e.getMessage());
+        }catch (InterruptedException e){
+            logger.severe(()->"Interrupted exception "+e.getMessage());
         }
     }
 

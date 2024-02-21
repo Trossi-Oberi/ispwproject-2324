@@ -136,8 +136,6 @@ public class Server {
             System.out.println("Ricevuto messaggio da id: " + mex.getSenderID() + ", verso group id: " + mex.getReceiverID() + ", testo: " + mex.getMessage());
             this.notify(SubjectTypes.USERS_IN_GROUP, mex);
             //notifico solo gli utenti online nel gruppo con quell'ID (receiverID)
-
-
         }
 
         private void handleNotification(Notification noti) {

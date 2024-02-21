@@ -95,9 +95,11 @@ public class ClientListener implements Runnable {
                     break;
 
                 case CHANGE_CITY:
-                    semaphore.release(2);
+
                     logger.info(() -> SERVER_USER + incomingNoti.getClientID() + " changed city from " + incomingNoti.getCity() + " to " + incomingNoti.getNewCity() + " successfully!");
+                    semaphore.release(2);
                     break;
+
                 case GROUP_JOIN:
                     logger.info(() -> "SERVER: group with id " + incomingNoti.getEventID() + " joined successfully");
                     semaphore.release(2);
@@ -125,6 +127,6 @@ public class ClientListener implements Runnable {
         if (facade.getChatGraphic()!=null){ //significa che mi trovo effettivamente sulla schermata della chat
             facade.addMessageToChat(incomingMsg);
         }
-        semaphore.release(2);
+        CServerInteraction.semaphore.release(2);
     }
 }
