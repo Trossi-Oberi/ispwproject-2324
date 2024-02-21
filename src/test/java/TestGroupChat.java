@@ -27,7 +27,7 @@ class TestGroupChat {
         BMessage messageBean = new BMessage(LoggedUser.getUserID(), MESSAGE, GROUP_ID);
         facade.sendMessageToGroup(messageBean);
         List<BMessage> messages = facade.retrieveGroupChat(GROUP_ID);
-        assertEquals(messages.getLast().getMessage(), MESSAGE);
+        assertEquals(MESSAGE, messages.getLast().getMessage());
 
     }
 }

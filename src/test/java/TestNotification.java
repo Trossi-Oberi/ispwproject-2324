@@ -59,7 +59,7 @@ class TestNotification {
         LoggedUser.setUserName("UserTest");
 
         List<BNotification> notifications = facade.retrieveNotifications(LoggedUser.getUserID());
-        assertEquals(notifications.getLast().getMessageType(), NotificationTypes.EVENT_ADDED);
+        assertEquals(NotificationTypes.EVENT_ADDED, notifications.getLast().getMessageType());
 
     }
 }
