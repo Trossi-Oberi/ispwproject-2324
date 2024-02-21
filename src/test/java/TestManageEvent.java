@@ -6,20 +6,17 @@ import logic.exceptions.TextTooLongException;
 import logic.utils.LoggedUser;
 import logic.utils.UserTypes;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /*Nicolas Oberi*/
 
-
-public class TestManageEvent {
+class TestManageEvent {
     //test login, addevent, participate, chat (last message), joingroup, notification
-
     //TODO: fare 3 test per persona
 
     CFacade facade;
@@ -31,9 +28,7 @@ public class TestManageEvent {
     }
 
     @Test
-    public void addEvent() {
-//        String s = "Hello World";
-//        assertEquals("Hello World",s);
+    void addEvent() {
         LoggedUser.setUserName("Organizer-Test");
         LoggedUser.setUserID(10);
         BEvent eventBean = new BEvent();
@@ -65,7 +60,7 @@ public class TestManageEvent {
     }
 
     @Test
-    public void editEvent() {
+    void editEvent() {
         LoggedUser.setUserID(2);
         List<BEvent> myEvents = facade.retrieveEvents(UserTypes.ORGANIZER, "GCYourEventsOrg");
         if (myEvents.isEmpty()) {
