@@ -6,17 +6,15 @@ import logic.exceptions.TextTooLongException;
 import logic.utils.LoggedUser;
 import logic.utils.UserTypes;
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*Nicolas Oberi*/
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/*Nicolas Oberi*/
 
 
 public class TestManageEvent {
@@ -34,10 +32,9 @@ public class TestManageEvent {
 
     @Test
     public void addEvent() {
-        String s = "Hello World";
-        assertEquals("Hello World",s);
-    }
-        /*LoggedUser.setUserName("Organizer-Test");
+//        String s = "Hello World";
+//        assertEquals("Hello World",s);
+        LoggedUser.setUserName("Organizer-Test");
         LoggedUser.setUserID(10);
         BEvent eventBean = new BEvent();
         try {
@@ -67,24 +64,24 @@ public class TestManageEvent {
         }
     }
 
-@Test
-    public void editEvent(){
+    @Test
+    public void editEvent() {
         LoggedUser.setUserID(2);
         List<BEvent> myEvents = facade.retrieveEvents(UserTypes.ORGANIZER, "GCYourEventsOrg");
-        if (myEvents.isEmpty()){
-            Logger.getLogger("NightPlan").log(Level.SEVERE,"No events to be shown");
-        }else{
-            BEvent exampleEvent = myEvents.get(0);
-            try{
+        if (myEvents.isEmpty()) {
+            Logger.getLogger("NightPlan").log(Level.SEVERE, "No events to be shown");
+        } else {
+            BEvent exampleEvent = myEvents.getFirst();
+            try {
                 exampleEvent.setEventName("Edited-name-test");
-            }catch (InvalidValueException | TextTooLongException e) {
+            } catch (InvalidValueException | TextTooLongException e) {
                 Logger.getLogger("NightPlan").log(Level.SEVERE, e.getMessage());
             }
             facade.editEvent(exampleEvent);
             myEvents = facade.retrieveEvents(UserTypes.ORGANIZER, "GCYourEventsOrg");
-            assertEquals(exampleEvent.getEventName(), myEvents.get(0).getEventName());
+            assertEquals(exampleEvent.getEventName(), myEvents.getFirst().getEventName());
         }
-    }*/
+    }
 
 }
 
