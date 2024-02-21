@@ -8,8 +8,11 @@ import javafx.collections.ObservableList;
 
 import logic.beans.BUserData;
 import logic.controllers.CFacade;
+import logic.exceptions.InvalidValueException;
+import logic.exceptions.TextTooLongException;
 import logic.exceptions.UsernameAlreadyTaken;
 import logic.utils.Alerts;
+import logic.utils.UserTypes;
 import logic.view.AlertPopup;
 import logic.view.EssentialGUI;
 
@@ -130,5 +133,27 @@ public abstract class GCRegistration {
     protected void updateCityListView() {
         ObservableList<String> citiesListObs = FXCollections.observableArrayList(this.citiesList);
         this.cityBox.setItems(citiesListObs);
+    }
+
+    protected void setupDataBean(boolean isGoogle) throws InvalidValueException, TextTooLongException{
+        if(isGoogle){
+            this.dataBean.setUsername(this.dataBean.getUsername()); //prendo il databean visto che ho rimosso i campi username e password
+            this.dataBean.setPassword("google_account_hidden_psw");
+        } else {
+            this.dataBean.setUsername(this.emailField.getText());
+            this.dataBean.setPassword(this.passwordField.getText());
+        }
+
+        this.dataBean.setFirstName(this.firstNameField.getText());
+        this.dataBean.setLastName(this.lastNameField.getText());
+        this.dataBean.setGender(this.gender.getValue());
+        this.dataBean.setBirthDate(this.birthDate.getValue());
+        this.dataBean.setProvince(this.provinceBox.getValue());
+        this.dataBean.setCity(this.cityBox.getValue());
+        if (this.userRadio.isSelected()) {
+            this.dataBean.setType(UserTypes.USER);
+        } else {
+            this.dataBean.setType(UserTypes.ORGANIZER);
+        }
     }
 }
