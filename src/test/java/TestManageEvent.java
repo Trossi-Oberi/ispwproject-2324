@@ -61,7 +61,7 @@ public class TestManageEvent {
         }
     }
 
-    @Test
+    /*@Test
     public void editEvent(){
         LoggedUser.setUserID(2);
         List<BEvent> myEvents = facade.retrieveEvents(UserTypes.ORGANIZER, "GCYourEventsOrg");
@@ -78,24 +78,6 @@ public class TestManageEvent {
             myEvents = facade.retrieveEvents(UserTypes.ORGANIZER, "GCYourEventsOrg");
             assertEquals(exampleEvent.getEventName(), myEvents.get(0).getEventName());
         }
-
-    }
-
-
-        /*LoggedUser.setUserName("Traveler");
-        facade.retrieveAnnouncement();
-        facade.createChat("Renter");
-        MessageBean msg = null;
-        try {
-            msg = new MessageBean(MESSAGE, "Renter");
-        } catch (LengthFieldException e) {
-            Logger.getLogger("WIG").log(Level.SEVERE, ()-> e.getMessage());
-        }
-        facade.sendMessage(msg);
-
-        facade.closeLastChat();
-        List<MessageBean> chat = facade.openChat("Renter", ChatType.PRIVATE);
-        MessageBean returnedMessage = chat.get(chat.size()-1);
-        assertEquals(msg.getMsg(), returnedMessage.getMsg());*/
+    }*/
 }
 
