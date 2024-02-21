@@ -118,7 +118,7 @@ public class GroupDAO {
             return true;
         }
         catch (SQLException e) {
-            logger.log(Level.SEVERE, "SQLException occurred while " + (isJoining ? "joining" : "leaving") + " group");
+            logger.log(Level.SEVERE, () -> "SQLException occurred while " + (isJoining ? "joining" : "leaving") + " group");
             return false;
         }
         finally {

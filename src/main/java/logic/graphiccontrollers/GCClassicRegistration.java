@@ -7,7 +7,6 @@ import logic.beans.BUserData;
 import logic.exceptions.InvalidValueException;
 import logic.exceptions.TextTooLongException;
 import logic.utils.Alerts;
-import logic.utils.UserTypes;
 
 public class GCClassicRegistration extends GCRegistration{
     @Override
