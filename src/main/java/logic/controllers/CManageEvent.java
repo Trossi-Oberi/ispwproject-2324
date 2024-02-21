@@ -14,15 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CManageEvent {
-
-    private UserDAO userDAO;
     private EventDAO eventDAO;
     private UserEventDAO userEventDAO;
     private NotificationDAO notiDAO;
 
 
     public CManageEvent() {
-        userDAO = new UserDAO();
         eventDAO = new EventDAO();
         userEventDAO = new UserEventDAO();
         switch (PersistenceClass.getPersistenceType()) {
