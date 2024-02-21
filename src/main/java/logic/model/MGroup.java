@@ -8,7 +8,6 @@ public class MGroup {
     private Integer ownerID;
 
     //SETTERS
-
     public void setGroupID(Integer groupID) {
         this.groupID = groupID;
     }
