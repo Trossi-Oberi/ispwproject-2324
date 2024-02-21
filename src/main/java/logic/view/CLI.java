@@ -188,14 +188,14 @@ public class CLI implements NotificationView, ChatView {
     }
 
     private static String acquireInput() {
-        String input = "";
+        String input;
         try {
             input = CLI.READER.readLine();
+            return input;
         } catch (IOException e) {
             logger.severe("Error during input acquisition");
             return null;
         }
-        return input;
     }
 
     private static void showSettings(UserTypes type) {
@@ -880,6 +880,7 @@ public class CLI implements NotificationView, ChatView {
         } else if (value.equals("2") && isEventParticipated) {
             if (cFacade.removeEventParticipation(bEvent)) {
                 System.out.println("Event participation removed successfully!");
+                loadHome();
                 return true;
             } else {
                 logger.severe("Event participation removal failed!");
@@ -888,6 +889,7 @@ public class CLI implements NotificationView, ChatView {
         } else if (value.equals("2")) {
             if (participateToEvent(bEvent)) {
                 System.out.println("Event participation successful!");
+                loadHome();
                 return true;
             } else {
                 logger.severe("Event participation failed!");
@@ -1288,123 +1290,130 @@ public class CLI implements NotificationView, ChatView {
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            logger.severe(e.getMessage());
         }
     }
 
     public static void loadApp() {
-        try {
-            boolean valid = false;
-            while (!valid) {
-                spacer(3);
-                System.out.println(ASCII_LOGO);
-                System.out.println("Login or register");
-                System.out.println("1. Login");
-                System.out.println("2. Login with Google");
-                System.out.println("3. Register new account");
 
-                String inputLine = READER.readLine();
-                switch (inputLine) {
-                    case "1":
-                        while (true) {
-                            System.out.println("Insert username: ");
-                            bUserData.setUsername(READER.readLine());
-                            System.out.println("Insert password: ");
-                            bUserData.setPassword(READER.readLine());
+        boolean valid = false;
+        while (!valid) {
+            spacer(3);
+            System.out.println(ASCII_LOGO);
+            System.out.println("Login or register");
+            System.out.println("1. Login");
+            System.out.println("2. Login with Google");
+            System.out.println("3. Register new account");
 
-
-                            //login user
-                            int res = 0;
-                            try {
-                                res = cFacade.loginUser(bUserData, false, null);
-
-                                System.out.println();
-                                if (res == 1) {
-                                    System.out.println("Logged in successfully as " + LoggedUser.getUserType());
-                                    valid = true;
-                                    break;
-                                } else {
-                                    System.out.println("Wrong credentials. Retry...");
-                                }
-                            } catch (RuntimeException e) {
-                                logger.severe("Runtime exception: " + e.getMessage());
-                                break;
-                            } catch (InvalidTokenValue e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                        loadHome();
-                        break;
-                    case "2":
-                        try {
-                            while (true) {
-                                System.out.println("Opening google login page...");
-                                spacer(1);
-                                System.out.println("Write authorization code to continue login: ");
-
-                                //avvio la schermata di login
-                                GoogleLogin.initGoogleLogin();
-
-                                String authCode = READER.readLine();
-
-                                try {
-
-                                    //login user
-                                    int res = cFacade.loginUser(bUserData, true, authCode);
-
-                                    System.out.println();
-                                    if (res == 1) {
-                                        System.out.println("Logged in successfully as " + LoggedUser.getUserType());
-                                        valid = true;
-                                        break;
-                                    } else {
-                                        System.out.println("User not registered with Google. \nYou will be redirected to registration page.");
-                                        if (registerUser(true) == 1) {
-                                            System.out.println("Successfully registered with Google");
-                                        }
-
-                                        //ricarico tutta l'interfaccia
-                                        loadApp();
-                                    }
-                                } catch (InvalidTokenValue e) {
-                                    logger.info("Invalid token value...");
-
-                                    //ricarico l'interfaccia
-                                    loadApp();
-                                }
-                            }
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        }
-                        loadHome();
-                        break;
-                    case "3":
-                        try {
-                            if (registerUser(false) == 1) {
-                                spacer(1);
-                                System.out.println("Loading home page...");
-                                spacer(1);
-                                loadHome();
-                            }
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        }
-                        break;
-                }
-            }
-        } catch (IOException e) {
-            logger.severe(e.getMessage());
-        } catch (InvalidValueException e) {
-            throw new RuntimeException(e);
-        } catch (TextTooLongException e) {
-            throw new RuntimeException(e);
-        } finally {
+            String inputLine = acquireInput();
+            valid = handleFrontPageInput(inputLine);
             try {
                 // Chiudi il BufferedReader
                 READER.close();
             } catch (IOException e) {
                 logger.severe(e.getMessage());
             }
+        }
+    }
+
+
+    private static boolean handleFrontPageInput(String inputLine) {
+        if (inputLine != null && inputLine.equals("1")) {
+            return loginUsernameAndPassword();
+        } else if (inputLine != null && inputLine.equals("2")) {
+            return googleLogin();
+        } else if (inputLine != null && inputLine.equals("3")) {
+            return registerUserStandard();
+        }
+        return false;
+    }
+
+    private static boolean registerUserStandard() {
+        try {
+            if (registerUser(false) == 1) {
+                spacer(1);
+                System.out.println("Loading home page...");
+                spacer(1);
+                loadHome();
+                return true;
+            }
+        } catch (RuntimeException e) {
+            logger.severe(e.getMessage());
+            return false;
+        }
+        return false;
+    }
+
+    private static boolean googleLogin() {
+        System.out.println("Opening google login page...");
+        spacer(1);
+        System.out.println("Write authorization code to continue login: ");
+
+        //avvio la schermata di login
+        GoogleLogin.initGoogleLogin();
+        String authCode = acquireInput();
+        try {
+            //login user
+            int res = cFacade.loginUser(bUserData, true, authCode);
+            spacer(1);
+            if (res == 1) {
+                System.out.println("Logged in successfully as " + LoggedUser.getUserType());
+                loadHome();
+                return true;
+            } else {
+                System.out.println("User not registered with Google. \nYou will be redirected to registration page.");
+                if (registerUser(true) == 1) {
+                    System.out.println("Successfully registered with Google");
+                }
+                //ricarico tutta l'interfaccia
+                loadApp();
+                return true;
+            }
+        } catch (InvalidTokenValue e) {
+            logger.info("Invalid token value...");
+            //ricarico l'interfaccia
+            loadApp();
+        }
+        return false;
+    }
+
+    private static boolean loginUsernameAndPassword() {
+        while (true) {
+            System.out.println("Insert username: ");
+            setUsernameToBean(acquireInput());
+
+            System.out.println("Insert password: ");
+            setPasswordToBean(acquireInput());
+            int res = 0;
+            try {
+                res = cFacade.loginUser(bUserData, false, null);
+                spacer(1);
+                if (res == 1) {
+                    System.out.println("Logged in successfully as " + LoggedUser.getUserType());
+                    loadHome();
+                    return true;
+                } else {
+                    System.out.println("Wrong credentials. Retry...");
+                }
+            } catch (InvalidTokenValue e) {
+                logger.severe(e.getMessage());
+            }
+        }
+    }
+
+    private static void setPasswordToBean(String s) {
+        try {
+            bUserData.setPassword(s);
+        } catch (InvalidValueException | TextTooLongException e) {
+            logger.severe(e.getMessage());
+        }
+    }
+
+    private static void setUsernameToBean(String s) {
+        try {
+            bUserData.setUsername(s);
+        } catch (InvalidValueException | TextTooLongException e) {
+            logger.severe(e.getMessage());
         }
     }
 
@@ -1532,6 +1541,7 @@ public class CLI implements NotificationView, ChatView {
             return 0;
         } catch (InvalidValueException | TextTooLongException e) {
             logger.warning(e.getMessage());
+            return 0;
         }
         return 1;
     }
