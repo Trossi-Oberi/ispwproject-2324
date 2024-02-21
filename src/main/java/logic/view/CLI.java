@@ -23,6 +23,10 @@ import java.util.logging.Logger;
 
 public class CLI implements NotificationView, ChatView {
     private static final Logger logger = Logger.getLogger("NightPlan");
+
+    private static final String GROUPNAME = "Group name: ";
+    private static final String NOGROUP = "No group";
+    private static final String YOUREVENTSUSER = "YourEventsUser";
     private static CFacade cFacade;
     private static BUserData bUserData;
     private static final String[] MUSIC_GENRES = {"Pop", "Rock", "Dance", "Electronic", "Techno", "Reggaeton", "Metal", "Disco", "Tech house", "House", "Rap", "Trap"};
@@ -52,12 +56,13 @@ public class CLI implements NotificationView, ChatView {
 
     private static CLI view = new CLI();
 
+    private CLI(){
+        //empty
+    }
+
     private static void initializeControllers() {
-        //CLI view = new CLI();
         cFacade = new CFacade();
         CFacade.setNotiGraphic(view);
-
-        //cFacade.setChatGraphic(view);
         bUserData = new BUserData();
         commands.addAll(List.of(COMMANDS_LIST));
     }
@@ -377,7 +382,7 @@ public class CLI implements NotificationView, ChatView {
 
     private static void printFutureEvents(List<BEvent> futureEvents, List<BGroup> groupsList) {
         for (int i = 0; i < futureEvents.size(); i++) {
-            System.out.println(i + 1 + ". " + futureEvents.get(i).getEventName() + " | " + (groupsList.get(i).getGroupID() != null ? ("Group name: " + groupsList.get(i).getGroupName()) : "No group"));
+            System.out.println(i + 1 + ". " + futureEvents.get(i).getEventName() + " | " + (groupsList.get(i).getGroupID() != null ? (GROUPNAME + groupsList.get(i).getGroupName()) : NOGROUP));
         }
     }
 
@@ -417,94 +422,100 @@ public class CLI implements NotificationView, ChatView {
         if(action.equals("Edit")) {
             System.out.println("Press enter to maintain previous value!");
         }
-        String newVal;
         List<String> provinces = cFacade.getProvincesList();
-        List<String> cities;
 
         if(action.equals("Add")){
-            try {
-                System.out.println("Event name:");
-                eventBean.setEventName(acquireInput());
-
-                System.out.println("Event province:");
-                acquireProvinceInputAndModifyBean(provinces, eventBean, false);
-
-                cities = cFacade.getCitiesList(eventBean.getEventProvince());
-                System.out.println("Event city: ");
-                acquireCityInputAndModifyBean(cities, eventBean, false);
-
-                System.out.println("Event date:");
-                acquireDateAndModifyBean(eventBean, false);
-
-                System.out.println("Event address:");
-                acquireAddressAndSetBean(eventBean);
-
-                System.out.println("Choose music genre from list:");
-                printMusicGenres();
-                acquireMusicGenreAndModifyBean(eventBean, false);
-
-                System.out.println("Event time: HH:mm");
-                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-                acquireTimeAndSetBean(eventBean, timeFormat);
-
-                //imposto immagine per l'evento
-                setEventImage(eventBean);
-
-                eventBean.setEventOrganizer(LoggedUser.getUserName());
-                eventBean.setEventOrganizerID(LoggedUser.getUserID());
-                eventBean.setEventPicPath(filePath);
-
-            } catch (InvalidValueException | TextTooLongException e) {
-                logger.warning(e.getMessage());
-            }
+            addEventBean(eventBean, provinces);
         } else {
-            try {
+            editEventBean(eventBean, provinces);
+        }
+    }
 
-                System.out.println("Event name: (previous: " + eventBean.getEventName() + ")");
-                newVal = acquireInput();
-                if (newVal != null && !newVal.isEmpty()) {
-                    eventBean.setEventName(newVal);
-                }
+    private static void addEventBean(BEvent eventBean, List<String> provinces){
+        try {
+            System.out.println("Event name:");
+            eventBean.setEventName(acquireInput());
 
-                System.out.println("Event province: (previous: " + eventBean.getEventProvince() + ")");
-                acquireProvinceInputAndModifyBean(provinces, eventBean, true);
+            System.out.println("Event province:");
+            acquireProvinceInputAndModifyBean(provinces, eventBean, false);
 
-                cities = cFacade.getCitiesList(eventBean.getEventProvince());
-                System.out.println("Event city: (previous: " + eventBean.getEventCity() + ")");
-                acquireCityInputAndModifyBean(cities, eventBean, true);
+            List<String> cities = cFacade.getCitiesList(eventBean.getEventProvince());
+            System.out.println("Event city: ");
+            acquireCityInputAndModifyBean(cities, eventBean, false);
 
-                System.out.println("Event date: (previous: " + eventBean.getEventDate() + ")");
-                acquireDateAndModifyBean(eventBean, true);
+            System.out.println("Event date:");
+            acquireDateAndModifyBean(eventBean, false);
 
-                System.out.println("Event address: (previous: " + eventBean.getEventAddress() + ")");
-                newVal = acquireInput();
-                if (newVal != null && !newVal.isEmpty()) {
-                    eventBean.setEventAddress(newVal);
-                }
+            System.out.println("Event address:");
+            acquireAddressAndSetBean(eventBean);
 
-                System.out.println("Choose music genre from list: (previous: " + eventBean.getEventMusicGenre() + ")");
-                printMusicGenres();
-                acquireMusicGenreAndModifyBean(eventBean, true);
+            System.out.println("Choose music genre from list:");
+            printMusicGenres();
+            acquireMusicGenreAndModifyBean(eventBean, false);
 
-                System.out.println("Event time: HH:mm (previous: " + eventBean.getEventTime() + ")");
-                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-                acquireTimeAndEditBean(eventBean, timeFormat);
+            System.out.println("Event time: HH:mm");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            acquireTimeAndSetBean(eventBean, timeFormat);
 
-                spacer(1);
+            //imposto immagine per l'evento
+            setEventImage(eventBean);
 
-                System.out.print("Do you want to change event image? Write 'y' or 'Y if you want to update event image");
-                String decision = READER.readLine();
-                if (decision.equalsIgnoreCase("y")) {
-                    setEventImage(eventBean);
-                }
+            eventBean.setEventOrganizer(LoggedUser.getUserName());
+            eventBean.setEventOrganizerID(LoggedUser.getUserID());
+            eventBean.setEventPicPath(filePath);
 
-                eventBean.setEventOrganizer(LoggedUser.getUserName());
-                eventBean.setEventOrganizerID(LoggedUser.getUserID());
-            } catch (IOException e) {
-                logger.severe(() -> "IOException: " + e.getMessage());
-            } catch (InvalidValueException | TextTooLongException e) {
-                logger.warning(e.getMessage());
+        } catch (InvalidValueException | TextTooLongException e) {
+            logger.warning(e.getMessage());
+        }
+    }
+
+    private static void editEventBean(BEvent eventBean, List<String> provinces){
+        try {
+            String newVal;
+            System.out.println("Event name: (previous: " + eventBean.getEventName() + ")");
+            newVal = acquireInput();
+            if (newVal != null && !newVal.isEmpty()) {
+                eventBean.setEventName(newVal);
             }
+
+            System.out.println("Event province: (previous: " + eventBean.getEventProvince() + ")");
+            acquireProvinceInputAndModifyBean(provinces, eventBean, true);
+
+            List<String> cities = cFacade.getCitiesList(eventBean.getEventProvince());
+            System.out.println("Event city: (previous: " + eventBean.getEventCity() + ")");
+            acquireCityInputAndModifyBean(cities, eventBean, true);
+
+            System.out.println("Event date: (previous: " + eventBean.getEventDate() + ")");
+            acquireDateAndModifyBean(eventBean, true);
+
+            System.out.println("Event address: (previous: " + eventBean.getEventAddress() + ")");
+            newVal = acquireInput();
+            if (newVal != null && !newVal.isEmpty()) {
+                eventBean.setEventAddress(newVal);
+            }
+
+            System.out.println("Choose music genre from list: (previous: " + eventBean.getEventMusicGenre() + ")");
+            printMusicGenres();
+            acquireMusicGenreAndModifyBean(eventBean, true);
+
+            System.out.println("Event time: HH:mm (previous: " + eventBean.getEventTime() + ")");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            acquireTimeAndEditBean(eventBean, timeFormat);
+
+            spacer(1);
+
+            System.out.print("Do you want to change event image? Write 'y' or 'Y if you want to update event image");
+            String decision = READER.readLine();
+            if (decision.equalsIgnoreCase("y")) {
+                setEventImage(eventBean);
+            }
+
+            eventBean.setEventOrganizer(LoggedUser.getUserName());
+            eventBean.setEventOrganizerID(LoggedUser.getUserID());
+        } catch (IOException e) {
+            logger.severe(() -> "IOException: " + e.getMessage());
+        } catch (InvalidValueException | TextTooLongException e) {
+            logger.warning(e.getMessage());
         }
     }
 
@@ -748,7 +759,7 @@ public class CLI implements NotificationView, ChatView {
             }
 
             int ret = 0;
-            if(lastPage.equals("YourEventsUser")) {
+            if(lastPage.equals(YOUREVENTSUSER)) {
                 //stampa opzioni gruppo solo se ti trovavi nella pagina your events
                 ret = handleGroupOptions(bEvent);
             }
@@ -918,7 +929,7 @@ public class CLI implements NotificationView, ChatView {
         if (lastPage.equals("Home")) {
             //torno nella home
             loadHome();
-        } else if (lastPage.equals("YourEventsUser")) {
+        } else if (lastPage.equals(YOUREVENTSUSER)) {
             loadEvents();
         }
     }
@@ -1276,7 +1287,7 @@ public class CLI implements NotificationView, ChatView {
     private static boolean checkIfEventNameEntered(String value, List<BEvent> eventList, boolean isPassed) {
         for (BEvent bEvent : eventList) {
             if (bEvent.getEventName().equals(value)) {
-                showEventInfo(bEvent, "YourEventsUser", isPassed);
+                showEventInfo(bEvent, YOUREVENTSUSER, isPassed);
                 return true;
             }
         }
@@ -1324,15 +1335,15 @@ public class CLI implements NotificationView, ChatView {
     }
 
     private static String groupOptions(BGroup bGroup){
-        String groupName = (bGroup.getGroupID() != null) ? bGroup.getGroupName() : "No group";
+        String groupName = (bGroup.getGroupID() != null) ? bGroup.getGroupName() : NOGROUP;
         String groupOption;
-        if(!groupName.equals("No group")){
+        if(!groupName.equals(NOGROUP)){
             if(cFacade.userInGroup(LoggedUser.getUserID(), bGroup.getGroupID())){
                 groupOption = "Group chat";
             } else {
                 groupOption = "Join group";
             }
-            return "Group name: " + groupName + " | " + groupOption;
+            return GROUPNAME + groupName + " | " + groupOption;
         }
         return groupName;
     }
@@ -1371,7 +1382,7 @@ public class CLI implements NotificationView, ChatView {
         BGroup groupBean = cFacade.getGroupByEventID(eventBean.getEventID());
 
         System.out.println("+++++++++ Group chat +++++++++++");
-        System.out.println("Group name: " + cFacade.getGroupNameByGroupID(groupBean.getGroupID()));
+        System.out.println(GROUPNAME + cFacade.getGroupNameByGroupID(groupBean.getGroupID()));
 
 
         List<BMessage> messages = cFacade.retrieveGroupChat(groupBean.getGroupID());

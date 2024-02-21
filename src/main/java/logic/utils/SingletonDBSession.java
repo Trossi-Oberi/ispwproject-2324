@@ -15,7 +15,7 @@ public class SingletonDBSession {
     private static SingletonDBSession instance = null;
     private String username;
     private String password;
-    private final String url = "jdbc:mysql://localhost/nightplan?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private String url;
     private InputStream inputStream;
     protected Connection connection = null;
 
@@ -52,6 +52,7 @@ public class SingletonDBSession {
 
     public Connection getConnection() {
         try {
+            this.url = "jdbc:mysql://localhost/nightplan?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
             this.connection = DriverManager.getConnection(url, username, password);
             return this.connection;
         } catch (SQLException e) {

@@ -91,18 +91,7 @@ public class CFacade {
         }
         boolean res = manageEventController.removeEventParticipation(eventBean);
         if (res) {
-            Integer groupID = getGroupByEventID(eventBean.getEventID()).getGroupID();
-            //se il gruppo non esiste salto il leaveGroup
-            if (groupID == null || !checkUserInGroup(groupID)) {
-                //gruppo non esistente o utente non nel gruppo
-                return true;
-            }
-
-            //eseguo questo se gruppo esiste e l'utente ne fa parte
-            if (groupController == null) {
-                groupController = new CGroup();
-            }
-            result = groupController.leaveGroup(groupID);
+            result = leaveGroupAfterRemoveEventPart(eventBean);
             if (result) {
                 if (notificationController == null) {
                     notificationController = new CNotification(this);
@@ -113,6 +102,21 @@ public class CFacade {
             }
         }
         return result;
+    }
+
+    private boolean leaveGroupAfterRemoveEventPart(BEvent eventBean){
+        Integer groupID = getGroupByEventID(eventBean.getEventID()).getGroupID();
+        //se il gruppo non esiste salto il leaveGroup
+        if (groupID == null || !checkUserInGroup(groupID)) {
+            //gruppo non esistente o utente non nel gruppo
+            return true;
+        }
+
+        //eseguo questo se gruppo esiste e l'utente ne fa parte
+        if (groupController == null) {
+            groupController = new CGroup();
+        }
+        return groupController.leaveGroup(groupID);
     }
 
     private boolean checkUserInGroup(Integer groupID) {
