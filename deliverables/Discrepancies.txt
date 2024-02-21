@@ -1,2 +1,3 @@
-Activity Diagram Oberi:
--After radius selection the application doesn't show groups in the radius
+UseCaseSteps Oberi:
+4: the system doesn't ask the user to participate
+7: they system doesn't ask the user to create or join a group right after participating to the event
