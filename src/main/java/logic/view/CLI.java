@@ -33,6 +33,7 @@ public class CLI implements NotificationView, ChatView {
     private static final String[] COMMANDS_LIST = {"/commands", "/home", "/events", "/notifications", "/settings", "/quit"};
     private static final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
     private static String filePath;
+    private static final String DATE_PATTERN = "dd-MM-yyyy";
     private static final String CITY = "City: ";
     private static final String COMMANDS_HELP = "Use /commands to view a list of commands which you can use to navigate into application pages";
     private static final String ASCII_LOGO =
@@ -187,14 +188,14 @@ public class CLI implements NotificationView, ChatView {
     }
 
     private static String acquireInput() {
-        String input = "";
+        String input;
         try {
             input = CLI.READER.readLine();
+            return input;
         } catch (IOException e) {
             logger.severe("Error during input acquisition");
             return null;
         }
-        return input;
     }
 
     private static void showSettings(UserTypes type) {
@@ -400,7 +401,7 @@ public class CLI implements NotificationView, ChatView {
         List<BEvent> futureEvents = new ArrayList<>();
         for (BEvent event : eventList) {
             String eventDateString = event.getEventDate();
-            LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern(DATE_PATTERN));
             if (LocalDate.now().isBefore(date)) {
                 futureEvents.add(event);
             }
@@ -550,7 +551,7 @@ public class CLI implements NotificationView, ChatView {
     }
 
     private static void acquireDateAndSetBean(BEvent eventBean) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
         boolean valid = false;
         while (!valid) {
             String val = acquireInput();
@@ -714,7 +715,7 @@ public class CLI implements NotificationView, ChatView {
     }
 
     private static void acquireDateAndEditBean(BEvent eventBean) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
         boolean toEdit = true;
         boolean valid = false;
         while (!valid) {
@@ -879,6 +880,7 @@ public class CLI implements NotificationView, ChatView {
         } else if (value.equals("2") && isEventParticipated) {
             if (cFacade.removeEventParticipation(bEvent)) {
                 System.out.println("Event participation removed successfully!");
+                loadHome();
                 return true;
             } else {
                 logger.severe("Event participation removal failed!");
@@ -887,6 +889,7 @@ public class CLI implements NotificationView, ChatView {
         } else if (value.equals("2")) {
             if (participateToEvent(bEvent)) {
                 System.out.println("Event participation successful!");
+                loadHome();
                 return true;
             } else {
                 logger.severe("Event participation failed!");
@@ -1034,46 +1037,53 @@ public class CLI implements NotificationView, ChatView {
         System.out.println("Your events");
         if (LoggedUser.getUserType().equals(UserTypes.USER)) {
             System.out.println("1. Events with planned participation\n" + "2. Past events");
-
-            boolean valid = false;
-            while (!valid) {
-                String value = acquireInput();
-                if (value != null && commands.contains(value)) {
-                    handleCommand(value);
-                }
-                if (value != null && value.equals("1")) {
-                    valid = true;
-                    showEvents(false);
-                } else if (value != null && value.equals("2")) {
-                    valid = true;
-                    showEvents(true);
-                }
-            }
+            cycleForUserLoadEvents();
 
         } else if (LoggedUser.getUserType().equals(UserTypes.ORGANIZER)) {
             System.out.println("1. Events created by you\n" + "2. Past events\n" + "3. Analytics");
+            cycleForOrgLoadEvents();
 
-            boolean valid = false;
-            while (!valid) {
-                String value = acquireInput();
-                if (value!=null && commands.contains(value)) {
-                    handleCommand(value);
-                }
-                if (value!=null && value.equals("1")){
-                    valid = true;
-                    showEvents(false);
-                }else if (value!=null && value.equals("2")){
-                    valid = true;
-                    showEvents(true);
-                } else if (value!=null && value.equals("3")) {
-                    //apro la pagina analytics con la lista degli eventi passati
-                    showAnalytics(showEvents(true));
-                }
+        }
+    }
+
+    private static void cycleForOrgLoadEvents() {
+        boolean valid = false;
+        while (!valid) {
+            String value = acquireInput();
+            if (value != null && commands.contains(value)) {
+                handleCommand(value);
+            }
+            if (value != null && value.equals("1")) {
+                valid = true;
+                showEvents(false);
+            } else if (value != null && value.equals("2")) {
+                valid = true;
+                showEvents(true);
+            } else if (value != null && value.equals("3")) {
+                //apro la pagina analytics con la lista degli eventi passati
+                showAnalytics(showEvents(true));
             }
         }
     }
 
-    private static void showAnalytics(ArrayList<BEvent> pastEvents) {
+    private static void cycleForUserLoadEvents() {
+        boolean valid = false;
+        while (!valid) {
+            String value = acquireInput();
+            if (value != null && commands.contains(value)) {
+                handleCommand(value);
+            }
+            if (value != null && value.equals("1")) {
+                valid = true;
+                showEvents(false);
+            } else if (value != null && value.equals("2")) {
+                valid = true;
+                showEvents(true);
+            }
+        }
+    }
+
+    private static void showAnalytics(List<BEvent> pastEvents) {
         spacer(3);
         System.out.println("Analytics");
         spacer(1);
@@ -1150,143 +1160,120 @@ public class CLI implements NotificationView, ChatView {
         } while (!valid);
     }
 
-    private static ArrayList<BEvent> showEvents(boolean isPassed) {
+    private static List<BEvent> showEvents(boolean isPassed) {
         spacer(3);
-        ArrayList<BEvent> eventList = new ArrayList<>();
-        spacer(1);
+        List<BEvent> eventList = new ArrayList<>();
 
         if (LoggedUser.getUserType().equals(UserTypes.USER)) {
 
             List<BEvent> tempList = cFacade.retrieveEvents(LoggedUser.getUserType(), "GCYourEventsUser");
+            eventList = populateEventList(isPassed, tempList); //isPassed = true -> show past events; isPassed = false -> show upcoming events
+            checksOnEventListUser(eventList, isPassed);
 
-            if (!isPassed) {
-                for (BEvent bEvent : tempList) {
-                    String eventDateString = bEvent.getEventDate();
-                    LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-
-                    if (LocalDate.now().isBefore(date)) {
-                        //aggiungo alla lista solo gli eventi passati (today is NOT before event date)
-                        eventList.add(bEvent);
-                    }
-                }
-            } else {
-                for (BEvent bEvent : tempList) {
-                    String eventDateString = bEvent.getEventDate();
-                    LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-
-                    if (!LocalDate.now().isBefore(date)) {
-                        //aggiungo alla lista solo gli eventi futuri (today is before event date)
-                        eventList.add(bEvent);
-                    }
-                }
-            }
-
-            if (!eventList.isEmpty()) {
-                if (!isPassed) {
-                    System.out.println("Your events. \nWrite event name to show event info!");
-                } else {
-                    System.out.println("Your past events. \nWrite event name to show event info!");
-                }
-                printEventsList(eventList);
-
-                spacer(1);
-                System.out.println(COMMANDS_HELP);
-                spacer(1);
-
-                boolean valid = false;
-                do {
-                    try {
-                        String value = READER.readLine();
-
-                        //vedo eventuali comandi generali
-                        if (commands.contains(value)) {
-                            handleCommand(value);
-                        }
-
-                        for (BEvent bEvent : eventList) {
-                            if (bEvent.getEventName().equals(value)) {
-                                valid = true;
-                                showEventInfo(bEvent, "YourEventsUser");
-                            }
-                        }
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                } while (!valid);
-            } else {
-                System.out.println("No planned events!");
-                System.out.println("To plan participation to an event in your city go to /home and write the name of an available event.\n Then follow instructions to Plan event participation.");
-                spacer(1);
-
-                waitCommands();
-            }
-            spacer(3);
         } else if (LoggedUser.getUserType().equals(UserTypes.ORGANIZER)) {
             List<BEvent> tempList = cFacade.retrieveEvents(LoggedUser.getUserType(), "GCYourEventsOrg");
+            eventList = populateEventList(isPassed, tempList);
+            checksOnEventListOrg(eventList, isPassed);
 
+        } else {
+            System.out.println("No organized events!");
+            System.out.println("To add a new event go to /home and write 1 to add event.\n Then follow instructions to finish the procedure.");
+            spacer(1);
+
+            waitCommands();
+        }
+        spacer(3);
+
+        return eventList;
+    }
+
+    private static void checksOnEventListOrg(List<BEvent> eventList, boolean isPassed) {
+        if (!eventList.isEmpty()) {
+            System.out.println("Your organized events. \nWrite event name to show event info, edit or delete it!");
+            CLI.printEventsList(eventList);
+
+            spacer(1);
+            System.out.println(COMMANDS_HELP);
+            spacer(1);
+
+            boolean valid = false;
+            while (!valid) {
+                String value = acquireInput();
+                if (value != null && commands.contains(value)) {
+                    handleCommand(value);
+                }
+                valid = checkIfEventNameEntered(value, eventList);
+            }
+        }
+    }
+
+    private static void checksOnEventListUser(List<BEvent> eventList, boolean isPassed) {
+        if (!eventList.isEmpty()) {
             if (!isPassed) {
-                for (BEvent bEvent : tempList) {
-                    String eventDateString = bEvent.getEventDate();
-                    LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-
-                    if (LocalDate.now().isBefore(date)) {
-                        //aggiungo alla lista solo gli eventi passati (today is NOT before event date)
-                        eventList.add(bEvent);
-                    }
-                }
+                System.out.println("Your events. \nWrite event name to show event info!");
             } else {
-                for (BEvent bEvent : tempList) {
-                    String eventDateString = bEvent.getEventDate();
-                    LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                System.out.println("Your past events. \nWrite event name to show event info!");
+            }
+            printEventsList(eventList);
 
-                    if (!LocalDate.now().isBefore(date)) {
-                        //aggiungo alla lista solo gli eventi futuri (today is before event date)
-                        eventList.add(bEvent);
-                    }
+            spacer(1);
+            System.out.println(COMMANDS_HELP);
+            spacer(1);
+
+            boolean valid = false;
+            while (!valid) {
+                String value = acquireInput();
+                if (value != null && commands.contains(value)) {
+                    handleCommand(value);
+                }
+                valid = checkIfEventNameEntered(value, eventList);
+            }
+        } else {
+            System.out.println("No planned events!");
+            System.out.println("To plan participation to an event in your city go to /home and write the name of an available event.\n Then follow instructions to Plan event participation.");
+            spacer(1);
+
+            waitCommands();
+        }
+    }
+
+    private static boolean checkIfEventNameEntered(String value, List<BEvent> eventList) {
+        for (BEvent bEvent : eventList) {
+            if (bEvent.getEventName().equals(value)) {
+                showEventInfo(bEvent, "YourEventsUser");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static List<BEvent> populateEventList(boolean isPassed, List<BEvent> tempList) {
+        List<BEvent> eventList = new ArrayList<>();
+        if (!isPassed) {
+            for (BEvent bEvent : tempList) {
+                String eventDateString = bEvent.getEventDate();
+                LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern(DATE_PATTERN));
+
+                if (LocalDate.now().isBefore(date)) {
+                    //aggiungo alla lista solo gli eventi futuri (today is before event date)
+                    eventList.add(bEvent);
                 }
             }
+        } else {
+            for (BEvent bEvent : tempList) {
+                String eventDateString = bEvent.getEventDate();
+                LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern(DATE_PATTERN));
 
-            if (!eventList.isEmpty()) {
-                System.out.println("Your organized events. \nWrite event name to show event info, edit or delete it!");
-                printEventsList(eventList);
-
-                spacer(1);
-                System.out.println(COMMANDS_HELP);
-                spacer(1);
-
-                boolean valid = false;
-                do {
-                    try {
-                        String value = READER.readLine();
-
-                        //vedo eventuali comandi generali
-                        if (commands.contains(value)) {
-                            handleCommand(value);
-                        }
-
-                        for (BEvent bEvent : eventList) {
-                            if (bEvent.getEventName().equals(value)) {
-                                valid = true;
-                                showEventInfo(bEvent, "YourEventsOrg");
-                            }
-                        }
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                } while (!valid);
-            } else {
-                System.out.println("No organized events!");
-                System.out.println("To add a new event go to /home and write 1 to add event.\n Then follow instructions to finish the procedure.");
-                spacer(1);
-
-                waitCommands();
+                if (!LocalDate.now().isBefore(date)) {
+                    //aggiungo alla lista solo gli eventi passati (today is NOT before event date)
+                    eventList.add(bEvent);
+                }
             }
-            spacer(3);
         }
         return eventList;
     }
 
-    private static void printEventsList(ArrayList<BEvent> eventList) {
+    private static void printEventsList(List<BEvent> eventList) {
         for (int i = 0; i < eventList.size(); i++) {
             System.out.println(i + 1 + ". " + eventList.get(i).getEventName());
         }
@@ -1303,123 +1290,130 @@ public class CLI implements NotificationView, ChatView {
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            logger.severe(e.getMessage());
         }
     }
 
     public static void loadApp() {
-        try {
-            boolean valid = false;
-            while (!valid) {
-                spacer(3);
-                System.out.println(ASCII_LOGO);
-                System.out.println("Login or register");
-                System.out.println("1. Login");
-                System.out.println("2. Login with Google");
-                System.out.println("3. Register new account");
 
-                String inputLine = READER.readLine();
-                switch (inputLine) {
-                    case "1":
-                        while (true) {
-                            System.out.println("Insert username: ");
-                            bUserData.setUsername(READER.readLine());
-                            System.out.println("Insert password: ");
-                            bUserData.setPassword(READER.readLine());
+        boolean valid = false;
+        while (!valid) {
+            spacer(3);
+            System.out.println(ASCII_LOGO);
+            System.out.println("Login or register");
+            System.out.println("1. Login");
+            System.out.println("2. Login with Google");
+            System.out.println("3. Register new account");
 
-
-                            //login user
-                            int res = 0;
-                            try {
-                                res = cFacade.loginUser(bUserData, false, null);
-
-                                System.out.println();
-                                if (res == 1) {
-                                    System.out.println("Logged in successfully as " + LoggedUser.getUserType());
-                                    valid = true;
-                                    break;
-                                } else {
-                                    System.out.println("Wrong credentials. Retry...");
-                                }
-                            } catch (RuntimeException e) {
-                                logger.severe("Runtime exception: " + e.getMessage());
-                                break;
-                            } catch (InvalidTokenValue e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                        loadHome();
-                        break;
-                    case "2":
-                        try {
-                            while (true) {
-                                System.out.println("Opening google login page...");
-                                spacer(1);
-                                System.out.println("Write authorization code to continue login: ");
-
-                                //avvio la schermata di login
-                                GoogleLogin.initGoogleLogin();
-
-                                String authCode = READER.readLine();
-
-                                try {
-
-                                    //login user
-                                    int res = cFacade.loginUser(bUserData, true, authCode);
-
-                                    System.out.println();
-                                    if (res == 1) {
-                                        System.out.println("Logged in successfully as " + LoggedUser.getUserType());
-                                        valid = true;
-                                        break;
-                                    } else {
-                                        System.out.println("User not registered with Google. \nYou will be redirected to registration page.");
-                                        if (registerUser(true) == 1) {
-                                            System.out.println("Successfully registered with Google");
-                                        }
-
-                                        //ricarico tutta l'interfaccia
-                                        loadApp();
-                                    }
-                                } catch (InvalidTokenValue e) {
-                                    logger.info("Invalid token value...");
-
-                                    //ricarico l'interfaccia
-                                    loadApp();
-                                }
-                            }
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        }
-                        loadHome();
-                        break;
-                    case "3":
-                        try {
-                            if (registerUser(false) == 1) {
-                                spacer(1);
-                                System.out.println("Loading home page...");
-                                spacer(1);
-                                loadHome();
-                            }
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        }
-                        break;
-                }
-            }
-        } catch (IOException e) {
-            logger.severe(e.getMessage());
-        } catch (InvalidValueException e) {
-            throw new RuntimeException(e);
-        } catch (TextTooLongException e) {
-            throw new RuntimeException(e);
-        } finally {
+            String inputLine = acquireInput();
+            valid = handleFrontPageInput(inputLine);
             try {
                 // Chiudi il BufferedReader
                 READER.close();
             } catch (IOException e) {
                 logger.severe(e.getMessage());
             }
+        }
+    }
+
+
+    private static boolean handleFrontPageInput(String inputLine) {
+        if (inputLine != null && inputLine.equals("1")) {
+            return loginUsernameAndPassword();
+        } else if (inputLine != null && inputLine.equals("2")) {
+            return googleLogin();
+        } else if (inputLine != null && inputLine.equals("3")) {
+            return registerUserStandard();
+        }
+        return false;
+    }
+
+    private static boolean registerUserStandard() {
+        try {
+            if (registerUser(false) == 1) {
+                spacer(1);
+                System.out.println("Loading home page...");
+                spacer(1);
+                loadHome();
+                return true;
+            }
+        } catch (RuntimeException e) {
+            logger.severe(e.getMessage());
+            return false;
+        }
+        return false;
+    }
+
+    private static boolean googleLogin() {
+        System.out.println("Opening google login page...");
+        spacer(1);
+        System.out.println("Write authorization code to continue login: ");
+
+        //avvio la schermata di login
+        GoogleLogin.initGoogleLogin();
+        String authCode = acquireInput();
+        try {
+            //login user
+            int res = cFacade.loginUser(bUserData, true, authCode);
+            spacer(1);
+            if (res == 1) {
+                System.out.println("Logged in successfully as " + LoggedUser.getUserType());
+                loadHome();
+                return true;
+            } else {
+                System.out.println("User not registered with Google. \nYou will be redirected to registration page.");
+                if (registerUser(true) == 1) {
+                    System.out.println("Successfully registered with Google");
+                }
+                //ricarico tutta l'interfaccia
+                loadApp();
+                return true;
+            }
+        } catch (InvalidTokenValue e) {
+            logger.info("Invalid token value...");
+            //ricarico l'interfaccia
+            loadApp();
+        }
+        return false;
+    }
+
+    private static boolean loginUsernameAndPassword() {
+        while (true) {
+            System.out.println("Insert username: ");
+            setUsernameToBean(acquireInput());
+
+            System.out.println("Insert password: ");
+            setPasswordToBean(acquireInput());
+            int res = 0;
+            try {
+                res = cFacade.loginUser(bUserData, false, null);
+                spacer(1);
+                if (res == 1) {
+                    System.out.println("Logged in successfully as " + LoggedUser.getUserType());
+                    loadHome();
+                    return true;
+                } else {
+                    System.out.println("Wrong credentials. Retry...");
+                }
+            } catch (InvalidTokenValue e) {
+                logger.severe(e.getMessage());
+            }
+        }
+    }
+
+    private static void setPasswordToBean(String s) {
+        try {
+            bUserData.setPassword(s);
+        } catch (InvalidValueException | TextTooLongException e) {
+            logger.severe(e.getMessage());
+        }
+    }
+
+    private static void setUsernameToBean(String s) {
+        try {
+            bUserData.setUsername(s);
+        } catch (InvalidValueException | TextTooLongException e) {
+            logger.severe(e.getMessage());
         }
     }
 
@@ -1508,7 +1502,7 @@ public class CLI implements NotificationView, ChatView {
 
 
             System.out.println("Birth date: dd-MM-yyyy");
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
             do {
                 String val = READER.readLine();
                 try {
@@ -1547,6 +1541,7 @@ public class CLI implements NotificationView, ChatView {
             return 0;
         } catch (InvalidValueException | TextTooLongException e) {
             logger.warning(e.getMessage());
+            return 0;
         }
         return 1;
     }
