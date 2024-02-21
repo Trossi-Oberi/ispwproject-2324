@@ -1565,6 +1565,8 @@ public class CLI implements NotificationView, ChatView {
                         setGenderToBean("Other");
                         valid = true;
                         break;
+                    default:
+                        break;
                 }
             }
         }
