@@ -38,19 +38,21 @@ public class CLI implements NotificationView, ChatView {
     private static final String CITY = "City: ";
     private static final String GOBACK = "1. Go back\n";
     private static final String COMMANDS_HELP = "Use /commands to view a list of commands which you can use to navigate into application pages";
-    private static final String ASCII_LOGO =
-            "           -#####   #####                                ##########                                  \n" +
-                    "          #      # ##    #                 -            #          #  .-                             \n" +
-                    "          #      ###    +##  .          #    #      ## -#    ##.    #    #                           \n" +
-                    "         ##       ##    # #  #  ######.+#   ##+   #    #     ##    ##   ## +#####   .+-.+#           \n" +
-                    "         #              ##   ##        #        ##                ###   ##        #        #         \n" +
-                    "        .#    ##       ##    #   ##    #    #    #    ##    #####+ #   --   ##   -#   ##    #        \n" +
-                    "        #     ##+      ##   ##   ##   ##   ##   ##   ##    #+      #   #   +#    #    #+   #         \n" +
-                    "        #    #. #     ##    ##        #    ##   ##   ##    #      -    ##        #   -#    #         \n" +
-                    "     # + ####+ + ##### + ####   #    -#-###++##+.#-## # #### .+ #  ###+ +######## #### ####  # #     \n" +
-                    "    +# #  +    #  + +  # +  ###. +###-+  #    #  + +  # +  # -# # .+ +  #    +  + +  # +  + .# # -   \n" +
-                    "      +    .++.             #   #          ++.       .     #   +    -     +++       -     #   +      \n" +
-                    "            +               #               -              #               -              #          \n";
+    private static final String ASCII_LOGO = """
+            
+                                -#####   #####                                ##########                                  
+                              #      # ##    #                # -#            #          #                              
+                              #      ###    +##  .          #    #      ## - #    ##.    # # #                           
+                             ##       ##    # #  #  ######.+#   ##+   #     #     ##    ##   ## +#####   .+-.+#           
+                             #              ##   ##        #        ##     #           ###   ##        #        #         
+                            .#    ##       ##    #   ##    #    #    #    ##    #####+ #   --   ##   -#   ##    #        
+                            #     ##+      ##   ##   ##   ##   ##   ##   ##    #+      #   #   +#    #    #+   #         
+                            #    #. #     ##    ##        #    ##   ##  ##    #      -    ##        #   -#    #         
+                         # + ####+ + ##### + ####   #    -#-###++##+.#-## # #### .+ #  ###+ +######## #### ####  # #     
+                        +# #  +    #  + +  # +  ###. +###-+  #    #  + +  # +  # -# # .+ +  #    +  + +  # +  + .# # -   
+                         +    .++.             #   #          ++.       .     #   +    -     +++       -     #   +     
+                                +               #               -              #               -              #          
+                    """;
     private static Integer timesClicked;
     private static Integer nParticipants;
 

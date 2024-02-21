@@ -36,10 +36,10 @@ public class ClientListener implements Runnable {
                 //blocco il thread in lettura di un messaggio in arrivo dal server
                 //una volta aperta socket e canali di comunicazione aspetto l'arrivo di un qualunque messaggio dal server
                 Object object = in.readObject();
-                if (object instanceof Notification) {
-                    handleNotification((Notification) object);
-                } else if (object instanceof Message) {
-                    handleMessage((Message) object);
+                if (object instanceof Notification notification) {
+                    handleNotification(notification);
+                } else if (object instanceof Message message) {
+                    handleMessage(message);
                 }
             }
         } catch (ClassNotFoundException | IOException e) {

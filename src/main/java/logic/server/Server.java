@@ -118,10 +118,10 @@ public class Server {
                     if (in != null) {
                         object = in.readObject();
                     }
-                    if (object instanceof Notification) {
-                        handleNotification((Notification) object);
-                    } else if (object instanceof Message) {
-                        handleMessage((Message) object);
+                    if (object instanceof Notification notification) {
+                        handleNotification(notification);
+                    } else if (object instanceof Message message) {
+                        handleMessage(message);
                     }
                 }
             } catch (ClassNotFoundException | IOException e) {
