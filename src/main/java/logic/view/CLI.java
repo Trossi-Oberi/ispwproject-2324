@@ -1,9 +1,6 @@
 package logic.view;
 
-import logic.beans.BEvent;
-import logic.beans.BMessage;
-import logic.beans.BNotification;
-import logic.beans.BUserData;
+import logic.beans.*;
 import logic.controllers.CFacade;
 import logic.exceptions.*;
 import logic.utils.*;
@@ -53,13 +50,14 @@ public class CLI implements NotificationView, ChatView {
     private static Integer timesClicked;
     private static Integer nParticipants;
 
-    //TODO: DA RICONTROLLARE DA CIMA A FONDO, RENDERE CONSISTENTE CON LA GUI
+    private static CLI view = new CLI();
 
     private static void initializeControllers() {
-        CLI view = new CLI();
+        //CLI view = new CLI();
         cFacade = new CFacade();
         CFacade.setNotiGraphic(view);
-        cFacade.setChatGraphic(view);
+
+        //cFacade.setChatGraphic(view);
         bUserData = new BUserData();
         commands.addAll(List.of(COMMANDS_LIST));
     }
@@ -104,11 +102,6 @@ public class CLI implements NotificationView, ChatView {
 
     private static void loadSettings() {
         acquireInputCycleSettings(LoggedUser.getUserType());
-/*        if (LoggedUser.getUserType().equals(UserTypes.USER)) {
-            acquireInputCycleSettingsUser();
-        } else {//UserType == ORGANIZER
-            acquireInputCycleSettingsOrg();
-        }*/
         spacer(2);
     }
 
@@ -118,44 +111,21 @@ public class CLI implements NotificationView, ChatView {
             showSettings(type);
             String value = acquireInput();
             if (value != null) {
-                //verifico comandi generali
-                if (commands.contains(value)) {
-                    handleCommand(value);
-                }
+                checkCommands(value);
+
                 valid = type.equals(UserTypes.USER) ? handleSettingsInputUser(value) : handleSettingsInputOrg(value);
             }
         } while (!valid);
     }
 
-/*    private static void acquireInputCycleSettingsOrg() {
-        boolean valid = false;
-        do {
-            showSettings(UserTypes.ORGANIZER);
-            String value = acquireInput();
-            if (value != null) {
-                //verifico comandi generali
-                if (commands.contains(value)) {
-                    handleCommand(value);
-                }
-                valid = handleSettingsInputOrg(value);
-            }
-        } while (!valid);
+    private static boolean checkCommands(String value){
+        //verifico comandi generali
+        if (commands.contains(value)) {
+            handleCommand(value);
+            return true;
+        }
+        return false;
     }
-
-    private static void acquireInputCycleSettingsUser() {
-        boolean valid = false;
-        do {
-            showSettings(UserTypes.USER);
-            String value = acquireInput();
-            if (value != null) {
-                //verifico comandi generali
-                if (commands.contains(value)) {
-                    handleCommand(value);
-                }
-                valid = handleSettingsInputUser(value);
-            }
-        } while (!valid);
-    }*/
 
     private static boolean handleSettingsInputOrg(String value) {
         switch (value) {
@@ -346,13 +316,13 @@ public class CLI implements NotificationView, ChatView {
         spacer(1);
 
         if (LoggedUser.getUserType().equals(UserTypes.USER)) {
-            List<BEvent> eventList = cFacade.retrieveEvents(LoggedUser.getUserType(), "GCHomeUser");
-            List<BEvent> futureEvents = fetchFutureEvents(eventList);
+            List<BEvent> eventsList = cFacade.retrieveEvents(LoggedUser.getUserType(), "GCHomeUser");
+            List<BEvent> futureEvents = fetchFutureEvents(eventsList);
+            List<BGroup> groupsList = cFacade.retrieveGroups(futureEvents);
 
-            if (!eventList.isEmpty()) {
+            if (!eventsList.isEmpty()) {
                 System.out.println("Events in your city. \nWrite event name to show event info!");
-                printFutureEvents(futureEvents);
-                //acquireInputCycleHomeUser(futureEvents);
+                printFutureEvents(futureEvents, groupsList);
                 acquireInputCycleHome(LoggedUser.getUserType(), futureEvents);
             } else {
                 System.out.println("No events in your city");
@@ -376,9 +346,7 @@ public class CLI implements NotificationView, ChatView {
         do {
             String value = acquireInput();
             if (value != null) {
-                if (commands.contains(value)) {
-                    handleCommand(value);
-                }
+                checkCommands(value);
 
                 switch (type){
                     case USER:
@@ -397,49 +365,19 @@ public class CLI implements NotificationView, ChatView {
         } while (!valid);
     }
 
-/*    private static void acquireInputCycleHomeOrg() {
-        boolean valid = false;
-        do {
-            String value = acquireInput();
-            if (value != null) {
-                if (commands.contains(value)) {
-                    handleCommand(value);
-                }
-                if (value.equals("1")) {
-                    addEventPage();
-                    valid = true;
-                }
-            }
-        } while (!valid);
-    }
-
-    private static void acquireInputCycleHomeUser(List<BEvent> futureEvents) {
-        boolean valid = false;
-        do {
-            String value = acquireInput();
-            if (value != null) {
-                if (commands.contains(value)) {
-                    handleCommand(value);
-                }
-                valid = handleEventNameInput(value, futureEvents);
-
-            }
-        } while (!valid);
-    }*/
-
     private static boolean handleEventNameInput(String value, List<BEvent> futureEvents) {
         for (BEvent bEvent : futureEvents) {
             if (bEvent.getEventName().equals(value)) {
-                showEventInfo(bEvent, "Home",false);
+                showEventInfo(bEvent,"Home", false);
                 return true;
             }
         }
         return false;
     }
 
-    private static void printFutureEvents(List<BEvent> futureEvents) {
+    private static void printFutureEvents(List<BEvent> futureEvents, List<BGroup> groupsList) {
         for (int i = 0; i < futureEvents.size(); i++) {
-            System.out.println(i + 1 + ". " + futureEvents.get(i).getEventName());
+            System.out.println(i + 1 + ". " + futureEvents.get(i).getEventName() + " | " + (groupsList.get(i).getGroupID() != null ? ("Group name: " + groupsList.get(i).getGroupName()) : "No group"));
         }
     }
 
@@ -448,7 +386,7 @@ public class CLI implements NotificationView, ChatView {
         for (BEvent event : eventList) {
             String eventDateString = event.getEventDate();
             LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern(DATE_PATTERN));
-            if (LocalDate.now().isBefore(date)) {
+            if (LocalDate.now().minusDays(1).isBefore(date)) {
                 futureEvents.add(event);
             }
         }
@@ -457,7 +395,6 @@ public class CLI implements NotificationView, ChatView {
 
     private static void addEventPage() {
         BEvent bEventBean = new BEvent();
-        //setEventBean(bEventBean);
         modifyEventBean(bEventBean, "Add");
 
         try {
@@ -559,12 +496,6 @@ public class CLI implements NotificationView, ChatView {
                 String decision = READER.readLine();
                 if (decision.equalsIgnoreCase("y")) {
                     setEventImage(eventBean);
-/*                    //prendi file immagine
-                    byte[] fileData = pickFileData();
-                    if (fileData != null && filePath != null) {
-                        eventBean.setEventPicData(fileData);
-                    }
-                    eventBean.setEventPicPath(filePath);*/
                 }
 
                 eventBean.setEventOrganizer(LoggedUser.getUserName());
@@ -588,132 +519,11 @@ public class CLI implements NotificationView, ChatView {
         }
     }
 
-
-/*
-    private static void setEventBean(BEvent eventBean) {
-        System.out.println("New event\n");
-        List<String> provinces = cFacade.getProvincesList();
-        List<String> cities;
-
-        try {
-            System.out.println("Event name:");
-            eventBean.setEventName(acquireInput());
-
-            System.out.println("Event province:");
-            acquireProvinceInputAndModifyBean(provinces, eventBean, false);
-
-            cities = cFacade.getCitiesList(eventBean.getEventProvince());
-            System.out.println("Event city: ");
-            acquireCityInputAndModifyBean(cities, eventBean, false);
-
-            System.out.println("Event date:");
-            acquireDateAndModifyBean(eventBean, false);
-
-            System.out.println("Event address:");
-            acquireAddressAndSetBean(eventBean);
-
-            System.out.println("Choose music genre from list:");
-            printMusicGenres();
-            acquireMusicGenreAndModifyBean(eventBean, false);
-
-            System.out.println("Event time: HH:mm");
-            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-            acquireTimeAndSetBean(eventBean, timeFormat);
-
-            //prendi file immagine
-            byte[] fileData = pickFileData();
-            if (fileData != null && filePath != null) {
-                eventBean.setEventPicData(fileData);
-            }
-            eventBean.setEventOrganizer(LoggedUser.getUserName());
-            eventBean.setEventOrganizerID(LoggedUser.getUserID());
-            eventBean.setEventPicPath(filePath);
-
-        } catch (InvalidValueException | TextTooLongException e) {
-            logger.warning(e.getMessage());
-        }
-    }
-
-    private static void editEventBean(BEvent eventBean) {
-        System.out.println("Edit event\n");
-        spacer(1);
-        System.out.println("Press enter to maintain previous value!");
-        String newVal;
-
-        List<String> provinces = cFacade.getProvincesList();
-        List<String> cities;
-
-        try {
-
-            System.out.println("Event name: (previous: " + eventBean.getEventName() + ")");
-            newVal = acquireInput();
-            if (newVal != null && !newVal.isEmpty()) {
-                eventBean.setEventName(newVal);
-            }
-
-            System.out.println("Event province: (previous: " + eventBean.getEventProvince() + ")");
-            acquireProvinceInputAndModifyBean(provinces, eventBean, true);
-
-            cities = cFacade.getCitiesList(eventBean.getEventProvince());
-            System.out.println("Event city: (previous: " + eventBean.getEventCity() + ")");
-            acquireCityInputAndModifyBean(cities, eventBean, true);
-
-            System.out.println("Event date: (previous: " + eventBean.getEventDate() + ")");
-            acquireDateAndModifyBean(eventBean, true);
-
-            System.out.println("Event address: (previous: " + eventBean.getEventAddress() + ")");
-            newVal = acquireInput();
-            if (newVal != null && !newVal.isEmpty()) {
-                eventBean.setEventAddress(newVal);
-            }
-
-            System.out.println("Choose music genre from list: (previous: " + eventBean.getEventMusicGenre() + ")");
-            printMusicGenres();
-            acquireMusicGenreAndModifyBean(eventBean, true);
-
-            System.out.println("Event time: HH:mm (previous: " + eventBean.getEventTime() + ")");
-            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-            acquireTimeAndEditBean(eventBean, timeFormat);
-
-            spacer(1);
-
-            System.out.print("Do you want to change event image? Write 'y' or 'Y if you want to update event image");
-            String decision = READER.readLine();
-            if (decision.equalsIgnoreCase("y")) {
-                //prendi file immagine
-                byte[] fileData = pickFileData();
-                if (fileData != null && filePath != null) {
-                    eventBean.setEventPicData(fileData);
-                }
-                eventBean.setEventPicPath(filePath);
-            }
-            eventBean.setEventOrganizer(LoggedUser.getUserName());
-            eventBean.setEventOrganizerID(LoggedUser.getUserID());
-        } catch (IOException e) {
-            logger.severe("IOException while changing event image");
-        } catch (InvalidValueException | TextTooLongException e) {
-            logger.warning(e.getMessage());
-        }
-    }*/
-
     private static void acquireTimeAndSetBean(BEvent eventBean, SimpleDateFormat timeFormat) {
         boolean valid = false;
         while (!valid) {
             String val = acquireInput();
             valid = timeParseAndCheck(timeFormat, eventBean, val);
-/*            try {
-                timeFormat.parse(val);
-            } catch (ParseException e) {
-                logger.severe("Invalid time format.");
-                continue;
-            }
-            //qua ci arriva solo se il time viene parsato correttamente
-            if (val != null) {
-                String[] parts = val.split(":");
-                String hours = parts[0];
-                String minutes = parts[1];
-                valid = setTimeToBean(eventBean, hours, minutes);
-            }*/
         }
     }
 
@@ -728,19 +538,6 @@ public class CLI implements NotificationView, ChatView {
             }
             if (toEdit) {
                 valid = timeParseAndCheck(timeFormat, eventBean, val);
-/*                try {
-                    timeFormat.parse(val);
-                } catch (ParseException e) {
-                    logger.severe("Invalid time format.");
-                    continue;
-                }
-                //qua ci arriva solo se il time viene parsato correttamente
-                if (val != null) {
-                    String[] parts = val.split(":");
-                    String hours = parts[0];
-                    String minutes = parts[1];
-                    valid = setTimeToBean(eventBean, hours, minutes);
-                }*/
             }
         }
     }
@@ -793,35 +590,6 @@ public class CLI implements NotificationView, ChatView {
             }
         }
     }
-
-/*    private static void acquireMusicGenreAndSetBean(BEvent eventBean) {
-        boolean valid = false;
-        boolean found = false;
-        while (!valid) {
-            String val = acquireInput();
-            if (val != null) {
-                found = checkIfGenreIsValid(val);
-            }
-            if (found) {
-                valid = setGenreToBean(val, eventBean);
-            }
-        }
-    }
-
-    private static void acquireMusicGenreAndEditBean(BEvent eventBean) {
-        boolean valid = false;
-        boolean found = false;
-        while (!valid) {
-            String val = acquireInput();
-            if (val != null && val.isEmpty()) {
-                break;
-            }
-            found = checkIfGenreIsValid(val);
-            if (found) {
-                valid = setGenreToBean(val, eventBean);
-            }
-        }
-    }*/
 
     private static boolean setGenreToBean(String val, BEvent eventBean) {
         try {
@@ -876,31 +644,6 @@ public class CLI implements NotificationView, ChatView {
         }
     }
 
-/*    private static void acquireDateAndSetBean(BEvent eventBean) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
-        boolean valid = false;
-        while (!valid) {
-            String val = acquireInput();
-            valid = convertDateAndSetEventBean(val, formatter, eventBean);
-        }
-    }
-
-    private static void acquireDateAndEditBean(BEvent eventBean) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
-        boolean toEdit = true;
-        boolean valid = false;
-        while (!valid) {
-            String val = acquireInput();
-            if (val != null && val.isEmpty()) {
-                valid = true;
-                toEdit = false;
-            }
-            if (toEdit && convertDateAndSetEventBean(val, formatter, eventBean)) {
-                valid = true;
-            }
-        }
-    }*/
-
     private static boolean convertDateAndSetEventBean(String val, DateTimeFormatter formatter, BEvent eventBean) {
         try {
             // Convertire la stringa in un oggetto LocalDate utilizzando il formatter
@@ -930,31 +673,6 @@ public class CLI implements NotificationView, ChatView {
         }
     }
 
-/*    private static void acquireCityInputAndSetBean(List<String> cities, BEvent eventBean) {
-        boolean valid = false;
-        while (!valid) {
-            String val = acquireInput();
-            if (cities.contains(val)) {
-                setCityInBean(val, eventBean);
-                valid = true;
-            }
-        }
-    }
-
-    private static void acquireCityInputAndEditBean(List<String> cities, BEvent eventBean) {
-        boolean valid = false;
-        while (!valid) {
-            String val = acquireInput();
-            if (val != null && val.isEmpty()) {
-                break;
-            }
-            if (cities.contains(val)) {
-                setCityInBean(val, eventBean);
-                valid = true;
-            }
-        }
-    }*/
-
     private static void setCityInBean(String val, BEvent eventBean) {
         try {
             eventBean.setEventCity(val);
@@ -978,31 +696,6 @@ public class CLI implements NotificationView, ChatView {
             }
         }
     }
-
-/*    private static void acquireProvinceInputAndSetBean(List<String> provinces, BEvent eventBean) {
-        boolean valid = false;
-        while (!valid) {
-            String val = acquireInput();
-            if (provinces.contains(val)) {
-                setProvinceInBean(val, eventBean);
-                valid = true;
-            }
-        }
-    }
-
-    private static void acquireProvinceInputAndEditBean(List<String> provinces, BEvent eventBean) {
-        boolean valid = false;
-        while (!valid) {
-            String val = acquireInput();
-            if (val != null && val.isEmpty()) {
-                break;
-            }
-            if (provinces.contains(val)) {
-                setProvinceInBean(val, eventBean);
-                valid = true;
-            }
-        }
-    }*/
 
     private static void setProvinceInBean(String val, BEvent eventBean) {
         try {
@@ -1053,10 +746,16 @@ public class CLI implements NotificationView, ChatView {
                 System.out.println(GOBACK +
                         "2. Plan event participation");
             }
-            cycleForUserInputShowEvent(isEventParticipated, lastPage, bEvent);
 
-            System.out.println("Press 1 to go back");
+            int ret = 0;
+            if(lastPage.equals("YourEventsUser")) {
+                //stampa opzioni gruppo solo se ti trovavi nella pagina your events
+                ret = handleGroupOptions(bEvent);
+            }
+            cycleForUserInputShowEvent(isEventParticipated, lastPage, bEvent, ret);
 
+            //ritorno sulla pagina degli eventi
+            loadEvents();
         } else if (LoggedUser.getUserType().equals(UserTypes.ORGANIZER) && !isPassed) {
             spacer(1);
             System.out.println(GOBACK +
@@ -1071,14 +770,27 @@ public class CLI implements NotificationView, ChatView {
         }
     }
 
+    private static int handleGroupOptions(BEvent eventBean) {
+        BGroup groupBean = cFacade.getGroupByEventID(eventBean.getEventID());
+        if(groupBean.getGroupID() == null){
+            System.out.println("3. Create group");
+            return 1;
+        } else if(!cFacade.userInGroup(LoggedUser.getUserID(), groupBean.getGroupID())){
+            System.out.println("3. Join group");
+            return 2;
+        } else {
+            System.out.println("3. Group chat");
+            return 3;
+        }
+    }
+
     private static void cycleForOrgInputPastEvent(BEvent bEvent) {
         boolean valid = false;
         while (!valid) {
             String value = acquireInput();
             if (value != null) {
-                if (commands.contains(value)) {
-                    handleCommand(value);
-                }
+                checkCommands(value);
+
                 valid = handlePastEventOrgInput(value, bEvent);
 
             }
@@ -1112,7 +824,7 @@ public class CLI implements NotificationView, ChatView {
         }
     }
 
-    private static void cycleForUserInputShowEvent(boolean isEventParticipated, String lastPage, BEvent bEvent) {
+    private static void cycleForUserInputShowEvent(boolean isEventParticipated, String lastPage, BEvent bEvent, int ret) {
         boolean valid = false;
         while (!valid) {
             String value = acquireInput();
@@ -1120,7 +832,7 @@ public class CLI implements NotificationView, ChatView {
                 handleCommand(value);
             }
             if (value != null) {
-                valid = handleShowEventInfoUserInput(value, isEventParticipated, lastPage, bEvent);
+                valid = handleShowEventInfoUserInput(value, isEventParticipated, lastPage, bEvent, ret);
             }
         }
     }
@@ -1132,7 +844,6 @@ public class CLI implements NotificationView, ChatView {
                 return true;
             case "2":
                 //opens procedure to edit event
-                //editEventBean(bEvent);
                 modifyEventBean(bEvent, "Edit");
                 if (cFacade.editEvent(bEvent)) {
                     System.out.println("Event edited successfully!");
@@ -1159,11 +870,10 @@ public class CLI implements NotificationView, ChatView {
     }
 
 
-    private static boolean handleShowEventInfoUserInput(String value, boolean isEventParticipated, String lastPage, BEvent bEvent) {
+    private static boolean handleShowEventInfoUserInput(String value, boolean isEventParticipated, String lastPage, BEvent bEvent, int ret) {
         if (value.equals("1")) {
             showCorrectBackPageUser(lastPage);
             return true;
-
         } else if (value.equals("2") && isEventParticipated) {
             if (cFacade.removeEventParticipation(bEvent)) {
                 System.out.println("Event participation removed successfully!");
@@ -1182,9 +892,26 @@ public class CLI implements NotificationView, ChatView {
                 logger.severe("Event participation failed!");
                 return false;
             }
-        } else {
-            return false;
+        } else if (ret != 0 && value.equals("3")){
+            switch (ret){
+                case 1:
+                    //create group
+                    createGroup(bEvent);
+                    break;
+                case 2:
+                    //join group
+                    joinGroup(bEvent);
+                    break;
+                case 3:
+                    //group chat
+                    openGroupChat(bEvent);
+                    break;
+                default:
+                    break;
+            }
+            return true;
         }
+        return false;
     }
 
     private static void showCorrectBackPageUser(String lastPage) {
@@ -1265,9 +992,7 @@ public class CLI implements NotificationView, ChatView {
                 String value = READER.readLine();
 
                 //verifico comandi generali
-                if (commands.contains(value)) {
-                    handleCommand(value);
-                }
+                checkCommands(value);
 
                 //cancello la notifica
                 if (value.equals("1")) {
@@ -1379,10 +1104,11 @@ public class CLI implements NotificationView, ChatView {
         spacer(3);
         System.out.println("Analytics");
         spacer(1);
-        printEventsList(pastEvents);
+        printEventsList(pastEvents, null,true);
         spacer(1);
-        System.out.print("Write event name to view its analytics:");
-        System.out.print(COMMANDS_HELP);
+        System.out.println("Write event name to view its analytics:");
+        System.out.println(COMMANDS_HELP);
+        spacer(1);
 
         boolean valid = false;
         do {
@@ -1390,9 +1116,7 @@ public class CLI implements NotificationView, ChatView {
                 String value = READER.readLine();
 
                 //vedo eventuali comandi generali
-                if (commands.contains(value)) {
-                    handleCommand(value);
-                }
+                checkCommands(value);
 
                 for (BEvent bEvent : pastEvents) {
                     if (bEvent.getEventName().equals(value)) {
@@ -1430,7 +1154,7 @@ public class CLI implements NotificationView, ChatView {
         System.out.println("Times clicked: " + timesClicked);
 
         spacer(1);
-        System.out.println(GOBACK);
+        System.out.println(GOBACK + "2. Export analytics as TXT file");
 
         boolean valid = false;
         do {
@@ -1438,12 +1162,14 @@ public class CLI implements NotificationView, ChatView {
                 String value = READER.readLine();
 
                 //verifico comandi generali
-                if (commands.contains(value)) {
-                    handleCommand(value);
-                }
+                checkCommands(value);
+
 
                 if (value.equals("1")) {
                     loadEvents();
+                    valid = true;
+                } else if(value.equals("2")){
+                    exportAnalyticsFile(bEvent, participations);
                     valid = true;
                 }
             } catch (IOException e) {
@@ -1452,12 +1178,32 @@ public class CLI implements NotificationView, ChatView {
         } while (!valid);
     }
 
+    private static void exportAnalyticsFile(BEvent bEvent, Integer participations) {
+        //popolo il bean con i dati dell'analisi presi dal bean Event che è superclass di bean Analysis
+        BAnalytics analytics = null;
+        try {
+            analytics = new BAnalytics(bEvent);
+        } catch (InvalidValueException | TextTooLongException e) {
+            logger.severe("Error during analytics bean setup");
+        }
+        if (analytics != null) {
+            analytics.setTimesClicked(timesClicked);
+            analytics.setParticipants(nParticipants);
+            analytics.setPlannedParticipations(participations);
+        }
+
+        if(cFacade.exportAnalyticsFile(analytics)){
+            logger.info("Analytics file exported as a .txt successfully!\nYou can find it into exportedAnalytics folder.");
+        } else {
+            logger.severe("Analytics file export failed!\n Retry...");
+        }
+    }
+
     private static List<BEvent> showEvents(boolean isPassed) {
         spacer(3);
         List<BEvent> eventList = new ArrayList<>();
 
         if (LoggedUser.getUserType().equals(UserTypes.USER)) {
-
             List<BEvent> tempList = cFacade.retrieveEvents(LoggedUser.getUserType(), "GCYourEventsUser");
             eventList = populateEventList(isPassed, tempList); //isPassed = true -> show past events; isPassed = false -> show upcoming events
             checksOnEventListUser(eventList, isPassed);
@@ -1475,13 +1221,12 @@ public class CLI implements NotificationView, ChatView {
 
     private static void checksOnEventListOrg(List<BEvent> eventList, boolean isPassed) {
         if (!eventList.isEmpty()) {
-
             if (!isPassed) {
                 System.out.println("Your organized events. \nWrite event name to show event info, edit or delete it!");
             } else {
                 System.out.println("Your past events. \nWrite event name to show event info!");
             }
-            eventsPrintAndAcquireInput(eventList,isPassed);
+            eventsPrintAndAcquireInput(eventList, null, isPassed);
 
         } else {
             System.out.println("No organized events!");
@@ -1490,12 +1235,29 @@ public class CLI implements NotificationView, ChatView {
 
             waitCommands();
         }
-
-
     }
 
-    private static void eventsPrintAndAcquireInput(List<BEvent> eventList, boolean isPassed) {
-        printEventsList(eventList);
+    private static void checksOnEventListUser(List<BEvent> eventList, boolean isPassed) {
+        List<BGroup> groupsList = null;
+        if (!eventList.isEmpty()) {
+            if (!isPassed) {
+                System.out.println("Your events. \nWrite event name to show event info!");
+                 groupsList = cFacade.retrieveGroups(eventList);
+            } else {
+                System.out.println("Your past events. \nWrite event name to show event info!");
+            }
+            eventsPrintAndAcquireInput(eventList, groupsList, isPassed);
+        } else {
+            System.out.println("No planned events!");
+            System.out.println("To plan participation to an event in your city go to /home and write the name of an available event.\n Then follow instructions to Plan event participation.");
+            spacer(1);
+
+            waitCommands();
+        }
+    }
+
+    private static void eventsPrintAndAcquireInput(List<BEvent> eventList, List<BGroup> groupsList, boolean isPassed) {
+        printEventsList(eventList, groupsList, isPassed);
         spacer(1);
         System.out.println(COMMANDS_HELP);
         spacer(1);
@@ -1506,32 +1268,15 @@ public class CLI implements NotificationView, ChatView {
             if (value != null && commands.contains(value)) {
                 handleCommand(value);
             }
-            valid = checkIfEventNameEntered(value, eventList,isPassed);
-        }
-    }
 
-
-    private static void checksOnEventListUser(List<BEvent> eventList, boolean isPassed) {
-        if (!eventList.isEmpty()) {
-            if (!isPassed) {
-                System.out.println("Your events. \nWrite event name to show event info!");
-            } else {
-                System.out.println("Your past events. \nWrite event name to show event info!");
-            }
-            eventsPrintAndAcquireInput(eventList,isPassed);
-        } else {
-            System.out.println("No planned events!");
-            System.out.println("To plan participation to an event in your city go to /home and write the name of an available event.\n Then follow instructions to Plan event participation.");
-            spacer(1);
-
-            waitCommands();
+            valid = checkIfEventNameEntered(value, eventList, isPassed);
         }
     }
 
     private static boolean checkIfEventNameEntered(String value, List<BEvent> eventList, boolean isPassed) {
         for (BEvent bEvent : eventList) {
             if (bEvent.getEventName().equals(value)) {
-                showEventInfo(bEvent, "YourEventsUser",isPassed);
+                showEventInfo(bEvent, "YourEventsUser", isPassed);
                 return true;
             }
         }
@@ -1545,7 +1290,7 @@ public class CLI implements NotificationView, ChatView {
                 String eventDateString = bEvent.getEventDate();
                 LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern(DATE_PATTERN));
 
-                if (LocalDate.now().isBefore(date)) {
+                if (LocalDate.now().minusDays(1).isBefore(date)) {
                     //aggiungo alla lista solo gli eventi futuri (today is before event date)
                     eventList.add(bEvent);
                 }
@@ -1555,7 +1300,7 @@ public class CLI implements NotificationView, ChatView {
                 String eventDateString = bEvent.getEventDate();
                 LocalDate date = LocalDate.parse(eventDateString, DateTimeFormatter.ofPattern(DATE_PATTERN));
 
-                if (!LocalDate.now().isBefore(date)) {
+                if (!LocalDate.now().minusDays(1).isBefore(date)) {
                     //aggiungo alla lista solo gli eventi passati (today is NOT before event date)
                     eventList.add(bEvent);
                 }
@@ -1564,20 +1309,115 @@ public class CLI implements NotificationView, ChatView {
         return eventList;
     }
 
-    private static void printEventsList(List<BEvent> eventList) {
-        for (int i = 0; i < eventList.size(); i++) {
-            System.out.println(i + 1 + ". " + eventList.get(i).getEventName());
+    private static void printEventsList(List<BEvent> eventList, List<BGroup> groupsList, Boolean isPassed) {
+        if(!isPassed && LoggedUser.getUserType().equals(UserTypes.USER)){
+            //solo l'utente può vedere i gruppi
+            for (int i = 0; i < eventList.size(); i++) {
+                System.out.println(i + 1 + ". " + eventList.get(i).getEventName() + " | " + groupOptions(groupsList.get(i)));
+            }
+        } else {
+            //showAnalytics, pastEvents (user o organizer), futureEvents organizer
+            for (int i = 0; i < eventList.size(); i++) {
+                System.out.println(i + 1 + ". " + eventList.get(i).getEventName());
+            }
         }
     }
+
+    private static String groupOptions(BGroup bGroup){
+        String groupName = (bGroup.getGroupID() != null) ? bGroup.getGroupName() : "No group";
+        String groupOption;
+        if(!groupName.equals("No group")){
+            if(cFacade.userInGroup(LoggedUser.getUserID(), bGroup.getGroupID())){
+                groupOption = "Group chat";
+            } else {
+                groupOption = "Join group";
+            }
+            return "Group name: " + groupName + " | " + groupOption;
+        }
+        return groupName;
+    }
+
+    private static void createGroup(BEvent eventBean){
+        spacer(1);
+        System.out.print("Insert group name: ");
+        String value = acquireInput();
+        spacer(1);
+
+        try {
+            if(cFacade.createGroup(value, eventBean.getEventID())){
+                logger.info("Successfully created and joined new group");
+            } else {
+                logger.severe("Error while joining group");
+            }
+        } catch (GroupAlreadyCreated e) {
+            logger.severe(e.getMessage());
+        }
+    }
+
+    private static void joinGroup(BEvent eventBean) {
+        //JOIN GROUP
+        BGroup groupBean = cFacade.getGroupByEventID(eventBean.getEventID());
+
+        if(!cFacade.joinGroup(groupBean.getGroupID())) {
+            logger.severe("Error while joining group");
+        }
+    }
+
+    private static void openGroupChat(BEvent eventBean){
+        //imposto la chatGraphic
+        cFacade.setChatGraphic(view);
+
+        //trovo il groupID dal beanEvent
+        BGroup groupBean = cFacade.getGroupByEventID(eventBean.getEventID());
+
+        System.out.println("+++++++++ Group chat +++++++++++");
+        System.out.println("Group name: " + cFacade.getGroupNameByGroupID(groupBean.getGroupID()));
+
+
+        List<BMessage> messages = cFacade.retrieveGroupChat(groupBean.getGroupID());
+        for (BMessage message : messages) {
+            System.out.println(cFacade.getUsernameByID(message.getSenderID()) + ": " + message.getMessage());
+        }
+
+        spacer(1);
+        System.out.println("You can send messages to the group!");
+        spacer(1);
+        System.out.println(GOBACK + "2. Leave group\n");
+        spacer(1);
+
+        boolean exit = false;
+        do {
+            String message = acquireInput();
+
+            if (message != null && message.equals("1")) {
+                exit = true;
+            } else if (message != null && message.equals("2")){
+                if(cFacade.leaveGroup(groupBean.getGroupID())){
+                    logger.info("Group left successfully!");
+                    exit = true;
+                } else {
+                    logger.warning("Error while leaving group");
+                }
+            } else {
+                if(!cFacade.sendMessageToGroup(groupBean.getGroupID(), message)){
+                    logger.warning("Error while sending message");
+                    exit = true;
+                }
+            }
+        } while (!exit);
+
+        //termina la funzione torno in YourEventsUser
+        cFacade.setChatGraphic(null);
+    }
+
 
     private static void waitCommands() {
         boolean waiting = true;
         try {
             while (waiting) {
                 String value = READER.readLine();
-                if (commands.contains(value)) {
+                if(checkCommands(value)){
                     waiting = false;
-                    handleCommand(value);
                 }
             }
         } catch (IOException e) {
@@ -1894,6 +1734,7 @@ public class CLI implements NotificationView, ChatView {
 
     @Override
     public void addMessageToChat(BMessage messageBean) {
-        //
+        //stampa nuovo messaggio arrivato nella chat
+        System.out.println(cFacade.getUsernameByID(messageBean.getSenderID()) + ": " + messageBean.getMessage());
     }
 }

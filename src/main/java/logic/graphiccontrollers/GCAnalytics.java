@@ -87,7 +87,7 @@ public class GCAnalytics extends EssentialGUI {
     @FXML
     void exportAnalyticsFile() {
         //popolo il bean con i dati dell'analisi presi dal bean Event che è superclass di bean Analysis
-        BAnalytics analytics=null;
+        BAnalytics analytics = null;
         try {
             analytics = new BAnalytics(this.eventBean);
         } catch (InvalidValueException | TextTooLongException e) {
