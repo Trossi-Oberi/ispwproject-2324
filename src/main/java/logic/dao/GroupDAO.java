@@ -103,31 +103,22 @@ public class GroupDAO {
         return -1;
     }
 
-    public boolean joinGroup(Integer groupID) {
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO usergroup(id, user_id,group_id) VALUES (NULL, ?, ?)")){
+    public boolean groupOperations (Integer groupID, boolean isJoining){
+        String query;
+        if(isJoining) {
+            query = "INSERT INTO usergroup(id, user_id,group_id) VALUES (NULL, ?, ?)";
+        } else {
+            query = "DELETE FROM usergroup WHERE (user_id = ? AND group_id = ?)";
+        }
+
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement(query)){
             statement.setInt(1,LoggedUser.getUserID());
             statement.setInt(2,groupID);
             statement.execute();
             return true;
         }
         catch (SQLException e) {
-            logger.log(Level.SEVERE, "SQLException occurred while joining group");
-            return false;
-        }
-        finally {
-            SingletonDBSession.getInstance().closeConn();
-        }
-    }
-
-    public boolean leaveGroup(Integer groupID) {
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("DELETE FROM usergroup WHERE (user_id = ? AND group_id = ?)")){
-            statement.setInt(1, LoggedUser.getUserID());
-            statement.setInt(2, groupID);
-            statement.execute();
-            return true;
-        }
-        catch (SQLException e) {
-            logger.log(Level.SEVERE, "SQLException occurred while leaving group");
+            logger.log(Level.SEVERE, "SQLException occurred while " + (isJoining ? "joining" : "leaving") + " group");
             return false;
         }
         finally {
