@@ -11,7 +11,6 @@ import logic.model.Notification;
 import logic.model.NotificationProperties;
 import logic.utils.*;
 
-import javax.swing.plaf.basic.BasicEditorPaneUI;
 import java.io.IOException;
 import java.io.InvalidClassException;
 import java.io.ObjectOutputStream;
@@ -146,12 +145,19 @@ public class CNotification extends CServerInteraction {
         }
     }
 
-    public void addNotification(BEvent eventBean){
-        List<Integer> usersIDs;
-        usersIDs = userDAO.getUsersInCity(eventBean.getEventCity());
+    public void addNotificationToUsers(BEvent eventBean){
+        List<Integer> usersIDs = userDAO.getUsersInCity(eventBean.getEventCity());
 
         //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
         notificationDAO.addNotificationToUsers(usersIDs, NotificationTypes.EVENT_ADDED, eventBean.getEventID());
+    }
+
+    public void addNotificationToOrg(BEvent eventBean){
+        //notifico l'organizerID della partecipazione all'evento da parte dell'utente
+        List<Integer> organizerID = new ArrayList<>();
+        organizerID.add(eventBean.getEventOrganizerID());
+
+        notificationDAO.addNotificationToUsers(organizerID, NotificationTypes.USER_EVENT_PARTICIPATION, eventBean.getEventID());
     }
 
 }

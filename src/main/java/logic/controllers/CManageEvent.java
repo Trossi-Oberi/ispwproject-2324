@@ -80,11 +80,7 @@ public class CManageEvent {
         if (userEventDAO.joinUserToEvent(eventModel)) {
             //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
 
-            //notifico l'organizerID della partecipazione all'evento da parte dell'utente
-            ArrayList<Integer> organizerID = new ArrayList<>();
-            organizerID.add(eventBean.getEventOrganizerID());
 
-            notiDAO.addNotificationToUsers(organizerID, NotificationTypes.USER_EVENT_PARTICIPATION, eventBean.getEventID());
             return true;
         } else {
             return false;
