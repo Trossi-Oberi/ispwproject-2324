@@ -1,8 +1,3 @@
-/*
-import com.mysql.cj.log.Log;
-
-import static org.junit.Assert.*;
-
 import logic.beans.BEvent;
 import logic.controllers.CFacade;
 import logic.exceptions.EventAlreadyAdded;
@@ -10,17 +5,19 @@ import logic.exceptions.InvalidValueException;
 import logic.exceptions.TextTooLongException;
 import logic.utils.LoggedUser;
 import logic.utils.UserTypes;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-*/
-/*Nicolas Oberi*//*
+/*Nicolas Oberi*/
 
 
-public class TestManageEvent {
+class TestManageEvent {
     //test login, addevent, participate, chat (last message), joingroup, notification
 
     //TODO: fare 3 test per persona
@@ -86,4 +83,3 @@ public class TestManageEvent {
 
 }
 
-*/
