@@ -7,8 +7,6 @@ import logic.exceptions.EventAlreadyAdded;
 import logic.exceptions.EventAlreadyDeleted;
 import logic.model.MEvent;
 import logic.utils.LoggedUser;
-import logic.utils.NotificationTypes;
-import logic.utils.PersistenceClass;
 import logic.utils.UserTypes;
 import java.util.ArrayList;
 import java.util.List;

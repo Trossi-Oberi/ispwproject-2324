@@ -1,0 +1,43 @@
+<mxfile host="Electron" modified="2024-02-22T15:04:07.585Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="wY8neYADC2xNHtx7uBV9" version="23.1.5" type="device">
+  <diagram name="Pagina-1" id="0aYWfik2tRvVnqfVITxD">
+    <mxGraphModel dx="1837" dy="1011" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Hyuof-0oOEh174YBL4KO-1" value="Use case: Create event" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Hyuof-0oOEh174YBL4KO-2" value="Actor: Organizer" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="55" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Hyuof-0oOEh174YBL4KO-3" value="View: AddEventPage" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Hyuof-0oOEh174YBL4KO-4" value="Controller: ManageEvent" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Hyuof-0oOEh174YBL4KO-5" value="Model: Event" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="590" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Hyuof-0oOEh174YBL4KO-6" value="Dao: EventDAO" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Hyuof-0oOEh174YBL4KO-7" value="Dao: NotificationDAO" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Hyuof-0oOEh174YBL4KO-8" value="Model: Notification" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Hyuof-0oOEh174YBL4KO-9" value="Controller: NotificationController" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="430" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Hyuof-0oOEh174YBL4KO-10" value="Server: NotificationHandler" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1730" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Hyuof-0oOEh174YBL4KO-11" value="Database: Internal database" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1530" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
