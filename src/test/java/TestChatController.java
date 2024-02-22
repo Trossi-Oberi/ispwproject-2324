@@ -10,12 +10,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /*Nicolas Oberi*/
 
-class TestGroupChat {
+class TestChatController {
     CFacade facade;
     private static final String MESSAGE = "This is a test message";
     private static final Integer GROUP_ID = 2;
 
-    public TestGroupChat() {
+    public TestChatController() {
         facade = new CFacade();
     }
 
