@@ -236,7 +236,7 @@
          </font>
       </Label>
       <ChoiceBox fx:id="cityChoiceBox" layoutX="494.0" layoutY="237.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="35.0" prefWidth="238.0" AnchorPane.rightAnchor="68.0" />
-      <Label fx:id="pickedFileLabel" layoutX="551.0" layoutY="436.0" maxWidth="195.0">
+      <Label fx:id="pickedFileLabel" layoutX="512.0" layoutY="422.0" maxWidth="225.0">
          <font>
             <Font name="Baloo 2 Regular" size="18.0" />
          </font>
