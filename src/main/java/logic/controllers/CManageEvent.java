@@ -16,21 +16,11 @@ import java.util.List;
 public class CManageEvent {
     private EventDAO eventDAO;
     private UserEventDAO userEventDAO;
-    private NotificationDAO notiDAO;
 
 
     public CManageEvent() {
         eventDAO = new EventDAO();
         userEventDAO = new UserEventDAO();
-        switch (PersistenceClass.getPersistenceType()) {
-            case FILE_SYSTEM:
-                notiDAO = new NotificationDAOCSV();
-                break;
-            case JDBC:
-            default:
-                notiDAO = new NotificationDAOJDBC();
-                break;
-        }
     }
 
     public boolean addEvent(BEvent eventBean) throws EventAlreadyAdded {
@@ -74,14 +64,8 @@ public class CManageEvent {
 
     public boolean participateToEvent(BEvent eventBean) throws EventAlreadyDeleted {
         MEvent eventModel = new MEvent(eventBean);
-        if (userEventDAO.joinUserToEvent(eventModel)) {
-            //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
-
-
-            return true;
-        } else {
-            return false;
-        }
+        //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
+        return userEventDAO.joinUserToEvent(eventModel);
     }
 
     public boolean removeEventParticipation(BEvent eventBean) {
