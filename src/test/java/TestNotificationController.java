@@ -18,12 +18,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /*Nicolas Oberi*/
 
-class TestNotification {
+class TestNotificationController {
     CFacade facade;
     private static final String MESSAGE = "This is a test message";
     private static final Integer GROUP_ID = 2;
 
-    public TestNotification() {
+    public TestNotificationController() {
         facade = new CFacade();
     }
 
