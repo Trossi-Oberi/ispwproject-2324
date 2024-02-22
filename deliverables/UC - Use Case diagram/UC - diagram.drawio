@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2024-02-21T23:58:30.021Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.11 Chrome/114.0.5735.289 Electron/25.9.8 Safari/537.36" etag="kTPJpnSEi9Id6-Nq0w2t" version="22.1.11" type="device">
+<mxfile host="Electron" modified="2024-02-22T00:05:05.746Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.11 Chrome/114.0.5735.289 Electron/25.9.8 Safari/537.36" etag="n0EwSiAGddlJu-l2Sjpd" version="22.1.11" type="device">
   <diagram name="Pagina-1" id="NBDN8t3ZHKS26o0dstRo">
     <mxGraphModel dx="1276" dy="606" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1920" math="0" shadow="0">
       <root>
@@ -23,9 +23,6 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="IiZjPgKYvky2dSMYdkkD-28" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=12;startSize=8;endSize=8;" parent="1" source="EeKUK2XGIDcgAEgI9ckz-2" target="EeKUK2XGIDcgAEgI9ckz-16" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="Q-ggnAqYT3TcfAmLc06x-8" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="EeKUK2XGIDcgAEgI9ckz-2" target="Q-ggnAqYT3TcfAmLc06x-7" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="EeKUK2XGIDcgAEgI9ckz-2" value="User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" parent="1" vertex="1">
@@ -170,22 +167,13 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="Q-ggnAqYT3TcfAmLc06x-4" value="Chat with other event participants" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="340" y="350" width="170" height="50" as="geometry" />
+          <mxGeometry x="340" y="433" width="170" height="50" as="geometry" />
         </mxCell>
         <mxCell id="Q-ggnAqYT3TcfAmLc06x-5" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=12;startSize=8;endSize=8;" parent="1" source="EeKUK2XGIDcgAEgI9ckz-2" target="Q-ggnAqYT3TcfAmLc06x-4" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="125" y="580" as="sourcePoint" />
             <mxPoint x="360" y="530" as="targetPoint" />
           </mxGeometry>
-        </mxCell>
-        <mxCell id="Q-ggnAqYT3TcfAmLc06x-7" value="Select city" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="345" y="430" width="160" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="H9H3akTBxQGXS1LU5MQV-1" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;*&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry x="480" y="339" width="30" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="H9H3akTBxQGXS1LU5MQV-2" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;*&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry x="480" y="417" width="30" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
