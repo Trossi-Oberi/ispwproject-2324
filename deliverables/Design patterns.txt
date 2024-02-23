@@ -1,3 +1,0 @@
-Nicolas Oberi: Observer pattern
-
-Matteo Trossi: Factory method pattern
