@@ -1,7 +1,7 @@
 package logic.model;
 
 import logic.beans.BUserData;
-import logic.utils.UserTypes;
+import logic.utils.enums.UserTypes;
 
 public class MUser {
     private String firstName;

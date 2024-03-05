@@ -10,6 +10,9 @@ import logic.model.CityData;
 import logic.model.Notification;
 import logic.model.NotificationProperties;
 import logic.utils.*;
+import logic.utils.enums.NotificationTypes;
+import logic.utils.enums.SituationType;
+import logic.utils.enums.UserTypes;
 
 import java.io.IOException;
 import java.io.InvalidClassException;

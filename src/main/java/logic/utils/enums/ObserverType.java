@@ -1,4 +1,4 @@
-package logic.utils;
+package logic.utils.enums;
 
 public enum ObserverType {
     NOTI_OBSERVER,

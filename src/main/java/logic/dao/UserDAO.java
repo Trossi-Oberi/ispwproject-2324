@@ -4,10 +4,10 @@ import logic.controllers.ObserverClass;
 import logic.controllers.ObserverFactory;
 import logic.exceptions.UsernameAlreadyTaken;
 import logic.utils.LoggedUser;
-import logic.utils.ObserverType;
+import logic.utils.enums.ObserverType;
 import logic.utils.SingletonDBSession;
 import logic.model.MUser;
-import logic.utils.UserTypes;
+import logic.utils.enums.UserTypes;
 
 import java.sql.*;
 import java.util.ArrayList;

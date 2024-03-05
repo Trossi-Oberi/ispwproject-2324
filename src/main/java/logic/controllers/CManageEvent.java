@@ -7,7 +7,7 @@ import logic.exceptions.EventAlreadyAdded;
 import logic.exceptions.EventAlreadyDeleted;
 import logic.model.MEvent;
 import logic.utils.LoggedUser;
-import logic.utils.UserTypes;
+import logic.utils.enums.UserTypes;
 import java.util.ArrayList;
 import java.util.List;
 

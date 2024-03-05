@@ -1,4 +1,4 @@
-package logic.utils;
+package logic.utils.enums;
 
 public enum SubjectTypes {
     USERS_IN_CITY,

@@ -10,7 +10,7 @@ import javafx.scene.input.MouseEvent;
 import logic.beans.BEvent;
 import logic.exceptions.InvalidValueException;
 import logic.exceptions.TextTooLongException;
-import logic.utils.Alerts;
+import logic.utils.enums.Alerts;
 import logic.view.EssentialGUI;
 
 import java.io.IOException;

@@ -4,7 +4,7 @@ import logic.exceptions.InvalidValueException;
 import logic.exceptions.TextTooLongException;
 import logic.exceptions.UsernameAlreadyTaken;
 import logic.utils.LoggedUser;
-import logic.utils.UserTypes;
+import logic.utils.enums.UserTypes;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

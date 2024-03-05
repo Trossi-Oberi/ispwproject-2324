@@ -1,6 +1,8 @@
 package logic.utils;
 
 
+import logic.utils.enums.UserTypes;
+
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 

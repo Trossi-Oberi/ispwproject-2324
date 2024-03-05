@@ -1,5 +1,7 @@
 package logic.utils;
 
+import logic.utils.enums.PersistenceTypes;
+
 public class PersistenceClass {
     private PersistenceClass(){}
 

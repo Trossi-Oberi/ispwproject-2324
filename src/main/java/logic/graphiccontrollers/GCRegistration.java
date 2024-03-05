@@ -11,8 +11,8 @@ import logic.controllers.CFacade;
 import logic.exceptions.InvalidValueException;
 import logic.exceptions.TextTooLongException;
 import logic.exceptions.UsernameAlreadyTaken;
-import logic.utils.Alerts;
-import logic.utils.UserTypes;
+import logic.utils.enums.Alerts;
+import logic.utils.enums.UserTypes;
 import logic.view.AlertPopup;
 import logic.view.EssentialGUI;
 

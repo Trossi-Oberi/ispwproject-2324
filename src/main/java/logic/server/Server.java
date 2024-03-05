@@ -6,6 +6,7 @@ import logic.model.CityData;
 import logic.model.Message;
 import logic.model.Notification;
 import logic.utils.*;
+import logic.utils.enums.*;
 
 import java.io.IOException;
 import java.io.InvalidClassException;

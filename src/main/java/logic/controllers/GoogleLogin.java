@@ -1,4 +1,4 @@
-package logic.utils;
+package logic.controllers;
 
 import com.google.api.client.auth.oauth2.AuthorizationCodeRequestUrl;
 import com.google.api.client.auth.oauth2.Credential;

@@ -6,7 +6,6 @@ import logic.model.MUser;
 import logic.beans.BUserData;
 import logic.server.Server;
 import logic.utils.LoggedUser;
-import logic.utils.GoogleLogin;
 import logic.utils.SecureObjectInputStream;
 
 import java.io.IOException;

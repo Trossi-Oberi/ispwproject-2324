@@ -13,7 +13,7 @@ import logic.beans.BAnalytics;
 import logic.beans.BEvent;
 import logic.exceptions.InvalidValueException;
 import logic.exceptions.TextTooLongException;
-import logic.utils.Alerts;
+import logic.utils.enums.Alerts;
 import logic.view.EssentialGUI;
 
 public class GCAnalytics extends EssentialGUI {

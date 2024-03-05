@@ -1,7 +1,7 @@
 package logic.model;
 
-import logic.utils.NotificationTypes;
-import logic.utils.UserTypes;
+import logic.utils.enums.NotificationTypes;
+import logic.utils.enums.UserTypes;
 
 public class LocalNotification implements Notification{
     private static final long serialVersionUID = 1L;

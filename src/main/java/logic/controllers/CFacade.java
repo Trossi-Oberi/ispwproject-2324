@@ -6,6 +6,9 @@ import logic.model.CityData;
 import logic.model.Message;
 import logic.server.Server;
 import logic.utils.*;
+import logic.utils.enums.MessageTypes;
+import logic.utils.enums.NotificationTypes;
+import logic.utils.enums.UserTypes;
 import logic.view.ChatView;
 import logic.view.NotificationView;
 

@@ -2,7 +2,7 @@ package logic.controllers;
 
 import logic.model.MGroupMessage;
 import logic.model.Message;
-import logic.utils.MessageTypes;
+import logic.utils.enums.MessageTypes;
 
 public class MessageFactory {
     public Message createMessage(MessageTypes msgType, Integer senderID, Integer receiverID, String message) {

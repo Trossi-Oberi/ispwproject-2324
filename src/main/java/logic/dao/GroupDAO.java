@@ -5,7 +5,7 @@ import logic.controllers.ObserverFactory;
 import logic.exceptions.GroupAlreadyCreated;
 import logic.model.MGroup;
 import logic.utils.LoggedUser;
-import logic.utils.ObserverType;
+import logic.utils.enums.ObserverType;
 import logic.utils.SingletonDBSession;
 
 import java.sql.PreparedStatement;

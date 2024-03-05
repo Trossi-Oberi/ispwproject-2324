@@ -9,9 +9,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 
 import logic.beans.BNotification;
-import logic.utils.Alerts;
+import logic.utils.enums.Alerts;
 import logic.utils.LoggedUser;
-import logic.utils.NotificationTypes;
+import logic.utils.enums.NotificationTypes;
 import logic.view.EssentialGUI;
 
 import java.util.List;

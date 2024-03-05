@@ -5,7 +5,7 @@ import logic.dao.ChatDAO;
 import logic.model.MGroupMessage;
 import logic.model.Message;
 import logic.utils.LoggedUser;
-import logic.utils.MessageTypes;
+import logic.utils.enums.MessageTypes;
 
 import java.io.IOException;
 import java.io.InvalidClassException;

@@ -1,7 +1,7 @@
 package logic.dao;
 
 import logic.model.Notification;
-import logic.utils.NotificationTypes;
+import logic.utils.enums.NotificationTypes;
 
 import java.util.ArrayList;
 import java.util.List;

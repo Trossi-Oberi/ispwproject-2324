@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import logic.exceptions.EventAlreadyAdded;
 import logic.exceptions.InvalidValueException;
 import logic.exceptions.TextTooLongException;
-import logic.utils.Alerts;
+import logic.utils.enums.Alerts;
 import java.time.LocalDate;
 import logic.beans.BEvent;
 

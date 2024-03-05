@@ -5,7 +5,7 @@ import logic.model.Notification;
 
 import logic.utils.LoggedUser;
 import logic.utils.SecureObjectInputStream;
-import logic.utils.UserTypes;
+import logic.utils.enums.UserTypes;
 
 
 import java.io.IOException;

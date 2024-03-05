@@ -8,7 +8,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 
 import logic.beans.BEvent;
-import logic.utils.Alerts;
+import logic.utils.enums.Alerts;
 import logic.utils.LoggedUser;
 import logic.view.EssentialGUI;
 

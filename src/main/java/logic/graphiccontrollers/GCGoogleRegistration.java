@@ -6,7 +6,7 @@ import javafx.scene.input.MouseEvent;
 import logic.beans.BUserData;
 import logic.exceptions.InvalidValueException;
 import logic.exceptions.TextTooLongException;
-import logic.utils.Alerts;
+import logic.utils.enums.Alerts;
 import logic.utils.LoggedUser;
 
 public class GCGoogleRegistration extends GCRegistration {

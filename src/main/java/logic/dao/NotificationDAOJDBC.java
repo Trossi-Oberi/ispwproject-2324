@@ -4,6 +4,8 @@ import logic.controllers.NotificationFactory;
 import logic.model.Notification;
 import logic.model.NotificationProperties;
 import logic.utils.*;
+import logic.utils.enums.NotificationTypes;
+import logic.utils.enums.SituationType;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

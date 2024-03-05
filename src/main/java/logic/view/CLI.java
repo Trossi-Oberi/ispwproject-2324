@@ -2,8 +2,12 @@ package logic.view;
 
 import logic.beans.*;
 import logic.controllers.CFacade;
+import logic.controllers.GoogleLogin;
 import logic.exceptions.*;
 import logic.utils.*;
+import logic.utils.enums.NotificationTypes;
+import logic.utils.enums.PersistenceTypes;
+import logic.utils.enums.UserTypes;
 
 import javax.swing.*;
 import java.io.BufferedReader;

@@ -9,7 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.image.ImageView;
 
 import logic.exceptions.EventAlreadyDeleted;
-import logic.utils.Alerts;
+import logic.utils.enums.Alerts;
 
 import java.awt.*;
 import java.io.IOException;

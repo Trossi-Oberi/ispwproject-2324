@@ -16,6 +16,8 @@ import java.util.logging.Level;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
+import logic.utils.enums.NotificationTypes;
+import logic.utils.enums.SituationType;
 
 import static logic.view.EssentialGUI.logger;
 

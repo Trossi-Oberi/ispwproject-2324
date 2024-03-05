@@ -15,8 +15,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import logic.exceptions.InvalidTokenValue;
-import logic.utils.Alerts;
-import logic.utils.GoogleLogin;
+import logic.utils.enums.Alerts;
+import logic.controllers.GoogleLogin;
 import logic.utils.LoggedUser;
 import logic.view.EssentialGUI;
 import logic.beans.BUserData;

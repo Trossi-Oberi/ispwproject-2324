@@ -1,7 +1,7 @@
 package logic.server;
 
 import logic.model.Notification;
-import logic.utils.SubjectTypes;
+import logic.utils.enums.SubjectTypes;
 
 import java.io.ObjectOutputStream;
 

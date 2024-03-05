@@ -1,6 +1,6 @@
 package logic.controllers;
 
-import logic.utils.ObserverType;
+import logic.utils.enums.ObserverType;
 
 import java.io.ObjectOutputStream;
 

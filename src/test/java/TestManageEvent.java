@@ -4,7 +4,7 @@ import logic.exceptions.EventAlreadyAdded;
 import logic.exceptions.InvalidValueException;
 import logic.exceptions.TextTooLongException;
 import logic.utils.LoggedUser;
-import logic.utils.UserTypes;
+import logic.utils.enums.UserTypes;
 
 import java.util.List;
 import java.util.logging.Level;

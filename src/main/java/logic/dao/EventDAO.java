@@ -13,7 +13,7 @@ import logic.controllers.ObserverClass;
 import logic.controllers.ObserverFactory;
 import logic.exceptions.EventAlreadyAdded;
 import logic.utils.LoggedUser;
-import logic.utils.ObserverType;
+import logic.utils.enums.ObserverType;
 import logic.utils.SingletonDBSession;
 import logic.model.MEvent;
 

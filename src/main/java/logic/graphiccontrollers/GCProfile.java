@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import logic.view.EssentialGUI;
 
 import logic.utils.LoggedUser;
-import logic.utils.UserTypes;
+import logic.utils.enums.UserTypes;
 
 public class GCProfile extends EssentialGUI{
 

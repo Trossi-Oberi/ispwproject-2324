@@ -3,7 +3,7 @@ package logic.graphiccontrollers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import logic.utils.Alerts;
+import logic.utils.enums.Alerts;
 import logic.view.EssentialGUI;
 
 public class GCSettingsGeneral extends EssentialGUI {

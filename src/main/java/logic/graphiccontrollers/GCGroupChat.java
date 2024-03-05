@@ -12,7 +12,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import logic.beans.BMessage;
-import logic.utils.Alerts;
+import logic.utils.enums.Alerts;
 import logic.utils.LoggedUser;
 import logic.view.ChatView;
 import logic.view.EssentialGUI;

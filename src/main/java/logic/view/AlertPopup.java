@@ -5,7 +5,7 @@ import javafx.scene.control.Alert;
 import java.util.logging.Level;
 
 import javafx.scene.control.ButtonType;
-import logic.utils.Alerts;
+import logic.utils.enums.Alerts;
 
 import static logic.view.EssentialGUI.logger;
 

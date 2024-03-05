@@ -1,7 +1,7 @@
 import logic.beans.BEvent;
 import logic.controllers.CFacade;
 import logic.exceptions.EventAlreadyDeleted;
-import logic.utils.UserTypes;
+import logic.utils.enums.UserTypes;
 import org.junit.jupiter.api.Test;
 
 import logic.utils.LoggedUser;

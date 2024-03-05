@@ -2,7 +2,7 @@ package logic.beans;
 
 import logic.exceptions.InvalidValueException;
 import logic.exceptions.TextTooLongException;
-import logic.utils.UserTypes;
+import logic.utils.enums.UserTypes;
 
 import java.time.LocalDate;
 

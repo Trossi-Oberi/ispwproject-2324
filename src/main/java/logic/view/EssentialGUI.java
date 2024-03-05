@@ -17,6 +17,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import logic.utils.*;
 import logic.controllers.CFacade;
+import logic.utils.enums.Alerts;
+import logic.utils.enums.NotificationTypes;
+import logic.utils.enums.PersistenceTypes;
+import logic.utils.enums.UserTypes;
 
 public class EssentialGUI extends Application implements NotificationView {
     private static final String APP_NAME = "NightPlan";

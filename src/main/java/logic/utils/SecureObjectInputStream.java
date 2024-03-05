@@ -5,6 +5,8 @@ import logic.controllers.ClientListener;
 import logic.model.MGroupMessage;
 import logic.model.ServerNotification;
 import logic.server.Server;
+import logic.utils.enums.NotificationTypes;
+import logic.utils.enums.UserTypes;
 
 import java.io.*;
 import java.util.ArrayList;
