@@ -1,10 +1,10 @@
 package logic.view;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 import java.util.logging.Level;
 
-import javafx.scene.control.ButtonType;
 import logic.utils.enums.Alerts;
 
 import static logic.view.EssentialGUI.logger;

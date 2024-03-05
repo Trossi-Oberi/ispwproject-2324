@@ -2,9 +2,7 @@ package logic.controllers;
 
 import logic.beans.BEvent;
 import logic.dao.*;
-import logic.exceptions.DuplicateEventParticipation;
 import logic.exceptions.EventAlreadyAdded;
-import logic.exceptions.EventAlreadyDeleted;
 import logic.model.MEvent;
 import logic.utils.LoggedUser;
 import logic.utils.enums.UserTypes;
@@ -13,12 +11,9 @@ import java.util.List;
 
 public class CManageEvent {
     private EventDAO eventDAO;
-    private UserEventDAO userEventDAO;
-
 
     public CManageEvent() {
         eventDAO = new EventDAO();
-        userEventDAO = new UserEventDAO();
     }
 
     public boolean addEvent(BEvent eventBean) throws EventAlreadyAdded {
@@ -60,26 +55,6 @@ public class CManageEvent {
         return eventDAO.deleteEvent(eventID);
     }
 
-    public boolean participateToEvent(BEvent eventBean) throws EventAlreadyDeleted {
-        MEvent eventModel = new MEvent(eventBean);
-        //in ogni caso scrivi sul database delle notifiche le notifiche per quell'utente
-        return userEventDAO.joinUserToEvent(eventModel);
-    }
-
-    public boolean removeEventParticipation(BEvent eventBean) {
-        MEvent eventModel = new MEvent(eventBean);
-        return userEventDAO.removeUserToEvent(eventModel);
-    }
-
-    public boolean checkPreviousEventParticipation(BEvent eventBean) {
-        try {
-            userEventDAO.checkPreviousParticipation(eventBean.getEventID());
-            return false;
-        } catch (DuplicateEventParticipation e) {
-            return true;
-        }
-    }
-
     private List<BEvent> getEventBeansListFromModelsList(List<MEvent> eventModelList) {
         List<BEvent> myEventsBeans = new ArrayList<>();
         BEvent tempEventBean;
@@ -88,10 +63,6 @@ public class CManageEvent {
             myEventsBeans.add(tempEventBean);
         }
         return myEventsBeans;
-    }
-
-    public int getParticipationsToEvent(int id) {
-        return userEventDAO.getParticipationsToEvent(id);
     }
 
     public String getEventNameByEventID(int eventID) {

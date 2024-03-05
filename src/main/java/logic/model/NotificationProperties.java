@@ -9,14 +9,6 @@ public class NotificationProperties {
         this.notificationID = notificationID;
     }
 
-    public void setNotificationID(Integer notificationID) {
-        this.notificationID = notificationID;
-    }
-
-    public void setNotifierID(Integer notifierID) {
-        this.notifierID = notifierID;
-    }
-
     public Integer getNotificationID() {
         return this.notificationID;
     }

@@ -6,7 +6,7 @@ import logic.model.MUser;
 import logic.beans.BUserData;
 import logic.server.Server;
 import logic.utils.LoggedUser;
-import logic.utils.SecureObjectInputStream;
+import logic.model.SecureObjectInputStream;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;

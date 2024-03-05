@@ -1,6 +1,7 @@
 package logic.controllers;
 
 import logic.beans.BAnalytics;
+import logic.dao.UserEventDAO;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -10,6 +11,12 @@ import java.util.logging.Level;
 import static logic.view.EssentialGUI.logger;
 
 public class CAnalytics {
+    private UserEventDAO userEventDAO;
+
+    public CAnalytics(){
+        this.userEventDAO = new UserEventDAO();
+    }
+
     public boolean exportAnalyticsFile(BAnalytics analysis) {
         String folderPath = "exportedAnalytics";
         String fileName = analysis.getEventName() + ".txt";
@@ -36,5 +43,9 @@ public class CAnalytics {
             logger.severe("Error while exporting .txt file: " + e.getMessage());
             return false;
         }
+    }
+
+    public int getParticipationsToEvent(int id) {
+        return userEventDAO.getParticipationsToEvent(id);
     }
 }

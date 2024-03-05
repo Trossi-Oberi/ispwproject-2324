@@ -1,4 +1,4 @@
-package logic.utils;
+package logic.model;
 
 import logic.controllers.CNotification;
 import logic.controllers.ClientListener;

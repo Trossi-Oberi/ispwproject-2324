@@ -4,6 +4,7 @@ import logic.beans.*;
 import logic.exceptions.*;
 import logic.model.CityData;
 import logic.model.Message;
+import logic.model.SecureObjectInputStream;
 import logic.server.Server;
 import logic.utils.*;
 import logic.utils.enums.MessageTypes;
@@ -23,6 +24,7 @@ public class CFacade {
     private CLogin loginController;
     private CRegistration regController;
     private CManageEvent manageEventController;
+    private CEventParticipation eventParticipationController;
     private CNotification notificationController;
     private CAnalytics analyticsController;
     private CGroup groupController;
@@ -71,10 +73,10 @@ public class CFacade {
     }
 
     public boolean participateToEvent(BEvent eventBean) throws EventAlreadyDeleted {
-        if (manageEventController == null) {
-            manageEventController = new CManageEvent();
+        if (eventParticipationController == null) {
+            eventParticipationController = new CEventParticipation();
         }
-        boolean res = manageEventController.participateToEvent(eventBean);
+        boolean res = eventParticipationController.participateToEvent(eventBean);
         if (res) {
             if (notificationController == null) {
                 notificationController = new CNotification(this);
@@ -91,10 +93,10 @@ public class CFacade {
     public boolean removeEventParticipation(BEvent eventBean) {
         boolean result = false;
 
-        if (manageEventController == null) {
-            manageEventController = new CManageEvent();
+        if (eventParticipationController == null) {
+            eventParticipationController = new CEventParticipation();
         }
-        boolean res = manageEventController.removeEventParticipation(eventBean);
+        boolean res = eventParticipationController.removeEventParticipation(eventBean);
         if (res) {
             Integer groupID = getGroupByEventID(eventBean.getEventID()).getGroupID();
             result = leaveGroupAfterRemoveEventPart(groupID);
@@ -133,10 +135,10 @@ public class CFacade {
     }
 
     public boolean checkPreviousEventParticipation(BEvent eventBean) {
-        if (manageEventController == null) {
-            manageEventController = new CManageEvent();
+        if (eventParticipationController == null) {
+            eventParticipationController = new CEventParticipation();
         }
-        return manageEventController.checkPreviousEventParticipation(eventBean);
+        return eventParticipationController.checkPreviousEventParticipation(eventBean);
     }
 
 
@@ -279,10 +281,10 @@ public class CFacade {
 
 
     public int retrieveParticipationsToEvent(int id) {
-        if (manageEventController == null) {
-            manageEventController = new CManageEvent();
+        if (analyticsController == null) {
+            analyticsController = new CAnalytics();
         }
-        return manageEventController.getParticipationsToEvent(id);
+        return analyticsController.getParticipationsToEvent(id);
     }
 
 
