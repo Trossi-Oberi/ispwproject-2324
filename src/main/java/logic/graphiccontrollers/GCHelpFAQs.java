@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 
 import logic.view.EssentialGUI;
-import logic.interfaces.InfoPages;
 
 import java.awt.*;
 import java.io.IOException;

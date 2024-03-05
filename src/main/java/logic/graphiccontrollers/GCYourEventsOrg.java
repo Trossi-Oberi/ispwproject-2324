@@ -8,7 +8,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 
 import logic.beans.BEvent;
-import logic.interfaces.DoubleClickListener;
 import logic.utils.Alerts;
 import logic.utils.LoggedUser;
 import logic.view.EssentialGUI;

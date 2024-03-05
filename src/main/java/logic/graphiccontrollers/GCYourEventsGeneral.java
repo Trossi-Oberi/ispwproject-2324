@@ -2,7 +2,6 @@ package logic.graphiccontrollers;
 
 import javafx.scene.control.ListView;
 import logic.beans.BEvent;
-import logic.interfaces.DoubleClickListener;
 import logic.view.EssentialGUI;
 
 import java.time.format.DateTimeFormatter;

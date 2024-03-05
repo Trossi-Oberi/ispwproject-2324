@@ -1,4 +1,4 @@
-package logic.interfaces;
+package logic.server;
 
 import logic.model.Notification;
 import logic.utils.SubjectTypes;
