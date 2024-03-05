@@ -1,6 +1,6 @@
 package logic.dao;
 
-import logic.controllers.ObserverClass;
+import logic.model.ObserverClass;
 import logic.controllers.ObserverFactory;
 import logic.exceptions.GroupAlreadyCreated;
 import logic.model.MGroup;

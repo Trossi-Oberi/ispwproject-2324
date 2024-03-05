@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
-import logic.controllers.ObserverClass;
+import logic.model.ObserverClass;
 import logic.controllers.ObserverFactory;
 import logic.exceptions.EventAlreadyAdded;
 import logic.utils.LoggedUser;

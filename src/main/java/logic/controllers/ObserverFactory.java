@@ -1,5 +1,8 @@
 package logic.controllers;
 
+import logic.model.MessageObserverClass;
+import logic.model.NotiObserverClass;
+import logic.model.ObserverClass;
 import logic.utils.ObserverType;
 
 import java.io.ObjectOutputStream;
