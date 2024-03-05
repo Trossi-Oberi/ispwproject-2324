@@ -1,6 +1,4 @@
-package logic.controllers;
-
-import logic.model.ServerNotification;
+package logic.model;
 
 import java.io.IOException;
 import java.io.InvalidClassException;

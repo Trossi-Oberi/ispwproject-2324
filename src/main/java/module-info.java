@@ -38,9 +38,10 @@ module trossi.oberi {
     exports logic.utils;
     exports logic.beans;
     exports logic.exceptions;
-    exports logic.interfaces;
     exports logic.server;
     exports logic.utils.enums;
+    exports logic.model;
+
     opens logic.utils.enums;
 
 }

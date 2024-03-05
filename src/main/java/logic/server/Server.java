@@ -5,6 +5,7 @@ import logic.dao.*;
 import logic.model.CityData;
 import logic.model.Message;
 import logic.model.Notification;
+import logic.model.ObserverClass;
 import logic.utils.*;
 import logic.utils.enums.*;
 

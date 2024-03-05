@@ -1,4 +1,4 @@
-package logic.controllers;
+package logic.model;
 
 import java.io.ObjectOutputStream;
 
