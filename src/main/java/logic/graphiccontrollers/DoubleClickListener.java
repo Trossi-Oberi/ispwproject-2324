@@ -1,4 +1,4 @@
-package logic.interfaces;
+package logic.graphiccontrollers;
 
 import javafx.scene.input.MouseEvent;
 import logic.beans.BEvent;

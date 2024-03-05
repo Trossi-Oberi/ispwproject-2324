@@ -1,0 +1,15 @@
+++++++++++++++Analytics of Dolce e Salato ++++++++++++++
+
+Event Name: Dolce e Salato
+Province: Frosinone
+City: Anagni
+Address: Viale Regina Margherita, 10 03012
+Music genre: Pop
+Date: 29-02-2024
+Time: 22:22
+Times clicked: 4243
+Participants: 0
+Planned participants: 2
+
+
+++++++++++++++End of file++++++++++++++

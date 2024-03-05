@@ -15,7 +15,6 @@ import javafx.scene.text.Font;
 import logic.beans.BEvent;
 import logic.beans.BGroup;
 import logic.exceptions.GroupAlreadyCreated;
-import logic.interfaces.DoubleClickListener;
 import logic.utils.Alerts;
 import logic.utils.LoggedUser;
 import logic.view.EssentialGUI;

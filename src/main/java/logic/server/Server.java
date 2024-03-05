@@ -2,7 +2,6 @@ package logic.server;
 
 import logic.controllers.*;
 import logic.dao.*;
-import logic.interfaces.Subject;
 import logic.model.CityData;
 import logic.model.Message;
 import logic.model.Notification;

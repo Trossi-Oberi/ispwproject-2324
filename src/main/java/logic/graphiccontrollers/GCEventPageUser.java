@@ -9,7 +9,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.image.ImageView;
 
 import logic.exceptions.EventAlreadyDeleted;
-import logic.interfaces.InfoPages;
 import logic.utils.Alerts;
 
 import java.awt.*;
