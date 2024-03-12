@@ -43,5 +43,7 @@ module trossi.oberi {
     exports logic.model;
 
     opens logic.utils.enums;
+    exports logic.controllers.factory;
+    opens logic.controllers.factory;
 
 }
