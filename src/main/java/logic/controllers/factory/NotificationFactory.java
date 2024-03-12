@@ -1,4 +1,4 @@
-package logic.controllers;
+package logic.controllers.factory;
 
 import logic.model.*;
 import logic.utils.enums.NotificationTypes;

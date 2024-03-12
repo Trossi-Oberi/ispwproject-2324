@@ -1,4 +1,4 @@
-package logic.controllers;
+package logic.controllers.factory;
 
 import logic.model.MessageObserverClass;
 import logic.model.NotiObserverClass;
