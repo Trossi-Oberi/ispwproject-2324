@@ -1,6 +1,6 @@
 package logic.dao;
 
-import logic.controllers.NotificationFactory;
+import logic.controllers.factory.NotificationFactory;
 import logic.model.Notification;
 import logic.model.NotificationProperties;
 import logic.utils.*;

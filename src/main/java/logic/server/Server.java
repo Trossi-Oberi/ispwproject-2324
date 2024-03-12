@@ -1,6 +1,7 @@
 package logic.server;
 
-import logic.controllers.*;
+import logic.controllers.factory.NotificationFactory;
+import logic.controllers.factory.ObserverFactory;
 import logic.dao.*;
 import logic.model.*;
 import logic.utils.enums.*;

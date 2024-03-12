@@ -1,6 +1,7 @@
 package logic.controllers;
 
 import logic.beans.BMessage;
+import logic.controllers.factory.MessageFactory;
 import logic.dao.ChatDAO;
 import logic.model.MGroupMessage;
 import logic.model.Message;

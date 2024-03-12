@@ -2,6 +2,7 @@ package logic.controllers;
 
 import logic.beans.BEvent;
 import logic.beans.BNotification;
+import logic.controllers.factory.NotificationFactory;
 import logic.dao.NotificationDAO;
 import logic.dao.NotificationDAOCSV;
 import logic.dao.NotificationDAOJDBC;

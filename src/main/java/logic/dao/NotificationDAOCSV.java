@@ -1,7 +1,7 @@
 package logic.dao;
 
 import com.opencsv.CSVWriter;
-import logic.controllers.NotificationFactory;
+import logic.controllers.factory.NotificationFactory;
 import logic.model.Notification;
 import logic.model.NotificationProperties;
 import logic.utils.*;

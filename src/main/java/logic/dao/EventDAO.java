@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import logic.model.ObserverClass;
-import logic.controllers.ObserverFactory;
+import logic.controllers.factory.ObserverFactory;
 import logic.exceptions.EventAlreadyAdded;
 import logic.utils.LoggedUser;
 import logic.utils.enums.ObserverType;

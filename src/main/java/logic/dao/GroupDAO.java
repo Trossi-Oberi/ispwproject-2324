@@ -1,7 +1,7 @@
 package logic.dao;
 
 import logic.model.ObserverClass;
-import logic.controllers.ObserverFactory;
+import logic.controllers.factory.ObserverFactory;
 import logic.exceptions.GroupAlreadyCreated;
 import logic.model.MGroup;
 import logic.utils.LoggedUser;

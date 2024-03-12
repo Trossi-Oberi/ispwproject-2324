@@ -1,7 +1,7 @@
 package logic.dao;
 
 import logic.model.ObserverClass;
-import logic.controllers.ObserverFactory;
+import logic.controllers.factory.ObserverFactory;
 import logic.exceptions.UsernameAlreadyTaken;
 import logic.utils.LoggedUser;
 import logic.utils.enums.ObserverType;
