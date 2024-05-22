@@ -23,6 +23,7 @@ public class CRegistration {
 
     public boolean registerUserControl(BUserData usrBean) throws UsernameAlreadyTaken{
         if (checkBirthDate(usrBean.getBirthDate()) == -1) {
+            //TODO: propagare eccezione età inferiore 18 anni
             return false;
         } else {
             this.userModel.setCredentialsByBean(usrBean);

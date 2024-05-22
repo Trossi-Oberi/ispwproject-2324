@@ -6,7 +6,6 @@ module trossi.oberi {
     opens logic.model;
     opens logic.view;
     opens logic.server;
-    opens logic.interfaces;
 
     requires java.base;
     requires java.net.http;
