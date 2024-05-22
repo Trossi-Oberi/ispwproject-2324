@@ -107,7 +107,7 @@ values (NULL, 'Matteo', 'Matteo', 'Matteo', 'Trossi', '16/03/1998', 'Male', 'Fro
 
 insert into Events (event_id, organizer, organizer_id, name, province, city, address, music_genre, date, time, image,
                     pic_path)
-values (NULL, 'Nicolas', 2, 'Uane', 'Frosinone', 'Anagni', 'Via Casilina', 'Pop', '03-03-2024', '18:40',
+values (NULL, 'Nicolas', 2, 'Uane', 'Frosinone', 'Anagni', 'Via Casilina', 'Pop', '03-08-2025', '18:40',
         LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\locandina1.jpg'),
         'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\locandina1.jpg'),
        (NULL, 'Nicolas', 2, 'Eleo', 'Frosinone', 'Frosinone', 'Via Marittima', 'Rap', '03-04-2025', '01:30',
