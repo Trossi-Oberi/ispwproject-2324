@@ -2,8 +2,6 @@ package logic.model;
 
 import logic.controllers.CNotification;
 import logic.controllers.ClientListener;
-import logic.model.MGroupMessage;
-import logic.model.ServerNotification;
 import logic.server.Server;
 import logic.utils.enums.NotificationTypes;
 import logic.utils.enums.UserTypes;
