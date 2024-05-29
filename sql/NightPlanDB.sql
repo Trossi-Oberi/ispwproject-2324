@@ -96,27 +96,27 @@ create table Cities
 
 insert into Users (id, username, password, firstName, lastName, dateOfBirth, gender, province, city, userType,
                    userStatus)
-values (NULL, 'Matteo', 'Matteo', 'Matteo', 'Trossi', '16/03/1998', 'Male', 'Frosinone', 'Anagni', 'USER', 'Offline'),
-       (NULL, 'Nicolas', 'Nicolas', 'Nicolas', 'Oberi', '16/03/1998', 'Male', 'Roma', 'Cave', 'ORGANIZER', 'Offline'),
-       (NULL, 'm', 'm', 'm', 'm', '16/03/1998', 'Male', 'Frosinone', 'Anagni', 'USER', 'Offline'),
-       (NULL, 'n', 'n', 'n', 'n', '16/03/1998', 'Male', 'Frosinone', 'Anagni', 'USER', 'Offline'),
-       (NULL, 'o', 'o', 'o', 'o', '16/03/1998', 'Male', 'Frosinone', 'Anagni', 'USER', 'Offline'),
+values (NULL, 'Matteo', 'Matteo', 'Matteo', 'Trossi', '16/03/1998', 'Male', 'Roma', 'Roma', 'USER', 'Offline'),
+       (NULL, 'Nicolas', 'Nicolas', 'Nicolas', 'Oberi', '16/03/1998', 'Male', 'Roma', 'Roma', 'ORGANIZER', 'Offline'),
+       (NULL, 'm', 'm', 'm', 'm', '16/03/1998', 'Male', 'Roma', 'Roma', 'USER', 'Offline'),
+       (NULL, 'n', 'n', 'n', 'n', '16/03/1998', 'Male', 'Roma', 'Roma', 'USER', 'Offline'),
+       (NULL, 'o', 'o', 'o', 'o', '16/03/1998', 'Male', 'Roma', 'Roma', 'USER', 'Offline'),
         (NULL, 'test', 'test', 'test', 'test', '25/10/1990', 'Male', 'Palermo', 'Palermo', 'USER', 'Offline');
 
 
 
 insert into Events (event_id, organizer, organizer_id, name, province, city, address, music_genre, date, time, image,
                     pic_path)
-values (NULL, 'Nicolas', 2, 'Uane', 'Frosinone', 'Anagni', 'Via Casilina', 'Pop', '03-03-2024', '18:40',
+values (NULL, 'Nicolas', 2, 'Uane', 'Roma', 'Roma', 'Via Casilina', 'Pop', '03-08-2025', '18:40',
         LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\locandina1.jpg'),
         'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\locandina1.jpg'),
-       (NULL, 'Nicolas', 2, 'Eleo', 'Frosinone', 'Frosinone', 'Via Marittima', 'Rap', '03-04-2025', '01:30',
+       (NULL, 'Nicolas', 2, 'Eleo', 'Roma', 'Roma', 'Via Marittima', 'Rap', '03-04-2025', '01:30',
         LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\locandina2.jpg'),
         'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\locandina2.jpg'),
        (NULL, 'Nicolas', 2, 'Jupiter', 'Roma', 'Roma', 'Via Cristoforo Colombo', 'Trap', '25-01-2025', '23:30',
         LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\locandina3.jpg'),
         'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\locandina3.jpg'),
-       (NULL, 'Nicolas', 2, 'Uane (concluso)', 'Frosinone', 'Anagni', 'Via Casilina', 'Techno', '03-04-2020',
+       (NULL, 'Nicolas', 2, 'Uane (concluso)', 'Roma', 'Roma', 'Via Casilina', 'Techno', '03-04-2020',
         '22:30',
         LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\locandina4.jpg'),
         'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\locandina4.jpg'),
