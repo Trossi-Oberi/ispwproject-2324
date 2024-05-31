@@ -1,6 +1,7 @@
 import logic.beans.BUserData;
 import logic.controllers.CFacade;
 import logic.exceptions.InvalidValueException;
+import logic.exceptions.MinimumAgeException;
 import logic.exceptions.TextTooLongException;
 import logic.exceptions.UsernameAlreadyTaken;
 import logic.utils.LoggedUser;
@@ -49,7 +50,7 @@ class TestLoginController {
             newUser.setCity("Anagni");
             newUser.setType(UserTypes.ORGANIZER);
             facade.registerUser(newUser);
-        } catch (InvalidValueException | TextTooLongException | UsernameAlreadyTaken e) {
+        } catch (InvalidValueException | TextTooLongException | UsernameAlreadyTaken | MinimumAgeException e) {
             Logger.getLogger("NightPlan").log(Level.SEVERE, e.getMessage());
         }
         assertEquals(newUser.getUsername(), facade.getUsernameByID(newUser.getUserID()));

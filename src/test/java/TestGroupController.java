@@ -1,6 +1,7 @@
 import logic.beans.BGroup;
 import logic.controllers.CFacade;
 import logic.exceptions.GroupAlreadyCreated;
+import logic.exceptions.InvalidGroupName;
 import logic.utils.LoggedUser;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +29,9 @@ class TestGroupController {
         try {
             facade.createGroup(GROUPNAME, eventID);
         } catch (GroupAlreadyCreated e) {
-            Logger.getLogger("NightPlan").log(Level.SEVERE, "Group already created for this event");
+            Logger.getLogger("NightPlan").log(Level.WARNING, "Group already created for this event");
+        } catch (InvalidGroupName e){
+            Logger.getLogger("NightPlan").log(Level.WARNING, "Group name cannot be null");
         }
         BGroup newGroupBean = facade.getGroupByEventID(eventID);
         String newGroupName = facade.getGroupNameByGroupID(newGroupBean.getGroupID());
@@ -48,6 +51,8 @@ class TestGroupController {
             facade.leaveGroup(facade.getGroupByEventID(eventID).getGroupID());
         } catch (GroupAlreadyCreated e) {
             Logger.getLogger("NightPlan").log(Level.SEVERE, "Group creation failed!");
+        } catch (InvalidGroupName e){
+            Logger.getLogger("NightPlan").log(Level.WARNING, "Group name cannot be null");
         }
 
         BGroup groupBean = facade.getGroupByEventID(eventID);

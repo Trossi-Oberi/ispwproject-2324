@@ -44,7 +44,7 @@ public class GroupDAO {
         if (groupID==null){
             return false;
         }
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT * FROM UserGroup WHERE (user_id=? AND group_id=?)")) {
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT UserGroup.user_id, UserGroup.group_id FROM UserGroup WHERE (user_id=? AND group_id=?)")) {
             statement.setInt(1, userID);
             statement.setInt(2, groupID);
             try(ResultSet rs = statement.executeQuery()) {
