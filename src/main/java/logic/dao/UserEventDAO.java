@@ -47,7 +47,7 @@ public class UserEventDAO {
     }
 
     public void checkPreviousParticipation(int eventID) throws DuplicateEventParticipation {
-        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT * FROM userevent WHERE (user_id = ? AND event_id = ?)")) {
+        try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT UserEvent.user_id, UserEvent.event_id FROM userevent WHERE (user_id = ? AND event_id = ?)")) {
             statement.setInt(1, LoggedUser.getUserID()); //id_user preso dalla sessione di Login
             statement.setInt(2, eventID);
             try(ResultSet rs = statement.executeQuery()) {
