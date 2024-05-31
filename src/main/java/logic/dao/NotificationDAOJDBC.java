@@ -26,13 +26,14 @@ public class NotificationDAOJDBC implements NotificationDAO{
     public void addNotificationToUsers(List<Integer> notifiedIDs, NotificationTypes notificationTypes, int eventID) {
         //questo metodo ha come valore di ritorno l'id della notifica appena inserita nel database
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Notifications VALUES (NULL, ?, ?, ?, ?)")) {
+            statement.setInt(3, eventID);
             for (Integer notifiedID : notifiedIDs) {
                 statement.setInt(1, notifiedID);
                 statement.setString(2, notificationTypes.toString());
-                statement.setInt(3, eventID);
                 statement.setInt(4, LoggedUser.getUserID());
-                statement.execute();
+                statement.addBatch();
             }
+            statement.executeBatch();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQLException occurred while adding notification to users");
         } finally {

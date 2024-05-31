@@ -97,31 +97,33 @@ public class EventDAO {
 
     public List<MEvent> retrieveMyEvents(int userID, int queryType) {
         List<MEvent> myEvents = new ArrayList<>();
-        if (queryType == 0) { //ORGANIZER && YourEventsOrg
-            try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT event_id,organizer,organizer_id,name,province,city,address,music_genre,date,time,image,pic_path FROM events WHERE (organizer_id = ?)")) {
-                statement.setInt(1, userID);
-                myEvents = getEventsArrayList(statement);
-            } catch (SQLException e) {
-                logger.log(Level.SEVERE, RETRIEVE_ERROR);
-            }
-        } else if (queryType == 1) {   //USER && HomeUser
-            UserDAO userDAO = new UserDAO();
-            try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT event_id,organizer,organizer_id,name,province,city,address,music_genre,date,time,image,pic_path FROM events WHERE (city = ?)")) {
-                statement.setString(1, userDAO.getUserCityByID(userID));
-                myEvents = getEventsArrayList(statement);
-            } catch (SQLException | RuntimeException e) {
-                logger.log(Level.SEVERE, RETRIEVE_ERROR);
-            }
-
-        } else {  //USER && YourEventsUser
-            try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT events.* FROM Events JOIN UserEvent ON Events.event_id = UserEvent.event_id WHERE (UserEvent.user_id = ?)")) {
-                statement.setInt(1, LoggedUser.getUserID());
-                myEvents = getEventsArrayList(statement);
-            } catch (SQLException | RuntimeException e) {
-                logger.log(Level.SEVERE, RETRIEVE_ERROR);
-            }
+        switch(queryType){
+            case 0: //ORGANIZER && YourEventsOrg
+                try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT event_id,organizer,organizer_id,name,province,city,address,music_genre,date,time,image,pic_path FROM events WHERE (organizer_id = ?)")) {
+                    statement.setInt(1, userID);
+                    myEvents = getEventsArrayList(statement);
+                } catch (SQLException e) {
+                    logger.log(Level.SEVERE, RETRIEVE_ERROR);
+                }
+                break;
+            case 1: //USER && HomeUser
+                UserDAO userDAO = new UserDAO();
+                try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT event_id,organizer,organizer_id,name,province,city,address,music_genre,date,time,image,pic_path FROM events WHERE (city = ?)")) {
+                    statement.setString(1, userDAO.getUserCityByID(userID));
+                    myEvents = getEventsArrayList(statement);
+                } catch (SQLException | RuntimeException e) {
+                    logger.log(Level.SEVERE, RETRIEVE_ERROR);
+                }
+                break;
+            default:
+                try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT events.* FROM Events JOIN UserEvent ON Events.event_id = UserEvent.event_id WHERE (UserEvent.user_id = ?)")) {
+                    statement.setInt(1, LoggedUser.getUserID());
+                    myEvents = getEventsArrayList(statement);
+                } catch (SQLException | RuntimeException e) {
+                    logger.log(Level.SEVERE, RETRIEVE_ERROR);
+                }
+                break;
         }
-
         return myEvents;
     }
 
