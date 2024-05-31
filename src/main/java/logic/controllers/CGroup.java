@@ -4,6 +4,7 @@ import logic.beans.BEvent;
 import logic.beans.BGroup;
 import logic.dao.GroupDAO;
 import logic.exceptions.GroupAlreadyCreated;
+import logic.exceptions.InvalidGroupName;
 import logic.model.MGroup;
 
 import java.util.ArrayList;
@@ -69,7 +70,10 @@ public class CGroup {
         return groupDAO.getGroupName(groupID);
     }
 
-    public int createGroup(String groupName, int eventID) throws GroupAlreadyCreated {
+    public int createGroup(String groupName, int eventID) throws GroupAlreadyCreated, InvalidGroupName {
+        if(groupName.isEmpty()){
+            throw new InvalidGroupName("Group name cannot be null");
+        }
         return groupDAO.createGroup(groupName, eventID);
     }
 

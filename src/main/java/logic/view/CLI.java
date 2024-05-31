@@ -1352,6 +1352,9 @@ public class CLI implements NotificationView, ChatView {
         spacer(1);
 
         try {
+            if(value == null){
+                throw new RuntimeException();
+            }
             if(cFacade.createGroup(value, eventBean.getEventID())){
                 logger.info("Successfully created and joined new group");
             } else {
@@ -1359,6 +1362,8 @@ public class CLI implements NotificationView, ChatView {
             }
         } catch (GroupAlreadyCreated e) {
             logger.severe(e.getMessage());
+        } catch (InvalidGroupName e) {
+            logger.warning(e.getMessage());
         }
     }
 
@@ -1660,6 +1665,9 @@ public class CLI implements NotificationView, ChatView {
             return 0;
         } catch (InvalidValueException | TextTooLongException e) {
             logger.warning(e.getMessage());
+            return 0;
+        } catch (MinimumAgeException e) {
+            logger.warning("Minimum age requirement is 18 years old!");
             return 0;
         }
         return 1;

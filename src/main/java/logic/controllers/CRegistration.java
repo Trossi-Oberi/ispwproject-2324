@@ -2,6 +2,7 @@ package logic.controllers;
 
 import logic.beans.BUserData;
 import logic.dao.UserDAO;
+import logic.exceptions.MinimumAgeException;
 import logic.exceptions.UsernameAlreadyTaken;
 import logic.model.MUser;
 import logic.dao.LocationDAO;
@@ -21,10 +22,9 @@ public class CRegistration {
         this.locationDao = new LocationDAO();
     }
 
-    public boolean registerUserControl(BUserData usrBean) throws UsernameAlreadyTaken{
+    public boolean registerUserControl(BUserData usrBean) throws UsernameAlreadyTaken, MinimumAgeException {
         if (checkBirthDate(usrBean.getBirthDate()) == -1) {
-            //TODO: propagare eccezione età inferiore 18 anni
-            return false;
+            throw new MinimumAgeException("Minimum age requirement not reached");
         } else {
             this.userModel.setCredentialsByBean(usrBean);
             this.userDao.registerUser(this.userModel);

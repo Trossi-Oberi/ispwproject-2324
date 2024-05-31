@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import logic.beans.BUserData;
 import logic.controllers.CFacade;
 import logic.exceptions.InvalidValueException;
+import logic.exceptions.MinimumAgeException;
 import logic.exceptions.TextTooLongException;
 import logic.exceptions.UsernameAlreadyTaken;
 import logic.utils.enums.Alerts;
@@ -117,7 +118,9 @@ public abstract class GCRegistration {
             }
         } catch (UsernameAlreadyTaken e){
             this.alert.displayAlertPopup(Alerts.WARNING, "Username " + e.getUsername() + " is already taken! Change it and retry...");
-        } catch (RuntimeException e) {
+        } catch (MinimumAgeException e){
+            this.alert.displayAlertPopup(Alerts.WARNING, "Minimum age requirement is 18 years old");
+        }catch (RuntimeException e) {
             this.alert.displayAlertPopup(Alerts.INFORMATION, "Cannot complete registration! " + e.getMessage());
         }
     }

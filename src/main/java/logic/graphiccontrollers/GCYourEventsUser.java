@@ -15,6 +15,7 @@ import javafx.scene.text.Font;
 import logic.beans.BEvent;
 import logic.beans.BGroup;
 import logic.exceptions.GroupAlreadyCreated;
+import logic.exceptions.InvalidGroupName;
 import logic.utils.enums.Alerts;
 import logic.utils.LoggedUser;
 import logic.view.EssentialGUI;
@@ -131,8 +132,10 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
                     alert.displayAlertPopup(Alerts.ERROR, "Error while joining group");
                 }
             } catch (GroupAlreadyCreated e) {
-                alert.displayAlertPopup(Alerts.ERROR, e.getMessage());
+                alert.displayAlertPopup(Alerts.WARNING, e.getMessage());
                 changeGUI(event,CURRENT_PAGE);
+            } catch (InvalidGroupName e) {
+                alert.displayAlertPopup(Alerts.WARNING, e.getMessage());
             }
         }
 
@@ -155,7 +158,7 @@ public class GCYourEventsUser extends GCYourEventsGeneral implements DoubleClick
             Optional<String> result = dialog.showAndWait();
 
             // Salvataggio del testo inserito dall'utente in una variabile Stringa
-            return result.orElse("");
+            return result.orElse(null);
         }
     }
 

@@ -142,7 +142,7 @@ public class CFacade {
     }
 
 
-    public boolean registerUser(BUserData bean) throws UsernameAlreadyTaken {
+    public boolean registerUser(BUserData bean) throws UsernameAlreadyTaken, MinimumAgeException {
         if (regController == null) {
             regController = new CRegistration();
         }
@@ -205,7 +205,7 @@ public class CFacade {
         loginController.closeLoginSession();
     }
 
-    public boolean createGroup(String groupName, int eventID) throws GroupAlreadyCreated {
+    public boolean createGroup(String groupName, int eventID) throws GroupAlreadyCreated, InvalidGroupName {
         boolean res = false;
 
         if (groupController == null) {
