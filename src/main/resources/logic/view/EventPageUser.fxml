@@ -99,14 +99,6 @@
             </HBox>
          </graphic>
       </Button>
-      <ImageView fitHeight="88.0" fitWidth="205.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../images/home/Logo_NightPlan.png" />
-         </image>
-         <viewport>
-            <Rectangle2D />
-         </viewport>
-      </ImageView>
       <Button fx:id="viewMap" layoutX="641.0" layoutY="166.0" mnemonicParsing="false" onAction="#openLink" prefHeight="0.0" prefWidth="130.0" style="-fx-background-radius: 3;">
          <font>
             <Font name="Baloo 2 Regular" size="20.0" />
@@ -231,6 +223,14 @@
             <Font name="Baloo 2 Regular" size="22.0" />
          </font>
       </Text>
+      <ImageView fitHeight="184.0" fitWidth="189.0" layoutX="10.0" layoutY="-46.0" pickOnBounds="true" smooth="false">
+         <image>
+            <Image url="@../../images/home/Logo%20NightPlan_plainwhite400.png" />
+         </image>
+         <viewport>
+            <Rectangle2D />
+         </viewport>
+      </ImageView>
     </children>
     <rotationAxis>
         <Point3D />
