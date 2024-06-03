@@ -23,6 +23,7 @@ public class NotificationDAOJDBC implements NotificationDAO{
         notiFactory = new NotificationFactory();
     }
 
+    @Override
     public void addNotificationToUsers(List<Integer> notifiedIDs, NotificationTypes notificationTypes, int eventID) {
         //questo metodo ha come valore di ritorno l'id della notifica appena inserita nel database
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("INSERT INTO Notifications VALUES (NULL, ?, ?, ?, ?)")) {
@@ -41,6 +42,7 @@ public class NotificationDAOJDBC implements NotificationDAO{
         }
     }
 
+    @Override
     public ArrayList<Notification> getNotificationsByUserID(int usrID) {
         ArrayList<Notification> notifications = new ArrayList<>();
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("SELECT id, type, event_id, notifier_id FROM notifications WHERE (notified_id = ?)")) {
@@ -64,6 +66,7 @@ public class NotificationDAOJDBC implements NotificationDAO{
         return notifications;
     }
 
+    @Override
     public boolean deleteNotification(int notificationID) {
         try (PreparedStatement statement = SingletonDBSession.getInstance().getConnection().prepareStatement("DELETE FROM Notifications WHERE id=?")) {
             statement.setInt(1, notificationID);
