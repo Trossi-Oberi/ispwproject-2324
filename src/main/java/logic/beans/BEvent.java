@@ -89,7 +89,7 @@ public class BEvent {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         try{
             LocalTime localTime = LocalTime.parse(eventHour + ":" + eventMinutes, formatter);
-            this.eventTime = localTime.getHour() + ":" + localTime.getMinute();
+            this.eventTime = localTime.toString();
         } catch (Exception e){
             throw new InvalidValueException("Please insert a valid time (hours 00-23, minutes 00-59)");
         }
