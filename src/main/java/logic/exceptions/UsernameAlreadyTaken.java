@@ -2,8 +2,11 @@ package logic.exceptions;
 
 /*Matteo Trossi*/
 
+import java.io.Serial;
+
 public class UsernameAlreadyTaken extends Exception {
-    private static final long serialVersionUID = 1L;
+    @Serial
+    private static final long serialVersionUID = 136543L;
 
     private final String username;
 

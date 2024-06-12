@@ -1,7 +1,10 @@
 package logic.exceptions;
 
+import java.io.Serial;
+
 public class InvalidTokenValue extends Exception{
-    private static final long serialVersionUID = 2188732812891289L;
+    @Serial
+    private static final long serialVersionUID = 218873282341289L;
 
     public InvalidTokenValue(String message) {
         super(message);

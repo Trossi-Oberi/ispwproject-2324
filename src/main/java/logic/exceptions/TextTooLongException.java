@@ -1,7 +1,10 @@
 package logic.exceptions;
 
+import java.io.Serial;
+
 public class TextTooLongException extends Exception{
-    private static final long serialVersionUID = 1L;
+    @Serial
+    private static final long serialVersionUID = 1875L;
     private final String cause;
 
     public TextTooLongException(String message){
